@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/shopify-theme/assets/base.css"><script>window.mccRoutes = { cart_url: "/cart", cart_add_url: "/cart/add" };</script>
+  <link rel="stylesheet" href="/shopify-theme/assets/base.css"><script>window.mccRoutes = { cart_url: "/cart", cart_add_url: "/cart/add", cart_change_url: "/cart/change" };</script>
   <script src="/shopify-theme/assets/theme.js" defer></script>
   <!-- content_for_header -->
 </head>
@@ -706,13 +706,16 @@
 
 <script>
   (() => {
-    // Line quantity steppers -> /cart/change.js, then reload to re-render totals
+    // Line quantity steppers -> cart change route, then reload to re-render
+    // totals. Route comes from Liquid so this survives a locale or market path
+    // prefix (/en-ie/cart/change.js), same as the add-to-cart handler.
+    const changeUrl = ((window.mccRoutes || {}).cart_change_url || '/cart/change') + '.js';
     document.addEventListener('click', async e => {
       const btn = e.target.closest('[data-line-qty]');
       if (!btn) return;
       btn.disabled = true;
       try {
-        await fetch('/cart/change.js', {
+        await fetch(changeUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ line: parseInt(btn.dataset.line, 10), quantity: parseInt(btn.dataset.lineQty, 10) }),
