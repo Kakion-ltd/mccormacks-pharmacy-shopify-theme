@@ -1,0 +1,32 @@
+<section style="max-width:1440px; margin:0 auto; padding:34px 30px 8px;">
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:22px;">
+    <div style="position:relative; border-radius:18px; overflow:hidden; min-height:360px; background:#e9ede3; display:flex; align-items:flex-end; padding:32px;">
+      <img src="{{ 'cat-vitamins.jpg' | asset_url }}" alt="Vitamins &amp; Supplements" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" width="1440" height="500">
+      <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.28), rgba(0,0,0,0) 60%);"></div>
+      <div style="position:relative;">
+        <span style="display:inline-block; background:#f3f6ea; color:#3f6b4f; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,34px); padding:8px 18px; border-radius:6px; margin-bottom:16px;">Vitamins &amp; Supplements</span><br>
+        <a href="/collections/vitamins" class="hov-shop" style="display:inline-block; background:#fff; color:#2A2B2A; font-weight:700; letter-spacing:.06em; font-size:13.5px; padding:12px 26px; border-radius:6px;">SHOP NOW</a>
+      </div>
+    </div>
+    <div style="position:relative; border-radius:18px; overflow:hidden; min-height:360px; background:#e9ede3; display:flex; align-items:flex-end; padding:32px;">
+      <img src="{{ 'cat-suncare.jpg' | asset_url }}" alt="Suncare" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" width="860" height="531">
+      <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.28), rgba(0,0,0,0) 60%);"></div>
+      <div style="position:relative;">
+        <span style="display:inline-block; background:#f3f6ea; color:#3f6b4f; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,34px); padding:8px 18px; border-radius:6px; margin-bottom:16px;">Suncare</span><br>
+        <a href="/collections/sun" class="hov-shop" style="display:inline-block; background:#fff; color:#2A2B2A; font-weight:700; letter-spacing:.06em; font-size:13.5px; padding:12px 26px; border-radius:6px;">SHOP NOW</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% style %}
+.hov-shop:hover { background: #92C83F !important; color: #ffffff !important; }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Feature tiles",
+  "settings": [],
+  "presets": [{ "name": "Feature tiles" }]
+}
+{% endschema %}

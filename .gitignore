@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# Build artefact — regenerate with `bash setup/package_theme.sh`
+dist/
+
+# Node
+node_modules/
+
+# Never commit store credentials. provision.mjs reads SHOP / ADMIN_TOKEN
+# from the environment; keep them there.
+.env
+.env.*

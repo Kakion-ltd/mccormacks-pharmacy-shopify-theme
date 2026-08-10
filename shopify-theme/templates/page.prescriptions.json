@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-prescriptions",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,116 @@
+<section style="max-width:1440px; margin:0 auto; padding:34px 30px 8px;">
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.2vw,28px); margin:0 0 22px;">{{ section.settings.heading }}</h2>
+  <div class="hot-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:22px;">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign bg = block.settings.background
+        assign badge_bg = block.settings.badge_background
+        assign badge_fg = '#ffffff'
+        if badge_bg == '#ffffff' or badge_bg == blank
+          assign badge_bg = '#ffffff'
+          assign badge_fg = '#3f6b4f'
+        endif
+        assign tile_url = block.settings.link | default: routes.collections_url
+      -%}
+      <div style="position:relative; overflow:hidden; background:{{ bg }}; border-radius:18px; padding:32px; color:#fff; display:flex; flex-direction:column; min-height:400px;" {{ block.shopify_attributes }}>
+        {%- comment -%} soft decorative disc, alternating corner so the row doesn't look stamped {%- endcomment -%}
+        <div style="position:absolute; {% cycle 'disc': 'top:-22%; right:-14%;', 'bottom:-18%; right:-10%;', 'top:-20%; left:-12%;' %} width:210px; height:210px; border-radius:999px; background:rgba(255,255,255,.08);"></div>
+        {%- if block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 1200 | image_tag:
+             widths: '480,720,1200',
+             alt: block.settings.title,
+             loading: 'lazy',
+             style: 'position:absolute; right:-5%; top:6%; width:58%; height:54%; border-radius:16px; object-fit:cover; z-index:1;' }}
+        {%- elsif block.settings.image_asset != blank -%}
+          <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="1600" height="1600" style="position:absolute; right:-5%; top:6%; width:58%; height:54%; border-radius:16px; object-fit:cover; z-index:1;">
+        {%- else -%}
+          <div style="position:absolute; right:-5%; top:6%; width:58%; height:54%; border-radius:16px; background:repeating-linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.16) 10px,rgba(255,255,255,.07) 10px,rgba(255,255,255,.07) 20px); display:flex; align-items:center; justify-content:center; z-index:1;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:rgba(255,255,255,.85); font-weight:700;">image</span></div>
+        {%- endif -%}
+        {%- if block.settings.badge != blank -%}
+          <span style="align-self:flex-start; background:{{ badge_bg }}; color:{{ badge_fg }}; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; padding:6px 16px; border-radius:999px; margin-bottom:20px; position:relative; z-index:2;">{{ block.settings.badge }}</span>
+        {%- endif -%}
+        <div style="position:relative; z-index:2; max-width:64%; margin-top:auto;">
+          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(21px,2.2vw,26px); line-height:1.1; margin-bottom:10px;">{{ block.settings.title }}</div>
+          <p style="margin:0 0 4px; font-size:14.5px; opacity:.93; line-height:1.5;">{{ block.settings.subtext }}</p>
+        </div>
+        <a href="{{ tile_url }}" class="hov-bg-tint2" style="position:relative; z-index:2; margin-top:18px; align-self:flex-start; display:flex; align-items:center; justify-content:center; gap:8px; background:#fff; color:#3f6b4f; font-weight:800; letter-spacing:.03em; font-size:14.5px; padding:13px 22px; border-radius:8px;">{{ block.settings.cta }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% style %}
+.hov-bg-tint2:hover { background: #e6f2d5 !important; }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Hot offers",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Hot Offers" }
+  ],
+  "blocks": [
+    {
+      "type": "offer",
+      "name": "Offer",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Vitamins & Supplements" },
+        { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Support your daily health & wellbeing — 20% off this month." },
+        { "type": "text", "id": "badge", "label": "Badge", "default": "SAVE 20% · LIMITED TIME" },
+        { "type": "text", "id": "cta", "label": "Button label", "default": "Shop Now" },
+        { "type": "url", "id": "link", "label": "Button link" },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Landscape, 1200px wide or larger. Leave blank for a placeholder." },
+        { "type": "text", "id": "image_asset", "label": "Fallback theme asset (onboarding only)", "info": "Filename of a theme asset used until an image is picked." },
+        { "type": "color", "id": "background", "label": "Tile colour", "default": "#82c914" },
+        { "type": "color", "id": "badge_background", "label": "Badge colour", "default": "#ffffff" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Hot offers",
+      "blocks": [
+        {
+          "type": "offer",
+          "settings": {
+            "title": "Vitamins & Supplements",
+            "subtext": "Support your daily health & wellbeing — 20% off multivitamins & supplements this month.",
+            "badge": "SAVE 20% · LIMITED TIME",
+            "cta": "Shop Now",
+            "link": "/collections/vitamins",
+            "image_asset": "hot-offer-vitamins.jpg",
+            "background": "#82c914",
+            "badge_background": "#ffffff"
+          }
+        },
+        {
+          "type": "offer",
+          "settings": {
+            "title": "Deodorants & Antiperspirants",
+            "subtext": "Stay fresh for less with long-lasting protection, including Mitchum.",
+            "badge": "SAVE 15% · LIMITED TIME",
+            "cta": "Shop Now",
+            "link": "/collections/deodorant",
+            "image_asset": "mitchum-hot-offers.jpg",
+            "background": "#3f6b4f",
+            "badge_background": "#92C83F"
+          }
+        },
+        {
+          "type": "offer",
+          "settings": {
+            "title": "Menopause Support",
+            "subtext": "Everyday menopause support, including CanesMeno — all month long.",
+            "badge": "SAVE 20% · LIMITED TIME",
+            "cta": "Shop Now",
+            "link": "/collections/menopause",
+            "background": "#92C83F",
+            "badge_background": "#3f6b4f"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

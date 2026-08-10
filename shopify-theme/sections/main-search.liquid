@@ -1,0 +1,263 @@
+{%- comment -%} Search results page ported from the "Search Results" design. {%- endcomment -%}
+
+{% paginate search.results by 24 %}
+{%- if search.performed and search.results_count > 0 -%}
+<section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
+
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
+    <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Search</span>
+  </nav>
+  <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(26px,3vw,36px); line-height:1.1; margin:0 0 8px;">Results for &ldquo;{{ search.terms | escape }}&rdquo;</h1>
+  <p style="margin:0 0 8px; font-size:15.5px; color:#6b7065;">{{ search.results_count }} result{% if search.results_count != 1 %}s{% endif %} found</p>
+
+  <div class="srch-wrap" style="display:flex; gap:40px; align-items:flex-start; margin-top:26px;">
+    {%- if search.filters.size > 0 -%}
+    <aside class="srch-side facet-side" style="flex:0 0 264px; width:264px;">
+      <div style="border:1px solid #e6e7e4; border-radius:16px; padding:20px 20px 6px; background:#ffffff;">
+        <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; color:#3f6b4f; margin:0 0 4px;">Refine</div>
+        {%- for filter in search.filters -%}
+          {%- case filter.type -%}
+            {%- when 'list', 'boolean' -%}
+              <div style="padding:18px 0; border-bottom:1px solid #e6e7e4;">
+                <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15px; color:#2A2B2A; margin:0 0 12px;">{{ filter.label }}</div>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                  {%- for value in filter.values -%}
+                    <a href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}" style="display:flex; align-items:center; gap:10px; font-size:14.5px; color:#3a3d39; {% if value.count == 0 and value.active == false %}opacity:.45; pointer-events:none;{% endif %}">
+                      <span style="flex:0 0 auto; width:17px; height:17px; border-radius:4px; border:1.5px solid {% if value.active %}#82C914{% else %}#c2c6bd{% endif %}; background:{% if value.active %}#82C914{% else %}#ffffff{% endif %}; display:flex; align-items:center; justify-content:center;">{% if value.active %}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>{% endif %}</span>
+                      <span style="flex:1 1 auto;">{{ value.label }}</span>
+                      <span style="font-size:12.5px; color:#8b9182;">{{ value.count }}</span>
+                    </a>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- when 'price_range' -%}
+              <div style="padding:18px 0; border-bottom:1px solid #e6e7e4;">
+                <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15px; color:#2A2B2A; margin:0 0 12px;">{{ filter.label }}</div>
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+                  <div style="flex:1; display:flex; align-items:center; gap:5px; border:1.5px solid #dfe1dc; border-radius:8px; padding:8px 10px;"><span style="color:#8b9182;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.min_value.param_name }}" type="number" min="0" step="0.01" placeholder="0" value="{% if filter.min_value.value %}{{ filter.min_value.value | money_without_currency | remove: ',' }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:14.5px; color:#2A2B2A; padding:0;"></div>
+                  <span style="color:#8b9182;">&ndash;</span>
+                  <div style="flex:1; display:flex; align-items:center; gap:5px; border:1.5px solid #dfe1dc; border-radius:8px; padding:8px 10px;"><span style="color:#8b9182;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.max_value.param_name }}" type="number" min="0" step="0.01" placeholder="{{ filter.range_max | money_without_currency | remove: ',' }}" value="{% if filter.max_value.value %}{{ filter.max_value.value | money_without_currency | remove: ',' }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:14.5px; color:#2A2B2A; padding:0;"></div>
+                </div>
+                <button data-price-apply class="hov-bg-green-dk" style="width:100%; border:none; border-radius:8px; background:#82C914; color:#ffffff; font-family:inherit; font-weight:700; font-size:14px; padding:10px 8px; cursor:pointer;">Apply</button>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </aside>
+    {%- endif -%}
+
+    <div class="facet-main" style="flex:1 1 auto; min-width:0;">
+      <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding:0 0 18px;">
+        <span style="font-size:14.5px; color:#6b7065;">Showing {{ paginate.current_offset | plus: 1 }}&ndash;{{ paginate.current_offset | plus: search.results.size }} of {{ search.results_count }}</span>
+        <label style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:14px; font-weight:700; color:#2A2B2A;">Sort</span>
+          <select data-sort-select style="height:44px; border:1px solid #dfe1dc; border-radius:9px; padding:0 12px; font-family:inherit; font-size:14.5px; color:#2A2B2A; background:#ffffff; outline:none;">
+            {%- assign current_sort = search.sort_by | default: search.default_sort_by -%}
+            {%- for option in search.sort_options -%}
+              <option value="{{ option.value }}" {% if option.value == current_sort %}selected{% endif %}>{{ option.name }}</option>
+            {%- endfor -%}
+          </select>
+        </label>
+      </div>
+      <div class="pgrid2" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(226px,1fr)); gap:20px;">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}
+            {%- liquid
+              assign product = item
+              assign variant = product.selected_or_first_available_variant
+              assign on_sale = false
+              if product.compare_at_price > product.price
+                assign on_sale = true
+              endif
+              assign quick_add = false
+              if product.available and product.variants.size == 1 and product.selling_plan_groups.size == 0
+                assign quick_add = true
+              endif
+            -%}
+            <div class="srch-card" style="display:flex; flex-direction:column; border:1px solid #e6e7e4; border-radius:14px; overflow:hidden; background:#ffffff; transition:box-shadow .18s;">
+              <a href="{{ product.url }}" style="display:block; position:relative; padding:18px; background:#ffffff;">
+                {%- if on_sale -%}
+                  <span style="position:absolute; top:12px; left:12px; z-index:2; display:inline-flex; align-items:center; height:24px; padding:0 9px; border-radius:6px; background:#c0392b; color:#ffffff; font-size:11.5px; font-weight:800;">SALE</span>
+                {%- endif -%}
+                <span style="display:block; width:100%; aspect-ratio:1/1; overflow:hidden;">
+                  {%- if product.featured_image -%}
+                    {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', style: 'width:100%; height:100%; object-fit:contain; display:block;' }}
+                  {%- else -%}
+                    <span style="display:flex; width:100%; height:100%; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></span>
+                  {%- endif -%}
+                </span>
+              </a>
+              <div style="padding:0 18px 18px; display:flex; flex-direction:column; gap:9px; flex:1;">
+                <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:#82C914;">{{ product.vendor }}</div>
+                <a href="{{ product.url }}" class="hov-green" style="font-weight:700; font-size:15px; line-height:1.45; color:#2A2B2A; flex:1;">{{ product.title }}</a>
+                {% render 'product-rating', product: product, size: 13 %}
+                <div style="display:flex; align-items:baseline; gap:9px;">
+                  <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:#2A2B2A;">{% if product.price_varies %}From {% endif %}{{ product.price | money }}</span>
+                  {%- if on_sale -%}
+                    <span style="font-size:13.5px; color:#8b9182; text-decoration:line-through;">{{ product.compare_at_price | money }}</span>
+                  {%- endif -%}
+                </div>
+                {%- if quick_add -%}
+                  <button data-add-id="{{ variant.id }}" class="hov-bg-green-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:#82C914; color:#ffffff; font-weight:800; font-size:14.5px; margin-top:2px; border:none; cursor:pointer; font-family:inherit; width:100%;">Add To Bag</button>
+                {%- else -%}
+                  <a href="{{ product.url }}" class="hov-bg-green-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:#82C914; color:#ffffff; font-weight:800; font-size:14.5px; margin-top:2px;">View Product</a>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- else -%}
+            <div class="srch-card" style="display:flex; flex-direction:column; gap:9px; border:1px solid #e6e7e4; border-radius:14px; background:#ffffff; padding:18px; transition:box-shadow .18s;">
+              <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:#82C914;">{% if item.object_type == 'article' %}Article{% else %}Page{% endif %}</div>
+              <a href="{{ item.url }}" class="hov-green" style="font-weight:700; font-size:16px; line-height:1.45; color:#2A2B2A;">{{ item.title }}</a>
+              <p style="margin:0; font-size:14px; line-height:1.6; color:#6b7065; flex:1;">{{ item.content | strip_html | truncate: 120 }}</p>
+              <a href="{{ item.url }}" class="hov-green-dk" style="font-weight:700; font-size:14px; color:#82C914;">Read more &rarr;</a>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}
+        <div style="display:flex; align-items:center; justify-content:center; gap:8px; padding:34px 0 0;">
+          {%- for part in paginate.parts -%}
+            {%- if part.is_link -%}
+              <a href="{{ part.url }}" class="srch-pg" style="display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:9px; border:1px solid #dfe1dc; color:#3a3d39; font-weight:700; font-size:14.5px;">{{ part.title }}</a>
+            {%- elsif part.title contains 'hellip' or part.title == '…' -%}
+              <span style="display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:9px; color:#8b9182; font-weight:700; font-size:14.5px;">{{ part.title }}</span>
+            {%- else -%}
+              <span style="display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:9px; background:#82C914; color:#ffffff; font-weight:800; font-size:14.5px;">{{ part.title }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if paginate.next -%}
+            <a href="{{ paginate.next.url }}" class="srch-pg" style="display:inline-flex; align-items:center; justify-content:center; height:42px; padding:0 18px; border-radius:9px; border:1px solid #dfe1dc; color:#3a3d39; font-weight:700; font-size:14.5px;">Next</a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- else -%}
+<section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
+
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
+    <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Search</span>
+  </nav>
+  <div style="max-width:640px; margin:0 0 44px;">
+    {%- if search.performed -%}
+      <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(26px,3vw,36px); line-height:1.1; margin:0 0 12px;">No results for &ldquo;{{ search.terms | escape }}&rdquo;</h1>
+      <p style="margin:0 0 22px; font-size:16.5px; line-height:1.7; color:#4a4d47;">We could not find any products matching that search. Check the spelling, try a shorter or more general term, or browse the categories below.</p>
+    {%- else -%}
+      <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(26px,3vw,36px); line-height:1.1; margin:0 0 12px;">Search McCormack's</h1>
+      <p style="margin:0 0 22px; font-size:16.5px; line-height:1.7; color:#4a4d47;">Search thousands of pharmacy, health and beauty products, all dispatched from our registered Irish pharmacy.</p>
+    {%- endif -%}
+    <form action="{{ routes.search_url }}" method="get" role="search" style="display:flex; gap:10px; max-width:460px;">
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search again" class="srch-again" style="flex:1 1 auto; height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 16px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none; min-width:0;">
+      <button type="submit" class="hov-bg-green-dk" style="flex:0 0 auto; height:52px; padding:0 22px; border:none; border-radius:10px; background:#82C914; color:#ffffff; font-family:inherit; font-weight:800; font-size:15px; cursor:pointer;">Search</button>
+    </form>
+    {%- if section.settings.popular_terms != blank -%}
+      <div style="display:flex; flex-wrap:wrap; gap:9px; margin:22px 0 0;">
+        <span style="font-size:13.5px; font-weight:700; color:#6b7065; align-self:center;">Popular searches</span>
+        {%- assign terms = section.settings.popular_terms | split: ',' -%}
+        {%- for term in terms -%}
+          {%- assign t = term | strip -%}
+          <a href="{{ routes.search_url }}?q={{ t | url_encode }}" class="hov-pill" style="display:inline-flex; align-items:center; height:32px; padding:0 14px; border-radius:999px; background:#f2f3f1; color:#3a3d39; font-size:13.5px; font-weight:700;">{{ t }}</a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div style="display:flex; gap:14px; align-items:flex-start; background:#eef2e8; border-radius:16px; padding:22px 24px; max-width:760px; margin:0 0 44px;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="#82C914" style="flex:0 0 auto; margin-top:2px;"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-2h2v2Zm1.8-6.2-.9.9c-.6.6-.9 1.1-.9 2.3h-2v-.5c0-.9.4-1.7 1-2.3l1.2-1.2c.3-.3.5-.8.5-1.3a2 2 0 1 0-4 0H8a4 4 0 1 1 8 0c0 .8-.3 1.5-.9 2.1Z"></path></svg>
+    <div>
+      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:#3f6b4f; margin-bottom:6px;">Looking for something specific?</div>
+      <div style="font-size:15px; line-height:1.7; color:#3a3d39; margin-bottom:16px;">If you cannot find a product on the website, contact us and we will check whether we can order it in for you.</div>
+      <div style="display:flex; flex-wrap:wrap; gap:10px;">
+        <a href="tel:0526199329" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px;">Call 052 6199329</a>
+        <a href="/pages/contact-us" class="hov-border-accent" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:15px;">Ask a pharmacist</a>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.2vw,27px); margin:0 0 20px;">Popular categories</h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:18px;">
+      <a href="/collections/vitamins" class="srch-card" style="display:block; border-radius:14px; overflow:hidden; border:1px solid #e6e7e4; background:#ffffff;">
+        <span style="display:block; width:100%; aspect-ratio:4/3; overflow:hidden; background:#f4f5f2;"><img src="{{ 'cat-vitamins.jpg' | asset_url }}" alt="Vitamins &amp; Supplements" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;" width="1440" height="500"></span>
+        <span style="display:block; padding:15px 16px; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16px; color:#3f6b4f;">Vitamins &amp; Supplements</span>
+      </a>
+      <a href="/collections/skincare" class="srch-card" style="display:block; border-radius:14px; overflow:hidden; border:1px solid #e6e7e4; background:#ffffff;">
+        <span style="display:block; width:100%; aspect-ratio:4/3; overflow:hidden; background:#f4f5f2;"><img src="{{ 'slide-skincare.jpg' | asset_url }}" alt="Skincare" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;" width="1440" height="500"></span>
+        <span style="display:block; padding:15px 16px; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16px; color:#3f6b4f;">Skincare</span>
+      </a>
+      <a href="/collections/sun" class="srch-card" style="display:block; border-radius:14px; overflow:hidden; border:1px solid #e6e7e4; background:#ffffff;">
+        <span style="display:block; width:100%; aspect-ratio:4/3; overflow:hidden; background:#f4f5f2;"><img src="{{ 'cat-suncare.jpg' | asset_url }}" alt="Sun Care" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;" width="860" height="531"></span>
+        <span style="display:block; padding:15px 16px; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16px; color:#3f6b4f;">Sun Care</span>
+      </a>
+      <a href="/collections/mother-baby" class="srch-card" style="display:block; border-radius:14px; overflow:hidden; border:1px solid #e6e7e4; background:#ffffff;">
+        <span style="display:block; width:100%; aspect-ratio:4/3; overflow:hidden; background:#f4f5f2;"><img src="{{ 'slide-baby.jpg' | asset_url }}" alt="Baby &amp; Child" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;" width="1440" height="500"></span>
+        <span style="display:block; padding:15px 16px; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16px; color:#3f6b4f;">Baby &amp; Child</span>
+      </a>
+    </div>
+  </div>
+</section>
+{%- endif -%}
+{% endpaginate %}
+
+{% style %}
+  .srch-card:hover { box-shadow: 0 12px 26px rgba(0,0,0,.08); }
+  .srch-pg:hover { border-color: #92C83F !important; color: #3f6b4f !important; }
+  .srch-again:focus { border-color: #82C914 !important; }
+  .hov-pill:hover { background: #eef2e8 !important; color: #3f6b4f !important; }
+  @media (max-width: 1000px) {
+    .srch-wrap { align-items: stretch !important; flex-direction: column !important; gap: 26px !important; }
+    .srch-side { flex: 1 1 auto !important; width: 100% !important; }
+    .facet-side { order: 2 !important; }
+  }
+  @media (max-width: 900px) {
+    .pgrid2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 12px !important; }
+    .pgrid2 > div > a { padding: 12px !important; }
+    .pgrid2 > div > div { padding: 0 12px 14px !important; gap: 7px !important; }
+  }
+  @media (max-width: 420px) {
+    .pgrid2 { grid-template-columns: 1fr !important; }
+  }
+{% endstyle %}
+
+<script>
+  (() => {
+    const sel = document.querySelector('[data-sort-select]');
+    if (sel) sel.addEventListener('change', () => {
+      const u = new URL(location.href);
+      u.searchParams.set('sort_by', sel.value);
+      u.searchParams.delete('page');
+      location.href = u.href;
+    });
+    const apply = document.querySelector('[data-price-apply]');
+    if (apply) apply.addEventListener('click', () => {
+      const u = new URL(location.href);
+      document.querySelectorAll('[data-price-input]').forEach(inp => {
+        u.searchParams.delete(inp.name);
+        if (inp.value) u.searchParams.set(inp.name, inp.value);
+      });
+      u.searchParams.delete('page');
+      location.href = u.href;
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Search results",
+  "settings": [
+    {
+      "type": "text",
+      "id": "popular_terms",
+      "label": "Popular searches (comma separated)",
+      "default": "vitamin d, hayfever, cerave, sudocrem, probiotics"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Search results"
+    }
+  ]
+}
+{% endschema %}

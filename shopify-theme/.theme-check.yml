@@ -1,0 +1,7 @@
+ignore:
+  - node_modules/*
+
+HardcodedRoutes:
+  enabled: false
+  # Nav taxonomy is deliberately static per client brief (fixed order); /collections/<handle>
+  # URLs are generated from setup/collections.json. Re-enable if nav moves to linklists.

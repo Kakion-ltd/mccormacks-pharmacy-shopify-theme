@@ -1,0 +1,41 @@
+{% comment %}
+  Star rating for a product card or the PDP.
+
+  Renders ONLY real review data, from the standard `reviews.rating` /
+  `reviews.rating_count` product metafields that Shopify review apps
+  (Judge.me, Loox, Okendo, Shopify Product Reviews…) write to. If no app is
+  installed, or a product has no reviews yet, this outputs nothing at all —
+  the theme never invents a rating.
+
+  Usage: {% render 'product-rating', product: product, size: 14 %}
+    product     — required
+    size        — star font-size in px (default 14)
+    show_count  — false to hide the "(12)" count (default true)
+    count_label — 'long' renders "12 Reviews" instead of "(12)"
+    link        — a URL to wrap the count in (PDP jump-to-reviews)
+{% endcomment %}
+{%- liquid
+  assign rating = product.metafields.reviews.rating.value
+  assign count = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count
+  assign star_size = size | default: 14
+-%}
+{%- if rating and rating.rating > 0 -%}
+  {%- assign stars = rating.rating | round -%}
+  <div style="display:flex; align-items:center; gap:7px;" aria-label="Rated {{ rating.rating }} out of {{ rating.scale_max | default: 5 }}">
+    <span aria-hidden="true" style="color:#f5a623; letter-spacing:1px; font-size:{{ star_size }}px;">
+      {%- for i in (1..5) -%}{%- if i <= stars -%}&#9733;{%- else -%}&#9734;{%- endif -%}{%- endfor -%}
+    </span>
+    {%- if count and count > 0 and show_count != false -%}
+      {%- if count_label == 'long' -%}
+        {%- assign count_text = count | append: ' Reviews' -%}
+      {%- else -%}
+        {%- assign count_text = count | prepend: '(' | append: ')' -%}
+      {%- endif -%}
+      {%- if link -%}
+        <a href="{{ link }}" style="font-size:13px; color:#82C914; text-decoration:underline; text-underline-offset:2px;">{{ count_text }}</a>
+      {%- else -%}
+        <span style="font-size:13px; color:#8b9182;">{{ count_text }}</span>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+{%- endif -%}

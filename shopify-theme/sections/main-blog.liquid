@@ -1,0 +1,106 @@
+{% render 'trust-row' %}
+
+{% style %}
+  @media (max-width: 900px) {
+    .feat-flex { flex-direction: column !important; }
+    .feat-img { min-height: 240px !important; }
+    .feat-body { padding: 26px 22px 30px !important; }
+    .art-meta { gap: 14px 18px !important; }
+    .blog-chips { overflow-x: auto !important; }
+  }
+  .feat-flex:hover { box-shadow: 0 18px 40px rgba(0,0,0,.1); }
+  .art-card:hover { box-shadow: 0 14px 30px rgba(0,0,0,.09); transform: translateY(-3px); }
+  .blog-chip { flex: 0 0 auto; display: inline-flex; align-items: center; height: 38px; padding: 0 18px; border-radius: 999px; font-size: 14px; font-weight: 700; background: #f2f3f1; color: #3a3d39; }
+  .blog-chip:hover { background: #e6e9e2; color: #3f6b4f; }
+  .blog-chip--active { background: #82C914; color: #ffffff; }
+  .blog-chip--active:hover { background: #6ba30f; color: #ffffff; }
+{% endstyle %}
+
+<section style="max-width:1440px; margin:0 auto; padding:34px 30px 6px;">
+  <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:#82C914; margin:0 0 10px;">{{ blog.title }}</div>
+  <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(32px,4vw,50px); line-height:1.05; margin:0 0 14px;">{{ section.settings.heading }}</h1>
+  <p style="margin:0; font-size:17.5px; line-height:1.65; color:#4a4d47; max-width:60ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
+</section>
+
+<section style="max-width:1440px; margin:0 auto; padding:26px 30px 0;">
+  <div class="blog-chips" style="display:flex; gap:10px; padding-bottom:6px;">
+    <a href="{{ blog.url }}" class="blog-chip{% unless current_tags %} blog-chip--active{% endunless %}">All articles</a>
+    {%- for tag in blog.all_tags -%}
+      <a href="{{ blog.url }}/tagged/{{ tag | handleize }}" class="blog-chip{% if current_tags contains tag %} blog-chip--active{% endif %}">{{ tag }}</a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{%- paginate blog.articles by 12 -%}
+
+  {%- liquid
+    assign show_featured = false
+    if paginate.current_page == 1 and current_tags == blank and blog.articles.size > 0
+      assign show_featured = true
+    endif
+  -%}
+
+  {%- if show_featured -%}
+    {%- assign featured = blog.articles.first -%}
+    <section style="max-width:1440px; margin:0 auto; padding:28px 30px 0;">
+      <a href="{{ featured.url }}" class="feat-flex" style="display:flex; border-radius:20px; overflow:hidden; background:#f6f8f1; color:#2A2B2A; align-items:stretch;">
+        <div class="feat-img" style="flex:1 1 54%; min-height:380px; overflow:hidden;">
+          {%- if featured.image -%}
+            {{ featured.image | image_url: width: 1200 | image_tag: style: 'width:100%; height:100%; object-fit:cover; display:block;', alt: featured.title | escape }}
+          {%- else -%}
+            <div style="width:100%; height:100%; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); display:flex; align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div>
+          {%- endif -%}
+        </div>
+        <div class="feat-body" style="flex:1 1 46%; padding:44px 44px 46px; display:flex; flex-direction:column; justify-content:center; gap:16px;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            {%- if featured.tags.first -%}
+              {% render 'blog-tag-chip', tag: featured.tags.first, bg_override: '#ffffff' %}
+            {%- endif -%}
+            <span style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#82C914;">Featured</span>
+          </div>
+          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(24px,2.6vw,34px); line-height:1.15; color:#3f6b4f;">{{ featured.title }}</div>
+          <div style="font-size:16px; line-height:1.7; color:#4a4d47;">{{ featured.excerpt_or_content | strip_html | truncate: 160 }}</div>
+          <div class="art-meta" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px 20px; font-size:13.5px; color:#6b7065;">
+            <span>{{ featured.published_at | date: '%-d %B %Y' }}</span>
+          </div>
+          <span style="display:inline-flex; align-items:center; gap:9px; margin-top:6px; font-weight:800; font-size:15px; color:#82C914;">Read article
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
+          </span>
+        </div>
+      </a>
+    </section>
+  {%- endif -%}
+
+  <section style="max-width:1440px; margin:0 auto; padding:44px 30px 0;">
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">Latest articles</h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:24px;">
+      {%- for article in blog.articles -%}
+        {%- if show_featured and forloop.first -%}{%- continue -%}{%- endif -%}
+        {% render 'article-card', article: article %}
+      {%- endfor -%}
+    </div>
+
+    {%- if paginate.pages > 1 -%}
+      <nav style="display:flex; justify-content:center; align-items:center; gap:10px; margin:36px 0 0;">
+        {%- if paginate.previous -%}
+          <a href="{{ paginate.previous.url }}" class="blog-chip">&larr; Newer</a>
+        {%- endif -%}
+        <span style="font-size:14px; font-weight:700; color:#6b7065;">Page {{ paginate.current_page }} of {{ paginate.pages }}</span>
+        {%- if paginate.next -%}
+          <a href="{{ paginate.next.url }}" class="blog-chip">Older &rarr;</a>
+        {%- endif -%}
+      </nav>
+    {%- endif -%}
+  </section>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Blog",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Advice from our pharmacy team" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Practical, jargon-free guidance on skincare, supplements and everyday health — written by the pharmacists you meet in our stores." }
+  ],
+  "presets": [{ "name": "Blog" }]
+}
+{% endschema %}

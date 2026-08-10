@@ -1,0 +1,197 @@
+{% render 'trust-row' %}
+
+{% style %}
+  .brand-tile { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; border:1px solid #e6e7e4; border-radius:14px; padding:26px 20px; background:#ffffff; min-height:150px; }
+  .brand-tile:hover { box-shadow:0 12px 26px rgba(0,0,0,.08); border-color:#92C83F; }
+  .brand-chip { display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:8px; background:#f2f3f1; color:#3a3d39; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; }
+  .brand-chip:hover { background:#82C914 !important; color:#ffffff !important; }
+  .brand-az-a { font-size:14.5px; line-height:1.45; color:#3a3d39; }
+  .brand-az-a:hover { color:#82C914 !important; }
+  .brand-pill { display:inline-flex; align-items:center; height:38px; padding:0 18px; border-radius:999px; font-size:14px; font-weight:700; background:#f2f3f1; color:#3a3d39; }
+  .brand-pill:hover { background:#eef2e8 !important; color:#3f6b4f !important; }
+  .brand-pcard { display:flex; flex-direction:column; border:1px solid #e6e7e4; border-radius:14px; overflow:hidden; background:#ffffff; transition:box-shadow .18s; }
+  .brand-pcard:hover { box-shadow:0 12px 26px rgba(0,0,0,.08); }
+  .brand-search:focus { border-color:#82C914 !important; }
+{% endstyle %}
+
+{%- capture stars -%}
+<span style="display:flex; gap:1.5px; color:#e8a33d;">{%- for i in (1..5) -%}<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg>{%- endfor -%}</span>
+{%- endcapture -%}
+
+<!-- Brand index view -->
+<div data-view="index">
+<section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
+
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
+    <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Brands</span>
+  </nav>
+
+  <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
+  <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
+  <form action="{{ routes.search_url }}" method="get" style="display:flex; flex-wrap:wrap; gap:10px; max-width:460px; margin:0 0 32px;">
+    <input type="search" name="q" placeholder="Search brands" class="brand-search" style="flex:1 1 240px; height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 16px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none; min-width:0;">
+    <button type="submit" class="hov-bg-green-dk" style="flex:0 0 auto; height:52px; padding:0 22px; border:none; border-radius:10px; background:#82C914; color:#ffffff; font-family:inherit; font-weight:800; font-size:15px; cursor:pointer;">Search</button>
+  </form>
+
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.1vw,26px); margin:0 0 18px;">Featured brands</h2>
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:16px; margin:0 0 40px;">
+    <a href="/collections/cerave" class="brand-tile">
+      <span style="display:flex; align-items:center; justify-content:center; width:100%; height:56px;"><img src="{{ 'brand-cerave.png' | asset_url }}" alt="CeraVe" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" width="350" height="240"></span>
+      <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:#3f6b4f; text-align:center;">CeraVe</span>
+    </a>
+    <a href="/collections/la-roche-posay" class="brand-tile">
+      <span style="display:flex; align-items:center; justify-content:center; width:100%; height:56px;"><img src="{{ 'brand-laroche.png' | asset_url }}" alt="La Roche-Posay" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" width="350" height="240"></span>
+      <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:#3f6b4f; text-align:center;">La Roche-Posay</span>
+    </a>
+    <a href="/collections/loreal-paris" class="brand-tile">
+      <span style="display:flex; align-items:center; justify-content:center; width:100%; height:56px;"><img src="{{ 'brand-loreal.png' | asset_url }}" alt="L&rsquo;Or&eacute;al Paris" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" width="175" height="120"></span>
+      <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:#3f6b4f; text-align:center;">L&rsquo;Or&eacute;al Paris</span>
+    </a>
+    <a href="/collections/proven" class="brand-tile">
+      <span style="display:flex; align-items:center; justify-content:center; width:100%; height:56px;"><img src="{{ 'brand-proven.png' | asset_url }}" alt="Proven" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" width="175" height="120"></span>
+      <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:#3f6b4f; text-align:center;">Proven</span>
+    </a>
+    <a href="/collections/sculpted-by-aimee" class="brand-tile">
+      <span style="display:flex; align-items:center; justify-content:center; width:100%; height:56px;"><img src="{{ 'brand-sculpted.png' | asset_url }}" alt="Sculpted by Aimee" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" width="175" height="120"></span>
+      <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:#3f6b4f; text-align:center;">Sculpted by Aimee</span>
+    </a>
+    <a href="/collections/viagra-connect" class="brand-tile">
+      <span style="display:flex; align-items:center; justify-content:center; width:100%; height:56px;"><img src="{{ 'brand-viagra.png' | asset_url }}" alt="Viagra Connect" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" width="350" height="240"></span>
+      <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:#3f6b4f; text-align:center;">Viagra Connect</span>
+    </a>
+  </div>
+
+  <div style="display:flex; flex-wrap:wrap; gap:7px; padding:16px 0 24px; border-top:1px solid #e6e7e4; border-bottom:1px solid #e6e7e4; margin:0 0 30px;">
+    {%- assign letters = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z' | split: ',' -%}
+    {%- for l in letters -%}
+      <a href="#brand-{{ l | downcase }}" class="brand-chip">{{ l }}</a>
+    {%- endfor -%}
+  </div>
+  <div data-brand-az style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:30px 26px;">
+    {% render 'brand-az' %}
+  </div>
+  <p data-brand-empty hidden style="padding:8px 0 0; font-size:15px; color:#6b7065;">No brand matches that name. <button type="button" data-brand-clear style="border:none; background:none; padding:0; font:inherit; color:#82C914; font-weight:700; cursor:pointer; text-decoration:underline;">Show all brands</button>, or press Search to look for products instead.</p>
+</section>
+
+<script>
+(() => {
+  /* Live-filters the A–Z index as you type. Submitting the form still runs a
+     normal product search, so this degrades cleanly without JS. */
+  const root = document.currentScript.parentElement;
+  const input = root.querySelector('.brand-search');
+  const grid = root.querySelector('[data-brand-az]');
+  if (!input || !grid) return;
+  const groups = [...grid.children];
+  const chips = [...root.querySelectorAll('.brand-chip')];
+  const empty = root.querySelector('[data-brand-empty]');
+
+  const filter = () => {
+    const q = input.value.trim().toLowerCase();
+    let total = 0;
+    groups.forEach(g => {
+      let shown = 0;
+      g.querySelectorAll('.brand-az-a').forEach(a => {
+        const hit = !q || a.textContent.toLowerCase().includes(q);
+        a.hidden = !hit;
+        if (hit) shown++;
+      });
+      g.hidden = shown === 0;          // drop letter headings with nothing under them
+      total += shown;
+    });
+    // grey out letter chips that now jump to an empty group
+    chips.forEach(c => {
+      const g = document.querySelector(c.getAttribute('href'));
+      const off = g && g.hidden;
+      c.style.opacity = off ? '.35' : '';
+      c.style.pointerEvents = off ? 'none' : '';
+    });
+    if (empty) empty.hidden = total > 0;
+  };
+
+  input.addEventListener('input', filter);
+  input.addEventListener('search', filter);
+  root.querySelector('[data-brand-clear]')?.addEventListener('click', () => { input.value = ''; filter(); input.focus(); });
+})();
+</script>
+</div>
+
+<!-- Brand detail view (CeraVe demo, toggled via data-view) -->
+<div data-view="brand" style="display:none;">
+<section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
+
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
+    <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><a href="/pages/brands" data-view-btn="index" class="hov-green" style="color:#8b9182;">Brands</a><span>/</span><span style="color:#3a3d39; font-weight:700;">CeraVe</span>
+  </nav>
+  <div style="display:flex; flex-wrap:wrap; gap:30px 40px; align-items:center; padding:32px 36px; border-radius:20px; background:#eef2e8; margin:0 0 30px;">
+    <div style="flex:0 0 auto; width:150px; height:78px; border-radius:12px; background:#ffffff; display:flex; align-items:center; justify-content:center; padding:14px;">
+      <img src="{{ 'brand-cerave.png' | asset_url }}" alt="CeraVe" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" width="350" height="240">
+    </div>
+    <div style="flex:1 1 340px; min-width:0;">
+      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(27px,3vw,38px); line-height:1.08; margin:0 0 10px;">CeraVe</h2>
+      <p style="margin:0; font-size:16.5px; line-height:1.7; color:#3a3d39; max-width:60ch;">Developed with dermatologists, CeraVe cleansers and moisturisers are formulated with three essential ceramides to help restore the skin&rsquo;s natural barrier. Suitable for sensitive, dry and eczema-prone skin.</p>
+    </div>
+  </div>
+  <div style="display:flex; flex-wrap:wrap; gap:10px; margin:0 0 26px;">
+    <a href="/collections/cerave" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; height:38px; padding:0 18px; border-radius:999px; font-size:14px; font-weight:700; background:#82C914; color:#ffffff;">All CeraVe</a>
+    <a href="/collections/cleanser" class="brand-pill">Cleansers</a>
+    <a href="/collections/moisturisers" class="brand-pill">Moisturisers</a>
+    <a href="/collections/serums-oils" class="brand-pill">Serums</a>
+    <a href="/collections/baby-skincare" class="brand-pill">Baby</a>
+    <a href="/collections/facial-suncare" class="brand-pill">Sun care</a>
+  </div>
+  <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding:0 0 18px;">
+    <span style="font-size:14.5px; color:#6b7065;">Showing 1&ndash;8 of 34 products</span>
+    <label style="display:flex; align-items:center; gap:10px;">
+      <span style="font-size:14px; font-weight:700; color:#2A2B2A;">Sort</span>
+      <select style="height:44px; border:1px solid #dfe1dc; border-radius:9px; padding:0 12px; font-family:inherit; font-size:14.5px; color:#2A2B2A; background:#ffffff; outline:none;">
+        <option>Most popular</option><option>Price: low to high</option><option>Price: high to low</option><option>Top rated</option>
+      </select>
+    </label>
+  </div>
+  <div class="pgrid2" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(226px,1fr)); gap:20px;">
+    {%- assign demo = 'Hydrating Cleanser for Normal to Dry Skin, 236ml~€13.50~4.9 (640);Foaming Cleanser for Normal to Oily Skin, 236ml~€13.50~4.8 (412);Moisturising Lotion for Dry Skin, 473ml~€18.95~4.9 (388);SA Smoothing Cleanser for Rough Skin, 236ml~€14.95~4.7 (164);Baby Wash & Shampoo, 236ml~€11.50~4.9 (210);Eye Repair Cream, 14ml~€15.50~4.6 (96);AM Facial Moisturising Lotion SPF25, 52ml~€16.95~4.8 (271);Retinol Serum for Post-Blemish Marks, 30ml~€21.50~4.5 (118)' | split: ';' -%}
+    {%- for item in demo -%}
+      {%- assign f = item | split: '~' -%}
+      <div class="brand-pcard">
+        <a href="/collections/cerave" style="display:block; padding:18px;">
+          <span style="display:block; width:100%; aspect-ratio:1/1; overflow:hidden;">
+            <img src="{{ 'prod-cerave-cleanser.jpg' | asset_url }}" alt="{{ f[0] | escape }}" style="width:100%; height:100%; object-fit:contain; display:block;" width="600" height="600">
+          </span>
+        </a>
+        <div style="padding:0 18px 18px; display:flex; flex-direction:column; gap:9px; flex:1;">
+          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:#82C914;">CeraVe</div>
+          <a href="/collections/cerave" class="hov-green" style="font-weight:700; font-size:15px; line-height:1.45; color:#2A2B2A; flex:1;">{{ f[0] }}</a>
+          <div style="display:flex; align-items:center; gap:7px; font-size:12.5px; color:#6b7065;">
+            {{ stars }}
+            <span>{{ f[2] }}</span>
+          </div>
+          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:#2A2B2A;">{{ f[1] }}</div>
+          <a href="/collections/cerave" class="hov-bg-green-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:#82C914; color:#ffffff; font-weight:800; font-size:14.5px; margin-top:2px;">Add To Bag</a>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+  <div style="max-width:760px; margin:44px 0 0; padding-top:30px; border-top:1px solid #e6e7e4;">
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">About CeraVe</h2>
+    <p style="margin:0 0 15px; font-size:16px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">CeraVe was developed in 2005 with dermatologists to address a simple problem: many cleansers strip the skin of the very lipids that keep it healthy. Every CeraVe product contains three essential ceramides &mdash; the same lipids found naturally in the skin barrier &mdash; alongside hyaluronic acid to help hold moisture.</p>
+    <p style="margin:0 0 15px; font-size:16px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">The range is fragrance-free, non-comedogenic and suitable for sensitive skin, which is why it is one of the most commonly recommended brands by dermatologists and pharmacists alike. If you are not sure which cleanser or moisturiser suits your skin, ask our team &mdash; the differences between the blue, green and white bottles matter more than the packaging suggests.</p>
+    <div style="margin-top:22px;">
+      <a href="/pages/brands" data-view-btn="index" class="hov-green-dk" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:#82C914;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
+        All brands
+      </a>
+    </div>
+  </div>
+</section>
+</div>
+
+{% schema %}
+{
+  "name": "Brands page",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by brand" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Over 200 brands, from everyday pharmacy names to dermatologist-recommended skincare. All stocked and dispatched from our registered Irish pharmacy." }
+  ],
+  "presets": [{ "name": "Brands page" }]
+}
+{% endschema %}

@@ -1,0 +1,222 @@
+{%- comment -%}
+  Main cart section — ported from the "Cart - Checkout" design, BAG STEP ONLY.
+  The design's checkout and order-confirmation steps are not ported: Shopify's
+  checkout is not themeable, so "Checkout securely" posts to Shopify checkout
+  (form to /cart with name="checkout") and the confirmation page is Shopify's own.
+  The design's "Save for later" link has no Shopify equivalent and is omitted.
+{%- endcomment -%}
+
+{%- assign free_delivery_threshold = 6500 -%}
+
+<div style="width:100%; overflow-x:hidden; background:#ffffff;">
+
+  <!-- Trust row -->
+  <div class="trust-mob-wrap" style="width:100%; background:#ffffff;">
+    <div class="trust-inner" style="max-width:1440px; margin:0 auto; padding:8px 50px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 28px;">
+      <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:flex-start; gap:10px; font-size:14px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#92C83F" style="flex:0 0 auto;"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75ZM15 7.5v3.5h4v-.32L16.9 7.8a.5.5 0 0 0-.4-.2H15ZM7.7 15.75a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Zm9.6 0a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Z"></path></svg>
+        <span><strong style="font-weight:800;">Free Delivery</strong> On orders over €65</span>
+      </div>
+      <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:14px;">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 20" height="22" width="23" style="flex:0 0 auto; display:block;">
+<path fill="#009245" d="M16.5449 7.45142C16.8642 7.18488 18.0893 6.11557 18.3939 5.86094C18.7475 5.56538 18.8658 5.06547 18.6815 4.64521C18.2256 3.60684 17.7574 2.54951 17.3536 1.51504C17.0279 0.680464 16.3396 0.728944 16.0455 0.74957C15.3883 0.795822 14.7848 1.03177 14.2764 1.25382C14.3362 1.15424 14.3656 1.0383 14.3594 0.920517C14.351 0.76332 14.2796 0.616086 14.1615 0.512057L14.1566 0.507838C13.87 0.255441 13.6969 0.103089 13.439 0.0332805C13.1549 -0.0436377 12.911 0.0253504 12.6024 0.112699C12.2161 0.222002 10.8121 0.61464 10.6123 0.679722C10.3924 0.751328 10.1828 0.83141 10.0361 1.02224C9.67773 1.48856 9.33478 1.9571 8.97168 2.45318C8.85534 2.61209 8.73741 2.77324 8.61701 2.93696C8.3709 3.27154 8.54216 3.75001 8.945 3.85212C9.25161 3.92986 9.55433 4.00217 9.7977 4.06702C9.49374 4.39317 9.14325 4.71319 8.83366 5.09547C8.68475 5.27939 8.53072 5.36138 8.10417 5.2979L5.3173 4.81714C5.12971 4.78479 4.93802 4.84561 4.80336 4.98023L3.63142 6.15217C3.49923 6.28437 3.43805 6.47168 3.46673 6.65642C3.4954 6.84115 3.61052 7.00108 3.77659 7.08699L5.18963 7.81781C4.83899 8.04841 4.46737 8.25201 4.11305 8.54058C3.74354 8.84158 3.70893 9.3693 3.70713 9.52396C3.70217 9.95652 4.11735 10.2817 4.41373 10.3745C4.82293 10.5025 6.46314 10.9866 6.87391 11.1154C6.19113 11.3984 6.01027 11.7944 5.85866 12.2684C5.74884 12.6117 5.63532 12.9666 4.89251 13.4966C4.08551 14.0724 3.34399 14.7299 2.60313 15.3667C2.52664 15.4324 2.46843 15.5168 2.43409 15.6116C1.83367 17.2704 2.61762 19.1117 4.23169 19.8275L4.50714 19.9496C4.59683 19.9894 4.69508 20.0061 4.79305 19.998C8.90894 19.657 9.61324 18.9996 10.2943 18.3639C10.8146 17.8782 11.3526 17.376 14.8013 17.0644C15.3557 17.0143 15.7015 16.7266 15.8585 16.1848C16.0648 15.4728 16.2309 14.9611 16.3644 14.5499C16.8948 12.9161 16.8825 12.8015 16.5681 9.86593C16.5082 9.30672 16.4403 8.67289 16.3613 7.89523C16.3444 7.73007 16.4148 7.55998 16.5449 7.45142ZM15.7939 6.55172C15.3626 6.9117 15.1388 7.4583 15.1953 8.0138C15.2746 8.79458 15.3457 9.45786 15.4028 9.99078C15.7028 12.7922 15.7028 12.7922 15.2497 14.188C14.8508 15.4171 14.7512 15.8074 14.7217 15.8944C14.7141 15.8954 14.7055 15.8963 14.6958 15.8972C10.8469 16.2451 10.1594 16.8867 9.49464 17.5072C8.96699 17.9997 8.42184 18.5087 4.84493 18.8175L4.70676 18.7562C3.70537 18.3121 3.19136 17.1877 3.49122 16.1486C4.16134 15.5709 4.85415 14.9637 5.57317 14.4506C6.63288 13.6945 6.83871 13.0512 6.97485 12.6255C7.02622 12.4649 7.05528 12.3787 7.10322 12.3282C7.1549 12.2737 7.28592 12.19 7.61672 12.1005C8.00608 11.9952 8.20562 11.6554 8.33414 11.5324C8.57982 11.2973 8.57443 10.9024 8.32168 10.6741C8.18613 10.5517 7.98174 10.2421 7.61859 10.1232C7.07071 9.94398 6.51256 9.77924 5.97276 9.61994C5.65536 9.52626 5.32937 9.43005 5.00728 9.33141C5.28042 9.13413 5.6052 8.95244 5.91905 8.73993C6.33626 8.45741 6.53881 8.12607 6.52104 7.75519C6.48205 6.94202 5.45773 6.69661 5.02681 6.41414L5.41738 6.02357C8.11874 6.48953 7.91228 6.45406 7.92346 6.45574C8.42719 6.5318 9.16384 6.54993 9.74449 5.83289C10.0395 5.46854 10.4182 5.13407 10.7685 4.74174C11.1637 4.29906 11.1246 3.89744 11.0661 3.69743C11.0075 3.49679 10.8233 3.13615 10.2487 2.97524C10.1911 2.95911 10.1339 2.94356 10.0762 2.92832C10.3562 2.54623 10.6265 2.17941 10.9027 1.8181C11.0513 1.76455 11.4226 1.66071 11.9474 1.51399C12.1483 1.45781 12.3808 1.39277 12.6498 1.31702C12.4847 1.5291 12.3948 1.72056 12.4026 1.96135C12.4098 2.18332 12.5071 2.38314 12.6919 2.55529C12.9447 2.79089 13.2881 2.85363 13.7124 2.74183C14.3889 2.56361 15.3805 1.90713 16.2505 1.91366C16.2852 1.99186 16.0092 1.32843 17.568 5.0241C17.279 5.26728 16.1033 6.29343 15.7939 6.55172Z"></path>
+</svg>
+        <span><strong style="font-weight:800;">Irish Owned</strong> 7 stores nationwide</span>
+      </div>
+      <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:14px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#92C83F" style="flex:0 0 auto;"><path d="M11.48 3.5a.6.6 0 0 1 1.04 0l2.2 4.03a.6.6 0 0 0 .43.31l4.52.79a.6.6 0 0 1 .32.99l-3.17 3.33a.6.6 0 0 0-.16.5l.64 4.56a.6.6 0 0 1-.85.62l-4.13-1.97a.6.6 0 0 0-.52 0l-4.13 1.97a.6.6 0 0 1-.85-.62l.64-4.56a.6.6 0 0 0-.16-.5L4.97 9.62a.6.6 0 0 1 .32-.99l4.52-.79a.6.6 0 0 0 .43-.31l2.2-4.03Z"></path></svg>
+        <span><strong style="font-weight:800;">Trusted</strong> by over 20,000 customers since 2010</span>
+      </div>
+    </div>
+  </div>
+
+  <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
+
+    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
+      <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Shopping bag</span>
+    </nav>
+    <div style="display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:12px 24px; margin:0 0 22px;">
+      <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,40px); line-height:1.08; margin:0;">Your shopping bag</h1>
+      {%- if cart.item_count > 0 -%}
+        <span style="font-size:14.5px; color:#6b7065;">{{ cart.item_count }} item{% if cart.item_count != 1 %}s{% endif %}</span>
+      {%- endif -%}
+    </div>
+
+    {%- if cart.item_count == 0 -%}
+
+      <!-- Empty bag -->
+      <div style="border:1px solid #e6e7e4; border-radius:16px; padding:56px 30px; text-align:center; background:#ffffff;">
+        <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#92C83F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:16px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:22px; color:#3f6b4f; margin-bottom:8px;">Your bag is empty</div>
+        <p style="margin:0 auto 24px; max-width:44ch; font-size:15px; line-height:1.6; color:#6b7065;">Looks like you haven't added anything yet. Browse our shelves and we'll keep your bag ready.</p>
+        <a href="/collections/medicines-health" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 30px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px;">Continue shopping</a>
+      </div>
+
+    {%- else -%}
+
+    <div class="cart-wrap" style="display:flex; gap:44px; align-items:flex-start;">
+      <div style="flex:1 1 auto; min-width:0;">
+        <div style="border-top:1px solid #e6e7e4;">
+          {%- for item in cart.items -%}
+          <div class="cart-row" style="display:flex; gap:22px; padding:24px 0; border-bottom:1px solid #e6e7e4;">
+            <a href="{{ item.url }}" style="flex:0 0 auto; width:118px; height:118px; border:1px solid #e6e7e4; border-radius:12px; overflow:hidden; background:#ffffff;">
+              {%- if item.image -%}
+                {{ item.image | image_url: width: 236 | image_tag: alt: item.title, style: 'width:100%; height:100%; object-fit:contain; display:block;' }}
+              {%- else -%}
+                <div style="width:100%; height:100%; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px);"></div>
+              {%- endif -%}
+            </a>
+            <div style="flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:8px;">
+              {%- if item.vendor != blank -%}
+                <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; color:#82C914;">{{ item.vendor }}</div>
+              {%- endif -%}
+              <a href="{{ item.url }}" class="hov-green" style="font-weight:700; font-size:16px; line-height:1.45; color:#2A2B2A; max-width:46ch;">{{ item.product.title }}</a>
+              {%- unless item.product.has_only_default_variant -%}
+                <div style="font-size:13px; color:#6b7065;">{{ item.variant.title }}</div>
+              {%- endunless -%}
+              {%- for d in item.line_level_discount_allocations -%}
+                <div style="display:inline-flex; align-items:center; gap:7px; width:fit-content; height:26px; padding:0 10px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:12px; font-weight:800;">{{ d.discount_application.title }}</div>
+              {%- endfor -%}
+              <div style="display:flex; align-items:baseline; gap:10px; font-size:15px;">
+                <span style="font-weight:800; color:#2A2B2A;">{{ item.final_price | money }}</span>
+                {%- if item.original_price > item.final_price -%}
+                  <span style="color:#8b9182; text-decoration:line-through; font-size:13.5px;">{{ item.original_price | money }}</span>
+                {%- endif -%}
+                <span style="color:#6b7065; font-size:13.5px;">each</span>
+              </div>
+              <div class="cart-row-foot" style="display:flex; flex-wrap:wrap; align-items:center; gap:16px 22px; margin-top:4px;">
+                <div style="display:flex; align-items:center; border:1px solid #dfe1dc; border-radius:9px; height:44px; overflow:hidden; width:fit-content;">
+                  <button type="button" class="cart-step" data-line="{{ forloop.index }}" data-line-qty="{{ item.quantity | minus: 1 }}" aria-label="Decrease quantity" style="width:42px; height:100%; border:none; background:#fbfcfa; color:#2A2B2A; font-size:19px; font-weight:700; cursor:pointer; font-family:inherit;">&minus;</button>
+                  <span style="min-width:44px; text-align:center; font-weight:800; font-size:15.5px;">{{ item.quantity }}</span>
+                  <button type="button" class="cart-step" data-line="{{ forloop.index }}" data-line-qty="{{ item.quantity | plus: 1 }}" aria-label="Increase quantity" style="width:42px; height:100%; border:none; background:#fbfcfa; color:#2A2B2A; font-size:19px; font-weight:700; cursor:pointer; font-family:inherit;">+</button>
+                </div>
+                <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0" class="cart-remove" style="font-size:13.5px; font-weight:700; color:#6b7065; border-bottom:1px solid #d8dcd3;">Remove</a>
+              </div>
+            </div>
+            <div style="flex:0 0 auto; text-align:right; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#2A2B2A;">{{ item.final_line_price | money }}</div>
+          </div>
+          {%- endfor -%}
+        </div>
+        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px; padding:22px 0 0;">
+          <a href="/collections/medicines-health" class="hov-green-dk" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:#82C914;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
+            Continue shopping
+          </a>
+        </div>
+      </div>
+
+      <aside class="cart-side" style="flex:0 0 372px; width:372px; position:sticky; top:20px;">
+        <div style="border:1px solid #e6e7e4; border-radius:16px; padding:24px; background:#ffffff;">
+          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:#3f6b4f; margin:0 0 16px;">Order summary</div>
+
+          {%- comment -%} Free delivery progress (threshold €65) {%- endcomment -%}
+          {%- assign progress = cart.total_price | times: 100 | divided_by: free_delivery_threshold | at_most: 100 -%}
+          <div style="margin:0 0 18px; padding:16px 18px; border-radius:12px; background:#eef2e8;">
+            <div style="display:flex; align-items:center; gap:10px; font-size:14px; font-weight:700; color:#3f6b4f; margin-bottom:10px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#82C914"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75Z"></path></svg>
+              {%- if cart.total_price >= free_delivery_threshold -%}
+                You have free delivery
+              {%- else -%}
+                {{ free_delivery_threshold | minus: cart.total_price | money }} away from free delivery
+              {%- endif -%}
+            </div>
+            <div style="height:7px; border-radius:999px; background:#d7e2c8; overflow:hidden;">
+              <div style="width:{{ progress }}%; height:100%; background:#92C83F;"></div>
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:9px 0;">
+            <span style="font-size:15px; color:#6b7065;">Subtotal</span>
+            <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15.5px; color:#2A2B2A;">{{ cart.original_total_price | money }}</span>
+          </div>
+
+          {%- if cart.total_discount > 0 -%}
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:9px 0;">
+            <span style="font-size:15px; color:#6b7065;">Savings</span>
+            <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15.5px; color:#2A2B2A;">&minus;{{ cart.total_discount | money }}</span>
+          </div>
+          {%- endif -%}
+
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:9px 0;">
+            <span style="font-size:15px; color:#6b7065;">Delivery</span>
+            <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15.5px; color:#2A2B2A;">{% if cart.total_price >= free_delivery_threshold %}Free{% else %}Calculated at checkout{% endif %}</span>
+          </div>
+
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:14px 0 0; border-top:1px solid #e6e7e4; margin-top:6px;">
+            <span style="font-size:16.5px; font-weight:800; color:#2A2B2A;">Total</span>
+            <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:25px; color:#3f6b4f;">{{ cart.total_price | money }}</span>
+          </div>
+          <div style="font-size:12.5px; color:#8b9182; margin:6px 0 18px;">Includes VAT where applicable</div>
+
+          <form action="{{ routes.cart_url }}" method="post">
+            <button type="submit" name="checkout" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border:none; border-radius:10px; background:#82C914; color:#ffffff; font-family:inherit; font-weight:800; font-size:15.5px; width:100%; cursor:pointer;">Checkout securely</button>
+          </form>
+          <div style="margin-top:10px;"><a href="/pages/shipping" class="hov-border-accent" style="display:flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:15px; width:100%;">Click &amp; Collect &mdash; free</a></div>
+
+          <div style="margin-top:18px; padding-top:16px; border-top:1px solid #eceee9;">
+            <label for="cart-discount-code" style="display:block; font-size:13.5px; font-weight:700; color:#2A2B2A; margin-bottom:8px;">Discount code</label>
+            <div style="display:flex; gap:8px;">
+              <input type="text" id="cart-discount-code" placeholder="Enter code" class="cart-discount-input" style="flex:1 1 auto; height:46px; border:1px solid #dfe1dc; border-radius:9px; padding:0 14px; font-family:inherit; font-size:15px; color:#2A2B2A; outline:none; min-width:0;">
+              <button type="button" data-discount-apply class="hov-bg-green" style="flex:0 0 auto; height:46px; padding:0 18px; border:none; border-radius:9px; background:#20301b; color:#ffffff; font-family:inherit; font-weight:800; font-size:14px; cursor:pointer;">Apply</button>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:16px; display:flex; flex-direction:column; gap:11px; padding:0 4px;">
+          <div style="display:flex; gap:10px; align-items:flex-start; font-size:13.5px; line-height:1.6; color:#6b7065;"><span style="color:#92C83F; font-weight:800;">&check;</span><span>Dispatched from our registered Irish pharmacy</span></div>
+          <div style="display:flex; gap:10px; align-items:flex-start; font-size:13.5px; line-height:1.6; color:#6b7065;"><span style="color:#92C83F; font-weight:800;">&check;</span><span>Free delivery on orders over &euro;65</span></div>
+          <div style="display:flex; gap:10px; align-items:flex-start; font-size:13.5px; line-height:1.6; color:#6b7065;"><span style="color:#92C83F; font-weight:800;">&check;</span><span>Pharmacist advice available before you buy</span></div>
+        </div>
+      </aside>
+    </div>
+
+    {%- endif -%}
+  </section>
+</div>
+
+{% style %}
+  .cart-step:hover { background: #eef2e8 !important; }
+  .cart-remove:hover { color: #a33 !important; border-color: #a33 !important; }
+  .cart-discount-input:focus { border-color: #82C914 !important; }
+  @media (max-width: 1080px) {
+    .cart-wrap { align-items: stretch !important; flex-direction: column !important; gap: 30px !important; }
+    .cart-side { flex: 1 1 auto !important; width: 100% !important; position: static !important; top: auto !important; }
+  }
+  @media (max-width: 620px) {
+    .cart-row { flex-wrap: wrap !important; gap: 16px !important; }
+    .cart-row > a:first-child { width: 88px !important; height: 88px !important; }
+    .cart-row > div:last-child { width: 100% !important; text-align: left !important; }
+  }
+{% endstyle %}
+
+<script>
+  (() => {
+    // Line quantity steppers -> /cart/change.js, then reload to re-render totals
+    document.addEventListener('click', async e => {
+      const btn = e.target.closest('[data-line-qty]');
+      if (!btn) return;
+      btn.disabled = true;
+      try {
+        await fetch('/cart/change.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ line: parseInt(btn.dataset.line, 10), quantity: parseInt(btn.dataset.lineQty, 10) }),
+        });
+      } catch (err) { /* fall through to reload; server state wins */ }
+      location.reload();
+    });
+
+    // Discount code -> Shopify discount URL, back to the bag
+    const apply = document.querySelector('[data-discount-apply]');
+    if (apply) apply.addEventListener('click', () => {
+      const code = document.getElementById('cart-discount-code').value.trim();
+      if (code) location.href = '/discount/' + encodeURIComponent(code) + '?redirect=/cart';
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Cart",
+  "presets": [{ "name": "Cart" }]
+}
+{% endschema %}

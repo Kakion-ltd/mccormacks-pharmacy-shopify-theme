@@ -1,0 +1,380 @@
+[
+  {
+    "menu": "Medicines & Health",
+    "groups": [
+      {
+        "title": "Pain Relief",
+        "items": [
+          "Pain Relief & Headache",
+          "Baby & Children Pain Relief",
+          "Muscle & Joint Pain"
+        ]
+      },
+      {
+        "title": "Cold, Flu & Allergy",
+        "items": [
+          "Cold & Flu Combination Products",
+          "Cough",
+          "Hayfever & Allergy",
+          "Sore Throat",
+          "Blocked Nose & Sinus"
+        ]
+      },
+      {
+        "title": "Stomach & Gastrointestinal",
+        "items": [
+          "Nausea, Acid Indigestion & Reflux",
+          "Bloating & Gas",
+          "Constipation",
+          "Diarrhoea",
+          "Cramping & Irritable Bowel",
+          "Travel Sickness",
+          "Haemorrhoids & Piles"
+        ]
+      },
+      {
+        "title": "Sensitive Conditions",
+        "items": [
+          "Menopause",
+          "Hair Loss",
+          "Thrush & Antifungal",
+          "Headlice",
+          "Cystitis",
+          "Skintags, Warts & Veruccas"
+        ]
+      },
+      {
+        "title": "Nicotine Replacement",
+        "items": [
+          "Nicotine Patches",
+          "Nicotine Gum",
+          "Nicotine Lozenges",
+          "Nicotine Sprays"
+        ]
+      },
+      {
+        "title": "Eye & Ear Health",
+        "items": [
+          "Dry Eye",
+          "Blepharitis & Eyelid Hygiene",
+          "Macular Degeneration & Glaucoma",
+          "Eye Infections",
+          "Contact Lens Care",
+          "Ear Wax Treatments",
+          "Ear Care & Earplugs",
+          "Hearing Aid Batteries"
+        ]
+      },
+      {
+        "title": "Sleep & Rest",
+        "items": [
+          "Healthy Mind & Sleeping Aids"
+        ]
+      },
+      {
+        "title": "Mouth & Oral Care",
+        "items": [
+          "Dry Mouth",
+          "Gum Health & Gingivitis",
+          "Mouth Ulcers & Cold Sores",
+          "Teething"
+        ]
+      },
+      {
+        "title": "Continence Care",
+        "items": [
+          "Bladder Weakness",
+          "Pads",
+          "Liners",
+          "Pants",
+          "Odour Control & Barrier Creams"
+        ]
+      },
+      {
+        "title": "Trying To Conceive",
+        "items": [
+          "Fertility Aids & Lubricant",
+          "Pregnancy Tests",
+          "Ovulation Tests"
+        ]
+      },
+      {
+        "title": "Sexual Health",
+        "items": [
+          "Erectile Dysfunction",
+          "Condoms",
+          "Lubricants & Accessories"
+        ]
+      },
+      {
+        "title": "Sport",
+        "items": [
+          "Warmup & Recovery"
+        ]
+      },
+      {
+        "title": "First Aid",
+        "items": [
+          "Antiseptics & Wound Cleaning",
+          "Bandages & Plasters",
+          "Supports",
+          "Cold Therapy & Heat Therapy",
+          "Insect Bites & Prevention"
+        ]
+      },
+      {
+        "title": "Foot Care",
+        "items": [
+          "Athletes Foot",
+          "Verucca",
+          "Fungal Nail Infection",
+          "Cracked Heels & Dry Skin",
+          "Blisters & Bunion Care",
+          "Corn & Callous Care",
+          "Chiropody Felt & Padding",
+          "Insoles",
+          "Toe Nail Care",
+          "Foot Soak & Odour Control"
+        ]
+      },
+      {
+        "title": "Diabetes Care",
+        "items": [
+          "Test Strips & Blood Glucose Monitors",
+          "Needles & Lancets",
+          "Sugar Level Maintenance"
+        ]
+      },
+      {
+        "title": "Electrical Healthcare",
+        "items": [
+          "Blood Pressure Monitors",
+          "Oximeters & Weighing Scales"
+        ]
+      },
+      {
+        "title": "Self Testing Kits",
+        "items": []
+      },
+      {
+        "title": "Healthcare & Medicine Accessories",
+        "items": []
+      }
+    ],
+    "flat": []
+  },
+  {
+    "menu": "Vitamins",
+    "groups": [],
+    "flat": [
+      "Probiotics & Digestive Health",
+      "Children Vitamins",
+      "Fish Oils & Omegas",
+      "Healthy Mind & Sleeping Aids",
+      "Women's Health",
+      "Everyday Multivitamins",
+      "Energy & Wellbeing",
+      "Skin, Hair & Nails",
+      "Joint & Bone Health",
+      "Fertility & Pregnancy",
+      "Brain Health",
+      "Eye Health",
+      "Heart Health",
+      "Slimming",
+      "Herbal Remedies",
+      "Immune Support",
+      "Essential Oils",
+      "Men's Health"
+    ]
+  },
+  {
+    "menu": "Skincare",
+    "groups": [
+      {
+        "title": "Dermatological Skincare",
+        "items": [
+          "Anti-Ageing",
+          "Acne & Blemish",
+          "Dry Skin",
+          "Sensitive Skin",
+          "Irritated & Damaged Skin",
+          "Sun"
+        ]
+      },
+      {
+        "title": "Body Skincare",
+        "items": [
+          "Moisturisers",
+          "Exfoliators"
+        ]
+      },
+      {
+        "title": "Facial Skincare",
+        "items": [
+          "Facial Suncare",
+          "Facial Moisturisers",
+          "Eye Cream",
+          "Serums & Oils",
+          "Cleanser",
+          "Toner",
+          "Exfoliators & Peels",
+          "Face Masks",
+          "Treatments",
+          "Lip Care"
+        ]
+      },
+      {
+        "title": "Problem Skin",
+        "items": [
+          "Acne & Blemish",
+          "Dry Skin, Eczema & Psoriasis"
+        ]
+      },
+      {
+        "title": "Hands & Nails",
+        "items": [
+          "Hand Cream",
+          "Cuticle & Nail Care"
+        ]
+      }
+    ],
+    "flat": []
+  },
+  {
+    "menu": "Beauty",
+    "groups": [
+      {
+        "title": "Face",
+        "items": [
+          "Foundation",
+          "Makeup Remover",
+          "Bronzer",
+          "Concealer",
+          "Blusher",
+          "Powders & Primers",
+          "Contouring & Highlighting",
+          "Tinted Moisturiser"
+        ]
+      },
+      {
+        "title": "Eyes",
+        "items": [
+          "Eyeshadow",
+          "Eyeliner",
+          "Mascara",
+          "Eyebrows",
+          "False Eyelashes",
+          "Eye Makeup Remover"
+        ]
+      },
+      {
+        "title": "Lips",
+        "items": [
+          "Lip Gloss",
+          "Lipstick",
+          "Lip Liner"
+        ]
+      },
+      {
+        "title": "Tanning",
+        "items": [
+          "Self Tan",
+          "Tanning Mitts",
+          "Gradual Tan",
+          "Prep & Maintain",
+          "Tan Remover"
+        ]
+      },
+      {
+        "title": "Nails",
+        "items": [
+          "Nail Polish",
+          "False Nails & Nail Wraps",
+          "Nail Care",
+          "Nail Polish Remover"
+        ]
+      },
+      {
+        "title": "Makeup Brushes & Tools",
+        "items": [
+          "Makeup Brushes",
+          "Makeup Sponges",
+          "Makeup Brush Cleaners"
+        ]
+      },
+      {
+        "title": "Beauty Accessories",
+        "items": [
+          "Body Tape & Nipple Covers",
+          "Tweezers",
+          "Beauty Accessories"
+        ]
+      }
+    ],
+    "flat": []
+  },
+  {
+    "menu": "Toiletries",
+    "groups": [],
+    "flat": [
+      "Hair Care",
+      "Dental Care",
+      "Deodorant",
+      "Men's Grooming",
+      "Feminine Care",
+      "Bath & Shower",
+      "Travel"
+    ]
+  },
+  {
+    "menu": "Mother & Baby",
+    "groups": [],
+    "flat": [
+      "Baby Health",
+      "Baby Feeding",
+      "Maternity Care",
+      "Baby Skincare",
+      "Baby Wipes & Toiletries",
+      "Baby Accessories"
+    ]
+  },
+  {
+    "menu": "Fragrance",
+    "groups": [],
+    "flat": [
+      "Ladies Fragrance",
+      "Ladies Fragrance Singles",
+      "Ladies Fragrance Sets",
+      "Mens Fragrance",
+      "Mens Fragrance Singles",
+      "Mens Fragrance Sets"
+    ]
+  },
+  {
+    "menu": "Gifting",
+    "groups": [],
+    "flat": [
+      "Christmas Shop",
+      "Women's Fragrance",
+      "Men's Fragrance",
+      "Gifts for Her",
+      "Gifts for Him",
+      "Candles & Diffusers"
+    ]
+  },
+  {
+    "menu": "Sale",
+    "groups": [],
+    "flat": []
+  },
+  {
+    "menu": "Brands",
+    "groups": [],
+    "flat": []
+  },
+  {
+    "menu": "Services",
+    "groups": [],
+    "flat": []
+  }
+]

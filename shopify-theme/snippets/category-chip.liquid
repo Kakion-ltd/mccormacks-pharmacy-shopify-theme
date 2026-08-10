@@ -1,0 +1,6 @@
+{% comment %} One category chip. Args: h (handle), l (label), cur (current collection handle). Sized to match the homepage category pill row (category-pills.liquid): 50px tall, 14.5px, 9px radius. {% endcomment %}
+{%- if h == cur -%}
+<a href="/collections/{{ h }}" aria-current="page" style="flex:0 0 auto; min-width:170px; background:#3f6b4f; color:#ffffff; font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 18px; border-radius:9px; display:flex; align-items:center; justify-content:center;">{{ l }}</a>
+{%- else -%}
+<a href="/collections/{{ h }}" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:170px; background:#82C914; color:#ffffff; font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 18px; border-radius:9px; display:flex; align-items:center; justify-content:center;">{{ l }}</a>
+{%- endif -%}

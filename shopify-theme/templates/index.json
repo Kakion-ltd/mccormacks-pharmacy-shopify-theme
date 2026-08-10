@@ -1,0 +1,395 @@
+{
+  "sections": {
+    "trust": {
+      "type": "trust-bar",
+      "settings": {}
+    },
+    "hero": {
+      "type": "hero-slider",
+      "blocks": {
+        "slide-travel": {
+          "type": "slide",
+          "settings": {
+            "title": "Summer Travel Shop",
+            "subtext": "Travel essentials made easy. Everything you need for your next trip, all in one place.",
+            "cta": "SHOP TRAVEL",
+            "link": "/collections/medicines-health",
+            "image_asset": "hero-summer-travel.jpg"
+          }
+        },
+        "slide-vitamins": {
+          "type": "slide",
+          "settings": {
+            "title": "Feel Your Best",
+            "subtext": "Top vitamins & supplements to support your everyday health and energy.",
+            "cta": "SHOP VITAMINS",
+            "link": "/collections/vitamins",
+            "image_asset": "slide-vitamins.jpg"
+          }
+        },
+        "slide-skincare": {
+          "type": "slide",
+          "settings": {
+            "title": "Skincare Edit",
+            "subtext": "Dermatologist-loved brands to keep your skin glowing all year round.",
+            "cta": "SHOP SKINCARE",
+            "link": "/collections/skincare",
+            "image_asset": "slide-skincare.jpg"
+          }
+        },
+        "slide-baby": {
+          "type": "slide",
+          "settings": {
+            "title": "Mother & Baby",
+            "subtext": "Trusted essentials for every stage — from bump to little one.",
+            "cta": "SHOP BABY",
+            "link": "/collections/mother-baby",
+            "image_asset": "slide-baby.jpg"
+          }
+        },
+        "slide-gifts": {
+          "type": "slide",
+          "settings": {
+            "title": "Gifts & Fragrance",
+            "subtext": "Find the perfect present with our edit of fragrance and beauty gifting.",
+            "cta": "SHOP GIFTS",
+            "link": "/collections/gifting",
+            "image_asset": "slide-fragrance.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "slide-travel",
+        "slide-vitamins",
+        "slide-skincare",
+        "slide-baby",
+        "slide-gifts"
+      ],
+      "settings": {}
+    },
+    "pills": {
+      "type": "category-pills",
+      "settings": {}
+    },
+    "promo": {
+      "type": "promo-strip",
+      "settings": {
+        "text": "Pollen levels are rising — stock up on your <strong style=\"font-weight:800;\">Hayfever</strong> essentials today.",
+        "cta": "Shop Now",
+        "link": "/collections/hayfever-allergy"
+      }
+    },
+    "sale": {
+      "type": "sale-products",
+      "settings": {
+        "heading": "On Sale This Month",
+        "collection": "sale",
+        "limit": 8
+      }
+    },
+    "features": {
+      "type": "feature-tiles",
+      "settings": {}
+    },
+    "popular": {
+      "type": "popular-categories",
+      "settings": {},
+      "blocks": {
+        "pharmacy": {
+          "type": "category",
+          "settings": {
+            "collection": "medicines-health",
+            "label": "Pharmacy"
+          }
+        },
+        "supplements": {
+          "type": "category",
+          "settings": {
+            "collection": "vitamins",
+            "label": "Supplements"
+          }
+        },
+        "skincare": {
+          "type": "category",
+          "settings": {
+            "collection": "skincare",
+            "label": "Skincare"
+          }
+        },
+        "beauty": {
+          "type": "category",
+          "settings": {
+            "collection": "beauty",
+            "label": "Beauty"
+          }
+        },
+        "toiletries": {
+          "type": "category",
+          "settings": {
+            "collection": "toiletries",
+            "label": "Toiletries"
+          }
+        },
+        "baby": {
+          "type": "category",
+          "settings": {
+            "collection": "mother-baby",
+            "label": "Baby"
+          }
+        },
+        "gifts": {
+          "type": "category",
+          "settings": {
+            "collection": "gifting",
+            "label": "Gifts"
+          }
+        }
+      },
+      "block_order": [
+        "pharmacy",
+        "supplements",
+        "skincare",
+        "beauty",
+        "toiletries",
+        "baby",
+        "gifts"
+      ]
+    },
+    "offers": {
+      "type": "hot-offers",
+      "settings": {},
+      "blocks": {
+        "vitamins": {
+          "type": "offer",
+          "settings": {
+            "title": "Vitamins & Supplements",
+            "subtext": "Support your daily health & wellbeing — 20% off multivitamins & supplements this month.",
+            "badge": "SAVE 20% · LIMITED TIME",
+            "cta": "Shop Now",
+            "link": "/collections/vitamins",
+            "image_asset": "hot-offer-vitamins.jpg",
+            "background": "#82c914",
+            "badge_background": "#ffffff"
+          }
+        },
+        "deodorant": {
+          "type": "offer",
+          "settings": {
+            "title": "Deodorants & Antiperspirants",
+            "subtext": "Stay fresh for less with long-lasting protection, including Mitchum.",
+            "badge": "SAVE 15% · LIMITED TIME",
+            "cta": "Shop Now",
+            "link": "/collections/deodorant",
+            "image_asset": "mitchum-hot-offers.jpg",
+            "background": "#3f6b4f",
+            "badge_background": "#92C83F"
+          }
+        },
+        "menopause": {
+          "type": "offer",
+          "settings": {
+            "title": "Menopause Support",
+            "subtext": "Everyday menopause support, including CanesMeno — all month long.",
+            "badge": "SAVE 20% · LIMITED TIME",
+            "cta": "Shop Now",
+            "link": "/collections/menopause",
+            "image_asset": "",
+            "background": "#92C83F",
+            "badge_background": "#3f6b4f"
+          }
+        }
+      },
+      "block_order": [
+        "vitamins",
+        "deodorant",
+        "menopause"
+      ]
+    },
+    "reviews": {
+      "type": "reviews",
+      "blocks": {
+        "rev-1": {
+          "type": "review",
+          "settings": {
+            "name": "Bryan Mc Bride",
+            "source": "Google Review",
+            "text": "In McCormack's for almost 7 years now. Every customer is treated the same, with every effort made to come out and speak to as many people as possible. People come back when they're given good advice and quick, efficient service, time and time again."
+          }
+        },
+        "rev-2": {
+          "type": "review",
+          "settings": {
+            "name": "Amy O'Brien",
+            "source": "Google Review",
+            "text": "This is a really friendly pharmacy. The staff are all so helpful and really went out of their way to help me. I now get all my prescriptions here because they are so helpful."
+          }
+        },
+        "rev-3": {
+          "type": "review",
+          "settings": {
+            "name": "Stephen Donohoe",
+            "source": "Google Review",
+            "text": "The staff here are fantastic and very helpful. Very impressed with the range of products available — they're also extra helpful in ordering in anything you need, usually there the next morning!"
+          }
+        },
+        "rev-4": {
+          "type": "review",
+          "settings": {
+            "name": "Ray Keogh",
+            "source": "Google Review",
+            "text": "Brilliant staff, so helpful with everything in store. The male pharmacist is also excellent — always makes time for me and my family, and we've been coming for over 7 years as a result."
+          }
+        },
+        "rev-5": {
+          "type": "review",
+          "settings": {
+            "name": "Eimear Murphy",
+            "source": "Google Review",
+            "text": "An absolutely brilliant pharmacy, would recommend to anybody. Quick service and nothing is a problem — so very helpful, a great service."
+          }
+        }
+      },
+      "block_order": [
+        "rev-1",
+        "rev-2",
+        "rev-3",
+        "rev-4",
+        "rev-5"
+      ],
+      "settings": {}
+    },
+    "brands": {
+      "type": "brand-slider",
+      "settings": {},
+      "blocks": {
+        "loreal": {
+          "type": "brand",
+          "settings": {
+            "name": "L’Oréal Paris",
+            "collection": "loreal-paris",
+            "logo_asset": "brand-loreal.png"
+          }
+        },
+        "laroche": {
+          "type": "brand",
+          "settings": {
+            "name": "La Roche-Posay",
+            "collection": "la-roche-posay",
+            "logo_asset": "brand-laroche.png"
+          }
+        },
+        "cerave": {
+          "type": "brand",
+          "settings": {
+            "name": "CeraVe",
+            "collection": "cerave",
+            "logo_asset": "brand-cerave.png"
+          }
+        },
+        "viagra": {
+          "type": "brand",
+          "settings": {
+            "name": "Viagra Connect",
+            "collection": "viagra-connect",
+            "logo_asset": "brand-viagra.png"
+          }
+        },
+        "proven": {
+          "type": "brand",
+          "settings": {
+            "name": "Pro-Ven Biotics",
+            "collection": "proven",
+            "logo_asset": "brand-proven.png"
+          }
+        },
+        "sculpted": {
+          "type": "brand",
+          "settings": {
+            "name": "Sculpted by Aimee",
+            "collection": "sculpted-by-aimee",
+            "logo_asset": "brand-sculpted.png"
+          }
+        },
+        "nivea": {
+          "type": "brand",
+          "settings": {
+            "name": "NIVEA",
+            "collection": "nivea",
+            "logo_asset": ""
+          }
+        },
+        "optibac": {
+          "type": "brand",
+          "settings": {
+            "name": "Optibac",
+            "collection": "optibac",
+            "logo_asset": ""
+          }
+        },
+        "revive": {
+          "type": "brand",
+          "settings": {
+            "name": "Revive Active",
+            "collection": "revive-active",
+            "logo_asset": ""
+          }
+        },
+        "mitchum": {
+          "type": "brand",
+          "settings": {
+            "name": "Mitchum",
+            "collection": "mitchum",
+            "logo_asset": ""
+          }
+        },
+        "pizbuin": {
+          "type": "brand",
+          "settings": {
+            "name": "Piz Buin",
+            "collection": "piz-buin",
+            "logo_asset": ""
+          }
+        },
+        "nurofen": {
+          "type": "brand",
+          "settings": {
+            "name": "Nurofen",
+            "collection": "nurofen",
+            "logo_asset": ""
+          }
+        }
+      },
+      "block_order": [
+        "loreal",
+        "laroche",
+        "cerave",
+        "viagra",
+        "proven",
+        "sculpted",
+        "nivea",
+        "optibac",
+        "revive",
+        "mitchum",
+        "pizbuin",
+        "nurofen"
+      ]
+    },
+    "services": {
+      "type": "other-services",
+      "settings": {}
+    }
+  },
+  "order": [
+    "trust",
+    "hero",
+    "pills",
+    "promo",
+    "sale",
+    "features",
+    "popular",
+    "offers",
+    "reviews",
+    "brands",
+    "services"
+  ]
+}

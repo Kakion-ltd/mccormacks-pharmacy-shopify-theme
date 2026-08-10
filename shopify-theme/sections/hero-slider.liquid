@@ -1,0 +1,142 @@
+<section style="max-width:1440px; margin:0 auto; padding:12px 30px 8px;">
+  <div id="hero-{{ section.id }}" data-slider {% if section.settings.autoplay_seconds > 0 %}data-slider-auto="{{ section.settings.autoplay_seconds | times: 1000 }}"{% endif %} class="hero-flex" style="position:relative; display:flex; flex-wrap:wrap; border-radius:18px; overflow:hidden; box-shadow:0 20px 50px rgba(32,69,65,.16);">
+    {%- for block in section.blocks -%}
+      {%- assign p = forloop.index0 -%}
+      <div data-slide {{ block.shopify_attributes }}{% unless forloop.first %} style="display:none;"{% endunless %}>
+        <div class="hero-green" style="flex:0 0 500px; background:linear-gradient(160deg,#8fce34 0%,#6fae1c 100%); display:flex; flex-direction:column; justify-content:center; padding:clamp(32px,4.5vw,64px); min-height:460px; height:460px; position:relative; z-index:2;">
+          <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#ffffff; font-size:clamp(32px,4.2vw,54px); line-height:1.02; margin:0 0 16px; letter-spacing:-.01em;">{{ block.settings.title }}</h1>
+          <p style="color:#ffffff; font-size:clamp(15px,1.3vw,18px); font-weight:600; line-height:1.5; margin:0 0 clamp(24px,3vw,34px); max-width:420px; opacity:.96;">{{ block.settings.subtext }}</p>
+          <a href="{{ block.settings.link }}" class="slide-cta hero-cta" style="align-self:flex-start; background:#ffffff; color:#3f6b4f; font-weight:800; letter-spacing:.03em; font-size:15px; height:42px; padding:0 24px; display:inline-flex; align-items:center; gap:10px; border-radius:9px; box-shadow:0 10px 24px rgba(0,0,0,.15);">{{ block.settings.cta }}<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
+          <div style="display:flex; gap:10px; margin-top:clamp(20px,2.6vw,30px); justify-content:flex-start;">
+            {%- for b in section.blocks -%}
+              {%- assign j = forloop.index0 -%}
+              <button aria-label="Go to slide {{ forloop.index }}" data-dot-proxy="{{ j }}" style="width:{% if j == p %}22{% else %}8{% endif %}px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:{% if j == p %}#ffffff{% else %}rgba(255,255,255,.5){% endif %}; transition:width .2s ease;"></button>
+            {%- endfor -%}
+          </div>
+        </div>
+        <div class="hero-img" style="position:relative; flex:1 1 320px; min-height:460px; height:460px; background:linear-gradient(135deg,#9ed24c 0%,#7cb52e 44%,#82c914 100%);">
+          <div style="position:absolute; top:-28%; left:6%; width:46%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.10);"></div>
+          <div style="position:absolute; bottom:-32%; right:-8%; width:54%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.07);"></div>
+          {%- if block.settings.image -%}
+            {{ block.settings.image | image_url: width: 1760 | image_tag: style: 'position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;', alt: block.settings.title }}
+          {%- elsif block.settings.image_asset != blank -%}
+            <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" width="600" height="600">
+          {%- else -%}
+            {%- render 'image-placeholder', w: 1760, h: 920, label: 'Hero slide', note: 'Landscape — the left 500px sits under the green panel.' -%}
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endfor -%}
+    <div style="display:none;" aria-hidden="true">
+      {%- for block in section.blocks -%}
+        <button data-slide-dot tabindex="-1"></button>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% style %}
+#hero-{{ section.id }} [data-slide] { display: contents; }
+.hero-cta:hover { background: #3f6b4f !important; color: #ffffff !important; }
+{% endstyle %}
+
+<script>
+(() => {
+  const root = document.getElementById('hero-{{ section.id }}');
+  if (!root) return;
+  root.addEventListener('click', e => {
+    const btn = e.target.closest('[data-dot-proxy]');
+    if (!btn) return;
+    const i = parseInt(btn.dataset.dotProxy, 10);
+    const master = root.querySelectorAll('[data-slide-dot]')[i];
+    if (master) master.click(); /* theme.js switches the visible pane */
+    root.querySelectorAll('[data-slide]').forEach(pane => {
+      pane.querySelectorAll('[data-dot-proxy]').forEach((d, j) => {
+        d.style.background = j === i ? '#ffffff' : 'rgba(255,255,255,.5)';
+        d.style.width = j === i ? '22px' : '8px';
+      });
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Hero slider",
+  "settings": [
+    { "type": "range", "id": "autoplay_seconds", "label": "Auto-rotate slides every (seconds, 0 = off)", "min": 0, "max": 12, "step": 1, "default": 6 }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Summer Travel Shop" },
+        { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Travel essentials made easy. Everything you need for your next trip, all in one place." },
+        { "type": "text", "id": "cta", "label": "Button label", "default": "SHOP NOW" },
+        { "type": "url", "id": "link", "label": "Button link" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "image_asset", "label": "Fallback theme asset (onboarding only)", "info": "Filename of a theme asset used until an image is picked." }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Hero slider",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "title": "Summer Travel Shop",
+            "subtext": "Travel essentials made easy. Everything you need for your next trip, all in one place.",
+            "cta": "SHOP TRAVEL",
+            "link": "/collections/medicines-health",
+            "image_asset": "hero-summer-travel.jpg"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "title": "Feel Your Best",
+            "subtext": "Top vitamins & supplements to support your everyday health and energy.",
+            "cta": "SHOP VITAMINS",
+            "link": "/collections/vitamins",
+            "image_asset": "slide-vitamins.jpg"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "title": "Skincare Edit",
+            "subtext": "Dermatologist-loved brands to keep your skin glowing all year round.",
+            "cta": "SHOP SKINCARE",
+            "link": "/collections/skincare",
+            "image_asset": "slide-skincare.jpg"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "title": "Mother & Baby",
+            "subtext": "Trusted essentials for every stage — from bump to little one.",
+            "cta": "SHOP BABY",
+            "link": "/collections/mother-baby",
+            "image_asset": "slide-baby.jpg"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "title": "Gifts & Fragrance",
+            "subtext": "Find the perfect present with our edit of fragrance and beauty gifting.",
+            "cta": "SHOP GIFTS",
+            "link": "/collections/gifting",
+            "image_asset": "slide-fragrance.jpg"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

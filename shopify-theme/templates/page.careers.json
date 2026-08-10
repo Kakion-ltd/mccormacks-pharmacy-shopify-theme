@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-careers",
+      "blocks": {
+        "role-1": { "type": "role", "settings": { "title": "Pharmacist", "location": "Clonmel — Bolton Street", "job_type": "Full time", "is_new": true } },
+        "role-2": { "type": "role", "settings": { "title": "Pharmacy Technician", "location": "Newbridge, Co. Kildare", "job_type": "Full time", "is_new": false } },
+        "role-3": { "type": "role", "settings": { "title": "Retail Assistant", "location": "Tullamore, Co. Offaly", "job_type": "Part time", "is_new": false } },
+        "role-4": { "type": "role", "settings": { "title": "Beauty Advisor", "location": "Haggardstown, Dundalk", "job_type": "Full time", "is_new": true } },
+        "role-5": { "type": "role", "settings": { "title": "Dispensary Support", "location": "Ballylanders, Co. Limerick", "job_type": "Part time", "is_new": false } }
+      },
+      "block_order": ["role-1", "role-2", "role-3", "role-4", "role-5"],
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

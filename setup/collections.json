@@ -1,0 +1,3229 @@
+[
+  {
+    "handle": "beauty",
+    "title": "Beauty",
+    "level": "menu",
+    "parent_menu": null,
+    "group": null,
+    "nav_paths": [
+      "Beauty"
+    ],
+    "description_html": "<p>Explore our full Beauty range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+  },
+  {
+    "handle": "bundles",
+    "title": "Bundles",
+    "level": "menu",
+    "parent_menu": null,
+    "group": null,
+    "nav_paths": [
+      "Bundles"
+    ],
+    "description_html": "<p>Multi-buy bundles built by our pharmacists — save on the essentials you already buy together.</p>"
+  },
+  {
+    "handle": "fragrance",
+    "title": "Fragrance",
+    "level": "menu",
+    "parent_menu": null,
+    "group": null,
+    "nav_paths": [
+      "Fragrance"
+    ],
+    "description_html": "<p>Explore our full Fragrance range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+  },
+  {
+    "handle": "gifting",
+    "title": "Gifting",
+    "level": "menu",
+    "parent_menu": null,
+    "group": null,
+    "nav_paths": [
+      "Gifting"
+    ],
+    "description_html": "<p>Explore our full Gifting range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+  },
+  {
+    "handle": "hot-offers",
+    "title": "Hot Offers",
+    "level": "menu",
+    "parent_menu": null,
+    "group": null,
+    "nav_paths": [
+      "Hot Offers"
+    ],
+    "description_html": "<p>This month's hottest offers across pharmacy, vitamins, skincare and more. While stocks last.</p>"
+  },
+  {
+    "handle": "medicines-health",
+    "title": "Medicines & Health",
+    "level": "menu",
+    "parent_menu": null,
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health"
+    ],
+    "description_html": "<p>Explore our full Medicines & Health range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+  },
+  {
+    "handle": "mother-baby",
+    "title": "Mother & Baby",
+    "level": "menu",
+    "parent_menu": null,
+    "group": null,
+    "nav_paths": [
+      "Mother & Baby"
+    ],
+    "description_html": "<p>Explore our full Mother & Baby range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+  },
+  {
+    "handle": "new-in",
+    "title": "New In",
+    "level": "menu",
+    "parent_menu": null,
+    "group": null,
+    "nav_paths": [
+      "New In"
+    ],
+    "description_html": "<p>The latest arrivals at McCormack's Pharmacy — new brands, new formulas and fresh stock added every week.</p>"
+  },
+  {
+    "handle": "sale",
+    "title": "Sale",
+    "level": "menu",
+    "parent_menu": null,
+    "group": null,
+    "nav_paths": [
+      "Sale"
+    ],
+    "description_html": "<p>Explore our full Sale range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+  },
+  {
+    "handle": "skincare",
+    "title": "Skincare",
+    "level": "menu",
+    "parent_menu": null,
+    "group": null,
+    "nav_paths": [
+      "Skincare"
+    ],
+    "description_html": "<p>Explore our full Skincare range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+  },
+  {
+    "handle": "toiletries",
+    "title": "Toiletries",
+    "level": "menu",
+    "parent_menu": null,
+    "group": null,
+    "nav_paths": [
+      "Toiletries"
+    ],
+    "description_html": "<p>Explore our full Toiletries range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+  },
+  {
+    "handle": "vitamins",
+    "title": "Vitamins",
+    "level": "menu",
+    "parent_menu": null,
+    "group": null,
+    "nav_paths": [
+      "Vitamins"
+    ],
+    "description_html": "<p>Explore our full Vitamins range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+  },
+  {
+    "handle": "acne-blemish",
+    "title": "Acne & Blemish",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Dermatological Skincare",
+    "nav_paths": [
+      "Skincare > Dermatological Skincare > Acne & Blemish",
+      "Skincare > Problem Skin > Acne & Blemish"
+    ],
+    "description_html": "<p>Browse Acne & Blemish — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "acnecide",
+    "title": "Acnecide",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Acnecide"
+    ],
+    "description_html": "<p>Shop the full Acnecide range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "anbesol",
+    "title": "Anbesol",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Anbesol"
+    ],
+    "description_html": "<p>Shop the full Anbesol range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "anti-ageing",
+    "title": "Anti-Ageing",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Dermatological Skincare",
+    "nav_paths": [
+      "Skincare > Dermatological Skincare > Anti-Ageing"
+    ],
+    "description_html": "<p>Browse Anti-Ageing — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "antiseptics-wound-cleaning",
+    "title": "Antiseptics & Wound Cleaning",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "First Aid",
+    "nav_paths": [
+      "Medicines & Health > First Aid > Antiseptics & Wound Cleaning"
+    ],
+    "description_html": "<p>Browse Antiseptics & Wound Cleaning — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "athletes-foot",
+    "title": "Athletes Foot",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Foot Care",
+    "nav_paths": [
+      "Medicines & Health > Foot Care > Athletes Foot"
+    ],
+    "description_html": "<p>Browse Athletes Foot — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "aveeno",
+    "title": "Aveeno",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Aveeno"
+    ],
+    "description_html": "<p>Shop the full Aveeno range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "avene",
+    "title": "Avene",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Avene"
+    ],
+    "description_html": "<p>Shop the full Avene range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "baby-accessories",
+    "title": "Baby Accessories",
+    "level": "leaf",
+    "parent_menu": "Mother & Baby",
+    "group": null,
+    "nav_paths": [
+      "Mother & Baby > Baby Accessories"
+    ],
+    "description_html": "<p>Browse Baby Accessories — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Mother & Baby range.</p>"
+  },
+  {
+    "handle": "baby-children-pain-relief",
+    "title": "Baby & Children Pain Relief",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Pain Relief",
+    "nav_paths": [
+      "Medicines & Health > Pain Relief > Baby & Children Pain Relief"
+    ],
+    "description_html": "<p>Browse Baby & Children Pain Relief — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "baby-feeding",
+    "title": "Baby Feeding",
+    "level": "leaf",
+    "parent_menu": "Mother & Baby",
+    "group": null,
+    "nav_paths": [
+      "Mother & Baby > Baby Feeding"
+    ],
+    "description_html": "<p>Browse Baby Feeding — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Mother & Baby range.</p>"
+  },
+  {
+    "handle": "baby-health",
+    "title": "Baby Health",
+    "level": "leaf",
+    "parent_menu": "Mother & Baby",
+    "group": null,
+    "nav_paths": [
+      "Mother & Baby > Baby Health"
+    ],
+    "description_html": "<p>Browse Baby Health — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Mother & Baby range.</p>"
+  },
+  {
+    "handle": "baby-skincare",
+    "title": "Baby Skincare",
+    "level": "leaf",
+    "parent_menu": "Mother & Baby",
+    "group": null,
+    "nav_paths": [
+      "Mother & Baby > Baby Skincare"
+    ],
+    "description_html": "<p>Browse Baby Skincare — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Mother & Baby range.</p>"
+  },
+  {
+    "handle": "baby-wipes-toiletries",
+    "title": "Baby Wipes & Toiletries",
+    "level": "leaf",
+    "parent_menu": "Mother & Baby",
+    "group": null,
+    "nav_paths": [
+      "Mother & Baby > Baby Wipes & Toiletries"
+    ],
+    "description_html": "<p>Browse Baby Wipes & Toiletries — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Mother & Baby range.</p>"
+  },
+  {
+    "handle": "bandages-plasters",
+    "title": "Bandages & Plasters",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "First Aid",
+    "nav_paths": [
+      "Medicines & Health > First Aid > Bandages & Plasters"
+    ],
+    "description_html": "<p>Browse Bandages & Plasters — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "bath-shower",
+    "title": "Bath & Shower",
+    "level": "leaf",
+    "parent_menu": "Toiletries",
+    "group": null,
+    "nav_paths": [
+      "Toiletries > Bath & Shower"
+    ],
+    "description_html": "<p>Browse Bath & Shower — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Toiletries range.</p>"
+  },
+  {
+    "handle": "beauty-accessories",
+    "title": "Beauty Accessories",
+    "level": "group",
+    "parent_menu": "Beauty",
+    "group": null,
+    "nav_paths": [
+      "Beauty > Beauty Accessories",
+      "Beauty > Beauty Accessories > Beauty Accessories"
+    ],
+    "description_html": "<p>Shop Beauty Accessories at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "bepanthen",
+    "title": "Bepanthen",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Bepanthen"
+    ],
+    "description_html": "<p>Shop the full Bepanthen range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "bio-oil",
+    "title": "Bio-Oil",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Bio-Oil"
+    ],
+    "description_html": "<p>Shop the full Bio-Oil range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "bioderma",
+    "title": "Bioderma",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Bioderma"
+    ],
+    "description_html": "<p>Shop the full Bioderma range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "bladder-weakness",
+    "title": "Bladder Weakness",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Continence Care",
+    "nav_paths": [
+      "Medicines & Health > Continence Care > Bladder Weakness"
+    ],
+    "description_html": "<p>Browse Bladder Weakness — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "blepharitis-eyelid-hygiene",
+    "title": "Blepharitis & Eyelid Hygiene",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Eye & Ear Health",
+    "nav_paths": [
+      "Medicines & Health > Eye & Ear Health > Blepharitis & Eyelid Hygiene"
+    ],
+    "description_html": "<p>Browse Blepharitis & Eyelid Hygiene — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "blisters-bunion-care",
+    "title": "Blisters & Bunion Care",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Foot Care",
+    "nav_paths": [
+      "Medicines & Health > Foot Care > Blisters & Bunion Care"
+    ],
+    "description_html": "<p>Browse Blisters & Bunion Care — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "blistex",
+    "title": "Blistex",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Blistex"
+    ],
+    "description_html": "<p>Shop the full Blistex range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "bloating-gas",
+    "title": "Bloating & Gas",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Stomach & Gastrointestinal",
+    "nav_paths": [
+      "Medicines & Health > Stomach & Gastrointestinal > Bloating & Gas"
+    ],
+    "description_html": "<p>Browse Bloating & Gas — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "blocked-nose-sinus",
+    "title": "Blocked Nose & Sinus",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Cold, Flu & Allergy",
+    "nav_paths": [
+      "Medicines & Health > Cold, Flu & Allergy > Blocked Nose & Sinus"
+    ],
+    "description_html": "<p>Browse Blocked Nose & Sinus — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "blood-pressure-monitors",
+    "title": "Blood Pressure Monitors",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Electrical Healthcare",
+    "nav_paths": [
+      "Medicines & Health > Electrical Healthcare > Blood Pressure Monitors"
+    ],
+    "description_html": "<p>Browse Blood Pressure Monitors — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "blusher",
+    "title": "Blusher",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Face",
+    "nav_paths": [
+      "Beauty > Face > Blusher"
+    ],
+    "description_html": "<p>Browse Blusher — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "body-skincare",
+    "title": "Body Skincare",
+    "level": "group",
+    "parent_menu": "Skincare",
+    "group": null,
+    "nav_paths": [
+      "Skincare > Body Skincare"
+    ],
+    "description_html": "<p>Shop Body Skincare at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "body-tape-nipple-covers",
+    "title": "Body Tape & Nipple Covers",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Beauty Accessories",
+    "nav_paths": [
+      "Beauty > Beauty Accessories > Body Tape & Nipple Covers"
+    ],
+    "description_html": "<p>Browse Body Tape & Nipple Covers — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "brain-health",
+    "title": "Brain Health",
+    "level": "leaf",
+    "parent_menu": "Vitamins",
+    "group": null,
+    "nav_paths": [
+      "Vitamins > Brain Health"
+    ],
+    "description_html": "<p>Browse Brain Health — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
+  },
+  {
+    "handle": "bronzer",
+    "title": "Bronzer",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Face",
+    "nav_paths": [
+      "Beauty > Face > Bronzer"
+    ],
+    "description_html": "<p>Browse Bronzer — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "calpol",
+    "title": "Calpol",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Calpol"
+    ],
+    "description_html": "<p>Shop the full Calpol range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "candles-diffusers",
+    "title": "Candles & Diffusers",
+    "level": "leaf",
+    "parent_menu": "Gifting",
+    "group": null,
+    "nav_paths": [
+      "Gifting > Candles & Diffusers"
+    ],
+    "description_html": "<p>Browse Candles & Diffusers — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Gifting range.</p>"
+  },
+  {
+    "handle": "cerave",
+    "title": "CeraVe",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > CeraVe"
+    ],
+    "description_html": "<p>Shop the full CeraVe range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "cetaphil",
+    "title": "Cetaphil",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Cetaphil"
+    ],
+    "description_html": "<p>Shop the full Cetaphil range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "children-vitamins",
+    "title": "Children Vitamins",
+    "level": "leaf",
+    "parent_menu": "Vitamins",
+    "group": null,
+    "nav_paths": [
+      "Vitamins > Children Vitamins"
+    ],
+    "description_html": "<p>Browse Children Vitamins — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
+  },
+  {
+    "handle": "chiropody-felt-padding",
+    "title": "Chiropody Felt & Padding",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Foot Care",
+    "nav_paths": [
+      "Medicines & Health > Foot Care > Chiropody Felt & Padding"
+    ],
+    "description_html": "<p>Browse Chiropody Felt & Padding — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "christmas-shop",
+    "title": "Christmas Shop",
+    "level": "leaf",
+    "parent_menu": "Gifting",
+    "group": null,
+    "nav_paths": [
+      "Gifting > Christmas Shop"
+    ],
+    "description_html": "<p>Browse Christmas Shop — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Gifting range.</p>"
+  },
+  {
+    "handle": "cleanmarine",
+    "title": "Cleanmarine",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Cleanmarine"
+    ],
+    "description_html": "<p>Shop the full Cleanmarine range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "cleanser",
+    "title": "Cleanser",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Facial Skincare",
+    "nav_paths": [
+      "Skincare > Facial Skincare > Cleanser"
+    ],
+    "description_html": "<p>Browse Cleanser — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "cold-flu-allergy",
+    "title": "Cold, Flu & Allergy",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > Cold, Flu & Allergy"
+    ],
+    "description_html": "<p>Shop Cold, Flu & Allergy at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "cold-flu-combination-products",
+    "title": "Cold & Flu Combination Products",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Cold, Flu & Allergy",
+    "nav_paths": [
+      "Medicines & Health > Cold, Flu & Allergy > Cold & Flu Combination Products"
+    ],
+    "description_html": "<p>Browse Cold & Flu Combination Products — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "cold-therapy-heat-therapy",
+    "title": "Cold Therapy & Heat Therapy",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "First Aid",
+    "nav_paths": [
+      "Medicines & Health > First Aid > Cold Therapy & Heat Therapy"
+    ],
+    "description_html": "<p>Browse Cold Therapy & Heat Therapy — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "compeed",
+    "title": "Compeed",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Compeed"
+    ],
+    "description_html": "<p>Shop the full Compeed range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "concealer",
+    "title": "Concealer",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Face",
+    "nav_paths": [
+      "Beauty > Face > Concealer"
+    ],
+    "description_html": "<p>Browse Concealer — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "condoms",
+    "title": "Condoms",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Sexual Health",
+    "nav_paths": [
+      "Medicines & Health > Sexual Health > Condoms"
+    ],
+    "description_html": "<p>Browse Condoms — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "constipation",
+    "title": "Constipation",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Stomach & Gastrointestinal",
+    "nav_paths": [
+      "Medicines & Health > Stomach & Gastrointestinal > Constipation"
+    ],
+    "description_html": "<p>Browse Constipation — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "contact-lens-care",
+    "title": "Contact Lens Care",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Eye & Ear Health",
+    "nav_paths": [
+      "Medicines & Health > Eye & Ear Health > Contact Lens Care"
+    ],
+    "description_html": "<p>Browse Contact Lens Care — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "continence-care",
+    "title": "Continence Care",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > Continence Care"
+    ],
+    "description_html": "<p>Shop Continence Care at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "contouring-highlighting",
+    "title": "Contouring & Highlighting",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Face",
+    "nav_paths": [
+      "Beauty > Face > Contouring & Highlighting"
+    ],
+    "description_html": "<p>Browse Contouring & Highlighting — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "corn-callous-care",
+    "title": "Corn & Callous Care",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Foot Care",
+    "nav_paths": [
+      "Medicines & Health > Foot Care > Corn & Callous Care"
+    ],
+    "description_html": "<p>Browse Corn & Callous Care — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "cough",
+    "title": "Cough",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Cold, Flu & Allergy",
+    "nav_paths": [
+      "Medicines & Health > Cold, Flu & Allergy > Cough"
+    ],
+    "description_html": "<p>Browse Cough — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "cracked-heels-dry-skin",
+    "title": "Cracked Heels & Dry Skin",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Foot Care",
+    "nav_paths": [
+      "Medicines & Health > Foot Care > Cracked Heels & Dry Skin"
+    ],
+    "description_html": "<p>Browse Cracked Heels & Dry Skin — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "cramping-irritable-bowel",
+    "title": "Cramping & Irritable Bowel",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Stomach & Gastrointestinal",
+    "nav_paths": [
+      "Medicines & Health > Stomach & Gastrointestinal > Cramping & Irritable Bowel"
+    ],
+    "description_html": "<p>Browse Cramping & Irritable Bowel — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "cuticle-nail-care",
+    "title": "Cuticle & Nail Care",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Hands & Nails",
+    "nav_paths": [
+      "Skincare > Hands & Nails > Cuticle & Nail Care"
+    ],
+    "description_html": "<p>Browse Cuticle & Nail Care — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "cystitis",
+    "title": "Cystitis",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Sensitive Conditions",
+    "nav_paths": [
+      "Medicines & Health > Sensitive Conditions > Cystitis"
+    ],
+    "description_html": "<p>Browse Cystitis — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "deep-freeze",
+    "title": "Deep Freeze",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Deep Freeze"
+    ],
+    "description_html": "<p>Shop the full Deep Freeze range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "dental-care",
+    "title": "Dental Care",
+    "level": "leaf",
+    "parent_menu": "Toiletries",
+    "group": null,
+    "nav_paths": [
+      "Toiletries > Dental Care"
+    ],
+    "description_html": "<p>Browse Dental Care — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Toiletries range.</p>"
+  },
+  {
+    "handle": "deodorant",
+    "title": "Deodorant",
+    "level": "leaf",
+    "parent_menu": "Toiletries",
+    "group": null,
+    "nav_paths": [
+      "Toiletries > Deodorant"
+    ],
+    "description_html": "<p>Browse Deodorant — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Toiletries range.</p>"
+  },
+  {
+    "handle": "dermalogica",
+    "title": "Dermalogica",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Dermalogica"
+    ],
+    "description_html": "<p>Shop the full Dermalogica range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "dermatological-skincare",
+    "title": "Dermatological Skincare",
+    "level": "group",
+    "parent_menu": "Skincare",
+    "group": null,
+    "nav_paths": [
+      "Skincare > Dermatological Skincare"
+    ],
+    "description_html": "<p>Shop Dermatological Skincare at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "diabetes-care",
+    "title": "Diabetes Care",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > Diabetes Care"
+    ],
+    "description_html": "<p>Shop Diabetes Care at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "diarrhoea",
+    "title": "Diarrhoea",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Stomach & Gastrointestinal",
+    "nav_paths": [
+      "Medicines & Health > Stomach & Gastrointestinal > Diarrhoea"
+    ],
+    "description_html": "<p>Browse Diarrhoea — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "difflam",
+    "title": "Difflam",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Difflam"
+    ],
+    "description_html": "<p>Shop the full Difflam range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "dry-eye",
+    "title": "Dry Eye",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Eye & Ear Health",
+    "nav_paths": [
+      "Medicines & Health > Eye & Ear Health > Dry Eye"
+    ],
+    "description_html": "<p>Browse Dry Eye — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "dry-mouth",
+    "title": "Dry Mouth",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Mouth & Oral Care",
+    "nav_paths": [
+      "Medicines & Health > Mouth & Oral Care > Dry Mouth"
+    ],
+    "description_html": "<p>Browse Dry Mouth — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "dry-skin",
+    "title": "Dry Skin",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Dermatological Skincare",
+    "nav_paths": [
+      "Skincare > Dermatological Skincare > Dry Skin"
+    ],
+    "description_html": "<p>Browse Dry Skin — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "dry-skin-eczema-psoriasis",
+    "title": "Dry Skin, Eczema & Psoriasis",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Problem Skin",
+    "nav_paths": [
+      "Skincare > Problem Skin > Dry Skin, Eczema & Psoriasis"
+    ],
+    "description_html": "<p>Browse Dry Skin, Eczema & Psoriasis — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "ducray",
+    "title": "Ducray",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Ducray"
+    ],
+    "description_html": "<p>Shop the full Ducray range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "ear-care-earplugs",
+    "title": "Ear Care & Earplugs",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Eye & Ear Health",
+    "nav_paths": [
+      "Medicines & Health > Eye & Ear Health > Ear Care & Earplugs"
+    ],
+    "description_html": "<p>Browse Ear Care & Earplugs — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "ear-wax-treatments",
+    "title": "Ear Wax Treatments",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Eye & Ear Health",
+    "nav_paths": [
+      "Medicines & Health > Eye & Ear Health > Ear Wax Treatments"
+    ],
+    "description_html": "<p>Browse Ear Wax Treatments — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "elave",
+    "title": "Elave",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Elave"
+    ],
+    "description_html": "<p>Shop the full Elave range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "electrical-healthcare",
+    "title": "Electrical Healthcare",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > Electrical Healthcare"
+    ],
+    "description_html": "<p>Shop Electrical Healthcare at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "elizabeth-arden",
+    "title": "Elizabeth Arden",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Elizabeth Arden"
+    ],
+    "description_html": "<p>Shop the full Elizabeth Arden range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "energy-wellbeing",
+    "title": "Energy & Wellbeing",
+    "level": "leaf",
+    "parent_menu": "Vitamins",
+    "group": null,
+    "nav_paths": [
+      "Vitamins > Energy & Wellbeing"
+    ],
+    "description_html": "<p>Browse Energy & Wellbeing — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
+  },
+  {
+    "handle": "erectile-dysfunction",
+    "title": "Erectile Dysfunction",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Sexual Health",
+    "nav_paths": [
+      "Medicines & Health > Sexual Health > Erectile Dysfunction"
+    ],
+    "description_html": "<p>Browse Erectile Dysfunction — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "eskimo-3",
+    "title": "Eskimo-3",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Eskimo-3"
+    ],
+    "description_html": "<p>Shop the full Eskimo-3 range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "essential-oils",
+    "title": "Essential Oils",
+    "level": "leaf",
+    "parent_menu": "Vitamins",
+    "group": null,
+    "nav_paths": [
+      "Vitamins > Essential Oils"
+    ],
+    "description_html": "<p>Browse Essential Oils — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
+  },
+  {
+    "handle": "eucerin",
+    "title": "Eucerin",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Eucerin"
+    ],
+    "description_html": "<p>Shop the full Eucerin range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "everyday-multivitamins",
+    "title": "Everyday Multivitamins",
+    "level": "leaf",
+    "parent_menu": "Vitamins",
+    "group": null,
+    "nav_paths": [
+      "Vitamins > Everyday Multivitamins"
+    ],
+    "description_html": "<p>Browse Everyday Multivitamins — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
+  },
+  {
+    "handle": "exfoliators",
+    "title": "Exfoliators",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Body Skincare",
+    "nav_paths": [
+      "Skincare > Body Skincare > Exfoliators"
+    ],
+    "description_html": "<p>Browse Exfoliators — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "exfoliators-peels",
+    "title": "Exfoliators & Peels",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Facial Skincare",
+    "nav_paths": [
+      "Skincare > Facial Skincare > Exfoliators & Peels"
+    ],
+    "description_html": "<p>Browse Exfoliators & Peels — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "eye-cream",
+    "title": "Eye Cream",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Facial Skincare",
+    "nav_paths": [
+      "Skincare > Facial Skincare > Eye Cream"
+    ],
+    "description_html": "<p>Browse Eye Cream — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "eye-ear-health",
+    "title": "Eye & Ear Health",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > Eye & Ear Health"
+    ],
+    "description_html": "<p>Shop Eye & Ear Health at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "eye-health",
+    "title": "Eye Health",
+    "level": "leaf",
+    "parent_menu": "Vitamins",
+    "group": null,
+    "nav_paths": [
+      "Vitamins > Eye Health"
+    ],
+    "description_html": "<p>Browse Eye Health — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
+  },
+  {
+    "handle": "eye-infections",
+    "title": "Eye Infections",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Eye & Ear Health",
+    "nav_paths": [
+      "Medicines & Health > Eye & Ear Health > Eye Infections"
+    ],
+    "description_html": "<p>Browse Eye Infections — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "eye-makeup-remover",
+    "title": "Eye Makeup Remover",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Eyes",
+    "nav_paths": [
+      "Beauty > Eyes > Eye Makeup Remover"
+    ],
+    "description_html": "<p>Browse Eye Makeup Remover — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "eyebrows",
+    "title": "Eyebrows",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Eyes",
+    "nav_paths": [
+      "Beauty > Eyes > Eyebrows"
+    ],
+    "description_html": "<p>Browse Eyebrows — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "eyeliner",
+    "title": "Eyeliner",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Eyes",
+    "nav_paths": [
+      "Beauty > Eyes > Eyeliner"
+    ],
+    "description_html": "<p>Browse Eyeliner — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "eyes",
+    "title": "Eyes",
+    "level": "group",
+    "parent_menu": "Beauty",
+    "group": null,
+    "nav_paths": [
+      "Beauty > Eyes"
+    ],
+    "description_html": "<p>Shop Eyes at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "eyeshadow",
+    "title": "Eyeshadow",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Eyes",
+    "nav_paths": [
+      "Beauty > Eyes > Eyeshadow"
+    ],
+    "description_html": "<p>Browse Eyeshadow — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "fabu",
+    "title": "fabÜ",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > fabÜ"
+    ],
+    "description_html": "<p>Shop the full fabÜ range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "face",
+    "title": "Face",
+    "level": "group",
+    "parent_menu": "Beauty",
+    "group": null,
+    "nav_paths": [
+      "Beauty > Face"
+    ],
+    "description_html": "<p>Shop Face at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "face-masks",
+    "title": "Face Masks",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Facial Skincare",
+    "nav_paths": [
+      "Skincare > Facial Skincare > Face Masks"
+    ],
+    "description_html": "<p>Browse Face Masks — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "facial-moisturisers",
+    "title": "Facial Moisturisers",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Facial Skincare",
+    "nav_paths": [
+      "Skincare > Facial Skincare > Facial Moisturisers"
+    ],
+    "description_html": "<p>Browse Facial Moisturisers — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "facial-skincare",
+    "title": "Facial Skincare",
+    "level": "group",
+    "parent_menu": "Skincare",
+    "group": null,
+    "nav_paths": [
+      "Skincare > Facial Skincare"
+    ],
+    "description_html": "<p>Shop Facial Skincare at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "facial-suncare",
+    "title": "Facial Suncare",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Facial Skincare",
+    "nav_paths": [
+      "Skincare > Facial Skincare > Facial Suncare"
+    ],
+    "description_html": "<p>Browse Facial Suncare — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "false-eyelashes",
+    "title": "False Eyelashes",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Eyes",
+    "nav_paths": [
+      "Beauty > Eyes > False Eyelashes"
+    ],
+    "description_html": "<p>Browse False Eyelashes — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "false-nails-nail-wraps",
+    "title": "False Nails & Nail Wraps",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Nails",
+    "nav_paths": [
+      "Beauty > Nails > False Nails & Nail Wraps"
+    ],
+    "description_html": "<p>Browse False Nails & Nail Wraps — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "feminine-care",
+    "title": "Feminine Care",
+    "level": "leaf",
+    "parent_menu": "Toiletries",
+    "group": null,
+    "nav_paths": [
+      "Toiletries > Feminine Care"
+    ],
+    "description_html": "<p>Browse Feminine Care — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Toiletries range.</p>"
+  },
+  {
+    "handle": "fertility-aids-lubricant",
+    "title": "Fertility Aids & Lubricant",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Trying To Conceive",
+    "nav_paths": [
+      "Medicines & Health > Trying To Conceive > Fertility Aids & Lubricant"
+    ],
+    "description_html": "<p>Browse Fertility Aids & Lubricant — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "fertility-pregnancy",
+    "title": "Fertility & Pregnancy",
+    "level": "leaf",
+    "parent_menu": "Vitamins",
+    "group": null,
+    "nav_paths": [
+      "Vitamins > Fertility & Pregnancy"
+    ],
+    "description_html": "<p>Browse Fertility & Pregnancy — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
+  },
+  {
+    "handle": "filorga",
+    "title": "Filorga",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Filorga"
+    ],
+    "description_html": "<p>Shop the full Filorga range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "first-aid",
+    "title": "First Aid",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > First Aid"
+    ],
+    "description_html": "<p>Shop First Aid at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "fish-oils-omegas",
+    "title": "Fish Oils & Omegas",
+    "level": "leaf",
+    "parent_menu": "Vitamins",
+    "group": null,
+    "nav_paths": [
+      "Vitamins > Fish Oils & Omegas"
+    ],
+    "description_html": "<p>Browse Fish Oils & Omegas — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
+  },
+  {
+    "handle": "flexiseq",
+    "title": "Flexiseq",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Flexiseq"
+    ],
+    "description_html": "<p>Shop the full Flexiseq range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "foot-care",
+    "title": "Foot Care",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > Foot Care"
+    ],
+    "description_html": "<p>Shop Foot Care at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "foot-soak-odour-control",
+    "title": "Foot Soak & Odour Control",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Foot Care",
+    "nav_paths": [
+      "Medicines & Health > Foot Care > Foot Soak & Odour Control"
+    ],
+    "description_html": "<p>Browse Foot Soak & Odour Control — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "foundation",
+    "title": "Foundation",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Face",
+    "nav_paths": [
+      "Beauty > Face > Foundation"
+    ],
+    "description_html": "<p>Browse Foundation — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "frezyderm",
+    "title": "Frezyderm",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Frezyderm"
+    ],
+    "description_html": "<p>Shop the full Frezyderm range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "fungal-nail-infection",
+    "title": "Fungal Nail Infection",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Foot Care",
+    "nav_paths": [
+      "Medicines & Health > Foot Care > Fungal Nail Infection"
+    ],
+    "description_html": "<p>Browse Fungal Nail Infection — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "garnier",
+    "title": "Garnier",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Garnier"
+    ],
+    "description_html": "<p>Shop the full Garnier range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "gaviscon",
+    "title": "Gaviscon",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Gaviscon"
+    ],
+    "description_html": "<p>Shop the full Gaviscon range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "gifts-for-her",
+    "title": "Gifts for Her",
+    "level": "leaf",
+    "parent_menu": "Gifting",
+    "group": null,
+    "nav_paths": [
+      "Gifting > Gifts for Her"
+    ],
+    "description_html": "<p>Browse Gifts for Her — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Gifting range.</p>"
+  },
+  {
+    "handle": "gifts-for-him",
+    "title": "Gifts for Him",
+    "level": "leaf",
+    "parent_menu": "Gifting",
+    "group": null,
+    "nav_paths": [
+      "Gifting > Gifts for Him"
+    ],
+    "description_html": "<p>Browse Gifts for Him — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Gifting range.</p>"
+  },
+  {
+    "handle": "gillette",
+    "title": "Gillette",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Gillette"
+    ],
+    "description_html": "<p>Shop the full Gillette range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "gradual-tan",
+    "title": "Gradual Tan",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Tanning",
+    "nav_paths": [
+      "Beauty > Tanning > Gradual Tan"
+    ],
+    "description_html": "<p>Browse Gradual Tan — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "gum-health-gingivitis",
+    "title": "Gum Health & Gingivitis",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Mouth & Oral Care",
+    "nav_paths": [
+      "Medicines & Health > Mouth & Oral Care > Gum Health & Gingivitis"
+    ],
+    "description_html": "<p>Browse Gum Health & Gingivitis — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "haemorrhoids-piles",
+    "title": "Haemorrhoids & Piles",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Stomach & Gastrointestinal",
+    "nav_paths": [
+      "Medicines & Health > Stomach & Gastrointestinal > Haemorrhoids & Piles"
+    ],
+    "description_html": "<p>Browse Haemorrhoids & Piles — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "hair-care",
+    "title": "Hair Care",
+    "level": "leaf",
+    "parent_menu": "Toiletries",
+    "group": null,
+    "nav_paths": [
+      "Toiletries > Hair Care"
+    ],
+    "description_html": "<p>Browse Hair Care — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Toiletries range.</p>"
+  },
+  {
+    "handle": "hair-loss",
+    "title": "Hair Loss",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Sensitive Conditions",
+    "nav_paths": [
+      "Medicines & Health > Sensitive Conditions > Hair Loss"
+    ],
+    "description_html": "<p>Browse Hair Loss — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "hand-cream",
+    "title": "Hand Cream",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Hands & Nails",
+    "nav_paths": [
+      "Skincare > Hands & Nails > Hand Cream"
+    ],
+    "description_html": "<p>Browse Hand Cream — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "hands-nails",
+    "title": "Hands & Nails",
+    "level": "group",
+    "parent_menu": "Skincare",
+    "group": null,
+    "nav_paths": [
+      "Skincare > Hands & Nails"
+    ],
+    "description_html": "<p>Shop Hands & Nails at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "hayfever-allergy",
+    "title": "Hayfever & Allergy",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Cold, Flu & Allergy",
+    "nav_paths": [
+      "Medicines & Health > Cold, Flu & Allergy > Hayfever & Allergy"
+    ],
+    "description_html": "<p>Browse Hayfever & Allergy — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "headlice",
+    "title": "Headlice",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Sensitive Conditions",
+    "nav_paths": [
+      "Medicines & Health > Sensitive Conditions > Headlice"
+    ],
+    "description_html": "<p>Browse Headlice — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "healthcare-medicine-accessories",
+    "title": "Healthcare & Medicine Accessories",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > Healthcare & Medicine Accessories"
+    ],
+    "description_html": "<p>Shop Healthcare & Medicine Accessories at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "healthy-mind-sleeping-aids",
+    "title": "Healthy Mind & Sleeping Aids",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Sleep & Rest",
+    "nav_paths": [
+      "Medicines & Health > Sleep & Rest > Healthy Mind & Sleeping Aids",
+      "Vitamins > Healthy Mind & Sleeping Aids"
+    ],
+    "description_html": "<p>Browse Healthy Mind & Sleeping Aids — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "hearing-aid-batteries",
+    "title": "Hearing Aid Batteries",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Eye & Ear Health",
+    "nav_paths": [
+      "Medicines & Health > Eye & Ear Health > Hearing Aid Batteries"
+    ],
+    "description_html": "<p>Browse Hearing Aid Batteries — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "heart-health",
+    "title": "Heart Health",
+    "level": "leaf",
+    "parent_menu": "Vitamins",
+    "group": null,
+    "nav_paths": [
+      "Vitamins > Heart Health"
+    ],
+    "description_html": "<p>Browse Heart Health — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
+  },
+  {
+    "handle": "herbal-remedies",
+    "title": "Herbal Remedies",
+    "level": "leaf",
+    "parent_menu": "Vitamins",
+    "group": null,
+    "nav_paths": [
+      "Vitamins > Herbal Remedies"
+    ],
+    "description_html": "<p>Browse Herbal Remedies — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
+  },
+  {
+    "handle": "holland-cooper",
+    "title": "Holland Cooper",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Holland Cooper"
+    ],
+    "description_html": "<p>Shop the full Holland Cooper range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "hyalo",
+    "title": "Hyalo",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Hyalo"
+    ],
+    "description_html": "<p>Shop the full Hyalo range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "hydralyte",
+    "title": "Hydralyte",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Hydralyte"
+    ],
+    "description_html": "<p>Shop the full Hydralyte range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "ideal-protein",
+    "title": "Ideal Protein",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Ideal Protein"
+    ],
+    "description_html": "<p>Shop the full Ideal Protein range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "immune-support",
+    "title": "Immune Support",
+    "level": "leaf",
+    "parent_menu": "Vitamins",
+    "group": null,
+    "nav_paths": [
+      "Vitamins > Immune Support"
+    ],
+    "description_html": "<p>Browse Immune Support — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
+  },
+  {
+    "handle": "imodium",
+    "title": "Imodium",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Imodium"
+    ],
+    "description_html": "<p>Shop the full Imodium range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "insect-bites-prevention",
+    "title": "Insect Bites & Prevention",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "First Aid",
+    "nav_paths": [
+      "Medicines & Health > First Aid > Insect Bites & Prevention"
+    ],
+    "description_html": "<p>Browse Insect Bites & Prevention — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "insoles",
+    "title": "Insoles",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Foot Care",
+    "nav_paths": [
+      "Medicines & Health > Foot Care > Insoles"
+    ],
+    "description_html": "<p>Browse Insoles — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "irritated-damaged-skin",
+    "title": "Irritated & Damaged Skin",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Dermatological Skincare",
+    "nav_paths": [
+      "Skincare > Dermatological Skincare > Irritated & Damaged Skin"
+    ],
+    "description_html": "<p>Browse Irritated & Damaged Skin — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "ivax",
+    "title": "Ivax",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Ivax"
+    ],
+    "description_html": "<p>Shop the full Ivax range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "jason",
+    "title": "Jason",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Jason"
+    ],
+    "description_html": "<p>Shop the full Jason range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "johnsons-baby",
+    "title": "Johnson’s Baby",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Johnson’s Baby"
+    ],
+    "description_html": "<p>Shop the full Johnson’s Baby range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "joint-bone-health",
+    "title": "Joint & Bone Health",
+    "level": "leaf",
+    "parent_menu": "Vitamins",
+    "group": null,
+    "nav_paths": [
+      "Vitamins > Joint & Bone Health"
+    ],
+    "description_html": "<p>Browse Joint & Bone Health — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
+  },
+  {
+    "handle": "kerasal",
+    "title": "Kerasal",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Kerasal"
+    ],
+    "description_html": "<p>Shop the full Kerasal range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "kids-vits",
+    "title": "Kids Vits",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Kids Vits"
+    ],
+    "description_html": "<p>Shop the full Kids Vits range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "kiehls",
+    "title": "Kiehl’s",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Kiehl’s"
+    ],
+    "description_html": "<p>Shop the full Kiehl’s range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "la-roche-posay",
+    "title": "La Roche-Posay",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > La Roche-Posay"
+    ],
+    "description_html": "<p>Shop the full La Roche-Posay range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "ladies-fragrance",
+    "title": "Ladies Fragrance",
+    "level": "leaf",
+    "parent_menu": "Fragrance",
+    "group": null,
+    "nav_paths": [
+      "Fragrance > Ladies Fragrance"
+    ],
+    "description_html": "<p>Browse Ladies Fragrance — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Fragrance range.</p>"
+  },
+  {
+    "handle": "ladies-fragrance-sets",
+    "title": "Ladies Fragrance Sets",
+    "level": "leaf",
+    "parent_menu": "Fragrance",
+    "group": null,
+    "nav_paths": [
+      "Fragrance > Ladies Fragrance Sets"
+    ],
+    "description_html": "<p>Browse Ladies Fragrance Sets — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Fragrance range.</p>"
+  },
+  {
+    "handle": "ladies-fragrance-singles",
+    "title": "Ladies Fragrance Singles",
+    "level": "leaf",
+    "parent_menu": "Fragrance",
+    "group": null,
+    "nav_paths": [
+      "Fragrance > Ladies Fragrance Singles"
+    ],
+    "description_html": "<p>Browse Ladies Fragrance Singles — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Fragrance range.</p>"
+  },
+  {
+    "handle": "lamberts",
+    "title": "Lamberts",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Lamberts"
+    ],
+    "description_html": "<p>Shop the full Lamberts range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "liners",
+    "title": "Liners",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Continence Care",
+    "nav_paths": [
+      "Medicines & Health > Continence Care > Liners"
+    ],
+    "description_html": "<p>Browse Liners — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "lip-care",
+    "title": "Lip Care",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Facial Skincare",
+    "nav_paths": [
+      "Skincare > Facial Skincare > Lip Care"
+    ],
+    "description_html": "<p>Browse Lip Care — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "lip-gloss",
+    "title": "Lip Gloss",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Lips",
+    "nav_paths": [
+      "Beauty > Lips > Lip Gloss"
+    ],
+    "description_html": "<p>Browse Lip Gloss — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "lip-liner",
+    "title": "Lip Liner",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Lips",
+    "nav_paths": [
+      "Beauty > Lips > Lip Liner"
+    ],
+    "description_html": "<p>Browse Lip Liner — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "lips",
+    "title": "Lips",
+    "level": "group",
+    "parent_menu": "Beauty",
+    "group": null,
+    "nav_paths": [
+      "Beauty > Lips"
+    ],
+    "description_html": "<p>Shop Lips at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "lipstick",
+    "title": "Lipstick",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Lips",
+    "nav_paths": [
+      "Beauty > Lips > Lipstick"
+    ],
+    "description_html": "<p>Browse Lipstick — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "loreal-paris",
+    "title": "L’Oréal Paris",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > L’Oréal Paris"
+    ],
+    "description_html": "<p>Shop the full L’Oréal Paris range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "lubricants-accessories",
+    "title": "Lubricants & Accessories",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Sexual Health",
+    "nav_paths": [
+      "Medicines & Health > Sexual Health > Lubricants & Accessories"
+    ],
+    "description_html": "<p>Browse Lubricants & Accessories — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "lypsyl",
+    "title": "Lypsyl",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Lypsyl"
+    ],
+    "description_html": "<p>Shop the full Lypsyl range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "macular-degeneration-glaucoma",
+    "title": "Macular Degeneration & Glaucoma",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Eye & Ear Health",
+    "nav_paths": [
+      "Medicines & Health > Eye & Ear Health > Macular Degeneration & Glaucoma"
+    ],
+    "description_html": "<p>Browse Macular Degeneration & Glaucoma — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "makeup-brush-cleaners",
+    "title": "Makeup Brush Cleaners",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Makeup Brushes & Tools",
+    "nav_paths": [
+      "Beauty > Makeup Brushes & Tools > Makeup Brush Cleaners"
+    ],
+    "description_html": "<p>Browse Makeup Brush Cleaners — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "makeup-brushes",
+    "title": "Makeup Brushes",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Makeup Brushes & Tools",
+    "nav_paths": [
+      "Beauty > Makeup Brushes & Tools > Makeup Brushes"
+    ],
+    "description_html": "<p>Browse Makeup Brushes — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "makeup-brushes-tools",
+    "title": "Makeup Brushes & Tools",
+    "level": "group",
+    "parent_menu": "Beauty",
+    "group": null,
+    "nav_paths": [
+      "Beauty > Makeup Brushes & Tools"
+    ],
+    "description_html": "<p>Shop Makeup Brushes & Tools at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "makeup-remover",
+    "title": "Makeup Remover",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Face",
+    "nav_paths": [
+      "Beauty > Face > Makeup Remover"
+    ],
+    "description_html": "<p>Browse Makeup Remover — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "makeup-sponges",
+    "title": "Makeup Sponges",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Makeup Brushes & Tools",
+    "nav_paths": [
+      "Beauty > Makeup Brushes & Tools > Makeup Sponges"
+    ],
+    "description_html": "<p>Browse Makeup Sponges — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "mascara",
+    "title": "Mascara",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Eyes",
+    "nav_paths": [
+      "Beauty > Eyes > Mascara"
+    ],
+    "description_html": "<p>Browse Mascara — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "maternity-care",
+    "title": "Maternity Care",
+    "level": "leaf",
+    "parent_menu": "Mother & Baby",
+    "group": null,
+    "nav_paths": [
+      "Mother & Baby > Maternity Care"
+    ],
+    "description_html": "<p>Browse Maternity Care — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Mother & Baby range.</p>"
+  },
+  {
+    "handle": "maybelline",
+    "title": "Maybelline",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Maybelline"
+    ],
+    "description_html": "<p>Shop the full Maybelline range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "menopause",
+    "title": "Menopause",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Sensitive Conditions",
+    "nav_paths": [
+      "Medicines & Health > Sensitive Conditions > Menopause"
+    ],
+    "description_html": "<p>Browse Menopause — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "mens-fragrance",
+    "title": "Mens Fragrance",
+    "level": "leaf",
+    "parent_menu": "Fragrance",
+    "group": null,
+    "nav_paths": [
+      "Fragrance > Mens Fragrance",
+      "Gifting > Men's Fragrance"
+    ],
+    "description_html": "<p>Browse Mens Fragrance — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Fragrance range.</p>"
+  },
+  {
+    "handle": "mens-fragrance-sets",
+    "title": "Mens Fragrance Sets",
+    "level": "leaf",
+    "parent_menu": "Fragrance",
+    "group": null,
+    "nav_paths": [
+      "Fragrance > Mens Fragrance Sets"
+    ],
+    "description_html": "<p>Browse Mens Fragrance Sets — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Fragrance range.</p>"
+  },
+  {
+    "handle": "mens-fragrance-singles",
+    "title": "Mens Fragrance Singles",
+    "level": "leaf",
+    "parent_menu": "Fragrance",
+    "group": null,
+    "nav_paths": [
+      "Fragrance > Mens Fragrance Singles"
+    ],
+    "description_html": "<p>Browse Mens Fragrance Singles — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Fragrance range.</p>"
+  },
+  {
+    "handle": "mens-grooming",
+    "title": "Men's Grooming",
+    "level": "leaf",
+    "parent_menu": "Toiletries",
+    "group": null,
+    "nav_paths": [
+      "Toiletries > Men's Grooming"
+    ],
+    "description_html": "<p>Browse Men's Grooming — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Toiletries range.</p>"
+  },
+  {
+    "handle": "mens-health",
+    "title": "Men's Health",
+    "level": "leaf",
+    "parent_menu": "Vitamins",
+    "group": null,
+    "nav_paths": [
+      "Vitamins > Men's Health"
+    ],
+    "description_html": "<p>Browse Men's Health — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
+  },
+  {
+    "handle": "metanium",
+    "title": "Metanium",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Metanium"
+    ],
+    "description_html": "<p>Shop the full Metanium range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "mitchum",
+    "title": "Mitchum",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Mitchum"
+    ],
+    "description_html": "<p>Shop the full Mitchum range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "moisturisers",
+    "title": "Moisturisers",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Body Skincare",
+    "nav_paths": [
+      "Skincare > Body Skincare > Moisturisers"
+    ],
+    "description_html": "<p>Browse Moisturisers — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "mouth-oral-care",
+    "title": "Mouth & Oral Care",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > Mouth & Oral Care"
+    ],
+    "description_html": "<p>Shop Mouth & Oral Care at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "mouth-ulcers-cold-sores",
+    "title": "Mouth Ulcers & Cold Sores",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Mouth & Oral Care",
+    "nav_paths": [
+      "Medicines & Health > Mouth & Oral Care > Mouth Ulcers & Cold Sores"
+    ],
+    "description_html": "<p>Browse Mouth Ulcers & Cold Sores — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "muscle-joint-pain",
+    "title": "Muscle & Joint Pain",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Pain Relief",
+    "nav_paths": [
+      "Medicines & Health > Pain Relief > Muscle & Joint Pain"
+    ],
+    "description_html": "<p>Browse Muscle & Joint Pain — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "mustela",
+    "title": "Mustela",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Mustela"
+    ],
+    "description_html": "<p>Shop the full Mustela range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "nail-care",
+    "title": "Nail Care",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Nails",
+    "nav_paths": [
+      "Beauty > Nails > Nail Care"
+    ],
+    "description_html": "<p>Browse Nail Care — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "nail-polish",
+    "title": "Nail Polish",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Nails",
+    "nav_paths": [
+      "Beauty > Nails > Nail Polish"
+    ],
+    "description_html": "<p>Browse Nail Polish — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "nail-polish-remover",
+    "title": "Nail Polish Remover",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Nails",
+    "nav_paths": [
+      "Beauty > Nails > Nail Polish Remover"
+    ],
+    "description_html": "<p>Browse Nail Polish Remover — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "nails",
+    "title": "Nails",
+    "level": "group",
+    "parent_menu": "Beauty",
+    "group": null,
+    "nav_paths": [
+      "Beauty > Nails"
+    ],
+    "description_html": "<p>Shop Nails at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "natures-plus",
+    "title": "Nature’s Plus",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Nature’s Plus"
+    ],
+    "description_html": "<p>Shop the full Nature’s Plus range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "nausea-acid-indigestion-reflux",
+    "title": "Nausea, Acid Indigestion & Reflux",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Stomach & Gastrointestinal",
+    "nav_paths": [
+      "Medicines & Health > Stomach & Gastrointestinal > Nausea, Acid Indigestion & Reflux"
+    ],
+    "description_html": "<p>Browse Nausea, Acid Indigestion & Reflux — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "needles-lancets",
+    "title": "Needles & Lancets",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Diabetes Care",
+    "nav_paths": [
+      "Medicines & Health > Diabetes Care > Needles & Lancets"
+    ],
+    "description_html": "<p>Browse Needles & Lancets — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "neutrogena",
+    "title": "Neutrogena",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Neutrogena"
+    ],
+    "description_html": "<p>Shop the full Neutrogena range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "nicotine-gum",
+    "title": "Nicotine Gum",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Nicotine Replacement",
+    "nav_paths": [
+      "Medicines & Health > Nicotine Replacement > Nicotine Gum"
+    ],
+    "description_html": "<p>Browse Nicotine Gum — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "nicotine-lozenges",
+    "title": "Nicotine Lozenges",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Nicotine Replacement",
+    "nav_paths": [
+      "Medicines & Health > Nicotine Replacement > Nicotine Lozenges"
+    ],
+    "description_html": "<p>Browse Nicotine Lozenges — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "nicotine-patches",
+    "title": "Nicotine Patches",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Nicotine Replacement",
+    "nav_paths": [
+      "Medicines & Health > Nicotine Replacement > Nicotine Patches"
+    ],
+    "description_html": "<p>Browse Nicotine Patches — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "nicotine-replacement",
+    "title": "Nicotine Replacement",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > Nicotine Replacement"
+    ],
+    "description_html": "<p>Shop Nicotine Replacement at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "nicotine-sprays",
+    "title": "Nicotine Sprays",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Nicotine Replacement",
+    "nav_paths": [
+      "Medicines & Health > Nicotine Replacement > Nicotine Sprays"
+    ],
+    "description_html": "<p>Browse Nicotine Sprays — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "nivea",
+    "title": "NIVEA",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > NIVEA"
+    ],
+    "description_html": "<p>Shop the full NIVEA range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "nizoral",
+    "title": "Nizoral",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Nizoral"
+    ],
+    "description_html": "<p>Shop the full Nizoral range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "nuk",
+    "title": "NUK",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > NUK"
+    ],
+    "description_html": "<p>Shop the full NUK range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "nurofen",
+    "title": "Nurofen",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Nurofen"
+    ],
+    "description_html": "<p>Shop the full Nurofen range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "odour-control-barrier-creams",
+    "title": "Odour Control & Barrier Creams",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Continence Care",
+    "nav_paths": [
+      "Medicines & Health > Continence Care > Odour Control & Barrier Creams"
+    ],
+    "description_html": "<p>Browse Odour Control & Barrier Creams — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "optibac",
+    "title": "OptiBac",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > OptiBac"
+    ],
+    "description_html": "<p>Shop the full OptiBac range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "oral-b",
+    "title": "Oral-B",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Oral-B"
+    ],
+    "description_html": "<p>Shop the full Oral-B range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "otrivine",
+    "title": "Otrivine",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Otrivine"
+    ],
+    "description_html": "<p>Shop the full Otrivine range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "ovulation-tests",
+    "title": "Ovulation Tests",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Trying To Conceive",
+    "nav_paths": [
+      "Medicines & Health > Trying To Conceive > Ovulation Tests"
+    ],
+    "description_html": "<p>Browse Ovulation Tests — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "oximeters-weighing-scales",
+    "title": "Oximeters & Weighing Scales",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Electrical Healthcare",
+    "nav_paths": [
+      "Medicines & Health > Electrical Healthcare > Oximeters & Weighing Scales"
+    ],
+    "description_html": "<p>Browse Oximeters & Weighing Scales — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "pads",
+    "title": "Pads",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Continence Care",
+    "nav_paths": [
+      "Medicines & Health > Continence Care > Pads"
+    ],
+    "description_html": "<p>Browse Pads — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "pain-relief",
+    "title": "Pain Relief",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > Pain Relief"
+    ],
+    "description_html": "<p>Shop Pain Relief at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "pain-relief-headache",
+    "title": "Pain Relief & Headache",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Pain Relief",
+    "nav_paths": [
+      "Medicines & Health > Pain Relief > Pain Relief & Headache"
+    ],
+    "description_html": "<p>Browse Pain Relief & Headache — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "panadol",
+    "title": "Panadol",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Panadol"
+    ],
+    "description_html": "<p>Shop the full Panadol range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "pants",
+    "title": "Pants",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Continence Care",
+    "nav_paths": [
+      "Medicines & Health > Continence Care > Pants"
+    ],
+    "description_html": "<p>Browse Pants — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "pharmaton",
+    "title": "Pharmaton",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Pharmaton"
+    ],
+    "description_html": "<p>Shop the full Pharmaton range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "piriton",
+    "title": "Piriton",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Piriton"
+    ],
+    "description_html": "<p>Shop the full Piriton range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "piz-buin",
+    "title": "Piz Buin",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Piz Buin"
+    ],
+    "description_html": "<p>Shop the full Piz Buin range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "powders-primers",
+    "title": "Powders & Primers",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Face",
+    "nav_paths": [
+      "Beauty > Face > Powders & Primers"
+    ],
+    "description_html": "<p>Browse Powders & Primers — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "pregnancy-tests",
+    "title": "Pregnancy Tests",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Trying To Conceive",
+    "nav_paths": [
+      "Medicines & Health > Trying To Conceive > Pregnancy Tests"
+    ],
+    "description_html": "<p>Browse Pregnancy Tests — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "prep-maintain",
+    "title": "Prep & Maintain",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Tanning",
+    "nav_paths": [
+      "Beauty > Tanning > Prep & Maintain"
+    ],
+    "description_html": "<p>Browse Prep & Maintain — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "probiotics-digestive-health",
+    "title": "Probiotics & Digestive Health",
+    "level": "leaf",
+    "parent_menu": "Vitamins",
+    "group": null,
+    "nav_paths": [
+      "Vitamins > Probiotics & Digestive Health"
+    ],
+    "description_html": "<p>Browse Probiotics & Digestive Health — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
+  },
+  {
+    "handle": "problem-skin",
+    "title": "Problem Skin",
+    "level": "group",
+    "parent_menu": "Skincare",
+    "group": null,
+    "nav_paths": [
+      "Skincare > Problem Skin"
+    ],
+    "description_html": "<p>Shop Problem Skin at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "proven",
+    "title": "Proven",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Proven"
+    ],
+    "description_html": "<p>Shop the full Proven range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "quies",
+    "title": "Quies",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Quies"
+    ],
+    "description_html": "<p>Shop the full Quies range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "rennie",
+    "title": "Rennie",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Rennie"
+    ],
+    "description_html": "<p>Shop the full Rennie range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "rescue-remedy",
+    "title": "Rescue Remedy",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Rescue Remedy"
+    ],
+    "description_html": "<p>Shop the full Rescue Remedy range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "revive-active",
+    "title": "Revive Active",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Revive Active"
+    ],
+    "description_html": "<p>Shop the full Revive Active range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "roc",
+    "title": "Roc",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Roc"
+    ],
+    "description_html": "<p>Shop the full Roc range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "sculpted-by-aimee",
+    "title": "Sculpted by Aimee",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Sculpted by Aimee"
+    ],
+    "description_html": "<p>Shop the full Sculpted by Aimee range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "self-tan",
+    "title": "Self Tan",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Tanning",
+    "nav_paths": [
+      "Beauty > Tanning > Self Tan"
+    ],
+    "description_html": "<p>Browse Self Tan — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "self-testing-kits",
+    "title": "Self Testing Kits",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > Self Testing Kits"
+    ],
+    "description_html": "<p>Shop Self Testing Kits at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "sensitive-conditions",
+    "title": "Sensitive Conditions",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > Sensitive Conditions"
+    ],
+    "description_html": "<p>Shop Sensitive Conditions at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "sensitive-skin",
+    "title": "Sensitive Skin",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Dermatological Skincare",
+    "nav_paths": [
+      "Skincare > Dermatological Skincare > Sensitive Skin"
+    ],
+    "description_html": "<p>Browse Sensitive Skin — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "sensodyne",
+    "title": "Sensodyne",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Sensodyne"
+    ],
+    "description_html": "<p>Shop the full Sensodyne range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "serums-oils",
+    "title": "Serums & Oils",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Facial Skincare",
+    "nav_paths": [
+      "Skincare > Facial Skincare > Serums & Oils"
+    ],
+    "description_html": "<p>Browse Serums & Oils — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "sexual-health",
+    "title": "Sexual Health",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > Sexual Health"
+    ],
+    "description_html": "<p>Shop Sexual Health at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "skin-hair-nails",
+    "title": "Skin, Hair & Nails",
+    "level": "leaf",
+    "parent_menu": "Vitamins",
+    "group": null,
+    "nav_paths": [
+      "Vitamins > Skin, Hair & Nails"
+    ],
+    "description_html": "<p>Browse Skin, Hair & Nails — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
+  },
+  {
+    "handle": "skintags-warts-veruccas",
+    "title": "Skintags, Warts & Veruccas",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Sensitive Conditions",
+    "nav_paths": [
+      "Medicines & Health > Sensitive Conditions > Skintags, Warts & Veruccas"
+    ],
+    "description_html": "<p>Browse Skintags, Warts & Veruccas — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "sleep-rest",
+    "title": "Sleep & Rest",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > Sleep & Rest"
+    ],
+    "description_html": "<p>Shop Sleep & Rest at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "slimming",
+    "title": "Slimming",
+    "level": "leaf",
+    "parent_menu": "Vitamins",
+    "group": null,
+    "nav_paths": [
+      "Vitamins > Slimming"
+    ],
+    "description_html": "<p>Browse Slimming — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
+  },
+  {
+    "handle": "solgar",
+    "title": "Solgar",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Solgar"
+    ],
+    "description_html": "<p>Shop the full Solgar range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "sore-throat",
+    "title": "Sore Throat",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Cold, Flu & Allergy",
+    "nav_paths": [
+      "Medicines & Health > Cold, Flu & Allergy > Sore Throat"
+    ],
+    "description_html": "<p>Browse Sore Throat — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "sport",
+    "title": "Sport",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > Sport"
+    ],
+    "description_html": "<p>Shop Sport at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "stomach-gastrointestinal",
+    "title": "Stomach & Gastrointestinal",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > Stomach & Gastrointestinal"
+    ],
+    "description_html": "<p>Shop Stomach & Gastrointestinal at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "strepsils",
+    "title": "Strepsils",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Strepsils"
+    ],
+    "description_html": "<p>Shop the full Strepsils range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "sudocrem",
+    "title": "Sudocrem",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Sudocrem"
+    ],
+    "description_html": "<p>Shop the full Sudocrem range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "sugar-level-maintenance",
+    "title": "Sugar Level Maintenance",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Diabetes Care",
+    "nav_paths": [
+      "Medicines & Health > Diabetes Care > Sugar Level Maintenance"
+    ],
+    "description_html": "<p>Browse Sugar Level Maintenance — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "sun",
+    "title": "Sun",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Dermatological Skincare",
+    "nav_paths": [
+      "Skincare > Dermatological Skincare > Sun"
+    ],
+    "description_html": "<p>Browse Sun — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "supports",
+    "title": "Supports",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "First Aid",
+    "nav_paths": [
+      "Medicines & Health > First Aid > Supports"
+    ],
+    "description_html": "<p>Browse Supports — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "tan-luxe",
+    "title": "Tan-Luxe",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Tan-Luxe"
+    ],
+    "description_html": "<p>Shop the full Tan-Luxe range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "tan-remover",
+    "title": "Tan Remover",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Tanning",
+    "nav_paths": [
+      "Beauty > Tanning > Tan Remover"
+    ],
+    "description_html": "<p>Browse Tan Remover — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "tanning",
+    "title": "Tanning",
+    "level": "group",
+    "parent_menu": "Beauty",
+    "group": null,
+    "nav_paths": [
+      "Beauty > Tanning"
+    ],
+    "description_html": "<p>Shop Tanning at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "tanning-mitts",
+    "title": "Tanning Mitts",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Tanning",
+    "nav_paths": [
+      "Beauty > Tanning > Tanning Mitts"
+    ],
+    "description_html": "<p>Browse Tanning Mitts — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "teething",
+    "title": "Teething",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Mouth & Oral Care",
+    "nav_paths": [
+      "Medicines & Health > Mouth & Oral Care > Teething"
+    ],
+    "description_html": "<p>Browse Teething — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "tepe",
+    "title": "TePe",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > TePe"
+    ],
+    "description_html": "<p>Shop the full TePe range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "test-strips-blood-glucose-monitors",
+    "title": "Test Strips & Blood Glucose Monitors",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Diabetes Care",
+    "nav_paths": [
+      "Medicines & Health > Diabetes Care > Test Strips & Blood Glucose Monitors"
+    ],
+    "description_html": "<p>Browse Test Strips & Blood Glucose Monitors — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "the-ordinary",
+    "title": "The Ordinary",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > The Ordinary"
+    ],
+    "description_html": "<p>Shop the full The Ordinary range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "thrush-antifungal",
+    "title": "Thrush & Antifungal",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Sensitive Conditions",
+    "nav_paths": [
+      "Medicines & Health > Sensitive Conditions > Thrush & Antifungal"
+    ],
+    "description_html": "<p>Browse Thrush & Antifungal — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "tiger-balm",
+    "title": "Tiger Balm",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Tiger Balm"
+    ],
+    "description_html": "<p>Shop the full Tiger Balm range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "tinted-moisturiser",
+    "title": "Tinted Moisturiser",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Face",
+    "nav_paths": [
+      "Beauty > Face > Tinted Moisturiser"
+    ],
+    "description_html": "<p>Browse Tinted Moisturiser — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "toe-nail-care",
+    "title": "Toe Nail Care",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Foot Care",
+    "nav_paths": [
+      "Medicines & Health > Foot Care > Toe Nail Care"
+    ],
+    "description_html": "<p>Browse Toe Nail Care — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "toner",
+    "title": "Toner",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Facial Skincare",
+    "nav_paths": [
+      "Skincare > Facial Skincare > Toner"
+    ],
+    "description_html": "<p>Browse Toner — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "travel",
+    "title": "Travel",
+    "level": "leaf",
+    "parent_menu": "Toiletries",
+    "group": null,
+    "nav_paths": [
+      "Toiletries > Travel"
+    ],
+    "description_html": "<p>Browse Travel — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Toiletries range.</p>"
+  },
+  {
+    "handle": "travel-sickness",
+    "title": "Travel Sickness",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Stomach & Gastrointestinal",
+    "nav_paths": [
+      "Medicines & Health > Stomach & Gastrointestinal > Travel Sickness"
+    ],
+    "description_html": "<p>Browse Travel Sickness — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "treatments",
+    "title": "Treatments",
+    "level": "leaf",
+    "parent_menu": "Skincare",
+    "group": "Facial Skincare",
+    "nav_paths": [
+      "Skincare > Facial Skincare > Treatments"
+    ],
+    "description_html": "<p>Browse Treatments — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
+  },
+  {
+    "handle": "trying-to-conceive",
+    "title": "Trying To Conceive",
+    "level": "group",
+    "parent_menu": "Medicines & Health",
+    "group": null,
+    "nav_paths": [
+      "Medicines & Health > Trying To Conceive"
+    ],
+    "description_html": "<p>Shop Trying To Conceive at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+  },
+  {
+    "handle": "tweezers",
+    "title": "Tweezers",
+    "level": "leaf",
+    "parent_menu": "Beauty",
+    "group": "Beauty Accessories",
+    "nav_paths": [
+      "Beauty > Beauty Accessories > Tweezers"
+    ],
+    "description_html": "<p>Browse Tweezers — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
+  },
+  {
+    "handle": "udos-choice",
+    "title": "Udo’s Choice",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Udo’s Choice"
+    ],
+    "description_html": "<p>Shop the full Udo’s Choice range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "uriage",
+    "title": "Uriage",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Uriage"
+    ],
+    "description_html": "<p>Shop the full Uriage range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "verucca",
+    "title": "Verucca",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Foot Care",
+    "nav_paths": [
+      "Medicines & Health > Foot Care > Verucca"
+    ],
+    "description_html": "<p>Browse Verucca — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "viagra-connect",
+    "title": "Viagra Connect",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Viagra Connect"
+    ],
+    "description_html": "<p>Shop the full Viagra Connect range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "vichy",
+    "title": "Vichy",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Vichy"
+    ],
+    "description_html": "<p>Shop the full Vichy range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "vitabiotics",
+    "title": "Vitabiotics",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Vitabiotics"
+    ],
+    "description_html": "<p>Shop the full Vitabiotics range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "voltarol",
+    "title": "Voltarol",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Voltarol"
+    ],
+    "description_html": "<p>Shop the full Voltarol range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "warmup-recovery",
+    "title": "Warmup & Recovery",
+    "level": "leaf",
+    "parent_menu": "Medicines & Health",
+    "group": "Sport",
+    "nav_paths": [
+      "Medicines & Health > Sport > Warmup & Recovery"
+    ],
+    "description_html": "<p>Browse Warmup & Recovery — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
+  },
+  {
+    "handle": "weleda",
+    "title": "Weleda",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Weleda"
+    ],
+    "description_html": "<p>Shop the full Weleda range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "wild-nutrition",
+    "title": "Wild Nutrition",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Wild Nutrition"
+    ],
+    "description_html": "<p>Shop the full Wild Nutrition range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "womens-fragrance",
+    "title": "Women's Fragrance",
+    "level": "leaf",
+    "parent_menu": "Gifting",
+    "group": null,
+    "nav_paths": [
+      "Gifting > Women's Fragrance"
+    ],
+    "description_html": "<p>Browse Women's Fragrance — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Gifting range.</p>"
+  },
+  {
+    "handle": "womens-health",
+    "title": "Women's Health",
+    "level": "leaf",
+    "parent_menu": "Vitamins",
+    "group": null,
+    "nav_paths": [
+      "Vitamins > Women's Health"
+    ],
+    "description_html": "<p>Browse Women's Health — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
+  },
+  {
+    "handle": "xls-medical",
+    "title": "Xls Medical",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Xls Medical"
+    ],
+    "description_html": "<p>Shop the full Xls Medical range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "yes-organic",
+    "title": "Yes Organic",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Yes Organic"
+    ],
+    "description_html": "<p>Shop the full Yes Organic range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "zerobase",
+    "title": "Zerobase",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Zerobase"
+    ],
+    "description_html": "<p>Shop the full Zerobase range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "zirtek",
+    "title": "Zirtek",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Zirtek"
+    ],
+    "description_html": "<p>Shop the full Zirtek range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  },
+  {
+    "handle": "zovirax",
+    "title": "Zovirax",
+    "level": "brand",
+    "parent_menu": "Brands",
+    "group": null,
+    "nav_paths": [
+      "Brands > Zovirax"
+    ],
+    "description_html": "<p>Shop the full Zovirax range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
+  }
+]

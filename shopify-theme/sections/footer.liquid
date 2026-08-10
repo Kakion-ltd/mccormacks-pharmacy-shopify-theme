@@ -1,0 +1,98 @@
+<footer style="width:100%; background:#ffffff;">
+  {% # Newsletter band %}
+  <div style="width:100%; background:#3f6b4f; position:relative; overflow:hidden;">
+    <div style="position:absolute; top:-60%; right:-6%; width:340px; height:340px; border-radius:999px; background:rgba(255,255,255,.04);"></div>
+    <div style="position:absolute; bottom:-70%; right:14%; width:220px; height:220px; border-radius:999px; background:rgba(255,255,255,.03);"></div>
+    <div class="ftr-newsletter" style="max-width:1440px; margin:0 auto; height:120px; padding:0 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 48px; position:relative;">
+      <div style="flex:1 1 340px;">
+        <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#ffffff; font-size:clamp(19px,1.9vw,24px); margin:0 0 4px; line-height:1.15;">{{ section.settings.newsletter_heading }}</h3>
+        <p style="margin:0; color:rgba(255,255,255,.78); font-size:13.5px; line-height:1.4;">{{ section.settings.newsletter_subtext }}</p>
+      </div>
+      <div style="flex:1 1 340px; max-width:400px; border-radius:9px; background:#ffffff; padding:3px;">
+      {% form 'customer', style: 'display:flex; gap:0;' %}
+        {% if form.posted_successfully? %}
+          <p style="margin:0; padding:10px 14px; color:#5E8A1F; font-weight:700; font-size:13.5px;">Thanks — you're subscribed!</p>
+        {% else %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input type="email" name="contact[email]" required placeholder="Enter your email address" style="flex:1; min-width:0; border:none; outline:none; padding:10px 14px; font-family:inherit; font-size:13.5px; color:#2A2B2A; background:transparent;">
+          <button type="submit" class="hov-bg-accent-dk" style="flex:0 0 auto; border:none; border-radius:7px; background:#92C83F; color:#ffffff; font-family:inherit; font-weight:700; font-size:13.5px; letter-spacing:.02em; padding:0 20px; cursor:pointer;">Subscribe</button>
+        {% endif %}
+      {% endform %}
+      </div>
+    </div>
+  </div>
+
+  {% # Main columns %}
+  <div class="ftr-cols" style="max-width:1440px; margin:0 auto; padding:48px 30px 40px; display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr 1fr; gap:40px;">
+    <div style="min-width:200px;">
+      <a href="{{ routes.root_url }}" aria-label="{{ shop.name }} — home" style="display:block; width:fit-content; margin-bottom:20px;">
+        <img src="{{ 'mccormacks-logo.png' | asset_url }}" alt="{{ shop.name }}" width="247" height="79" style="width:247px; max-width:100%; height:auto; display:block;">
+      </a>
+      <p style="margin:0 0 12px; font-size:14px; line-height:1.6; color:#5a6153; max-width:280px;">{{ section.settings.about_text }}</p>
+      <a href="tel:{{ settings.phone | remove: ' ' }}" style="display:flex; align-items:center; gap:9px; color:#3f6b4f; font-weight:700; font-size:14px; margin-bottom:20px;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path></svg>
+        {{ settings.phone }}
+      </a>
+      <div style="display:flex; gap:10px;">
+        {%- if section.settings.facebook_url != blank -%}<a href="{{ section.settings.facebook_url }}" aria-label="Facebook" class="hov-bg-accent" style="width:36px; height:36px; border-radius:999px; background:#ffffff; color:#3f6b4f; display:flex; align-items:center; justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l.5-3.5H13V8.3c0-1 .3-1.7 1.8-1.7H17V3.5c-.3 0-1.4-.1-2.6-.1-2.6 0-4.4 1.6-4.4 4.5v2.6H7V14h3v8h3z"></path></svg></a>{%- endif -%}
+        {%- if section.settings.instagram_url != blank -%}<a href="{{ section.settings.instagram_url }}" aria-label="Instagram" class="hov-bg-accent" style="width:36px; height:36px; border-radius:999px; background:#ffffff; color:#3f6b4f; display:flex; align-items:center; justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg></a>{%- endif -%}
+        {%- if section.settings.tiktok_url != blank -%}<a href="{{ section.settings.tiktok_url }}" aria-label="TikTok" class="hov-bg-accent" style="width:36px; height:36px; border-radius:999px; background:#ffffff; color:#3f6b4f; display:flex; align-items:center; justify-content:center;"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3v14.2a2.8 2.8 0 1 1-2-2.7v-3.1a6 6 0 1 0 5 5.9V8.7a6.7 6.7 0 0 0 4-1.4V4.2a3.7 3.7 0 0 1-4-2.2z"></path></svg></a>{%- endif -%}
+      </div>
+    </div>
+    {%- assign col_data = 'Shop;shop;All Brands|/pages/brands,New In|/collections/new-in,Bundles|/collections/bundles,Gift Vouchers|/pages/gift-vouchers,Sale|/collections/sale__Customer Care;care;About Us|/pages/about-us,Contact Us|/pages/contact-us,Loyalty Rewards Club|/pages/loyalty-rewards-club,Blog|/blogs/health-hub__Shipping & Returns;ship;Shipping & Free Delivery|/pages/shipping,Returns & Refunds|/pages/returns,Click & Collect|/pages/click-and-collect__Policies;policies;Terms & Conditions|/pages/terms-and-conditions,Privacy Policy|/pages/privacy-policy,Cookie Policy|/pages/cookie-policy,Registered Internet Supply Pharmacy|/pages/internet-supply-pharmacy,Withdraw From Contract|/pages/withdraw-from-contract' | split: '__' -%}
+    {%- for col in col_data -%}
+      {%- assign parts = col | split: ';' -%}
+      <div>
+        <h4 data-acc-toggle="{{ parts[1] }}" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">{{ parts[0] }}<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <div class="ftr-acc-content" data-acc-content="{{ parts[1] }}" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;">
+          {%- assign links = parts[2] | split: ',' -%}
+          {%- for link in links -%}
+            {%- assign bits = link | split: '|' -%}
+            <a href="{{ bits[1] }}">{{ bits[0] }}</a>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <div>
+    <div class="ftr-psi" style="max-width:1440px; margin:0 auto; padding:8px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end;">
+      <a href="/pages/internet-supply-pharmacy" aria-label="PSI — verify this pharmacy is operating legally" style="display:flex; align-items:center; margin-right:15px; margin-top:-40px;">
+        <img src="{{ 'psi-logo.avif' | asset_url }}" alt="PSI internet supply registration" width="176" height="78" style="height:78px; width:auto; display:block; border-radius:4px;">
+      </a>
+    </div>
+  </div>
+
+  <div style="border-top:1px solid #e6e7e4;">
+    <div class="ftr-bottom" style="max-width:1440px; margin:0 auto; padding:18px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px; font-size:13px; color:#8b9182;">
+      <div class="ftr-copyright">Copyright © {{ 'now' | date: '%Y' }} {{ shop.name }}</div>
+      <div class="ftr-payments" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
+        <span style="font-size:12.5px; color:#8b9182; margin-right:2px;">We accept</span>
+        {%- for type in shop.enabled_payment_types -%}
+          <span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;">{{ type | payment_type_svg_tag: style: 'height:20px; width:auto;' }}</span>
+        {%- endfor -%}
+      </div>
+      <a href="/pages/terms-and-conditions" class="ftr-terms" style="display:none; color:#8b9182;">Terms &amp; Conditions</a>
+      <div class="ftr-builtby" style="display:flex; align-items:center; gap:22px; flex-wrap:wrap;">
+        <a href="https://kakion.com" style="display:flex; align-items:center; gap:1px; color:#8b9182;">
+          <span style="font-size:12px;">Built by</span>
+          <img src="{{ 'kakion-logo-black.png' | asset_url }}" alt="Kakion" width="80" height="22" style="height:21.6px; width:auto; display:block;">
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "text", "id": "newsletter_heading", "label": "Newsletter heading", "default": "Join the McCormack's family" },
+    { "type": "text", "id": "newsletter_subtext", "label": "Newsletter subtext", "default": "Health tips, exclusive offers & 10% off your first order." },
+    { "type": "textarea", "id": "about_text", "label": "About text", "default": "Ireland's trusted family pharmacy since 2010 — expert care online and across our seven stores." },
+    { "type": "url", "id": "facebook_url", "label": "Facebook URL" },
+    { "type": "url", "id": "instagram_url", "label": "Instagram URL" },
+    { "type": "url", "id": "tiktok_url", "label": "TikTok URL" }
+  ]
+}
+{% endschema %}

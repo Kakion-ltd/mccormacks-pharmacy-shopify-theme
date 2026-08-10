@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-internet-supply-pharmacy",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

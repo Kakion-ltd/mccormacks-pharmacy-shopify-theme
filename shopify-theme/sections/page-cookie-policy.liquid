@@ -1,0 +1,77 @@
+{% render 'trust-row' %}
+
+<section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
+  <div class="legal-wrap" style="display:flex; gap:56px; align-items:flex-start;">
+
+    {% render 'legal-sidebar', active: 'cookie', updated_date: section.settings.updated_date, show_help: section.settings.show_help_card, phone: section.settings.help_phone %}
+
+    <div style="flex:1; min-width:0; max-width:820px;">
+      <div>
+      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 14px;">
+        <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><span>Policies</span><span>/</span><span style="color:#3a3d39; font-weight:700;">Cookie Policy</span>
+      </nav>
+      <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(30px,3.4vw,42px); line-height:1.08; margin:0 0 14px;">{{ section.settings.heading }}</h1>
+      <p style="margin:0 0 28px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
+      <div style="height:1px; background:#e6e7e4;"></div>
+      <div style="display:flex; gap:14px; align-items:flex-start; background:#fdf6e9; border:1px solid #f0e2c4; border-radius:14px; padding:18px 20px; margin:0 0 24px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#c98a1b" style="flex:0 0 auto; margin-top:2px;"><path d="M12 2 1.5 21h21L12 2Zm0 5.5 6.6 12H5.4L12 7.5Zm-1 3v4.5h2V10.5h-2Zm0 5.8v2h2v-2h-2Z"></path></svg>
+        <div>
+          <div style="font-weight:800; font-size:16px; color:#8a6210; margin-bottom:4px;">Draft copy</div>
+          <div style="font-size:14.5px; line-height:1.65; color:#5c4a24;">This page uses placeholder wording. Please supply the live cookie policy text and cookie list so it can be dropped in.</div>
+        </div>
+      </div><h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(21px,2.2vw,27px); line-height:1.2; margin:36px 0 12px;">The cookies we use</h2>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin:0 0 10px;">
+        <div style="border:1px solid #e6e7e4; border-radius:14px; padding:22px 24px; background:#fbfcfa;">
+          <div style="display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; color:#3f6b4f;">Strictly necessary</span>
+            <span style="font-size:11.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; padding:4px 9px; border-radius:6px; background:#e3edd4; color:#3f6a17;">Always on</span>
+          </div>
+          <div style="font-size:14.5px; line-height:1.65; color:#3a3d39; margin-bottom:10px;">Keep you logged in, remember what is in your basket, and process checkout securely. The site cannot work without them.</div>
+          <div style="font-size:13.5px; line-height:1.6; color:#5d6159; border-top:1px solid #eceee9; padding-top:10px;">Session, cart and security tokens.</div>
+        </div>
+        <div style="border:1px solid #e6e7e4; border-radius:14px; padding:22px 24px; background:#fbfcfa;">
+          <div style="display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; color:#3f6b4f;">Preferences</span>
+            <span style="font-size:11.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; padding:4px 9px; border-radius:6px; background:#f4f5f2; color:#6b7065;">Optional</span>
+          </div>
+          <div style="font-size:14.5px; line-height:1.65; color:#3a3d39; margin-bottom:10px;">Remember choices such as your selected store and whether you have dismissed a banner.</div>
+          <div style="font-size:13.5px; line-height:1.6; color:#5d6159; border-top:1px solid #eceee9; padding-top:10px;">Store selection, cookie consent record.</div>
+        </div>
+        <div style="border:1px solid #e6e7e4; border-radius:14px; padding:22px 24px; background:#fbfcfa;">
+          <div style="display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; color:#3f6b4f;">Analytics</span>
+            <span style="font-size:11.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; padding:4px 9px; border-radius:6px; background:#f4f5f2; color:#6b7065;">Optional</span>
+          </div>
+          <div style="font-size:14.5px; line-height:1.65; color:#3a3d39; margin-bottom:10px;">Tell us which pages are used, where people leave, and what to improve.</div>
+          <div style="font-size:13.5px; line-height:1.6; color:#5d6159; border-top:1px solid #eceee9; padding-top:10px;">Google Analytics.</div>
+        </div>
+        <div style="border:1px solid #e6e7e4; border-radius:14px; padding:22px 24px; background:#fbfcfa;">
+          <div style="display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; color:#3f6b4f;">Marketing &amp; personalisation</span>
+            <span style="font-size:11.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; padding:4px 9px; border-radius:6px; background:#f4f5f2; color:#6b7065;">Optional</span>
+          </div>
+          <div style="font-size:14.5px; line-height:1.65; color:#3a3d39; margin-bottom:10px;">Let us show relevant products, personalise offers, and measure whether our advertising works.</div>
+          <div style="font-size:13.5px; line-height:1.6; color:#5d6159; border-top:1px solid #eceee9; padding-top:10px;">Facebook Pixel, Google Ad Services, Doubleclick, AdRoll, Nosto.</div>
+        </div>
+      </div><h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(21px,2.2vw,27px); line-height:1.2; margin:36px 0 12px;">Managing your choices</h2><p style="margin:0 0 14px; font-size:15.5px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">You can accept or reject optional cookies when you first visit, and change your mind at any time by reopening cookie settings from the link in our footer. Rejecting optional cookies will not affect your ability to browse or order.</p><h3 style="font-weight:800; font-size:16.5px; color:#2A2B2A; margin:24px 0 8px;">Browser controls</h3><ul style="margin:0 0 16px; padding-left:4px; font-size:15.5px; line-height:1.7; color:#3a3d39; list-style:none; display:flex; flex-direction:column; gap:9px;"><li style="display:flex; gap:11px; align-items:flex-start;"><span style="flex:0 0 auto; margin-top:8px; width:7px; height:7px; border-radius:999px; background:#92C83F;"></span><span>Every major browser lets you block or delete cookies in its privacy settings.</span></li><li style="display:flex; gap:11px; align-items:flex-start;"><span style="flex:0 0 auto; margin-top:8px; width:7px; height:7px; border-radius:999px; background:#92C83F;"></span><span>Blocking strictly necessary cookies will stop the basket and checkout from working.</span></li><li style="display:flex; gap:11px; align-items:flex-start;"><span style="flex:0 0 auto; margin-top:8px; width:7px; height:7px; border-radius:999px; background:#92C83F;"></span><span>Clearing cookies will also clear your saved preferences and consent choices.</span></li></ul><h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(21px,2.2vw,27px); line-height:1.2; margin:36px 0 12px;">More information</h2><p style="margin:0 0 14px; font-size:15.5px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">For detail on the analytics, personalisation and marketing services we use, and the data they receive, see our <a href="/pages/privacy-policy">Privacy Policy</a>.</p>
+      </div>
+
+      {% render 'legal-question-card' %}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cookie Policy page",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Cookie Policy" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Cookies are small text files stored on your device. We use them to keep your basket working, to remember your preferences, and to understand how the site is used." },
+    { "type": "text", "id": "updated_date", "label": "Last reviewed date", "default": "12 June 2026" },
+    { "type": "checkbox", "id": "show_help_card", "label": "Show pharmacist help card", "default": true },
+    { "type": "text", "id": "help_phone", "label": "Help phone number", "default": "052 6199329" }
+  ],
+  "presets": [{ "name": "Cookie Policy page" }]
+}
+{% endschema %}

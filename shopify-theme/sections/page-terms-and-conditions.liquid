@@ -1,0 +1,36 @@
+{% render 'trust-row' %}
+
+<section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
+  <div class="legal-wrap" style="display:flex; gap:56px; align-items:flex-start;">
+
+    {% render 'legal-sidebar', active: 'terms', updated_date: section.settings.updated_date, show_help: section.settings.show_help_card, phone: section.settings.help_phone %}
+
+    <div style="flex:1; min-width:0; max-width:820px;">
+      <div>
+      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 14px;">
+        <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><span>Policies</span><span>/</span><span style="color:#3a3d39; font-weight:700;">Terms &amp; Conditions</span>
+      </nav>
+      <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(30px,3.4vw,42px); line-height:1.08; margin:0 0 14px;">{{ section.settings.heading }}</h1>
+      <p style="margin:0 0 28px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
+      <div style="height:1px; background:#e6e7e4;"></div><h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(21px,2.2vw,27px); line-height:1.2; margin:36px 0 12px;">Delivery information</h2><p style="margin:0 0 14px; font-size:15.5px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">It is the buyer&rsquo;s responsibility to ensure that the correct delivery information is provided, and that your package can be received at your address &mdash; the address that is provided at the checkout when completing an order. Should it occur that delivery be impossible and that the package is returned to us, the buyer will be subject to shipping fees for resending of goods.</p><h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(21px,2.2vw,27px); line-height:1.2; margin:36px 0 12px;">Health information on this website</h2><p style="margin:0 0 14px; font-size:15.5px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">The information provided on this website is for guidance and information only and should not take the place of a diagnosis by your general practitioner or local pharmacist.</p><p style="margin:0 0 14px; font-size:15.5px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">Published information in the &lsquo;Ask Our Pharmacist&rsquo; page relates to previous customer questions and may not be relevant to the exact condition of other persons.</p><h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(21px,2.2vw,27px); line-height:1.2; margin:36px 0 12px;">Using our products safely</h2><p style="margin:0 0 14px; font-size:15.5px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">For all medicines, vitamins, supplements and other healthcare products sold on this website, it is important that you read the accompanying information and adhere to instructions and directions before use.</p><p style="margin:0 0 14px; font-size:15.5px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">If you are in doubt about how to take or use any of these products, please get in touch with us using the contact us page and one of our trained staff will be in touch with you.</p>
+      </div>
+
+      {% render 'legal-question-card' %}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Terms & Conditions page",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Terms & Conditions" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Users of this website should be aged over 18 years of age. This includes to place an order, to register an account, or to sign up to our email newsletters." },
+    { "type": "text", "id": "updated_date", "label": "Last reviewed date", "default": "12 June 2026" },
+    { "type": "checkbox", "id": "show_help_card", "label": "Show pharmacist help card", "default": true },
+    { "type": "text", "id": "help_phone", "label": "Help phone number", "default": "052 6199329" }
+  ],
+  "presets": [{ "name": "Terms & Conditions page" }]
+}
+{% endschema %}

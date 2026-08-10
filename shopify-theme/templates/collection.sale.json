@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "banner_style": "sale",
+        "banner_heading": "Summer sale",
+        "banner_badge": "Up to 30% off",
+        "banner_text": "<p>Reduced lines across supplements, skincare and everyday health. While stocks last — sale prices apply online only.</p>",
+        "banner_image_asset": "mitchum-hot-offers.jpg",
+        "show_chips": true,
+        "chip_links": "All offers | /collections/sale\nUnder €10 | /collections/sale?filter.v.price.lte=10\nSupplements | /collections/vitamins\nSkincare | /collections/skincare\nSun Care | /collections/sun\nBaby | /collections/mother-baby",
+        "show_also": false
+      }
+    }
+  },
+  "order": ["main"]
+}

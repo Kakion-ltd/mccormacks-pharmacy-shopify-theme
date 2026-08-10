@@ -1,0 +1,156 @@
+/* McCormack's Pharmacy — base tokens + shared shell styles (ported from design handoff) */
+:root {
+  --c-primary: #82C914;
+  --c-primary-hover: #6BA30F;
+  --c-dark: #3F6B4F;
+  --c-accent: #92C83F;
+  --c-tint: #E6F2D5;
+  --c-text: #2A2B2A;
+  --c-muted: #5A6153;
+  --c-muted-2: #8B9182;
+  --c-border: #E6E7E4;
+  --c-border-2: #DFE1DC;
+  --c-error: #B3261E;
+  --c-error-bg: #FBEAE9;
+  --c-success: #5E8A1F;
+  --c-success-bg: #EEF6E4;
+  --font-heading: 'Arial Rounded MT Bold', Arial, sans-serif;
+  --font-body: 'Mulish', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: var(--font-body); color: var(--c-text); background: #ffffff; font-size: 16px; }
+a { color: var(--c-primary); text-decoration: none; }
+a:hover { color: var(--c-primary-hover); }
+img { max-width: 100%; }
+button { font-family: inherit; }
+input, select, textarea { font-family: inherit; }
+
+h1 { font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px, 3.2vw, 42px); }
+h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 2.2vw, 28px); }
+
+@keyframes megaIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes trustSlide {
+  0%, 28% { transform: translateX(0); }
+  33.3%, 61.6% { transform: translateX(-100%); }
+  66.6%, 95% { transform: translateX(-200%); }
+  100% { transform: translateX(0); }
+}
+
+/* Shared hover/focus utilities (converted from the design's style-hover attributes) */
+.hov-green:hover { color: var(--c-primary) !important; }
+.hov-green-dk:hover { color: var(--c-primary-hover) !important; }
+.hov-dark-green:hover { color: var(--c-dark) !important; }
+.hov-bg-green:hover { background: var(--c-primary) !important; }
+.hov-bg-green-dk:hover { background: var(--c-primary-hover) !important; }
+.hov-bg-accent:hover { background: var(--c-accent) !important; }
+.hov-bg-accent-dk:hover { background: #7FB52F !important; }
+.hov-bg-dark:hover { background: #153531 !important; }
+.hov-bg-tint:hover { background: #F6F8F1 !important; }
+.hov-border-accent:hover { border-color: var(--c-accent) !important; color: var(--c-primary) !important; }
+.hov-slide:hover { color: var(--c-primary) !important; transform: translateX(4px); }
+.slide-cta:hover .cta-arrow { transform: translate(3px, -3px); }
+
+.hdr-search:focus-within { background: #ffffff !important; border-color: var(--c-accent) !important; box-shadow: 0 0 0 4px rgba(146, 200, 63, .15); }
+
+/* Mega menu open state (JS toggles data-open on the nav wrapper).
+   The open wrapper is taken out of the nav's flex flow — as an in-flow flex item
+   it pushed the In-Store Services / Store Locator buttons left on open. */
+.mega-panel { display: none; }
+.mega-panel[data-open="true"] {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 0;
+  z-index: 50;
+}
+[data-mega-trigger][data-open="true"] { color: var(--c-primary) !important; }
+
+/* Mobile drawer */
+.mnav-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.45); opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility .25s ease; }
+/* visibility:hidden (not just the off-screen transform) so the closed drawer's
+   links leave the tab order and the accessibility tree — it still animates
+   because visibility is transitioned alongside transform. */
+.mnav-drawer { position: fixed; top: 0; left: 0; bottom: 0; z-index: 201; width: 340px; max-width: 86vw; background: #ffffff; box-shadow: 0 0 40px rgba(0,0,0,.2); transform: translateX(-100%); visibility: hidden; transition: transform .28s cubic-bezier(.4,0,.2,1), visibility .28s; display: flex; flex-direction: column; overflow-y: auto; }
+body[data-mnav-open] .mnav-overlay { opacity: 1; visibility: visible; }
+body[data-mnav-open] .mnav-drawer { transform: translateX(0); visibility: visible; }
+
+/* Responsive shell (ported verbatim from the design pages) */
+@media (max-width: 1100px) and (min-width: 901px) {
+  .icon-label { display: none !important; }
+  .hdr-row { padding: 5px 20px !important; gap: 10px 18px !important; }
+  .hdr-search { flex: 0 1 340px !important; margin: 0 auto !important; }
+  .hdr-icons { gap: 18px !important; }
+  .main-nav-bar > div { padding: 3px 20px !important; gap: 8px 16px !important; }
+  .main-nav-bar > div > nav a { font-size: 12px !important; padding: 0 12px !important; height: 28px !important; gap: 7px !important; white-space: nowrap !important; }
+  section { padding-left: 20px !important; padding-right: 20px !important; }
+}
+@media (max-width: 900px) {
+  .hdr-row { flex-wrap: wrap; gap: 12px 14px !important; padding: 10px 16px !important; }
+  .hdr-mobile-left { display: flex !important; order: 1; }
+  .hdr-logo { order: 2; flex: 1 1 auto !important; }
+  .hdr-logo img { margin: 0 auto; width: 170px !important; }
+  .hdr-icons { order: 3; gap: 18px !important; }
+  .hdr-search { order: 4 !important; flex: 1 1 100% !important; max-width: 100% !important; margin: 2px 0 0 !important; }
+  .hide-mobile { display: none !important; }
+  .cart-mobile { display: flex !important; }
+  .icon-label { display: none !important; }
+  .main-nav-bar { display: none !important; }
+  .trust-mob-wrap { overflow: hidden; }
+  .trust-inner { flex-wrap: nowrap !important; padding: 9px 20px !important; gap: 0 !important; animation: trustSlide 10.5s infinite; }
+  .trust-inner > div { flex: 0 0 100% !important; justify-content: center !important; font-size: 13.5px !important; }
+  .hero-flex { flex-direction: column !important; border-radius: 16px !important; }
+  .hero-green { order: 2; flex: 1 1 auto !important; min-height: auto !important; height: auto !important; text-align: center; align-items: center !important; padding: 26px 22px 28px !important; }
+  .hero-green .slide-cta { align-self: center !important; }
+  .hero-img { order: 1; flex: 1 1 auto !important; width: 100%; min-height: 275px !important; height: 275px !important; aspect-ratio: none !important; }
+  .hero-green > div:first-of-type { align-self: center !important; }
+  .annc-row { justify-content: space-between !important; gap: 8px 14px !important; font-size: 11px !important; padding: 5px 16px !important; }
+  .annc-hide { display: none !important; }
+  .sec-pad, section { padding-left: 16px !important; padding-right: 16px !important; }
+  .hdr-logo img { width: 160px !important; }
+  .hdr-mobile-left { gap: 14px !important; }
+  .hdr-icons { gap: 16px !important; }
+  .svc-slider { display: flex !important; gap: 14px !important; overflow-x: auto !important; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 12px !important; margin-right: -16px !important; padding-right: 16px !important; }
+  .svc-slider > div { flex: 0 0 62% !important; scroll-snap-align: start; }
+  .rev-wrap { flex-direction: column !important; }
+  .rev-score { width: 100% !important; padding: 22px !important; }
+  .ftr-cols { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important; }
+}
+.svc-slider::-webkit-scrollbar { height: 4px; }
+.svc-slider::-webkit-scrollbar-thumb { background: var(--c-border-2); border-radius: 999px; }
+@media (max-width: 1024px) {
+  .hot-grid { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 700px) {
+  .promo-media { max-width: 36% !important; height: 112% !important; right: -8px !important; }
+  .promo-copy { max-width: 60% !important; }
+}
+@media (max-width: 640px) {
+  .cat-scroll-btn { width: 36px !important; height: 36px !important; }
+  .cat-scroll-btn svg { width: 18px !important; height: 18px !important; }
+  .cat-tile-row { gap: 8px !important; }
+  .cat-tile-row > div { gap: 10px !important; }
+  .cat-tile-row a { flex: 1 0 120px !important; min-width: 120px !important; font-size: 13px !important; height: 44px !important; }
+  .ftr-newsletter { display: none !important; }
+  .ftr-cols { text-align: left; padding: 0 !important; gap: 0 !important; grid-template-columns: 1fr !important; }
+  .ftr-cols > div:first-child { align-items: flex-start; display: flex; flex-direction: column; padding: 24px 20px; }
+  .ftr-cols > div:first-child p { display: none; }
+  .ftr-cols h4 { text-align: left; justify-content: space-between !important; gap: 10px !important; color: var(--c-primary); border-bottom: none !important; padding: 18px 20px !important; margin: 0 !important; font-size: 17px !important; border-top: 1px solid var(--c-border); }
+  .ftr-acc-chevron { display: inline-flex !important; width: 20px !important; height: 20px !important; }
+  .ftr-acc-content[data-open="false"] { display: none !important; }
+  .ftr-acc-content { padding: 0 20px 18px; align-items: flex-start !important; }
+  .ftr-psi { justify-content: flex-start !important; padding: 14px 20px !important; margin-right: 0 !important; }
+  /* design carried the desktop -40px pull-up into mobile, overlapping the Policies accordion */
+  .ftr-psi a { margin-right: 0 !important; margin-top: 0 !important; }
+  .ftr-psi img { height: 56px !important; }
+  .ftr-bottom { flex-direction: column !important; text-align: center; gap: 14px !important; padding: 22px 20px !important; }
+  .ftr-bottom > div { justify-content: center !important; }
+  .ftr-payments { order: 1; }
+  .ftr-terms { display: block !important; order: 2; font-size: 13px; }
+  .ftr-copyright { order: 3; }
+  .ftr-builtby { order: 4; }
+  .svc-slider > div { flex: 0 0 74% !important; }
+}

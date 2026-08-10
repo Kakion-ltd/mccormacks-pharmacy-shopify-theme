@@ -1,0 +1,105 @@
+{% render 'trust-row' %}
+
+{% style %}
+  @media (max-width: 900px) {
+    .art-meta { gap: 14px 18px !important; }
+  }
+  .art-card:hover { box-shadow: 0 14px 30px rgba(0,0,0,.09); transform: translateY(-3px); }
+  /* Article body typography — ported from the design's baked-in inline styles */
+  .art-body p { margin: 0 0 15px; font-size: 16.5px; line-height: 1.8; color: #3a3d39; text-wrap: pretty; }
+  .art-body h2, .art-body h3 { font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-weight: 800; color: #3f6b4f; font-size: clamp(22px, 2.3vw, 29px); line-height: 1.2; margin: 38px 0 12px; }
+  .art-body ul { margin: 0 0 18px; padding-left: 22px; font-size: 16.5px; line-height: 1.75; color: #3a3d39; display: flex; flex-direction: column; gap: 10px; }
+  .art-body ul li::marker { color: #92C83F; }
+  .art-body ol { margin: 0 0 18px; padding-left: 22px; font-size: 16.5px; line-height: 1.75; color: #3a3d39; }
+  .art-body blockquote { margin: 28px 0; padding: 22px 26px; border-left: 4px solid #92C83F; background: #f6f8f1; border-radius: 0 14px 14px 0; font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-weight: 700; font-size: 19px; line-height: 1.5; color: #3f6b4f; }
+  .art-body img { border-radius: 14px; }
+  .art-share { width: 38px; height: 38px; border-radius: 999px; background: #f2f3f1; color: #3a3d39; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; }
+  .art-share:hover { background: #eef2e8; color: #3f6b4f; }
+{% endstyle %}
+
+<section style="max-width:1440px; margin:0 auto; padding:30px 30px 0;">
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 18px;">
+    <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><a href="{{ blog.url }}" class="hov-green" style="color:#8b9182;">{{ blog.title }}</a><span>/</span><span style="color:#3a3d39; font-weight:700;">{{ article.tags.first | default: article.title }}</span>
+  </nav>
+  {%- if article.tags.first -%}
+    <div style="margin:0 0 14px;">{% render 'blog-tag-chip', tag: article.tags.first %}</div>
+  {%- endif -%}
+  <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(30px,3.6vw,44px); line-height:1.08; margin:0 0 18px;">{{ article.title }}</h1>
+  <div class="art-meta" style="display:flex; flex-wrap:wrap; align-items:center; gap:14px 22px; padding-bottom:22px; border-bottom:1px solid #e6e7e4;">
+    <span style="font-size:13.5px; color:#6b7065;">{{ article.published_at | date: '%-d %B %Y' }}</span>
+    <span style="font-size:13.5px; color:#6b7065;">By {{ article.author }}</span>
+  </div>
+</section>
+
+{%- if article.image -%}
+  <section style="max-width:1440px; margin:0 auto; padding:26px 30px 0;">
+    <div style="width:100%; aspect-ratio:16/7; border-radius:20px; overflow:hidden; background:#f4f5f2;">
+      {{ article.image | image_url: width: 2000 | image_tag: style: 'width:100%; height:100%; object-fit:cover; display:block;', alt: article.title | escape }}
+    </div>
+  </section>
+{%- endif -%}
+
+<section style="max-width:1440px; margin:0 auto; padding:14px 30px 0;">
+  <div class="art-body">
+    {{ article.content }}
+  </div>
+
+  {%- if section.settings.show_help_card -%}
+    <div style="display:flex; gap:14px; align-items:flex-start; background:#eef2e8; border-radius:16px; padding:24px 26px; margin:36px 0 0;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#82C914" style="flex:0 0 auto; margin-top:2px;"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-2h2v2Zm1.8-6.2-.9.9c-.6.6-.9 1.1-.9 2.3h-2v-.5c0-.9.4-1.7 1-2.3l1.2-1.2c.3-.3.5-.8.5-1.3a2 2 0 1 0-4 0H8a4 4 0 1 1 8 0c0 .8-.3 1.5-.9 2.1Z"></path></svg>
+      <div>
+        <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:#3f6b4f; margin:0 0 6px;">Have a question about this?</div>
+        <div style="font-size:15px; line-height:1.7; color:#3a3d39; margin:0 0 16px;">Our pharmacists are happy to talk it through &mdash; in store, by phone or by email. No appointment needed.</div>
+        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+          <a href="tel:{{ section.settings.help_phone | remove: ' ' }}" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; gap:9px; height:46px; padding:0 22px; border-radius:9px; background:#82C914; color:#ffffff; font-weight:800; font-size:14.5px;">Call {{ section.settings.help_phone }}</a>
+          <a href="/pages/contact-us" class="hov-border-accent" style="display:inline-flex; align-items:center; gap:9px; height:46px; padding:0 22px; border-radius:9px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:14.5px;">Ask a pharmacist</a>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; margin:34px 0 0; padding-top:24px; border-top:1px solid #e6e7e4;">
+    <a href="{{ blog.url }}" class="hov-green-dk" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:#82C914;">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
+      All articles
+    </a>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="font-size:13.5px; font-weight:700; color:#6b7065;">Share</span>
+      <a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url | append: article.url | url_encode }}" target="_blank" rel="noopener" aria-label="Share on Facebook" class="art-share"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.3-1.5 1.6-1.5h1.6V4.6c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.3H7.6V14h2.7v8h3.2Z"></path></svg></a>
+      <a href="mailto:?subject={{ article.title | url_encode }}&amp;body={{ shop.url | append: article.url | url_encode }}" aria-label="Share by email" class="art-share"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><polyline points="3 7 12 13 21 7"></polyline></svg></a>
+      <button type="button" data-copy-link aria-label="Copy link" class="art-share"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"></path><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"></path></svg></button>
+    </div>
+  </div>
+</section>
+
+{%- if blog.articles.size > 1 -%}
+  <section style="max-width:1440px; margin:0 auto; padding:52px 30px 0;">
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">Related reading</h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:24px;">
+      {%- assign related_count = 0 -%}
+      {%- for related_article in blog.articles -%}
+        {%- if related_article.id == article.id or related_count >= 3 -%}{%- continue -%}{%- endif -%}
+        {%- assign related_count = related_count | plus: 1 -%}
+        {% render 'article-card', article: related_article %}
+      {%- endfor -%}
+    </div>
+  </section>
+{%- endif -%}
+
+<script>
+  document.querySelector('[data-copy-link]')?.addEventListener('click', function () {
+    navigator.clipboard.writeText(location.href);
+    this.style.background = '#eef2e8';
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": [
+    { "type": "checkbox", "id": "show_help_card", "label": "Show 'Have a question' card", "default": true },
+    { "type": "text", "id": "help_phone", "label": "Help phone number", "default": "052 6199329" }
+  ],
+  "presets": [{ "name": "Article" }]
+}
+{% endschema %}

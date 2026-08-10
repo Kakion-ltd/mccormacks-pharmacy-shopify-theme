@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-search",
+      "settings": {
+        "popular_terms": "vitamin d, hayfever, cerave, sudocrem, probiotics"
+      }
+    }
+  },
+  "order": ["main"]
+}

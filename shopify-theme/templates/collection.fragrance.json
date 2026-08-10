@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need a prescription?",
+            "answer": "All items in this collection can be bought without a GP prescription. A small number of pharmacist-only medicines require you to answer a few questions before you can add the product to your basket, and our experienced pharmacists review this information before approving an order for processing and shipping."
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "question": "Are these genuine pharmacy products?",
+            "answer": "Yes — every product is sourced and dispatched from our registered Irish pharmacy and is the same stock carried in our stores."
+          }
+        },
+        "faq3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I get pharmacist advice before I buy?",
+            "answer": "You can. Contact our pharmacy team for help choosing a suitable product, checking interactions, or deciding whether to see your GP."
+          }
+        },
+        "faq4": {
+          "type": "faq",
+          "settings": {
+            "question": "How fast is delivery?",
+            "answer": "We aim to ship all items within the same working day for orders placed before 3pm, Monday to Friday. Delivery is free on orders over €65, and Click & Collect is available at all seven of our stores."
+          }
+        }
+      },
+      "block_order": [
+        "faq1",
+        "faq2",
+        "faq3",
+        "faq4"
+      ],
+      "settings": {
+        "banner_style": "standard",
+        "banner_heading": "Fragrance",
+        "banner_text": "<p>Fragrance for her and him — singles and gift sets from the counters you know, at pharmacy prices.</p>",
+        "banner_image_asset": "slide-fragrance.jpg",
+        "show_chips": true,
+        "chip_links": "",
+        "show_also": true,
+        "also_heading": "You may also like"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

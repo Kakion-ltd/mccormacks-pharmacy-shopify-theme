@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-gift-vouchers",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

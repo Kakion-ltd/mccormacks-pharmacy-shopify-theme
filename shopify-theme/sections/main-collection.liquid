@@ -1,0 +1,601 @@
+{%- comment -%} Collection template ported from the "Medicines & Health" design
+    (banner variants from the Sale / New In / Bundles designs). {%- endcomment -%}
+
+{%- comment -%} Leaf categories use a text-only hero — no image. Level comes from
+    the generated snippet, since all 163 leaves share this one template. {%- endcomment -%}
+{%- capture cat_level -%}{%- render 'category-level', collection: collection -%}{%- endcapture -%}
+{%- assign cat_level = cat_level | strip -%}
+
+{%- liquid
+  assign banner_heading = section.settings.banner_heading | default: collection.title
+  assign banner_image_url = ''
+  assign has_banner_image = false
+  if section.settings.banner_image
+    assign banner_image_url = section.settings.banner_image | image_url: width: 1300
+    assign has_banner_image = true
+  elsif collection.image
+    assign banner_image_url = collection.image | image_url: width: 1300
+    assign has_banner_image = true
+  elsif section.settings.banner_image_asset != blank
+    assign banner_image_url = section.settings.banner_image_asset | asset_url
+    assign has_banner_image = true
+  endif
+-%}
+
+<!-- Breadcrumb + category banner -->
+<section style="max-width:1440px; margin:0 auto; padding:24px 30px 6px;">
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
+    {%- render 'category-breadcrumb', collection: collection -%}
+  </nav>
+
+  {%- if section.settings.banner_style == 'sale' -%}
+    <div class="banner-flex" style="display:flex; flex-wrap:wrap; border-radius:20px; overflow:hidden; background:#f7eeee; min-height:clamp(180px,19vw,252px);">
+      <div class="banner-body" style="flex:1 1 380px; padding:clamp(22px,2.6vw,34px) clamp(22px,3vw,40px); display:flex; flex-direction:column; justify-content:center; gap:10px;">
+        {%- if section.settings.banner_badge != blank -%}
+          <span style="display:inline-flex; align-items:center; width:fit-content; height:28px; padding:0 12px; border-radius:6px; background:#c0392b; color:#ffffff; font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase;">{{ section.settings.banner_badge }}</span>
+        {%- endif -%}
+        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#8f2c20; font-size:clamp(27px,3vw,40px); line-height:1.08; margin:0;">{{ banner_heading }}</h1>
+        <div style="font-size:16.5px; line-height:1.65; color:#5c3a35; max-width:46ch;">
+          {%- if section.settings.banner_text != blank -%}{{ section.settings.banner_text }}{%- else -%}{{ collection.description }}{%- endif -%}
+        </div>
+      </div>
+      <div class="banner-img" style="position:relative; flex:1 1 320px; min-height:clamp(150px,17vw,252px); overflow:hidden; background-image:url('{{ banner_image_url }}'); background-size:cover; background-position:center; background-color:#e9ede3;" {% if has_banner_image %}role="img" aria-label="{{ banner_heading | escape }}"{% endif %}>
+        {%- unless has_banner_image -%}
+          {%- render 'image-placeholder', w: 1300, h: 600, label: 'Sale banner', note: 'Landscape — keep the subject centred, edges get cropped.' -%}
+        {%- endunless -%}
+      </div>
+    </div>
+  {%- elsif cat_level == 'leaf' -%}
+    {%- comment -%} Text-only hero: heading and copy sit side by side and use the
+        width the image used to take, rather than leaving a wide empty band. {%- endcomment -%}
+    <div class="banner-text" style="border-radius:18px; background:#f4f5f2; padding:clamp(24px,3vw,40px) clamp(24px,3.4vw,48px); display:flex; flex-wrap:wrap; align-items:center; gap:clamp(10px,2.4vw,44px);">
+      <h1 style="flex:1 1 300px; min-width:0; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,44px); line-height:1.05; letter-spacing:-.01em; margin:0;">{{ banner_heading }}</h1>
+      {%- capture leaf_copy -%}{%- if section.settings.banner_text != blank -%}{{ section.settings.banner_text }}{%- else -%}{{ collection.description }}{%- endif -%}{%- endcapture -%}
+      {%- assign leaf_copy = leaf_copy | strip -%}
+      {%- if leaf_copy != blank -%}
+        <div class="banner-copy" style="flex:1 1 380px; min-width:0; font-size:clamp(14.5px,1.15vw,16px); line-height:1.6; color:#3a3d39; max-width:62ch; border-left:3px solid #dfe4d7; padding-left:clamp(14px,1.6vw,22px);">{{ leaf_copy }}</div>
+      {%- endif -%}
+    </div>
+  {%- else -%}
+    <div class="banner-flex" style="display:flex; flex-wrap:wrap; border-radius:18px; overflow:hidden; background:#f4f5f2; min-height:clamp(180px,19vw,252px);">
+      <div class="banner-body" style="flex:1 1 440px; padding:clamp(22px,2.6vw,38px) clamp(22px,3vw,44px); display:flex; flex-direction:column; justify-content:center;">
+        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,44px); line-height:1.05; letter-spacing:-.01em; margin:0 0 12px;">{{ banner_heading }}</h1>
+        <div class="banner-copy" style="font-size:clamp(14.5px,1.15vw,16px); line-height:1.55; color:#3a3d39; max-width:560px;">
+          {%- if section.settings.banner_text != blank -%}{{ section.settings.banner_text }}{%- else -%}{{ collection.description }}{%- endif -%}
+        </div>
+      </div>
+      <div class="banner-img" style="position:relative; flex:1 1 360px; background-image:url('{{ banner_image_url }}'); background-size:cover; background-position:center; background-color:#e9ede3; min-height:clamp(150px,17vw,252px);" {% if has_banner_image %}role="img" aria-label="{{ banner_heading | escape }}"{% endif %}>
+        {%- unless has_banner_image -%}
+          {%- render 'image-placeholder', w: 1300, h: 600, label: 'Category banner', note: 'Landscape — keep the subject centred, edges get cropped.' -%}
+        {%- endunless -%}
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{%- if section.settings.show_chips -%}
+<!-- Sub-category chips -->
+<section style="max-width:1440px; margin:0 auto; padding:22px 30px 8px;">
+  <div class="cat-tile-row" style="display:flex; align-items:center; gap:16px;">
+    <button class="chip-arrow hov-chip-arrow" aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="chips-track" data-rail-by="-372" style="flex:0 0 auto; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82C914; cursor:pointer; display:none; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+    <div id="chips-track" style="flex:1; display:flex; gap:16px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px;">
+      {%- if section.settings.chip_links != blank -%}
+        {%- assign chip_lines = section.settings.chip_links | newline_to_br | split: '<br />' -%}
+        {%- for line in chip_lines -%}
+          {%- assign parts = line | strip | split: '|' -%}
+          {%- if parts.size >= 2 -%}
+            <a href="{{ parts[1] | strip }}" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:170px; background:#82C914; color:#ffffff; font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 18px; border-radius:9px; display:flex; align-items:center; justify-content:center;">{{ parts[0] | strip }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- render 'category-chips', collection: collection -%}
+      {%- endif -%}
+    </div>
+    <button class="chip-arrow hov-chip-arrow" aria-label="Scroll for more" data-rail-btn data-rail-target="chips-track" data-rail-by="372" style="flex:0 0 auto; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82C914; cursor:pointer; display:flex; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+  </div>
+  <div class="chip-progress" style="display:none; margin-top:16px; height:4px; border-radius:999px; background:#e2e4df; overflow:hidden;"><div style="height:100%; border-radius:999px; background:#92C83F; width:12%; transition:width .15s ease;"></div></div>
+</section>
+{%- endif -%}
+
+<!-- Filter / Sort bar -->
+<section style="max-width:1440px; margin:0 auto; padding:26px 30px 0;">
+  <div class="fs-bar" style="display:flex; flex-wrap:wrap; align-items:center; gap:14px 26px; border-bottom:1px solid #e6e7e4; padding-bottom:20px;">
+    <button class="filter-toggle" data-filter-toggle aria-controls="filters-{{ section.id }}" aria-expanded="true" style="display:flex; align-items:center; gap:9px; background:transparent; border:none; cursor:pointer; font-family:inherit; font-weight:700; font-size:16px; color:#2A2B2A;">
+      Filter
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#82C914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"></line><circle cx="9" cy="7" r="2.4" fill="#fff"></circle><line x1="4" y1="17" x2="20" y2="17"></line><circle cx="15" cy="17" r="2.4" fill="#fff"></circle></svg>
+    </button>
+    <div class="sortby-box" style="display:flex; align-items:center; gap:10px; border:1.5px solid #82C914; border-radius:9px; padding:12px 16px;">
+      <span style="font-weight:700; font-size:15px; color:#2A2B2A;">Sort by:</span>
+      <select data-sort-select aria-label="Sort by" style="border:none; background:transparent; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#82C914; cursor:pointer;">
+        {%- assign current_sort = collection.sort_by | default: collection.default_sort_by -%}
+        {%- for option in collection.sort_options -%}
+          <option value="{{ option.value }}" {% if option.value == current_sort %}selected{% endif %}>{{ option.name }}</option>
+        {%- endfor -%}
+      </select>
+    </div>
+    <span class="prod-count" style="margin-left:auto; font-size:14px; color:#8b9182;">{{ collection.products_count }} products</span>
+    <button class="refine-mobile" data-filter-toggle aria-controls="filters-{{ section.id }}" aria-expanded="false" style="display:none; align-items:center; justify-content:space-between; gap:9px; width:100%; background:transparent; border:1.5px solid #82C914; border-radius:9px; padding:14px 18px; cursor:pointer; font-family:inherit; font-weight:700; font-size:16px; color:#2A2B2A;">
+      Refine By
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#82C914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"></line><circle cx="9" cy="7" r="2.4" fill="#fff"></circle><line x1="4" y1="17" x2="20" y2="17"></line><circle cx="15" cy="17" r="2.4" fill="#fff"></circle></svg>
+    </button>
+  </div>
+
+  {%- comment -%} Active filter removal chips {%- endcomment -%}
+  {%- assign has_active = false -%}
+  {%- for filter in collection.filters -%}
+    {%- if filter.active_values.size > 0 or filter.min_value.value != blank or filter.max_value.value != blank -%}{%- assign has_active = true -%}{%- endif -%}
+  {%- endfor -%}
+  {%- if has_active -%}
+    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; padding:16px 0 0;">
+      {%- for filter in collection.filters -%}
+        {%- for value in filter.active_values -%}
+          <a href="{{ value.url_to_remove }}" style="display:inline-flex; align-items:center; gap:7px; height:32px; padding:0 12px; border-radius:999px; background:#eef2e8; color:#3f6b4f; font-size:13.5px; font-weight:700;">{{ value.label }} <span aria-hidden="true" style="font-size:15px; line-height:1;">&times;</span></a>
+        {%- endfor -%}
+        {%- if filter.type == 'price_range' -%}
+          {%- if filter.min_value.value != blank or filter.max_value.value != blank -%}
+            <a href="{{ filter.url_to_remove }}" style="display:inline-flex; align-items:center; gap:7px; height:32px; padding:0 12px; border-radius:999px; background:#eef2e8; color:#3f6b4f; font-size:13.5px; font-weight:700;">{{ filter.min_value.value | default: 0 | money }} &ndash; {{ filter.max_value.value | default: filter.range_max | money }} <span aria-hidden="true" style="font-size:15px; line-height:1;">&times;</span></a>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+      <a href="{{ collection.url }}" class="hov-green" style="font-size:13.5px; font-weight:700; color:#8b9182; margin-left:4px;">Clear all</a>
+    </div>
+  {%- endif -%}
+</section>
+
+{% paginate collection.products by 24 %}
+<!-- Sidebar + grid -->
+<section style="max-width:1440px; margin:0 auto; padding:24px 30px 8px;">
+  <div class="col-wrap" style="display:flex; gap:40px; align-items:flex-start;">
+
+    <!-- Filter sidebar -->
+    <aside class="filter-side" id="filters-{{ section.id }}" style="flex:0 0 260px; width:260px; position:sticky; top:16px;">
+      {%- for filter in collection.filters -%}
+        {%- case filter.type -%}
+          {%- when 'list', 'boolean' -%}
+            <div style="margin-bottom:30px; {% unless forloop.first %}border-top:1px solid #e6e7e4; padding-top:24px;{% endunless %}">
+              <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#82C914; font-size:20px; margin:0 0 18px;">{{ filter.label }}</h3>
+              <div style="display:flex; flex-direction:column; gap:14px;">
+                {%- for value in filter.values -%}
+                  <a href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}" style="display:flex; align-items:center; gap:12px; font-size:15px; color:#2A2B2A; {% if value.count == 0 and value.active == false %}opacity:.45; pointer-events:none;{% endif %}">
+                    <span style="flex:0 0 auto; width:22px; height:22px; border-radius:5px; border:2px solid {% if value.active %}#5E8A1F{% else %}#c2c6bd{% endif %}; background:{% if value.active %}#5E8A1F{% else %}#ffffff{% endif %}; display:flex; align-items:center; justify-content:center;">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="opacity:{% if value.active %}1{% else %}0{% endif %};"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
+                    <span style="flex:1;">{{ value.label }}</span>
+                    <span style="color:#a7ada0; font-size:14px;">({{ value.count }})</span>
+                  </a>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- when 'price_range' -%}
+            <div style="{% unless forloop.first %}border-top:1px solid #e6e7e4; padding-top:24px;{% endunless %}">
+              <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#82C914; font-size:20px; margin:0 0 18px;">{{ filter.label }}</h3>
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;">
+                <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#8b9182;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.min_value.param_name }}" type="number" min="0" step="0.01" placeholder="0" value="{% if filter.min_value.value %}{{ filter.min_value.value | money_without_currency | remove: ',' }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
+                <span style="color:#8b9182;">&ndash;</span>
+                <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#8b9182;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.max_value.param_name }}" type="number" min="0" step="0.01" placeholder="{{ filter.range_max | money_without_currency | remove: ',' }}" value="{% if filter.max_value.value %}{{ filter.max_value.value | money_without_currency | remove: ',' }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
+              </div>
+              <button data-price-apply class="hov-bg-green-dk" style="width:100%; border:none; border-radius:8px; background:#82C914; color:#ffffff; font-family:inherit; font-weight:700; font-size:14.5px; padding:11px 8px; cursor:pointer;">Apply</button>
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+      {%- if collection.filters.size == 0 -%}
+        <p style="margin:0; font-size:14px; color:#8b9182; line-height:1.6;">No filters are available for this collection yet. Filters can be configured in the Shopify admin under Online Store &rsaquo; Navigation &rsaquo; Collection and search filters.</p>
+      {%- endif -%}
+    </aside>
+
+    <!-- Product grid -->
+    <div style="flex:1; min-width:0;">
+      {%- if collection.products.size > 0 -%}
+      <div class="pgrid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:26px 22px;">
+        {%- for product in collection.products -%}
+          {%- liquid
+            assign variant = product.selected_or_first_available_variant
+            assign on_sale = false
+            if product.compare_at_price > product.price
+              assign on_sale = true
+            endif
+            assign quick_add = false
+            if product.available and product.variants.size == 1 and product.selling_plan_groups.size == 0
+              assign quick_add = true
+            endif
+          -%}
+          <div class="pcard" style="display:flex; flex-direction:column;">
+            <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;">
+              {%- if on_sale -%}
+                <span style="position:absolute; top:12px; left:12px; z-index:2; background:#c0392b; color:#fff; font-weight:800; font-size:12px; letter-spacing:.04em; padding:5px 10px; border-radius:6px;">SALE</span>
+              {%- endif -%}
+              <a href="{{ product.url | within: collection }}" style="display:block; width:100%; height:100%;">
+                {%- if product.featured_image -%}
+                  {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', style: 'width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;' }}
+                {%- else -%}
+                  <span style="display:flex; width:100%; height:100%; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></span>
+                {%- endif -%}
+              </a>
+              {%- if quick_add -%}
+                <button data-add-id="{{ variant.id }}" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button>
+              {%- else -%}
+                <a href="{{ product.url | within: collection }}" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease;">View Product</a>
+              {%- endif -%}
+            </div>
+            <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">{{ product.vendor }}</div>
+            <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="{{ product.url | within: collection }}" class="hov-green" style="color:#2A2B2A;">{{ product.title }}</a></h3>
+            <div style="margin-bottom:14px; min-height:18px;">{% render 'product-rating', product: product, size: 14 %}</div>
+            <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
+              <span style="color:#82C914; font-weight:800; font-size:20px;">{% if product.price_varies %}From {% endif %}{{ product.price | money }}</span>
+              {%- if on_sale -%}
+                <span style="color:#a7ada0; font-weight:600; font-size:15px; text-decoration:line-through;">{{ product.compare_at_price | money }}</span>
+              {%- endif -%}
+            </div>
+            {%- if quick_add -%}
+              <button data-add-id="{{ variant.id }}" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button>
+            {%- else -%}
+              <a href="{{ product.url | within: collection }}" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px;">View Product</a>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <!-- Pagination -->
+      {%- if paginate.pages > 1 -%}
+        <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin:44px 0 8px;">
+          {%- for part in paginate.parts -%}
+            {%- if part.is_link -%}
+              <a href="{{ part.url }}" class="hov-border-accent" style="min-width:40px; height:40px; padding:0 6px; border-radius:8px; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; display:flex; align-items:center; justify-content:center;">{{ part.title }}</a>
+            {%- elsif part.title contains 'hellip' or part.title == '…' -%}
+              <span style="min-width:40px; height:40px; padding:0 6px; border-radius:8px; color:#8b9182; font-weight:700; display:flex; align-items:center; justify-content:center;">{{ part.title }}</span>
+            {%- else -%}
+              <span style="min-width:40px; height:40px; padding:0 6px; border-radius:8px; background:#82C914; color:#fff; font-weight:700; display:flex; align-items:center; justify-content:center;">{{ part.title }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if paginate.next -%}
+            <a href="{{ paginate.next.url }}" class="hov-border-accent" style="min-width:40px; height:40px; padding:0 12px; border-radius:8px; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; display:flex; align-items:center; justify-content:center; gap:6px;">Next<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- else -%}
+      <!-- Empty collection -->
+      <div style="border:1px solid #eceee9; border-radius:16px; padding:clamp(36px,5vw,64px) 30px; text-align:center;">
+        <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.4vw,30px); margin:0 0 12px;">
+          {%- if has_active -%}No products match your filters{%- else -%}No products here yet{%- endif -%}
+        </h2>
+        <p style="margin:0 auto 22px; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:52ch;">
+          {%- if has_active -%}Try removing a filter, or clear them all to see the full range.{%- else -%}Products added to this collection will appear here. In the meantime, browse the rest of the shop.{%- endif -%}
+        </p>
+        {%- if has_active -%}
+          <a href="{{ collection.url }}" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; height:48px; padding:0 26px; border-radius:9px; background:#82C914; color:#ffffff; font-weight:800; font-size:15px;">Clear all filters</a>
+        {%- else -%}
+          <a href="{{ routes.all_products_collection_url }}" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; height:48px; padding:0 26px; border-radius:9px; background:#82C914; color:#ffffff; font-weight:800; font-size:15px;">Continue shopping</a>
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% endpaginate %}
+
+{%- if section.settings.seo_heading != blank or section.settings.seo_text != blank or section.blocks.size > 0 -%}
+<!-- SEO copy + FAQ -->
+<section style="max-width:1440px; margin:0 auto; padding:48px 30px 8px;">
+  {%- if section.settings.seo_heading != blank -%}
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(26px,3vw,40px); line-height:1.1; margin:0 0 20px;">{{ section.settings.seo_heading }}</h2>
+  {%- endif -%}
+  {%- if section.settings.seo_text != blank -%}
+    <div class="seo-copy" style="margin:0 0 40px; font-size:16px; line-height:1.7; color:#3a3d39; max-width:1000px;">{{ section.settings.seo_text }}</div>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(24px,2.6vw,34px); margin:0 0 26px;">{{ section.settings.faq_heading }}</h2>
+    <div style="display:flex; flex-direction:column;">
+      {%- for block in section.blocks -%}
+        <div style="border-bottom:1px solid #eceee9; padding:22px 0;" {{ block.shopify_attributes }}>
+          {%- comment -%} Only the first answer starts open — a wall of expanded FAQs
+              buries the rest of the page. {%- endcomment -%}
+          {%- if forloop.first -%}{%- assign faq_open = 'true' -%}{%- else -%}{%- assign faq_open = 'false' -%}{%- endif -%}
+          <button data-acc-toggle="faq-{{ section.id }}-{{ forloop.index }}" aria-expanded="{{ faq_open }}" aria-controls="faq-{{ section.id }}-{{ forloop.index }}" style="display:flex; align-items:center; justify-content:space-between; gap:14px; width:100%; background:transparent; border:none; padding:0; cursor:pointer; text-align:left;">
+            <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0;">{{ block.settings.question }}</h3>
+            <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#82C914" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transform:rotate({% if forloop.first %}180{% else %}0{% endif %}deg); transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-content" id="faq-{{ section.id }}-{{ forloop.index }}" data-acc-content="faq-{{ section.id }}-{{ forloop.index }}" data-open="{{ faq_open }}">
+            <p style="margin:10px 0 0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">{{ block.settings.answer }}</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</section>
+{%- endif -%}
+
+{%- liquid
+  assign also_col = section.settings.also_collection
+  if also_col == blank
+    assign also_col = collection
+  endif
+-%}
+{%- if section.settings.show_also and also_col.products.size > 0 -%}
+<!-- You may also like -->
+<section style="max-width:1440px; margin:0 auto; padding:44px 30px 8px;">
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">{{ section.settings.also_heading }}</h2>
+  <div style="position:relative;">
+    <div id="also-track-{{ section.id }}" style="display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;">
+      {%- for product in also_col.products limit: 6 -%}
+        <div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
+          <a href="{{ product.url }}" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;">
+            {%- if product.featured_image -%}
+              {{ product.featured_image | image_url: width: 480 | image_tag: loading: 'lazy', style: 'width:100%; height:100%; object-fit:contain; display:block;' }}
+            {%- else -%}
+              <span style="display:flex; width:100%; height:100%; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></span>
+            {%- endif -%}
+          </a>
+          <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">{{ product.vendor }}</div>
+          <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="{{ product.url }}" class="hov-green" style="color:#2A2B2A;">{{ product.title }}</a></h3>
+          <div style="margin-bottom:12px;">{% render 'product-rating', product: product, size: 14 %}</div>
+          <div style="color:#82C914; font-weight:800; font-size:19px; margin-bottom:14px;">{% if product.price_varies %}From {% endif %}{{ product.price | money }}</div>
+          <a href="{{ product.url }}" class="hov-bg-green" style="margin-top:auto; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+        </div>
+      {%- endfor -%}
+    </div>
+    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="also-track-{{ section.id }}" data-rail-by="-540" class="hov-chip-arrow" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82C914; cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+    <button aria-label="Scroll forward" data-rail-btn data-rail-target="also-track-{{ section.id }}" data-rail-by="540" class="hov-chip-arrow" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82C914; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+  </div>
+</section>
+{%- endif -%}
+
+{% style %}
+  .banner-copy p, .seo-copy p { margin: 0 0 18px; }
+  .banner-copy p:last-child, .seo-copy p:last-child { margin-bottom: 0; }
+  .hov-chip-arrow:hover { border-color: #92C83F !important; background: #f2f8e9 !important; }
+  .pcard-hovbtn:hover { background: #92C83F !important; color: #fff !important; border-color: #92C83F !important; }
+  .pcard:hover .pcard-view { opacity: 1 !important; transform: translateY(0) !important; }
+  .pcard:hover .pcard-img img { transform: scale(1.04); }
+  .faq-content[data-open="false"] { display: none; }
+  .filter-side input[type=number]::-webkit-outer-spin-button,
+  .filter-side input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .filter-side input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+  /* Filter sidebar visibility. The toggle sets BOTH classes at once; each
+     breakpoint reads the one that applies, so the button works everywhere:
+     wide screens open by default and collapse on click, narrow screens are
+     closed by default and open on click. The mobile rules come later in the
+     sheet, so .is-open wins there at equal specificity. */
+  .filter-side.is-collapsed { display: none; }
+  @media (min-width: 961px) {
+    /* Sticky pins the sidebar, so a long list (Brand can run to dozens of
+       values) would extend past the viewport with no way to reach the bottom. */
+    .filter-side { max-height: calc(100vh - 32px); overflow-y: auto; }
+  }
+  @media (max-width: 960px) {
+    .col-wrap { align-items: stretch !important; flex-direction: column !important; }
+    .filter-side { flex: 1 1 auto !important; width: 100% !important; position: static !important; }
+    .filter-side { display: none; }
+    .filter-side.is-open { display: block; }
+    .filter-toggle { display: inline-flex !important; }
+  }
+  @media (max-width: 900px) {
+    /* Stacked: reset flex-basis to auto, or the basis set for the ROW (440px/360px)
+       becomes a forced HEIGHT and the banner balloons past a phone viewport.
+       Text sizes itself to its copy; the image becomes a landscape band. */
+    /* text-only hero: the rule between heading and copy moves above the copy once stacked */
+    .banner-text .banner-copy {
+      border-left: 0 !important; padding-left: 0 !important;
+      border-top: 3px solid #dfe4d7; padding-top: 16px;
+    }
+    .banner-flex { flex-direction: column !important; min-height: 0 !important; }
+    .banner-body { flex: 0 0 auto !important; }
+    .banner-img {
+      flex: 0 0 auto !important;
+      min-height: 0 !important;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      max-height: 260px;   /* 16:9 gets tall near 900px — keep the band letterboxed */
+    }
+    .pgrid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    /* Category labels run long ("Baby & Children Pain Relief"), so each chip
+       sizes to its own text instead of being squeezed into the shared 120px
+       homepage width and wrapping to two cramped lines. min-width still holds
+       the floor for short labels. ID beats the .cat-tile-row rule in base.css. */
+    #chips-track a {
+      flex: 0 0 auto !important;
+      width: auto !important;
+      white-space: nowrap;
+    }
+    .chip-arrow { display: none !important; }
+    .chip-progress { display: block !important; }
+    .fs-bar { flex-direction: column !important; align-items: stretch !important; gap: 12px !important; }
+    .filter-toggle { display: none !important; }
+    .sortby-box { width: 100% !important; justify-content: space-between !important; }
+    .sortby-box select { flex: 1; text-align: right; }
+    .prod-count { display: none !important; }
+    .refine-mobile { display: flex !important; }
+    .pcard-view { display: none !important; }
+    .pcard-mobile-btn { display: block !important; }
+  }
+{% endstyle %}
+
+<script>
+  (() => {
+    // Mobile "Refine By" / desktop "Filter" toggle (design's filterOpen state).
+    // aria-expanded is read back off the computed style rather than tracked in
+    // JS, because the default differs by breakpoint and can change on resize.
+    const side = document.querySelector('.filter-side');
+    const fbtns = document.querySelectorAll('[data-filter-toggle]');
+    if (side && fbtns.length) {
+      const syncAria = () => {
+        const open = getComputedStyle(side).display !== 'none';
+        fbtns.forEach(b => b.setAttribute('aria-expanded', String(open)));
+      };
+      fbtns.forEach(btn => btn.addEventListener('click', () => {
+        side.classList.toggle('is-collapsed');
+        side.classList.toggle('is-open');
+        syncAria();
+      }));
+      window.addEventListener('resize', syncAria);
+      syncAria();
+    }
+
+    // Sort select -> sort_by URL param
+    const sel = document.querySelector('[data-sort-select]');
+    if (sel) sel.addEventListener('change', () => {
+      const u = new URL(location.href);
+      u.searchParams.set('sort_by', sel.value);
+      u.searchParams.delete('page');
+      location.href = u.href;
+    });
+
+    // Price range apply -> filter.v.price params
+    const apply = document.querySelector('[data-price-apply]');
+    if (apply) apply.addEventListener('click', () => {
+      const u = new URL(location.href);
+      document.querySelectorAll('[data-price-input]').forEach(inp => {
+        u.searchParams.delete(inp.name);
+        if (inp.value) u.searchParams.set(inp.name, inp.value);
+      });
+      u.searchParams.delete('page');
+      location.href = u.href;
+    });
+
+    // Mobile chip progress bar
+    const track = document.getElementById('chips-track');
+    const bar = document.querySelector('.chip-progress > div');
+    if (track && bar) track.addEventListener('scroll', () => {
+      const max = track.scrollWidth - track.clientWidth;
+      const pct = max > 0 ? Math.round((track.scrollLeft / max) * 100) : 0;
+      bar.style.width = Math.max(12, pct) + '%';
+    }, { passive: true });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Collection page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Category banner"
+    },
+    {
+      "type": "select",
+      "id": "banner_style",
+      "label": "Banner style",
+      "options": [
+        { "value": "standard", "label": "Standard (green)" },
+        { "value": "sale", "label": "Sale (red)" }
+      ],
+      "default": "standard"
+    },
+    {
+      "type": "text",
+      "id": "banner_heading",
+      "label": "Banner heading",
+      "info": "Leave blank to use the collection title."
+    },
+    {
+      "type": "richtext",
+      "id": "banner_text",
+      "label": "Banner text",
+      "info": "Leave blank to use the collection description."
+    },
+    {
+      "type": "text",
+      "id": "banner_badge",
+      "label": "Sale badge text",
+      "info": "Shown on the Sale banner style only, e.g. \"Up to 30% off\"."
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner image",
+      "info": "Falls back to the collection image, then the asset filename below."
+    },
+    {
+      "type": "text",
+      "id": "banner_image_asset",
+      "label": "Fallback banner asset filename",
+      "info": "Leave empty to show a sized placeholder until real photography is uploaded. A default here would put the same photo on every category.",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Sub-category chips"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_chips",
+      "label": "Show chips rail",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "chip_links",
+      "label": "Chip links",
+      "info": "One per line: Label | URL. Leave blank for the default Medicines & Health category chips."
+    },
+    {
+      "type": "header",
+      "content": "SEO copy and FAQ"
+    },
+    {
+      "type": "text",
+      "id": "seo_heading",
+      "label": "SEO heading"
+    },
+    {
+      "type": "richtext",
+      "id": "seo_text",
+      "label": "SEO text"
+    },
+    {
+      "type": "text",
+      "id": "faq_heading",
+      "label": "FAQ heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "header",
+      "content": "You may also like"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_also",
+      "label": "Show \"You may also like\" rail",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "also_heading",
+      "label": "Rail heading",
+      "default": "You may also like"
+    },
+    {
+      "type": "collection",
+      "id": "also_collection",
+      "label": "Rail collection",
+      "info": "Leave blank to use products from the current collection."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Do I need a prescription?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "All items in this collection can be bought without a GP prescription. A small number of pharmacist-only medicines require you to answer a few questions before you can add the product to your basket, and our experienced pharmacists review this information before approving an order for processing and shipping."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection page"
+    }
+  ]
+}
+{% endschema %}

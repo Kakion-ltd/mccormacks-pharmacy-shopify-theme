@@ -1,0 +1,530 @@
+[
+  {
+    "letter": "A",
+    "display": "Acnecide",
+    "title": "Acnecide",
+    "handle": "acnecide"
+  },
+  {
+    "letter": "A",
+    "display": "Anbesol",
+    "title": "Anbesol",
+    "handle": "anbesol"
+  },
+  {
+    "letter": "A",
+    "display": "Aveeno",
+    "title": "Aveeno",
+    "handle": "aveeno"
+  },
+  {
+    "letter": "A",
+    "display": "Avene",
+    "title": "Avene",
+    "handle": "avene"
+  },
+  {
+    "letter": "B",
+    "display": "Bepanthen",
+    "title": "Bepanthen",
+    "handle": "bepanthen"
+  },
+  {
+    "letter": "B",
+    "display": "Bio-Oil",
+    "title": "Bio-Oil",
+    "handle": "bio-oil"
+  },
+  {
+    "letter": "B",
+    "display": "Bioderma",
+    "title": "Bioderma",
+    "handle": "bioderma"
+  },
+  {
+    "letter": "B",
+    "display": "Blistex",
+    "title": "Blistex",
+    "handle": "blistex"
+  },
+  {
+    "letter": "C",
+    "display": "Calpol",
+    "title": "Calpol",
+    "handle": "calpol"
+  },
+  {
+    "letter": "C",
+    "display": "CeraVe",
+    "title": "CeraVe",
+    "handle": "cerave"
+  },
+  {
+    "letter": "C",
+    "display": "Cetaphil",
+    "title": "Cetaphil",
+    "handle": "cetaphil"
+  },
+  {
+    "letter": "C",
+    "display": "Cleanmarine",
+    "title": "Cleanmarine",
+    "handle": "cleanmarine"
+  },
+  {
+    "letter": "C",
+    "display": "Compeed",
+    "title": "Compeed",
+    "handle": "compeed"
+  },
+  {
+    "letter": "D",
+    "display": "Deep Freeze",
+    "title": "Deep Freeze",
+    "handle": "deep-freeze"
+  },
+  {
+    "letter": "D",
+    "display": "Dermalogica",
+    "title": "Dermalogica",
+    "handle": "dermalogica"
+  },
+  {
+    "letter": "D",
+    "display": "Difflam",
+    "title": "Difflam",
+    "handle": "difflam"
+  },
+  {
+    "letter": "D",
+    "display": "Ducray",
+    "title": "Ducray",
+    "handle": "ducray"
+  },
+  {
+    "letter": "E",
+    "display": "Elave",
+    "title": "Elave",
+    "handle": "elave"
+  },
+  {
+    "letter": "E",
+    "display": "Elizabeth Arden",
+    "title": "Elizabeth Arden",
+    "handle": "elizabeth-arden"
+  },
+  {
+    "letter": "E",
+    "display": "Eskimo-3",
+    "title": "Eskimo-3",
+    "handle": "eskimo-3"
+  },
+  {
+    "letter": "E",
+    "display": "Eucerin",
+    "title": "Eucerin",
+    "handle": "eucerin"
+  },
+  {
+    "letter": "F",
+    "display": "fabÜ",
+    "title": "fabÜ",
+    "handle": "fabu"
+  },
+  {
+    "letter": "F",
+    "display": "Filorga",
+    "title": "Filorga",
+    "handle": "filorga"
+  },
+  {
+    "letter": "F",
+    "display": "Flexiseq",
+    "title": "Flexiseq",
+    "handle": "flexiseq"
+  },
+  {
+    "letter": "F",
+    "display": "Frezyderm",
+    "title": "Frezyderm",
+    "handle": "frezyderm"
+  },
+  {
+    "letter": "G",
+    "display": "Garnier",
+    "title": "Garnier",
+    "handle": "garnier"
+  },
+  {
+    "letter": "G",
+    "display": "Gaviscon",
+    "title": "Gaviscon",
+    "handle": "gaviscon"
+  },
+  {
+    "letter": "G",
+    "display": "Gillette",
+    "title": "Gillette",
+    "handle": "gillette"
+  },
+  {
+    "letter": "H",
+    "display": "Holland Cooper",
+    "title": "Holland Cooper",
+    "handle": "holland-cooper"
+  },
+  {
+    "letter": "H",
+    "display": "Hyalo",
+    "title": "Hyalo",
+    "handle": "hyalo"
+  },
+  {
+    "letter": "H",
+    "display": "Hydralyte",
+    "title": "Hydralyte",
+    "handle": "hydralyte"
+  },
+  {
+    "letter": "I",
+    "display": "Ideal Protein",
+    "title": "Ideal Protein",
+    "handle": "ideal-protein"
+  },
+  {
+    "letter": "I",
+    "display": "Imodium",
+    "title": "Imodium",
+    "handle": "imodium"
+  },
+  {
+    "letter": "I",
+    "display": "Ivax",
+    "title": "Ivax",
+    "handle": "ivax"
+  },
+  {
+    "letter": "J",
+    "display": "Jason",
+    "title": "Jason",
+    "handle": "jason"
+  },
+  {
+    "letter": "J",
+    "display": "Johnson’s Baby",
+    "title": "Johnson’s Baby",
+    "handle": "johnsons-baby"
+  },
+  {
+    "letter": "K",
+    "display": "Kerasal",
+    "title": "Kerasal",
+    "handle": "kerasal"
+  },
+  {
+    "letter": "K",
+    "display": "Kids Vits",
+    "title": "Kids Vits",
+    "handle": "kids-vits"
+  },
+  {
+    "letter": "K",
+    "display": "Kiehl’s",
+    "title": "Kiehl’s",
+    "handle": "kiehls"
+  },
+  {
+    "letter": "L",
+    "display": "La Roche-Posay",
+    "title": "La Roche-Posay",
+    "handle": "la-roche-posay"
+  },
+  {
+    "letter": "L",
+    "display": "Lamberts",
+    "title": "Lamberts",
+    "handle": "lamberts"
+  },
+  {
+    "letter": "L",
+    "display": "Lypsyl",
+    "title": "Lypsyl",
+    "handle": "lypsyl"
+  },
+  {
+    "letter": "L",
+    "display": "L’Oréal Paris",
+    "title": "L’Oréal Paris",
+    "handle": "loreal-paris"
+  },
+  {
+    "letter": "M",
+    "display": "Maybelline",
+    "title": "Maybelline",
+    "handle": "maybelline"
+  },
+  {
+    "letter": "M",
+    "display": "Metanium",
+    "title": "Metanium",
+    "handle": "metanium"
+  },
+  {
+    "letter": "M",
+    "display": "Mitchum",
+    "title": "Mitchum",
+    "handle": "mitchum"
+  },
+  {
+    "letter": "M",
+    "display": "Mustela",
+    "title": "Mustela",
+    "handle": "mustela"
+  },
+  {
+    "letter": "N",
+    "display": "Nature’s Plus",
+    "title": "Nature’s Plus",
+    "handle": "natures-plus"
+  },
+  {
+    "letter": "N",
+    "display": "Neutrogena",
+    "title": "Neutrogena",
+    "handle": "neutrogena"
+  },
+  {
+    "letter": "N",
+    "display": "NIVEA",
+    "title": "NIVEA",
+    "handle": "nivea"
+  },
+  {
+    "letter": "N",
+    "display": "Nizoral",
+    "title": "Nizoral",
+    "handle": "nizoral"
+  },
+  {
+    "letter": "N",
+    "display": "NUK",
+    "title": "NUK",
+    "handle": "nuk"
+  },
+  {
+    "letter": "N",
+    "display": "Nurofen",
+    "title": "Nurofen",
+    "handle": "nurofen"
+  },
+  {
+    "letter": "O",
+    "display": "OptiBac",
+    "title": "OptiBac",
+    "handle": "optibac"
+  },
+  {
+    "letter": "O",
+    "display": "Oral-B",
+    "title": "Oral-B",
+    "handle": "oral-b"
+  },
+  {
+    "letter": "O",
+    "display": "Ordinary, The",
+    "title": "The Ordinary",
+    "handle": "the-ordinary"
+  },
+  {
+    "letter": "O",
+    "display": "Otrivine",
+    "title": "Otrivine",
+    "handle": "otrivine"
+  },
+  {
+    "letter": "P",
+    "display": "Panadol",
+    "title": "Panadol",
+    "handle": "panadol"
+  },
+  {
+    "letter": "P",
+    "display": "Pharmaton",
+    "title": "Pharmaton",
+    "handle": "pharmaton"
+  },
+  {
+    "letter": "P",
+    "display": "Piriton",
+    "title": "Piriton",
+    "handle": "piriton"
+  },
+  {
+    "letter": "P",
+    "display": "Piz Buin",
+    "title": "Piz Buin",
+    "handle": "piz-buin"
+  },
+  {
+    "letter": "P",
+    "display": "Proven",
+    "title": "Proven",
+    "handle": "proven"
+  },
+  {
+    "letter": "Q",
+    "display": "Quies",
+    "title": "Quies",
+    "handle": "quies"
+  },
+  {
+    "letter": "R",
+    "display": "Rennie",
+    "title": "Rennie",
+    "handle": "rennie"
+  },
+  {
+    "letter": "R",
+    "display": "Rescue Remedy",
+    "title": "Rescue Remedy",
+    "handle": "rescue-remedy"
+  },
+  {
+    "letter": "R",
+    "display": "Revive Active",
+    "title": "Revive Active",
+    "handle": "revive-active"
+  },
+  {
+    "letter": "R",
+    "display": "Roc",
+    "title": "Roc",
+    "handle": "roc"
+  },
+  {
+    "letter": "S",
+    "display": "Sculpted by Aimee",
+    "title": "Sculpted by Aimee",
+    "handle": "sculpted-by-aimee"
+  },
+  {
+    "letter": "S",
+    "display": "Sensodyne",
+    "title": "Sensodyne",
+    "handle": "sensodyne"
+  },
+  {
+    "letter": "S",
+    "display": "Solgar",
+    "title": "Solgar",
+    "handle": "solgar"
+  },
+  {
+    "letter": "S",
+    "display": "Strepsils",
+    "title": "Strepsils",
+    "handle": "strepsils"
+  },
+  {
+    "letter": "S",
+    "display": "Sudocrem",
+    "title": "Sudocrem",
+    "handle": "sudocrem"
+  },
+  {
+    "letter": "T",
+    "display": "Tan-Luxe",
+    "title": "Tan-Luxe",
+    "handle": "tan-luxe"
+  },
+  {
+    "letter": "T",
+    "display": "TePe",
+    "title": "TePe",
+    "handle": "tepe"
+  },
+  {
+    "letter": "T",
+    "display": "Tiger Balm",
+    "title": "Tiger Balm",
+    "handle": "tiger-balm"
+  },
+  {
+    "letter": "U",
+    "display": "Udo’s Choice",
+    "title": "Udo’s Choice",
+    "handle": "udos-choice"
+  },
+  {
+    "letter": "U",
+    "display": "Uriage",
+    "title": "Uriage",
+    "handle": "uriage"
+  },
+  {
+    "letter": "V",
+    "display": "Viagra Connect",
+    "title": "Viagra Connect",
+    "handle": "viagra-connect"
+  },
+  {
+    "letter": "V",
+    "display": "Vichy",
+    "title": "Vichy",
+    "handle": "vichy"
+  },
+  {
+    "letter": "V",
+    "display": "Vitabiotics",
+    "title": "Vitabiotics",
+    "handle": "vitabiotics"
+  },
+  {
+    "letter": "V",
+    "display": "Voltarol",
+    "title": "Voltarol",
+    "handle": "voltarol"
+  },
+  {
+    "letter": "W",
+    "display": "Weleda",
+    "title": "Weleda",
+    "handle": "weleda"
+  },
+  {
+    "letter": "W",
+    "display": "Wild Nutrition",
+    "title": "Wild Nutrition",
+    "handle": "wild-nutrition"
+  },
+  {
+    "letter": "X",
+    "display": "Xls Medical",
+    "title": "Xls Medical",
+    "handle": "xls-medical"
+  },
+  {
+    "letter": "Y",
+    "display": "Yes Organic",
+    "title": "Yes Organic",
+    "handle": "yes-organic"
+  },
+  {
+    "letter": "Z",
+    "display": "Zerobase",
+    "title": "Zerobase",
+    "handle": "zerobase"
+  },
+  {
+    "letter": "Z",
+    "display": "Zirtek",
+    "title": "Zirtek",
+    "handle": "zirtek"
+  },
+  {
+    "letter": "Z",
+    "display": "Zovirax",
+    "title": "Zovirax",
+    "handle": "zovirax"
+  }
+]

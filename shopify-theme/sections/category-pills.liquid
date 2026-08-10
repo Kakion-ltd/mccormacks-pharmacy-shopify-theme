@@ -1,0 +1,31 @@
+<section class="sec-pad" style="max-width:1440px; margin:0 auto; padding:26px 30px 8px;">
+  <div class="cat-tile-row" style="display:flex; align-items:stretch; gap:16px;">
+    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="cats-{{ section.id }}" data-rail-by="-260" class="cat-scroll-btn hov-scroll" style="flex:0 0 auto; align-self:center; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#ffffff; color:#82c914; cursor:pointer; display:none; align-items:center; justify-content:center;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg>
+    </button>
+    <div id="cats-{{ section.id }}" style="flex:1; display:flex; gap:16px; overflow-x:auto; scroll-behavior:smooth; padding-bottom:6px; scrollbar-width:none;">
+      <a href="/collections/medicines-health" class="hov-bg-green" style="flex:1 0 170px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Pharmacy</a>
+      <a href="/collections/vitamins" class="hov-bg-green" style="flex:1 0 170px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Supplements</a>
+      <a href="/collections/skincare" class="hov-bg-green" style="flex:1 0 170px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Skincare</a>
+      <a href="/collections/beauty" class="hov-bg-green" style="flex:1 0 170px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Beauty</a>
+      <a href="/collections/toiletries" class="hov-bg-green" style="flex:1 0 170px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Toiletries</a>
+      <a href="/collections/mother-baby" class="hov-bg-green" style="flex:1 0 170px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Baby</a>
+      <a href="/collections/gifting" class="hov-bg-green" style="flex:1 0 170px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Gifts</a>
+    </div>
+    <button aria-label="Scroll for more categories" data-rail-btn data-rail-target="cats-{{ section.id }}" data-rail-by="260" class="cat-scroll-btn hov-scroll" style="flex:0 0 auto; align-self:center; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#ffffff; color:#82c914; cursor:pointer; display:flex; align-items:center; justify-content:center;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg>
+    </button>
+  </div>
+</section>
+
+{% style %}
+.hov-scroll:hover { border-color: #92C83F !important; background: #f2f8e9 !important; }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Category pill row",
+  "settings": [],
+  "presets": [{ "name": "Category pill row" }]
+}
+{% endschema %}

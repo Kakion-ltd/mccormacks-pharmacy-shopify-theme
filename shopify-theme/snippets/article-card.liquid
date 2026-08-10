@@ -1,0 +1,20 @@
+{%- comment -%} Blog article card. Accepts: article. {%- endcomment -%}
+<a href="{{ article.url }}" class="art-card" style="display:flex; flex-direction:column; border:1px solid #e6e7e4; border-radius:16px; overflow:hidden; background:#ffffff; color:#2A2B2A; transition:box-shadow .18s, transform .18s;">
+  <div style="width:100%; aspect-ratio:4/3; overflow:hidden; background:#f4f5f2;">
+    {%- if article.image -%}
+      {{ article.image | image_url: width: 800 | image_tag: style: 'width:100%; height:100%; object-fit:cover; display:block;', alt: article.title | escape }}
+    {%- else -%}
+      <div style="width:100%; height:100%; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); display:flex; align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div>
+    {%- endif -%}
+  </div>
+  <div style="padding:20px 22px 24px; display:flex; flex-direction:column; gap:11px; flex:1;">
+    {%- if article.tags.first -%}
+      <span>{% render 'blog-tag-chip', tag: article.tags.first %}</span>
+    {%- endif -%}
+    <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:#3f6b4f;">{{ article.title }}</div>
+    <div style="font-size:14.5px; line-height:1.65; color:#5d6159; flex:1;">{{ article.excerpt_or_content | strip_html | truncate: 140 }}</div>
+    <div style="display:flex; flex-wrap:wrap; gap:6px 14px; font-size:12.5px; color:#8b9182; padding-top:4px;">
+      <span>{{ article.published_at | date: '%-d %B %Y' }}</span>
+    </div>
+  </div>
+</a>

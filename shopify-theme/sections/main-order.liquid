@@ -1,0 +1,134 @@
+{% render 'trust-row' %}
+<section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
+
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
+    <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><a href="{{ routes.account_url }}" class="hov-green" style="color:#8b9182;">My account</a><span>/</span><span style="color:#3a3d39; font-weight:700;">{{ order.name }}</span>
+  </nav>
+  <div class="acct-wrap" style="display:flex; gap:40px; align-items:flex-start;">
+
+    {% render 'account-sidebar', active: 'orders' %}
+
+    <div style="flex:1 1 auto; min-width:0;">
+
+      <a href="{{ routes.account_url }}#orders" style="display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:700; color:#82C914; margin:0 0 16px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
+        All orders
+      </a>
+      {% liquid
+        if order.cancelled
+          assign badge_bg = '#f7eeee'
+          assign badge_fg = '#a35151'
+          assign badge_label = 'Cancelled'
+        elsif order.fulfillment_status == 'fulfilled'
+          assign badge_bg = '#f2f3f1'
+          assign badge_fg = '#5d6159'
+          assign badge_label = order.fulfillment_status_label
+        else
+          assign badge_bg = '#eef2e8'
+          assign badge_fg = '#3f6a17'
+          assign badge_label = order.fulfillment_status_label
+        endif
+      %}
+      <div style="display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:12px 20px; margin:0 0 20px;">
+        <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.3vw,29px); margin:0;">Order {{ order.name }}</h2>
+        <span style="display:inline-flex; align-items:center; height:29px; padding:0 12px; border-radius:6px; background:{{ badge_bg }}; color:{{ badge_fg }}; font-size:13px; font-weight:800;">{{ badge_label }}</span>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin:0 0 26px;">
+        <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
+          <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#8b9182; margin-bottom:8px;">Delivery address</div>
+          <div class="acct-addr" style="font-size:14.5px; line-height:1.7; color:#3a3d39;">
+            {%- if order.shipping_address -%}
+              {{ order.shipping_address | format_address }}
+            {%- elsif order.billing_address -%}
+              {{ order.billing_address | format_address }}
+            {%- else -%}
+              No delivery address on this order.
+            {%- endif -%}
+          </div>
+        </div>
+        <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
+          <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#8b9182; margin-bottom:8px;">Delivery method</div>
+          <div style="font-size:14.5px; line-height:1.7; color:#3a3d39;">
+            {%- if order.shipping_methods.size > 0 -%}
+              {%- for shipping_method in order.shipping_methods -%}
+                {{ shipping_method.title }}<br>
+                {%- if shipping_method.price == 0 -%}<strong style="color:#3f6b4f;">Free</strong>{%- else -%}<strong style="color:#3f6b4f;">{{ shipping_method.price | money }}</strong>{%- endif -%}
+                {%- unless forloop.last -%}<br>{%- endunless -%}
+              {%- endfor -%}
+            {%- else -%}
+              No delivery method on this order.
+            {%- endif -%}
+          </div>
+        </div>
+        <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
+          <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#8b9182; margin-bottom:8px;">Payment</div>
+          <div style="font-size:14.5px; line-height:1.7; color:#3a3d39;">{{ order.financial_status_label }}<br>Placed {{ order.created_at | date: '%-d %B %Y' }}<br><strong style="color:#3f6b4f;">{{ order.total_price | money }}</strong></div>
+        </div>
+      </div>
+
+      <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
+        <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:#3f6b4f; margin:0 0 12px;">Items</div>
+        {% for line_item in order.line_items %}
+          <div style="display:flex; gap:14px; align-items:center; padding:12px 0; border-bottom:1px solid #eceee9;">
+            <span style="flex:0 0 auto; width:58px; height:58px; border:1px solid #e6e7e4; border-radius:9px; overflow:hidden; background:#ffffff;">
+              {%- if line_item.image -%}
+                {{ line_item.image | image_url: width: 116 | image_tag: alt: line_item.title, style: 'width:100%; height:100%; object-fit:contain; display:block;' }}
+              {%- else -%}
+                <span style="display:block; width:100%; height:100%; background:repeating-linear-gradient(45deg,#f2f3f1,#f2f3f1 8px,#e9ebe6 8px,#e9ebe6 16px);"></span>
+              {%- endif -%}
+            </span>
+            <span style="flex:1 1 auto; min-width:0;">
+              <span style="display:block; font-size:14.5px; font-weight:700; line-height:1.45; color:#2A2B2A;">{{ line_item.title }}</span>
+              <span style="display:block; font-size:13px; color:#6b7065; margin-top:3px;">Qty {{ line_item.quantity }}</span>
+            </span>
+            <span style="flex:0 0 auto; font-weight:800; font-size:15px; color:#2A2B2A;">{{ line_item.final_line_price | money }}</span>
+          </div>
+        {% endfor %}
+        <div style="padding:16px 0 0; display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; font-size:14.5px; color:#3a3d39;">
+            <span>Subtotal</span><span style="font-weight:700;">{{ order.line_items_subtotal_price | money }}</span>
+          </div>
+          {% if order.total_discounts > 0 %}
+            <div style="display:flex; align-items:baseline; justify-content:space-between; font-size:14.5px; color:#3f6a17;">
+              <span>Discounts</span><span style="font-weight:700;">&minus;{{ order.total_discounts | money }}</span>
+            </div>
+          {% endif %}
+          <div style="display:flex; align-items:baseline; justify-content:space-between; font-size:14.5px; color:#3a3d39;">
+            <span>Delivery</span><span style="font-weight:700;">{% if order.shipping_price == 0 %}Free{% else %}{{ order.shipping_price | money }}{% endif %}</span>
+          </div>
+          <div style="display:flex; align-items:baseline; justify-content:space-between; font-size:14.5px; color:#3a3d39;">
+            <span>Tax</span><span style="font-weight:700;">{{ order.tax_price | money }}</span>
+          </div>
+          <div style="display:flex; align-items:baseline; justify-content:space-between; padding-top:8px; border-top:1px solid #eceee9;">
+            <span style="font-weight:800; font-size:16.5px; color:#2A2B2A;">Total</span>
+            <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:24px; color:#3f6b4f;">{{ order.total_price | money }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:22px;">
+        {% if order.order_status_url %}
+          <a href="{{ order.order_status_url }}" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px;">Track parcel</a>
+        {% endif %}
+        <a href="{{ routes.account_url }}#orders" class="hov-border-only" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:15px;">Back to orders</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .acct-addr p { margin: 0; }
+  .hov-border-only:hover { border-color: #92C83F !important; }
+  @media (max-width: 1000px) {
+    .acct-wrap { align-items: stretch !important; flex-direction: column !important; gap: 26px !important; }
+    .acct-side { flex: 1 1 auto !important; width: 100% !important; }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Customer order",
+  "presets": [{ "name": "Customer order" }]
+}
+{% endschema %}

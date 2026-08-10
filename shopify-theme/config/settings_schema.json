@@ -1,0 +1,21 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "McCormack's Pharmacy",
+    "theme_version": "1.0.0",
+    "theme_author": "Kakion",
+    "theme_documentation_url": "https://kakion.com",
+    "theme_support_url": "https://kakion.com"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "color", "id": "color_primary", "label": "Primary green", "default": "#82C914" },
+      { "type": "color", "id": "color_primary_hover", "label": "Hover green", "default": "#6BA30F" },
+      { "type": "color", "id": "color_dark", "label": "Dark green", "default": "#3F6B4F" },
+      { "type": "color", "id": "color_accent", "label": "Accent green", "default": "#92C83F" },
+      { "type": "text", "id": "phone", "label": "Customer service phone", "default": "052 6199329" },
+      { "type": "text", "id": "free_shipping_threshold", "label": "Free delivery threshold (EUR)", "default": "65" }
+    ]
+  }
+]

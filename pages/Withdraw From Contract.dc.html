@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Withdraw From Contract | McCormack's Pharmacy</title>
+<meta name="description" content="How to exercise your statutory right of withdrawal on an eligible online order from McCormack's Pharmacy.">
+<link rel="canonical" href="Withdraw%20From%20Contract.dc.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Mulish', system-ui, sans-serif; color: #2A2B2A; background: #ffffff; }
+  a { color: #82C914; text-decoration: none; }
+  a:hover { color: #6ba30f; }
+  @keyframes trustSlide {
+    0%,28% { transform:translateX(0); }
+    33.3%,61.6% { transform:translateX(-100%); }
+    66.6%,95% { transform:translateX(-200%); }
+    100% { transform:translateX(0); }
+  }
+  @media (max-width: 1100px) and (min-width: 901px) {
+    .icon-label { display:none !important; }
+    .hdr-row { padding:5px 20px !important; gap:10px 18px !important; }
+    .hdr-search { flex:0 1 340px !important; margin:0 auto !important; }
+    .hdr-icons { gap:18px !important; }
+    section { padding-left:20px !important; padding-right:20px !important; }
+  }
+  @media (max-width: 900px) {
+    .hdr-row { flex-wrap:wrap; gap:12px 14px !important; padding:10px 16px !important; }
+    .hdr-mobile-left { display:flex !important; order:1; }
+    .hdr-logo { order:2; flex:1 1 auto !important; }
+    .hdr-logo img { margin:0 auto; width:170px !important; }
+    .hdr-icons { order:3; gap:18px !important; }
+    .hdr-search { order:4 !important; flex:1 1 100% !important; max-width:100% !important; margin:2px 0 0 !important; }
+    .hide-mobile { display:none !important; }
+    .cart-mobile { display:flex !important; }
+    .icon-label { display:none !important; }
+    .trust-mob-wrap { overflow:hidden; }
+    .trust-inner { flex-wrap:nowrap !important; padding:9px 20px !important; gap:0 !important; animation:trustSlide 10.5s infinite; }
+    .trust-inner > div { flex:0 0 100% !important; justify-content:center !important; font-size:13.5px !important; }
+    .annc-row { justify-content:center !important; gap:8px 14px !important; font-size:11px !important; padding:5px 16px !important; }
+    .annc-hide { display:none !important; }
+    section { padding-left:16px !important; padding-right:16px !important; }
+    .hdr-logo img { width:160px !important; }
+    .hdr-mobile-left { gap:14px !important; }
+    .hdr-icons { gap:16px !important; }
+  }
+  @media print {
+    body > *:not(.wfc-print-area) { display:none !important; }
+    .wfc-print-area { border:none !important; }
+    .wfc-print-btn { display:none !important; }
+  }
+  @media (max-width: 900px) {
+    .ftr-cols { grid-template-columns:repeat(auto-fit,minmax(180px,1fr)) !important; }
+  }
+  @media (max-width: 640px) {
+    .ftr-newsletter { display:none !important; }
+    .ftr-cols { text-align:left; padding:0 !important; gap:0 !important; grid-template-columns:1fr !important; }
+    .ftr-cols > div:first-child { align-items:flex-start; display:flex; flex-direction:column; padding:24px 20px; }
+    .ftr-cols > div:first-child p { display:none; }
+    .ftr-cols h4 { text-align:left; justify-content:space-between !important; gap:10px !important; color:#82c914; border-bottom:none !important; padding:18px 20px !important; margin:0 !important; font-size:17px !important; border-top:1px solid #e6e7e4; }
+    .ftr-psi { justify-content:flex-start !important; padding:14px 20px !important; margin-right:0 !important; }
+    .ftr-psi a { margin-right:0 !important; }
+    .ftr-psi img { height:56px !important; }
+    .ftr-bottom { flex-direction:column !important; text-align:center; gap:14px !important; padding:22px 20px !important; }
+    .ftr-bottom > div { justify-content:center !important; }
+    .ftr-payments { order:1; }
+    .ftr-terms { display:block !important; order:2; font-size:13px; }
+    .ftr-copyright { order:3; }
+    .ftr-builtby { order:4; }
+  }
+</style>
+</helmet>
+
+<div style="width:100%; overflow-x:hidden; background:#ffffff;">
+
+  <!-- Announcement bar -->
+  <div style="width:100%; background:#3f6b4f; color:#ffffff;">
+    <div class="annc-row" style="max-width:1440px; margin:0 auto; padding:5px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 40px; font-size:12.5px; font-weight:400; letter-spacing:.06em;">
+      <div style="display:flex; align-items:center; gap:12px; justify-content:flex-start;">
+        <span>IRELAND (EUR&nbsp;€)</span>
+      </div>
+      <div class="annc-hide" style="text-align:center;">FREE DELIVERY OVER €65</div>
+      <div style="text-align:right;">CALL US: <a href="tel:0526199329" style="color:#ffffff; text-decoration:underline; text-underline-offset:3px;">052 6199329</a></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header style="width:100%; background:#ffffff;">
+    <div class="hdr-row" style="max-width:1440px; margin:0 auto; padding:16px 30px; display:flex; flex-wrap:wrap; align-items:center; gap:12px 30px;">
+      <div class="hdr-mobile-left" style="display:none; align-items:center; gap:16px; order:1;">
+        <button aria-label="Menu" onClick="{{ openMnav }}" style="border:none; background:transparent; padding:0; color:#2A2B2A; cursor:pointer; display:flex;"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <a href="My%20Account.dc.html" aria-label="My Account" style="color:#2A2B2A; display:flex;" style-hover="color:#82c914;"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg></a>
+      </div>
+      <a href="McCormacks%20Homepage.dc.html" class="hdr-logo" style="display:block; flex:0 0 auto;">
+        <img src="assets/mccormacks-logo.png" alt="McCormack's Pharmacy" style="width:185px; max-width:100%; height:auto; display:block;">
+      </a>
+      <form class="hdr-search" style="flex:0 1 550px; min-width:200px; order:0; margin:0 auto; display:flex; align-items:stretch; background:#f4f5f2; border:1.5px solid transparent; border-radius:12px; overflow:hidden; padding:0 0 0 16px; transition:border-color .18s, box-shadow .18s, background .18s;" action="Search%20Results.dc.html" method="get" style-focus-within="background:#ffffff; border-color:#92C83F; box-shadow:0 0 0 4px rgba(146,200,63,.15);">
+        <input type="text" name="q" placeholder="Search for products, brands and more…" style="flex:1; border:none; outline:none; font-family:inherit; font-size:14.5px; color:#2A2B2A; background:transparent; padding:9px 0;">
+        <button type="submit" aria-label="Search" style="flex:0 0 auto; width:46px; border:none; border-radius:9px 0 0 9px; background:#92C83F; color:#ffffff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .15s;" style-hover="background:#82c914;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></button>
+      </form>
+      <nav class="hdr-icons" style="flex:0 0 auto; display:flex; align-items:center; gap:26px; color:#2A2B2A;">
+        <a href="My%20Account.dc.html" class="hide-mobile" style="color:#2A2B2A; display:flex; align-items:center; gap:7px; font-weight:600; font-size:13.5px;" style-hover="color:#82c914;">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>
+          <span class="icon-label">Wishlist</span>
+        </a>
+        <a href="Cart%20-%20Checkout.dc.html" class="hide-mobile" style="color:#2A2B2A; display:flex; align-items:center; gap:7px; font-weight:600; font-size:13.5px;" style-hover="color:#82c914;">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.4 12.3a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L22 7H6"></path></svg>
+          <span class="icon-label">My Cart</span>
+        </a>
+        <a href="My%20Account.dc.html" class="hide-mobile" aria-label="My Account" style="color:#2A2B2A; display:flex; align-items:center; position:relative;" style-hover="color:#82c914;">
+          <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
+        </a>
+        <a href="Cart%20-%20Checkout.dc.html" class="cart-mobile" aria-label="My Cart" style="color:#2A2B2A; display:none; align-items:center; position:relative;" style-hover="color:#82c914;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.4 12.3a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L22 7H6"></path></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile nav drawer -->
+  <div onClick="{{ closeMnav }}" style="position:fixed; inset:0; z-index:200; background:rgba(0,0,0,.45); opacity:{{ mnavOverlayOpacity }}; visibility:{{ mnavVisibility }}; transition:opacity .25s ease, visibility .25s ease;"></div>
+  <aside style="position:fixed; top:0; left:0; bottom:0; z-index:201; width:340px; max-width:86vw; background:#ffffff; box-shadow:0 0 40px rgba(0,0,0,.2); transform:{{ mnavTransform }}; transition:transform .28s cubic-bezier(.4,0,.2,1); display:flex; flex-direction:column; overflow-y:auto;">
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-bottom:1px solid #eceee9;">
+      <img src="assets/mccormacks-logo.png" alt="McCormack's Pharmacy" style="width:150px; height:auto; display:block;">
+      <button aria-label="Close menu" onClick="{{ closeMnav }}" style="border:none; background:#f4f5f2; width:38px; height:38px; border-radius:999px; color:#2A2B2A; cursor:pointer; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
+    </div>
+    <nav style="display:flex; flex-direction:column; padding:6px 0;">
+      <sc-for list="{{ mnavItems }}" as="item" hint-placeholder-count="10">
+        <a href="{{ item.href }}" style="display:flex; align-items:center; justify-content:space-between; padding:15px 20px; font-weight:700; font-size:15.5px; color:{{ item.color }}; border-bottom:1px solid #f1f2ef;" style-hover="background:#f6f8f1;">
+          <span>{{ item.label }}</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c2c6bd" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg>
+        </a>
+      </sc-for>
+    </nav>
+    <div style="padding:18px 20px; margin-top:auto; display:flex; flex-direction:column; gap:12px;">
+      <div style="display:flex; gap:12px;">
+        <a href="In-Store%20Services.dc.html" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:#3f6b4f; color:#ffffff; font-weight:700; font-size:14px; height:46px; border-radius:9px;" style-hover="background:#153531;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
+          Services
+        </a>
+        <a href="Store%20Locator.dc.html" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14px; height:46px; border-radius:9px;" style-hover="background:#7fb52f;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.5"></circle></svg>
+          Store Locator
+        </a>
+      </div>
+      <div style="display:flex; gap:12px;">
+        <a href="My%20Account.dc.html" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:14px; height:44px; border-radius:9px;" style-hover="border-color:#92C83F; color:#82c914;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Account
+        </a>
+        <a href="My%20Account.dc.html" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:14px; height:44px; border-radius:9px;" style-hover="border-color:#92C83F; color:#82c914;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>Wishlist
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main navigation -->
+  <div class="main-nav-bar" style="width:100%; background:#f2f3f1; border-top:1px solid #e6e7e4; border-bottom:1px solid #e6e7e4;">
+    <div style="max-width:1440px; margin:0 auto; padding:3px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px 30px; position:relative;" onMouseLeave="{{ closeNav }}">
+      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:8px 18px; font-weight:600; font-size:14px;">
+        <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A; font-size:13.5px;" style-hover="color:#82c914;" onMouseEnter="{{ setPharm }}">Medicines &amp; Health</a>
+        <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A; font-size:13.5px;" style-hover="color:#82c914;" onMouseEnter="{{ setSupp }}">Vitamins</a>
+        <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A; font-size:13.5px;" style-hover="color:#82c914;" onMouseEnter="{{ setBeauty }}">Beauty</a>
+        <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A; font-size:13.5px;" style-hover="color:#82c914;" onMouseEnter="{{ setSkin }}">Skincare</a>
+        <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A; font-size:13.5px;" style-hover="color:#82c914;" onMouseEnter="{{ setToil }}">Toiletries</a>
+        <a href="Sale%20-%20Baby%20Categories.dc.html" style="color:#2A2B2A; font-size:13.5px;" style-hover="color:#82c914;" onMouseEnter="{{ setBaby }}">Mother &amp; Baby</a>
+        <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A; font-size:13.5px;" style-hover="color:#82c914;" onMouseEnter="{{ setFrag }}">Fragrance</a>
+        <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A; font-size:13.5px;" style-hover="color:#82c914;" onMouseEnter="{{ setGifts }}">Gifting</a>
+        <a href="Sale%20-%20Baby%20Categories.dc.html" style="color:#82c914; font-weight:700; font-size:13.5px;" style-hover="color:#6ba30f;" onMouseEnter="{{ closeNav }}">Sale</a>
+        <a href="Brands.dc.html" style="color:#2A2B2A; font-size:13.5px;" style-hover="color:#82c914;" onMouseEnter="{{ closeNav }}">Brands</a>
+        <a href="In-Store%20Services.dc.html" style="color:#2A2B2A; font-size:13.5px;" style-hover="color:#82c914;" onMouseEnter="{{ closeNav }}">Services</a>
+      </nav>
+      <div style="display:flex; align-items:center; gap:9px;">
+        <a href="In-Store%20Services.dc.html" style="display:flex; align-items:center; gap:9px; background:#3f6b4f; color:#ffffff; font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;" style-hover="background:#6ba30f;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
+          <span>In-Store Services</span>
+        </a>
+        <a href="Store%20Locator.dc.html" style="display:flex; align-items:center; gap:9px; background:#92C83F; color:#ffffff; font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;" style-hover="background:#7fb52f;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.4"></circle></svg>
+          <span>Store Locator</span>
+        </a>
+      </div>
+
+                        <sc-if value="{{ oPharm }}" hint-placeholder-val="{{ false }}">
+      <div onMouseEnter="{{ setPharm }}" style="position:absolute; left:30px; width:1380px; max-width:calc(100vw - 60px); top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:78vh; overflow:auto; animation:megaIn .16s ease-out;">
+        <div style="display:flex; align-items:stretch;">
+          <div style="flex:1; padding:30px 30px; display:grid; grid-template-columns:repeat(6,minmax(155px,1fr)); gap:20px;">
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Pain Relief</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Pain Relief &amp; Headache</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Baby &amp; Children Pain Relief</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Muscle &amp; Joint Pain</a>
+                </div>
+              </div>
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Cold, Flu &amp; Allergy</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Cold &amp; Flu Combination Products</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Cough</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Hayfever &amp; Allergy</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Sore Throat</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Blocked Nose &amp; Sinus</a>
+                </div>
+              </div>
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Stomach &amp; Gastrointestinal</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Nausea, Acid Indigestion &amp; Reflux</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Bloating &amp; Gas</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Constipation</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Diarrhoea</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Cramping &amp; Irritable Bowel</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Travel Sickness</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Haemorrhoids &amp; Piles</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Sensitive Conditions</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Menopause</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Hair Loss</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Thrush &amp; Antifungal</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Headlice</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Cystitis</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Skintags, Warts &amp; Veruccas</a>
+                </div>
+              </div>
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Nicotine Replacement</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Nicotine Patches</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Nicotine Gum</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Nicotine Lozenges</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Nicotine Sprays</a>
+                </div>
+              </div>
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Eye &amp; Ear Health</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Dry Eye</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Blepharitis &amp; Eyelid Hygiene</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Macular Degeneration &amp; Glaucoma</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Eye Infections</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Contact Lens Care</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Ear Wax Treatments</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Ear Care &amp; Earplugs</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Hearing Aid Batteries</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Sleep &amp; Rest</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Healthy Mind &amp; Sleeping Aids</a>
+                </div>
+              </div>
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Mouth &amp; Oral Care</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Dry Mouth</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Gum Health &amp; Gingivitis</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Mouth Ulcers &amp; Cold Sores</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Teething</a>
+                </div>
+              </div>
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Continence Care</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Bladder Weakness</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Pads</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Liners</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Pants</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Odour Control &amp; Barrier Creams</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Trying To Conceive</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Fertility Aids &amp; Lubricant</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Pregnancy Tests</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Ovulation Tests</a>
+                </div>
+              </div>
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Sexual Health</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Erectile Dysfunction</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Condoms</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Lubricants &amp; Accessories</a>
+                </div>
+              </div>
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Sport</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Warmup &amp; Recovery</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">First Aid</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Antiseptics &amp; Wound Cleaning</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Bandages &amp; Plasters</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Supports</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Cold Therapy &amp; Heat Therapy</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Insect Bites &amp; Prevention</a>
+                </div>
+              </div>
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Foot Care</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Athletes Foot</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Verucca</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Fungal Nail Infection</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Cracked Heels &amp; Dry Skin</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Blisters &amp; Bunion Care</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Corn &amp; Callous Care</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Chiropody Felt &amp; Padding</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Insoles</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Toe Nail Care</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Foot Soak &amp; Odour Control</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Diabetes Care</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Test Strips &amp; Blood Glucose Monitors</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Needles &amp; Lancets</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Sugar Level Maintenance</a>
+                </div>
+              </div>
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Electrical Healthcare</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Blood Pressure Monitors</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Oximeters &amp; Weighing Scales</a>
+                </div>
+              </div>
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Self Testing Kits</a>
+              </div>
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px;" style-hover="color:#3f6b4f;">Healthcare &amp; Medicine Accessories</a>
+              </div>
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ oSupp }}" hint-placeholder-val="{{ false }}">
+      <div onMouseEnter="{{ setSupp }}" style="position:absolute; left:30px; width:1000px; max-width:calc(100vw - 60px); top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:78vh; overflow:auto; animation:megaIn .16s ease-out;">
+        <div style="display:flex; align-items:stretch;">
+          <div style="flex:1; padding:34px 32px; display:grid; grid-template-columns:repeat(4,minmax(150px,1fr)); gap:26px;">
+            <div style="display:flex; flex-direction:column; gap:11px; font-size:14px;">
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Probiotics &amp; Digestive Health</a>
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Children Vitamins</a>
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Fish Oils &amp; Omegas</a>
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Healthy Mind &amp; Sleeping Aids</a>
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Women's Health</a>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:11px; font-size:14px;">
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Everyday Multivitamins</a>
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Energy &amp; Wellbeing</a>
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Skin, Hair &amp; Nails</a>
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Joint &amp; Bone Health</a>
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Fertility &amp; Pregnancy</a>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:11px; font-size:14px;">
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Brain Health</a>
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Eye Health</a>
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Heart Health</a>
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Slimming</a>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:11px; font-size:14px;">
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Herbal Remedies</a>
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Immune Support</a>
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Essential Oils</a>
+              <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Men's Health</a>
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ oSkin }}" hint-placeholder-val="{{ false }}">
+      <div onMouseEnter="{{ setSkin }}" style="position:absolute; left:30px; width:1100px; max-width:calc(100vw - 60px); top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:78vh; overflow:auto; animation:megaIn .16s ease-out;">
+        <div style="display:flex; align-items:stretch;">
+          <div style="flex:1; padding:30px; display:grid; grid-template-columns:repeat(3,minmax(180px,1fr)); gap:24px;">
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Dermatological Skincare</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Anti-Ageing</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Acne &amp; Blemish</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Dry Skin</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Sensitive Skin</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Irritated &amp; Damaged Skin</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Sun</a>
+                </div>
+              </div>
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Body Skincare</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Moisturisers</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Exfoliators</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Facial Skincare</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Facial Suncare</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Facial Moisturisers</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Eye Cream</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Serums &amp; Oils</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Cleanser</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Toner</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Exfoliators &amp; Peels</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Face Masks</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Treatments</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Lip Care</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Problem Skin</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Acne &amp; Blemish</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Dry Skin, Eczema &amp; Psoriasis</a>
+                </div>
+              </div>
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Hands &amp; Nails</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Hand Cream</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Cuticle &amp; Nail Care</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ oBeauty }}" hint-placeholder-val="{{ false }}">
+      <div onMouseEnter="{{ setBeauty }}" style="position:absolute; left:30px; width:1240px; max-width:calc(100vw - 60px); top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:78vh; overflow:auto; animation:megaIn .16s ease-out;">
+        <div style="display:flex; align-items:stretch;">
+          <div style="flex:1; padding:30px; display:grid; grid-template-columns:repeat(4,minmax(160px,1fr)); gap:24px;">
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Face</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Foundation</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Makeup Remover</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Bronzer</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Concealer</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Blusher</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Powders &amp; Primers</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Contouring &amp; Highlighting</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Tinted Moisturiser</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Eyes</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Eyeshadow</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Eyeliner</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Mascara</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Eyebrows</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">False Eyelashes</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Eye Makeup Remover</a>
+                </div>
+              </div>
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Lips</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Lip Gloss</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Lipstick</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Lip Liner</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Tanning</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Self Tan</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Tanning Mitts</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Gradual Tan</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Prep &amp; Maintain</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Tan Remover</a>
+                </div>
+              </div>
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Nails</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Nail Polish</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">False Nails &amp; Nail Wraps</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Nail Care</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Nail Polish Remover</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Makeup Brushes &amp; Tools</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Makeup Brushes</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Makeup Sponges</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Makeup Brush Cleaners</a>
+                </div>
+              </div>
+              <div>
+                <a href="Medicines%20%26%20Health.dc.html" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" style-hover="color:#3f6b4f;">Beauty Accessories</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Body Tape &amp; Nipple Covers</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Tweezers</a>
+                  <a href="Medicines%20%26%20Health.dc.html" style="color:#2A2B2A;" style-hover="color:#82c914;">Beauty Accessories</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ oToil }}" hint-placeholder-val="{{ false }}">
+      <div onMouseEnter="{{ setToil }}" style="position:absolute; left:379px; width:240px; top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:74vh; overflow-y:auto; animation:megaIn .16s ease-out;">
+        <div style="padding:26px 28px; display:flex; flex-direction:column; gap:11px; font-size:14px;">
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Hair Care</a>
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Dental Care</a>
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Deodorant</a>
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Men's Grooming</a>
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Feminine Care</a>
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Bath &amp; Shower</a>
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Travel</a>
+        </div>
+      </div>
+</sc-if>
+
+      <sc-if value="{{ oBaby }}" hint-placeholder-val="{{ false }}">
+      <div onMouseEnter="{{ setBaby }}" style="position:absolute; left:454px; width:240px; top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:74vh; overflow-y:auto; animation:megaIn .16s ease-out;">
+        <div style="padding:26px 28px; display:flex; flex-direction:column; gap:11px; font-size:14px;">
+            <a href="Sale%20-%20Baby%20Categories.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Baby Health</a>
+            <a href="Sale%20-%20Baby%20Categories.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Baby Feeding</a>
+            <a href="Sale%20-%20Baby%20Categories.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Maternity Care</a>
+            <a href="Sale%20-%20Baby%20Categories.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Baby Skincare</a>
+            <a href="Sale%20-%20Baby%20Categories.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Baby Wipes &amp; Toiletries</a>
+            <a href="Sale%20-%20Baby%20Categories.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Baby Accessories</a>
+        </div>
+      </div>
+</sc-if>
+
+      <sc-if value="{{ oFrag }}" hint-placeholder-val="{{ false }}">
+      <div onMouseEnter="{{ setFrag }}" style="position:absolute; left:566px; width:240px; top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:74vh; overflow-y:auto; animation:megaIn .16s ease-out;">
+        <div style="padding:26px 28px; display:flex; flex-direction:column; gap:11px; font-size:14px;">
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Ladies Fragrance</a>
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Ladies Fragrance Singles</a>
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Ladies Fragrance Sets</a>
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Mens Fragrance</a>
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Mens Fragrance Singles</a>
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Mens Fragrance Sets</a>
+        </div>
+      </div>
+</sc-if>
+
+      <sc-if value="{{ oGifts }}" hint-placeholder-val="{{ false }}">
+      <div onMouseEnter="{{ setGifts }}" style="position:absolute; left:648px; width:240px; top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:74vh; overflow-y:auto; animation:megaIn .16s ease-out;">
+        <div style="padding:26px 28px; display:flex; flex-direction:column; gap:11px; font-size:14px;">
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Christmas Shop</a>
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Women's Fragrance</a>
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Men's Fragrance</a>
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Gifts for Her</a>
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Gifts for Him</a>
+            <a href="Medicines%20%26%20Health.dc.html" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" style-hover="color:#82c914; transform:translateX(4px);">Candles &amp; Diffusers</a>
+        </div>
+      </div>
+</sc-if>
+    </div>
+  </div>
+
+  <!-- Trust row -->
+  <div class="trust-mob-wrap" style="width:100%; background:#ffffff;">
+    <div class="trust-inner" style="max-width:1440px; margin:0 auto; padding:8px 50px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 28px;">
+      <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:flex-start; gap:10px; font-size:14px;"><span><strong style="font-weight:800;">Free Delivery</strong> On orders over €65</span></div>
+      <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:14px;"><span><strong style="font-weight:800;">Irish Owned</strong> 7 stores nationwide</span></div>
+      <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:14px;"><span><strong style="font-weight:800;">Trusted</strong> by over 20,000 customers since 2010</span></div>
+    </div>
+  </div>
+
+  <section style="max-width:1440px; margin:0 auto; padding:30px 30px 60px;">
+    <div style="max-width:760px; margin:0 auto;">
+    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
+      <a href="McCormacks%20Homepage.dc.html" style="color:#8b9182;" style-hover="color:#82C914;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Withdraw From Contract</span>
+    </nav>
+
+    <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(26px,3vw,38px); line-height:1.1; margin:0 0 14px;">Withdraw From Contract</h1>
+    <p style="margin:0 0 20px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:62ch;">If you have changed your mind about an eligible online order, this page is how you tell us that you wish to withdraw from the contract, under your statutory right of withdrawal. Completing the form below is the quickest way to notify us — you do not need an account or to log in.</p>
+    <a href="#withdrawal-form" style="display:inline-flex; align-items:center; gap:8px; background:#82C914; color:#ffffff; text-decoration:none; font-weight:800; font-size:15.5px; padding:14px 26px; border-radius:10px; margin-bottom:8px;" style-hover="background:#6ba30f;">Start your withdrawal request →</a>
+
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">When can I withdraw?</h2>
+    <p style="margin:0; font-size:16px; line-height:1.75; color:#3a3d39;">You have <strong>14 days</strong> from the day you (or someone you nominate) receives your order to tell us you wish to withdraw — you do not need to give a reason. You then have a further <strong>14 days from the date you give us notice</strong> to return the goods to us.</p>
+
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Products that cannot be withdrawn</h2>
+    <span style="display:inline-block; font-size:11px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; color:#7a4b00; background:#FDF1DC; border:1px solid #E9C98C; border-radius:5px; padding:4px 9px; margin-bottom:10px;">Pending legal review</span>
+    <div style="border:1.5px dashed #D8B073; background:#FFFBF3; border-radius:12px; padding:20px 22px;">
+      <div style="font-family:ui-monospace,monospace; font-size:12px; color:#8a6416; margin-bottom:10px;">[PLACEHOLDER — start]</div>
+      <p style="margin:0 0 10px; font-size:16px; line-height:1.7; color:#3a3d39;">The right of withdrawal does not apply to certain goods once purchased, including:</p>
+      <ul style="margin:0 0 12px; padding-left:22px; font-size:16px; line-height:1.8; color:#3a3d39;">
+        <li>Sealed health, hygiene or cosmetic products which have been opened after delivery</li>
+        <li>Medicines and other pharmacy-supplied medicinal products</li>
+        <li>Perishable or short-shelf-life goods</li>
+        <li>Goods made to your specification or clearly personalised</li>
+      </ul>
+      <p style="margin:0 0 12px; font-size:16px; line-height:1.7; color:#3a3d39;">This does not affect your statutory rights in relation to goods that are faulty, damaged, or not as described.</p>
+      <div style="font-family:ui-monospace,monospace; font-size:12px; color:#8a6416;">[PLACEHOLDER — end]</div>
+    </div>
+
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Returning the goods</h2>
+    <p style="margin:0; font-size:16px; line-height:1.75; color:#3a3d39;">Goods should be returned unused, unopened where applicable, in their original packaging, and in a condition suitable for resale. You are responsible for the cost of return postage, unless the item is faulty, damaged or was sent to you incorrectly. We recommend using a tracked delivery service, as we cannot take responsibility for items lost in transit back to us.</p>
+
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Refunds</h2>
+    <p style="margin:0; font-size:16px; line-height:1.75; color:#3a3d39;">Refunds are issued to your original payment method. We may withhold reimbursement until we have received the goods back, or you have supplied evidence of having sent them back, whichever is earlier.</p>
+
+    <section id="withdrawal-form" style="background:#f6f8f2; border:1px solid #e6e7e4; border-radius:14px; padding:28px 24px; margin-top:36px;">
+      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.2vw,25px); margin:0 0 20px;">Your withdrawal request</h2>
+
+      <div aria-live="polite">
+        <sc-if value="{{ showErrorAlert }}" hint-placeholder-val="{{ false }}">
+          <div role="alert" style="background:#FBEAE9; border:1.5px solid #B3261E; color:#B3261E; border-radius:8px; padding:14px 16px; font-weight:700; font-size:14.5px; margin-bottom:18px;">Please check the form — some information is missing or incomplete.</div>
+        </sc-if>
+        <sc-if value="{{ showSuccess }}" hint-placeholder-val="{{ false }}">
+          <div role="status" style="background:#EEF6E4; border:1.5px solid #5E8A1F; color:#345818; border-radius:8px; padding:18px 20px; margin-bottom:18px;">
+            <h3 style="margin:0 0 8px; color:#345818; font-size:17px;">Your withdrawal request has been received</h3>
+            <p style="margin:0 0 8px; font-size:14.5px; line-height:1.6;">Thank you — your request has been submitted. You will receive an email acknowledgement shortly, timestamped <strong style="font-family:ui-monospace,monospace;">{{ successTime }}</strong>, with your reference number <strong style="font-family:ui-monospace,monospace;">{{ successRef }}</strong>.</p>
+            <p style="margin:0; font-size:14.5px;">Please keep this reference for any follow-up correspondence.</p>
+          </div>
+        </sc-if>
+      </div>
+
+      <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ handleSubmit }}">
+        <fieldset style="border:none; padding:0; margin:0 0 26px;">
+          <legend style="font-weight:800; font-size:16px; padding:0 0 14px; color:#2A2B2A; font-family:'Arial Rounded MT Bold', Arial, sans-serif;">Your details</legend>
+          <div style="margin-bottom:16px;">
+            <label for="wfc-full-name" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Full name</label>
+            <input type="text" id="wfc-full-name" name="fullName" autocomplete="name" style="{{ fullNameStyle }}">
+            <sc-if value="{{ err.fullName }}" hint-placeholder-val="{{ false }}"><span style="display:flex; align-items:center; gap:6px; color:#B3261E; font-size:0.87rem; font-weight:600; margin-top:6px;">⚠ Please enter your full name.</span></sc-if>
+          </div>
+          <div style="margin-bottom:16px;">
+            <label for="wfc-email" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Email address</label>
+            <input type="email" id="wfc-email" name="email" autocomplete="email" style="{{ emailStyle }}">
+            <sc-if value="{{ err.email }}" hint-placeholder-val="{{ false }}"><span style="display:flex; align-items:center; gap:6px; color:#B3261E; font-size:0.87rem; font-weight:600; margin-top:6px;">⚠ Please enter a valid email address.</span></sc-if>
+          </div>
+          <div>
+            <label for="wfc-phone" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Phone number <span style="font-weight:400; color:#8b9182;">(optional)</span></label>
+            <input type="tel" id="wfc-phone" name="phone" autocomplete="tel" style="width:100%; font:inherit; font-size:15.5px; border:1.5px solid #dfe1dc; border-radius:8px; padding:11px 13px;">
+          </div>
+        </fieldset>
+
+        <fieldset style="border:none; padding:0; margin:0 0 26px;">
+          <legend style="font-weight:800; font-size:16px; padding:0 0 14px; color:#2A2B2A; font-family:'Arial Rounded MT Bold', Arial, sans-serif;">Order details</legend>
+          <div style="margin-bottom:16px;">
+            <label for="wfc-order-number" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Order number</label>
+            <input type="text" id="wfc-order-number" name="orderNumber" style="{{ orderNumberStyle }}">
+            <sc-if value="{{ err.orderNumber }}" hint-placeholder-val="{{ false }}"><span style="display:flex; align-items:center; gap:6px; color:#B3261E; font-size:0.87rem; font-weight:600; margin-top:6px;">⚠ Please enter your order number.</span></sc-if>
+          </div>
+          <div style="margin-bottom:16px;">
+            <label for="wfc-order-date" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Order date</label>
+            <input type="date" id="wfc-order-date" name="orderDate" style="{{ orderDateStyle }}">
+            <sc-if value="{{ err.orderDate }}" hint-placeholder-val="{{ false }}"><span style="display:flex; align-items:center; gap:6px; color:#B3261E; font-size:0.87rem; font-weight:600; margin-top:6px;">⚠ Please enter the date you placed the order.</span></sc-if>
+          </div>
+          <div>
+            <label for="wfc-received-date" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Date order received</label>
+            <input type="date" id="wfc-received-date" name="receivedDate" style="{{ receivedDateStyle }}">
+            <sc-if value="{{ err.receivedDate }}" hint-placeholder-val="{{ false }}"><span style="display:flex; align-items:center; gap:6px; color:#B3261E; font-size:0.87rem; font-weight:600; margin-top:6px;">⚠ Please enter the date you received the order.</span></sc-if>
+          </div>
+        </fieldset>
+
+        <fieldset style="border:none; padding:0; margin:0;">
+          <legend style="font-weight:800; font-size:16px; padding:0 0 14px; color:#2A2B2A; font-family:'Arial Rounded MT Bold', Arial, sans-serif;">Withdrawal details</legend>
+          <div style="margin-bottom:16px;">
+            <label for="wfc-items" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:4px;">Items being withdrawn</label>
+            <p style="margin:0 0 6px; font-size:13px; color:#8b9182;">List each product and quantity you wish to withdraw from.</p>
+            <textarea id="wfc-items" name="items" rows="4" style="{{ itemsStyle }}"></textarea>
+            <sc-if value="{{ err.items }}" hint-placeholder-val="{{ false }}"><span style="display:flex; align-items:center; gap:6px; color:#B3261E; font-size:0.87rem; font-weight:600; margin-top:6px;">⚠ Please list the items you wish to withdraw.</span></sc-if>
+          </div>
+          <div style="margin-bottom:16px;">
+            <label for="wfc-reason" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Reason <span style="font-weight:400; color:#8b9182;">(optional)</span></label>
+            <textarea id="wfc-reason" name="reason" rows="3" style="width:100%; font:inherit; font-size:15.5px; border:1.5px solid #dfe1dc; border-radius:8px; padding:11px 13px; resize:vertical;"></textarea>
+          </div>
+          <div>
+            <div style="{{ confirmRowStyle }}">
+              <input type="checkbox" id="wfc-confirm" name="confirm" style="width:20px; height:20px; margin:2px 0 0; accent-color:#82C914;">
+              <label for="wfc-confirm" style="font-weight:700; font-size:14.5px; margin:0;">I confirm I wish to withdraw from the contract for the items listed above.</label>
+            </div>
+            <sc-if value="{{ err.confirm }}" hint-placeholder-val="{{ false }}"><span style="display:flex; align-items:center; gap:6px; color:#B3261E; font-size:0.87rem; font-weight:600; margin-top:6px;">⚠ Please confirm you wish to withdraw before submitting.</span></sc-if>
+          </div>
+        </fieldset>
+
+        <button type="submit" style="display:inline-flex; align-items:center; gap:8px; background:#82C914; color:#ffffff; font:inherit; font-weight:800; font-size:15.5px; border:none; border-radius:10px; padding:14px 28px; cursor:pointer; margin-top:22px;" style-hover="background:#6ba30f;">Submit withdrawal request</button>
+      </form>
+      </sc-if>
+    </section>
+
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Need help?</h2>
+    <div style="background:#f6f8f2; border:1px solid #e6e7e4; border-radius:12px; padding:20px 22px;">
+      <p style="margin:0 0 8px; font-size:15.5px;">If you have any questions about this process, email us at <a href="mailto:info@mccormackspharmacy.ie" style="font-weight:700;">info@mccormackspharmacy.ie</a>.</p>
+      <p style="margin:0; font-size:15.5px; color:#5a6153;">Please quote your order number in any correspondence.</p>
+    </div>
+
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Model withdrawal form</h2>
+    <p style="margin:0 0 16px; font-size:16px; line-height:1.7; color:#3a3d39;">If you would prefer to notify us in writing, you may use the model form below. Complete and send it to the address shown, or print and post it to us.</p>
+    <div class="wfc-print-area" style="border:1.5px solid #e6e7e4; border-radius:14px; padding:24px; background:#ffffff;">
+      <h3 style="margin:0 0 10px; font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-size:18px;">Notice of Withdrawal</h3>
+      <p style="margin:0 0 20px; font-size:14.5px; line-height:1.6;">To: [TRADER LEGAL NAME], [REGISTERED ADDRESS]<br>PSI Internet Supply List No: [PSI INTERNET SUPPLY LIST NUMBER]<br>Email: [CUSTOMER SERVICE EMAIL] &nbsp;&middot;&nbsp; Phone: [PHONE NUMBER]</p>
+      <p style="margin:0 0 22px; border-bottom:1px solid #b9bdb3; padding-bottom:4px; font-size:14.5px;">I/We hereby give notice that I/We withdraw from my/our contract of sale for the following goods:</p>
+      <p style="margin:0 0 22px; border-bottom:1px solid #b9bdb3; padding-bottom:4px;">&nbsp;</p>
+      <p style="margin:0 0 22px; border-bottom:1px solid #b9bdb3; padding-bottom:4px; font-size:14.5px;">Ordered on:</p>
+      <p style="margin:0 0 22px; border-bottom:1px solid #b9bdb3; padding-bottom:4px; font-size:14.5px;">Received on:</p>
+      <p style="margin:0 0 22px; border-bottom:1px solid #b9bdb3; padding-bottom:4px; font-size:14.5px;">Name of consumer(s):</p>
+      <p style="margin:0 0 22px; border-bottom:1px solid #b9bdb3; padding-bottom:4px; font-size:14.5px;">Address of consumer(s):</p>
+      <p style="margin:0 0 22px; border-bottom:1px solid #b9bdb3; padding-bottom:4px; font-size:14.5px;">Signature of consumer(s) (only if this form is notified on paper):</p>
+      <p style="margin:0; border-bottom:1px solid #b9bdb3; padding-bottom:4px; font-size:14.5px;">Date:</p>
+      <button type="button" class="wfc-print-btn" onClick="{{ printForm }}" style="margin-top:18px; background:#ffffff; border:1.5px solid #3f6b4f; color:#3f6b4f; font:inherit; font-weight:700; padding:10px 20px; border-radius:9px; cursor:pointer;">Print this form</button>
+    </div>
+    </div>
+  </section>
+
+    <!-- Footer -->
+  <footer style="width:100%; background:#f4f5f2; margin-top:64px;">
+    <!-- Newsletter band -->
+    <div style="width:100%; background:#3f6b4f; position:relative; overflow:hidden;">
+      <div style="position:absolute; top:-60%; right:-6%; width:340px; height:340px; border-radius:999px; background:rgba(255,255,255,.04);"></div>
+      <div style="position:absolute; bottom:-70%; right:14%; width:220px; height:220px; border-radius:999px; background:rgba(255,255,255,.03);"></div>
+      <div class="ftr-newsletter" style="max-width:1440px; margin:0 auto; height:120px; padding:0 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 48px; position:relative;">
+        <div style="flex:1 1 340px;">
+          <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#ffffff; font-size:clamp(19px,1.9vw,24px); margin:0 0 4px; line-height:1.15;">Join the McCormack's family</h3>
+          <p style="margin:0; color:rgba(255,255,255,.78); font-size:13.5px; line-height:1.4;">Health tips, exclusive offers &amp; 10% off your first order.</p>
+        </div>
+        <form style="flex:1 1 340px; max-width:400px; display:flex; gap:0; border-radius:9px; background:#ffffff; padding:3px;" onSubmit="{{ noop }}">
+          <input type="email" placeholder="Enter your email address" style="flex:1; min-width:0; border:none; outline:none; padding:10px 14px; font-family:inherit; font-size:13.5px; color:#2A2B2A; background:transparent;">
+          <button type="submit" style="flex:0 0 auto; border:none; border-radius:7px; background:#92C83F; color:#ffffff; font-family:inherit; font-weight:700; font-size:13.5px; letter-spacing:.02em; padding:0 20px; cursor:pointer;" style-hover="background:#7fb52f;">Subscribe</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Main columns -->
+    <div class="ftr-cols" style="max-width:1440px; margin:0 auto; padding:48px 30px 40px; display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr 1fr; gap:40px;">
+      <div style="min-width:200px;">
+        <img src="assets/mccormacks-logo.png" alt="McCormack's Pharmacy" style="width:247px; max-width:100%; height:auto; display:block; margin-bottom:20px;">
+        <p style="margin:0 0 12px; font-size:14px; line-height:1.6; color:#5a6153; max-width:280px;">Ireland's trusted family pharmacy since 2010 — expert care online and across our seven stores.</p>
+        <a href="tel:0526199329" style="display:flex; align-items:center; gap:9px; color:#3f6b4f; font-weight:700; font-size:14px; margin-bottom:20px;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path></svg>
+          052 6199329
+        </a>
+        <div style="display:flex; gap:10px;">
+          <a href="#" aria-label="Facebook" style="width:36px; height:36px; border-radius:999px; background:#ffffff; color:#3f6b4f; display:flex; align-items:center; justify-content:center;" style-hover="background:#92C83F; color:#fff;"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l.5-3.5H13V8.3c0-1 .3-1.7 1.8-1.7H17V3.5c-.3 0-1.4-.1-2.6-.1-2.6 0-4.4 1.6-4.4 4.5v2.6H7V14h3v8h3z"></path></svg></a>
+          <a href="#" aria-label="Instagram" style="width:36px; height:36px; border-radius:999px; background:#ffffff; color:#3f6b4f; display:flex; align-items:center; justify-content:center;" style-hover="background:#92C83F; color:#fff;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg></a>
+          <a href="#" aria-label="TikTok" style="width:36px; height:36px; border-radius:999px; background:#ffffff; color:#3f6b4f; display:flex; align-items:center; justify-content:center;" style-hover="background:#92C83F; color:#fff;"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3v14.2a2.8 2.8 0 1 1-2-2.7v-3.1a6 6 0 1 0 5 5.9V8.7a6.7 6.7 0 0 0 4-1.4V4.2a3.7 3.7 0 0 1-4-2.2z"></path></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9;">Shop</h4>
+        <div style="display:flex; flex-direction:column; gap:12px; font-size:14px;">
+          <a href="Brands.dc.html">All Brands</a><a href="New%20In.dc.html">New In</a><a href="Bundles.dc.html">Bundles</a><a href="Gift%20Vouchers.dc.html">Gift Vouchers</a><a href="Sale%20-%20Baby%20Categories.dc.html">Sale</a>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9;">Customer Care</h4>
+        <div style="display:flex; flex-direction:column; gap:12px; font-size:14px;">
+          <a href="About%20Us.dc.html">About Us</a><a href="Contact%20Us.dc.html">Contact Us</a><a href="My%20Account.dc.html">Loyalty Rewards Club</a><a href="Health%20Hub%20Blog.dc.html">Blog</a>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9;">Shipping &amp; Returns</h4>
+        <div style="display:flex; flex-direction:column; gap:12px; font-size:14px;">
+          <a href="Shipping.dc.html">Shipping &amp; Free Delivery</a><a href="Returns.dc.html">Returns &amp; Refunds</a><a href="Click%20and%20Collect.dc.html">Click &amp; Collect</a>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9;">Policies</h4>
+        <div style="display:flex; flex-direction:column; gap:12px; font-size:14px;">
+          <a href="Terms%20and%20Conditions.dc.html">Terms &amp; Conditions</a><a href="Privacy%20Policy.dc.html">Privacy Policy</a><a href="Cookie%20Policy.dc.html">Cookie Policy</a><a href="Internet%20Supply%20Pharmacy.dc.html">Registered Internet Supply Pharmacy</a><a href="Withdraw%20From%20Contract.dc.html">Withdraw From Contract</a>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="ftr-psi" style="max-width:1440px; margin:0 auto; padding:8px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end;">
+        <a href="Medicines%20%26%20Health.dc.html" aria-label="PSI — verify this pharmacy is operating legally" style="display:flex; align-items:center; margin-right:15px;" style-hover="opacity:.85;">
+          <img src="assets/psi-logo.avif" alt="PSI internet supply registration" style="height:78px; width:auto; display:block; border-radius:4px;">
+        </a>
+      </div>
+    </div>
+
+    <div style="border-top:1px solid #e6e7e4;">
+      <div class="ftr-bottom" style="max-width:1440px; margin:0 auto; padding:18px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px; font-size:13px; color:#8b9182;">
+        <div class="ftr-copyright">Copyright © 2026 McCormack's Pharmacy</div>
+        <div class="ftr-payments" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
+          <span style="font-size:12.5px; color:#8b9182; margin-right:2px;">We accept</span>
+          <sc-for list="{{ payments }}" as="p" hint-placeholder-count="4">
+            <span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"></span>
+          </sc-for>
+        </div>
+        <a href="Terms%20and%20Conditions.dc.html" class="ftr-terms" style="display:none; color:#8b9182;" style-hover="color:#3f6b4f;">Terms &amp; Conditions</a>
+        <div class="ftr-builtby" style="display:flex; align-items:center; gap:22px; flex-wrap:wrap;">
+          <a href="#" style="display:flex; align-items:center; gap:1px; color:#8b9182;" style-hover="color:#3f6b4f;">
+            <span style="font-size:12px;">Built by</span>
+            <img src="assets/kakion-logo-black.png" alt="Kakion" style="height:21.6px; width:auto; display:block;">
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { mnav: false, err: {}, success: null };
+
+  fieldStyle(hasError) {
+    const base = 'width:100%; font:inherit; font-size:15.5px; border-radius:8px; padding:11px 13px; border:1.5px solid ';
+    return hasError ? base + '#B3261E; background:#FBEAE9;' : base + '#dfe1dc; background:#ffffff;';
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const el = e.target;
+    const val = name => (el.elements[name] ? el.elements[name].value.trim() : '');
+    const err = {};
+    if (!val('fullName')) err.fullName = true;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('email'))) err.email = true;
+    if (!val('orderNumber')) err.orderNumber = true;
+    if (!val('orderDate')) err.orderDate = true;
+    if (!val('receivedDate')) err.receivedDate = true;
+    if (!val('items')) err.items = true;
+    if (!el.elements['confirm'].checked) err.confirm = true;
+
+    if (Object.keys(err).length) {
+      this.setState({ err, success: null });
+      const order = ['fullName', 'email', 'orderNumber', 'orderDate', 'receivedDate', 'items', 'confirm'];
+      const first = order.find(k => err[k]);
+      if (first && el.elements[first]) el.elements[first].focus();
+      return;
+    }
+    const ref = 'WD-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+    const time = new Date().toLocaleString('en-IE');
+    this.setState({ err: {}, success: { ref, time } });
+  }
+
+  renderVals() {
+    const err = this.state.err || {};
+    const success = this.state.success;
+    return {
+      noop: e => e.preventDefault(),
+      printForm: () => window.print(),
+      openMnav: () => this.setState({ mnav: true }),
+      closeMnav: () => this.setState({ mnav: false }),
+      open: this.state.open,
+      oPharm: this.state.open === 'pharmacy', oSupp: this.state.open === 'supplements', oSkin: this.state.open === 'skincare',
+      oBeauty: this.state.open === 'beauty', oToil: this.state.open === 'toiletries', oGifts: this.state.open === 'gifts',
+      oBaby: this.state.open === 'baby', oFrag: this.state.open === 'fragrance',
+      setPharm: () => this.setState({ open: 'pharmacy' }), setSupp: () => this.setState({ open: 'supplements' }), setSkin: () => this.setState({ open: 'skincare' }),
+      setBeauty: () => this.setState({ open: 'beauty' }), setToil: () => this.setState({ open: 'toiletries' }), setGifts: () => this.setState({ open: 'gifts' }),
+      setBaby: () => this.setState({ open: 'baby' }), setFrag: () => this.setState({ open: 'fragrance' }),
+      closeNav: () => this.setState({ open: null }),
+      mnavTransform: this.state.mnav ? 'translateX(0)' : 'translateX(-100%)',
+      mnavOverlayOpacity: this.state.mnav ? '1' : '0',
+      mnavVisibility: this.state.mnav ? 'visible' : 'hidden',
+      mnavItems: [
+        { label: 'Medicines & Health', color: '#2A2B2A', href: 'Medicines%20%26%20Health.dc.html' },
+        { label: 'Vitamins', color: '#2A2B2A', href: 'Medicines%20%26%20Health.dc.html' },
+        { label: 'Beauty', color: '#2A2B2A', href: 'Medicines%20%26%20Health.dc.html' },
+        { label: 'Skincare', color: '#2A2B2A', href: 'Medicines%20%26%20Health.dc.html' },
+        { label: 'Toiletries', color: '#2A2B2A', href: 'Medicines%20%26%20Health.dc.html' },
+        { label: 'Mother & Baby', color: '#2A2B2A', href: 'Sale%20-%20Baby%20Categories.dc.html' },
+        { label: 'Fragrance', color: '#2A2B2A', href: 'Medicines%20%26%20Health.dc.html' },
+        { label: 'Gifting', color: '#2A2B2A', href: 'Medicines%20%26%20Health.dc.html' },
+        { label: 'Sale', color: '#82c914', href: 'Sale%20-%20Baby%20Categories.dc.html' },
+        { label: 'Brands', color: '#2A2B2A', href: 'Brands.dc.html' },
+        { label: 'Services', color: '#2A2B2A', href: 'In-Store%20Services.dc.html' },
+      ],
+      err,
+      showErrorAlert: Object.keys(err).length > 0,
+      showSuccess: !!success,
+      showForm: !success,
+      successRef: success ? success.ref : '',
+      successTime: success ? success.time : '',
+      handleSubmit: e => this.handleSubmit(e),
+      fullNameStyle: this.fieldStyle(err.fullName),
+      emailStyle: this.fieldStyle(err.email),
+      orderNumberStyle: this.fieldStyle(err.orderNumber),
+      orderDateStyle: this.fieldStyle(err.orderDate),
+      receivedDateStyle: this.fieldStyle(err.receivedDate),
+      itemsStyle: this.fieldStyle(err.items) + ' resize:vertical;',
+      confirmRowStyle: 'display:flex; align-items:flex-start; gap:10px; background:#ffffff; border-radius:8px; padding:14px 16px; border:1.5px solid ' + (err.confirm ? '#B3261E; background:#FBEAE9;' : '#dfe1dc;'),
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "general": {
+    "search": {
+      "placeholder": "Search for products, brands and more…",
+      "title": "Search"
+    },
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you were looking for doesn't exist."
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_bag": "Add To Bag",
+      "sold_out": "Sold Out",
+      "sale": "Sale"
+    }
+  },
+  "customer": {
+    "login": "Login",
+    "logout": "Log out",
+    "register": "Create account"
+  },
+  "shopify": {
+    "checkout": {
+      "general": {
+        "continue_button_label": "Continue"
+      }
+    }
+  }
+}

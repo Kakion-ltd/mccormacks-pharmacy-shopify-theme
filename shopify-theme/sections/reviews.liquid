@@ -1,0 +1,91 @@
+{%- comment -%}
+  Store testimonials (Google reviews of the pharmacy) — deliberately NOT product
+  ratings. Product star ratings come from a review app via snippets/product-rating.liquid.
+{%- endcomment -%}
+<section data-testimonials style="max-width:1440px; margin:0 auto; padding:40px 30px 8px;">
+  <div class="rev-wrap" style="display:flex; gap:20px; align-items:stretch;">
+    <div class="rev-score" style="flex:0 0 auto; width:240px; background:#92C83F; border-radius:16px; padding:32px; color:#fff; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:24px; margin-bottom:6px;">{{ section.settings.score_label }}</div>
+      <div style="font-size:22px; letter-spacing:2px; margin-bottom:8px;">★★★★★</div>
+    </div>
+    <div style="position:relative; flex:1; min-width:0;">
+      <div id="reviews-{{ section.id }}" style="display:flex; gap:20px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px 0;">
+        {%- for block in section.blocks -%}
+          <div style="flex:0 0 300px; border:1px solid #eceee9; border-radius:16px; padding:24px;" {{ block.shopify_attributes }}>
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;"><strong style="font-weight:800;">{{ block.settings.name }}</strong><span style="color:#3f6b4f; letter-spacing:1px;">★★★★★</span></div>
+            <div style="font-size:12.5px; color:#82c914; font-weight:700; margin-bottom:12px;">✔ {{ block.settings.source }}</div>
+            <p style="margin:0 0 20px; font-size:15px; line-height:1.5;">{{ block.settings.text }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+      <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="reviews-{{ section.id }}" data-rail-by="-640" class="hov-scroll" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82c914; cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+      <button aria-label="Scroll forward" data-rail-btn data-rail-target="reviews-{{ section.id }}" data-rail-by="640" class="hov-scroll" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82c914; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+    </div>
+  </div>
+</section>
+
+{% style %}
+.hov-scroll:hover { border-color: #92C83F !important; background: #f2f8e9 !important; }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Reviews",
+  "settings": [
+    { "type": "text", "id": "score_label", "label": "Score label", "default": "Excellent" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Reviewer name" },
+        { "type": "text", "id": "source", "label": "Source label", "default": "Google Review" },
+        { "type": "textarea", "id": "text", "label": "Review text" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "name": "Bryan Mc Bride",
+            "text": "In McCormack's for almost 7 years now. Every customer is treated the same, with every effort made to come out and speak to as many people as possible. People come back when they're given good advice and quick, efficient service, time and time again."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "name": "Amy O'Brien",
+            "text": "This is a really friendly pharmacy. The staff are all so helpful and really went out of their way to help me. I now get all my prescriptions here because they are so helpful."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "name": "Stephen Donohoe",
+            "text": "The staff here are fantastic and very helpful. Very impressed with the range of products available — they're also extra helpful in ordering in anything you need, usually there the next morning!"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "name": "Ray Keogh",
+            "text": "Brilliant staff, so helpful with everything in store. The male pharmacist is also excellent — always makes time for me and my family, and we've been coming for over 7 years as a result."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "name": "Eimear Murphy",
+            "text": "An absolutely brilliant pharmacy, would recommend to anybody. Quick service and nothing is a problem — so very helpful, a great service."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,89 @@
+<section style="max-width:1440px; margin:0 auto; padding:34px 30px 8px;">
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.2vw,28px); margin:0 0 22px;">{{ section.settings.heading }}</h2>
+  <div style="position:relative;">
+    <div id="popcats-{{ section.id }}" style="display:flex; gap:20px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding-bottom:6px;">
+      {%- for block in section.blocks -%}
+        {%- assign linked = collections[block.settings.collection] -%}
+        {%- if block.settings.label != blank -%}
+          {%- assign label = block.settings.label -%}
+        {%- elsif linked.title != blank -%}
+          {%- assign label = linked.title -%}
+        {%- else -%}
+          {%- assign label = block.settings.collection | replace: '-', ' ' | capitalize -%}
+        {%- endif -%}
+        {%- comment -%} custom link, else the collection, else its handle (works before the collection exists) {%- endcomment -%}
+        {%- if block.settings.link != blank -%}
+          {%- assign url = block.settings.link -%}
+        {%- elsif linked.url != blank -%}
+          {%- assign url = linked.url -%}
+        {%- elsif block.settings.collection != blank -%}
+          {%- assign url = block.settings.collection | prepend: '/collections/' -%}
+        {%- else -%}
+          {%- assign url = routes.collections_url -%}
+        {%- endif -%}
+        {%- comment -%} picked image wins, then the collection's own image, then the striped placeholder {%- endcomment -%}
+        {%- if block.settings.image != blank -%}
+          {%- assign tile_image = block.settings.image -%}
+        {%- else -%}
+          {%- assign tile_image = linked.featured_image -%}
+        {%- endif -%}
+        <a href="{{ url }}" class="hov-green" style="flex:0 0 180px; text-align:center; color:#3f6b4f;" {{ block.shopify_attributes }}>
+          {%- if tile_image != blank -%}
+            <div style="aspect-ratio:1; border-radius:14px; overflow:hidden; margin-bottom:12px;">
+              {{ tile_image | image_url: width: 400 | image_tag: widths: '180,360,540', alt: label, loading: 'lazy', style: 'width:100%; height:100%; object-fit:cover; display:block;' }}
+            </div>
+          {%- else -%}
+            <div style="aspect-ratio:1; border-radius:14px; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center; margin-bottom:12px;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div>
+          {%- endif -%}
+          <span style="font-weight:700; font-size:14.5px;">{{ label }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+    <button aria-label="Previous" data-rail-btn data-rail-back data-rail-target="popcats-{{ section.id }}" data-rail-by="-400" class="hov-scroll" style="position:absolute; left:-14px; top:calc(50% - 22px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#ffffff; color:#82c914; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg>
+    </button>
+    <button aria-label="Next" data-rail-btn data-rail-target="popcats-{{ section.id }}" data-rail-by="400" class="hov-scroll" style="position:absolute; right:-14px; top:calc(50% - 22px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#ffffff; color:#82c914; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg>
+    </button>
+  </div>
+</section>
+
+{% style %}
+.hov-scroll:hover { border-color: #92C83F !important; background: #f2f8e9 !important; }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Popular categories",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Popular Categories" }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "label", "label": "Label", "info": "Leave blank to use the collection name." },
+        { "type": "url", "id": "link", "label": "Custom link", "info": "Leave blank to link to the collection." },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Leave blank to use the collection's own image. Square crop, 400×400px or larger." }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Popular categories",
+      "blocks": [
+        { "type": "category", "settings": { "collection": "medicines-health", "label": "Pharmacy" } },
+        { "type": "category", "settings": { "collection": "vitamins", "label": "Supplements" } },
+        { "type": "category", "settings": { "collection": "skincare", "label": "Skincare" } },
+        { "type": "category", "settings": { "collection": "beauty", "label": "Beauty" } },
+        { "type": "category", "settings": { "collection": "toiletries", "label": "Toiletries" } },
+        { "type": "category", "settings": { "collection": "mother-baby", "label": "Baby" } },
+        { "type": "category", "settings": { "collection": "gifting", "label": "Gifts" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

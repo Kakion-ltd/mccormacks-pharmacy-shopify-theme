@@ -1,0 +1,58 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need a prescription?",
+            "answer": "All items in this collection can be bought without a GP prescription. A small number of pharmacist-only medicines require you to answer a few questions before you can add the product to your basket, and our experienced pharmacists review this information before approving an order for processing and shipping."
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "question": "Are these genuine pharmacy products?",
+            "answer": "Yes \u2014 every product is sourced and dispatched from our registered Irish pharmacy and is the same stock carried in our stores."
+          }
+        },
+        "faq3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I get pharmacist advice before I buy?",
+            "answer": "You can. Contact our pharmacy team for help choosing a suitable product, checking interactions, or deciding whether to see your GP."
+          }
+        },
+        "faq4": {
+          "type": "faq",
+          "settings": {
+            "question": "How fast is delivery?",
+            "answer": "We aim to ship all items within the same working day for orders placed before 3pm, Monday to Friday. Delivery is free on orders over \u20ac65, and Click & Collect is available at all seven of our stores."
+          }
+        }
+      },
+      "block_order": [
+        "faq1",
+        "faq2",
+        "faq3",
+        "faq4"
+      ],
+      "settings": {
+        "banner_style": "standard",
+        "banner_heading": "Medicines & Health",
+        "banner_text": "<p>Our Medicines &amp; Health range covers everyday healthcare for the whole family \u2014 from pain relief, hayfever and cold &amp; flu remedies to heartburn, digestive care, vitamins and sexual health. It's home to trusted brands like <a href=\"/search?q=Nurofen\">Nurofen</a>, <a href=\"/search?q=Gaviscon\">Gaviscon</a>, <a href=\"/search?q=Cetrine\">Cetrine</a> and <a href=\"/search?q=Nytol\">Nytol</a>.</p><p>Everything here is dispatched from our registered Irish pharmacy, with pharmacist advice on hand whenever you need it.</p>",
+        "banner_image_asset": "",
+        "show_chips": true,
+        "chip_links": "Pain Relief | /collections/pain-relief\nErectile Dysfunction | /collections/erectile-dysfunction\nCold, Flu & Allergy | /collections/cold-flu-allergy\nEye & Ear Health | /collections/eye-ear-health\nNicotine Replacement | /collections/nicotine-replacement\nDigestive Health | /collections/stomach-gastrointestinal\nVitamins & Minerals | /collections/vitamins",
+        "seo_heading": "Shopping medicines & health online in Ireland",
+        "seo_text": "<p>This is one of our largest health categories, bringing together over-the-counter medicines and everyday wellbeing essentials \u2014 from painkillers and allergy relief to digestive care, vitamins and self-care products. McCormack's Pharmacy is a registered Irish pharmacy, so anything you order is the same genuine product you'd find in our stores. A small number of pharmacist-only medicines, such as Viagra Connect, simply need a short online assessment reviewed by our pharmacist before they're supplied.</p>",
+        "show_also": true,
+        "also_heading": "You may also like"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

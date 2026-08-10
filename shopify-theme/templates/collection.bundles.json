@@ -1,0 +1,51 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "question": "How much do bundles save me?",
+            "answer": "Every bundle shows its own saving. Most fall between 10% and 20% off the combined individual price, and the exact figure is displayed on each product."
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I swap an item inside a bundle?",
+            "answer": "Bundles are sold as fixed sets, so items cannot be swapped. If you want a specific combination, our 3 for €10 and 3 for €5 mix-and-match offers let you choose your own."
+          }
+        },
+        "faq3": {
+          "type": "faq",
+          "settings": {
+            "question": "Do bundles work with other discount codes?",
+            "answer": "Bundles are already discounted, so they cannot be combined with other promotional codes. They do count towards the €65 free delivery threshold."
+          }
+        },
+        "faq4": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I return part of a bundle?",
+            "answer": "Bundles are returned as a complete set. Unopened, undamaged bundles can be returned within 14 days — see our Returns & Refunds page for full details."
+          }
+        }
+      },
+      "block_order": ["faq1", "faq2", "faq3", "faq4"],
+      "settings": {
+        "banner_style": "standard",
+        "banner_heading": "Bundles",
+        "banner_text": "<p>Products that work well together, priced better bought as a set. Our pharmacists and beauty advisors build these bundles around the routines customers ask about most — a full skincare regime, a daily supplement stack, a family first-aid kit.</p><p>Every bundle shows the saving against buying the items separately. No code needed — the price you see is the price you pay.</p>",
+        "banner_image_asset": "hero-summer-travel.jpg",
+        "show_chips": true,
+        "chip_links": "Skincare Bundles | /collections/skincare\nSupplement Bundles | /collections/vitamins\nSun & Travel | /collections/travel\nBaby Bundles | /collections/mother-baby\nMedicine Cabinet | /collections/medicines-health\n3 for €10 | /collections/hot-offers\n3 for €5 | /collections/hot-offers",
+        "seo_heading": "Bundle deals and multi-buy offers",
+        "seo_text": "<p>A bundle is a set of products sold together at a lower price than buying each one on its own. We build them two ways. Routine bundles pair products that are genuinely used together — a cleanser with the moisturiser that suits it, or a vitamin D with a daily multivitamin. Value bundles are multiples of the same product, for the things you know you will run out of. Every bundle on this page shows both the bundle price and the combined individual price, so you can see exactly what you are saving. If you would rather build your own, our 3 for €10 and 3 for €5 mix-and-match offers run all year.</p>",
+        "show_also": true,
+        "also_heading": "You may also like"
+      }
+    }
+  },
+  "order": ["main"]
+}

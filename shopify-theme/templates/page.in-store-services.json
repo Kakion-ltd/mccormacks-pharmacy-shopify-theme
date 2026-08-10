@@ -1,0 +1,132 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-services",
+      "blocks": {
+        "covid": {
+          "type": "service",
+          "settings": {
+            "title": "Covid-19 Vaccination",
+            "tag": "Appointment",
+            "price_note": "By appointment",
+            "blurb": "Register your interest for a Covid-19 vaccine appointment. Currently offered in our Tullamore, Newbridge and Clonmel stores.",
+            "detail_intro": "McCormack’s Pharmacy are participating in the national Covid-19 vaccine rollout.",
+            "body": "<p>Please complete the form to register your interest for a vaccine appointment. You will be contacted by a member of our team with a time and date. We are currently offering this service in our Tullamore, Newbridge and Clonmel locations.</p>\n<h2>Why is it important to get a Covid-19 vaccine, and is it safe?</h2>\n<p>While it is up to you to decide to get the vaccine, the HSE, the World Health Organization and the Department of Health strongly recommend that you do so as soon as it is offered to you. Covid-19 vaccines used in Ireland are safe and effective, and offer protection by teaching your immune system how to protect you from the virus. All vaccines used in the Republic of Ireland must be approved by the European Medicines Agency, which only approves a vaccine once satisfied that it is safe and effective.</p>\n<h2>Are there side effects?</h2>\n<p>Like all medicines, vaccines can have side effects. They are mostly mild or moderate &mdash; a sore arm or itching where the injection was given, feeling tired, feeling sick, swollen lymph glands in that arm, chills or a feverish feeling. Some people get no side effects at all. Serious side effects, such as an allergic reaction, are extremely rare.</p>\n<h2>On the day of your appointment</h2>\n<ul><li>Allow at least 30 minutes. After getting the vaccine you will be under observation for 15 minutes.</li><li>Please be on time, but do not arrive more than 5 minutes before your appointment.</li><li>If you need to cancel or reschedule, contact the pharmacy as soon as possible.</li><li>Adults should attend unaccompanied where possible.</li><li>Wear a loose-fitting top so that your upper arm is easily accessible.</li><li>Bring your phone and photo ID.</li></ul>\n<p>Vaccine information leaflets are available at the pharmacy when you arrive. For up-to-date Covid-19 information, see the HSE immunisation website or the Health Products Regulatory Authority.</p>",
+            "specs": "Who it is for|Adults registering for a Covid-19 vaccine appointment through our participating stores.\nWhere it is available|Tullamore, Newbridge and Clonmel.\nWhat to bring|Photo ID and your phone. Wear a loose-fitting top."
+          }
+        },
+        "flu": {
+          "type": "service",
+          "settings": {
+            "title": "Flu Vaccine Clinic",
+            "tag": "Walk-in & appointment",
+            "price_note": "Free if eligible",
+            "blurb": "The seasonal flu vaccine protects against four strains of the flu virus — free of charge if you are in an at-risk group.",
+            "detail_intro": "The seasonal flu vaccine protects against four strains of the flu virus — the strains most likely to be circulating this flu season.",
+            "body": "<p>The vaccine is available every year to adults and children at risk of flu and its complications.</p>\n<h2>How does the flu vaccine work?</h2>\n<p>The flu vaccine helps your immune system to produce antibodies &mdash; proteins that fight infection. If you have had the flu vaccine and you come into contact with the flu virus, the vaccine can stop you getting sick. It starts to work within two weeks.</p>\n<p>You need the flu vaccine every year because the antibodies that protect you decline over time, and flu strains can change from year to year.</p>\n<h2>Who is eligible for a free flu vaccine?</h2>\n<p>If you meet any of the criteria below, you are eligible for a free flu vaccine:</p>\n<ul><li>You are 65 years of age or over</li><li>You are pregnant</li><li>You are an adult, or a child aged 6 months or older, with a long-term health condition &mdash; chronic heart or liver disease, chronic renal failure, respiratory disease, chronic neurological disease, diabetes mellitus, haemoglobinopathies, morbid obesity, or immunosuppression due to disease or treatment (including treatment for cancer)</li><li>You live in a nursing home or other long-term care facility</li><li>You work in a healthcare environment</li><li>You are a carer, or live with someone at risk of flu because of a long-term health condition</li><li>You are a carer, or live with someone who has Down syndrome</li></ul>\n<p>If you are in an at-risk group, you should get the flu vaccine during autumn.</p>",
+            "specs": "Who it is for|Adults and children at risk of flu and its complications.\nWhat it costs|Free of charge if you meet any of the eligibility criteria above.\nWhen to come|During autumn, ahead of the flu season."
+          }
+        },
+        "bp": {
+          "type": "service",
+          "settings": {
+            "title": "Blood Pressure Screening",
+            "tag": "Walk-in",
+            "price_note": "Free",
+            "blurb": "A five to ten minute check with your pharmacist, who will talk you through the reading and the next steps.",
+            "detail_intro": "The only way to know if you have high blood pressure is to get it measured — most people with high blood pressure notice no symptoms at all.",
+            "body": "<p>Average blood pressure is usually around 120 (systolic) over 80 (diastolic). High blood pressure, also called hypertension, causes silent damage to the blood vessels and the heart. If untreated, this damage progresses over time and may result in stroke or heart attack. These serious events occur at a younger age in people with high blood pressure than in people with normal blood pressure.</p>\n<p>The service takes around five to ten minutes. We place a cuff on your arm connected to the blood pressure monitor and take your readings. The pharmacist in your chosen store will then give you the results and discuss the next steps with you. This might include diet and lifestyle advice, or a referral to your doctor.</p>\n<p>It is important to have your blood pressure tested regularly. Speak to one of our pharmacists today about routine testing and any concerns you may have.</p>",
+            "specs": "Who it is for|Anyone who wants a routine check, and particularly anyone advised to monitor their blood pressure.\nWhat it costs|Free of charge.\nHow long it takes|Around five to ten minutes, including time to discuss your reading."
+          }
+        },
+        "inhaler": {
+          "type": "service",
+          "settings": {
+            "title": "Inhaler Technique",
+            "tag": "Free advice",
+            "price_note": "Free",
+            "blurb": "A pharmacist check of your inhaler and spacer technique, plus a review of your asthma management plan.",
+            "detail_intro": "Asthma affects the airways — the small tubes that carry air in and out of the lungs. Getting your inhaler technique right matters.",
+            "body": "<p>In asthma, the airways become over-sensitive, reacting to things that would not usually cause a problem, such as cold air or dust. The muscles of the tube walls tighten, leaving little room for air to flow. The lining can swell and a sticky mucus clogs the breathing passages, so the chest has to work much harder to breathe.</p>\n<h2>The two types of inhaler</h2>\n<p><strong>Preventer or controller inhalers</strong> reduce inflammation of the airways over time and lower the risk of a severe attack. They give no instant relief, but build up protection over a longer period. Used properly, many people are symptom free and rarely need their reliever.</p>\n<p><strong>Reliever inhalers</strong>, usually blue, are taken as soon as symptoms appear. They work quickly by relaxing the muscles of the airways, opening them wider and making it easier to breathe. Everyone with asthma should carry one at all times, as attacks may come on suddenly with little warning.</p>\n<h2>At McCormack&rsquo;s Pharmacy our pharmacists can:</h2>\n<ul><li>Give you feedback on your inhaler and spacer technique</li><li>Review your asthma management plan</li><li>Advise how long to wait between each inhalation</li><li>Advise how and when to clean your inhaler, and how to store it</li><li>Advise on the expiry date of the inhaler</li><li>Advise on what to do if your inhaler malfunctions</li><li>Discuss the signs of an empty device and how to discard the inhaler</li></ul>",
+            "specs": "Who it is for|Anyone using a preventer or reliever inhaler, and parents of children who use one.\nWhat it costs|Free of charge.\nWhat to bring|Your own inhaler and spacer, so we can check your technique with the device you actually use."
+          }
+        },
+        "hosiery": {
+          "type": "service",
+          "settings": {
+            "title": "Compression Hosiery",
+            "tag": "Appointment",
+            "price_note": "Fitting consultation",
+            "blurb": "A private measuring and fitting consultation with a pharmacist, including advice on the medical card scheme.",
+            "detail_intro": "Compression hosiery is designed to improve circulation by applying pressure to the legs, encouraging blood flow back to the heart.",
+            "body": "<p>Compression is usually tightest at the ankle and eases gradually further up the leg for optimum comfort. Compression hosiery also helps prevent the build-up of excess fluid in the legs, particularly around the ankles.</p>\n<p>During a consultation, our pharmacist will take the correct measurements and help you choose and fit the right hosiery for you. Your consultation is carried out in one of our private consultation rooms, and new measurements are taken each time you need new hosiery. Our pharmacist will also advise you if you can avail of compression hosiery on the medical card scheme.</p>\n<h2>Who is this service suitable for?</h2>\n<ul><li>People with varicose veins or phlebitis (inflammation in the vein)</li><li>People with tired, aching legs</li><li>Pregnant women</li><li>Anyone with a history of blood clots or DVT (deep vein thrombosis)</li><li>People who stand for prolonged periods of the day</li><li>Those who have recently undergone surgery</li><li>People who have had recent leg injuries</li><li>Women taking the contraceptive pill or HRT</li><li>Athletes, to improve muscle recovery</li><li>Passengers on flights of four hours or more</li><li>People over 40 years of age</li></ul>",
+            "specs": "Who it is for|See the list above — if you are unsure, ask and we will talk it through.\nWhere it happens|In one of our private consultation rooms.\nMedical card|Our pharmacist will advise whether you can avail of compression hosiery on the medical card scheme."
+          }
+        },
+        "blister": {
+          "type": "service",
+          "settings": {
+            "title": "Blister Packing Service",
+            "tag": "Ask in store",
+            "price_note": "Free",
+            "blurb": "Your regular medicines sorted into a weekly pack, organised by day and time of dose.",
+            "detail_intro": "Your regular medicines, sorted by our pharmacy team into a sealed weekly pack organised by day and time of dose.",
+            "body": "<p>Blister packing takes the guesswork out of a multi-medicine routine. Rather than managing several boxes and bottles, each dose sits in its own sealed compartment, clearly labelled with the day and the time it should be taken, so it is easy to see at a glance whether a dose has been taken.</p>\n<p>The service is popular with people taking several medicines each day, with carers managing medicines on someone else&rsquo;s behalf, and with anyone who finds a weekly routine easier to keep on top of.</p>\n<p>To get started, talk to our pharmacy team or call 052 6199329. We will take details of your current prescription, agree a collection or delivery routine with you, and coordinate repeat prescriptions with your GP.</p>",
+            "specs": "Who it is for|Anyone taking several medicines a day, and carers managing medicines for someone else.\nWhat it costs|Free of charge.\nGetting started|Speak to our pharmacy team in store or call us, and we will take it from there."
+          }
+        },
+        "hampers": {
+          "type": "service",
+          "settings": {
+            "title": "Hampers Made to Order",
+            "tag": "Made to order",
+            "price_note": "Your budget",
+            "blurb": "A unique gift hamper, tailored to your needs and your budget, for any occasion.",
+            "detail_intro": "Why not treat a loved one to a unique gift hamper from McCormack’s Pharmacy?",
+            "body": "<p>Each hamper we create is unique and tailored to your specific needs and budget. We can create a hamper for all types of occasions &mdash; birthdays, a new baby, a mum to be, a Christmas gift, anniversaries, or just to say thank you to that special someone.</p>\n<p>To create a bespoke hamper, or for more information, call Katie on 052 6199329 ext 3, or just pop into one of our selected stores and a member of staff can help you create that perfect gift.</p>",
+            "specs": "Who it is for|Anyone looking for a gift with a bit more thought behind it.\nWhat it costs|Built to whatever budget you set.\nHow to order|Call Katie on 052 6199329 ext 3, or call into one of our selected stores."
+          }
+        },
+        "smoking": {
+          "type": "service",
+          "settings": {
+            "title": "Smoking Cessation",
+            "tag": "Free advice",
+            "price_note": "Free",
+            "blurb": "A pharmacist-led plan that can double your chances of quitting, free to anyone who wants to stop smoking.",
+            "detail_intro": "Our pharmacists can help you create a plan that can double your chances of quitting smoking.",
+            "body": "<p>This service is available free of charge to anyone interested in quitting. Our pharmacists will discuss the various nicotine replacement therapy options available to help, including patches, gums and inhalers, and can also discuss options available on prescription.</p>\n<h2>What happens when you quit</h2>\n<ul><li><strong>No more odours</strong> &mdash; the smell of smoke will be gone from your breath, hair and clothes.</li><li><strong>More money</strong> &mdash; the savings compile to thousands of euro every year.</li><li><strong>Health recovery</strong> &mdash; blood pressure and pulse rates return to normal.</li><li><strong>Taste and smell</strong> &mdash; your sense of smell improves and food tastes better.</li><li><strong>Fitness levels</strong> &mdash; improved breathing means you can return to exercise.</li><li><strong>Reduced risk</strong> &mdash; heart attack risk is cut in half and cancer risk reduced.</li><li><strong>Healthier family</strong> &mdash; no longer at risk from second-hand smoke inhalation.</li><li><strong>Live longer</strong> &mdash; you extend your life expectancy as soon as you quit.</li></ul>\n<p>Quitting smoking may well be the single most important thing you can do to improve your health.</p>",
+            "specs": "Who it is for|Anyone who wants to stop smoking, at any stage of trying.\nWhat it costs|Free of charge.\nWhat we cover|Nicotine replacement options including patches, gums and inhalers, plus options available on prescription."
+          }
+        },
+        "photo": {
+          "type": "service",
+          "settings": {
+            "title": "Photo Printing",
+            "tag": "Self-serve kiosk",
+            "price_note": "In selected stores",
+            "blurb": "Print from your phone, USB, disc, memory card or Facebook — self serve, or leave it to us.",
+            "detail_intro": "Bring your precious memories to life with digital photo printing at McCormack’s Pharmacy.",
+            "body": "<p>The GoPhoto gift kiosk offers photographs and personalised gifts in store, and it has never been easier to print your digital photos. Whatever device you have them stored on, we can print it &mdash; Android or iPhone, a USB stick, disc or memory card, or your Facebook account. Self serve, or leave it to us.</p>\n<h2>Features of our GoPhoto kiosks</h2>\n<ul><li>Award-winning technology</li><li>Remote order release</li><li>Free iPhone and Android app</li><li>Create and order from 50+ variations of unique photo gifts, including mugs, slates, jigsaws and more</li><li>Prints directly from Facebook</li></ul>\n<p>With the Epson SureLab D Series, this offers mini-lab print quality from an instant print kiosk. Print sizes on offer are 6x4, 5x7, 6x8, 8x10 and A4.</p>\n<p>This service is available at our Ballylanders (Co. Limerick), Newbridge (Co. Kildare) and Fairways Dundalk (Co. Louth) stores. For more information call us on 052 6199329.</p>",
+            "specs": "Who it is for|Anyone with photos to print, or looking for a personalised photo gift.\nWhere it is available|Ballylanders, Newbridge and Fairways Dundalk.\nWhat to bring|Your phone, a USB stick, disc or memory card — or sign into Facebook at the kiosk."
+          }
+        }
+      },
+      "block_order": [
+        "covid",
+        "flu",
+        "bp",
+        "inhaler",
+        "hosiery",
+        "blister",
+        "hampers",
+        "smoking",
+        "photo"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

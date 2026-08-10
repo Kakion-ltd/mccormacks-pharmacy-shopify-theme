@@ -1,0 +1,20 @@
+{%- comment -%} Tag chip with the design's per-topic colors. Accepts: tag (string), bg_override (optional). {%- endcomment -%}
+{%- liquid
+  assign chip_bg = '#eef2e8'
+  assign chip_color = '#3f6a17'
+  assign tag_down = tag | downcase
+  case tag_down
+    when 'allergy'
+      assign chip_bg = '#e8eef5'
+      assign chip_color = '#2c5170'
+    when 'vitamins & supplements'
+      assign chip_bg = '#f4efe4'
+      assign chip_color = '#7a5b16'
+    when 'sun care'
+      assign chip_bg = '#fdf1e2'
+      assign chip_color = '#8a5a10'
+  endcase
+  if bg_override
+    assign chip_bg = bg_override
+  endif
+-%}<span style="display:inline-flex; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:{{ chip_bg }}; color:{{ chip_color }}; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;">{{ tag }}</span>

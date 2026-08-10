@@ -1,0 +1,11 @@
+{% comment %} Inline error box per design error tokens. Usage: {% render 'form-errors', form: form %} {% endcomment %}
+{%- if form.errors -%}
+  <div class="form-errors" style="background:#FBEAE9; color:#B3261E; border:1px solid rgba(179,38,30,.25); border-radius:10px; padding:14px 16px; margin:0 0 18px; font-size:14px; line-height:1.6;">
+    <strong style="display:block; font-weight:800; margin-bottom:4px;">There was a problem</strong>
+    <ul style="margin:0; padding-left:18px;">
+      {%- for field in form.errors -%}
+        <li>{% if field == 'form' %}{{ form.errors.messages[field] }}{% else %}{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}{% endif %}</li>
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}

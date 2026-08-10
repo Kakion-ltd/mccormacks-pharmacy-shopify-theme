@@ -1,0 +1,231 @@
+{% render 'trust-row' %}
+
+{% style %}
+  .wfc-field {
+    width: 100%; font: inherit; font-size: 15.5px; border: 1.5px solid #dfe1dc;
+    border-radius: 8px; padding: 11px 13px; background: #ffffff;
+  }
+  .wfc-field.wfc-invalid { border-color: #B3261E !important; background: #FBEAE9 !important; }
+  .wfc-confirm-row {
+    display: flex; align-items: flex-start; gap: 10px; background: #ffffff;
+    border-radius: 8px; padding: 14px 16px; border: 1.5px solid #dfe1dc;
+  }
+  .wfc-confirm-row.wfc-invalid { border-color: #B3261E; background: #FBEAE9; }
+  [data-wfc-err] {
+    display: none; align-items: center; gap: 6px; color: #B3261E;
+    font-size: .87rem; font-weight: 600; margin-top: 6px;
+  }
+  [data-wfc-err].wfc-show { display: flex; }
+  #wfc-alert { display: none; }
+  #wfc-alert.wfc-show { display: block; }
+  @media print {
+    body * { visibility: hidden; }
+    .wfc-print-area, .wfc-print-area * { visibility: visible; }
+    .wfc-print-area { position: absolute; top: 0; left: 0; width: 100%; border: none !important; }
+    .wfc-print-btn { display: none !important; }
+  }
+{% endstyle %}
+
+<section style="max-width:1440px; margin:0 auto; padding:30px 30px 60px;">
+  <div style="max-width:760px; margin:0 auto;">
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
+    <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Withdraw From Contract</span>
+  </nav>
+
+  <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(26px,3vw,38px); line-height:1.1; margin:0 0 14px;">Withdraw From Contract</h1>
+  <p style="margin:0 0 20px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:62ch;">If you have changed your mind about an eligible online order, this page is how you tell us that you wish to withdraw from the contract, under your statutory right of withdrawal. Completing the form below is the quickest way to notify us &mdash; you do not need an account or to log in.</p>
+  <a href="#withdrawal-form" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; gap:8px; background:#82C914; color:#ffffff; text-decoration:none; font-weight:800; font-size:15.5px; padding:14px 26px; border-radius:10px; margin-bottom:8px;">Start your withdrawal request &rarr;</a>
+
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">When can I withdraw?</h2>
+  <p style="margin:0; font-size:16px; line-height:1.75; color:#3a3d39;">You have <strong>14 days</strong> from the day you (or someone you nominate) receives your order to tell us you wish to withdraw &mdash; you do not need to give a reason. You then have a further <strong>14 days from the date you give us notice</strong> to return the goods to us.</p>
+
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Products that cannot be withdrawn</h2>
+  <span style="display:inline-block; font-size:11px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; color:#7a4b00; background:#FDF1DC; border:1px solid #E9C98C; border-radius:5px; padding:4px 9px; margin-bottom:10px;">Pending legal review</span>
+  <div style="border:1.5px dashed #D8B073; background:#FFFBF3; border-radius:12px; padding:20px 22px;">
+    <div style="font-family:ui-monospace,monospace; font-size:12px; color:#8a6416; margin-bottom:10px;">[PLACEHOLDER — start]</div>
+    <p style="margin:0 0 10px; font-size:16px; line-height:1.7; color:#3a3d39;">The right of withdrawal does not apply to certain goods once purchased, including:</p>
+    <ul style="margin:0 0 12px; padding-left:22px; font-size:16px; line-height:1.8; color:#3a3d39;">
+      <li>Sealed health, hygiene or cosmetic products which have been opened after delivery</li>
+      <li>Medicines and other pharmacy-supplied medicinal products</li>
+      <li>Perishable or short-shelf-life goods</li>
+      <li>Goods made to your specification or clearly personalised</li>
+    </ul>
+    <p style="margin:0 0 12px; font-size:16px; line-height:1.7; color:#3a3d39;">This does not affect your statutory rights in relation to goods that are faulty, damaged, or not as described.</p>
+    <div style="font-family:ui-monospace,monospace; font-size:12px; color:#8a6416;">[PLACEHOLDER — end]</div>
+  </div>
+
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Returning the goods</h2>
+  <p style="margin:0; font-size:16px; line-height:1.75; color:#3a3d39;">Goods should be returned unused, unopened where applicable, in their original packaging, and in a condition suitable for resale. You are responsible for the cost of return postage, unless the item is faulty, damaged or was sent to you incorrectly. We recommend using a tracked delivery service, as we cannot take responsibility for items lost in transit back to us.</p>
+
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Refunds</h2>
+  <p style="margin:0; font-size:16px; line-height:1.75; color:#3a3d39;">Refunds are issued to your original payment method. We may withhold reimbursement until we have received the goods back, or you have supplied evidence of having sent them back, whichever is earlier.</p>
+
+  <section id="withdrawal-form" style="background:#f6f8f2; border:1px solid #e6e7e4; border-radius:14px; padding:28px 24px; margin-top:36px;">
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.2vw,25px); margin:0 0 20px;">Your withdrawal request</h2>
+
+    {%- form 'contact', id: 'wfc-form' -%}
+      <div aria-live="polite">
+        <div id="wfc-alert" role="alert" style="background:#FBEAE9; border:1.5px solid #B3261E; color:#B3261E; border-radius:8px; padding:14px 16px; font-weight:700; font-size:14.5px; margin-bottom:18px;">Please check the form &mdash; some information is missing or incomplete.</div>
+        {% render 'form-errors', form: form %}
+        {%- if form.posted_successfully? -%}
+          <div role="status" style="background:#EEF6E4; border:1.5px solid #5E8A1F; color:#345818; border-radius:8px; padding:18px 20px; margin-bottom:18px;">
+            <h3 style="margin:0 0 8px; color:#345818; font-size:17px;">Your withdrawal request has been received</h3>
+            <p style="margin:0 0 8px; font-size:14.5px; line-height:1.6;">Thank you &mdash; your request has been submitted. You will receive an email acknowledgement shortly, timestamped <strong id="wfc-success-time" style="font-family:ui-monospace,monospace;"></strong>, with your reference number <strong id="wfc-success-ref" style="font-family:ui-monospace,monospace;"></strong>.</p>
+            <p style="margin:0; font-size:14.5px;">Please keep this reference for any follow-up correspondence.</p>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- unless form.posted_successfully? -%}
+      <input type="hidden" name="contact[reference]" id="wfc-reference" value="">
+      <fieldset style="border:none; padding:0; margin:0 0 26px;">
+        <legend style="font-weight:800; font-size:16px; padding:0 0 14px; color:#2A2B2A; font-family:'Arial Rounded MT Bold', Arial, sans-serif;">Your details</legend>
+        <div style="margin-bottom:16px;">
+          <label for="wfc-full-name" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Full name</label>
+          <input type="text" id="wfc-full-name" name="contact[name]" autocomplete="name" class="wfc-field" data-wfc="fullName">
+          <span data-wfc-err="fullName">&#9888; Please enter your full name.</span>
+        </div>
+        <div style="margin-bottom:16px;">
+          <label for="wfc-email" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Email address</label>
+          <input type="email" id="wfc-email" name="contact[email]" autocomplete="email" class="wfc-field" data-wfc="email" value="{{ form.email }}">
+          <span data-wfc-err="email">&#9888; Please enter a valid email address.</span>
+        </div>
+        <div>
+          <label for="wfc-phone" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Phone number <span style="font-weight:400; color:#8b9182;">(optional)</span></label>
+          <input type="tel" id="wfc-phone" name="contact[phone]" autocomplete="tel" class="wfc-field">
+        </div>
+      </fieldset>
+
+      <fieldset style="border:none; padding:0; margin:0 0 26px;">
+        <legend style="font-weight:800; font-size:16px; padding:0 0 14px; color:#2A2B2A; font-family:'Arial Rounded MT Bold', Arial, sans-serif;">Order details</legend>
+        <div style="margin-bottom:16px;">
+          <label for="wfc-order-number" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Order number</label>
+          <input type="text" id="wfc-order-number" name="contact[order_number]" class="wfc-field" data-wfc="orderNumber">
+          <span data-wfc-err="orderNumber">&#9888; Please enter your order number.</span>
+        </div>
+        <div style="margin-bottom:16px;">
+          <label for="wfc-order-date" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Order date</label>
+          <input type="date" id="wfc-order-date" name="contact[order_date]" class="wfc-field" data-wfc="orderDate">
+          <span data-wfc-err="orderDate">&#9888; Please enter the date you placed the order.</span>
+        </div>
+        <div>
+          <label for="wfc-received-date" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Date order received</label>
+          <input type="date" id="wfc-received-date" name="contact[received_date]" class="wfc-field" data-wfc="receivedDate">
+          <span data-wfc-err="receivedDate">&#9888; Please enter the date you received the order.</span>
+        </div>
+      </fieldset>
+
+      <fieldset style="border:none; padding:0; margin:0;">
+        <legend style="font-weight:800; font-size:16px; padding:0 0 14px; color:#2A2B2A; font-family:'Arial Rounded MT Bold', Arial, sans-serif;">Withdrawal details</legend>
+        <div style="margin-bottom:16px;">
+          <label for="wfc-items" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:4px;">Items being withdrawn</label>
+          <p style="margin:0 0 6px; font-size:13px; color:#8b9182;">List each product and quantity you wish to withdraw from.</p>
+          <textarea id="wfc-items" name="contact[items]" rows="4" class="wfc-field" data-wfc="items" style="resize:vertical;"></textarea>
+          <span data-wfc-err="items">&#9888; Please list the items you wish to withdraw.</span>
+        </div>
+        <div style="margin-bottom:16px;">
+          <label for="wfc-reason" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Reason <span style="font-weight:400; color:#8b9182;">(optional)</span></label>
+          <textarea id="wfc-reason" name="contact[reason]" rows="3" class="wfc-field" style="resize:vertical;"></textarea>
+        </div>
+        <div>
+          <div class="wfc-confirm-row" id="wfc-confirm-row">
+            <input type="checkbox" id="wfc-confirm" name="contact[confirmation]" value="I confirm I wish to withdraw from the contract for the items listed above." data-wfc="confirm" style="width:20px; height:20px; margin:2px 0 0; accent-color:#82C914;">
+            <label for="wfc-confirm" style="font-weight:700; font-size:14.5px; margin:0;">I confirm I wish to withdraw from the contract for the items listed above.</label>
+          </div>
+          <span data-wfc-err="confirm">&#9888; Please confirm you wish to withdraw before submitting.</span>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; gap:8px; background:#82C914; color:#ffffff; font:inherit; font-weight:800; font-size:15.5px; border:none; border-radius:10px; padding:14px 28px; cursor:pointer; margin-top:22px;">Submit withdrawal request</button>
+      {%- endunless -%}
+    {%- endform -%}
+  </section>
+
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Need help?</h2>
+  <div style="background:#f6f8f2; border:1px solid #e6e7e4; border-radius:12px; padding:20px 22px;">
+    <p style="margin:0 0 8px; font-size:15.5px;">If you have any questions about this process, email us at <a href="mailto:info@mccormackspharmacy.ie" style="font-weight:700;">info@mccormackspharmacy.ie</a>.</p>
+    <p style="margin:0; font-size:15.5px; color:#5a6153;">Please quote your order number in any correspondence.</p>
+  </div>
+
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Model withdrawal form</h2>
+  <p style="margin:0 0 16px; font-size:16px; line-height:1.7; color:#3a3d39;">If you would prefer to notify us in writing, you may use the model form below. Complete and send it to the address shown, or print and post it to us.</p>
+  <div class="wfc-print-area" style="border:1.5px solid #e6e7e4; border-radius:14px; padding:24px; background:#ffffff;">
+    <h3 style="margin:0 0 10px; font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-size:18px;">Notice of Withdrawal</h3>
+    <p style="margin:0 0 20px; font-size:14.5px; line-height:1.6;">To: [TRADER LEGAL NAME], [REGISTERED ADDRESS]<br>PSI Internet Supply List No: [PSI INTERNET SUPPLY LIST NUMBER]<br>Email: [CUSTOMER SERVICE EMAIL] &nbsp;&middot;&nbsp; Phone: [PHONE NUMBER]</p>
+    <p style="margin:0 0 22px; border-bottom:1px solid #b9bdb3; padding-bottom:4px; font-size:14.5px;">I/We hereby give notice that I/We withdraw from my/our contract of sale for the following goods:</p>
+    <p style="margin:0 0 22px; border-bottom:1px solid #b9bdb3; padding-bottom:4px;">&nbsp;</p>
+    <p style="margin:0 0 22px; border-bottom:1px solid #b9bdb3; padding-bottom:4px; font-size:14.5px;">Ordered on:</p>
+    <p style="margin:0 0 22px; border-bottom:1px solid #b9bdb3; padding-bottom:4px; font-size:14.5px;">Received on:</p>
+    <p style="margin:0 0 22px; border-bottom:1px solid #b9bdb3; padding-bottom:4px; font-size:14.5px;">Name of consumer(s):</p>
+    <p style="margin:0 0 22px; border-bottom:1px solid #b9bdb3; padding-bottom:4px; font-size:14.5px;">Address of consumer(s):</p>
+    <p style="margin:0 0 22px; border-bottom:1px solid #b9bdb3; padding-bottom:4px; font-size:14.5px;">Signature of consumer(s) (only if this form is notified on paper):</p>
+    <p style="margin:0; border-bottom:1px solid #b9bdb3; padding-bottom:4px; font-size:14.5px;">Date:</p>
+    <button type="button" class="wfc-print-btn" onclick="window.print()" style="margin-top:18px; background:#ffffff; border:1.5px solid #3f6b4f; color:#3f6b4f; font:inherit; font-weight:700; padding:10px 20px; border-radius:9px; cursor:pointer;">Print this form</button>
+  </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var form = document.getElementById('wfc-form');
+
+    // Success panel (after Shopify redirect): fill ref + timestamp saved pre-submit.
+    var refEl = document.getElementById('wfc-success-ref');
+    if (refEl) {
+      var timeEl = document.getElementById('wfc-success-time');
+      refEl.textContent = sessionStorage.getItem('wfcRef') || 'WD-______';
+      timeEl.textContent = sessionStorage.getItem('wfcTime') || new Date().toLocaleString('en-IE');
+      return;
+    }
+    if (!form) return;
+
+    var order = ['fullName', 'email', 'orderNumber', 'orderDate', 'receivedDate', 'items', 'confirm'];
+    var field = function (k) { return form.querySelector('[data-wfc="' + k + '"]'); };
+    var errEl = function (k) { return form.querySelector('[data-wfc-err="' + k + '"]'); };
+
+    var setErr = function (k, bad) {
+      var f = field(k);
+      var box = k === 'confirm' ? document.getElementById('wfc-confirm-row') : f;
+      box.classList.toggle('wfc-invalid', bad);
+      errEl(k).classList.toggle('wfc-show', bad);
+    };
+
+    order.forEach(function (k) {
+      field(k).addEventListener(k === 'confirm' ? 'change' : 'input', function () { setErr(k, false); });
+    });
+
+    form.addEventListener('submit', function (e) {
+      var bad = [];
+      order.forEach(function (k) {
+        var f = field(k);
+        var invalid = k === 'confirm' ? !f.checked
+          : k === 'email' ? !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.value.trim())
+          : !f.value.trim();
+        setErr(k, invalid);
+        if (invalid) bad.push(k);
+      });
+      var alertBox = document.getElementById('wfc-alert');
+      if (bad.length) {
+        e.preventDefault();
+        alertBox.classList.add('wfc-show');
+        field(bad[0]).focus();
+        return;
+      }
+      alertBox.classList.remove('wfc-show');
+      // Generate the reference client-side, include it in the POST, and stash it
+      // for the success panel shown after Shopify redirects back.
+      var ref = 'WD-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+      document.getElementById('wfc-reference').value = ref;
+      sessionStorage.setItem('wfcRef', ref);
+      sessionStorage.setItem('wfcTime', new Date().toLocaleString('en-IE'));
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Withdraw From Contract",
+  "settings": [],
+  "presets": [{ "name": "Withdraw From Contract" }]
+}
+{% endschema %}

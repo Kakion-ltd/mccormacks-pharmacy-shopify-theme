@@ -1,0 +1,24 @@
+{% style %}
+  .nf-search:focus-within { background: #ffffff !important; border-color: #92C83F !important; box-shadow: 0 0 0 4px rgba(146,200,63,.15); }
+{% endstyle %}
+
+<section style="max-width:1440px; margin:0 auto; padding:70px 30px 90px; text-align:center;">
+  <div style="max-width:560px; margin:0 auto;">
+    <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(60px,9vw,96px); line-height:1; color:#E6F2D5; margin:0 0 10px;">404</div>
+    <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(26px,3vw,38px); line-height:1.1; margin:0 0 14px;">Page not found</h1>
+    <p style="margin:0 0 28px; font-size:16.5px; line-height:1.65; color:#4a4d47;">The page you are looking for has been moved, or never existed. Try a search, or head back to the homepage.</p>
+    <form class="nf-search" action="{{ routes.search_url }}" method="get" style="display:flex; align-items:stretch; background:#f4f5f2; border:1.5px solid transparent; border-radius:12px; overflow:hidden; padding:0 0 0 16px; margin:0 0 22px; transition:border-color .18s, box-shadow .18s, background .18s;">
+      <input type="text" name="q" placeholder="Search for products, brands and more&hellip;" style="flex:1; border:none; outline:none; font-family:inherit; font-size:14.5px; color:#2A2B2A; background:transparent; padding:13px 0;">
+      <button type="submit" aria-label="Search" class="hov-bg-green" style="flex:0 0 auto; width:52px; border:none; background:#92C83F; color:#ffffff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .15s;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></button>
+    </form>
+    <a href="{{ routes.root_url }}" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; gap:8px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px; padding:14px 26px; border-radius:10px;">Back to homepage</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "404 page",
+  "settings": [],
+  "presets": [{ "name": "404 page" }]
+}
+{% endschema %}

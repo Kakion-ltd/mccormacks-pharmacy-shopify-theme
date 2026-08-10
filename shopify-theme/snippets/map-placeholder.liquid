@@ -1,0 +1,16 @@
+{%- comment -%} Striped map placeholder from the design. Accepts: height (px number). {%- endcomment -%}
+<div style="width:100%; height:{{ height | default: 300 }}px; border-radius:16px; overflow:hidden; background:#eef1ea; border:1px solid #e6e7e4; position:relative; display:flex; align-items:center; justify-content:center;">
+  <svg viewBox="0 0 400 220" style="position:absolute; inset:0; width:100%; height:100%;" preserveAspectRatio="none">
+    <rect width="400" height="220" fill="#eef1ea"></rect>
+    <path d="M0 60 L120 52 L210 78 L400 66" stroke="#dfe4d8" stroke-width="7" fill="none"></path>
+    <path d="M0 150 L140 138 L260 164 L400 148" stroke="#dfe4d8" stroke-width="7" fill="none"></path>
+    <path d="M90 0 L104 220" stroke="#dfe4d8" stroke-width="7" fill="none"></path>
+    <path d="M280 0 L292 220" stroke="#dfe4d8" stroke-width="7" fill="none"></path>
+    <path d="M0 100 Q90 88 180 104 T400 96" stroke="#cfdcc2" stroke-width="4" fill="none"></path>
+  </svg>
+  <div style="position:relative; display:flex; flex-direction:column; align-items:center; gap:9px; text-align:center; padding:20px;">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="#82C914"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"></path></svg>
+    <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:#3f6b4f;">Interactive map</div>
+    <div style="font-size:12.5px; color:#6b7065; max-width:30ch;">Google Maps embed goes here at build</div>
+  </div>
+</div>
