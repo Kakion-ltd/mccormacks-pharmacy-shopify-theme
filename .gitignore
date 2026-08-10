@@ -11,3 +11,6 @@ node_modules/
 # from the environment; keep them there.
 .env
 .env.*
+
+# Static Pages build output
+_site/
