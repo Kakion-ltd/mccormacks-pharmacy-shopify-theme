@@ -1,0 +1,47 @@
+# Publishes preview/ to GitHub Pages.
+#
+# NOT ACTIVE YET. Pages is unavailable while this repo is private on a free
+# plan, so this workflow is manual-only (Actions > Deploy preview to Pages >
+# Run workflow) to avoid a failed run on every push.
+#
+# To turn it on, once Pages is available (GitHub Pro, or the repo made public):
+#   1. Settings > Pages > Source: GitHub Actions
+#   2. Add the push trigger below, so every regenerated preview publishes itself:
+#        on:
+#          push:
+#            branches: [main]
+#            paths: ['preview/**']
+#          workflow_dispatch:
+#
+# Pages cannot serve an arbitrary subfolder from a branch (only / or /docs),
+# which is why this uploads preview/ as an artifact instead.
+
+name: Deploy preview to Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a running deploy finish rather than cancelling it mid-publish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: preview
+      - id: deployment
+        uses: actions/deploy-pages@v4
