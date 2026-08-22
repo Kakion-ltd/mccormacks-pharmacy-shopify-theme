@@ -150,6 +150,14 @@
 
           <form action="{{ routes.cart_url }}" method="post">
             <button type="submit" name="checkout" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border:none; border-radius:10px; background:#82C914; color:#ffffff; font-family:inherit; font-weight:800; font-size:15.5px; width:100%; cursor:pointer;">Checkout securely</button>
+            {%- comment -%} Shop Pay / Apple Pay / Google Pay / PayPal. Rendered by Shopify
+                from the payment providers enabled in the admin — nothing shows here until
+                accelerated checkouts are switched on, and nothing shows in the mock preview. {%- endcomment -%}
+            {%- if additional_checkout_buttons -%}
+              <div class="cart-express" style="margin-top:12px; display:grid; gap:10px;">
+                {{ content_for_additional_checkout_buttons }}
+              </div>
+            {%- endif -%}
           </form>
           <div style="margin-top:10px;"><a href="/pages/shipping" class="hov-border-accent" style="display:flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:15px; width:100%;">Click &amp; Collect &mdash; free</a></div>
 

@@ -52,6 +52,13 @@ engine.registerFilter('link_to', (v, u) => `<a href="${u}">${v}</a>`);
 engine.registerFilter('highlight', (v) => v);
 engine.registerFilter('weight_with_unit', (v) => `${v}g`);
 engine.registerFilter('metafield_text', (v) => (v && v.value) || v || '');
+// Shopify renders these from the store's enabled payment providers. The mock shows a
+// labelled stand-in so placement is reviewable; the real buttons only appear on a store.
+engine.registerFilter('payment_button', () =>
+  '<div data-mock-express style="height:48px;border-radius:10px;border:1.5px dashed #b9c2b3;' +
+  'display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;' +
+  'letter-spacing:.06em;text-transform:uppercase;color:#7d8875;background:#f4f6f1;">' +
+  'Shop Pay / Apple Pay &middot; live store only</div>');
 
 // image_url: keeps the width so image_tag can build a srcset from it
 engine.registerFilter('image_url', (img, ...rest) => {
@@ -230,7 +237,8 @@ const products = CATALOGUE.map((c, i) => ({
   media: [{ media_type: 'image', preview_image: mockImage(c.img, 700, 700), id: i, alt: c.t }],
   variants: [mockVariant(i)], first_available_variant: mockVariant(i),
   selected_or_first_available_variant: mockVariant(i), has_only_default_variant: true,
-  options_with_values: [], tags: [], description: '<p>Product description.</p>',
+  options_with_values: [], tags: [], selling_plan_groups: [],
+  description: '<p>Product description.</p>',
   content: '<p>Product description.</p>', collections: [],
   metafields: { reviews: {}, custom: {} },
 }));
@@ -307,10 +315,20 @@ const globals = {
     account_recover_url: '/account/recover', predictive_search_url: '/search/suggest',
   },
   content_for_header: '<!-- content_for_header -->',
+  content_for_additional_checkout_buttons:
+    '<div data-mock-express style="height:48px;border-radius:10px;border:1.5px dashed #b9c2b3;' +
+    'display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;' +
+    'letter-spacing:.06em;text-transform:uppercase;color:#7d8875;background:#f4f6f1;">' +
+    'Express checkout buttons &middot; live store only</div>',
   powered_by_link: '<a href="https://shopify.com">Shopify</a>',
   additional_checkout_buttons: false, scripts: [],
   settings: {}, // filled from settings_schema defaults
 };
+
+// {% render %} isolates scope in liquidjs, so snippets cannot see page globals
+// unless they are engine globals. Shopify exposes these everywhere.
+globals.additional_checkout_buttons = true;
+engine.options.globals = globals;
 
 /* settings_schema.json defaults -> settings */
 const schemaJson = JSON.parse(readFileSync(join(THEME, 'config/settings_schema.json'), 'utf8'));

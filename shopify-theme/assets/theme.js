@@ -127,6 +127,109 @@
     }
   });
 
+  // ---- Cart drawer. Rendered client-side from the Cart AJAX API so it is correct
+  // after every add without a page load. Opens on a successful add, which is the
+  // whole point: before this, add-to-cart had no route to checkout.
+  const cd = {
+    drawer: document.querySelector('[data-cd-drawer]'),
+    overlay: document.querySelector('[data-cd-overlay]'),
+  };
+  if (cd.drawer) {
+    const $ = (sel) => cd.drawer.querySelector(sel);
+    const threshold = parseInt(cd.drawer.dataset.cdThreshold || '0', 10);
+    const fmt = (cents) => {
+      // Mirror the shop's money format loosely; exact rendering stays server-side
+      // on the cart page. Intl keeps decimals and grouping correct per locale.
+      try {
+        return new Intl.NumberFormat(document.documentElement.lang || 'en-IE',
+          { style: 'currency', currency: 'EUR' }).format(cents / 100);
+      } catch { return '€' + (cents / 100).toFixed(2); }
+    };
+    const esc = (t) => String(t == null ? '' : t).replace(/[&<>"']/g,
+      (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    let lastFocus = null;
+    const open = () => {
+      lastFocus = document.activeElement;
+      document.body.setAttribute('data-cd-open', '');
+      const first = $('[data-cd-close]');
+      if (first) first.focus();
+    };
+    const close = () => {
+      document.body.removeAttribute('data-cd-open');
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    };
+    cd.overlay && cd.overlay.addEventListener('click', close);
+    on(document, 'click', '[data-cd-close]', (e) => { e.preventDefault(); close(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.body.hasAttribute('data-cd-open')) close();
+    });
+
+    const render = (cart) => {
+      $('[data-cd-count]').textContent = '(' + cart.item_count + ')';
+      const empty = cart.item_count === 0;
+      $('[data-cd-empty]').hidden = !empty;
+      $('[data-cd-foot]').hidden = empty;
+      $('[data-cd-ship]').hidden = empty || !threshold;
+
+      if (!empty && threshold) {
+        const left = threshold - cart.total_price;
+        $('[data-cd-ship-msg]').textContent = left <= 0
+          ? 'You have free delivery'
+          : fmt(left) + ' away from free delivery';
+        $('[data-cd-bar]').style.width =
+          Math.min(100, Math.round((cart.total_price / threshold) * 100)) + '%';
+      }
+      $('[data-cd-subtotal]').textContent = fmt(cart.total_price);
+
+      $('[data-cd-items]').innerHTML = cart.items.map((it, i) => {
+        const img = it.image
+          ? '<img src="' + esc(it.image) + '" alt="" loading="lazy">'
+          : '<span style="display:block;width:100%;height:100%;background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px);"></span>';
+        const was = (it.original_line_price > it.final_line_price)
+          ? '<span class="cd-line-was">' + fmt(it.original_line_price) + '</span>' : '';
+        return '<div class="cd-line" data-cd-line="' + (i + 1) + '">' +
+          '<span class="cd-line-img">' + img + '</span>' +
+          '<div class="cd-line-body">' +
+            (it.product_type || it.vendor ? '<span class="cd-line-vendor">' + esc(it.vendor) + '</span>' : '') +
+            '<span class="cd-line-title"><a href="' + esc(it.url) + '">' + esc(it.product_title) + '</a></span>' +
+            '<div class="cd-line-foot">' +
+              '<span class="cd-qty">' +
+                '<button type="button" data-cd-qty="' + (i + 1) + '" data-cd-to="' + (it.quantity - 1) + '" aria-label="Decrease quantity">&minus;</button>' +
+                '<span>' + it.quantity + '</span>' +
+                '<button type="button" data-cd-qty="' + (i + 1) + '" data-cd-to="' + (it.quantity + 1) + '" aria-label="Increase quantity">+</button>' +
+              '</span>' +
+              '<span class="cd-line-price">' + was + fmt(it.final_line_price) + '</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    };
+
+    // Line quantity changes inside the drawer, including remove (quantity 0).
+    on(document, 'click', '[data-cd-qty]', async (e, btn) => {
+      const line = parseInt(btn.dataset.cdQty, 10);
+      const to = Math.max(0, parseInt(btn.dataset.cdTo, 10));
+      cd.drawer.querySelectorAll('[data-cd-qty]').forEach((b) => { b.disabled = true; });
+      try {
+        const changeUrl = ((window.mccRoutes || {}).cart_change_url || '/cart/change') + '.js';
+        const res = await fetch(changeUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ line, quantity: to }),
+        });
+        const cart = await res.json();
+        render(cart);
+        document.querySelectorAll('[data-cart-count]').forEach((el) => {
+          el.textContent = cart.item_count;
+          el.style.display = cart.item_count > 0 ? 'flex' : 'none';
+        });
+      } catch { /* leave the drawer as-is; the cart page is the source of truth */ }
+    });
+
+    window.mccCartDrawer = { open, close, render };
+  }
+
   // ---- Missing images degrade to the theme's striped panel instead of the
   // browser's broken-image icon. Capture phase, because 'error' does not bubble.
   // Covers hardcoded theme assets (where Liquid cannot test for a missing file,
@@ -178,8 +281,9 @@
     const label = btn.textContent;
     btn.disabled = true;
     try {
-      await addToCart(parseInt(btn.dataset.addId, 10), parseInt(btn.dataset.addQty || '1', 10));
+      const cart = await addToCart(parseInt(btn.dataset.addId, 10), parseInt(btn.dataset.addQty || '1', 10));
       btn.textContent = 'Added ✓';
+      if (window.mccCartDrawer) { window.mccCartDrawer.render(cart); window.mccCartDrawer.open(); }
     } catch {
       btn.textContent = 'Sold out';
     }
@@ -191,7 +295,11 @@
     const qty = parseInt(new FormData(form).get('quantity') || '1', 10);
     const btn = form.querySelector('[type=submit]');
     if (btn) btn.disabled = true;
-    try { await addToCart(id, qty); if (btn) btn.textContent = 'Added to bag ✓'; }
+    try {
+      const cart = await addToCart(id, qty);
+      if (btn) btn.textContent = 'Added to bag ✓';
+      if (window.mccCartDrawer) { window.mccCartDrawer.render(cart); window.mccCartDrawer.open(); }
+    }
     catch { if (btn) btn.textContent = 'Unavailable'; }
     if (btn) setTimeout(() => { btn.disabled = false; btn.textContent = 'Add To Bag'; }, 1600);
   });

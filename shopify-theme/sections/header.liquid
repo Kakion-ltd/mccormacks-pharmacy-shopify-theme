@@ -111,6 +111,10 @@
   </div>
 </div>
 
+{%- comment -%} Cart drawer lives in the header so it is present on every page,
+    which is what lets add-to-cart from a collection or the PDP open it. {%- endcomment -%}
+{% render 'cart-drawer' %}
+
 {% schema %}
 {
   "name": "Header",

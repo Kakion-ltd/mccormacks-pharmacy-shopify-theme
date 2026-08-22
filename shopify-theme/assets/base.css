@@ -161,3 +161,72 @@ img.img-fallback {
   background: repeating-linear-gradient(135deg, #dfe6d5, #dfe6d5 12px, #d7dfcb 12px, #d7dfcb 24px);
   object-fit: cover;
 }
+
+/* ---- Cart drawer -------------------------------------------------------
+   Shell mirrors .mnav-drawer: visibility (not just transform) is transitioned
+   so a closed drawer leaves the tab order and the accessibility tree. */
+.cd-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,.45); opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility .25s ease; }
+.cd-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 301;
+  width: 420px; max-width: 92vw; background: #fff;
+  box-shadow: 0 0 40px rgba(0,0,0,.2);
+  transform: translateX(100%); visibility: hidden;
+  transition: transform .28s cubic-bezier(.4,0,.2,1), visibility .28s;
+  display: flex; flex-direction: column;
+}
+body[data-cd-open] .cd-overlay { opacity: 1; visibility: visible; }
+body[data-cd-open] .cd-drawer  { transform: translateX(0); visibility: visible; }
+body[data-cd-open] { overflow: hidden; }
+.cd-drawer[hidden], .cd-overlay[hidden] { display: block; }  /* animated, not display-toggled */
+/* These panes DO toggle on [hidden], and each sets its own display, which beats the
+   UA's [hidden]{display:none}. Same trap as .store-row[hidden]. Must be !important. */
+.cd-empty[hidden], .cd-foot[hidden], .cd-ship[hidden] { display: none !important; }
+
+.cd-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 20px; border-bottom: 1px solid var(--c-border); flex: 0 0 auto; }
+.cd-head h2 { margin: 0; font-family: var(--font-heading); font-weight: 800; font-size: 19px; color: var(--c-dark); }
+.cd-head [data-cd-count] { color: var(--c-muted-2); font-weight: 700; }
+.cd-x { border: none; background: #f4f5f2; width: 36px; height: 36px; border-radius: 999px; color: var(--c-text); cursor: pointer; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+.cd-x:hover { background: #e9ebe6; }
+
+.cd-ship { padding: 14px 20px; background: #f3f8ea; border-bottom: 1px solid var(--c-border); flex: 0 0 auto; }
+.cd-ship-row { display: flex; align-items: center; gap: 9px; font-size: 13.5px; color: var(--c-dark); font-weight: 700; margin-bottom: 9px; }
+.cd-bar { height: 7px; border-radius: 999px; background: #d7e2c8; overflow: hidden; }
+.cd-bar > div { height: 100%; background: var(--c-accent); border-radius: 999px; transition: width .3s ease; }
+
+.cd-items { flex: 1 1 auto; overflow-y: auto; padding: 6px 20px; }
+.cd-line { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--c-border-2); }
+.cd-line-img { flex: 0 0 72px; width: 72px; height: 72px; border-radius: 9px; border: 1px solid var(--c-border-2); overflow: hidden; background: #fff; }
+.cd-line-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.cd-line-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.cd-line-vendor { font-size: 12px; font-weight: 700; color: var(--c-primary); }
+.cd-line-title { font-size: 14.5px; line-height: 1.35; color: var(--c-text); font-weight: 600; }
+.cd-line-title a { color: inherit; }
+.cd-line-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 2px; }
+.cd-qty { display: inline-flex; align-items: center; border: 1.5px solid var(--c-border-2); border-radius: 8px; overflow: hidden; }
+.cd-qty button { width: 30px; height: 30px; border: none; background: #fff; color: var(--c-text); font-size: 16px; cursor: pointer; line-height: 1; }
+.cd-qty button:hover:not(:disabled) { background: #f4f5f2; }
+.cd-qty button:disabled { opacity: .4; cursor: default; }
+.cd-qty span { min-width: 30px; text-align: center; font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.cd-line-price { font-family: var(--font-heading); font-weight: 800; font-size: 15.5px; color: var(--c-text); font-variant-numeric: tabular-nums; }
+.cd-line-was { font-size: 13px; color: var(--c-muted-2); text-decoration: line-through; margin-right: 6px; font-weight: 400; }
+
+.cd-empty { flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 40px 24px; text-align: center; }
+.cd-empty p { margin: 0; color: var(--c-muted); font-size: 15px; }
+
+.cd-foot { flex: 0 0 auto; border-top: 1px solid var(--c-border); padding: 16px 20px 20px; background: #fff; }
+.cd-sub { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; }
+.cd-sub span:first-child { font-size: 15px; color: var(--c-muted); }
+.cd-sub span:last-child { font-family: var(--font-heading); font-weight: 800; font-size: 21px; color: var(--c-text); font-variant-numeric: tabular-nums; }
+.cd-vat { margin: 0 0 14px; font-size: 12.5px; color: var(--c-muted-2); }
+.cd-checkout { width: 100%; height: 52px; border: none; border-radius: 10px; background: var(--c-primary); color: #fff; font-family: inherit; font-weight: 800; font-size: 15.5px; cursor: pointer; }
+.cd-express { display: grid; gap: 10px; margin-top: 10px; }
+.cd-express:empty { display: none; }
+.cd-secondary { display: block; text-align: center; margin-top: 12px; font-size: 14.5px; font-weight: 700; color: var(--c-dark); }
+.cd-secondary:hover { color: var(--c-primary); }
+
+@media (max-width: 480px) {
+  .cd-drawer { width: 100%; max-width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cd-overlay, .cd-drawer { transition: none; }
+}
