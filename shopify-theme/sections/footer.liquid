@@ -83,6 +83,15 @@
   </div>
 </footer>
 
+{%- comment -%} Organization JSON-LD is emitted here, not from the layout, because
+    the social URLs it needs are settings on this section. The footer renders on
+    every page, so the markup is sitewide either way. {%- endcomment -%}
+{% render 'structured-data', scope: 'organization',
+     facebook: section.settings.facebook_url,
+     instagram: section.settings.instagram_url,
+     tiktok: section.settings.tiktok_url,
+     about: section.settings.about_text %}
+
 {% schema %}
 {
   "name": "Footer",

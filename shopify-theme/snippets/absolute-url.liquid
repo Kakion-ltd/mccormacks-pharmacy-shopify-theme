@@ -1,0 +1,29 @@
+{%- comment -%}
+  Turn any asset or image URL into an absolute one, for structured data.
+
+  schema.org needs absolute URLs; a relative one silently invalidates the rich
+  result. The three shapes that reach this are all handled:
+
+    //cdn.shopify.com/...   what image_url and asset_url return on Shopify
+    https://...             already absolute, left alone
+    /assets/...             root-relative, as in a local render
+
+  Blindly prepending "https:" — the common shortcut — turns the third shape into
+  "https:/assets/..." and the second into "https:https://...".
+
+  Usage:
+    {%- capture img -%}{%- render 'absolute-url', src: some_url -%}{%- endcapture -%}
+
+  Accepts: src (required), base (optional, defaults to the shop URL)
+{%- endcomment -%}
+{%- liquid
+  assign root = base | default: shop.secure_url | default: shop.url
+  assign head = src | slice: 0, 2
+  if head == '//'
+    echo src | prepend: 'https:'
+  elsif head == 'ht'
+    echo src
+  else
+    echo src | prepend: root
+  endif
+-%}

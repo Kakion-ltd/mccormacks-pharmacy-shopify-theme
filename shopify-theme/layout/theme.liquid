@@ -26,5 +26,8 @@
     {{ content_for_layout }}
   </main>
   {% sections 'footer-group' %}
+  {%- comment -%} JSON-LD for the page type. Emitted in the body rather than the
+      head so it cannot interfere with content_for_header. {%- endcomment -%}
+  {% render 'structured-data' %}
 </body>
 </html>

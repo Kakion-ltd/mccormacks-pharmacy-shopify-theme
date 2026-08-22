@@ -216,6 +216,51 @@
 })();
 </script>
 
+{%- comment -%}
+  One Pharmacy entry per store, for Google's local results. This sits in the
+  section rather than snippets/structured-data.liquid because the addresses,
+  phone numbers and opening hours are block settings and exist nowhere else.
+
+  Address is a free-text field, so it is emitted as streetAddress plus the
+  Eircode — Google tolerates an unsplit address better than a wrongly split one,
+  and guessing a town out of a comma-separated string would misfile stores.
+  Opening hours are "Label|Value" lines written for humans ("Mon–Fri", "9.00am –
+  6.00pm"), which is not the openingHours format, so they are deliberately left
+  out rather than machine-translated into something wrong.
+{%- endcomment -%}
+{%- assign store_blocks = section.blocks | where: 'type', 'store' -%}
+{%- if store_blocks.size > 0 -%}
+  {%- assign shop_url = shop.secure_url | default: shop.url -%}
+  <script type="application/ld+json">
+  [
+    {%- for block in store_blocks -%}
+      {
+        "@context": "https://schema.org",
+        "@type": "Pharmacy",
+        "name": {{ shop.name | append: ' — ' | append: block.settings.name | json }},
+        "parentOrganization": { "@type": "Pharmacy", "name": {{ shop.name | json }}, "@id": {{ shop_url | append: '#organization' | json }} },
+        "url": {{ shop_url | append: page.url | json }},
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": {{ block.settings.address | json }},
+          "addressCountry": "IE"
+          {%- if block.settings.eircode != blank -%}, "postalCode": {{ block.settings.eircode | json }}{%- endif -%}
+        }
+        {%- if block.settings.phone != blank -%}, "telephone": {{ block.settings.phone | json }}{%- endif -%}
+        {%- if block.settings.email != blank -%}, "email": {{ block.settings.email | json }}{%- endif -%}
+        {%- if block.settings.latitude != blank and block.settings.longitude != blank -%},
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": {{ block.settings.latitude | json }},
+          "longitude": {{ block.settings.longitude | json }}
+        }
+        {%- endif -%}
+      }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+  </script>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "Store Locator",

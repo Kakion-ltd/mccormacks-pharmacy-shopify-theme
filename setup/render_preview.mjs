@@ -385,7 +385,48 @@ async function renderSection(type, settings, blocksSpec, extraGlobals = {}) {
   return engine.parseAndRender(src, { ...globals, ...extraGlobals, section });
 }
 
+// request.page_type drives page-type-specific markup (JSON-LD, canonical hints).
+// Without this every preview page claimed to be the homepage, and anything
+// branching on page type silently rendered the wrong branch — or nothing.
+const pageTypeOf = (name) => {
+  if (name.startsWith('customers/')) return name;
+  if (name.startsWith('collection')) return 'collection';
+  if (name.startsWith('page')) return 'page';
+  if (name === 'index') return 'index';
+  if (name === 'list-collections') return 'list-collections';
+  if (name === 'gift_card') return 'gift_card';
+  return name; // product, cart, search, blog, article, 404, password
+};
+
 async function renderTemplate(name, extraGlobals = {}) {
+  extraGlobals = {
+    ...extraGlobals,
+    request: { ...globals.request, page_type: pageTypeOf(name) },
+    template: { name: pageTypeOf(name), suffix: null, directory: null },
+  };
+  // page.url/handle are real on Shopify and used in canonical + structured data.
+  if (name.startsWith('page.')) {
+    const handle = name.slice('page.'.length);
+    extraGlobals.page = { ...globals.page, handle, url: `/pages/${handle}` };
+  }
+
+  // {% render %} isolates scope in liquidjs, so a snippet sees engine globals and
+  // NOT the per-template values passed down the render tree. On Shopify these are
+  // true globals, visible everywhere. Mirror that by swapping them in for the
+  // duration of this template, then putting them back — otherwise anything a
+  // snippet branches on (request.page_type, collection) is stuck at its default
+  // and the wrong branch renders silently.
+  const savedGlobals = {};
+  for (const k of Object.keys(extraGlobals)) savedGlobals[k] = globals[k];
+  Object.assign(globals, extraGlobals);
+  try {
+    return await renderTemplateInner(name, extraGlobals);
+  } finally {
+    Object.assign(globals, savedGlobals);
+  }
+}
+
+async function renderTemplateInner(name, extraGlobals) {
   const jsonPath = join(THEME, 'templates', `${name}.json`);
   const liquidPath = join(THEME, 'templates', `${name}.liquid`);
   let body = '';
