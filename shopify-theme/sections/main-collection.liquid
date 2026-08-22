@@ -1,8 +1,17 @@
 {%- comment -%} Collection template ported from the "Medicines & Health" design
     (banner variants from the Sale / New In / Bundles designs). {%- endcomment -%}
 
-{%- comment -%} Leaf categories use a text-only hero — no image. Level comes from
-    the generated snippet, since all 163 leaves share this one template. {%- endcomment -%}
+{%- comment -%} Only the 12 department pages carry an image banner. Groups (30),
+    brands (88) and leaves (163) use a text-only hero.
+
+    Why: on a 390px phone the image banner pushes the first product to y=856,
+    below the 844px fold; the text hero puts it at y=678, above it. The banner
+    is also the LCP element, so dropping it moves LCP from a network-bound image
+    to the H1 text. Departments keep theirs — they are the campaign and nav
+    landing pages, where framing does a job.
+
+    An unknown handle (a collection the client creates later) falls through to
+    the image banner, so behaviour there is unchanged. {%- endcomment -%}
 {%- capture cat_level -%}{%- render 'category-level', collection: collection -%}{%- endcapture -%}
 {%- assign cat_level = cat_level | strip -%}
 
@@ -47,7 +56,7 @@
         {%- render 'banner-image', image: banner_object, asset: banner_asset, alt: banner_heading, label: 'Sale banner', note: 'Landscape — keep the subject centred, edges get cropped.' -%}
       </div>
     </div>
-  {%- elsif cat_level == 'leaf' -%}
+  {%- elsif cat_level == 'group' or cat_level == 'leaf' or cat_level == 'brand' -%}
     {%- comment -%} Text-only hero: heading and copy sit side by side and use the
         width the image used to take, rather than leaving a wide empty band. {%- endcomment -%}
     <div class="banner-text" style="border-radius:18px; background:#f4f5f2; padding:clamp(24px,3vw,40px) clamp(24px,3.4vw,48px); display:flex; flex-wrap:wrap; align-items:center; gap:clamp(10px,2.4vw,44px);">
