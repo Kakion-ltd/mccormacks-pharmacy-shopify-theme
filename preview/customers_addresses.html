@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Customers/Addresses | McCormack's Pharmacy</title><meta name="description" content="Ireland's trusted family pharmacy since 2010 — expert care online and across our seven stores."><link rel="canonical" href="https://mock.myshopify.com/">
+  <title>Addresses | McCormack's Pharmacy</title><meta name="description" content="Ireland’s trusted family pharmacy."><link rel="canonical" href="https://mock.myshopify.com/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -603,20 +603,20 @@
 <aside class="acct-side" style="flex:0 0 258px; width:258px;">
   <div style="border:1px solid #e6e7e4; border-radius:16px; padding:20px 14px; background:#ffffff;">
     <div style="display:flex; align-items:center; gap:12px; padding:0 12px 16px; margin:0 0 8px; border-bottom:1px solid #eceee9;">
-      <span style="width:42px; height:42px; border-radius:999px; background:#eef2e8; color:#3f6a17; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center;">TP</span>
+      <span style="width:42px; height:42px; border-radius:999px; background:#eef2e8; color:#3f6a17; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center;"></span>
       <span style="min-width:0;">
-        <span style="display:block; font-weight:800; font-size:15px; color:#2A2B2A;">Test Person</span>
-        <span style="display:block; font-size:12.5px; color:#6b7065; overflow:hidden; text-overflow:ellipsis;">test@example.com</span>
+        <span style="display:block; font-weight:800; font-size:15px; color:#2A2B2A;"> </span>
+        <span style="display:block; font-size:12.5px; color:#6b7065; overflow:hidden; text-overflow:ellipsis;"></span>
       </span>
     </div>
     <nav style="display:flex; flex-direction:column; gap:3px;">
-      <a href="/account" class="acct-nav-link" style="display:block; padding:11px 14px; border-radius:9px; font-size:14.5px; background:transparent; color:#3a3d39; font-weight:600; border-left:3px solid transparent;">Dashboard</a>
-      <a href="/account#orders" class="acct-nav-link" style="display:block; padding:11px 14px; border-radius:9px; font-size:14.5px; background:transparent; color:#3a3d39; font-weight:600; border-left:3px solid transparent;">Orders</a>
+      <a href="" class="acct-nav-link" style="display:block; padding:11px 14px; border-radius:9px; font-size:14.5px; background:transparent; color:#3a3d39; font-weight:600; border-left:3px solid transparent;">Dashboard</a>
+      <a href="#orders" class="acct-nav-link" style="display:block; padding:11px 14px; border-radius:9px; font-size:14.5px; background:transparent; color:#3a3d39; font-weight:600; border-left:3px solid transparent;">Orders</a>
       <a href="/pages/prescriptions" class="acct-nav-link" style="display:block; padding:11px 14px; border-radius:9px; font-size:14.5px; background:transparent; color:#3a3d39; font-weight:600; border-left:3px solid transparent;">Prescriptions</a>
-      <a href="/account/addresses" class="acct-nav-link" style="display:block; padding:11px 14px; border-radius:9px; font-size:14.5px; background:#eef2e8; color:#3f6b4f; font-weight:800; border-left:3px solid #92C83F;">Details &amp; addresses</a>
+      <a href="" class="acct-nav-link" style="display:block; padding:11px 14px; border-radius:9px; font-size:14.5px; background:#eef2e8; color:#3f6b4f; font-weight:800; border-left:3px solid #92C83F;">Details &amp; addresses</a>
     </nav>
     <div style="margin:16px 14px 0; padding-top:14px; border-top:1px solid #eceee9;">
-      <a href="/account/logout" class="hov-green" style="font-size:14px; font-weight:700; color:#6b7065;">Sign out</a>
+      <a href="" class="hov-green" style="font-size:14px; font-weight:700; color:#6b7065;">Sign out</a>
     </div>
   </div>
 </aside>
@@ -628,80 +628,6 @@
 
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin:0 0 22px;">
         
-          <div>
-            <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-              <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-                
-                  <span style="display:inline-flex; align-items:center; height:24px; padding:0 9px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:11.5px; font-weight:800;">Default delivery</span>
-                
-              </div>
-              <div class="acct-addr" style="font-size:14.5px; line-height:1.7; color:#3a3d39;"><p>Test Person<br>1 Main St<br>Clonmel<br>Tipperary<br>E91<br>Ireland</p></div>
-              <div style="display:flex; gap:14px; margin-top:14px; align-items:center;">
-                <button type="button" data-addr-toggle="EditAddress-1" style="border:none; background:transparent; padding:0; cursor:pointer; font-family:inherit; font-size:13.5px; font-weight:700; color:#82C914;">Edit</button>
-                <form method="post" action="/account/addresses/1" data-confirm="Remove this address?" style="margin:0;">
-                  <input type="hidden" name="_method" value="delete">
-                  <button type="submit" class="hov-remove" style="border:none; background:transparent; padding:0; cursor:pointer; font-family:inherit; font-size:13.5px; font-weight:700; color:#6b7065;">Remove</button>
-                </form>
-              </div>
-            </div>
-            <div id="EditAddress-1" class="addr-form-panel" style="display:none; border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff; margin-top:12px;">
-              
-              
-<form method="post" action="/mock-form" data-mock-form="customer_address">
-  <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:#3f6b4f; margin:0 0 16px;">Edit address</div>
-  
-  <div style="display:flex; flex-wrap:wrap; gap:16px;">
-    <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
-      <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">First name</span>
-      <input type="text" name="address[first_name]" value="" autocomplete="given-name" class="acct-input" style="height:50px; border:1px solid #dfe1dc; border-radius:9px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
-    </label>
-    <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
-      <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Last name</span>
-      <input type="text" name="address[last_name]" value="" autocomplete="family-name" class="acct-input" style="height:50px; border:1px solid #dfe1dc; border-radius:9px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
-    </label>
-    <label style="flex:1 1 100%; display:flex; flex-direction:column; gap:7px; min-width:0;">
-      <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Address line 1</span>
-      <input type="text" name="address[address1]" value="" autocomplete="address-line1" class="acct-input" style="height:50px; border:1px solid #dfe1dc; border-radius:9px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
-    </label>
-    <label style="flex:1 1 100%; display:flex; flex-direction:column; gap:7px; min-width:0;">
-      <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Address line 2 <span style="font-weight:400; color:#8b9182;">(optional)</span></span>
-      <input type="text" name="address[address2]" value="" autocomplete="address-line2" class="acct-input" style="height:50px; border:1px solid #dfe1dc; border-radius:9px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
-    </label>
-    <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
-      <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Town / City</span>
-      <input type="text" name="address[city]" value="" autocomplete="address-level2" class="acct-input" style="height:50px; border:1px solid #dfe1dc; border-radius:9px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
-    </label>
-    <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
-      <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">County / Province</span>
-      <input type="text" name="address[province]" value="" autocomplete="address-level1" class="acct-input" style="height:50px; border:1px solid #dfe1dc; border-radius:9px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
-    </label>
-    <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
-      <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Eircode / Postcode</span>
-      <input type="text" name="address[zip]" value="" autocomplete="postal-code" class="acct-input" style="height:50px; border:1px solid #dfe1dc; border-radius:9px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
-    </label>
-    <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
-      <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Country</span>
-      <select name="address[country]" data-default="" autocomplete="country-name" class="acct-input" style="height:50px; border:1px solid #dfe1dc; border-radius:9px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none; background:#ffffff;">
-        <option>Ireland</option>
-      </select>
-    </label>
-    <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
-      <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Mobile number</span>
-      <input type="tel" name="address[phone]" value="" autocomplete="tel" placeholder="087 000 0000" class="acct-input" style="height:50px; border:1px solid #dfe1dc; border-radius:9px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
-    </label>
-  </div>
-  <label style="display:flex; align-items:center; gap:10px; font-size:14px; color:#3a3d39; margin:16px 0 0;">
-    <input type="checkbox" name="address[default]" value="1"  style="accent-color:#82C914; width:17px; height:17px;"><span>Set as default delivery address</span>
-  </label>
-  <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:20px;">
-    <button type="submit" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:none; cursor:pointer; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px;">Save address</button>
-    <button type="button" data-addr-toggle="EditAddress-1" class="hov-border-only" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; cursor:pointer; background:#ffffff; color:#3f6b4f; font-weight:700; font-size:15px;">Cancel</button>
-  </div>
-</form>
-
-            </div>
-          </div>
-        
         <button type="button" data-addr-toggle="NewAddress" class="hov-add-tile" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; border:1.5px dashed #cdd3c5; border-radius:16px; padding:26px; background:transparent; cursor:pointer; font-family:inherit; color:#3f6b4f; min-height:170px;">
           <span style="width:40px; height:40px; border-radius:999px; background:#eef2e8; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:700; color:#82C914;">+</span>
           <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15.5px;">Add a new address</span>
@@ -710,7 +636,7 @@
 
       <div id="NewAddress" class="addr-form-panel" style="display:none; border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
         
-<form method="post" action="/mock-form" data-mock-form="customer_address">
+<form method="post">
   <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:#3f6b4f; margin:0 0 16px;">Add a new address</div>
   
   <div style="display:flex; flex-wrap:wrap; gap:16px;">
@@ -745,7 +671,7 @@
     <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
       <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Country</span>
       <select name="address[country]" data-default="" autocomplete="country-name" class="acct-input" style="height:50px; border:1px solid #dfe1dc; border-radius:9px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none; background:#ffffff;">
-        <option>Ireland</option>
+        
       </select>
     </label>
     <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
@@ -814,7 +740,7 @@
         <p style="margin:0; color:rgba(255,255,255,.78); font-size:13.5px; line-height:1.4;">Health tips, exclusive offers & 10% off your first order.</p>
       </div>
       <div style="flex:1 1 340px; max-width:400px; border-radius:9px; background:#ffffff; padding:3px;">
-      <form method="post" action="/mock-form" data-mock-form="customer" style="display:flex; gap:0;">
+      <form method="post" style="display:flex; gap:0;">
         
           <input type="hidden" name="contact[tags]" value="newsletter">
           <input type="email" name="contact[email]" required placeholder="Enter your email address" style="flex:1; min-width:0; border:none; outline:none; padding:10px 14px; font-family:inherit; font-size:13.5px; color:#2A2B2A; background:transparent;">
@@ -863,7 +789,7 @@
     <div class="ftr-bottom" style="max-width:1440px; margin:0 auto; padding:18px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px; font-size:13px; color:#8b9182;">
       <div class="ftr-copyright">Copyright © 2026 McCormack's Pharmacy</div>
       <div class="ftr-payments" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
-        <span style="font-size:12.5px; color:#8b9182; margin-right:2px;">We accept</span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg role="img" aria-label="visa" width="38" height="20"><rect width="38" height="20" rx="3" fill="#dfe1dc"></rect></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg role="img" aria-label="master" width="38" height="20"><rect width="38" height="20" rx="3" fill="#dfe1dc"></rect></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg role="img" aria-label="american_express" width="38" height="20"><rect width="38" height="20" rx="3" fill="#dfe1dc"></rect></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg role="img" aria-label="paypal" width="38" height="20"><rect width="38" height="20" rx="3" fill="#dfe1dc"></rect></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg role="img" aria-label="apple_pay" width="38" height="20"><rect width="38" height="20" rx="3" fill="#dfe1dc"></rect></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg role="img" aria-label="google_pay" width="38" height="20"><rect width="38" height="20" rx="3" fill="#dfe1dc"></rect></svg></span></div>
+        <span style="font-size:12.5px; color:#8b9182; margin-right:2px;">We accept</span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span></div>
       <a href="/pages/terms-and-conditions" class="ftr-terms" style="display:none; color:#8b9182;">Terms &amp; Conditions</a>
       <div class="ftr-builtby" style="display:flex; align-items:center; gap:22px; flex-wrap:wrap;">
         <a href="https://kakion.com" style="display:flex; align-items:center; gap:1px; color:#8b9182;">

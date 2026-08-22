@@ -41,7 +41,7 @@
           "type": "slide",
           "settings": {
             "title": "Mother & Baby",
-            "subtext": "Trusted essentials for every stage — from bump to little one.",
+            "subtext": "Trusted essentials for every stage \u2014 from bump to little one.",
             "cta": "SHOP BABY",
             "link": "/collections/mother-baby",
             "image_asset": "slide-baby.jpg"
@@ -74,7 +74,7 @@
     "promo": {
       "type": "promo-strip",
       "settings": {
-        "text": "Pollen levels are rising — stock up on your <strong style=\"font-weight:800;\">Hayfever</strong> essentials today.",
+        "text": "Pollen levels are rising \u2014 stock up on your <strong style=\"font-weight:800;\">Hayfever</strong> essentials today.",
         "cta": "Shop Now",
         "link": "/collections/hayfever-allergy"
       }
@@ -89,7 +89,31 @@
     },
     "features": {
       "type": "feature-tiles",
-      "settings": {}
+      "settings": {},
+      "blocks": {
+        "tile-vitamins": {
+          "type": "tile",
+          "settings": {
+            "title": "Vitamins & Supplements",
+            "link": "/collections/vitamins",
+            "cta": "SHOP NOW",
+            "image_asset": "cat-vitamins.jpg"
+          }
+        },
+        "tile-suncare": {
+          "type": "tile",
+          "settings": {
+            "title": "Suncare",
+            "link": "/collections/sun",
+            "cta": "SHOP NOW",
+            "image_asset": "cat-suncare.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "tile-vitamins",
+        "tile-suncare"
+      ]
     },
     "popular": {
       "type": "popular-categories",
@@ -163,8 +187,8 @@
           "type": "offer",
           "settings": {
             "title": "Vitamins & Supplements",
-            "subtext": "Support your daily health & wellbeing — 20% off multivitamins & supplements this month.",
-            "badge": "SAVE 20% · LIMITED TIME",
+            "subtext": "Support your daily health & wellbeing \u2014 20% off multivitamins & supplements this month.",
+            "badge": "SAVE 20% \u00b7 LIMITED TIME",
             "cta": "Shop Now",
             "link": "/collections/vitamins",
             "image_asset": "hot-offer-vitamins.jpg",
@@ -177,7 +201,7 @@
           "settings": {
             "title": "Deodorants & Antiperspirants",
             "subtext": "Stay fresh for less with long-lasting protection, including Mitchum.",
-            "badge": "SAVE 15% · LIMITED TIME",
+            "badge": "SAVE 15% \u00b7 LIMITED TIME",
             "cta": "Shop Now",
             "link": "/collections/deodorant",
             "image_asset": "mitchum-hot-offers.jpg",
@@ -189,8 +213,8 @@
           "type": "offer",
           "settings": {
             "title": "Menopause Support",
-            "subtext": "Everyday menopause support, including CanesMeno — all month long.",
-            "badge": "SAVE 20% · LIMITED TIME",
+            "subtext": "Everyday menopause support, including CanesMeno \u2014 all month long.",
+            "badge": "SAVE 20% \u00b7 LIMITED TIME",
             "cta": "Shop Now",
             "link": "/collections/menopause",
             "image_asset": "",
@@ -229,7 +253,7 @@
           "settings": {
             "name": "Stephen Donohoe",
             "source": "Google Review",
-            "text": "The staff here are fantastic and very helpful. Very impressed with the range of products available — they're also extra helpful in ordering in anything you need, usually there the next morning!"
+            "text": "The staff here are fantastic and very helpful. Very impressed with the range of products available \u2014 they're also extra helpful in ordering in anything you need, usually there the next morning!"
           }
         },
         "rev-4": {
@@ -237,7 +261,7 @@
           "settings": {
             "name": "Ray Keogh",
             "source": "Google Review",
-            "text": "Brilliant staff, so helpful with everything in store. The male pharmacist is also excellent — always makes time for me and my family, and we've been coming for over 7 years as a result."
+            "text": "Brilliant staff, so helpful with everything in store. The male pharmacist is also excellent \u2014 always makes time for me and my family, and we've been coming for over 7 years as a result."
           }
         },
         "rev-5": {
@@ -245,7 +269,7 @@
           "settings": {
             "name": "Eimear Murphy",
             "source": "Google Review",
-            "text": "An absolutely brilliant pharmacy, would recommend to anybody. Quick service and nothing is a problem — so very helpful, a great service."
+            "text": "An absolutely brilliant pharmacy, would recommend to anybody. Quick service and nothing is a problem \u2014 so very helpful, a great service."
           }
         }
       },
@@ -265,7 +289,7 @@
         "loreal": {
           "type": "brand",
           "settings": {
-            "name": "L’Oréal Paris",
+            "name": "L\u2019Or\u00e9al Paris",
             "collection": "loreal-paris",
             "logo_asset": "brand-loreal.png"
           }
@@ -376,7 +400,51 @@
     },
     "services": {
       "type": "other-services",
-      "settings": {}
+      "settings": {},
+      "blocks": {
+        "svc-contact-us": {
+          "type": "service",
+          "settings": {
+            "title": "Contact Us",
+            "link": "/pages/contact-us",
+            "cta": "Find Out More \u2192",
+            "image_asset": "contact-us.png"
+          }
+        },
+        "svc-our-stores": {
+          "type": "service",
+          "settings": {
+            "title": "Our Stores",
+            "link": "/pages/store-locator",
+            "cta": "Find Out More \u2192",
+            "image_asset": "our-stores-square.jpg"
+          }
+        },
+        "svc-common-conditions": {
+          "type": "service",
+          "settings": {
+            "title": "Common Conditions",
+            "link": "/collections/medicines-health",
+            "cta": "Find Out More \u2192",
+            "image_asset": "common-conditions.jpg"
+          }
+        },
+        "svc-in-store-services": {
+          "type": "service",
+          "settings": {
+            "title": "In-Store Services",
+            "link": "/pages/in-store-services",
+            "cta": "Find Out More \u2192",
+            "image_asset": "instore-services.png"
+          }
+        }
+      },
+      "block_order": [
+        "svc-contact-us",
+        "svc-our-stores",
+        "svc-common-conditions",
+        "svc-in-store-services"
+      ]
     }
   },
   "order": [

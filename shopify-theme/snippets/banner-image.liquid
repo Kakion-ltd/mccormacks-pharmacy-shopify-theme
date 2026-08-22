@@ -1,0 +1,37 @@
+{% comment %}
+  Category / sale banner image.
+
+  Deliberately a real <img>, not a CSS background-image. A background cannot
+  carry srcset, so every viewport downloaded the full 1300px file for a 358px
+  slot, and it cannot be preloaded or given fetchpriority — bad news for an
+  element that is the LCP on 130 collection pages.
+
+  The container must be position:relative; this fills it absolutely.
+
+  Args:
+    image     Shopify image object (preferred — gets a srcset)
+    asset     theme-asset URL fallback (single fixed size, no srcset)
+    alt       alt text
+    label     placeholder label when no image at all
+    note      placeholder note
+    sizes     override the default sizes attribute
+{% endcomment %}
+{%- assign banner_sizes = sizes | default: '(max-width: 900px) 92vw, 45vw' -%}
+{%- assign img_style = 'position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;' -%}
+{%- if image -%}
+  {{ image | image_url: width: 1300 | image_tag:
+       widths: '400,600,800,1000,1300',
+       sizes: banner_sizes,
+       alt: alt,
+       loading: 'eager',
+       fetchpriority: 'high',
+       preload: true,
+       class: 'banner-img-el',
+       style: img_style }}
+{%- elsif asset != blank -%}
+  {%- comment -%} Theme asset: one fixed file, so no srcset is possible. {%- endcomment -%}
+  <img src="{{ asset }}" alt="{{ alt | escape }}" width="1300" height="600"
+       loading="eager" fetchpriority="high" class="banner-img-el" style="{{ img_style }}">
+{%- else -%}
+  {%- render 'image-placeholder', w: 1300, h: 600, label: label, note: note -%}
+{%- endif -%}

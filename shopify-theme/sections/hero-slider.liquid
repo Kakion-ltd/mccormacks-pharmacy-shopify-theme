@@ -1,3 +1,13 @@
+{%- comment -%} Onboarding fallback path only: slide 1 is the LCP element, but a
+    theme asset has no image object, so image_tag's preload: argument is not
+    available and the link has to be written by hand. theme-check flags this as
+    AssetPreload — expected here, and it stops applying the moment a real image
+    is picked in the editor. {%- endcomment -%}
+{%- assign first_slide = section.blocks.first -%}
+{%- if first_slide and first_slide.settings.image == blank and first_slide.settings.image_mobile == blank and first_slide.settings.image_asset != blank -%}
+  <link rel="preload" as="image" href="{{ first_slide.settings.image_asset | asset_url }}" fetchpriority="high">
+{%- endif -%}
+
 <section style="max-width:1440px; margin:0 auto; padding:12px 30px 8px;">
   <div id="hero-{{ section.id }}" data-slider {% if section.settings.autoplay_seconds > 0 %}data-slider-auto="{{ section.settings.autoplay_seconds | times: 1000 }}"{% endif %} class="hero-flex" style="position:relative; display:flex; flex-wrap:wrap; border-radius:18px; overflow:hidden; box-shadow:0 20px 50px rgba(32,69,65,.16);">
     {%- for block in section.blocks -%}
@@ -17,10 +27,45 @@
         <div class="hero-img" style="position:relative; flex:1 1 320px; min-height:460px; height:460px; background:linear-gradient(135deg,#9ed24c 0%,#7cb52e 44%,#82c914 100%);">
           <div style="position:absolute; top:-28%; left:6%; width:46%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.10);"></div>
           <div style="position:absolute; bottom:-32%; right:-8%; width:54%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.07);"></div>
-          {%- if block.settings.image -%}
-            {{ block.settings.image | image_url: width: 1760 | image_tag: style: 'position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;', alt: block.settings.title }}
+          {%- comment -%} Slide 1 is the LCP element on the homepage: load it eagerly at
+              high priority. Every later slide is off-screen behind the slider, so it
+              stays lazy — making them all eager would compete with the LCP for bandwidth. {%- endcomment -%}
+          {%- liquid
+            assign is_first_slide = forloop.first
+            if is_first_slide
+              assign slide_loading = 'eager'
+              assign slide_priority = 'high'
+            else
+              assign slide_loading = 'lazy'
+              assign slide_priority = 'auto'
+            endif
+          -%}
+          {%- assign hero_style = 'position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;' -%}
+          {%- if block.settings.image or block.settings.image_mobile -%}
+            {%- comment -%} Separate mobile art where supplied: the desktop frame is
+                1.91:1 but the mobile frame is 1.30:1, which crops a landscape
+                composition hard. <picture> swaps the file, it does not just re-crop. {%- endcomment -%}
+            <picture>
+              {%- if block.settings.image_mobile -%}
+                <source media="(max-width: 900px)"
+                        srcset="{{ block.settings.image_mobile | image_url: width: 500 }} 500w, {{ block.settings.image_mobile | image_url: width: 800 }} 800w, {{ block.settings.image_mobile | image_url: width: 1100 }} 1100w"
+                        sizes="100vw">
+              {%- endif -%}
+              {%- assign hero_desktop = block.settings.image | default: block.settings.image_mobile -%}
+              {{ hero_desktop | image_url: width: 1760 | image_tag:
+                   widths: '600,900,1200,1500,1760',
+                   sizes: '(max-width: 900px) 100vw, 62vw',
+                   alt: block.settings.title,
+                   loading: slide_loading,
+                   fetchpriority: slide_priority,
+                   preload: is_first_slide,
+                   class: 'hero-img-el',
+                   style: hero_style }}
+            </picture>
           {%- elsif block.settings.image_asset != blank -%}
-            <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" width="600" height="600">
+            <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}"
+                 width="1760" height="920" loading="{{ slide_loading }}" fetchpriority="{{ slide_priority }}"
+                 class="hero-img-el" style="{{ hero_style }}">
           {%- else -%}
             {%- render 'image-placeholder', w: 1760, h: 920, label: 'Hero slide', note: 'Landscape — the left 500px sits under the green panel.' -%}
           {%- endif -%}
@@ -76,6 +121,7 @@
         { "type": "text", "id": "cta", "label": "Button label", "default": "SHOP NOW" },
         { "type": "url", "id": "link", "label": "Button link" },
         { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "image_picker", "id": "image_mobile", "label": "Mobile image", "info": "Optional. Desktop frame is 1.91:1, mobile is 1.30:1 — supply a taller crop here rather than letting the landscape image be cut." },
         { "type": "text", "id": "image_asset", "label": "Fallback theme asset (onboarding only)", "info": "Filename of a theme asset used until an image is picked." }
       ]
     }

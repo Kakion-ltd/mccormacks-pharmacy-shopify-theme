@@ -1,0 +1,433 @@
+/**
+ * Mock renderer: renders every theme template with stand-in Shopify data and
+ * writes static HTML into preview/. Lets us eyeball and measure the theme
+ * without a live store.
+ *
+ *   node setup/render_preview.mjs                 # 49 templates -> preview/
+ *   node setup/render_preview.mjs --categories    # + one page per collection
+ *
+ * Lives in setup/ deliberately: an earlier copy sat in a temp dir and was lost.
+ */
+import { Liquid } from 'liquidjs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const HERE = dirname(fileURLToPath(import.meta.url));
+const PROJECT = dirname(HERE);
+const THEME = join(PROJECT, 'shopify-theme');
+const ASSETS = '/shopify-theme/assets';
+
+const engine = new Liquid({
+  root: [join(THEME, 'snippets'), join(THEME, 'sections'), THEME],
+  extname: '.liquid',
+  jsTruthy: true,
+  strictFilters: false,
+  strictVariables: false,
+});
+
+/* ---------- Shopify filters ---------- */
+const money = (v) => (v == null || isNaN(v) ? v : `€${(v / 100).toFixed(2)}`);
+const imgSrc = (img) => (typeof img === 'string' ? img : img && (img.src || img.url)) || '';
+
+engine.registerFilter('asset_url', (v) => `${ASSETS}/${v}`);
+engine.registerFilter('asset_img_url', (v) => `${ASSETS}/${v}`);
+engine.registerFilter('file_url', (v) => `${ASSETS}/${v}`);
+engine.registerFilter('img_url', (v) => imgSrc(v));
+engine.registerFilter('money', money);
+engine.registerFilter('money_with_currency', (v) => `${money(v)} EUR`);
+engine.registerFilter('money_without_trailing_zeros', (v) => `€${Math.round(v / 100)}`);
+engine.registerFilter('money_without_currency', (v) => (v == null || isNaN(v) ? v : (v / 100).toFixed(2)));
+engine.registerFilter('handleize', (v) => String(v ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
+engine.registerFilter('handle', (v) => String(v ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
+engine.registerFilter('url_encode', (v) => encodeURIComponent(String(v ?? '')));
+engine.registerFilter('json', (v) => JSON.stringify(v));
+engine.registerFilter('t', (v) => String(v));
+engine.registerFilter('stylesheet_tag', (v) => `<link rel="stylesheet" href="${v}">`);
+engine.registerFilter('script_tag', (v) => `<script src="${v}"></script>`);
+engine.registerFilter('payment_type_svg_tag', () => '<svg width="38" height="24"></svg>');
+engine.registerFilter('placeholder_svg_tag', () => '<svg class="placeholder"></svg>');
+engine.registerFilter('within', (v) => v);
+engine.registerFilter('link_to', (v, u) => `<a href="${u}">${v}</a>`);
+engine.registerFilter('highlight', (v) => v);
+engine.registerFilter('weight_with_unit', (v) => `${v}g`);
+engine.registerFilter('metafield_text', (v) => (v && v.value) || v || '');
+
+// image_url: keeps the width so image_tag can build a srcset from it
+engine.registerFilter('image_url', (img, ...rest) => {
+  const opts = {};
+  for (let i = 0; i < rest.length; i++) {
+    const a = rest[i];
+    if (Array.isArray(a)) opts[a[0]] = a[1];
+    else if (a && typeof a === 'object') Object.assign(opts, a);
+  }
+  const base = imgSrc(img);
+  if (!base) return '';
+  if (!opts.width) return base;
+  // encode height too: Shopify's image_tag derives width/height attributes from
+  // the URL it is given, and we need those to appear for CLS verification.
+  const ar = (img && img.width && img.height) ? img.width / img.height : null;
+  const h = ar ? Math.round(opts.width / ar) : null;
+  return `${base}?width=${opts.width}${h ? `&height=${h}` : ''}`;
+});
+
+const attrEsc = (s) => String(s ?? '').replace(/"/g, '&quot;');
+engine.registerFilter('image_tag', (url, ...rest) => {
+  const o = {};
+  for (const a of rest) {
+    if (Array.isArray(a)) o[a[0]] = a[1];
+    else if (a && typeof a === 'object') Object.assign(o, a);
+  }
+  if (!url) return '';
+  const base = String(url).split('?')[0];
+  const baseW = Number(String(url).match(/width=(\d+)/)?.[1] || 0);
+  const baseH = Number(String(url).match(/height=(\d+)/)?.[1] || 0);
+  let srcset = '';
+  if (o.widths) {
+    srcset = String(o.widths).split(',').map((w) => `${base}?width=${w.trim()} ${w.trim()}w`).join(', ');
+  }
+  const at = [`src="${url}"`];
+  if (srcset) at.push(`srcset="${srcset}"`);
+  if (o.sizes) at.push(`sizes="${attrEsc(o.sizes)}"`);
+  at.push(`alt="${attrEsc(o.alt ?? '')}"`);
+  if (o.width || baseW) at.push(`width="${o.width || baseW}"`);
+  if (o.height || baseH) at.push(`height="${o.height || baseH}"`);
+  if (o.loading) at.push(`loading="${o.loading}"`);
+  if (o.fetchpriority) at.push(`fetchpriority="${o.fetchpriority}"`);
+  // Shopify emits a preload link for image_tag preload:true — mirror it so the
+  // rendered preview can be checked for it.
+  let preloadLink = '';
+  if (o.preload) {
+    preloadLink = `<link rel="preload" as="image" href="${url}"` +
+      (srcset ? ` imagesrcset="${srcset}"` : '') +
+      (o.sizes ? ` imagesizes="${attrEsc(o.sizes)}"` : '') +
+      (o.fetchpriority ? ` fetchpriority="${o.fetchpriority}"` : '') + '>';
+  }
+  if (o.class) at.push(`class="${attrEsc(o.class)}"`);
+  if (o.id) at.push(`id="${attrEsc(o.id)}"`);
+  if (o.style) at.push(`style="${attrEsc(o.style)}"`);
+  return `${preloadLink}<img ${at.join(' ')}>`;
+});
+
+/* ---------- Shopify tags ---------- */
+// Block tags need parseStream in liquidjs 10 — collecting raw tokens and
+// rendering them later throws "getPosition".
+const blockTag = (endName, wrap) => ({
+  parse(tagToken, remainTokens) {
+    this.tpls = [];
+    const stream = this.liquid.parser.parseStream(remainTokens);
+    stream.on(`tag:${endName}`, () => stream.stop())
+      .on('template', (tpl) => this.tpls.push(tpl))
+      .on('end', () => { throw new Error(`${endName} not found`); });
+    stream.start();
+  },
+  *render(ctx, emitter) {
+    const inner = yield this.liquid.renderer.renderTemplates(this.tpls, ctx);
+    emitter.write(wrap ? wrap(inner) : '');
+  },
+});
+
+// schema holds JSON, not Liquid — swallow the tokens without parsing them.
+engine.registerTag('schema', {
+  parse(tagToken, remainTokens) {
+    let t;
+    while ((t = remainTokens.shift())) if (t.name === 'endschema') return;
+  },
+  render() { return ''; },
+});
+
+engine.registerTag('style', blockTag('endstyle', (s) => `<style>${s}</style>`));
+engine.registerTag('javascript', blockTag('endjavascript', (s) => `<script>${s}</script>`));
+engine.registerTag('stylesheet', blockTag('endstylesheet', (s) => `<style>${s}</style>`));
+
+engine.registerTag('form', {
+  parse(tagToken, remainTokens) {
+    this.args = tagToken.args;
+    this.tpls = [];
+    const stream = this.liquid.parser.parseStream(remainTokens);
+    stream.on('tag:endform', () => stream.stop())
+      .on('template', (tpl) => this.tpls.push(tpl))
+      .on('end', () => { throw new Error('endform not found'); });
+    stream.start();
+  },
+  *render(ctx, emitter) {
+    const st = this.args.match(/style:\s*'([^']*)'/);
+    ctx.push({ form: { posted_successfully: false, errors: null } });
+    const inner = yield this.liquid.renderer.renderTemplates(this.tpls, ctx);
+    ctx.pop();
+    emitter.write(`<form method="post"${st ? ` style="${st[1]}"` : ''}>${inner}</form>`);
+  },
+});
+
+engine.registerTag('paginate', {
+  parse(tagToken, remainTokens) {
+    this.tpls = [];
+    const stream = this.liquid.parser.parseStream(remainTokens);
+    stream.on('tag:endpaginate', () => stream.stop())
+      .on('template', (tpl) => this.tpls.push(tpl))
+      .on('end', () => { throw new Error('endpaginate not found'); });
+    stream.start();
+  },
+  *render(ctx, emitter) {
+    ctx.push({ paginate: { pages: 1, current_page: 1, items: 8, parts: [], next: null, previous: null } });
+    emitter.write(yield this.liquid.renderer.renderTemplates(this.tpls, ctx));
+    ctx.pop();
+  },
+});
+
+// Section groups (sections/*.json) carry the header and footer.
+engine.registerTag('sections', {
+  parse(tagToken) { this.name = tagToken.args.replace(/['"]/g, '').trim(); },
+  *render(ctx, emitter) {
+    const file = join(THEME, 'sections', `${this.name}.json`);
+    if (!existsSync(file)) return;
+    const group = JSON.parse(readFileSync(file, 'utf8'));
+    const order = group.order || Object.keys(group.sections || {});
+    for (const id of order) {
+      const sec = group.sections[id];
+      if (!sec) continue;
+      emitter.write(yield renderSection(sec.type, sec.settings || {},
+        { order: sec.block_order || [], blocks: sec.blocks || {} }, ctx.getAll()));
+    }
+  },
+});
+
+engine.registerTag('section', {
+  parse(tagToken) { this.name = tagToken.args.replace(/['"]/g, '').trim(); },
+  *render(ctx, emitter) {
+    emitter.write(yield renderSection(this.name, {}, {}, ctx.getAll()));
+  },
+});
+
+/* ---------- mock data ---------- */
+const mockImage = (name, w = 1000, h = 1000) => ({
+  src: `${ASSETS}/${name}`, url: `${ASSETS}/${name}`, width: w, height: h,
+  alt: '', aspect_ratio: w / h,
+});
+
+const CATALOGUE = [
+  { t: 'fabÜ Skin Hair Nails Glow 60 Capsules', v: 'fabÜ', img: 'prod-fabu-glow.jpg', p: 1995, was: 2495, ty: 'Vitamins' },
+  { t: 'Cetrine Allergy 10mg 30 Tablets', v: 'Cetrine', img: 'prod-cetrine.jpg', p: 799, was: null, ty: 'Allergy' },
+  { t: 'Revive Active 30 Sachets', v: 'Revive Active', img: 'prod-revive.jpg', p: 6499, was: 6999, ty: 'Supplements' },
+  { t: 'Optibac Every Day MAX 30 Capsules', v: 'Optibac', img: 'prod-optibac-max.jpg', p: 2799, was: null, ty: 'Probiotics' },
+  { t: 'Nurofen 200mg Ibuprofen 24 Tablets', v: 'Nurofen', img: 'prod-nurofen.jpg', p: 649, was: null, ty: 'Pain Relief' },
+  { t: 'CeraVe Hydrating Cleanser 236ml', v: 'CeraVe', img: 'prod-cerave-cleanser.jpg', p: 1350, was: null, ty: 'Skincare' },
+  { t: 'Sudocrem Antiseptic Healing Cream 125g', v: 'Sudocrem', img: 'prod-sudocrem.jpg', p: 799, was: 899, ty: 'Baby' },
+  { t: 'Vitamin D3 1000IU 60 Capsules', v: 'McCormack’s', img: 'prod-vitd.jpg', p: 999, was: null, ty: 'Vitamins' },
+];
+
+const handleOf = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const mockVariant = (i) => ({
+  id: 40000000 + i, title: 'Default', price: CATALOGUE[i].p, compare_at_price: CATALOGUE[i].was,
+  available: true, sku: `SKU-${i}`, inventory_quantity: 12, featured_image: null,
+  requires_shipping: true, options: ['Default'], selected: i === 0,
+});
+const products = CATALOGUE.map((c, i) => ({
+  id: 30000000 + i, title: c.t, handle: handleOf(c.t), vendor: c.v, type: c.ty,
+  url: `/products/${handleOf(c.t)}`, price: c.p, price_min: c.p, price_max: c.p,
+  compare_at_price: c.was, compare_at_price_max: c.was, available: true,
+  featured_image: mockImage(c.img, 700, 700), images: [mockImage(c.img, 700, 700)],
+  media: [{ media_type: 'image', preview_image: mockImage(c.img, 700, 700), id: i, alt: c.t }],
+  variants: [mockVariant(i)], first_available_variant: mockVariant(i),
+  selected_or_first_available_variant: mockVariant(i), has_only_default_variant: true,
+  options_with_values: [], tags: [], description: '<p>Product description.</p>',
+  content: '<p>Product description.</p>', collections: [],
+  metafields: { reviews: {}, custom: {} },
+}));
+
+const mockCollection = {
+  id: 1, title: 'Medicines & Health', handle: 'medicines-health', url: '/collections/medicines-health',
+  description: '<p>Everyday healthcare for the whole family.</p>',
+  products, products_count: products.length, all_products_count: products.length,
+  image: mockImage('cat-vitamins.jpg', 1440, 500), featured_image: mockImage('cat-vitamins.jpg', 1440, 500),
+  filters: [
+    { label: 'Brand', type: 'list', param_name: 'filter.p.vendor', active_values: [],
+      values: [
+        { label: 'fabÜ', value: 'fab', count: 4, active: false, url_to_add: '?filter.p.vendor=fab', url_to_remove: '?' },
+        { label: 'Nurofen', value: 'nur', count: 2, active: true, url_to_add: '?filter.p.vendor=nur', url_to_remove: '?' },
+      ] },
+    { label: 'Price', type: 'price_range', param_name: 'filter.v.price', active_values: [], values: [],
+      range_max: 10000, min_value: { value: null, param_name: 'filter.v.price.gte' },
+      max_value: { value: null, param_name: 'filter.v.price.lte' }, url_to_remove: '?' },
+  ],
+  sort_options: [{ name: 'Best selling', value: 'best-selling' }, { name: 'Price, low to high', value: 'price-ascending' }],
+  sort_by: 'best-selling', default_sort_by: 'best-selling',
+};
+
+const articles = [0, 1, 2, 3].map((i) => ({
+  id: i, title: `Health Hub article ${i + 1}`, handle: `article-${i}`, url: `/blogs/health-hub/article-${i}`,
+  excerpt: 'Advice from our pharmacists.', content: '<p>Article body.</p>',
+  image: mockImage('cat-suncare.jpg', 860, 531), author: 'Pharmacist',
+  published_at: '2026-05-01', tags: ['Advice'], comments_count: 0,
+}));
+
+const collectionsList = JSON.parse(readFileSync(join(PROJECT, 'setup/collections.json'), 'utf8'));
+
+const globals = {
+  shop: {
+    name: "McCormack's Pharmacy", email: 'info@example.com', url: 'https://mock.myshopify.com',
+    secure_url: 'https://mock.myshopify.com', domain: 'mock.myshopify.com',
+    enabled_payment_types: ['visa', 'master', 'american_express', 'paypal', 'apple_pay', 'google_pay'],
+    money_format: '€{{amount}}', privacy_policy: { url: '/pages/privacy-policy' },
+  },
+  cart: {
+    item_count: 2, total_price: 4990, items_subtotal_price: 4990, original_total_price: 5490, total_discount: 500,
+    items: [0, 2].map((i, n) => ({
+      key: `a:${n}`, title: CATALOGUE[i].t, quantity: 1, final_price: CATALOGUE[i].p,
+      final_line_price: CATALOGUE[i].p, original_price: CATALOGUE[i].was, line_price: CATALOGUE[i].p,
+      price: CATALOGUE[i].p, image: mockImage(CATALOGUE[i].img, 700, 700), url: products[i].url,
+      product: products[i], variant: mockVariant(i), variant_id: 40000000 + i, product_title: CATALOGUE[i].t,
+      vendor: CATALOGUE[i].v, variant_title: null, sku: `SKU-${i}`, options_with_values: [],
+    })),
+    empty: false, note: '', attributes: {}, currency: { iso_code: 'EUR', symbol: '€' },
+  },
+  collection: mockCollection,
+  collections: Object.fromEntries(collectionsList.map((c) => [c.handle, {
+    ...mockCollection, handle: c.handle, title: c.title, url: `/collections/${c.handle}`,
+    description: c.description_html || '', image: null, featured_image: null,
+  }])),
+  product: products[0],
+  products: new Proxy({}, { get: (_, k) => (typeof k === 'string' ? products[0] : undefined) }),
+  recommendations: { performed: true, products_count: 4, products: products.slice(0, 4) },
+  blog: { title: 'Health Hub', handle: 'health-hub', url: '/blogs/health-hub', articles, articles_count: 4, all_tags: ['Advice'], tags: [] },
+  article: articles[0],
+  articles, search: { performed: true, terms: 'vitamins', results: products, results_count: products.length, results_url: '/search' },
+  customer: null, gift_card: { balance: 5000, initial_value: 5000, code: 'XXXX-XXXX', expired: false, enabled: true, currency: 'EUR', qr_identifier: '', pass_url: null, url: '#' },
+  page: { title: 'Page', handle: 'page', content: '<p>Page content.</p>' },
+  order: { name: '#1001', created_at: '2026-05-01', line_items: [], financial_status: 'paid', fulfillment_status: 'fulfilled', shipping_address: {}, billing_address: {}, subtotal_price: 4990, total_price: 4990, shipping_methods: [], tax_lines: [], cancelled: false },
+  linklists: {}, images: {}, current_tags: null, canonical_url: 'https://mock.myshopify.com/',
+  page_title: "McCormack's Pharmacy", page_description: 'Ireland’s trusted family pharmacy.',
+  template: { name: 'index', suffix: null, directory: null },
+  request: { design_mode: false, page_type: 'index', host: 'mock.myshopify.com', origin: 'https://mock.myshopify.com', path: '/', locale: { iso_code: 'en' } },
+  routes: {
+    root_url: '/', cart_url: '/cart', cart_add_url: '/cart/add', cart_change_url: '/cart/change',
+    collections_url: '/collections', all_products_collection_url: '/collections/all', search_url: '/search',
+    account_url: '/account', account_login_url: '/account/login', account_logout_url: '/account/logout',
+    account_register_url: '/account/register', account_addresses_url: '/account/addresses',
+    account_recover_url: '/account/recover', predictive_search_url: '/search/suggest',
+  },
+  content_for_header: '<!-- content_for_header -->',
+  powered_by_link: '<a href="https://shopify.com">Shopify</a>',
+  additional_checkout_buttons: false, scripts: [],
+  settings: {}, // filled from settings_schema defaults
+};
+
+/* settings_schema.json defaults -> settings */
+const schemaJson = JSON.parse(readFileSync(join(THEME, 'config/settings_schema.json'), 'utf8'));
+for (const group of schemaJson) {
+  for (const s of group.settings || []) if (s.id) globals.settings[s.id] = s.default ?? '';
+}
+
+/* ---------- section rendering ---------- */
+const sectionSource = (type) => readFileSync(join(THEME, 'sections', `${type}.liquid`), 'utf8');
+const schemaOf = (src) => {
+  const m = src.match(/{%-?\s*schema\s*-?%}([\s\S]*?){%-?\s*endschema\s*-?%}/);
+  if (!m) return {};
+  try { return JSON.parse(m[1]); } catch { return {}; }
+};
+const defaultsFrom = (defs = []) => Object.fromEntries((defs).filter((s) => s.id).map((s) => [s.id, s.default ?? '']));
+
+async function renderSection(type, settings, blocksSpec, extraGlobals = {}) {
+  const src = sectionSource(type);
+  const schema = schemaOf(src);
+  const merged = { ...defaultsFrom(schema.settings), ...settings };
+
+  let blocks = [];
+  const blockDefs = schema.blocks || [];
+  const defFor = (t) => blockDefs.find((b) => b.type === t) || { settings: [] };
+  if (blocksSpec && blocksSpec.order && blocksSpec.order.length) {
+    blocks = blocksSpec.order.map((id) => {
+      const b = blocksSpec.blocks[id];
+      return { id, type: b.type, settings: { ...defaultsFrom(defFor(b.type).settings), ...(b.settings || {}) }, shopify_attributes: '' };
+    });
+  } else if (schema.presets && schema.presets[0] && schema.presets[0].blocks) {
+    blocks = schema.presets[0].blocks.map((b, i) => ({
+      id: `b${i}`, type: b.type, settings: { ...defaultsFrom(defFor(b.type).settings), ...(b.settings || {}) }, shopify_attributes: '',
+    }));
+  } else if (blockDefs.length) {
+    blocks = blockDefs.filter((d) => d.type !== '@app').map((d, i) => ({
+      id: `b${i}`, type: d.type, settings: defaultsFrom(d.settings), shopify_attributes: '',
+    }));
+  }
+
+  const section = { id: `sec-${type}`, settings: merged, blocks, blocks_count: blocks.length, index: 1, location: 'template' };
+  return engine.parseAndRender(src, { ...globals, ...extraGlobals, section });
+}
+
+async function renderTemplate(name, extraGlobals = {}) {
+  const jsonPath = join(THEME, 'templates', `${name}.json`);
+  const liquidPath = join(THEME, 'templates', `${name}.liquid`);
+  let body = '';
+  if (existsSync(jsonPath)) {
+    const tpl = JSON.parse(readFileSync(jsonPath, 'utf8'));
+    for (const id of tpl.order) {
+      const s = tpl.sections[id];
+      body += await renderSection(s.type, s.settings || {}, { order: s.block_order || [], blocks: s.blocks || {} }, extraGlobals);
+    }
+  } else if (existsSync(liquidPath)) {
+    body = await engine.parseAndRender(readFileSync(liquidPath, 'utf8'), { ...globals, ...extraGlobals });
+  } else return null;
+
+  const TITLES = {
+    index: 'Home', product: 'Product', collection: 'Collection', cart: 'Cart',
+    search: 'Search', blog: 'Health Hub', article: 'Article', page: 'Page',
+    'list-collections': 'Collections', '404': 'Page not found', password: 'Opening soon',
+    gift_card: 'Gift card',
+  };
+  const key = name.replace('customers/', '');
+  const pretty = TITLES[key] || key.replace(/^(collection|page)\./, '').replace(/[-_]/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+  extraGlobals = { ...extraGlobals, page_title: extraGlobals.page_title || pretty };
+
+  const layoutName = name === 'password' ? 'password' : 'theme';
+  const layout = readFileSync(join(THEME, 'layout', `${layoutName}.liquid`), 'utf8');
+  return engine.parseAndRender(layout, { ...globals, ...extraGlobals, content_for_layout: body });
+}
+
+/* ---------- main ---------- */
+const outDir = (() => {
+  const i = process.argv.indexOf('--html-out');
+  return i > -1 ? process.argv[i + 1] : join(PROJECT, 'preview');
+})();
+mkdirSync(outDir, { recursive: true });
+
+const templateNames = readdirSync(join(THEME, 'templates'))
+  .filter((f) => f.endsWith('.json') || f.endsWith('.liquid'))
+  .map((f) => f.replace(/\.(json|liquid)$/, ''));
+const customerNames = existsSync(join(THEME, 'templates/customers'))
+  ? readdirSync(join(THEME, 'templates/customers')).map((f) => `customers/${f.replace(/\.(json|liquid)$/, '')}`)
+  : [];
+
+let ok = 0, fail = 0;
+const failures = [];
+for (const name of [...templateNames, ...customerNames]) {
+  try {
+    const html = await renderTemplate(name);
+    if (html == null) continue;
+    const file = name.replace('/', '_') + '.html';
+    writeFileSync(join(outDir, file), html);
+    ok++;
+  } catch (e) {
+    fail++; failures.push(`${name}: ${String(e.message).slice(0, 140)}`);
+  }
+}
+console.log(`${ok}/${ok + fail} templates render clean`);
+failures.forEach((f) => console.log('  FAIL ' + f));
+
+if (process.argv.includes('--categories')) {
+  const catDir = join(outDir, 'categories');
+  mkdirSync(catDir, { recursive: true });
+  let cok = 0, cfail = 0;
+  for (const c of collectionsList) {
+    const tplName = existsSync(join(THEME, 'templates', `collection.${c.handle}.json`)) ? `collection.${c.handle}` : 'collection';
+    try {
+      const html = await renderTemplate(tplName, {
+        collection: { ...mockCollection, handle: c.handle, title: c.title, url: `/collections/${c.handle}`,
+          description: c.description_html || '', image: null, featured_image: null },
+      });
+      writeFileSync(join(catDir, `${c.handle}.html`), html);
+      cok++;
+    } catch (e) { cfail++; if (cfail < 4) console.log(`  CAT FAIL ${c.handle}: ${String(e.message).slice(0, 120)}`); }
+  }
+  console.log(`categories: ${cok} ok, ${cfail} failed of ${collectionsList.length}`);
+}

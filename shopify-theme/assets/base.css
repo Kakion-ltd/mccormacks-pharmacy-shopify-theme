@@ -154,3 +154,10 @@ body[data-mnav-open] .mnav-drawer { transform: translateX(0); visibility: visibl
   .ftr-builtby { order: 4; }
   .svc-slider > div { flex: 0 0 74% !important; }
 }
+
+/* Missing image -> the same striped panel the cart/search/product empty states
+   use, rather than the browser's broken-image icon. Applied by theme.js. */
+img.img-fallback {
+  background: repeating-linear-gradient(135deg, #dfe6d5, #dfe6d5 12px, #d7dfcb 12px, #d7dfcb 24px);
+  object-fit: cover;
+}

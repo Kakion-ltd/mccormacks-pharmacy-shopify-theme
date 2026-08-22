@@ -44,7 +44,7 @@
     {%- assign featured = blog.articles.first -%}
     <section style="max-width:1440px; margin:0 auto; padding:28px 30px 0;">
       <a href="{{ featured.url }}" class="feat-flex" style="display:flex; border-radius:20px; overflow:hidden; background:#f6f8f1; color:#2A2B2A; align-items:stretch;">
-        <div class="feat-img" style="flex:1 1 54%; min-height:380px; overflow:hidden;">
+        <div class="feat-img" style="flex:1 1 54%; aspect-ratio:16/9; min-height:380px; overflow:hidden;">
           {%- if featured.image -%}
             {{ featured.image | image_url: width: 1200 | image_tag: style: 'width:100%; height:100%; object-fit:cover; display:block;', alt: featured.title | escape }}
           {%- else -%}

@@ -35,30 +35,25 @@
 
   <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.1vw,26px); margin:0 0 18px;">Featured brands</h2>
   <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:16px; margin:0 0 40px;">
-    <a href="/collections/cerave" class="brand-tile">
-      <span style="display:flex; align-items:center; justify-content:center; width:100%; height:56px;"><img src="{{ 'brand-cerave.png' | asset_url }}" alt="CeraVe" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" width="350" height="240"></span>
-      <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:#3f6b4f; text-align:center;">CeraVe</span>
-    </a>
-    <a href="/collections/la-roche-posay" class="brand-tile">
-      <span style="display:flex; align-items:center; justify-content:center; width:100%; height:56px;"><img src="{{ 'brand-laroche.png' | asset_url }}" alt="La Roche-Posay" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" width="350" height="240"></span>
-      <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:#3f6b4f; text-align:center;">La Roche-Posay</span>
-    </a>
-    <a href="/collections/loreal-paris" class="brand-tile">
-      <span style="display:flex; align-items:center; justify-content:center; width:100%; height:56px;"><img src="{{ 'brand-loreal.png' | asset_url }}" alt="L&rsquo;Or&eacute;al Paris" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" width="175" height="120"></span>
-      <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:#3f6b4f; text-align:center;">L&rsquo;Or&eacute;al Paris</span>
-    </a>
-    <a href="/collections/proven" class="brand-tile">
-      <span style="display:flex; align-items:center; justify-content:center; width:100%; height:56px;"><img src="{{ 'brand-proven.png' | asset_url }}" alt="Proven" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" width="175" height="120"></span>
-      <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:#3f6b4f; text-align:center;">Proven</span>
-    </a>
-    <a href="/collections/sculpted-by-aimee" class="brand-tile">
-      <span style="display:flex; align-items:center; justify-content:center; width:100%; height:56px;"><img src="{{ 'brand-sculpted.png' | asset_url }}" alt="Sculpted by Aimee" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" width="175" height="120"></span>
-      <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:#3f6b4f; text-align:center;">Sculpted by Aimee</span>
-    </a>
-    <a href="/collections/viagra-connect" class="brand-tile">
-      <span style="display:flex; align-items:center; justify-content:center; width:100%; height:56px;"><img src="{{ 'brand-viagra.png' | asset_url }}" alt="Viagra Connect" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" width="350" height="240"></span>
-      <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:#3f6b4f; text-align:center;">Viagra Connect</span>
-    </a>
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'featured_brand' -%}
+        <a href="{{ block.settings.link }}" class="brand-tile" {{ block.shopify_attributes }}>
+          <span style="display:flex; align-items:center; justify-content:center; width:100%; height:56px;">
+            {%- comment -%} 350x112 contain box, shared with the homepage brand rail. {%- endcomment -%}
+            {%- assign logo_style = 'max-width:100%; max-height:100%; object-fit:contain; display:block;' -%}
+            {%- if block.settings.logo -%}
+              {{ block.settings.logo | image_url: width: 350 | image_tag: widths: '175,350', alt: block.settings.name, loading: 'lazy', style: logo_style }}
+            {%- elsif block.settings.logo_asset != blank -%}
+              <img src="{{ block.settings.logo_asset | asset_url }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="350" height="112" style="{{ logo_style }}">
+            {%- else -%}
+              {%- comment -%} No logo: the brand name in the house display face, matching brand-slider. {%- endcomment -%}
+              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; color:#3f6b4f;">{{ block.settings.name }}</span>
+            {%- endif -%}
+          </span>
+          <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:#3f6b4f; text-align:center;">{{ block.settings.name }}</span>
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
   </div>
 
   <div style="display:flex; flex-wrap:wrap; gap:7px; padding:16px 0 24px; border-top:1px solid #e6e7e4; border-bottom:1px solid #e6e7e4; margin:0 0 30px;">
@@ -124,7 +119,13 @@
   </nav>
   <div style="display:flex; flex-wrap:wrap; gap:30px 40px; align-items:center; padding:32px 36px; border-radius:20px; background:#eef2e8; margin:0 0 30px;">
     <div style="flex:0 0 auto; width:150px; height:78px; border-radius:12px; background:#ffffff; display:flex; align-items:center; justify-content:center; padding:14px;">
-      <img src="{{ 'brand-cerave.png' | asset_url }}" alt="CeraVe" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" width="350" height="240">
+      {%- if section.settings.spotlight_logo -%}
+        {{ section.settings.spotlight_logo | image_url: width: 350 | image_tag: alt: section.settings.spotlight_name, loading: 'lazy', style: 'max-width:100%; max-height:100%; object-fit:contain; display:block;' }}
+      {%- elsif section.settings.spotlight_logo_asset != blank -%}
+        <img src="{{ section.settings.spotlight_logo_asset | asset_url }}" alt="{{ section.settings.spotlight_name | escape }}" loading="lazy" width="350" height="112" style="max-width:100%; max-height:100%; object-fit:contain; display:block;">
+      {%- else -%}
+        <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:#3f6b4f;">{{ section.settings.spotlight_name }}</span>
+      {%- endif -%}
     </div>
     <div style="flex:1 1 340px; min-width:0;">
       <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(27px,3vw,38px); line-height:1.08; margin:0 0 10px;">CeraVe</h2>
@@ -149,13 +150,17 @@
     </label>
   </div>
   <div class="pgrid2" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(226px,1fr)); gap:20px;">
-    {%- assign demo = 'Hydrating Cleanser for Normal to Dry Skin, 236ml~€13.50~4.9 (640);Foaming Cleanser for Normal to Oily Skin, 236ml~€13.50~4.8 (412);Moisturising Lotion for Dry Skin, 473ml~€18.95~4.9 (388);SA Smoothing Cleanser for Rough Skin, 236ml~€14.95~4.7 (164);Baby Wash & Shampoo, 236ml~€11.50~4.9 (210);Eye Repair Cream, 14ml~€15.50~4.6 (96);AM Facial Moisturising Lotion SPF25, 52ml~€16.95~4.8 (271);Retinol Serum for Post-Blemish Marks, 30ml~€21.50~4.5 (118)' | split: ';' -%}
+    {%- assign demo = 'Hydrating Cleanser for Normal to Dry Skin, 236ml~€13.50~4.9 (640)~prod-cerave-cleanser.jpg;Foaming Cleanser for Normal to Oily Skin, 236ml~€13.50~4.8 (412)~prod-cerave-cleanser.jpg;Moisturising Lotion for Dry Skin, 473ml~€18.95~4.9 (388)~prod-cerave-cleanser.jpg;SA Smoothing Cleanser for Rough Skin, 236ml~€14.95~4.7 (164)~prod-cerave-cleanser.jpg;Baby Wash & Shampoo, 236ml~€11.50~4.9 (210)~prod-cerave-cleanser.jpg;Eye Repair Cream, 14ml~€15.50~4.6 (96)~prod-cerave-cleanser.jpg;AM Facial Moisturising Lotion SPF25, 52ml~€16.95~4.8 (271)~prod-cerave-cleanser.jpg;Retinol Serum for Post-Blemish Marks, 30ml~€21.50~4.5 (118)~prod-cerave-cleanser.jpg' | split: ';' -%}
     {%- for item in demo -%}
       {%- assign f = item | split: '~' -%}
       <div class="brand-pcard">
         <a href="/collections/cerave" style="display:block; padding:18px;">
           <span style="display:block; width:100%; aspect-ratio:1/1; overflow:hidden;">
-            <img src="{{ 'prod-cerave-cleanser.jpg' | asset_url }}" alt="{{ f[0] | escape }}" style="width:100%; height:100%; object-fit:contain; display:block;" width="600" height="600">
+            {%- if f[3] != blank -%}
+              <img src="{{ f[3] | asset_url }}" alt="{{ f[0] | escape }}" loading="lazy" width="600" height="600" style="width:100%; height:100%; object-fit:contain; display:block;">
+            {%- else -%}
+              <span style="display:block; width:100%; height:100%; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px);"></span>
+            {%- endif -%}
           </span>
         </a>
         <div style="padding:0 18px 18px; display:flex; flex-direction:column; gap:9px; flex:1;">
@@ -189,9 +194,126 @@
 {
   "name": "Brands page",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by brand" },
-    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Over 200 brands, from everyday pharmacy names to dermatologist-recommended skincare. All stocked and dispatched from our registered Irish pharmacy." }
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by brand"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro",
+      "default": "Over 200 brands, from everyday pharmacy names to dermatologist-recommended skincare. All stocked and dispatched from our registered Irish pharmacy."
+    },
+    {
+      "type": "header",
+      "content": "Brand spotlight"
+    },
+    {
+      "type": "text",
+      "id": "spotlight_name",
+      "label": "Spotlight brand name",
+      "default": "CeraVe"
+    },
+    {
+      "type": "image_picker",
+      "id": "spotlight_logo",
+      "label": "Spotlight logo",
+      "info": "350x112 transparent PNG."
+    },
+    {
+      "type": "text",
+      "id": "spotlight_logo_asset",
+      "label": "Fallback theme asset (onboarding only)",
+      "default": "brand-cerave.png"
+    }
   ],
-  "presets": [{ "name": "Brands page" }]
+  "presets": [
+    {
+      "name": "Brands page",
+      "blocks": [
+        {
+          "type": "featured_brand",
+          "settings": {
+            "name": "CeraVe",
+            "link": "/collections/cerave",
+            "logo_asset": "brand-cerave.png"
+          }
+        },
+        {
+          "type": "featured_brand",
+          "settings": {
+            "name": "La Roche-Posay",
+            "link": "/collections/la-roche-posay",
+            "logo_asset": "brand-laroche.png"
+          }
+        },
+        {
+          "type": "featured_brand",
+          "settings": {
+            "name": "L’Oréal Paris",
+            "link": "/collections/loreal-paris",
+            "logo_asset": "brand-loreal.png"
+          }
+        },
+        {
+          "type": "featured_brand",
+          "settings": {
+            "name": "Proven",
+            "link": "/collections/proven",
+            "logo_asset": "brand-proven.png"
+          }
+        },
+        {
+          "type": "featured_brand",
+          "settings": {
+            "name": "Sculpted by Aimee",
+            "link": "/collections/sculpted-by-aimee",
+            "logo_asset": "brand-sculpted.png"
+          }
+        },
+        {
+          "type": "featured_brand",
+          "settings": {
+            "name": "Viagra Connect",
+            "link": "/collections/viagra-connect",
+            "logo_asset": "brand-viagra.png"
+          }
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "featured_brand",
+      "name": "Featured brand",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Brand name",
+          "default": "CeraVe"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Brand collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo",
+          "info": "350x112 contain box. Transparent PNG."
+        },
+        {
+          "type": "text",
+          "id": "logo_asset",
+          "label": "Fallback theme asset (onboarding only)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12
 }
 {% endschema %}

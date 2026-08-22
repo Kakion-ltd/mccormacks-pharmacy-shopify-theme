@@ -15,11 +15,17 @@
     <div style="flex:1 1 auto; min-width:0; max-width:760px;">
       <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
       <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
-      <div style="width:100%; aspect-ratio:16/7; border-radius:16px; overflow:hidden; background:#f4f5f2; margin:0 0 8px;">
+      {%- comment -%} 13:6 (was 16:7) — consolidated with the category banner so both
+          share one export. The fallback asset is re-exported to match. {%- endcomment -%}
+      <div style="width:100%; aspect-ratio:13/6; border-radius:16px; overflow:hidden; background:#f4f5f2; margin:0 0 8px;">
+        {%- assign about_style = 'width:100%; height:100%; object-fit:cover; display:block;' -%}
         {%- if section.settings.image != blank -%}
-          {{ section.settings.image | image_url: width: 1520 | image_tag: style: 'width:100%; height:100%; object-fit:cover; display:block;', alt: "McCormack's Pharmacy storefront" }}
+          {{ section.settings.image | image_url: width: 1520 | image_tag:
+               widths: '500,760,1100,1520', sizes: '(max-width: 900px) 92vw, 53vw',
+               alt: "McCormack's Pharmacy storefront", loading: 'lazy', style: about_style }}
         {%- else -%}
-          <img src="{{ 'our-stores.jpg' | asset_url }}" alt="McCormack's Pharmacy storefront" style="width:100%; height:100%; object-fit:cover; display:block;" width="1254" height="1254">
+          <img src="{{ 'our-stores.jpg' | asset_url }}" alt="McCormack's Pharmacy storefront"
+               loading="lazy" width="1254" height="579" style="{{ about_style }}">
         {%- endif -%}
       </div>
       <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">What we stand for</h2>

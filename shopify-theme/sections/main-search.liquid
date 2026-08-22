@@ -178,23 +178,16 @@
 
   <div>
     <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.2vw,27px); margin:0 0 20px;">Popular categories</h2>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:18px;">
-      <a href="/collections/vitamins" class="srch-card" style="display:block; border-radius:14px; overflow:hidden; border:1px solid #e6e7e4; background:#ffffff;">
-        <span style="display:block; width:100%; aspect-ratio:4/3; overflow:hidden; background:#f4f5f2;"><img src="{{ 'cat-vitamins.jpg' | asset_url }}" alt="Vitamins &amp; Supplements" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;" width="1440" height="500"></span>
-        <span style="display:block; padding:15px 16px; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16px; color:#3f6b4f;">Vitamins &amp; Supplements</span>
-      </a>
-      <a href="/collections/skincare" class="srch-card" style="display:block; border-radius:14px; overflow:hidden; border:1px solid #e6e7e4; background:#ffffff;">
-        <span style="display:block; width:100%; aspect-ratio:4/3; overflow:hidden; background:#f4f5f2;"><img src="{{ 'slide-skincare.jpg' | asset_url }}" alt="Skincare" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;" width="1440" height="500"></span>
-        <span style="display:block; padding:15px 16px; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16px; color:#3f6b4f;">Skincare</span>
-      </a>
-      <a href="/collections/sun" class="srch-card" style="display:block; border-radius:14px; overflow:hidden; border:1px solid #e6e7e4; background:#ffffff;">
-        <span style="display:block; width:100%; aspect-ratio:4/3; overflow:hidden; background:#f4f5f2;"><img src="{{ 'cat-suncare.jpg' | asset_url }}" alt="Sun Care" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;" width="860" height="531"></span>
-        <span style="display:block; padding:15px 16px; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16px; color:#3f6b4f;">Sun Care</span>
-      </a>
-      <a href="/collections/mother-baby" class="srch-card" style="display:block; border-radius:14px; overflow:hidden; border:1px solid #e6e7e4; background:#ffffff;">
-        <span style="display:block; width:100%; aspect-ratio:4/3; overflow:hidden; background:#f4f5f2;"><img src="{{ 'slide-baby.jpg' | asset_url }}" alt="Baby &amp; Child" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;" width="1440" height="500"></span>
-        <span style="display:block; padding:15px 16px; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16px; color:#3f6b4f;">Baby &amp; Child</span>
-      </a>
+    {%- comment -%} Text pills, not image cards. These four tiles were only ever
+        visible on the empty-search state and all four reused artwork from other
+        sections — four image downloads for a screen most visitors never see.
+        Same destinations, same hit area, no assets. {%- endcomment -%}
+    <div style="display:flex; flex-wrap:wrap; gap:12px;">
+      {%- assign popular = 'Vitamins & Supplements|vitamins,Skincare|skincare,Sun Care|sun,Baby & Child|mother-baby,Medicines & Health|medicines-health,Beauty|beauty,Fragrance|fragrance,Gifting|gifting' | split: ',' -%}
+      {%- for entry in popular -%}
+        {%- assign bits = entry | split: '|' -%}
+        <a href="/collections/{{ bits[1] }}" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; height:44px; padding:0 20px; border-radius:999px; background:#82C914; color:#ffffff; font-weight:700; font-size:14.5px; white-space:nowrap;">{{ bits[0] }}</a>
+      {%- endfor -%}
     </div>
   </div>
 </section>

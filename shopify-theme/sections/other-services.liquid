@@ -1,13 +1,31 @@
 {%- comment -%} Homepage sections carry only 8px of bottom padding because the
     next section's 40px top provides the gap. This is the last section before
-    the footer, so it needs its own. {%- endcomment -%}
+    the footer, so it needs its own.
+
+    Images were hardcoded with no image_picker and no fallback; they are blocks
+    now, with the original assets as onboarding defaults. {%- endcomment -%}
 <section style="max-width:1440px; margin:0 auto; padding:40px 30px clamp(48px,5vw,72px);">
   <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.2vw,28px); margin:0 0 22px;">{{ section.settings.heading }}</h2>
   <div class="svc-slider" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:22px;">
-    <div><div style="aspect-ratio:1; border-radius:14px; overflow:hidden; margin-bottom:14px;"><img src="{{ 'contact-us.png' | asset_url }}" alt="Contact Us" style="width:100%; height:100%; object-fit:cover; display:block;" width="299" height="299"></div><h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:18px; margin:0 0 8px;">Contact Us</h3><a href="/pages/contact-us" style="font-weight:700;">Find Out More →</a></div>
-    <div><div style="aspect-ratio:1; border-radius:14px; overflow:hidden; margin-bottom:14px;"><img src="{{ 'our-stores.jpg' | asset_url }}" alt="McCormack's Pharmacy storefront" style="width:100%; height:100%; object-fit:cover; display:block;" width="1254" height="1254"></div><h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:18px; margin:0 0 8px;">Our Stores</h3><a href="/pages/store-locator" style="font-weight:700;">Find Out More →</a></div>
-    <div><div style="aspect-ratio:1; border-radius:14px; overflow:hidden; margin-bottom:14px;"><img src="{{ 'common-conditions.jpg' | asset_url }}" alt="Pharmacist advising a customer" style="width:100%; height:100%; object-fit:cover; display:block;" width="299" height="299"></div><h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:18px; margin:0 0 8px;">Common Conditions</h3><a href="/collections/medicines-health" style="font-weight:700;">Find Out More →</a></div>
-    <div><div style="aspect-ratio:1; border-radius:14px; overflow:hidden; margin-bottom:14px;"><img src="{{ 'instore-services.png' | asset_url }}" alt="In-store pharmacy services" style="width:100%; height:100%; object-fit:cover; display:block;" width="299" height="299"></div><h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:18px; margin:0 0 8px;">In-Store Services</h3><a href="/pages/in-store-services" style="font-weight:700;">Find Out More →</a></div>
+    {%- for block in section.blocks -%}
+      <div {{ block.shopify_attributes }}>
+        <div style="position:relative; aspect-ratio:1; border-radius:14px; overflow:hidden; margin-bottom:14px; background:#eef1ea;">
+          {%- assign os_style = 'width:100%; height:100%; object-fit:cover; display:block;' -%}
+          {%- if block.settings.image -%}
+            {{ block.settings.image | image_url: width: 658 | image_tag:
+                 widths: '270,400,658', sizes: '(max-width: 900px) 45vw, 23vw',
+                 alt: block.settings.title, loading: 'lazy', style: os_style }}
+          {%- elsif block.settings.image_asset != blank -%}
+            <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}"
+                 loading="lazy" width="658" height="658" style="{{ os_style }}">
+          {%- else -%}
+            {%- render 'image-placeholder', w: 658, h: 658, label: 'Service tile', note: 'Square — title and link sit below the image.' -%}
+          {%- endif -%}
+        </div>
+        <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:18px; margin:0 0 8px;">{{ block.settings.title }}</h3>
+        <a href="{{ block.settings.link }}" style="font-weight:700;">{{ block.settings.cta }}</a>
+      </div>
+    {%- endfor -%}
   </div>
 </section>
 
@@ -17,6 +35,30 @@
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "Other Services" }
   ],
-  "presets": [{ "name": "Other services" }]
+  "blocks": [
+    {
+      "type": "service",
+      "name": "Service",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Contact Us" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "text", "id": "cta", "label": "Link label", "default": "Find Out More →" },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Square. Export 658x658." },
+        { "type": "text", "id": "image_asset", "label": "Fallback theme asset (onboarding only)", "info": "Filename of a theme asset used until an image is picked." }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Other services",
+      "blocks": [
+        { "type": "service", "settings": { "title": "Contact Us", "link": "/pages/contact-us", "cta": "Find Out More →", "image_asset": "contact-us.png" } },
+        { "type": "service", "settings": { "title": "Our Stores", "link": "/pages/store-locator", "cta": "Find Out More →", "image_asset": "our-stores-square.jpg" } },
+        { "type": "service", "settings": { "title": "Common Conditions", "link": "/collections/medicines-health", "cta": "Find Out More →", "image_asset": "common-conditions.jpg" } },
+        { "type": "service", "settings": { "title": "In-Store Services", "link": "/pages/in-store-services", "cta": "Find Out More →", "image_asset": "instore-services.png" } }
+      ]
+    }
+  ]
 }
 {% endschema %}

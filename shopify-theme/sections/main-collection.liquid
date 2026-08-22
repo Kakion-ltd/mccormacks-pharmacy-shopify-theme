@@ -8,19 +8,23 @@
 
 {%- liquid
   assign banner_heading = section.settings.banner_heading | default: collection.title
-  assign banner_image_url = ''
-  assign has_banner_image = false
+
+  comment
+    Banner source resolves to an image OBJECT where possible so banner-image.liquid
+    can emit a real srcset. banner_asset covers the theme-asset fallback, which has
+    no image object behind it and so can only be a single URL.
+  endcomment
+  assign banner_object = nil
+  assign banner_asset = ''
   if section.settings.banner_image
-    assign banner_image_url = section.settings.banner_image | image_url: width: 1300
-    assign has_banner_image = true
+    assign banner_object = section.settings.banner_image
   elsif collection.image
-    assign banner_image_url = collection.image | image_url: width: 1300
-    assign has_banner_image = true
+    assign banner_object = collection.image
   elsif section.settings.banner_image_asset != blank
-    assign banner_image_url = section.settings.banner_image_asset | asset_url
-    assign has_banner_image = true
+    assign banner_asset = section.settings.banner_image_asset | asset_url
   endif
 -%}
+
 
 <!-- Breadcrumb + category banner -->
 <section style="max-width:1440px; margin:0 auto; padding:24px 30px 6px;">
@@ -39,10 +43,8 @@
           {%- if section.settings.banner_text != blank -%}{{ section.settings.banner_text }}{%- else -%}{{ collection.description }}{%- endif -%}
         </div>
       </div>
-      <div class="banner-img" style="position:relative; flex:1 1 320px; min-height:clamp(150px,17vw,252px); overflow:hidden; background-image:url('{{ banner_image_url }}'); background-size:cover; background-position:center; background-color:#e9ede3;" {% if has_banner_image %}role="img" aria-label="{{ banner_heading | escape }}"{% endif %}>
-        {%- unless has_banner_image -%}
-          {%- render 'image-placeholder', w: 1300, h: 600, label: 'Sale banner', note: 'Landscape — keep the subject centred, edges get cropped.' -%}
-        {%- endunless -%}
+      <div class="banner-img" style="position:relative; flex:1 1 320px; min-height:clamp(150px,17vw,252px); overflow:hidden; background-color:#e9ede3;">
+        {%- render 'banner-image', image: banner_object, asset: banner_asset, alt: banner_heading, label: 'Sale banner', note: 'Landscape — keep the subject centred, edges get cropped.' -%}
       </div>
     </div>
   {%- elsif cat_level == 'leaf' -%}
@@ -64,10 +66,8 @@
           {%- if section.settings.banner_text != blank -%}{{ section.settings.banner_text }}{%- else -%}{{ collection.description }}{%- endif -%}
         </div>
       </div>
-      <div class="banner-img" style="position:relative; flex:1 1 360px; background-image:url('{{ banner_image_url }}'); background-size:cover; background-position:center; background-color:#e9ede3; min-height:clamp(150px,17vw,252px);" {% if has_banner_image %}role="img" aria-label="{{ banner_heading | escape }}"{% endif %}>
-        {%- unless has_banner_image -%}
-          {%- render 'image-placeholder', w: 1300, h: 600, label: 'Category banner', note: 'Landscape — keep the subject centred, edges get cropped.' -%}
-        {%- endunless -%}
+      <div class="banner-img" style="position:relative; flex:1 1 360px; background-color:#e9ede3; min-height:clamp(150px,17vw,252px); overflow:hidden;">
+        {%- render 'banner-image', image: banner_object, asset: banner_asset, alt: banner_heading, label: 'Category banner', note: 'Landscape — keep the subject centred, edges get cropped.' -%}
       </div>
     </div>
   {%- endif -%}

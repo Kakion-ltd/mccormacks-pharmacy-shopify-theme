@@ -1,21 +1,47 @@
+{%- comment -%}
+  Two promo tiles. Previously both images were hardcoded in the markup, so the
+  client could not change them without a developer. They are blocks now, with
+  the original assets as the onboarding fallback.
+
+  P8 ratio consolidation: the tile frame is 16:9 on both breakpoints. It used to
+  be 1.886:1 on desktop and 0.99:1 on mobile, which turned a landscape
+  composition into a square. A mobile image field covers art that cannot survive
+  even the 16:9 crop.
+{%- endcomment -%}
 <section style="max-width:1440px; margin:0 auto; padding:34px 30px 8px;">
   <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:22px;">
-    <div style="position:relative; border-radius:18px; overflow:hidden; min-height:360px; background:#e9ede3; display:flex; align-items:flex-end; padding:32px;">
-      <img src="{{ 'cat-vitamins.jpg' | asset_url }}" alt="Vitamins &amp; Supplements" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" width="1440" height="500">
-      <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.28), rgba(0,0,0,0) 60%);"></div>
-      <div style="position:relative;">
-        <span style="display:inline-block; background:#f3f6ea; color:#3f6b4f; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,34px); padding:8px 18px; border-radius:6px; margin-bottom:16px;">Vitamins &amp; Supplements</span><br>
-        <a href="/collections/vitamins" class="hov-shop" style="display:inline-block; background:#fff; color:#2A2B2A; font-weight:700; letter-spacing:.06em; font-size:13.5px; padding:12px 26px; border-radius:6px;">SHOP NOW</a>
+    {%- for block in section.blocks -%}
+      <div class="ftile" style="position:relative; border-radius:18px; overflow:hidden; aspect-ratio:16/9; background:#e9ede3; display:flex; align-items:flex-end; padding:32px;" {{ block.shopify_attributes }}>
+        {%- assign tile_style = 'position:absolute; inset:0; width:100%; height:100%; object-fit:cover;' -%}
+        {%- if block.settings.image or block.settings.image_mobile -%}
+          <picture>
+            {%- if block.settings.image_mobile -%}
+              <source media="(max-width: 749px)"
+                      srcset="{{ block.settings.image_mobile | image_url: width: 500 }} 500w, {{ block.settings.image_mobile | image_url: width: 800 }} 800w"
+                      sizes="100vw">
+            {%- endif -%}
+            {%- assign tile_desktop = block.settings.image | default: block.settings.image_mobile -%}
+            {{ tile_desktop | image_url: width: 1360 | image_tag:
+                 widths: '400,700,1000,1360',
+                 sizes: '(max-width: 749px) 100vw, 47vw',
+                 alt: block.settings.title,
+                 loading: 'lazy',
+                 class: 'ftile-img',
+                 style: tile_style }}
+          </picture>
+        {%- elsif block.settings.image_asset != blank -%}
+          <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}"
+               loading="lazy" width="1360" height="765" class="ftile-img" style="{{ tile_style }}">
+        {%- else -%}
+          {%- render 'image-placeholder', w: 1360, h: 765, label: 'Feature tile', note: 'Landscape 16:9 — the label and button sit bottom-left.' -%}
+        {%- endif -%}
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.28), rgba(0,0,0,0) 60%);"></div>
+        <div style="position:relative;">
+          <span style="display:inline-block; background:#f3f6ea; color:#3f6b4f; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,34px); padding:8px 18px; border-radius:6px; margin-bottom:16px;">{{ block.settings.title }}</span><br>
+          <a href="{{ block.settings.link }}" class="hov-shop" style="display:inline-block; background:#fff; color:#2A2B2A; font-weight:700; letter-spacing:.06em; font-size:13.5px; padding:12px 26px; border-radius:6px;">{{ block.settings.cta }}</a>
+        </div>
       </div>
-    </div>
-    <div style="position:relative; border-radius:18px; overflow:hidden; min-height:360px; background:#e9ede3; display:flex; align-items:flex-end; padding:32px;">
-      <img src="{{ 'cat-suncare.jpg' | asset_url }}" alt="Suncare" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" width="860" height="531">
-      <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.28), rgba(0,0,0,0) 60%);"></div>
-      <div style="position:relative;">
-        <span style="display:inline-block; background:#f3f6ea; color:#3f6b4f; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,34px); padding:8px 18px; border-radius:6px; margin-bottom:16px;">Suncare</span><br>
-        <a href="/collections/sun" class="hov-shop" style="display:inline-block; background:#fff; color:#2A2B2A; font-weight:700; letter-spacing:.06em; font-size:13.5px; padding:12px 26px; border-radius:6px;">SHOP NOW</a>
-      </div>
-    </div>
+    {%- endfor -%}
   </div>
 </section>
 
@@ -27,6 +53,29 @@
 {
   "name": "Feature tiles",
   "settings": [],
-  "presets": [{ "name": "Feature tiles" }]
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Vitamins & Supplements" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "text", "id": "cta", "label": "Button label", "default": "SHOP NOW" },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "16:9 landscape. Export 1360x765." },
+        { "type": "image_picker", "id": "image_mobile", "label": "Mobile image", "info": "Optional. Use when the desktop crop loses the subject on a phone." },
+        { "type": "text", "id": "image_asset", "label": "Fallback theme asset (onboarding only)", "info": "Filename of a theme asset used until an image is picked." }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Feature tiles",
+      "blocks": [
+        { "type": "tile", "settings": { "title": "Vitamins & Supplements", "link": "/collections/vitamins", "cta": "SHOP NOW", "image_asset": "cat-vitamins.jpg" } },
+        { "type": "tile", "settings": { "title": "Suncare", "link": "/collections/sun", "cta": "SHOP NOW", "image_asset": "cat-suncare.jpg" } }
+      ]
+    }
+  ]
 }
 {% endschema %}

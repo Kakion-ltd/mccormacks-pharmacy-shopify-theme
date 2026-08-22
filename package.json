@@ -1,0 +1,11 @@
+{
+  "name": "mccormacks-pharmacy-shopify-theme",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shopify Online Store 2.0 theme for McCormack's Pharmacy",
+  "scripts": {
+    "dev": "python3 setup/serve_preview.py",
+    "build": "python3 setup/build_static_preview.py --base '' --out _site",
+    "package": "bash setup/package_theme.sh"
+  }
+}

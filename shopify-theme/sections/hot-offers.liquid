@@ -16,15 +16,15 @@
         {%- comment -%} soft decorative disc, alternating corner so the row doesn't look stamped {%- endcomment -%}
         <div style="position:absolute; {% cycle 'disc': 'top:-22%; right:-14%;', 'bottom:-18%; right:-10%;', 'top:-20%; left:-12%;' %} width:210px; height:210px; border-radius:999px; background:rgba(255,255,255,.08);"></div>
         {%- if block.settings.image != blank -%}
-          {{ block.settings.image | image_url: width: 1200 | image_tag:
-             widths: '480,720,1200',
+          {{ block.settings.image | image_url: width: 1032 | image_tag:
+             widths: '400,700,1032',
              alt: block.settings.title,
              loading: 'lazy',
-             style: 'position:absolute; right:-5%; top:6%; width:58%; height:54%; border-radius:16px; object-fit:cover; z-index:1;' }}
+             style: 'position:absolute; right:-5%; top:6%; width:58%; aspect-ratio:4/3; height:auto; border-radius:16px; object-fit:cover; z-index:1;' }}
         {%- elsif block.settings.image_asset != blank -%}
-          <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="1600" height="1600" style="position:absolute; right:-5%; top:6%; width:58%; height:54%; border-radius:16px; object-fit:cover; z-index:1;">
+          <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="1032" height="774" style="position:absolute; right:-5%; top:6%; width:58%; aspect-ratio:4/3; height:auto; border-radius:16px; object-fit:cover; z-index:1;">
         {%- else -%}
-          <div style="position:absolute; right:-5%; top:6%; width:58%; height:54%; border-radius:16px; background:repeating-linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.16) 10px,rgba(255,255,255,.07) 10px,rgba(255,255,255,.07) 20px); display:flex; align-items:center; justify-content:center; z-index:1;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:rgba(255,255,255,.85); font-weight:700;">image</span></div>
+          <div style="position:absolute; right:-5%; top:6%; width:58%; aspect-ratio:4/3; border-radius:16px; background:repeating-linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.16) 10px,rgba(255,255,255,.07) 10px,rgba(255,255,255,.07) 20px); display:flex; align-items:center; justify-content:center; z-index:1;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:rgba(255,255,255,.85); font-weight:700;">image</span></div>
         {%- endif -%}
         {%- if block.settings.badge != blank -%}
           <span style="align-self:flex-start; background:{{ badge_bg }}; color:{{ badge_fg }}; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; padding:6px 16px; border-radius:999px; margin-bottom:20px; position:relative; z-index:2;">{{ block.settings.badge }}</span>

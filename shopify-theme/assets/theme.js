@@ -127,6 +127,20 @@
     }
   });
 
+  // ---- Missing images degrade to the theme's striped panel instead of the
+  // browser's broken-image icon. Capture phase, because 'error' does not bubble.
+  // Covers hardcoded theme assets (where Liquid cannot test for a missing file,
+  // asset_url returns a URL either way) and catalogue images alike.
+  document.addEventListener('error', (e) => {
+    const img = e.target;
+    if (!img || img.tagName !== 'IMG' || img.dataset.fallbackApplied) return;
+    img.dataset.fallbackApplied = '1';
+    img.classList.add('img-fallback');
+    img.removeAttribute('srcset');
+    // 1x1 transparent gif: keeps layout box and alt text, drops the broken icon
+    img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+  }, true);
+
   // ---- Accordions: [data-acc-toggle=key] toggles [data-acc-content=key] (+ rotates [data-acc-chevron])
   on(document, 'click', '[data-acc-toggle]', (e, btn) => {
     const key = btn.dataset.accToggle;
