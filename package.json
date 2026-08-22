@@ -4,6 +4,7 @@
   "private": true,
   "description": "Shopify Online Store 2.0 theme for McCormack's Pharmacy",
   "scripts": {
+    "render": "node setup/render_preview.mjs --categories --endpoints --html-out preview",
     "dev": "python3 setup/serve_preview.py",
     "build": "python3 setup/build_static_preview.py --base '' --out _site",
     "package": "bash setup/package_theme.sh"

@@ -13,7 +13,7 @@
   Threshold comes from settings.free_shipping_threshold (Brand settings), matching
   the cart page's own progress bar.
 {% endcomment %}
-{%- assign free_threshold = settings.free_shipping_threshold | default: 65 | times: 100 -%}
+{%- assign free_threshold = settings.free_shipping_threshold | at_least: 1 | times: 100 -%}
 
 <div class="cd-overlay" data-cd-overlay hidden></div>
 
@@ -38,6 +38,11 @@
   </div>
 
   <div class="cd-items" data-cd-items></div>
+
+  {%- comment -%} Cross-sell rail, filled by theme.js from sections/cart-recommendations.liquid.
+      That section filters out restricted products, so nothing here can offer a
+      one-click add on a line that needs pharmacist advice. {%- endcomment -%}
+  <div class="cd-recs" data-crec-mount hidden></div>
 
   <div class="cd-empty" data-cd-empty hidden>
     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#92C83F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>

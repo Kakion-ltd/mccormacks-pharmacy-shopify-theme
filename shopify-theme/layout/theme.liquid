@@ -16,7 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   {{ 'base.css' | asset_url | stylesheet_tag }}
   {%- comment -%} theme.js is a static asset and can't read Liquid — hand it the cart routes so they survive a locale/market path prefix {%- endcomment -%}
-  <script>window.mccRoutes = { cart_url: {{ routes.cart_url | json }}, cart_add_url: {{ routes.cart_add_url | json }}, cart_change_url: {{ routes.cart_change_url | json }} };</script>
+  <script>window.mccRoutes = { cart_url: {{ routes.cart_url | json }}, cart_add_url: {{ routes.cart_add_url | json }}, cart_change_url: {{ routes.cart_change_url | json }}, predictive_search_url: {{ routes.predictive_search_url | json }}, product_recommendations_url: {{ routes.product_recommendations_url | json }} };</script>
   <script src="{{ 'theme.js' | asset_url }}" defer></script>
   {{ content_for_header }}
 </head>

@@ -1,0 +1,76 @@
+{% comment %}
+  Cart cross-sell rail.
+
+  Rendered by Shopify's own /recommendations/products endpoint, requested by
+  theme.js as ?section_id=cart-recommendations&product_id=<first line item>.
+  Used in two places: under the cart page's line items, and inside the bag
+  drawer after an add.
+
+  Three products are filtered out here, server-side in Liquid, so no JavaScript
+  path can reintroduce them:
+
+    1. Restricted products. A pharmacist-only line must never be recommended
+       into a one-click add surface — see snippets/product-restricted.liquid.
+    2. Products already in the cart. Recommending what someone just added
+       reads as broken.
+    3. Unavailable products.
+
+  Anything with more than one variant gets a link to the product page rather
+  than an Add button, matching the quick-add rule used on listings.
+
+  intent: 'related' is algorithmic and works with no setup. Switching to
+  'complementary' requires the Search & Discovery app, where the merchant
+  picks the pairings by hand.
+{% endcomment %}
+{%- assign rec_products = recommendations.products -%}
+
+{%- if recommendations.performed and rec_products.size > 0 -%}
+  {%- comment -%} Handles already in the bag, as a lookup for the filter below. {%- endcomment -%}
+  {%- capture cart_handles -%}{%- for line in cart.items -%}|{{ line.product.handle }}{%- endfor -%}|{%- endcapture -%}
+
+  {%- capture rec_cards -%}
+    {%- assign shown = 0 -%}
+    {%- for product in rec_products -%}
+      {%- if shown >= 4 -%}{%- break -%}{%- endif -%}
+      {%- capture restricted -%}{%- render 'product-restricted', product: product -%}{%- endcapture -%}
+      {%- capture handle_key -%}|{{ product.handle }}|{%- endcapture -%}
+      {%- unless restricted == 'true' or product.available == false or cart_handles contains handle_key -%}
+        {%- assign shown = shown | plus: 1 -%}
+        {%- assign variant = product.selected_or_first_available_variant -%}
+        <div class="crec-card">
+          <a href="{{ product.url }}" class="crec-thumb" tabindex="-1" aria-hidden="true">
+            {%- if product.featured_image -%}
+              {{ product.featured_image | image_url: width: 220 | image_tag: alt: '', loading: 'lazy', width: 110, height: 110, class: 'crec-img' }}
+            {%- endif -%}
+          </a>
+          <a href="{{ product.url }}" class="crec-title">{{ product.title }}</a>
+          <div class="crec-price">{{ product.price | money }}</div>
+          {%- if product.variants.size == 1 and product.selling_plan_groups.size == 0 -%}
+            <button type="button" data-add-id="{{ variant.id }}" class="crec-add hov-bg-green">Add</button>
+          {%- else -%}
+            <a href="{{ product.url }}" class="crec-add crec-add-link hov-bg-green">Choose</a>
+          {%- endif -%}
+        </div>
+      {%- endunless -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+
+  {%- comment -%} Every candidate may have been filtered out — emit nothing rather
+      than a heading over an empty rail. {%- endcomment -%}
+  {%- assign rec_cards = rec_cards | strip -%}
+  {%- if rec_cards != blank -%}
+    <div class="crec" data-crec>
+      <h3 class="crec-head">{{ section.settings.heading | default: 'Often bought with this' }}</h3>
+      <div class="crec-track">{{ rec_cards }}</div>
+    </div>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Cart recommendations",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Often bought with this" }
+  ]
+}
+{% endschema %}

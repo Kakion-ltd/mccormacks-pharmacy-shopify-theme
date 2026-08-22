@@ -8,7 +8,7 @@
     "nav_paths": [
       "Beauty"
     ],
-    "description_html": "<p>Explore our full Beauty range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+    "description_html": "<p>Explore our full Beauty range — pharmacist-approved essentials with free delivery over [threshold] and Click &amp; Collect from all seven McCormack's stores.</p>"
   },
   {
     "handle": "bundles",
@@ -30,7 +30,7 @@
     "nav_paths": [
       "Fragrance"
     ],
-    "description_html": "<p>Explore our full Fragrance range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+    "description_html": "<p>Explore our full Fragrance range — pharmacist-approved essentials with free delivery over [threshold] and Click &amp; Collect from all seven McCormack's stores.</p>"
   },
   {
     "handle": "gifting",
@@ -41,7 +41,7 @@
     "nav_paths": [
       "Gifting"
     ],
-    "description_html": "<p>Explore our full Gifting range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+    "description_html": "<p>Explore our full Gifting range — pharmacist-approved essentials with free delivery over [threshold] and Click &amp; Collect from all seven McCormack's stores.</p>"
   },
   {
     "handle": "hot-offers",
@@ -63,7 +63,7 @@
     "nav_paths": [
       "Medicines & Health"
     ],
-    "description_html": "<p>Explore our full Medicines & Health range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+    "description_html": "<p>Explore our full Medicines & Health range — pharmacist-approved essentials with free delivery over [threshold] and Click &amp; Collect from all seven McCormack's stores.</p>"
   },
   {
     "handle": "mother-baby",
@@ -74,7 +74,7 @@
     "nav_paths": [
       "Mother & Baby"
     ],
-    "description_html": "<p>Explore our full Mother & Baby range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+    "description_html": "<p>Explore our full Mother & Baby range — pharmacist-approved essentials with free delivery over [threshold] and Click &amp; Collect from all seven McCormack's stores.</p>"
   },
   {
     "handle": "new-in",
@@ -96,7 +96,7 @@
     "nav_paths": [
       "Sale"
     ],
-    "description_html": "<p>Explore our full Sale range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+    "description_html": "<p>Explore our full Sale range — pharmacist-approved essentials with free delivery over [threshold] and Click &amp; Collect from all seven McCormack's stores.</p>"
   },
   {
     "handle": "skincare",
@@ -107,7 +107,7 @@
     "nav_paths": [
       "Skincare"
     ],
-    "description_html": "<p>Explore our full Skincare range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+    "description_html": "<p>Explore our full Skincare range — pharmacist-approved essentials with free delivery over [threshold] and Click &amp; Collect from all seven McCormack's stores.</p>"
   },
   {
     "handle": "toiletries",
@@ -118,7 +118,7 @@
     "nav_paths": [
       "Toiletries"
     ],
-    "description_html": "<p>Explore our full Toiletries range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+    "description_html": "<p>Explore our full Toiletries range — pharmacist-approved essentials with free delivery over [threshold] and Click &amp; Collect from all seven McCormack's stores.</p>"
   },
   {
     "handle": "vitamins",
@@ -129,7 +129,7 @@
     "nav_paths": [
       "Vitamins"
     ],
-    "description_html": "<p>Explore our full Vitamins range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+    "description_html": "<p>Explore our full Vitamins range — pharmacist-approved essentials with free delivery over [threshold] and Click &amp; Collect from all seven McCormack's stores.</p>"
   },
   {
     "handle": "acne-blemish",
@@ -318,7 +318,7 @@
       "Beauty > Beauty Accessories",
       "Beauty > Beauty Accessories > Beauty Accessories"
     ],
-    "description_html": "<p>Shop Beauty Accessories at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Beauty Accessories at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "bepanthen",
@@ -450,7 +450,7 @@
     "nav_paths": [
       "Skincare > Body Skincare"
     ],
-    "description_html": "<p>Shop Body Skincare at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Body Skincare at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "body-tape-nipple-covers",
@@ -593,7 +593,7 @@
     "nav_paths": [
       "Medicines & Health > Cold, Flu & Allergy"
     ],
-    "description_html": "<p>Shop Cold, Flu & Allergy at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Cold, Flu & Allergy at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "cold-flu-combination-products",
@@ -681,7 +681,7 @@
     "nav_paths": [
       "Medicines & Health > Continence Care"
     ],
-    "description_html": "<p>Shop Continence Care at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Continence Care at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "contouring-highlighting",
@@ -813,7 +813,7 @@
     "nav_paths": [
       "Skincare > Dermatological Skincare"
     ],
-    "description_html": "<p>Shop Dermatological Skincare at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Dermatological Skincare at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "diabetes-care",
@@ -824,7 +824,7 @@
     "nav_paths": [
       "Medicines & Health > Diabetes Care"
     ],
-    "description_html": "<p>Shop Diabetes Care at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Diabetes Care at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "diarrhoea",
@@ -945,7 +945,7 @@
     "nav_paths": [
       "Medicines & Health > Electrical Healthcare"
     ],
-    "description_html": "<p>Shop Electrical Healthcare at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Electrical Healthcare at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "elizabeth-arden",
@@ -1066,7 +1066,7 @@
     "nav_paths": [
       "Medicines & Health > Eye & Ear Health"
     ],
-    "description_html": "<p>Shop Eye & Ear Health at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Eye & Ear Health at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "eye-health",
@@ -1132,7 +1132,7 @@
     "nav_paths": [
       "Beauty > Eyes"
     ],
-    "description_html": "<p>Shop Eyes at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Eyes at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "eyeshadow",
@@ -1165,7 +1165,7 @@
     "nav_paths": [
       "Beauty > Face"
     ],
-    "description_html": "<p>Shop Face at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Face at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "face-masks",
@@ -1198,7 +1198,7 @@
     "nav_paths": [
       "Skincare > Facial Skincare"
     ],
-    "description_html": "<p>Shop Facial Skincare at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Facial Skincare at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "facial-suncare",
@@ -1286,7 +1286,7 @@
     "nav_paths": [
       "Medicines & Health > First Aid"
     ],
-    "description_html": "<p>Shop First Aid at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop First Aid at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "fish-oils-omegas",
@@ -1319,7 +1319,7 @@
     "nav_paths": [
       "Medicines & Health > Foot Care"
     ],
-    "description_html": "<p>Shop Foot Care at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Foot Care at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "foot-soak-odour-control",
@@ -1495,7 +1495,7 @@
     "nav_paths": [
       "Skincare > Hands & Nails"
     ],
-    "description_html": "<p>Shop Hands & Nails at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Hands & Nails at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "hayfever-allergy",
@@ -1528,7 +1528,7 @@
     "nav_paths": [
       "Medicines & Health > Healthcare & Medicine Accessories"
     ],
-    "description_html": "<p>Shop Healthcare & Medicine Accessories at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Healthcare & Medicine Accessories at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "healthy-mind-sleeping-aids",
@@ -1859,7 +1859,7 @@
     "nav_paths": [
       "Beauty > Lips"
     ],
-    "description_html": "<p>Shop Lips at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Lips at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "lipstick",
@@ -1947,7 +1947,7 @@
     "nav_paths": [
       "Beauty > Makeup Brushes & Tools"
     ],
-    "description_html": "<p>Shop Makeup Brushes & Tools at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Makeup Brushes & Tools at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "makeup-remover",
@@ -2113,7 +2113,7 @@
     "nav_paths": [
       "Medicines & Health > Mouth & Oral Care"
     ],
-    "description_html": "<p>Shop Mouth & Oral Care at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Mouth & Oral Care at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "mouth-ulcers-cold-sores",
@@ -2190,7 +2190,7 @@
     "nav_paths": [
       "Beauty > Nails"
     ],
-    "description_html": "<p>Shop Nails at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Nails at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "natures-plus",
@@ -2278,7 +2278,7 @@
     "nav_paths": [
       "Medicines & Health > Nicotine Replacement"
     ],
-    "description_html": "<p>Shop Nicotine Replacement at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Nicotine Replacement at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "nicotine-sprays",
@@ -2421,7 +2421,7 @@
     "nav_paths": [
       "Medicines & Health > Pain Relief"
     ],
-    "description_html": "<p>Shop Pain Relief at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Pain Relief at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "pain-relief-headache",
@@ -2542,7 +2542,7 @@
     "nav_paths": [
       "Skincare > Problem Skin"
     ],
-    "description_html": "<p>Shop Problem Skin at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Problem Skin at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "proven",
@@ -2641,7 +2641,7 @@
     "nav_paths": [
       "Medicines & Health > Self Testing Kits"
     ],
-    "description_html": "<p>Shop Self Testing Kits at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Self Testing Kits at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "sensitive-conditions",
@@ -2652,7 +2652,7 @@
     "nav_paths": [
       "Medicines & Health > Sensitive Conditions"
     ],
-    "description_html": "<p>Shop Sensitive Conditions at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Sensitive Conditions at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "sensitive-skin",
@@ -2696,7 +2696,7 @@
     "nav_paths": [
       "Medicines & Health > Sexual Health"
     ],
-    "description_html": "<p>Shop Sexual Health at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Sexual Health at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "skin-hair-nails",
@@ -2729,7 +2729,7 @@
     "nav_paths": [
       "Medicines & Health > Sleep & Rest"
     ],
-    "description_html": "<p>Shop Sleep & Rest at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Sleep & Rest at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "slimming",
@@ -2773,7 +2773,7 @@
     "nav_paths": [
       "Medicines & Health > Sport"
     ],
-    "description_html": "<p>Shop Sport at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Sport at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "stomach-gastrointestinal",
@@ -2784,7 +2784,7 @@
     "nav_paths": [
       "Medicines & Health > Stomach & Gastrointestinal"
     ],
-    "description_html": "<p>Shop Stomach & Gastrointestinal at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Stomach & Gastrointestinal at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "strepsils",
@@ -2872,7 +2872,7 @@
     "nav_paths": [
       "Beauty > Tanning"
     ],
-    "description_html": "<p>Shop Tanning at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Tanning at McCormack's Pharmacy, part of our Beauty range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "tanning-mitts",
@@ -3026,7 +3026,7 @@
     "nav_paths": [
       "Medicines & Health > Trying To Conceive"
     ],
-    "description_html": "<p>Shop Trying To Conceive at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+    "description_html": "<p>Shop Trying To Conceive at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "tweezers",

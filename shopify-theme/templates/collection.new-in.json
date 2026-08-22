@@ -28,7 +28,7 @@
           "type": "faq",
           "settings": {
             "question": "How fast is delivery?",
-            "answer": "We aim to ship all items within the same working day for orders placed before 3pm, Monday to Friday. Delivery is free on orders over \u20ac65, and Click & Collect is available at all seven of our stores."
+            "answer": "We aim to ship all items within the same working day for orders placed before 3pm, Monday to Friday. Delivery is free on orders over [threshold], and Click & Collect is available at all seven of our stores."
           }
         }
       },
@@ -41,7 +41,7 @@
       "settings": {
         "banner_style": "standard",
         "banner_heading": "New In",
-        "banner_text": "<p>The latest arrivals across every department, added weekly. New formulas from the brands you already buy, seasonal launches, and the products our pharmacists and beauty advisors are most excited about right now.</p><p>Everything is dispatched from our registered Irish pharmacy, with free delivery on orders over \u20ac65.</p>",
+        "banner_text": "<p>The latest arrivals across every department, added weekly. New formulas from the brands you already buy, seasonal launches, and the products our pharmacists and beauty advisors are most excited about right now.</p><p>Everything is dispatched from our registered Irish pharmacy, with free delivery on orders over [threshold].</p>",
         "banner_image_asset": "",
         "show_chips": true,
         "chip_links": "Pharmacy | /collections/medicines-health\nVitamins & Supplements | /collections/vitamins\nSkincare | /collections/skincare\nBeauty | /collections/beauty\nMother & Baby | /collections/mother-baby\nToiletries | /collections/toiletries\nFragrance & Gift | /collections/fragrance\nClearance | /collections/sale",

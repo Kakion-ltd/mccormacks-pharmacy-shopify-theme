@@ -1,0 +1,32 @@
+{%- comment -%}
+  Is this product one that must not be added to the bag in one click?
+
+  Outputs the string "true" for a restricted product and nothing otherwise, so
+  callers capture it:
+
+    {%- capture restricted -%}{%- render 'product-restricted', product: p -%}{%- endcapture -%}
+    {%- if restricted == 'true' -%} ... link to the PDP ... {%- endif -%}
+
+  The tag is set in Brand settings (Pharmacy > Restricted product tag) so the
+  rule lives in one place. Matching is case-insensitive and exact per tag —
+  "Pharmacist-Only" matches, "pharmacist-only-note" does not. A merchant who
+  capitalises a tag differently in admin should not silently open the gate,
+  and a partial match should not silently close it on an unrelated product.
+
+  IMPORTANT — this is a suppression, not a suitability check. It stops the
+  one-click add surfaces (listings, search, recommendations) from bypassing
+  the product page. It does NOT ask the customer anything, and the product
+  page's own Add to bag still works unconditionally. The questionnaire the
+  collection FAQ copy describes does not exist in this theme.
+
+  Accepts: product (required)
+{%- endcomment -%}
+{%- liquid
+  assign gate_tag = settings.restricted_tag | strip | downcase
+  if gate_tag != blank
+    assign product_tags = product.tags | join: '||' | downcase | split: '||'
+    if product_tags contains gate_tag
+      echo 'true'
+    endif
+  endif
+-%}

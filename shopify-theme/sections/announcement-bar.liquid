@@ -1,9 +1,13 @@
+{%- comment -%} [threshold] in either text field prints the free delivery amount from
+    Brand settings, so the strip can never advertise a number the cart does not
+    enforce. {%- endcomment -%}
+{%- capture fd_amount -%}{%- render 'free-delivery-amount' -%}{%- endcapture -%}
 <div style="width:100%; background:#3f6b4f; color:#ffffff;">
   <div class="annc-row" style="max-width:1440px; margin:0 auto; padding:5px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 40px; font-size:12.5px; font-weight:400; letter-spacing:.06em;">
     <div style="display:flex; align-items:center; gap:12px; justify-content:flex-start;">
-      <span>{{ section.settings.left_text }}</span>
+      <span>{{ section.settings.left_text | replace: '[threshold]', fd_amount }}</span>
     </div>
-    <div class="annc-hide" style="text-align:center;">{{ section.settings.center_text }}</div>
+    <div class="annc-hide" style="text-align:center;">{{ section.settings.center_text | replace: '[threshold]', fd_amount }}</div>
     <div style="text-align:right;">CALL US: <a href="tel:{{ settings.phone | remove: ' ' }}" style="color:#ffffff; text-decoration:underline; text-underline-offset:3px;">{{ settings.phone }}</a></div>
   </div>
 </div>
@@ -13,7 +17,7 @@
   "name": "Announcement bar",
   "settings": [
     { "type": "text", "id": "left_text", "label": "Left text", "default": "IRELAND (EUR €)" },
-    { "type": "text", "id": "center_text", "label": "Center text", "default": "FREE DELIVERY OVER €65" }
+    { "type": "text", "id": "center_text", "label": "Center text", "info": "Write [threshold] to print the free delivery amount from Brand settings.", "default": "FREE DELIVERY OVER [threshold]" }
   ],
   "presets": [{ "name": "Announcement bar" }]
 }

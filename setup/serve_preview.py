@@ -8,7 +8,7 @@ Shopify paths (/collections/<handle>) with no matching file on disk.
   python3 setup/serve_preview.py [port]        # default 8734
   npm run dev                                   # same thing
 """
-import os, posixpath, sys, urllib.parse
+import json, os, posixpath, re, sys, threading, urllib.parse
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,9 +22,27 @@ def first_existing(*rels):
     return None
 
 
+def slug(text):
+    out = "".join(c if c.isalnum() else "-" for c in text.lower())
+    return "-".join(x for x in out.split("-") if x)
+
+
 def route(path):
     """Shopify URL -> preview file. None falls through to the filesystem."""
     p = urllib.parse.unquote(path.split("?")[0].split("#")[0]).rstrip("/") or "/"
+    query = urllib.parse.parse_qs(path.split("?")[1]) if "?" in path else {}
+
+    # AJAX endpoints. On a real store Shopify renders a section per request;
+    # here render_preview.mjs --endpoints pre-rendered the responses for the
+    # mock catalogue, so predictive search and cart cross-sell actually work
+    # in the preview instead of silently doing nothing.
+    if p == "/search/suggest":
+        term = (query.get("q") or [""])[0].strip()
+        return first_existing(f"preview/_suggest/{slug(term)}.html",
+                              "preview/_suggest/_none.html")
+    if p == "/recommendations/products":
+        pid = (query.get("product_id") or [""])[0].strip()
+        return first_existing(f"preview/_recs/{slug(pid)}.html")
 
     # /index.html would otherwise hit the project's root redirect file, which
     # bounces to the ORIGINAL DESIGN homepage — not what we want to serve.
@@ -64,6 +82,90 @@ def route(path):
     return None
 
 
+# ---------------------------------------------------------------------------
+# Cart AJAX API.
+#
+# SimpleHTTPRequestHandler answers GET only, so /cart/add.js returned 501 and
+# every add-to-cart in the preview failed silently — which also meant the cart
+# drawer never opened and the cross-sell rail never loaded. This is a minimal
+# in-memory stand-in for Shopify's /cart/*.js endpoints: enough to exercise the
+# theme's own JavaScript, not a cart implementation.
+#
+# State is process-global and shared by every visitor, which is fine for a local
+# preview and would be wrong for anything else.
+CART_LOCK = threading.Lock()
+CART = {"items": []}
+
+
+def line_for(variant_id):
+    """Line item fields the theme's drawer reads. Titles and prices come from
+    render_preview.mjs's mock catalogue, mirrored here by index."""
+    i = int(variant_id) - 40000000
+    titles = [
+        ("fab\u00dc Skin Hair Nails Glow 60 Capsules", "fab\u00dc", 1995, "prod-fabu-glow.jpg"),
+        ("Cetrine Allergy 10mg 30 Tablets", "Cetrine", 799, "prod-cetrine.jpg"),
+        ("Revive Active 30 Sachets", "Revive Active", 6499, "prod-revive.jpg"),
+        ("Optibac Every Day MAX 30 Capsules", "Optibac", 2799, "prod-optibac-max.jpg"),
+        ("Nurofen 200mg Ibuprofen 24 Tablets", "Nurofen", 649, "prod-nurofen.jpg"),
+        ("CeraVe Hydrating Cleanser 236ml", "CeraVe", 1350, "prod-cerave-cleanser.jpg"),
+        ("Sudocrem Antiseptic Healing Cream 125g", "Sudocrem", 799, "prod-sudocrem.jpg"),
+        ("Vitamin D3 1000IU 60 Capsules", "McCormack\u2019s", 999, "prod-vitd.jpg"),
+        ("Nurofen Plus 200mg/12.8mg 24 Tablets", "Nurofen", 1099, "prod-nurofen.jpg"),
+    ]
+    if not 0 <= i < len(titles):
+        return None
+    title, vendor, price, img = titles[i]
+    handle = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
+    return {
+        "id": int(variant_id), "variant_id": int(variant_id), "product_id": 30000000 + i,
+        "key": f"{variant_id}:0", "title": title, "product_title": title, "vendor": vendor,
+        "variant_title": None, "quantity": 0, "price": price, "final_price": price,
+        "original_price": price, "line_price": price, "final_line_price": price,
+        "original_line_price": price, "url": f"/products/{handle}",
+        "image": f"/shopify-theme/assets/{img}",
+    }
+
+
+def cart_json():
+    items = [dict(it) for it in CART["items"]]
+    for it in items:
+        it["line_price"] = it["price"] * it["quantity"]
+        it["final_line_price"] = it["line_price"]
+        it["original_line_price"] = it["line_price"]
+    total = sum(it["final_line_price"] for it in items)
+    return {
+        "token": "preview", "item_count": sum(it["quantity"] for it in items),
+        "items": items, "total_price": total, "original_total_price": total,
+        "items_subtotal_price": total, "total_discount": 0, "currency": "EUR",
+        "requires_shipping": True, "note": None, "attributes": {},
+    }
+
+
+def cart_add(variant_id, qty):
+    with CART_LOCK:
+        for it in CART["items"]:
+            if it["id"] == int(variant_id):
+                it["quantity"] += qty
+                return cart_json()
+        line = line_for(variant_id)
+        if line is None:
+            return None
+        line["quantity"] = qty
+        CART["items"].append(line)
+        return cart_json()
+
+
+def cart_change(line_no, quantity):
+    with CART_LOCK:
+        idx = int(line_no) - 1
+        if 0 <= idx < len(CART["items"]):
+            if quantity <= 0:
+                CART["items"].pop(idx)
+            else:
+                CART["items"][idx]["quantity"] = quantity
+        return cart_json()
+
+
 class Handler(SimpleHTTPRequestHandler):
     def translate_path(self, path):
         mapped = route(path)
@@ -76,7 +178,40 @@ class Handler(SimpleHTTPRequestHandler):
                 return idx
         return full
 
+    def _json(self, payload, code=200):
+        body = json.dumps(payload).encode("utf-8")
+        self.send_response(code)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def do_POST(self):
+        p = urllib.parse.unquote(self.path.split("?")[0]).rstrip("/")
+        if not p.endswith(".js") or not p.startswith("/cart"):
+            self.send_error(501, "Unsupported method ('POST')")
+            return
+        length = int(self.headers.get("Content-Length") or 0)
+        try:
+            data = json.loads(self.rfile.read(length) or b"{}")
+        except ValueError:
+            data = {}
+        if p == "/cart/add.js":
+            cart = cart_add(data.get("id"), int(data.get("quantity") or 1))
+            if cart is None:
+                self._json({"description": "Unknown variant in the preview catalogue"}, 422)
+                return
+            self._json(cart)
+        elif p == "/cart/change.js":
+            self._json(cart_change(data.get("line"), int(data.get("quantity") or 0)))
+        else:
+            self.send_error(404)
+
     def send_head(self):
+        if urllib.parse.unquote(self.path.split("?")[0]).rstrip("/") == "/cart.js":
+            self._json(cart_json())
+            return None
+
         # Unknown store-ish path -> the theme's own 404 page, like a real store.
         p = urllib.parse.unquote(self.path.split("?")[0])
         if not os.path.exists(self.translate_path(self.path)) and not p.startswith("/preview/"):

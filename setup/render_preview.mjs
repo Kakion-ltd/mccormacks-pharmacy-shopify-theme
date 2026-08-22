@@ -221,6 +221,10 @@ const CATALOGUE = [
   { t: 'CeraVe Hydrating Cleanser 236ml', v: 'CeraVe', img: 'prod-cerave-cleanser.jpg', p: 1350, was: null, ty: 'Skincare' },
   { t: 'Sudocrem Antiseptic Healing Cream 125g', v: 'Sudocrem', img: 'prod-sudocrem.jpg', p: 799, was: 899, ty: 'Baby' },
   { t: 'Vitamin D3 1000IU 60 Capsules', v: 'McCormack’s', img: 'prod-vitd.jpg', p: 999, was: null, ty: 'Vitamins' },
+  // Fixture for the pharmacy gate. A codeine-containing analgesic is pharmacist-only
+  // in Ireland, so it is the honest example of a product that must never be
+  // one-click added from a grid, a search suggestion or a recommendation.
+  { t: 'Nurofen Plus 200mg/12.8mg 24 Tablets', v: 'Nurofen', img: 'prod-nurofen.jpg', p: 1099, was: null, ty: 'Pain Relief', tg: ['pharmacist-only'] },
 ];
 
 const handleOf = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -237,7 +241,7 @@ const products = CATALOGUE.map((c, i) => ({
   media: [{ media_type: 'image', preview_image: mockImage(c.img, 700, 700), id: i, alt: c.t }],
   variants: [mockVariant(i)], first_available_variant: mockVariant(i),
   selected_or_first_available_variant: mockVariant(i), has_only_default_variant: true,
-  options_with_values: [], tags: [], selling_plan_groups: [],
+  options_with_values: [], tags: c.tg || [], selling_plan_groups: [],
   description: '<p>Product description.</p>',
   content: '<p>Product description.</p>', collections: [],
   metafields: { reviews: {}, custom: {} },
@@ -284,7 +288,8 @@ const globals = {
       key: `a:${n}`, title: CATALOGUE[i].t, quantity: 1, final_price: CATALOGUE[i].p,
       final_line_price: CATALOGUE[i].p, original_price: CATALOGUE[i].was, line_price: CATALOGUE[i].p,
       price: CATALOGUE[i].p, image: mockImage(CATALOGUE[i].img, 700, 700), url: products[i].url,
-      product: products[i], variant: mockVariant(i), variant_id: 40000000 + i, product_title: CATALOGUE[i].t,
+      product: products[i], variant: mockVariant(i), variant_id: 40000000 + i,
+      product_id: 30000000 + i, product_title: CATALOGUE[i].t,
       vendor: CATALOGUE[i].v, variant_title: null, sku: `SKU-${i}`, options_with_values: [],
     })),
     empty: false, note: '', attributes: {}, currency: { iso_code: 'EUR', symbol: '€' },
@@ -297,6 +302,7 @@ const globals = {
   product: products[0],
   products: new Proxy({}, { get: (_, k) => (typeof k === 'string' ? products[0] : undefined) }),
   recommendations: { performed: true, products_count: 4, products: products.slice(0, 4) },
+  predictive_search: { performed: false, terms: '', resources: { products: [], collections: [], queries: [], pages: [], articles: [] } },
   blog: { title: 'Health Hub', handle: 'health-hub', url: '/blogs/health-hub', articles, articles_count: 4, all_tags: ['Advice'], tags: [] },
   article: articles[0],
   articles, search: { performed: true, terms: 'vitamins', results: products, results_count: products.length, results_url: '/search' },
@@ -313,6 +319,7 @@ const globals = {
     account_url: '/account', account_login_url: '/account/login', account_logout_url: '/account/logout',
     account_register_url: '/account/register', account_addresses_url: '/account/addresses',
     account_recover_url: '/account/recover', predictive_search_url: '/search/suggest',
+    product_recommendations_url: '/recommendations/products',
   },
   content_for_header: '<!-- content_for_header -->',
   content_for_additional_checkout_buttons:
@@ -334,6 +341,12 @@ engine.options.globals = globals;
 const schemaJson = JSON.parse(readFileSync(join(THEME, 'config/settings_schema.json'), 'utf8'));
 for (const group of schemaJson) {
   for (const s of group.settings || []) if (s.id) globals.settings[s.id] = s.default ?? '';
+}
+// Saved settings win over schema defaults, as they do on a real store — otherwise
+// the preview shows defaults the merchant has already changed.
+if (existsSync(join(THEME, 'config/settings_data.json'))) {
+  const saved = JSON.parse(readFileSync(join(THEME, 'config/settings_data.json'), 'utf8'));
+  Object.assign(globals.settings, saved.current || {});
 }
 
 /* ---------- section rendering ---------- */
@@ -431,6 +444,64 @@ for (const name of [...templateNames, ...customerNames]) {
 }
 console.log(`${ok}/${ok + fail} templates render clean`);
 failures.forEach((f) => console.log('  FAIL ' + f));
+
+/* ---------- AJAX endpoints ----------
+   Predictive search and cart recommendations are live-store endpoints: Shopify
+   renders a section for each request. Pre-rendering their output for the mock
+   catalogue lets serve_preview.py answer those requests locally, so the panel,
+   the debounce, the keyboard handling and the restricted-product filtering can
+   be exercised for real instead of only on a dev store. */
+if (process.argv.includes('--endpoints')) {
+  const slug = (t) => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const matches = (p, q) => [p.title, p.vendor, p.type].join(' ').toLowerCase().includes(q);
+
+  const suggestDir = join(outDir, '_suggest');
+  mkdirSync(suggestDir, { recursive: true });
+  // Terms chosen to cover: a plain hit, a vendor hit, a hit whose top result is
+  // the restricted fixture, and a term with no matches at all.
+  const TERMS = ['vit', 'vitamin', 'nurofen', 'cerave', 'skin', 'revive', 'baby', 'sudocrem', 'pain', 'allergy'];
+  let sok = 0;
+  for (const term of TERMS) {
+    const q = term.toLowerCase();
+    const hits = products.filter((p) => matches(p, q)).slice(0, 6);
+    const colls = collectionsList.filter((c) => c.title.toLowerCase().includes(q)).slice(0, 3)
+      .map((c) => ({ title: c.title, handle: c.handle, url: `/collections/${c.handle}` }));
+    const html = await renderSection('predictive-search', {}, {}, {
+      predictive_search: {
+        performed: true, terms: term,
+        resources: {
+          products: hits, collections: colls, pages: [], articles: [],
+          queries: hits.slice(0, 2).map((p) => ({
+            text: p.title, styled_text: p.title.replace(new RegExp(`(${term})`, 'i'), '<b>$1</b>'),
+            url: `/search?q=${encodeURIComponent(p.title)}`,
+          })),
+        },
+      },
+    });
+    writeFileSync(join(suggestDir, `${slug(term)}.html`), html);
+    sok++;
+  }
+  // Fallback for any term the mock catalogue does not cover.
+  writeFileSync(join(suggestDir, '_none.html'), await renderSection('predictive-search', {}, {}, {
+    predictive_search: { performed: true, terms: 'zzz', resources: { products: [], collections: [], queries: [], pages: [], articles: [] } },
+  }));
+
+  const recsDir = join(outDir, '_recs');
+  mkdirSync(recsDir, { recursive: true });
+  let rok = 0;
+  for (const anchorProduct of products) {
+    const html = await renderSection('cart-recommendations', {}, {}, {
+      recommendations: {
+        performed: true,
+        products: products.filter((p) => p.id !== anchorProduct.id),
+        products_count: products.length - 1,
+      },
+    });
+    writeFileSync(join(recsDir, `${anchorProduct.id}.html`), html);
+    rok++;
+  }
+  console.log(`${sok} predictive-search responses + ${rok} recommendation responses rendered`);
+}
 
 if (process.argv.includes('--categories')) {
   const catDir = join(outDir, 'categories');

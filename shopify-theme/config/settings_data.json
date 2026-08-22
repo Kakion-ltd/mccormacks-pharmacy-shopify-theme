@@ -5,6 +5,7 @@
     "color_dark": "#3F6B4F",
     "color_accent": "#92C83F",
     "phone": "052 6199329",
-    "free_shipping_threshold": "65"
+    "free_shipping_threshold": 65,
+    "restricted_tag": "pharmacist-only"
   }
 }

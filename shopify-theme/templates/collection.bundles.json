@@ -21,7 +21,7 @@
           "type": "faq",
           "settings": {
             "question": "Do bundles work with other discount codes?",
-            "answer": "Bundles are already discounted, so they cannot be combined with other promotional codes. They do count towards the €65 free delivery threshold."
+            "answer": "Bundles are already discounted, so they cannot be combined with other promotional codes. They do count towards the [threshold] free delivery threshold."
           }
         },
         "faq4": {

@@ -15,6 +15,14 @@
 {%- capture cat_level -%}{%- render 'category-level', collection: collection -%}{%- endcapture -%}
 {%- assign cat_level = cat_level | strip -%}
 
+{%- comment -%} Banner copy, resolved once for all three hero variants below.
+    [threshold] prints the free delivery amount from Brand settings, so copy
+    written in the editor cannot drift from the number the cart and the bag
+    drawer actually enforce. {%- endcomment -%}
+{%- capture fd_amount -%}{%- render 'free-delivery-amount' -%}{%- endcapture -%}
+{%- capture banner_copy -%}{%- if section.settings.banner_text != blank -%}{{ section.settings.banner_text }}{%- else -%}{{ collection.description }}{%- endif -%}{%- endcapture -%}
+{%- assign banner_copy = banner_copy | replace: '[threshold]', fd_amount | strip -%}
+
 {%- liquid
   assign banner_heading = section.settings.banner_heading | default: collection.title
 
@@ -49,7 +57,7 @@
         {%- endif -%}
         <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#8f2c20; font-size:clamp(27px,3vw,40px); line-height:1.08; margin:0;">{{ banner_heading }}</h1>
         <div style="font-size:16.5px; line-height:1.65; color:#5c3a35; max-width:46ch;">
-          {%- if section.settings.banner_text != blank -%}{{ section.settings.banner_text }}{%- else -%}{{ collection.description }}{%- endif -%}
+          {{ banner_copy }}
         </div>
       </div>
       <div class="banner-img" style="position:relative; flex:1 1 320px; min-height:clamp(150px,17vw,252px); overflow:hidden; background-color:#e9ede3;">
@@ -61,10 +69,8 @@
         width the image used to take, rather than leaving a wide empty band. {%- endcomment -%}
     <div class="banner-text" style="border-radius:18px; background:#f4f5f2; padding:clamp(24px,3vw,40px) clamp(24px,3.4vw,48px); display:flex; flex-wrap:wrap; align-items:center; gap:clamp(10px,2.4vw,44px);">
       <h1 style="flex:1 1 300px; min-width:0; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,44px); line-height:1.05; letter-spacing:-.01em; margin:0;">{{ banner_heading }}</h1>
-      {%- capture leaf_copy -%}{%- if section.settings.banner_text != blank -%}{{ section.settings.banner_text }}{%- else -%}{{ collection.description }}{%- endif -%}{%- endcapture -%}
-      {%- assign leaf_copy = leaf_copy | strip -%}
-      {%- if leaf_copy != blank -%}
-        <div class="banner-copy" style="flex:1 1 380px; min-width:0; font-size:clamp(14.5px,1.15vw,16px); line-height:1.6; color:#3a3d39; max-width:62ch; border-left:3px solid #dfe4d7; padding-left:clamp(14px,1.6vw,22px);">{{ leaf_copy }}</div>
+      {%- if banner_copy != blank -%}
+        <div class="banner-copy" style="flex:1 1 380px; min-width:0; font-size:clamp(14.5px,1.15vw,16px); line-height:1.6; color:#3a3d39; max-width:62ch; border-left:3px solid #dfe4d7; padding-left:clamp(14px,1.6vw,22px);">{{ banner_copy }}</div>
       {%- endif -%}
     </div>
   {%- else -%}
@@ -72,7 +78,7 @@
       <div class="banner-body" style="flex:1 1 440px; padding:clamp(22px,2.6vw,38px) clamp(22px,3vw,44px); display:flex; flex-direction:column; justify-content:center;">
         <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,44px); line-height:1.05; letter-spacing:-.01em; margin:0 0 12px;">{{ banner_heading }}</h1>
         <div class="banner-copy" style="font-size:clamp(14.5px,1.15vw,16px); line-height:1.55; color:#3a3d39; max-width:560px;">
-          {%- if section.settings.banner_text != blank -%}{{ section.settings.banner_text }}{%- else -%}{{ collection.description }}{%- endif -%}
+          {{ banner_copy }}
         </div>
       </div>
       <div class="banner-img" style="position:relative; flex:1 1 360px; background-color:#e9ede3; min-height:clamp(150px,17vw,252px); overflow:hidden;">
@@ -207,6 +213,17 @@
             if product.available and product.variants.size == 1 and product.selling_plan_groups.size == 0
               assign quick_add = true
             endif
+            comment
+              A restricted product never gets a one-click add — the shopper is sent to
+              the product page instead. See snippets/product-restricted.liquid.
+            endcomment
+            capture restricted
+              render 'product-restricted', product: product
+            endcapture
+            assign restricted = restricted | strip
+            if restricted == 'true'
+              assign quick_add = false
+            endif
           -%}
           <div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;">
@@ -306,7 +323,7 @@
             <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#82C914" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transform:rotate({% if forloop.first %}180{% else %}0{% endif %}deg); transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div class="faq-content" id="faq-{{ section.id }}-{{ forloop.index }}" data-acc-content="faq-{{ section.id }}-{{ forloop.index }}" data-open="{{ faq_open }}">
-            <p style="margin:10px 0 0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">{{ block.settings.answer }}</p>
+            <p style="margin:10px 0 0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">{{ block.settings.answer | replace: '[threshold]', fd_amount }}</p>
           </div>
         </div>
       {%- endfor -%}

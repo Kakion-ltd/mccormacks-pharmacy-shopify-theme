@@ -15,7 +15,19 @@
       { "type": "color", "id": "color_dark", "label": "Dark green", "default": "#3F6B4F" },
       { "type": "color", "id": "color_accent", "label": "Accent green", "default": "#92C83F" },
       { "type": "text", "id": "phone", "label": "Customer service phone", "default": "052 6199329" },
-      { "type": "text", "id": "free_shipping_threshold", "label": "Free delivery threshold (EUR)", "default": "65" }
+      { "type": "number", "id": "free_shipping_threshold", "label": "Free delivery threshold (EUR)", "default": 65, "info": "Used by the cart, the bag drawer and every 'free delivery over' line on the site. Write [threshold] in the announcement bar or a collection FAQ answer to print this amount there too." }
+    ]
+  },
+  {
+    "name": "Pharmacy",
+    "settings": [
+      {
+        "type": "text",
+        "id": "restricted_tag",
+        "label": "Restricted product tag",
+        "default": "pharmacist-only",
+        "info": "Products carrying this tag cannot be added to the bag in one click from a listing, a search result or a recommendation — the button becomes a link to the product page. Matching ignores capitals. Clear this field to disable the check."
+      }
     ]
   }
 ]

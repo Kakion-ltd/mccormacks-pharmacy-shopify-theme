@@ -52,7 +52,7 @@ h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 
 .hov-slide:hover { color: var(--c-primary) !important; transform: translateX(4px); }
 .slide-cta:hover .cta-arrow { transform: translate(3px, -3px); }
 
-.hdr-search:focus-within { background: #ffffff !important; border-color: var(--c-accent) !important; box-shadow: 0 0 0 4px rgba(146, 200, 63, .15); }
+.hdr-search-form:focus-within { background: #ffffff !important; border-color: var(--c-accent) !important; box-shadow: 0 0 0 4px rgba(146, 200, 63, .15); }
 
 /* Mega menu open state (JS toggles data-open on the nav wrapper).
    The open wrapper is taken out of the nav's flex flow — as an in-flow flex item
@@ -230,3 +230,49 @@ body[data-cd-open] { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .cd-overlay, .cd-drawer { transition: none; }
 }
+
+/* ---- Predictive search (sections/predictive-search.liquid, driven by theme.js) ---- */
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+.ps-panel { position: absolute; z-index: 60; top: calc(100% + 8px); left: 0; right: 0; max-height: min(70vh, 520px); overflow-y: auto; overscroll-behavior: contain; background: #fff; border: 1px solid var(--c-border); border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .13); padding: 8px; }
+/* .ps-panel sets display:block above, which beats the UA sheet's [hidden]{display:none} */
+.ps-panel[hidden] { display: none !important; }
+
+.ps-list { list-style: none; margin: 0; padding: 0; }
+.ps-group-label { padding: 10px 10px 6px; font-size: 11.5px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--c-muted-2); }
+.ps-item { display: flex; align-items: center; gap: 12px; padding: 8px 10px; border-radius: 9px; color: var(--c-text); font-size: 14.5px; }
+.ps-item:hover, .ps-item:focus-visible, .ps-item.is-active { background: #f1f5ec; outline: none; }
+.ps-query { gap: 10px; color: var(--c-muted); font-size: 14px; }
+.ps-query svg { flex: 0 0 auto; color: var(--c-muted-2); }
+.ps-query b { color: var(--c-text); font-weight: 800; }
+
+.ps-thumb { flex: 0 0 44px; width: 44px; height: 44px; border-radius: 7px; border: 1px solid var(--c-border-2); background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.ps-thumb-img { max-width: 86%; max-height: 86%; width: auto; height: auto; object-fit: contain; display: block; }
+.ps-meta { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.ps-title { font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ps-price { font-weight: 800; font-size: 14px; color: var(--c-primary); font-variant-numeric: tabular-nums; }
+.ps-oos { font-weight: 700; font-size: 13px; color: var(--c-muted-2); }
+/* Restricted lines show why there is no price-and-add shortcut, not a bare price */
+.ps-flag { font-weight: 700; font-size: 12.5px; color: #8a6210; }
+.ps-collection { font-weight: 600; }
+.ps-empty { margin: 0; padding: 18px 12px; font-size: 14.5px; color: var(--c-muted); }
+.ps-all { display: block; margin-top: 6px; padding: 12px 10px; border-top: 1px solid var(--c-border); font-size: 14px; font-weight: 700; color: var(--c-dark); }
+.ps-all:hover { color: var(--c-primary); }
+
+/* ---- Cart cross-sell rail (sections/cart-recommendations.liquid) ---- */
+/* The mount is display:block once filled, so it needs the !important [hidden]
+   guard for the same reason .cd-empty does. */
+[data-crec-mount][hidden] { display: none !important; }
+.crec { padding: 20px 0 4px; }
+.cd-recs .crec { padding: 4px 20px 16px; border-top: 1px solid var(--c-border); margin-top: 4px; }
+.crec-head { font-family: var(--font-heading); font-weight: 800; font-size: 16px; color: var(--c-dark); margin: 0 0 12px; }
+.crec-track { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
+.crec-track::-webkit-scrollbar { display: none; }
+.crec-card { flex: 0 0 152px; display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--c-border); border-radius: 12px; padding: 12px; background: #fff; }
+.crec-thumb { height: 84px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.crec-img { max-width: 92%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+.crec-title { font-size: 13px; font-weight: 600; line-height: 1.35; color: var(--c-text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 35px; }
+.crec-title:hover { color: var(--c-primary); }
+.crec-price { font-weight: 800; font-size: 14.5px; color: var(--c-primary); font-variant-numeric: tabular-nums; }
+.crec-add { margin-top: auto; display: flex; align-items: center; justify-content: center; height: 36px; border: none; border-radius: 8px; background: var(--c-accent); color: #fff; font-family: inherit; font-weight: 700; font-size: 13.5px; cursor: pointer; }
+.crec-add-link { text-decoration: none; }

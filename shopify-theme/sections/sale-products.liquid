@@ -16,7 +16,12 @@
             <h3 style="font-weight:700; font-size:14px; margin:0 0 8px; min-height:42px;"><a href="{{ product.url }}" style="color:inherit;">{{ product.title }}</a></h3>
             <div style="display:flex; justify-content:center; margin-bottom:8px;">{% render 'product-rating', product: product, size: 14 %}</div>
             <div style="color:#82c914; font-weight:800; font-size:19px; margin-bottom:16px;">{{ product.price | money }}</div>
-            <button data-add-id="{{ product.selected_or_first_available_variant.id }}" class="hov-bg-green" style="margin-top:auto; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button>
+            {%- capture restricted -%}{%- render 'product-restricted', product: product -%}{%- endcapture -%}
+            {%- if product.available and product.has_only_default_variant and restricted != 'true' -%}
+              <button data-add-id="{{ product.selected_or_first_available_variant.id }}" class="hov-bg-green" style="margin-top:auto; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button>
+            {%- else -%}
+              <a href="{{ product.url }}" class="hov-bg-green" style="margin-top:auto; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:13px 16px; border-radius:8px;">View</a>
+            {%- endif -%}
           </div>
         {%- endfor -%}
       {%- else -%}

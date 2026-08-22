@@ -127,6 +127,38 @@
     }
   });
 
+  // ---- Cart cross-sell rail. Shopify renders sections/cart-recommendations.liquid
+  // for us, which is where restricted products and items already in the bag are
+  // filtered out — deliberately in Liquid, so no path through this file can
+  // reintroduce a line that must not be one-click added.
+  // Declared as a function so the drawer below can call it regardless of order.
+  function loadRecs(mount, productId, key) {
+    if (!mount) return;
+    if (!productId) { mount.hidden = true; mount.innerHTML = ''; delete mount.dataset.crecKey; return; }
+    // Refetch when the bag changes, not just when the anchor product does — a
+    // product just added must drop out of its own recommendation rail.
+    if (mount.dataset.crecKey === key) return;
+    mount.dataset.crecKey = key;
+    const base = (window.mccRoutes || {}).product_recommendations_url || '/recommendations/products';
+    const url = base + '?section_id=cart-recommendations&limit=8&intent=related'
+      + '&product_id=' + encodeURIComponent(productId);
+    fetch(url)
+      .then((r) => (r.ok ? r.text() : Promise.reject(new Error('recommendations failed'))))
+      .then((html) => {
+        const holder = document.createElement('div');
+        holder.innerHTML = html;
+        const rail = holder.querySelector('[data-crec]');
+        mount.innerHTML = rail ? rail.outerHTML : '';
+        mount.hidden = !rail;
+      })
+      .catch(() => { mount.hidden = true; mount.innerHTML = ''; });
+  }
+
+  // Cart page mount: anchor product is baked into the markup by Liquid.
+  document.querySelectorAll('[data-crec-mount][data-crec-product]').forEach((mount) => {
+    loadRecs(mount, mount.dataset.crecProduct, 'page:' + mount.dataset.crecProduct);
+  });
+
   // ---- Cart drawer. Rendered client-side from the Cart AJAX API so it is correct
   // after every add without a page load. Opens on a successful add, which is the
   // whole point: before this, add-to-cart had no route to checkout.
@@ -148,6 +180,7 @@
     const esc = (t) => String(t == null ? '' : t).replace(/[&<>"']/g,
       (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+    const recMount = $('[data-crec-mount]');
     let lastFocus = null;
     const open = () => {
       lastFocus = document.activeElement;
@@ -204,6 +237,11 @@
           '</div>' +
         '</div>';
       }).join('');
+
+      // Cross-sell follows the first line item, and refreshes whenever the bag changes.
+      loadRecs(recMount,
+        empty ? null : cart.items[0].product_id,
+        empty ? '' : cart.items[0].product_id + ':' + cart.item_count);
     };
 
     // Line quantity changes inside the drawer, including remove (quantity 0).
@@ -303,6 +341,112 @@
     catch { if (btn) btn.textContent = 'Unavailable'; }
     if (btn) setTimeout(() => { btn.disabled = false; btn.textContent = 'Add To Bag'; }, 1600);
   });
+
+  // ---- Predictive search. The header input queries Shopify's /search/suggest
+  // endpoint and drops the returned markup into the panel. We ask for a rendered
+  // SECTION rather than JSON so prices go through the money filter and the
+  // restricted-product rule stays in Liquid — see sections/predictive-search.liquid.
+  // Suggestions are links only; nothing here adds to the bag.
+  const psInput = document.querySelector('[data-ps-input]');
+  const psPanel = document.querySelector('[data-ps-panel]');
+  if (psInput && psPanel && (window.mccRoutes || {}).predictive_search_url) {
+    const psStatus = document.querySelector('[data-ps-status]');
+    const psUrl = window.mccRoutes.predictive_search_url;
+    const psCache = new Map();
+    let psTimer = null;
+    let psAbort = null;
+    // Escape and click-away are explicit dismissals. Without this flag, closing
+    // with Escape from inside the panel calls psInput.focus(), the focus handler
+    // refetches, and the panel a shopper just dismissed springs straight back.
+    let psDismissed = false;
+
+    const psItems = () => Array.from(psPanel.querySelectorAll('.ps-item, .ps-all'));
+
+    function psClose() {
+      psPanel.hidden = true;
+      psPanel.innerHTML = '';
+      psInput.setAttribute('aria-expanded', 'false');
+      if (psAbort) { psAbort.abort(); psAbort = null; }
+      clearTimeout(psTimer);
+    }
+
+    function psShow(html) {
+      psPanel.innerHTML = html;
+      const count = psPanel.querySelectorAll('.ps-item').length;
+      psPanel.hidden = count === 0 && !psPanel.querySelector('.ps-empty');
+      psInput.setAttribute('aria-expanded', String(!psPanel.hidden));
+      if (psStatus) {
+        psStatus.textContent = count > 0
+          ? count + (count === 1 ? ' suggestion' : ' suggestions') + ' available'
+          : 'No suggestions';
+      }
+    }
+
+    async function psFetch(term) {
+      if (psCache.has(term)) { psShow(psCache.get(term)); return; }
+      if (psAbort) psAbort.abort();
+      psAbort = new AbortController();
+      const url = psUrl
+        + '?q=' + encodeURIComponent(term)
+        + '&resources[type]=product,collection,query'
+        + '&resources[limit]=6'
+        + '&resources[options][unavailable_products]=last'
+        + '&section_id=predictive-search';
+      try {
+        const res = await fetch(url, { signal: psAbort.signal });
+        if (!res.ok) throw new Error('suggest failed');
+        const html = await res.text();
+        psCache.set(term, html);
+        psShow(html);
+      } catch (err) {
+        // AbortError just means a newer keystroke won; anything else leaves the
+        // panel closed so the form still submits as a normal search.
+        if (err.name !== 'AbortError') psClose();
+      }
+    }
+
+    psInput.addEventListener('input', () => {
+      const term = psInput.value.trim();
+      psDismissed = false;
+      clearTimeout(psTimer);
+      if (term.length < 2) { psClose(); return; }
+      psTimer = setTimeout(() => psFetch(term), 220);
+    });
+
+    psInput.addEventListener('focus', () => {
+      const term = psInput.value.trim();
+      if (!psDismissed && term.length >= 2 && psPanel.hidden) psFetch(term);
+    });
+
+    // Arrow keys walk the suggestions, Escape returns to the input.
+    psInput.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { psDismissed = true; psClose(); return; }
+      if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+      const items = psItems();
+      if (!items.length) return;
+      e.preventDefault();
+      (e.key === 'ArrowDown' ? items[0] : items[items.length - 1]).focus();
+    });
+
+    psPanel.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { psDismissed = true; psClose(); psInput.focus(); return; }
+      if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+      const items = psItems();
+      const i = items.indexOf(document.activeElement);
+      if (i === -1) return;
+      e.preventDefault();
+      const next = e.key === 'ArrowDown' ? i + 1 : i - 1;
+      if (next < 0) psInput.focus();
+      else if (next < items.length) items[next].focus();
+    });
+
+    document.addEventListener('click', e => {
+      if (!psPanel.hidden && !psPanel.contains(e.target) && e.target !== psInput) { psDismissed = true; psClose(); }
+    });
+    document.addEventListener('focusin', e => {
+      if (!psPanel.hidden && !psPanel.contains(e.target) && e.target !== psInput) { psDismissed = true; psClose(); }
+    });
+  }
 
   // ---- Generic tab views: [data-view-btn=key] shows [data-view=key], hides siblings
   on(document, 'click', '[data-view-btn]', (e, btn) => {

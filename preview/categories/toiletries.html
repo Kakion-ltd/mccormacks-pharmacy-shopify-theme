@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/shopify-theme/assets/base.css"><script>window.mccRoutes = { cart_url: "/cart", cart_add_url: "/cart/add", cart_change_url: "/cart/change" };</script>
+  <link rel="stylesheet" href="/shopify-theme/assets/base.css"><script>window.mccRoutes = { cart_url: "/cart", cart_add_url: "/cart/add", cart_change_url: "/cart/change", predictive_search_url: "/search/suggest", product_recommendations_url: "/recommendations/products" };</script>
   <script src="/shopify-theme/assets/theme.js" defer></script>
   <!-- content_for_header -->
 </head>
@@ -31,12 +31,20 @@
     </div>
     <a href="/" class="hdr-logo" style="display:block; flex:0 0 auto;">
       <img src="/shopify-theme/assets/mccormacks-logo.png" alt="McCormack's Pharmacy" width="185" height="59" style="width:185px; max-width:100%; height:auto; display:block;">
-    </a>
-    <form class="hdr-search" action="/search" method="get" style="flex:0 1 550px; min-width:200px; order:0; margin:0 auto; display:flex; align-items:stretch; background:#f4f5f2; border:1.5px solid transparent; border-radius:12px; overflow:hidden; padding:0 0 0 16px; transition:border-color .18s, box-shadow .18s, background .18s;">
-      <input type="text" name="q" value="vitamins" placeholder="Search for products, brands and more…" style="flex:1; border:none; outline:none; font-family:inherit; font-size:14.5px; color:#2A2B2A; background:transparent; padding:9px 0;">
+    </a><div class="hdr-search" style="flex:0 1 550px; min-width:200px; order:0; margin:0 auto; position:relative;">
+      <form class="hdr-search-form" action="/search" method="get" role="search" style="display:flex; align-items:stretch; background:#f4f5f2; border:1.5px solid transparent; border-radius:12px; overflow:hidden; padding:0 0 0 16px; transition:border-color .18s, box-shadow .18s, background .18s;">
+      <input type="text" name="q" value="vitamins" placeholder="Search for products, brands and more…"
+             data-ps-input autocomplete="off" role="combobox" aria-expanded="false"
+             aria-controls="predictive-search-results" aria-autocomplete="list"
+             aria-label="Search for products, brands and more"
+             style="flex:1; border:none; outline:none; font-family:inherit; font-size:14.5px; color:#2A2B2A; background:transparent; padding:9px 0;">
       <input type="hidden" name="options[prefix]" value="last">
       <button type="submit" aria-label="Search" class="hov-bg-green" style="flex:0 0 auto; width:46px; border:none; border-radius:9px 0 0 9px; background:#92C83F; color:#ffffff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .15s;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></button>
-    </form>
+      </form>
+      <div class="ps-panel" id="predictive-search-results" data-ps-panel role="listbox"
+           aria-label="Search suggestions" tabindex="-1" hidden></div>
+      <span class="visually-hidden" data-ps-status role="status" aria-live="polite"></span>
+    </div>
     <nav class="hdr-icons" style="flex:0 0 auto; display:flex; align-items:center; gap:26px; color:#2A2B2A;">
       <a href="/pages/wishlist" class="hide-mobile hov-green" style="color:#2A2B2A; display:flex; align-items:center; gap:7px; font-weight:600; font-size:13.5px;">
         <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>
@@ -585,7 +593,7 @@
     <div class="cd-bar"><div data-cd-bar></div></div>
   </div>
 
-  <div class="cd-items" data-cd-items></div>
+  <div class="cd-items" data-cd-items></div><div class="cd-recs" data-crec-mount hidden></div>
 
   <div class="cd-empty" data-cd-empty hidden>
     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#92C83F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
@@ -614,7 +622,9 @@
   <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;"><a href="/" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Toiletries</span></nav><div class="banner-flex" style="display:flex; flex-wrap:wrap; border-radius:18px; overflow:hidden; background:#f4f5f2; min-height:clamp(180px,19vw,252px);">
       <div class="banner-body" style="flex:1 1 440px; padding:clamp(22px,2.6vw,38px) clamp(22px,3vw,44px); display:flex; flex-direction:column; justify-content:center;">
         <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,44px); line-height:1.05; letter-spacing:-.01em; margin:0 0 12px;">Toiletries</h1>
-        <div class="banner-copy" style="font-size:clamp(14.5px,1.15vw,16px); line-height:1.55; color:#3a3d39; max-width:560px;"><p>Everyday essentials for the whole family — hair care, dental, deodorant, bath &amp; shower and travel minis, always in stock at pharmacy prices.</p></div>
+        <div class="banner-copy" style="font-size:clamp(14.5px,1.15vw,16px); line-height:1.55; color:#3a3d39; max-width:560px;">
+          <p>Everyday essentials for the whole family — hair care, dental, deodorant, bath &amp; shower and travel minis, always in stock at pharmacy prices.</p>
+        </div>
       </div>
       <div class="banner-img" style="position:relative; flex:1 1 360px; background-color:#e9ede3; min-height:clamp(150px,17vw,252px); overflow:hidden;">
 <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; padding:16px; background:#eef1ea; background-image:repeating-linear-gradient(135deg, rgba(63,107,79,.05) 0 10px, transparent 10px 20px); border:2px dashed #bcc7b2; border-radius:inherit; color:#5a6153;" role="img" aria-label="Category banner placeholder — upload 1300 by 600 pixels">
@@ -649,7 +659,7 @@
       <span style="font-weight:700; font-size:15px; color:#2A2B2A;">Sort by:</span>
       <select data-sort-select aria-label="Sort by" style="border:none; background:transparent; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#82C914; cursor:pointer;"><option value="best-selling" selected>Best selling</option><option value="price-ascending" >Price, low to high</option></select>
     </div>
-    <span class="prod-count" style="margin-left:auto; font-size:14px; color:#8b9182;">8 products</span>
+    <span class="prod-count" style="margin-left:auto; font-size:14px; color:#8b9182;">9 products</span>
     <button class="refine-mobile" data-filter-toggle aria-controls="filters-sec-main-collection" aria-expanded="false" style="display:none; align-items:center; justify-content:space-between; gap:9px; width:100%; background:transparent; border:1.5px solid #82C914; border-radius:9px; padding:14px 18px; cursor:pointer; font-family:inherit; font-weight:700; font-size:16px; color:#2A2B2A;">
       Refine By
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#82C914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"></line><circle cx="9" cy="7" r="2.4" fill="#fff"></circle><line x1="4" y1="17" x2="20" y2="17"></line><circle cx="15" cy="17" r="2.4" fill="#fff"></circle></svg>
@@ -736,7 +746,13 @@
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/vitamin-d3-1000iu-60-capsules" class="hov-green" style="color:#2A2B2A;">Vitamin D3 1000IU 60 Capsules</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:#82C914; font-weight:800; font-size:20px;">€9.99</span></div><button data-add-id="40000007" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div></div>
+              <span style="color:#82C914; font-weight:800; font-size:20px;">€9.99</span></div><button data-add-id="40000007" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+            <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-nurofen.jpg?width=600&height=600" alt="" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a><a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease;">View Product</a></div>
+            <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">Nurofen</div>
+            <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" class="hov-green" style="color:#2A2B2A;">Nurofen Plus 200mg/12.8mg 24 Tablets</a></h3>
+            <div style="margin-bottom:14px; min-height:18px;"></div>
+            <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
+              <span style="color:#82C914; font-weight:800; font-size:20px;">€10.99</span></div><a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px;">View Product</a></div></div>
 
       <!-- Pagination --></div>
   </div>

@@ -73,6 +73,17 @@
               if product.available and product.variants.size == 1 and product.selling_plan_groups.size == 0
                 assign quick_add = true
               endif
+              comment
+                A restricted product never gets a one-click add — the shopper is sent to
+                the product page instead. See snippets/product-restricted.liquid.
+              endcomment
+              capture restricted
+                render 'product-restricted', product: product
+              endcapture
+              assign restricted = restricted | strip
+            if restricted == 'true'
+                assign quick_add = false
+              endif
             -%}
             <div class="srch-card" style="display:flex; flex-direction:column; border:1px solid #e6e7e4; border-radius:14px; overflow:hidden; background:#ffffff; transition:box-shadow .18s;">
               <a href="{{ product.url }}" style="display:block; position:relative; padding:18px; background:#ffffff;">

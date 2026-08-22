@@ -1,0 +1,13 @@
+{%- comment -%}
+  The free delivery threshold, formatted, from the one setting that defines it.
+
+  Every "free delivery over X" line on the site renders this, so the number can
+  only ever be changed in one place: Brand > Free delivery threshold. The cart
+  page and the bag drawer compute their progress bars from the same setting.
+
+  at_least: 1 guards the cart page, which divides by the threshold to size its
+  progress bar — a merchant typing 0 would otherwise divide by zero.
+
+  Usage: {% render 'free-delivery-amount' %}
+{%- endcomment -%}
+{{- settings.free_shipping_threshold | at_least: 1 | times: 100 | money_without_trailing_zeros -}}
