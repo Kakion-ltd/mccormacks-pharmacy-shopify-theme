@@ -11,9 +11,22 @@
     <meta name="description" content="{{ page_description | escape }}">
   {%- endif -%}
   <link rel="canonical" href="{{ canonical_url }}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  {%- comment -%} Mulish, self-hosted. Replaces three render-blocking requests to a
+      third party (two preconnects plus the stylesheet, which itself then fetched the
+      font). One variable woff2, latin subset, covering every weight 400-900 — Google
+      serves the same file for each static weight anyway, so this costs nothing extra
+      and cannot go stale. Preloaded because @font-face inside a stylesheet is only
+      discovered after that stylesheet parses. {%- endcomment -%}
+  {{ 'mulish-variable.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+  <style>
+    @font-face {
+      font-family: 'Mulish';
+      font-style: normal;
+      font-weight: 400 900;
+      font-display: swap;
+      src: url({{ 'mulish-variable.woff2' | asset_url }}) format('woff2');
+    }
+  </style>
   {{ 'base.css' | asset_url | stylesheet_tag }}
   {%- comment -%} theme.js is a static asset and can't read Liquid — hand it the cart routes so they survive a locale/market path prefix {%- endcomment -%}
   <script>window.mccRoutes = { cart_url: {{ routes.cart_url | json }}, cart_add_url: {{ routes.cart_add_url | json }}, cart_change_url: {{ routes.cart_change_url | json }}, predictive_search_url: {{ routes.predictive_search_url | json }}, product_recommendations_url: {{ routes.product_recommendations_url | json }} };</script>

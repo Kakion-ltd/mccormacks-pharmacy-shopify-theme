@@ -5,7 +5,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gift card | {{ shop.name }}</title>
-  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet">
+  {%- comment -%} Mulish, self-hosted. Replaces three render-blocking requests to a
+      third party (two preconnects plus the stylesheet, which itself then fetched the
+      font). One variable woff2, latin subset, covering every weight 400-900 — Google
+      serves the same file for each static weight anyway, so this costs nothing extra
+      and cannot go stale. Preloaded because @font-face inside a stylesheet is only
+      discovered after that stylesheet parses. {%- endcomment -%}
+  {{ 'mulish-variable.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+  <style>
+    @font-face {
+      font-family: 'Mulish';
+      font-style: normal;
+      font-weight: 400 900;
+      font-display: swap;
+      src: url({{ 'mulish-variable.woff2' | asset_url }}) format('woff2');
+    }
+  </style>
   {{ 'base.css' | asset_url | stylesheet_tag }}
   {{ content_for_header }}
 </head>

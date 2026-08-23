@@ -34,6 +34,15 @@ engine.registerFilter('asset_url', (v) => `${ASSETS}/${v}`);
 engine.registerFilter('asset_img_url', (v) => `${ASSETS}/${v}`);
 engine.registerFilter('file_url', (v) => `${ASSETS}/${v}`);
 engine.registerFilter('img_url', (v) => imgSrc(v));
+// liquidjs hands named filter arguments over as [key, value] pairs, not as one
+// options object — Object.entries on them yields 0="as" 1="font".
+engine.registerFilter('preload_tag', (url, ...args) => {
+  const attrs = args
+    .filter((a) => Array.isArray(a) && a.length === 2)
+    .map(([k, v]) => ` ${k}="${attrEsc(v)}"`)
+    .join('');
+  return `<link rel="preload" href="${attrEsc(url)}"${attrs}>`;
+});
 engine.registerFilter('money', money);
 engine.registerFilter('money_with_currency', (v) => `${money(v)} EUR`);
 engine.registerFilter('money_without_trailing_zeros', (v) => `€${Math.round(v / 100)}`);
