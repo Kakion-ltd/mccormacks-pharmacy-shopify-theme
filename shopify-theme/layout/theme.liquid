@@ -42,5 +42,8 @@
   {%- comment -%} JSON-LD for the page type. Emitted in the body rather than the
       head so it cannot interfere with content_for_header. {%- endcomment -%}
   {% render 'structured-data' %}
+  {%- comment -%} Last in the DOM so it is one Tab from wherever the visitor is,
+      and cannot push page content around on load. {%- endcomment -%}
+  {% render 'consent-banner' %}
 </body>
 </html>

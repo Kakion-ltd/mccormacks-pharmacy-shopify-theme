@@ -66,6 +66,10 @@
   <div style="border-top:1px solid #e6e7e4;">
     <div class="ftr-bottom" style="max-width:1440px; margin:0 auto; padding:18px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px; font-size:13px; color:#8b9182;">
       <div class="ftr-copyright">Copyright © {{ 'now' | date: '%Y' }} {{ shop.name }}</div>
+      {%- comment -%} Permanent way back to the consent choice. Required: changing a
+          choice has to be as easy as making it, so this is a plain link in the
+          footer of every page, not buried in the policy text. {%- endcomment -%}
+      <button type="button" data-cc-reopen class="ftr-cookie-btn" style="border:none; background:transparent; padding:0; font-family:inherit; font-size:inherit; color:#8b9182; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">Cookie settings</button>
       <div class="ftr-payments" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
         <span style="font-size:12.5px; color:#8b9182; margin-right:2px;">We accept</span>
         {%- for type in shop.enabled_payment_types -%}

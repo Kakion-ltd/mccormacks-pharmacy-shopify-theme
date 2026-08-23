@@ -79,9 +79,69 @@ Three things worth checking specifically, because they are the usual failures:
 
 ---
 
-## 4. Consent (Phase 5, not yet built)
+## 4. Consent — set each pixel's Permission, or the banner does nothing
 
-Shopify's native cookie banner plus the Customer Privacy API. Until it is in
-place, both pixels above run unconditionally, which is not acceptable for an
-Irish store at launch. The banner must be live **before** launch traffic
-arrives — see the plan's Phase 5.
+The theme ships a consent banner (`snippets/consent-banner.liquid`) that drives
+Shopify's Customer Privacy API. **The banner does not block anything by itself.**
+What blocks a pixel is the Permission field on the pixel, which tells Shopify to
+withhold it until that consent is granted. A pixel set to "Not required" fires
+before the visitor has answered, banner or no banner.
+
+So, in **Settings → Customer events**, for every pixel:
+
+| Pixel | Permission |
+|---|---|
+| Meta Pixel (the custom pixel above) | **Marketing** |
+| Google (installed by the Google & YouTube channel) | **Analytics** — check it, do not assume |
+| Anything an app installs later | Whichever category it genuinely is |
+
+Then **turn OFF Shopify's own cookie banner** (Settings → Customer privacy →
+Cookie banner). Both it and the theme banner write the same consent state, so
+either works — but with both enabled the visitor sees two.
+
+Also set **Settings → Customer privacy → Region visibility** to include Ireland
+and the EEA, so `shouldShowBanner()` returns true for the visitors who need it.
+
+### Verifying in the browser that nothing fires before consent
+
+On the dev store, in a **fresh incognito window** each time — consent persists,
+so a second run in the same window proves nothing.
+
+1. Open DevTools → **Network**, tick **Preserve log**, filter on:
+   `connect.facebook.net|facebook.com/tr|google-analytics|googletagmanager|analytics.google`
+2. Load the storefront. The banner should appear.
+3. **Before touching it**, browse two or three pages, view a product, add to bag.
+   The filter must stay **empty**. One request here means a pixel's Permission
+   is wrong — the banner cannot save you.
+4. In the console, confirm no choice is recorded yet:
+   ```js
+   Shopify.customerPrivacy.currentVisitorConsent()
+   // { analytics: "", marketing: "", preferences: "", sale_of_data: "" }
+   ```
+5. Click **Reject all**. The filter must *still* be empty, and:
+   ```js
+   Shopify.customerPrivacy.currentVisitorConsent()
+   // { analytics: "no", marketing: "no", preferences: "no", sale_of_data: "no" }
+   ```
+6. New incognito window. Click **Accept all**. Requests should now appear for
+   both, and `analytics` / `marketing` should read `"yes"`.
+7. New incognito window. **Choose → Analytics only → Save**. Google requests
+   appear; **Meta requests must not**. This is the check that catches a pixel
+   with the wrong Permission, because accept-all hides that mistake.
+8. Click **Cookie settings** in the footer. The panel must reopen showing the
+   choice actually stored, and changing it must take effect.
+
+Step 7 is the one worth repeating after any app install, since apps add their
+own pixels and choose their own default permission.
+
+### What the local preview already covers
+
+`npm run verify` runs 40 assertions against the banner: nothing fires or is
+recorded before a choice, reject is styled identically to accept, no category is
+pre-ticked, the choice persists across pages, the footer link reopens it with
+stored state, `sale_of_data` is never granted, and an analytics-only grant
+releases the analytics pixel while withholding the marketing one.
+
+Those model Shopify's gating rather than observing it — the preview has no
+Shopify backend. They prove the theme asks for the right thing; steps 1–8 above
+prove Shopify honours it.

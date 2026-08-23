@@ -330,7 +330,11 @@ const globals = {
     account_recover_url: '/account/recover', predictive_search_url: '/search/suggest',
     product_recommendations_url: '/recommendations/products',
   },
-  content_for_header: '<!-- content_for_header -->',
+  // On a real store this is where window.Shopify comes from, so the consent
+  // shim belongs here rather than in the theme. See setup/preview_shopify_shim.js.
+  content_for_header: '<!-- content_for_header -->\n<script>'
+    + readFileSync(join(PROJECT, 'setup/preview_shopify_shim.js'), 'utf8')
+    + '</script>',
   content_for_additional_checkout_buttons:
     '<div data-mock-express style="height:48px;border-radius:10px;border:1.5px dashed #b9c2b3;' +
     'display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;' +

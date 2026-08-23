@@ -1,0 +1,92 @@
+{% comment %}
+  Cookie consent banner.
+
+  This does NOT set a cookie of its own. It drives Shopify's Customer Privacy
+  API, which is what actually gates the pixels under Settings > Customer events.
+  A banner that stores its own flag while Meta and GA4 keep firing is worse than
+  no banner: it documents an intent to comply that the site then breaks.
+
+  How the gating works end to end:
+
+    1. Each pixel in Settings > Customer events declares a Permission
+       (Analytics / Marketing / Preferences). Shopify withholds it until the
+       matching consent is granted.
+    2. This banner calls Shopify.customerPrivacy.setTrackingConsent() with the
+       visitor's choice.
+    3. Shopify releases exactly the pixels whose permission was granted, and
+       replays the events they missed.
+
+    So the theme never touches a pixel directly, and cannot leak one.
+
+  Irish ePrivacy, which is stricter than a "by continuing to browse" notice:
+
+    - Prior consent. Nothing non-essential fires before a choice. Shopify's
+      default is to withhold permission-gated pixels, so the correct behaviour
+      is what happens if this JavaScript never runs at all.
+    - Reject must be as easy as accept. "Reject all" and "Accept all" are the
+      same element, same size, same weight, side by side. No pre-ticked boxes
+      in the preferences panel, and no dismiss-by-scrolling.
+    - The choice must be changeable. The footer carries a permanent "Cookie
+      settings" link that reopens this, and re-consent is recorded the same way.
+
+  IMPORTANT — turn OFF Shopify's own banner (Settings > Customer privacy >
+  Cookie banner) or the visitor gets two. Both write the same consent state, so
+  either works; only one may be visible.
+
+  Rendered from layout/theme.liquid.
+{% endcomment %}
+
+<div class="cc-banner" data-cc-banner role="dialog" aria-modal="false"
+     aria-labelledby="cc-title" aria-describedby="cc-body" hidden>
+  <div class="cc-inner">
+    <div class="cc-copy">
+      <h2 class="cc-title" id="cc-title">{{ settings.consent_heading | default: 'Your privacy' }}</h2>
+      <p class="cc-body" id="cc-body">
+        {{ settings.consent_body | default: 'We use cookies to run the shop, understand how it is used, and show you relevant offers. You can accept everything, reject everything, or choose. Cookies needed to run the shop are always on.' }}
+        <a href="{{ settings.consent_policy_url | default: '/pages/cookie-policy' }}" class="cc-link">Read our cookie policy</a>
+      </p>
+    </div>
+
+    {%- comment -%} Neither button is styled as the preferred one. {%- endcomment -%}
+    <div class="cc-actions">
+      <button type="button" class="cc-btn" data-cc-accept>Accept all</button>
+      <button type="button" class="cc-btn" data-cc-reject>Reject all</button>
+      <button type="button" class="cc-btn cc-btn-quiet" data-cc-manage aria-expanded="false" aria-controls="cc-options">Choose</button>
+    </div>
+
+    <div class="cc-options" id="cc-options" data-cc-options hidden>
+      {%- comment -%} Every optional category ships unticked. {%- endcomment -%}
+      <ul class="cc-cats">
+        <li class="cc-cat">
+          <span class="cc-cat-text">
+            <strong>Strictly necessary</strong>
+            <span>Your bag, checkout, and keeping you signed in. These cannot be switched off.</span>
+          </span>
+          <span class="cc-always">Always on</span>
+        </li>
+        <li class="cc-cat">
+          <label class="cc-cat-text" for="cc-preferences">
+            <strong>Preferences</strong>
+            <span>Remembers choices like your nearest store, so you are not asked twice.</span>
+          </label>
+          <input type="checkbox" id="cc-preferences" data-cc-toggle="preferences" class="cc-switch">
+        </li>
+        <li class="cc-cat">
+          <label class="cc-cat-text" for="cc-analytics">
+            <strong>Analytics</strong>
+            <span>Counts visits and shows us which pages are not working, in aggregate.</span>
+          </label>
+          <input type="checkbox" id="cc-analytics" data-cc-toggle="analytics" class="cc-switch">
+        </li>
+        <li class="cc-cat">
+          <label class="cc-cat-text" for="cc-marketing">
+            <strong>Marketing</strong>
+            <span>Lets us measure our advertising and show you offers on other sites.</span>
+          </label>
+          <input type="checkbox" id="cc-marketing" data-cc-toggle="marketing" class="cc-switch">
+        </li>
+      </ul>
+      <button type="button" class="cc-btn" data-cc-save>Save my choices</button>
+    </div>
+  </div>
+</div>

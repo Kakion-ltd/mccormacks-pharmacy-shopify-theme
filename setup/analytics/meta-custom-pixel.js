@@ -4,9 +4,10 @@
    WHERE THIS GOES
      Shopify admin > Settings > Customer events > Add custom pixel.
      Name it "Meta Pixel". Paste this whole file. Set Permission to
-     "Not required" only if you are NOT relying on the pixel for consent —
-     otherwise leave it as "Analytics" so it respects the consent banner.
-     Save, then Connect.
+     "Marketing" — this is what makes Shopify withhold the pixel until the
+     consent banner records a marketing grant. "Not required" fires it before
+     the visitor has answered, which is the failure the banner exists to
+     prevent. Save, then Connect.
 
      Do NOT paste this into theme.liquid or Additional Scripts. Additional
      Scripts is being removed, and a pixel in the theme cannot see checkout

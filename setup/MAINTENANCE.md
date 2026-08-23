@@ -164,9 +164,42 @@ wants specific dates; the page carries a standing note instead.
   already present. The address field still contains them, which is fine for
   display.
 
-The hours currently in `templates/page.store-locator.json` are the original
-design data, reformatted without changing any time. They have **not** been
-confirmed with the client.
+**Every hour currently in `templates/page.store-locator.json` is a placeholder.**
+They are the original design data, reformatted without changing any time, and
+none of it has been confirmed with the client. The client's seven replace the
+lot — do not merge, do not keep any line as "probably right". Until then these
+are being published to Google as opening times, which is the one field on this
+page where being wrong sends a person to a locked door.
+
+The Belmullet **Business name (for Google)** is set to `Erris Pharmacy`, pending
+confirmation against the Google Business Profile. Newbridge and Carrick Road are
+also being checked; if their profiles carry the host-site name (the retail park,
+the medical centre) they need the override too.
+
+---
+
+## Consent — the banner is not what blocks the pixels
+
+`snippets/consent-banner.liquid` records a choice through Shopify's Customer
+Privacy API. **It does not block anything.** What blocks a pixel is the
+**Permission** field on that pixel in Settings → Customer events. A pixel set to
+"Not required" fires before the visitor has answered and the banner is then
+decoration — the exact failure the banner exists to prevent.
+
+Two rules:
+
+1. Every pixel added from now on — including ones apps install — needs its
+   Permission set to the category it genuinely belongs to.
+2. **Never** reimplement consent with a cookie, a `localStorage` flag, or a
+   `<script>` guard in the theme. Shopify replays the events a gated pixel
+   missed once consent arrives; a theme-side guard just drops them, and drops
+   them invisibly.
+
+Shopify's own cookie banner must stay **off**, or visitors see two.
+
+Re-verify after any app install: `setup/analytics/README.md` §4, step 7 — grant
+analytics only and confirm the marketing pixel stays silent. Accept-all hides a
+wrong Permission; a partial grant exposes it.
 
 ---
 

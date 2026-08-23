@@ -276,3 +276,38 @@ body[data-cd-open] { overflow: hidden; }
 .crec-price { font-weight: 800; font-size: 14.5px; color: var(--c-primary); font-variant-numeric: tabular-nums; }
 .crec-add { margin-top: auto; display: flex; align-items: center; justify-content: center; height: 36px; border: none; border-radius: 8px; background: var(--c-accent); color: #fff; font-family: inherit; font-weight: 700; font-size: 13.5px; cursor: pointer; }
 .crec-add-link { text-decoration: none; }
+
+/* ---- Cookie consent (snippets/consent-banner.liquid) ---- */
+/* .cc-banner sets display:block below, which beats the UA [hidden] rule. */
+.cc-banner[hidden], .cc-options[hidden] { display: none !important; }
+.cc-banner { position: fixed; z-index: 90; left: 0; right: 0; bottom: 0; display: block; background: #fff; border-top: 1px solid var(--c-border); box-shadow: 0 -8px 28px rgba(0, 0, 0, .12); }
+.cc-inner { max-width: 1120px; margin: 0 auto; padding: 20px 24px 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
+.cc-copy { flex: 1 1 420px; min-width: 0; }
+.cc-title { font-family: var(--font-heading); font-weight: 800; font-size: 17px; color: var(--c-dark); margin: 0 0 6px; }
+.cc-body { margin: 0; font-size: 14px; line-height: 1.6; color: var(--c-muted); max-width: 68ch; }
+.cc-link { color: var(--c-dark); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.cc-link:hover { color: var(--c-primary); }
+
+/* Accept and reject are deliberately identical — equal size, weight and colour.
+   Irish ePrivacy requires rejecting to be as easy as accepting, and a quieter
+   reject button is the usual way that requirement gets quietly broken. */
+.cc-actions { flex: 0 0 auto; display: flex; flex-wrap: wrap; gap: 10px; }
+.cc-btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border-radius: 9px; border: 1.5px solid var(--c-primary); background: var(--c-primary); color: #fff; font-family: inherit; font-weight: 700; font-size: 14.5px; cursor: pointer; }
+.cc-btn:hover { background: var(--c-primary-hover); border-color: var(--c-primary-hover); }
+.cc-btn-quiet { background: #fff; color: var(--c-dark); border-color: var(--c-border-2); }
+.cc-btn-quiet:hover { background: #f1f5ec; border-color: var(--c-accent); color: var(--c-dark); }
+
+.cc-options { flex: 1 1 100%; border-top: 1px solid var(--c-border); padding-top: 16px; }
+.cc-cats { list-style: none; margin: 0 0 16px; padding: 0; display: grid; gap: 4px; }
+.cc-cat { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 11px 0; border-bottom: 1px solid #f0f1ee; }
+.cc-cat-text { display: flex; flex-direction: column; gap: 2px; font-size: 14px; color: var(--c-muted); cursor: pointer; }
+.cc-cat-text strong { font-size: 14.5px; font-weight: 800; color: var(--c-text); }
+.cc-always { flex: 0 0 auto; font-size: 12.5px; font-weight: 700; color: var(--c-muted-2); }
+.cc-switch { flex: 0 0 auto; width: 20px; height: 20px; accent-color: var(--c-primary); cursor: pointer; }
+
+@media (max-width: 640px) {
+  .cc-inner { padding: 16px 18px 18px; gap: 14px; }
+  .cc-actions { width: 100%; }
+  .cc-actions .cc-btn { flex: 1 1 auto; }
+  .cc-banner { max-height: 85vh; overflow-y: auto; }
+}

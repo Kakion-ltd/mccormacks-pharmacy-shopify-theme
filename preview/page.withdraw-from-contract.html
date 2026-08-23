@@ -16,6 +16,110 @@
   <link rel="stylesheet" href="/shopify-theme/assets/base.css"><script>window.mccRoutes = { cart_url: "/cart", cart_add_url: "/cart/add", cart_change_url: "/cart/change", predictive_search_url: "/search/suggest", product_recommendations_url: "/recommendations/products" };</script>
   <script src="/shopify-theme/assets/theme.js" defer></script>
   <!-- content_for_header -->
+<script>/* PREVIEW ONLY — never shipped in the theme.
+ *
+ * render_preview.mjs injects this as content_for_header, which is where a real
+ * store gets window.Shopify from. It stands in for two things the local preview
+ * has no access to:
+ *
+ *   1. Shopify.loadFeatures + Shopify.customerPrivacy — the Customer Privacy
+ *      API the consent banner drives.
+ *   2. The permission-gated pixels under Settings > Customer events, modelled
+ *      as two fake pixels that refuse to fire until their category is granted.
+ *
+ * WHAT THIS DOES AND DOES NOT PROVE
+ *
+ *   It proves the theme's half: that the banner appears before any choice, that
+ *   nothing is recorded until the visitor acts, that reject sends the same shape
+ *   of call as accept, that the choice persists, and that it can be changed.
+ *
+ *   It cannot prove Shopify's half — that Shopify actually withholds a real
+ *   pixel. The gating here is modelled, not observed. That has to be checked on
+ *   a real store; the procedure is in setup/analytics/README.md.
+ */
+(function () {
+  var KEY = 'preview_consent';
+  var EMPTY = { analytics: '', marketing: '', preferences: '', sale_of_data: '' };
+
+  function read() {
+    try {
+      var raw = window.localStorage.getItem(KEY);
+      return raw ? JSON.parse(raw) : Object.assign({}, EMPTY);
+    } catch (e) {
+      return Object.assign({}, EMPTY);
+    }
+  }
+
+  function write(consent) {
+    try { window.localStorage.setItem(KEY, JSON.stringify(consent)); } catch (e) { /* private mode */ }
+  }
+
+  // Every attempt a "pixel" makes to fire is appended here, granted or not, so a
+  // test can assert on the whole history rather than on a final state.
+  window.__pixelLog = [];
+
+  var customerPrivacy = {
+    currentVisitorConsent: function () { return read(); },
+    shouldShowBanner: function () {
+      var c = read();
+      // A visitor who has answered — either way — is not asked again.
+      return c.analytics === '' && c.marketing === '' && c.preferences === '';
+    },
+    analyticsProcessingAllowed: function () { return read().analytics === 'yes'; },
+    marketingAllowed: function () { return read().marketing === 'yes'; },
+    preferencesProcessingAllowed: function () { return read().preferences === 'yes'; },
+    saleOfDataAllowed: function () { return read().sale_of_data === 'yes'; },
+    userCanBeTracked: function () { return read().analytics === 'yes' || read().marketing === 'yes'; },
+    setTrackingConsent: function (payload, callback) {
+      var next = {
+        analytics: payload.analytics ? 'yes' : 'no',
+        marketing: payload.marketing ? 'yes' : 'no',
+        preferences: payload.preferences ? 'yes' : 'no',
+        sale_of_data: payload.sale_of_data ? 'yes' : 'no',
+      };
+      write(next);
+      window.__consentCalls = (window.__consentCalls || []).concat([payload]);
+      document.dispatchEvent(new CustomEvent('visitorConsentCollected', { detail: next }));
+      releasePixels();
+      if (typeof callback === 'function') callback({ error: false });
+    },
+  };
+
+  // Stand-ins for the pixels configured in Settings > Customer events. Each
+  // declares the permission it needs, exactly as a real custom pixel does.
+  var PIXELS = [
+    { name: 'ga4', permission: 'analytics' },
+    { name: 'meta', permission: 'marketing' },
+  ];
+  var fired = {};
+
+  function releasePixels() {
+    var consent = read();
+    PIXELS.forEach(function (pixel) {
+      var granted = consent[pixel.permission] === 'yes';
+      window.__pixelLog.push({ pixel: pixel.name, granted: granted, at: 'release' });
+      if (granted && !fired[pixel.name]) {
+        fired[pixel.name] = true;
+        window.__pixelLog.push({ pixel: pixel.name, granted: true, at: 'fired' });
+      }
+    });
+  }
+
+  window.Shopify = window.Shopify || {};
+  window.Shopify.shop = 'mock.myshopify.com';
+  window.Shopify.loadFeatures = function (features, callback) {
+    // Async, like the real one, so anything that assumes synchronous
+    // availability of customerPrivacy fails here too rather than only in production.
+    window.setTimeout(function () {
+      window.Shopify.customerPrivacy = customerPrivacy;
+      callback(null);
+    }, 0);
+  };
+
+  // On load, pixels attempt to fire and are gated by whatever is already stored.
+  releasePixels();
+})();
+</script>
 </head>
 <body>
   <div style="width:100%; background:#3f6b4f; color:#ffffff;">
@@ -909,7 +1013,7 @@
 
   <div style="border-top:1px solid #e6e7e4;">
     <div class="ftr-bottom" style="max-width:1440px; margin:0 auto; padding:18px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px; font-size:13px; color:#8b9182;">
-      <div class="ftr-copyright">Copyright © 2026 McCormack's Pharmacy</div>
+      <div class="ftr-copyright">Copyright © 2026 McCormack's Pharmacy</div><button type="button" data-cc-reopen class="ftr-cookie-btn" style="border:none; background:transparent; padding:0; font-family:inherit; font-size:inherit; color:#8b9182; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">Cookie settings</button>
       <div class="ftr-payments" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
         <span style="font-size:12.5px; color:#8b9182; margin-right:2px;">We accept</span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span></div>
       <a href="/pages/terms-and-conditions" class="ftr-terms" style="display:none; color:#8b9182;">Terms &amp; Conditions</a>
@@ -936,6 +1040,57 @@
   </script>
 
 
+
+
+<div class="cc-banner" data-cc-banner role="dialog" aria-modal="false"
+     aria-labelledby="cc-title" aria-describedby="cc-body" hidden>
+  <div class="cc-inner">
+    <div class="cc-copy">
+      <h2 class="cc-title" id="cc-title">Your privacy</h2>
+      <p class="cc-body" id="cc-body">
+        We use cookies to run the shop, understand how it is used, and show you relevant offers. You can accept everything, reject everything, or choose. Cookies needed to run the shop are always on.
+        <a href="/pages/cookie-policy" class="cc-link">Read our cookie policy</a>
+      </p>
+    </div><div class="cc-actions">
+      <button type="button" class="cc-btn" data-cc-accept>Accept all</button>
+      <button type="button" class="cc-btn" data-cc-reject>Reject all</button>
+      <button type="button" class="cc-btn cc-btn-quiet" data-cc-manage aria-expanded="false" aria-controls="cc-options">Choose</button>
+    </div>
+
+    <div class="cc-options" id="cc-options" data-cc-options hidden><ul class="cc-cats">
+        <li class="cc-cat">
+          <span class="cc-cat-text">
+            <strong>Strictly necessary</strong>
+            <span>Your bag, checkout, and keeping you signed in. These cannot be switched off.</span>
+          </span>
+          <span class="cc-always">Always on</span>
+        </li>
+        <li class="cc-cat">
+          <label class="cc-cat-text" for="cc-preferences">
+            <strong>Preferences</strong>
+            <span>Remembers choices like your nearest store, so you are not asked twice.</span>
+          </label>
+          <input type="checkbox" id="cc-preferences" data-cc-toggle="preferences" class="cc-switch">
+        </li>
+        <li class="cc-cat">
+          <label class="cc-cat-text" for="cc-analytics">
+            <strong>Analytics</strong>
+            <span>Counts visits and shows us which pages are not working, in aggregate.</span>
+          </label>
+          <input type="checkbox" id="cc-analytics" data-cc-toggle="analytics" class="cc-switch">
+        </li>
+        <li class="cc-cat">
+          <label class="cc-cat-text" for="cc-marketing">
+            <strong>Marketing</strong>
+            <span>Lets us measure our advertising and show you offers on other sites.</span>
+          </label>
+          <input type="checkbox" id="cc-marketing" data-cc-toggle="marketing" class="cc-switch">
+        </li>
+      </ul>
+      <button type="button" class="cc-btn" data-cc-save>Save my choices</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

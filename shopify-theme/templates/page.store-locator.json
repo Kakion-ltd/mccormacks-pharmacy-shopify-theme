@@ -91,7 +91,8 @@
             "email": "mccormacksbelmullet@gmail.com",
             "hours": "Mon|09:00-18:00\nTue|09:00-18:00\nWed|09:00-18:00\nThu|09:00-18:00\nFri|09:00-18:00\nSat|09:30-15:30\nSun|closed",
             "services": "Blood pressure screening, Ask our pharmacist, Prescription collection",
-            "eircode": "F26 A8D2"
+            "eircode": "F26 A8D2",
+            "business_name": "Erris Pharmacy"
           }
         }
       },

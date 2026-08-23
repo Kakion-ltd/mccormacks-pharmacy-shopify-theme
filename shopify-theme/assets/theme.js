@@ -342,6 +342,110 @@
     if (btn) setTimeout(() => { btn.disabled = false; btn.textContent = 'Add To Bag'; }, 1600);
   });
 
+  // ---- Cookie consent. Drives Shopify's Customer Privacy API; stores nothing
+  // itself. See snippets/consent-banner.liquid for how the gating works and why
+  // it must not be reimplemented with a cookie.
+  const ccBanner = document.querySelector('[data-cc-banner]');
+  if (ccBanner) {
+    const ccOptions = ccBanner.querySelector('[data-cc-options]');
+    const ccManage = ccBanner.querySelector('[data-cc-manage]');
+    const ccToggles = () => Array.from(ccBanner.querySelectorAll('[data-cc-toggle]'));
+
+    const ccShow = () => {
+      ccBanner.hidden = false;
+      // Announce it without yanking focus off whatever the visitor is reading;
+      // the first control is one Tab away because the banner is last in the DOM.
+      ccBanner.setAttribute('tabindex', '-1');
+    };
+    const ccHide = () => {
+      ccBanner.hidden = true;
+      if (ccOptions) ccOptions.hidden = true;
+      if (ccManage) ccManage.setAttribute('aria-expanded', 'false');
+    };
+
+    // Reflect stored consent into the checkboxes when reopening from the footer.
+    const ccSync = (privacy) => {
+      let current = {};
+      try { current = privacy.currentVisitorConsent() || {}; } catch { current = {}; }
+      ccToggles().forEach((input) => {
+        input.checked = current[input.dataset.ccToggle] === 'yes';
+      });
+    };
+
+    const ccApply = (privacy, consent) => {
+      // sale_of_data is a US concept and is never granted from this banner; the
+      // store does not sell personal data. Sending it explicitly keeps Shopify
+      // from inferring it from the marketing grant.
+      const payload = {
+        preferences: !!consent.preferences,
+        analytics: !!consent.analytics,
+        marketing: !!consent.marketing,
+        sale_of_data: false,
+      };
+      try {
+        privacy.setTrackingConsent(payload, () => ccHide());
+      } catch {
+        // If the call throws, leave the banner up rather than hiding it and
+        // implying a choice was recorded.
+      }
+    };
+
+    const ccInit = (privacy) => {
+      // shouldShowBanner() honours the shop's own region rules, so a visitor
+      // outside a consent region is not nagged.
+      let show = true;
+      try { show = privacy.shouldShowBanner(); } catch { show = true; }
+      if (show) ccShow();
+      ccSync(privacy);
+
+      on(document, 'click', '[data-cc-accept]', (e) => {
+        e.preventDefault();
+        ccApply(privacy, { preferences: true, analytics: true, marketing: true });
+      });
+      on(document, 'click', '[data-cc-reject]', (e) => {
+        e.preventDefault();
+        ccApply(privacy, { preferences: false, analytics: false, marketing: false });
+      });
+      on(document, 'click', '[data-cc-save]', (e) => {
+        e.preventDefault();
+        const chosen = {};
+        ccToggles().forEach((input) => { chosen[input.dataset.ccToggle] = input.checked; });
+        ccApply(privacy, chosen);
+      });
+      on(document, 'click', '[data-cc-manage]', (e) => {
+        e.preventDefault();
+        if (!ccOptions) return;
+        const opening = ccOptions.hidden;
+        ccOptions.hidden = !opening;
+        e.target.setAttribute('aria-expanded', String(opening));
+      });
+      // Permanent re-entry point, e.g. the footer link. Required: a choice has
+      // to be as easy to change as it was to make.
+      on(document, 'click', '[data-cc-reopen]', (e) => {
+        e.preventDefault();
+        ccSync(privacy);
+        ccShow();
+        if (ccOptions) ccOptions.hidden = false;
+        if (ccManage) ccManage.setAttribute('aria-expanded', 'true');
+        const first = ccBanner.querySelector('button, input');
+        if (first) first.focus();
+      });
+    };
+
+    // Shopify.loadFeatures is injected by content_for_header. If it is missing
+    // or errors, the banner stays hidden and no consent is recorded — which
+    // leaves the permission-gated pixels withheld, the safe failure direction.
+    const bootConsent = () => {
+      const S = window.Shopify;
+      if (!S || typeof S.loadFeatures !== 'function') return;
+      S.loadFeatures([{ name: 'consent-tracking-api', version: '0.1' }], (error) => {
+        if (error || !window.Shopify.customerPrivacy) return;
+        ccInit(window.Shopify.customerPrivacy);
+      });
+    };
+    bootConsent();
+  }
+
   // ---- Predictive search. The header input queries Shopify's /search/suggest
   // endpoint and drops the returned markup into the panel. We ask for a rendered
   // SECTION rather than JSON so prices go through the money filter and the
