@@ -11,8 +11,9 @@
             "address": "23 Bolton Street, Clonmel, Co. Tipperary, E91 E0F1",
             "phone": "052 6199329",
             "email": "info@mccormackspharmacy.ie",
-            "hours": "Mon–Fri|8.30am – 6.30pm\nSaturday|9.00am – 6.00pm\nSunday & bank holidays|Closed",
-            "services": "Vaccinations, Blood pressure screening, Ask our pharmacist, Prescription collection"
+            "hours": "Mon|08:30-18:30\nTue|08:30-18:30\nWed|08:30-18:30\nThu|08:30-18:30\nFri|08:30-18:30\nSat|09:00-18:00\nSun|closed",
+            "services": "Vaccinations, Blood pressure screening, Ask our pharmacist, Prescription collection",
+            "eircode": "E91 E0F1"
           }
         },
         "ballylanders": {
@@ -23,8 +24,9 @@
             "address": "Main Street, Ballylanders, Co. Limerick, V35 X3V5",
             "phone": "062 46620",
             "email": "mccormacksballylanders@gmail.com",
-            "hours": "Mon–Fri|9.00am – 6.00pm\nSaturday|9.00am – 2.00pm\nSunday & bank holidays|Closed",
-            "services": "Photo printing, Blood pressure screening, Ask our pharmacist, Prescription collection"
+            "hours": "Mon|09:00-18:00\nTue|09:00-18:00\nWed|09:00-18:00\nThu|09:00-18:00\nFri|09:00-18:00\nSat|09:00-14:00\nSun|closed",
+            "services": "Photo printing, Blood pressure screening, Ask our pharmacist, Prescription collection",
+            "eircode": "V35 X3V5"
           }
         },
         "newbridge": {
@@ -35,8 +37,9 @@
             "address": "Newbridge Retail Park, Kilbelin, Newbridge, Co. Kildare, W12 HP52",
             "phone": "045 444944",
             "email": "mccormacksnewbridge@gmail.com",
-            "hours": "Mon–Fri|9.00am – 7.00pm\nSaturday|9.00am – 6.00pm\nSunday & bank holidays|11.00am – 5.00pm",
-            "services": "Covid-19 vaccination, Photo printing, Blood pressure screening, Prescription collection"
+            "hours": "Mon|09:00-19:00\nTue|09:00-19:00\nWed|09:00-19:00\nThu|09:00-19:00\nFri|09:00-19:00\nSat|09:00-18:00\nSun|11:00-17:00",
+            "services": "Covid-19 vaccination, Photo printing, Blood pressure screening, Prescription collection",
+            "eircode": "W12 HP52"
           }
         },
         "tullamore": {
@@ -47,8 +50,9 @@
             "address": "Kilbeggan Bridge, Arden Road, Tullamore, Co. Offaly, R35 K8P4",
             "phone": "057 9326675",
             "email": "mccormackstullamore@gmail.com",
-            "hours": "Mon–Thu|9.15am – 6.15pm\nFriday|9.15am – 6.45pm\nSaturday|9.15am – 6.15pm\nSunday & bank holidays|Closed",
-            "services": "Covid-19 vaccination, Blood pressure screening, Ask our pharmacist, Prescription collection"
+            "hours": "Mon|09:15-18:15\nTue|09:15-18:15\nWed|09:15-18:15\nThu|09:15-18:15\nFri|09:15-18:45\nSat|09:15-18:15\nSun|closed",
+            "services": "Covid-19 vaccination, Blood pressure screening, Ask our pharmacist, Prescription collection",
+            "eircode": "R35 K8P4"
           }
         },
         "haggardstown": {
@@ -59,8 +63,9 @@
             "address": "Fairways Shopping Centre, Dublin Road, Haggardstown, Dundalk, Co. Louth, A91 AEC5",
             "phone": "042 9322677",
             "email": "mccormacksdundalk@gmail.com",
-            "hours": "Mon–Fri|9.00am – 7.00pm\nSaturday|9.00am – 6.00pm\nSunday & bank holidays|11.00am – 5.00pm",
-            "services": "Photo printing, Blood pressure screening, Ask our pharmacist, Prescription collection"
+            "hours": "Mon|09:00-19:00\nTue|09:00-19:00\nWed|09:00-19:00\nThu|09:00-19:00\nFri|09:00-19:00\nSat|09:00-18:00\nSun|11:00-17:00",
+            "services": "Photo printing, Blood pressure screening, Ask our pharmacist, Prescription collection",
+            "eircode": "A91 AEC5"
           }
         },
         "carrickrd": {
@@ -71,8 +76,9 @@
             "address": "Carrick Road Medical Centre, Lis Na Dara, Dundalk, Co. Louth, A91 HTX3",
             "phone": "042 9354495",
             "email": "mccormackscarrickrd@gmail.com",
-            "hours": "Mon–Fri|9.00am – 6.00pm\nSaturday|Closed\nSunday & bank holidays|Closed",
-            "services": "Blood pressure screening, Ask our pharmacist, Blister packing, Prescription collection"
+            "hours": "Mon|09:00-18:00\nTue|09:00-18:00\nWed|09:00-18:00\nThu|09:00-18:00\nFri|09:00-18:00\nSat|closed\nSun|closed",
+            "services": "Blood pressure screening, Ask our pharmacist, Blister packing, Prescription collection",
+            "eircode": "A91 HTX3"
           }
         },
         "belmullet": {
@@ -83,14 +89,25 @@
             "address": "Erris Pharmacy, Church Road, Belmullet, Co. Mayo, F26 A8D2",
             "phone": "097 20540",
             "email": "mccormacksbelmullet@gmail.com",
-            "hours": "Mon–Fri|9.00am – 6.00pm\nSaturday|9.30am – 3.30pm\nSunday & bank holidays|Closed",
-            "services": "Blood pressure screening, Ask our pharmacist, Prescription collection"
+            "hours": "Mon|09:00-18:00\nTue|09:00-18:00\nWed|09:00-18:00\nThu|09:00-18:00\nFri|09:00-18:00\nSat|09:30-15:30\nSun|closed",
+            "services": "Blood pressure screening, Ask our pharmacist, Prescription collection",
+            "eircode": "F26 A8D2"
           }
         }
       },
-      "block_order": ["clonmel", "ballylanders", "newbridge", "tullamore", "haggardstown", "carrickrd", "belmullet"],
+      "block_order": [
+        "clonmel",
+        "ballylanders",
+        "newbridge",
+        "tullamore",
+        "haggardstown",
+        "carrickrd",
+        "belmullet"
+      ],
       "settings": {}
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

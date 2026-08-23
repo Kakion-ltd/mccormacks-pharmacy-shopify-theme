@@ -1,0 +1,150 @@
+{%- comment -%}
+  Parse a store's opening hours once, and emit them either for display or as
+  schema.org OpeningHoursSpecification.
+
+  THE FORMAT (Store block > Opening hours). Exactly seven lines, one per day,
+  in day order, 24-hour and zero-padded:
+
+      Mon|09:00-18:30
+      Tue|09:00-18:30
+      Wed|09:00-18:30
+      Thu|09:00-18:30
+      Fri|09:00-18:30
+      Sat|09:00-18:00
+      Sun|closed
+
+  A day that closes for lunch takes two ranges, comma separated:
+
+      Wed|09:00-13:00,14:00-18:00
+
+  Anything unparseable, and any missing day, is treated as closed — the safe
+  direction to fail, since telling someone a pharmacy is open when it is not
+  sends them on a wasted journey.
+
+  Bank holidays are NOT expressed here. They vary year to year and schema.org
+  wants specific dates for them, so the page carries a standing note instead.
+
+  Modes:
+    rows    Label~Value|Label~Value|… for display. Consecutive days with
+            identical hours are grouped ("Mon–Fri"), and times are rendered in
+            the 12-hour form the design uses ("9.00am – 6.30pm"). Callers split
+            on | then ~ so each render site keeps its own markup.
+    schema  The contents of an openingHoursSpecification array — one entry per
+            day per range, comma separated, no enclosing brackets.
+
+  Accepts: hours (required), mode ('rows' by default)
+{%- endcomment -%}
+{%- liquid
+  assign day_keys = 'mon,tue,wed,thu,fri,sat,sun' | split: ','
+  assign day_full = 'Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday' | split: ','
+  assign day_abbr = 'Mon,Tue,Wed,Thu,Fri,Sat,Sun' | split: ','
+  assign lines = hours | newline_to_br | split: '<br />'
+
+  # Align the seven days into a fixed-length array. Every entry is non-empty
+  # ("closed" when absent) because split drops trailing empties, which would
+  # silently shorten the week if Sunday were blank.
+  capture packed
+    for key in day_keys
+      assign value = 'closed'
+      for line in lines
+        assign parts = line | strip | split: '|'
+        if parts.size >= 2
+          assign line_key = parts[0] | strip | downcase | slice: 0, 3
+          if line_key == key
+            assign value = parts[1] | strip | downcase
+          endif
+        endif
+      endfor
+      echo value
+      echo '~'
+    endfor
+  endcapture
+  assign day_values = packed | split: '~'
+-%}
+
+{%- if mode == 'schema' -%}
+  {%- liquid
+    assign emitted = 0
+    for i in (0..6)
+      assign value = day_values[i]
+      unless value == 'closed'
+        assign ranges = value | split: ','
+        for range in ranges
+          assign ends = range | strip | split: '-'
+          if ends.size == 2
+            if emitted > 0
+              echo ','
+            endif
+            assign emitted = emitted | plus: 1
+            echo '{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/'
+            echo day_full[i]
+            echo '","opens":"'
+            echo ends[0] | strip
+            echo '","closes":"'
+            echo ends[1] | strip
+            echo '"}'
+          endif
+        endfor
+      endunless
+    endfor
+  -%}
+{%- else -%}
+  {%- liquid
+    assign start = 0
+    for i in (0..6)
+      assign current = day_values[i]
+      assign next_index = i | plus: 1
+      assign next = day_values[next_index]
+
+      # day_values[7] is nil, so the last day always differs from "next" and
+      # the final group is flushed without a special case after the loop.
+      if current != next
+        if start == i
+          assign label = day_full[i]
+        else
+          assign label = day_abbr[start] | append: '–' | append: day_abbr[i]
+        endif
+
+        echo label
+        echo '~'
+
+        if current == 'closed'
+          echo 'Closed'
+        else
+          assign ranges = current | split: ','
+          for range in ranges
+            unless forloop.first
+              echo ', '
+            endunless
+            assign ends = range | strip | split: '-'
+            for end in ends
+              unless forloop.first
+                echo ' – '
+              endunless
+              assign hm = end | strip | split: ':'
+              assign hour24 = hm[0] | times: 1
+              assign minute = hm[1] | default: '00'
+              assign meridiem = 'am'
+              if hour24 >= 12
+                assign meridiem = 'pm'
+              endif
+              assign hour12 = hour24
+              if hour24 > 12
+                assign hour12 = hour24 | minus: 12
+              endif
+              if hour12 == 0
+                assign hour12 = 12
+              endif
+              echo hour12
+              echo '.'
+              echo minute
+              echo meridiem
+            endfor
+          endfor
+        endif
+        echo '|'
+        assign start = next_index
+      endif
+    endfor
+  -%}
+{%- endif -%}

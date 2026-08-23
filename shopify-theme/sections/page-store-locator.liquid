@@ -57,10 +57,11 @@
                 <a href="tel:{{ block.settings.phone | remove: ' ' }}" class="hov-green-dk" style="font-size:14.5px; font-weight:700; color:#82C914;">{{ block.settings.phone }}</a>
               </div>
               <div style="flex:0 1 240px; font-size:14px; line-height:1.7; color:#3a3d39;">
-                {%- assign hour_lines = block.settings.hours | newline_to_br | split: '<br />' -%}
+                {%- capture hour_rows -%}{%- render 'store-hours', hours: block.settings.hours -%}{%- endcapture -%}
+                {%- assign hour_lines = hour_rows | strip | split: '|' -%}
                 {%- for line in hour_lines -%}
-                  {%- assign parts = line | split: '|' -%}
-                  <div style="display:flex; justify-content:space-between; gap:12px;"><span style="color:#6b7065;">{{ parts[0] | strip }}</span><span style="font-weight:700;">{{ parts[1] | strip }}</span></div>
+                  {%- assign parts = line | split: '~' -%}
+                  <div style="display:flex; justify-content:space-between; gap:12px;"><span style="color:#6b7065;">{{ parts[0] }}</span><span style="font-weight:700;">{{ parts[1] }}</span></div>
                 {%- endfor -%}
               </div>
               <div style="flex:0 0 auto; display:flex; flex-direction:column; gap:9px;">
@@ -115,10 +116,11 @@
           {%- endif -%}
           <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">Opening hours</h2>
           <div style="border-top:1px solid #e6e7e4; max-width:460px;">
-            {%- assign hour_lines = block.settings.hours | newline_to_br | split: '<br />' -%}
+            {%- capture hour_rows -%}{%- render 'store-hours', hours: block.settings.hours -%}{%- endcapture -%}
+            {%- assign hour_lines = hour_rows | strip | split: '|' -%}
             {%- for line in hour_lines -%}
-              {%- assign parts = line | split: '|' -%}
-              <div style="display:flex; justify-content:space-between; gap:16px; padding:14px 0; border-bottom:1px solid #eceee9; font-size:15.5px;"><span style="color:#3a3d39;">{{ parts[0] | strip }}</span><span style="font-weight:700; color:#2A2B2A;">{{ parts[1] | strip }}</span></div>
+              {%- assign parts = line | split: '~' -%}
+              <div style="display:flex; justify-content:space-between; gap:16px; padding:14px 0; border-bottom:1px solid #eceee9; font-size:15.5px;"><span style="color:#3a3d39;">{{ parts[0] }}</span><span style="font-weight:700; color:#2A2B2A;">{{ parts[1] }}</span></div>
             {%- endfor -%}
           </div>
           <div style="font-size:13.5px; color:#6b7065; margin-top:12px;">Hours may differ on bank holidays &mdash; please phone ahead.</div>
@@ -224,9 +226,10 @@
   Address is a free-text field, so it is emitted as streetAddress plus the
   Eircode — Google tolerates an unsplit address better than a wrongly split one,
   and guessing a town out of a comma-separated string would misfile stores.
-  Opening hours are "Label|Value" lines written for humans ("Mon–Fri", "9.00am –
-  6.00pm"), which is not the openingHours format, so they are deliberately left
-  out rather than machine-translated into something wrong.
+  Opening hours come from snippets/store-hours.liquid, which parses the one
+  machine-readable format the block setting now accepts. Bank holidays are not
+  expressed — they move every year and schema.org wants specific dates — so the
+  page carries a standing note instead.
 {%- endcomment -%}
 {%- assign store_blocks = section.blocks | where: 'type', 'store' -%}
 {%- if store_blocks.size > 0 -%}
@@ -237,7 +240,8 @@
       {
         "@context": "https://schema.org",
         "@type": "Pharmacy",
-        "name": {{ shop.name | append: ' — ' | append: block.settings.name | json }},
+        {%- capture default_name -%}{{ shop.name }} — {{ block.settings.name }}{%- endcapture -%}
+        "name": {{ block.settings.business_name | default: default_name | json }},
         "parentOrganization": { "@type": "Pharmacy", "name": {{ shop.name | json }}, "@id": {{ shop_url | append: '#organization' | json }} },
         "url": {{ shop_url | append: page.url | json }},
         "address": {
@@ -248,6 +252,9 @@
         }
         {%- if block.settings.phone != blank -%}, "telephone": {{ block.settings.phone | json }}{%- endif -%}
         {%- if block.settings.email != blank -%}, "email": {{ block.settings.email | json }}{%- endif -%}
+        {%- capture opening_hours -%}{%- render 'store-hours', hours: block.settings.hours, mode: 'schema' -%}{%- endcapture -%}
+        {%- assign opening_hours = opening_hours | strip -%}
+        {%- if opening_hours != blank -%}, "openingHoursSpecification": [{{ opening_hours }}]{%- endif -%}
         {%- if block.settings.latitude != blank and block.settings.longitude != blank -%},
         "geo": {
           "@type": "GeoCoordinates",
@@ -274,11 +281,12 @@
       "name": "Store",
       "settings": [
         { "type": "text", "id": "name", "label": "Store name", "default": "Clonmel" },
+        { "type": "text", "id": "business_name", "label": "Business name (for Google)", "info": "Only if this branch trades under a different name than \"Shop name — Store name\". Must match the Google Business Profile exactly, or Google will not connect the two." },
         { "type": "text", "id": "badge", "label": "Badge (optional)" },
         { "type": "text", "id": "address", "label": "Address", "default": "23 Bolton Street, Clonmel, Co. Tipperary" },
         { "type": "text", "id": "phone", "label": "Phone", "default": "052 6199329" },
         { "type": "text", "id": "email", "label": "Email" },
-        { "type": "textarea", "id": "hours", "label": "Opening hours (one per line, Label|Value)", "default": "Mon–Fri|9.00am – 6.00pm\nSaturday|9.00am – 6.00pm\nSunday & bank holidays|Closed" },
+        { "type": "textarea", "id": "hours", "label": "Opening hours", "info": "Seven lines, one per day, in day order. 24-hour, zero-padded: Mon|09:00-18:00. Use 'closed' for a closed day, and a comma for a lunch break: Wed|09:00-13:00,14:00-18:00. Displayed hours are grouped and formatted automatically, and this is what Google reads.", "default": "Mon|09:00-18:00\nTue|09:00-18:00\nWed|09:00-18:00\nThu|09:00-18:00\nFri|09:00-18:00\nSat|09:00-18:00\nSun|closed" },
         { "type": "text", "id": "services", "label": "Services (comma separated)", "default": "Blood pressure screening, Ask our pharmacist, Prescription collection" },
         { "type": "image_picker", "id": "image", "label": "Store image (replaces map placeholder)" },
         { "type": "text", "id": "eircode", "label": "Eircode", "info": "Also used to match searches." },

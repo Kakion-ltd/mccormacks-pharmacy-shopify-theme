@@ -62,6 +62,41 @@ grep -rl "€65" preview/          # should return nothing
 
 ---
 
+## AWAITING PHARMACIST SIGN-OFF: the "Do I need a prescription?" FAQ answer
+
+**Status: not approved. This is a compliance statement, not marketing copy, and
+it stands on every one of the 293 collection pages.**
+
+The previous answer claimed customers must answer suitability questions before
+adding pharmacist-only medicines to the basket, and that a pharmacist reviews
+those answers before approving the order. The theme has no such mechanism, so
+the claim was removed in `0af9da9` and replaced with:
+
+> All items in this collection can be bought without a GP prescription.
+> Prescription-only medicines are not sold online in Ireland — you can submit a
+> prescription for dispensing instead, and collect it in store or have it
+> delivered.
+
+**Known concern with the replacement, raised and not yet resolved:** "can be
+bought without a GP prescription" may read as more permissive than intended.
+Pharmacy-only (P) medicines still require pharmacist involvement even though no
+GP prescription is needed, and the sentence does not say so. It draws the line
+at *prescription-only*, when the line that matters to a customer is *pharmacist
+involvement*.
+
+Do not treat this wording as settled, and do not reuse it elsewhere on the site,
+until a pharmacist has approved it. Where it appears:
+
+- `shopify-theme/sections/main-collection.liquid` — the FAQ block schema default
+- `shopify-theme/templates/collection.json` — the fallback most collections use
+- `shopify-theme/templates/collection.{beauty, fragrance, gifting, hot-offers,
+  medicines-health, mother-baby, skincare, toiletries, vitamins}.json`
+
+Eleven places in total. Changing only the schema default leaves the saved block
+copy live, which is how the original claim survived a previous edit.
+
+---
+
 ## Restricted products — tag, not code
 
 **Theme settings → Pharmacy → Restricted product tag** (default
@@ -83,6 +118,55 @@ bag is ungated. The collection FAQ used to claim customers are screened with
 questions before adding restricted medicines to the basket; that claim was
 removed in `0af9da9` because the theme cannot honour it. It goes back only when
 a real questionnaire is built to the client's pharmacist specification.
+
+---
+
+## Store data — the opening hours format is load-bearing
+
+Opening hours are read by Google, not just displayed, so the **Store block →
+Opening hours** field takes one machine-readable format. Seven lines, one per
+day, in day order, 24-hour and zero-padded:
+
+```
+Mon|09:00-18:30
+Tue|09:00-18:30
+Wed|09:00-18:30
+Thu|09:00-18:30
+Fri|09:00-18:30
+Sat|09:00-18:00
+Sun|closed
+```
+
+A lunch closure takes two ranges: `Wed|09:00-13:00,14:00-18:00`.
+
+The displayed hours are derived from this — consecutive identical days are
+grouped into "Mon–Fri" and times are rendered as "9.00am – 6.30pm" — so **do not
+write display labels into the field**. `snippets/store-hours.liquid` is the only
+parser; both display sites and the JSON-LD go through it, so they cannot drift.
+
+Anything unparseable, and any missing day, reads as **closed**. That is the safe
+direction: publishing a pharmacy as open when it is shut sends someone on a
+wasted journey. It also means a typo fails quietly, so check the store page after
+editing.
+
+Bank holidays are deliberately not expressed. They move each year and schema.org
+wants specific dates; the page carries a standing note instead.
+
+### Two other store fields worth knowing
+
+- **Business name (for Google)** — optional per-store override. The schema
+  defaults to "McCormack's Pharmacy — <store name>", which is a guess at the
+  trading name. Where a branch trades under something else it must be set here
+  to match the Google Business Profile exactly, or Google will not connect the
+  listing to the page.
+- **Eircode** — emitted as `postalCode`. The eircodes currently in the template
+  were lifted mechanically out of the free-text address field, where they were
+  already present. The address field still contains them, which is fine for
+  display.
+
+The hours currently in `templates/page.store-locator.json` are the original
+design data, reformatted without changing any time. They have **not** been
+confirmed with the client.
 
 ---
 

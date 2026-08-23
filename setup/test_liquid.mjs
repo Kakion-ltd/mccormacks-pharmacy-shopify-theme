@@ -65,4 +65,52 @@ check('gate tag as a prefix of another tag does not match', gate(['pharmacist-on
 // Clearing the setting disables the check, as the setting's help text promises.
 check('blank setting disables the gate', gate(['pharmacist-only'], ''), '');
 
+
+/* ---------- store-hours ---------- */
+const WEEK = [
+  'Mon|09:00-18:30', 'Tue|09:00-18:30', 'Wed|09:00-18:30', 'Thu|09:00-18:30',
+  'Fri|09:00-18:30', 'Sat|09:00-18:00', 'Sun|closed',
+].join('\n');
+
+const hours = (src, mode) => render('store-hours', { hours: src, mode });
+
+check('consecutive identical days group, times render 12-hour',
+  hours(WEEK, 'rows'),
+  'Mon–Fri~9.00am – 6.30pm|Saturday~9.00am – 6.00pm|Sunday~Closed|');
+
+check('a mid-week outlier splits the group',
+  hours(['Mon|09:15-18:15', 'Tue|09:15-18:15', 'Wed|09:15-18:15', 'Thu|09:15-18:15',
+         'Fri|09:15-18:45', 'Sat|09:15-18:15', 'Sun|closed'].join('\n'), 'rows'),
+  'Mon–Thu~9.15am – 6.15pm|Friday~9.15am – 6.45pm|Saturday~9.15am – 6.15pm|Sunday~Closed|');
+
+check('a lunch closure renders both ranges',
+  hours('Mon|09:00-13:00,14:00-18:00\nTue|closed\nWed|closed\nThu|closed\nFri|closed\nSat|closed\nSun|closed', 'rows'),
+  'Monday~9.00am – 1.00pm, 2.00pm – 6.00pm|Tue–Sun~Closed|');
+
+check('noon and midnight do not become 0',
+  hours('Mon|00:00-12:00\nTue|closed\nWed|closed\nThu|closed\nFri|closed\nSat|closed\nSun|closed', 'rows'),
+  'Monday~12.00am – 12.00pm|Tue–Sun~Closed|');
+
+// A missing or malformed day must read as closed, never as open.
+check('a missing day is closed, and the week stays seven long',
+  hours('Mon|09:00-17:00', 'rows'),
+  'Monday~9.00am – 5.00pm|Tue–Sun~Closed|');
+
+check('an unparseable range is closed, not open',
+  hours('Mon|whenever\nTue|closed\nWed|closed\nThu|closed\nFri|closed\nSat|closed\nSun|closed', 'schema'),
+  '');
+
+check('schema emits one entry per open day',
+  hours(WEEK, 'schema'),
+  ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map(
+    (d) => `{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/${d}","opens":"09:00","closes":"18:30"}`
+  ).join(',') + ',{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Saturday","opens":"09:00","closes":"18:00"}');
+
+check('schema emits two entries for a split day',
+  hours('Mon|09:00-13:00,14:00-18:00\nTue|closed\nWed|closed\nThu|closed\nFri|closed\nSat|closed\nSun|closed', 'schema'),
+  '{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Monday","opens":"09:00","closes":"13:00"},'
+  + '{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Monday","opens":"14:00","closes":"18:00"}');
+
+check('a fully closed week emits no schema entries', hours('', 'schema'), '');
+
 console.log(`${passed}/${passed} liquid snippet checks passed`);
