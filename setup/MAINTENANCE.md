@@ -164,17 +164,34 @@ wants specific dates; the page carries a standing note instead.
   already present. The address field still contains them, which is fine for
   display.
 
-**Every hour currently in `templates/page.store-locator.json` is a placeholder.**
-They are the original design data, reformatted without changing any time, and
-none of it has been confirmed with the client. The client's seven replace the
-lot — do not merge, do not keep any line as "probably right". Until then these
-are being published to Google as opening times, which is the one field on this
-page where being wrong sends a person to a locked door.
+**Store data is confirmed as of 23 August 2026** — names, addresses, eircodes,
+phones, emails and all seven sets of opening hours. The hours were checked
+against the mechanically converted design data and every one matched, so the
+earlier conversion introduced no errors.
 
-The Belmullet **Business name (for Google)** is set to `Erris Pharmacy`, pending
-confirmation against the Google Business Profile. Newbridge and Carrick Road are
-also being checked; if their profiles carry the host-site name (the retail park,
-the medical centre) they need the override too.
+Two corrections came with the confirmation: Carrick Road's address was missing
+"Carrick Road" itself, and Belmullet trades as **Erris Pharmacy**, which is now
+its visible name with Belmullet as the badge.
+
+`business_name` is set explicitly on all seven rather than left to the
+constructed "shop name — store name" fallback. Six of them therefore emit the
+same schema `name`, "McCormack's Pharmacy", distinguished by address — which is
+how a multi-location business is normally represented, and matches the Google
+Business Profiles. Do not reintroduce a "— Clonmel" style suffix: it was our
+invention, not a real trading name.
+
+**Bank holidays follow Sunday hours** at every store (Newbridge and Haggardstown
+11:00–17:00, the rest closed). This is stated in the page copy and deliberately
+NOT in `openingHoursSpecification`, which has no way to express "bank holidays"
+— only specific dates via `specialOpeningHoursSpecification`. The consequence
+worth knowing: on a bank holiday Monday, Google will show that store's normal
+Monday hours. Fixing that properly means publishing a dated exception list each
+year.
+
+**Still outstanding: latitude and longitude for all seven.** Until every store
+has both, the locator's "Use my location" button stays disabled — that is
+deliberate, since sorting by distance with partial coordinates would put stores
+in a confidently wrong order.
 
 ---
 
