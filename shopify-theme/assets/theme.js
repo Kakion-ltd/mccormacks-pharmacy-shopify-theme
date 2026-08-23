@@ -6,6 +6,13 @@
       if (t && root.contains(t)) fn(e, t);
     });
 
+  // Both drawers become visible by flipping an attribute on <body>, and both are
+  // visibility:hidden until it lands. Calling focus() in the same task focuses
+  // nothing — the element is still hidden as far as the un-flushed style is
+  // concerned, and focus() on a hidden element is silently a no-op. One frame
+  // later the style has been recomputed and it takes.
+  const focusSoon = (el) => { if (el) requestAnimationFrame(() => el.focus()); };
+
   // ---- Mega menu: data-mega-trigger="key" links, data-mega-panel="key" panels,
   // data-mega-root wrapper. Opens on hover/keyboard focus; tap-to-open on touch
   // (second tap follows the link); 250ms close grace on mouseleave; Esc closes;
@@ -71,9 +78,64 @@
     document.addEventListener('click', e => { if (!root.contains(e.target)) closeAll(); });
   });
 
-  // ---- Mobile drawer
-  on(document, 'click', '[data-mnav-open-btn]', () => document.body.setAttribute('data-mnav-open', ''));
-  on(document, 'click', '[data-mnav-close]', () => document.body.removeAttribute('data-mnav-open'));
+  // ---- Mobile drawer, with drill-down panels.
+  // The drawer used to be ten flat links whose right-chevron only ever went to
+  // the department page, so 197 groups and leaves were unreachable on a phone.
+  // Panels come from snippets/mobile-nav.liquid, generated from the taxonomy.
+  const mnav = document.querySelector('.mnav-drawer');
+  const mnavStack = document.querySelector('[data-mnav-stack]');
+  let mnavLastFocus = null;
+
+  const mnavPanel = (key) => mnavStack && mnavStack.querySelector('[data-mnav-panel="' + key + '"]');
+
+  // Show one panel, hide the rest. Kept as a full reset rather than a stack of
+  // opens, so a mis-click can never leave two panels visible at once.
+  const mnavGoTo = (key, back) => {
+    if (!mnavStack) return;
+    const next = mnavPanel(key);
+    if (!next) return;
+    mnavStack.querySelectorAll('[data-mnav-panel]').forEach((p) => {
+      p.hidden = p !== next;
+      p.classList.remove('is-current', 'is-entering', 'is-entering-back');
+    });
+    next.classList.add('is-current', back ? 'is-entering-back' : 'is-entering');
+    if (mnav) mnav.scrollTop = 0;
+    focusSoon(next.querySelector('[data-mnav-back], .mnav-link'));
+  };
+
+  const mnavOpen = () => {
+    mnavLastFocus = document.activeElement;
+    document.body.setAttribute('data-mnav-open', '');
+    focusSoon(mnav && mnav.querySelector('[data-mnav-close]'));
+  };
+  const mnavClose = () => {
+    document.body.removeAttribute('data-mnav-open');
+    // Reset to the root so reopening does not drop the shopper back into
+    // whatever branch they last looked at.
+    if (mnavStack) mnavGoTo('root', false);
+    if (mnavLastFocus && mnavLastFocus.focus) mnavLastFocus.focus();
+  };
+
+  on(document, 'click', '[data-mnav-open-btn]', mnavOpen);
+  on(document, 'click', '[data-mnav-close]', mnavClose);
+  on(document, 'click', '[data-mnav-into]', (e, btn) => {
+    e.preventDefault();
+    mnavGoTo(btn.dataset.mnavInto, false);
+  });
+  on(document, 'click', '[data-mnav-back]', (e, btn) => {
+    e.preventDefault();
+    const panel = btn.closest('[data-mnav-panel]');
+    mnavGoTo((panel && panel.dataset.mnavParent) || 'root', true);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || !document.body.hasAttribute('data-mnav-open')) return;
+    // Escape steps back a level first, and only closes from the root — the same
+    // way the browser back button would behave if these were pages.
+    const current = mnavStack && mnavStack.querySelector('[data-mnav-panel].is-current');
+    const parent = current && current.dataset.mnavParent;
+    if (parent && current.dataset.mnavPanel !== 'root') mnavGoTo(parent, true);
+    else mnavClose();
+  });
 
   // ---- Scroll rails: button[data-rail-btn][data-rail-target=id][data-rail-by=px]
   // Each arrow hides when it has nothing to do: back at scroll 0, forward at the
@@ -185,8 +247,7 @@
     const open = () => {
       lastFocus = document.activeElement;
       document.body.setAttribute('data-cd-open', '');
-      const first = $('[data-cd-close]');
-      if (first) first.focus();
+      focusSoon($('[data-cd-close]'));
     };
     const close = () => {
       document.body.removeAttribute('data-cd-open');

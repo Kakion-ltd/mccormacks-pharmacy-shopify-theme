@@ -47,31 +47,18 @@
 
 {% # Mobile nav drawer %}
 <div class="mnav-overlay" data-mnav-close></div>
-<aside class="mnav-drawer">
+<aside class="mnav-drawer" role="dialog" aria-modal="true" aria-label="Menu">
   <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-bottom:1px solid #eceee9;">
     <a href="{{ routes.root_url }}" aria-label="{{ shop.name }} — home" style="display:block;">
       <img src="{{ 'mccormacks-logo.png' | asset_url }}" alt="{{ shop.name }}" width="150" height="48" style="width:150px; height:auto; display:block;">
     </a>
     <button aria-label="Close menu" data-mnav-close style="border:none; background:#f4f5f2; width:38px; height:38px; border-radius:999px; color:#2A2B2A; cursor:pointer; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
   </div>
-  <nav style="display:flex; flex-direction:column; padding:6px 0;">
-    {%- comment -%} Services is reached from the button at the foot of this drawer,
-        so it is not repeated here — mirrors the desktop nav. {%- endcomment -%}
-    {%- assign mnav_items = 'Medicines & Health|medicines-health,Vitamins & Supplements|vitamins,Beauty|beauty,Skincare|skincare,Toiletries|toiletries,Mother & Baby|mother-baby,Fragrance|fragrance,Gifting|gifting,Sale|sale,Brands|@pages/brands' | split: ',' -%}
-    {%- for entry in mnav_items -%}
-      {%- assign bits = entry | split: '|' -%}
-      {%- assign target = bits[1] -%}
-      {%- if target contains '@' -%}
-        {%- assign url = target | remove: '@' | prepend: '/' -%}
-      {%- else -%}
-        {%- assign url = target | prepend: '/collections/' -%}
-      {%- endif -%}
-      <a href="{{ url }}" class="hov-bg-tint" style="display:flex; align-items:center; justify-content:space-between; padding:15px 20px; font-weight:700; font-size:15.5px; color:{% if bits[0] == 'Sale' %}#82c914{% else %}#2A2B2A{% endif %}; border-bottom:1px solid #f1f2ef;">
-        <span>{{ bits[0] }}</span>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c2c6bd" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg>
-      </a>
-    {%- endfor -%}
-  </nav>
+  {%- comment -%} Drill-down panels generated from taxonomy.json by
+      setup/gen_category_nav.py, so the mobile nav, the desktop mega menu and the
+      breadcrumbs all describe the same tree. Services is reached from the button
+      at the foot of this drawer, mirroring the desktop nav. {%- endcomment -%}
+  {% render 'mobile-nav' %}
   <div style="padding:18px 20px; margin-top:auto; display:flex; flex-direction:column; gap:12px;">
     <div style="display:flex; gap:12px;">
       <a href="/pages/in-store-services" class="hov-bg-dark" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:#3f6b4f; color:#ffffff; font-weight:700; font-size:14px; height:46px; border-radius:9px;">

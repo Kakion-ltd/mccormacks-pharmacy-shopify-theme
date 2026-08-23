@@ -83,6 +83,10 @@ with sync_playwright() as pw:
         page.wait_for_timeout(1200)
         check(f"[{label}] drawer opens on add",
               page.locator("[data-cd-drawer]").is_visible())
+        # Focus must land inside the drawer. It silently did not until the
+        # visibility transition was changed to a delay.
+        check(f"[{label}] focus moves into the drawer",
+              page.evaluate("!!document.querySelector('[data-cd-drawer]').contains(document.activeElement)"))
         rail = page.locator("[data-cd-drawer] .crec")
         check(f"[{label}] cross-sell rail rendered in drawer", rail.count() == 1)
         titles = page.locator("[data-cd-drawer] .crec-title").all_text_contents()

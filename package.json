@@ -9,6 +9,6 @@
     "build": "python3 setup/build_static_preview.py --base '' --out _site",
     "package": "bash setup/package_theme.sh",
     "test": "node setup/test_liquid.mjs && node check.mjs",
-    "verify": "python3 setup/verify/consent.py && python3 setup/verify/funnel.py && python3 setup/verify/sweep.py && python3 setup/verify/fonts.py"
+    "verify": "python3 setup/verify/consent.py && python3 setup/verify/funnel.py && python3 setup/verify/mobile-nav.py && python3 setup/verify/sweep.py && python3 setup/verify/fonts.py"
   }
 }

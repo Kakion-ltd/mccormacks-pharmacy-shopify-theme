@@ -70,13 +70,18 @@ h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 
 [data-mega-trigger][data-open="true"] { color: var(--c-primary) !important; }
 
 /* Mobile drawer */
-.mnav-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.45); opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility .25s ease; }
+.mnav-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.45); opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility 0s .25s; }
 /* visibility:hidden (not just the off-screen transform) so the closed drawer's
-   links leave the tab order and the accessibility tree — it still animates
-   because visibility is transitioned alongside transform. */
-.mnav-drawer { position: fixed; top: 0; left: 0; bottom: 0; z-index: 201; width: 340px; max-width: 86vw; background: #ffffff; box-shadow: 0 0 40px rgba(0,0,0,.2); transform: translateX(-100%); visibility: hidden; transition: transform .28s cubic-bezier(.4,0,.2,1), visibility .28s; display: flex; flex-direction: column; overflow-y: auto; }
-body[data-mnav-open] .mnav-overlay { opacity: 1; visibility: visible; }
-body[data-mnav-open] .mnav-drawer { transform: translateX(0); visibility: visible; }
+   links leave the tab order and the accessibility tree.
+
+   visibility is DELAYED rather than transitioned: 0s on open so it flips to
+   visible immediately, .25/.28s on close so it flips to hidden only once the
+   slide-out has finished. A transitioned visibility does not become visible
+   until the animation is under way, which made focus() on open a silent no-op
+   in this drawer and in the cart drawer. */
+.mnav-drawer { position: fixed; top: 0; left: 0; bottom: 0; z-index: 201; width: 340px; max-width: 86vw; background: #ffffff; box-shadow: 0 0 40px rgba(0,0,0,.2); transform: translateX(-100%); visibility: hidden; transition: transform .28s cubic-bezier(.4,0,.2,1), visibility 0s .28s; display: flex; flex-direction: column; overflow-y: auto; }
+body[data-mnav-open] .mnav-overlay { opacity: 1; visibility: visible; transition: opacity .25s ease, visibility 0s; }
+body[data-mnav-open] .mnav-drawer { transform: translateX(0); visibility: visible; transition: transform .28s cubic-bezier(.4,0,.2,1), visibility 0s; }
 
 /* Responsive shell (ported verbatim from the design pages) */
 @media (max-width: 1100px) and (min-width: 901px) {
@@ -165,17 +170,17 @@ img.img-fallback {
 /* ---- Cart drawer -------------------------------------------------------
    Shell mirrors .mnav-drawer: visibility (not just transform) is transitioned
    so a closed drawer leaves the tab order and the accessibility tree. */
-.cd-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,.45); opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility .25s ease; }
+.cd-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,.45); opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility 0s .25s; }
 .cd-drawer {
   position: fixed; top: 0; right: 0; bottom: 0; z-index: 301;
   width: 420px; max-width: 92vw; background: #fff;
   box-shadow: 0 0 40px rgba(0,0,0,.2);
   transform: translateX(100%); visibility: hidden;
-  transition: transform .28s cubic-bezier(.4,0,.2,1), visibility .28s;
+  transition: transform .28s cubic-bezier(.4,0,.2,1), visibility 0s .28s;
   display: flex; flex-direction: column;
 }
-body[data-cd-open] .cd-overlay { opacity: 1; visibility: visible; }
-body[data-cd-open] .cd-drawer  { transform: translateX(0); visibility: visible; }
+body[data-cd-open] .cd-overlay { opacity: 1; visibility: visible; transition: opacity .25s ease, visibility 0s; }
+body[data-cd-open] .cd-drawer  { transform: translateX(0); visibility: visible; transition: transform .28s cubic-bezier(.4,0,.2,1), visibility 0s; }
 body[data-cd-open] { overflow: hidden; }
 .cd-drawer[hidden], .cd-overlay[hidden] { display: block; }  /* animated, not display-toggled */
 /* These panes DO toggle on [hidden], and each sets its own display, which beats the
@@ -311,3 +316,42 @@ body[data-cd-open] { overflow: hidden; }
   .cc-actions .cc-btn { flex: 1 1 auto; }
   .cc-banner { max-height: 85vh; overflow-y: auto; }
 }
+
+/* ---- Mobile nav drill-down (snippets/mobile-nav.liquid) ---- */
+/* .mnav-panel is display:block when current, so [hidden] needs the override. */
+.mnav-panel[hidden] { display: none !important; }
+.mnav-stack { display: flex; flex-direction: column; }
+.mnav-panel { display: block; }
+/* Entering panels animate; the root on first paint does not, so opening the
+   drawer does not look like a navigation that already happened. */
+.mnav-panel.is-entering { animation: mnavIn .18s ease-out; }
+.mnav-panel.is-entering-back { animation: mnavInBack .18s ease-out; }
+@keyframes mnavIn { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+@keyframes mnavInBack { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .mnav-panel.is-entering, .mnav-panel.is-entering-back { animation: none; }
+  /* Keep the visibility delay on close, or the drawer vanishes before it has
+     finished being dismissed and focus lands nowhere. */
+  .mnav-overlay, .mnav-drawer { transition: visibility 0s .01s; }
+  body[data-mnav-open] .mnav-overlay, body[data-mnav-open] .mnav-drawer { transition: visibility 0s; }
+}
+
+.mnav-list { list-style: none; margin: 0; padding: 6px 0; }
+.mnav-row { display: flex; align-items: stretch; border-bottom: 1px solid #f1f2ef; }
+/* The name and the chevron are separate targets: tapping the name goes to the
+   category, tapping the chevron opens its children. */
+.mnav-link { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; padding: 15px 20px; font-weight: 700; font-size: 15.5px; color: var(--c-text); }
+.mnav-link:active { background: #f4f5f2; }
+.mnav-link-accent { color: var(--c-primary); }
+.mnav-more { flex: 0 0 auto; width: 56px; border: none; border-left: 1px solid #f1f2ef; background: transparent; color: #c2c6bd; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.mnav-more:active { background: #f4f5f2; color: var(--c-primary); }
+.mnav-more:focus-visible, .mnav-link:focus-visible, .mnav-back:focus-visible, .mnav-all:focus-visible { outline: 2px solid var(--c-accent); outline-offset: -2px; }
+
+.mnav-back { display: flex; align-items: center; gap: 8px; width: 100%; padding: 14px 18px; border: none; border-bottom: 1px solid #eceee9; background: #f7f8f5; color: var(--c-dark); font-family: inherit; font-weight: 800; font-size: 15px; cursor: pointer; text-align: left; }
+.mnav-back:active { background: #eef2e8; }
+.mnav-back svg { flex: 0 0 auto; }
+.mnav-all { display: block; padding: 13px 20px; border-bottom: 1px solid #f1f2ef; font-weight: 700; font-size: 14px; color: var(--c-primary); }
+.mnav-all:active { background: #f4f5f2; }
+
+/* The drawer scrolls; the page behind it must not. */
+body[data-mnav-open] { overflow: hidden; }
