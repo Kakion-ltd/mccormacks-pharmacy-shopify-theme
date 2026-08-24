@@ -847,7 +847,7 @@
             <button type="submit" name="checkout" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border:none; border-radius:10px; background:#82C914; color:#ffffff; font-family:inherit; font-weight:800; font-size:15.5px; width:100%; cursor:pointer;">Checkout securely</button><div class="cart-express" style="margin-top:12px; display:grid; gap:10px;">
                 <div data-mock-express style="height:48px;border-radius:10px;border:1.5px dashed #b9c2b3;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#7d8875;background:#f4f6f1;">Express checkout buttons &middot; live store only</div>
               </div></form>
-          <div style="margin-top:10px;"><a href="/pages/shipping" class="hov-border-accent" style="display:flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:15px; width:100%;">Click &amp; Collect &mdash; free</a></div>
+          <div style="margin-top:10px;"><a href="/pages/click-and-collect" class="hov-border-accent" style="display:flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:15px; width:100%;">Click &amp; Collect &mdash; free</a></div>
 
           <div style="margin-top:18px; padding-top:16px; border-top:1px solid #eceee9;">
             <label for="cart-discount-code" style="display:block; font-size:13.5px; font-weight:700; color:#2A2B2A; margin-bottom:8px;">Discount code</label>
@@ -858,9 +858,17 @@
           </div>
         </div>
         <div style="margin-top:16px; display:flex; flex-direction:column; gap:11px; padding:0 4px;">
-          <div style="display:flex; gap:10px; align-items:flex-start; font-size:13.5px; line-height:1.6; color:#6b7065;"><span style="color:#92C83F; font-weight:800;">&check;</span><span>Dispatched from our registered Irish pharmacy</span></div>
           <div style="display:flex; gap:10px; align-items:flex-start; font-size:13.5px; line-height:1.6; color:#6b7065;"><span style="color:#92C83F; font-weight:800;">&check;</span><span>Free delivery on orders over €65</span></div>
-          <div style="display:flex; gap:10px; align-items:flex-start; font-size:13.5px; line-height:1.6; color:#6b7065;"><span style="color:#92C83F; font-weight:800;">&check;</span><span>Pharmacist advice available before you buy</span></div>
+          <div data-buy-assurance style="display:flex; flex-direction:column; gap:11px;"><div style="display:flex; gap:10px; align-items:flex-start; font-size:13.5px; line-height:1.6; color:#6b7065;">
+    <span style="color:#92C83F; font-weight:800;">&check;</span>
+    <span>Dispatched from our <a href="/pages/internet-supply-pharmacy" class="hov-green-dk" style="color:#3f6b4f; font-weight:700; text-decoration:underline; text-underline-offset:3px;">PSI-registered</a> Irish pharmacy</span>
+  </div>
+
+  <div style="display:flex; gap:10px; align-items:flex-start; font-size:13.5px; line-height:1.6; color:#6b7065;">
+    <span style="color:#92C83F; font-weight:800;">&check;</span>
+    <span><a href="/pages/contact-us" class="hov-green-dk" style="color:#3f6b4f; font-weight:700; text-decoration:underline; text-underline-offset:3px;">Ask a pharmacist</a> before you buy &mdash; in store, by phone or by email</span>
+  </div></div>
+
         </div>
       </aside>
     </div></section>
@@ -964,7 +972,7 @@
   <div>
     <div class="ftr-psi" style="max-width:1440px; margin:0 auto; padding:8px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end;">
       <a href="/pages/internet-supply-pharmacy" aria-label="PSI — verify this pharmacy is operating legally" style="display:flex; align-items:center; margin-right:15px; margin-top:-40px;">
-        <img src="/shopify-theme/assets/psi-logo.avif" alt="PSI internet supply registration" width="176" height="78" style="height:78px; width:auto; display:block; border-radius:4px;">
+        <img src="/shopify-theme/assets/psi-logo.avif" alt="PSI internet supply registration" width="93" height="78" style="height:78px; width:auto; display:block; border-radius:4px;">
       </a>
     </div>
   </div>

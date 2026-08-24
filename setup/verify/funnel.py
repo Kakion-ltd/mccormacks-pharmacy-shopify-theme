@@ -96,6 +96,22 @@ with sync_playwright() as pw:
         ship = page.locator("[data-cd-ship-msg]").inner_text()
         check(f"[{label}] drawer free-delivery msg: {ship!r}", "delivery" in ship)
 
+        # ---- D2. Buy-box assurance (3.3 / 3.4) ----
+        page.goto(BASE + "/products/x", wait_until="networkidle")
+        body = page.locator("body").inner_text()
+        check(f"[{label}] PSI registration shown beside the buy box",
+              page.locator("[data-buy-assurance] a[href='/pages/internet-supply-pharmacy']").count() >= 1)
+        check(f"[{label}] pharmacist route shown beside the buy box",
+              "Ask a pharmacist" in body)
+        # Both of these are gated on data that does not exist yet. Rendering
+        # either one today would be a claim the store cannot honour.
+        check(f"[{label}] no dispatch cutoff until one is configured",
+              "same-day dispatch" in body, False)
+        # Scoped to the assurance block: the footer links to the same page
+        # legitimately, as an information link rather than an offer.
+        check(f"[{label}] no Click & Collect until Shopify pickup is enabled",
+              page.locator("[data-buy-assurance] a[href='/pages/click-and-collect']").count(), 0)
+
         # ---- E. Threshold consistency ----
         page.goto(BASE + "/cart", wait_until="networkidle")
         page.wait_for_timeout(800)

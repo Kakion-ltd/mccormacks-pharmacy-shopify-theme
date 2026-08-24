@@ -113,4 +113,48 @@ check('schema emits two entries for a split day',
 
 check('a fully closed week emits no schema entries', hours('', 'schema'), '');
 
+
+/* ---------- buy-assurance ----------
+   Two of its lines are gated on data the local preview cannot produce: a
+   dispatch cutoff nobody has confirmed yet, and pickup locations that only
+   exist once Shopify local pickup is switched on. Both gates fail closed, so a
+   passing preview proves nothing about them either way. */
+engine.registerFilter('asset_url', (v) => `/assets/${v}`);
+
+const assurance = (scope) => render('buy-assurance', { settings: {}, ...scope });
+const pickup = (names) => ({
+  store_availabilities: names.map((n) => ({ available: true, location: { name: n } })),
+});
+
+check('no dispatch line until a cutoff is set',
+  assurance({}).includes('same-day dispatch'), false);
+check('dispatch line appears once a cutoff is set',
+  assurance({ settings: { dispatch_cutoff: '3pm' } }).includes('Order before'), true);
+check('dispatch days default when not set',
+  assurance({ settings: { dispatch_cutoff: '3pm' } }).includes('Monday to Friday'), true);
+check('dispatch days are overridable',
+  assurance({ settings: { dispatch_cutoff: '3pm', dispatch_days: 'Monday to Saturday' } })
+    .includes('Monday to Saturday'), true);
+
+check('no Click & Collect without pickup locations',
+  assurance({ variant: { store_availabilities: [] } }).includes('Click &amp; Collect'), false);
+check('no Click & Collect when the variant has no availability data at all',
+  assurance({ variant: {} }).includes('Click &amp; Collect'), false);
+check('one pickup location is named',
+  assurance({ variant: pickup(['Clonmel']) }).includes('Click &amp; Collect</strong> from\n        Clonmel'), true);
+check('several pickup locations are counted, not listed',
+  assurance({ variant: pickup(['Clonmel', 'Newbridge', 'Tullamore']) }).includes('3 of our stores'), true);
+// A location Shopify reports as unavailable must not be counted as collectable.
+check('unavailable pickup locations are excluded from the count',
+  assurance({ variant: { store_availabilities: [
+    { available: true, location: { name: 'Clonmel' } },
+    { available: false, location: { name: 'Belmullet' } },
+  ] } }).includes('Click &amp; Collect</strong> from\n        Clonmel'), true);
+
+check('PSI registration is always shown',
+  assurance({}).includes('/pages/internet-supply-pharmacy'), true);
+check('the PSI mark is on the product page but not the cart',
+  [assurance({}).includes('psi-logo'), assurance({ compact: true }).includes('psi-logo')].join(),
+  'true,false');
+
 console.log(`${passed}/${passed} liquid snippet checks passed`);

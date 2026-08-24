@@ -58,6 +58,30 @@
         "label": "Restricted product tag",
         "default": "pharmacist-only",
         "info": "Products carrying this tag cannot be added to the bag in one click from a listing, a search result or a recommendation — the button becomes a link to the product page. Matching ignores capitals. Clear this field to disable the check."
+      },
+      {
+        "type": "header",
+        "content": "Delivery and collection"
+      },
+      {
+        "type": "paragraph",
+        "content": "The dispatch cutoff appears beside the Add to bag button and in the cart. Leave it blank and no cutoff is shown anywhere — nothing unconfirmed goes next to a buy button. Note that 12 collection FAQ answers say \"before 3pm\" independently; check those before setting this."
+      },
+      {
+        "type": "text",
+        "id": "dispatch_cutoff",
+        "label": "Same-day dispatch cutoff",
+        "info": "For example 3pm. Blank hides the line."
+      },
+      {
+        "type": "text",
+        "id": "dispatch_days",
+        "label": "Dispatch days",
+        "default": "Monday to Friday"
+      },
+      {
+        "type": "paragraph",
+        "content": "Click & Collect needs no setting. It appears on a product automatically wherever Shopify local pickup is enabled for that product's location, and stays hidden otherwise, so the page cannot offer collection the store has not switched on."
       }
     ]
   },

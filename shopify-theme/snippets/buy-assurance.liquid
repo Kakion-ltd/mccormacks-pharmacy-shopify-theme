@@ -1,0 +1,82 @@
+{% comment %}
+  The reassurance that belongs next to the money: who dispatches this, when it
+  goes out, whether you can collect it, and that a pharmacist is reachable
+  before you buy.
+
+  It lived in the footer only, which is the one place a shopper deciding whether
+  to click Add to bag is not looking.
+
+  Every line here is either always true or driven by real data. Two in
+  particular are deliberately NOT free text:
+
+    Dispatch cutoff renders only when settings.dispatch_cutoff is filled in.
+    Blank by default, so an unconfirmed time never appears beside a buy button.
+    Note that 12 collection FAQ answers still say "before 3pm" independently —
+    see setup/MAINTENANCE.md before setting this.
+
+    Click & Collect renders only from variant.store_availabilities, which
+    Shopify populates from the locations where local pickup is actually
+    enabled. If pickup is not configured, nothing renders. The theme therefore
+    cannot promise collection the store has not switched on, and the store
+    count is Shopify's, not ours.
+
+  Accepts:
+    variant  — optional; pickup lines need it, so pass it on a product page
+    compact  — true for the cart's smaller type
+{% endcomment %}
+
+{%- liquid
+  assign type_size = '15px'
+  assign line_gap = '11px'
+  if compact
+    assign type_size = '13.5px'
+    assign line_gap = '11px'
+  endif
+
+  assign pickup_locations = ''
+  if variant and variant.store_availabilities
+    assign pickup_locations = variant.store_availabilities | where: 'available'
+  endif
+-%}
+
+<div data-buy-assurance style="display:flex; flex-direction:column; gap:{{ line_gap }};">
+
+  {%- if settings.dispatch_cutoff != blank -%}
+    <div style="display:flex; gap:10px; align-items:flex-start; font-size:{{ type_size }}; line-height:1.6; color:{% if compact %}#6b7065{% else %}#3a3d39{% endif %};">
+      <span style="color:#92C83F; font-weight:800;">&check;</span>
+      <span>Order before <strong style="font-weight:800;">{{ settings.dispatch_cutoff }}</strong> {{ settings.dispatch_days | default: 'Monday to Friday' }} for same-day dispatch</span>
+    </div>
+  {%- endif -%}
+
+  {%- if pickup_locations != blank and pickup_locations.size > 0 -%}
+    <div style="display:flex; gap:10px; align-items:flex-start; font-size:{{ type_size }}; line-height:1.6; color:{% if compact %}#6b7065{% else %}#3a3d39{% endif %};">
+      <span style="color:#92C83F; font-weight:800;">&check;</span>
+      <span>
+        <strong style="font-weight:800;">Click &amp; Collect</strong> from
+        {% if pickup_locations.size == 1 %}{{ pickup_locations.first.location.name }}{% else %}{{ pickup_locations.size }} of our stores{% endif %}
+        &mdash; <a href="/pages/click-and-collect" class="hov-green-dk" style="color:#3f6b4f; font-weight:700; text-decoration:underline; text-underline-offset:3px;">how it works</a>
+      </span>
+    </div>
+  {%- endif -%}
+
+  <div style="display:flex; gap:10px; align-items:flex-start; font-size:{{ type_size }}; line-height:1.6; color:{% if compact %}#6b7065{% else %}#3a3d39{% endif %};">
+    <span style="color:#92C83F; font-weight:800;">&check;</span>
+    <span>Dispatched from our <a href="/pages/internet-supply-pharmacy" class="hov-green-dk" style="color:#3f6b4f; font-weight:700; text-decoration:underline; text-underline-offset:3px;">PSI-registered</a> Irish pharmacy</span>
+  </div>
+
+  <div style="display:flex; gap:10px; align-items:flex-start; font-size:{{ type_size }}; line-height:1.6; color:{% if compact %}#6b7065{% else %}#3a3d39{% endif %};">
+    <span style="color:#92C83F; font-weight:800;">&check;</span>
+    <span><a href="/pages/contact-us" class="hov-green-dk" style="color:#3f6b4f; font-weight:700; text-decoration:underline; text-underline-offset:3px;">Ask a pharmacist</a> before you buy &mdash; in store, by phone or by email</span>
+  </div>
+
+  {%- unless compact -%}
+    {%- comment -%} The PSI mark carries more weight than the words beside it, so the
+        product page shows it. The cart already has the shopper's commitment and
+        does not need the extra weight. {%- endcomment -%}
+    <a href="/pages/internet-supply-pharmacy" style="display:inline-flex; align-items:center; gap:10px; margin-top:2px; width:fit-content;">
+      <img src="{{ 'psi-logo.avif' | asset_url }}" alt="PSI registered internet supply pharmacy" width="86" height="72" loading="lazy" style="height:72px; width:auto; display:block; border-radius:4px;">
+      <span style="font-size:12.5px; line-height:1.45; color:#6b7065; max-width:22ch;">Verify this pharmacy on the PSI register</span>
+    </a>
+  {%- endunless -%}
+
+</div>

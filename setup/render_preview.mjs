@@ -240,6 +240,7 @@ const handleOf = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|
 const mockVariant = (i) => ({
   id: 40000000 + i, title: 'Default', price: CATALOGUE[i].p, compare_at_price: CATALOGUE[i].was,
   available: true, sku: `SKU-${i}`, inventory_quantity: 12, featured_image: null,
+  store_availabilities: [],
   requires_shipping: true, options: ['Default'], selected: i === 0,
 });
 const products = CATALOGUE.map((c, i) => ({

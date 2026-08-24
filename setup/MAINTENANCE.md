@@ -195,6 +195,33 @@ in a confidently wrong order.
 
 ---
 
+## Dispatch cutoff and Click & Collect — both fail closed
+
+`snippets/buy-assurance.liquid` renders the reassurance beside the Add to bag
+button and in the cart. Two of its lines are deliberately absent until real data
+exists, because the alternative is promising something the store cannot do.
+
+**Dispatch cutoff** — Theme settings → Pharmacy → Same-day dispatch cutoff.
+Blank by default, and blank means the line does not render at all. Before
+setting it, know that **12 collection FAQ answers independently say "before
+3pm"**. Those are separate copy and will not follow this setting. Either set it
+to match them, or tokenise them the way `[threshold]` works — do not leave the
+two disagreeing, which is exactly the failure the delivery threshold had.
+
+**Click & Collect** — no setting, deliberately. The line renders from
+`variant.store_availabilities`, which Shopify populates only where local pickup
+is actually enabled for that product's location. Configure pickup per location
+in Shopify admin and the line appears by itself, naming the store when there is
+one and counting them when there are several. Leave pickup off and the page
+never mentions collection. The count is Shopify's, never ours.
+
+The cart's separate "Click & Collect — free" button is an information link to
+`/pages/click-and-collect`. It sits directly under Checkout, so it reads as a
+checkout alternative — **if local pickup is never enabled, that button is
+misleading and should be removed**, not left as decoration.
+
+---
+
 ## Consent — the banner is not what blocks the pixels
 
 `snippets/consent-banner.liquid` records a choice through Shopify's Customer
