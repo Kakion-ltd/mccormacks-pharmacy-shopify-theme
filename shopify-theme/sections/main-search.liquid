@@ -108,6 +108,7 @@
                     <span style="font-size:13.5px; color:#8b9182; text-decoration:line-through;">{{ product.compare_at_price | money }}</span>
                   {%- endif -%}
                 </div>
+                {% render 'wishlist-button', product: product %}
                 {%- if quick_add -%}
                   <button data-add-id="{{ variant.id }}" class="hov-bg-green-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:#82C914; color:#ffffff; font-weight:800; font-size:14.5px; margin-top:2px; border:none; cursor:pointer; font-family:inherit; width:100%;">Add To Bag</button>
                 {%- else -%}

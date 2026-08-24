@@ -13,6 +13,18 @@
   // later the style has been recomputed and it takes.
   const focusSoon = (el) => { if (el) requestAnimationFrame(() => el.focus()); };
 
+  // Mirror the shop's money format loosely; exact rendering stays server-side
+  // wherever Liquid can do it. Intl keeps decimals and grouping correct per locale.
+  const formatMoney = (cents) => {
+    try {
+      return new Intl.NumberFormat(document.documentElement.lang || 'en-IE',
+        { style: 'currency', currency: 'EUR' }).format(cents / 100);
+    } catch { return '\u20ac' + (cents / 100).toFixed(2); }
+  };
+
+  const escapeHtml = (t) => String(t == null ? '' : t).replace(/[&<>"']/g,
+    (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
   // ---- Mega menu: data-mega-trigger="key" links, data-mega-panel="key" panels,
   // data-mega-root wrapper. Opens on hover/keyboard focus; tap-to-open on touch
   // (second tap follows the link); 250ms close grace on mouseleave; Esc closes;
@@ -231,16 +243,8 @@
   if (cd.drawer) {
     const $ = (sel) => cd.drawer.querySelector(sel);
     const threshold = parseInt(cd.drawer.dataset.cdThreshold || '0', 10);
-    const fmt = (cents) => {
-      // Mirror the shop's money format loosely; exact rendering stays server-side
-      // on the cart page. Intl keeps decimals and grouping correct per locale.
-      try {
-        return new Intl.NumberFormat(document.documentElement.lang || 'en-IE',
-          { style: 'currency', currency: 'EUR' }).format(cents / 100);
-      } catch { return '€' + (cents / 100).toFixed(2); }
-    };
-    const esc = (t) => String(t == null ? '' : t).replace(/[&<>"']/g,
-      (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const fmt = formatMoney;
+    const esc = escapeHtml;
 
     const recMount = $('[data-crec-mount]');
     let lastFocus = null;
@@ -402,6 +406,124 @@
     catch { if (btn) btn.textContent = 'Unavailable'; }
     if (btn) setTimeout(() => { btn.disabled = false; btn.textContent = 'Add To Bag'; }, 1600);
   });
+
+  // ---- Wishlist. Stored in the visitor's own browser, no account and no app.
+  // Only handles are stored; the wishlist page reads price, stock and image live
+  // from /products/<handle>.js, so a saved item cannot show a stale price and a
+  // deleted product drops out by itself.
+  const WISH_KEY = 'mcc_wishlist';
+  let wishRender = null;
+
+  const wishRead = () => {
+    try {
+      const raw = JSON.parse(localStorage.getItem(WISH_KEY) || '{}');
+      return Array.isArray(raw.items) ? raw.items.filter((h) => typeof h === 'string') : [];
+    } catch {
+      // Private mode, blocked storage, or something else wrote to the key.
+      return [];
+    }
+  };
+  const wishWrite = (items) => {
+    try { localStorage.setItem(WISH_KEY, JSON.stringify({ v: 1, items })); } catch { /* nothing we can do */ }
+  };
+
+  const wishCount = () => {
+    const n = wishRead().length;
+    document.querySelectorAll('[data-wish-count]').forEach((el) => {
+      el.textContent = n;
+      el.style.display = n > 0 ? 'flex' : 'none';
+    });
+  };
+
+  // Every button for a handle reflects the same state — a product can appear in
+  // a grid and a rail on the same page.
+  const wishSync = () => {
+    const items = wishRead();
+    document.querySelectorAll('[data-wish-toggle]').forEach((btn) => {
+      const saved = items.indexOf(btn.dataset.wishToggle) > -1;
+      btn.setAttribute('aria-pressed', String(saved));
+      btn.classList.toggle('is-saved', saved);
+      const label = btn.querySelector('[data-wish-label]');
+      if (label) label.textContent = saved ? 'Saved' : 'Save for later';
+    });
+    wishCount();
+  };
+
+  on(document, 'click', '[data-wish-toggle]', (e, btn) => {
+    e.preventDefault();
+    const handle = btn.dataset.wishToggle;
+    const items = wishRead();
+    const at = items.indexOf(handle);
+    if (at > -1) items.splice(at, 1); else items.unshift(handle);
+    wishWrite(items);
+    wishSync();
+    if (typeof wishRender === 'function') wishRender();
+  });
+  wishSync();
+
+  // ---- Wishlist page. Cards are built from live product JSON.
+  const wishGrid = document.querySelector('[data-wish-grid]');
+  if (wishGrid) {
+    const wishEmpty = document.querySelector('[data-wish-empty]');
+    // The pharmacy gate lives in Liquid everywhere else. This page renders
+    // client-side, so the tag has to come across in the markup — otherwise a
+    // restricted product would get a one-click add here and nowhere else.
+    const gateTag = (wishGrid.dataset.wishRestrictedTag || '').toLowerCase();
+
+    const card = (p) => {
+      const restricted = gateTag && (p.tags || []).some((t) => String(t).toLowerCase() === gateTag);
+      const quickAdd = !restricted && p.available && p.variants && p.variants.length === 1;
+      const img = p.featured_image
+        ? '<img src="' + escapeHtml(p.featured_image) + '" alt="" loading="lazy" class="wish-card-img">'
+        : '<span class="wish-card-ph"></span>';
+      let action;
+      if (quickAdd) {
+        action = '<button type="button" class="wish-add hov-bg-green" data-add-id="' + p.variants[0].id + '">Add To Bag</button>';
+      } else {
+        action = '<a class="wish-add wish-add-link hov-bg-green" href="/products/' + encodeURIComponent(p.handle) + '">'
+          + (restricted ? 'View product' : (p.available ? 'Choose options' : 'Out of stock')) + '</a>';
+      }
+      return '<div class="wish-card">'
+        + '<a class="wish-card-thumb" href="/products/' + encodeURIComponent(p.handle) + '">' + img + '</a>'
+        + '<a class="wish-card-title" href="/products/' + encodeURIComponent(p.handle) + '">' + escapeHtml(p.title) + '</a>'
+        + '<div class="wish-card-price">' + formatMoney(p.price) + '</div>'
+        + action
+        + '<button type="button" class="wish-remove" data-wish-toggle="' + escapeHtml(p.handle) + '">Remove</button>'
+        + '</div>';
+    };
+
+    wishRender = async () => {
+      const handles = wishRead();
+      if (!handles.length) {
+        wishGrid.innerHTML = '';
+        wishGrid.hidden = true;
+        if (wishEmpty) wishEmpty.hidden = false;
+        return;
+      }
+      if (wishEmpty) wishEmpty.hidden = true;
+      wishGrid.hidden = false;
+      const results = await Promise.all(handles.map((h) =>
+        fetch('/products/' + encodeURIComponent(h) + '.js')
+          .then((r) => (r.ok ? r.json() : null))
+          .catch(() => null)));
+
+      // A product that no longer resolves has been deleted or unpublished.
+      // Drop it rather than leaving a dead card the shopper cannot clear.
+      const alive = [];
+      const gone = [];
+      results.forEach((p, i) => (p ? alive.push(p) : gone.push(handles[i])));
+      if (gone.length) {
+        wishWrite(handles.filter((h) => gone.indexOf(h) === -1));
+        wishCount();
+      }
+      wishGrid.innerHTML = alive.map(card).join('');
+      if (!alive.length) {
+        wishGrid.hidden = true;
+        if (wishEmpty) wishEmpty.hidden = false;
+      }
+    };
+    wishRender();
+  }
 
   // ---- Cookie consent. Drives Shopify's Customer Privacy API; stores nothing
   // itself. See snippets/consent-banner.liquid for how the gating works and why

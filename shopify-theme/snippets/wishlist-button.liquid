@@ -1,0 +1,39 @@
+{% comment %}
+  Save-to-wishlist toggle.
+
+  The wishlist is stored in the visitor's own browser (localStorage), not on an
+  account and not in an app. That is a deliberate limit worth knowing: it does
+  not follow someone to another device, and clearing site data clears it. In
+  exchange it needs no login, no app subscription, and works on the first visit
+  — which is when someone is most likely to save something.
+
+  Only the product HANDLE is stored. Prices, availability and images are read
+  live from /products/<handle>.js when the wishlist page renders, so a saved
+  item can never show a stale price, and a deleted product drops out by itself.
+
+  Usage:
+    {% render 'wishlist-button', product: product %}                 icon only
+    {% render 'wishlist-button', product: product, style: 'text' %}  icon + label
+
+  Accepts: product (required), style ('icon' by default)
+{% endcomment %}
+{%- liquid
+  assign label = 'Save ' | append: product.title | append: ' to your wishlist'
+  assign is_text = false
+  if style == 'text'
+    assign is_text = true
+  endif
+-%}
+<button type="button"
+        class="wish-btn{% if is_text %} wish-btn-text{% endif %}"
+        data-wish-toggle="{{ product.handle }}"
+        aria-pressed="false"
+        aria-label="{{ label | escape }}">
+  {%- comment -%} Two paths rather than a fill swap: the outline and the solid
+      heart read differently at 20px, and a filled heart is the whole signal
+      that something is saved. {%- endcomment -%}
+  <svg class="wish-ico" width="{% if is_text %}19{% else %}20{% endif %}" height="{% if is_text %}19{% else %}20{% endif %}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
+  </svg>
+  {%- if is_text -%}<span data-wish-label>Save for later</span>{%- endif -%}
+</button>

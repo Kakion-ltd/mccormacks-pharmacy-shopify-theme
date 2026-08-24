@@ -97,31 +97,48 @@ CART_LOCK = threading.Lock()
 CART = {"items": []}
 
 
+# The mock catalogue, mirroring render_preview.mjs by index. One table feeds both
+# the cart line items and the product JSON the wishlist reads, so the two cannot
+# disagree about a price the way two copies would.
+CATALOGUE = [
+    ("fab\u00dc Skin Hair Nails Glow 60 Capsules", "fab\u00dc", 1995, "prod-fabu-glow.jpg", []),
+    ("Cetrine Allergy 10mg 30 Tablets", "Cetrine", 799, "prod-cetrine.jpg", []),
+    ("Revive Active 30 Sachets", "Revive Active", 6499, "prod-revive.jpg", []),
+    ("Optibac Every Day MAX 30 Capsules", "Optibac", 2799, "prod-optibac-max.jpg", []),
+    ("Nurofen 200mg Ibuprofen 24 Tablets", "Nurofen", 649, "prod-nurofen.jpg", []),
+    ("CeraVe Hydrating Cleanser 236ml", "CeraVe", 1350, "prod-cerave-cleanser.jpg", []),
+    ("Sudocrem Antiseptic Healing Cream 125g", "Sudocrem", 799, "prod-sudocrem.jpg", []),
+    ("Vitamin D3 1000IU 60 Capsules", "McCormack\u2019s", 999, "prod-vitd.jpg", []),
+    ("Nurofen Plus 200mg/12.8mg 24 Tablets", "Nurofen", 1099, "prod-nurofen.jpg", ["pharmacist-only"]),
+]
+
+
+def handleize(title):
+    return re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
+
+
+def product_json(i):
+    title, vendor, price, img, tags = CATALOGUE[i]
+    return {
+        "id": 30000000 + i, "title": title, "handle": handleize(title), "vendor": vendor,
+        "price": price, "available": True, "tags": tags,
+        "featured_image": f"/shopify-theme/assets/{img}",
+        "variants": [{"id": 40000000 + i, "title": "Default", "price": price, "available": True}],
+    }
+
+
 def line_for(variant_id):
-    """Line item fields the theme's drawer reads. Titles and prices come from
-    render_preview.mjs's mock catalogue, mirrored here by index."""
+    """Line item fields the theme's drawer reads."""
     i = int(variant_id) - 40000000
-    titles = [
-        ("fab\u00dc Skin Hair Nails Glow 60 Capsules", "fab\u00dc", 1995, "prod-fabu-glow.jpg"),
-        ("Cetrine Allergy 10mg 30 Tablets", "Cetrine", 799, "prod-cetrine.jpg"),
-        ("Revive Active 30 Sachets", "Revive Active", 6499, "prod-revive.jpg"),
-        ("Optibac Every Day MAX 30 Capsules", "Optibac", 2799, "prod-optibac-max.jpg"),
-        ("Nurofen 200mg Ibuprofen 24 Tablets", "Nurofen", 649, "prod-nurofen.jpg"),
-        ("CeraVe Hydrating Cleanser 236ml", "CeraVe", 1350, "prod-cerave-cleanser.jpg"),
-        ("Sudocrem Antiseptic Healing Cream 125g", "Sudocrem", 799, "prod-sudocrem.jpg"),
-        ("Vitamin D3 1000IU 60 Capsules", "McCormack\u2019s", 999, "prod-vitd.jpg"),
-        ("Nurofen Plus 200mg/12.8mg 24 Tablets", "Nurofen", 1099, "prod-nurofen.jpg"),
-    ]
-    if not 0 <= i < len(titles):
+    if not 0 <= i < len(CATALOGUE):
         return None
-    title, vendor, price, img = titles[i]
-    handle = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
+    title, vendor, price, img, _ = CATALOGUE[i]
     return {
         "id": int(variant_id), "variant_id": int(variant_id), "product_id": 30000000 + i,
         "key": f"{variant_id}:0", "title": title, "product_title": title, "vendor": vendor,
         "variant_title": None, "quantity": 0, "price": price, "final_price": price,
         "original_price": price, "line_price": price, "final_line_price": price,
-        "original_line_price": price, "url": f"/products/{handle}",
+        "original_line_price": price, "url": f"/products/{handleize(title)}",
         "image": f"/shopify-theme/assets/{img}",
     }
 
@@ -208,8 +225,19 @@ class Handler(SimpleHTTPRequestHandler):
             self.send_error(404)
 
     def send_head(self):
-        if urllib.parse.unquote(self.path.split("?")[0]).rstrip("/") == "/cart.js":
+        p = urllib.parse.unquote(self.path.split("?")[0]).rstrip("/")
+        if p == "/cart.js":
             self._json(cart_json())
+            return None
+        # Product JSON, as Shopify serves it. The wishlist reads price, stock and
+        # tags from here rather than storing them, so saved items stay current.
+        if p.startswith("/products/") and p.endswith(".js"):
+            handle = p[len("/products/"):-len(".js")]
+            for i, entry in enumerate(CATALOGUE):
+                if handleize(entry[0]) == handle:
+                    self._json(product_json(i))
+                    return None
+            self._json({"errors": "Not Found"}, 404)
             return None
 
         # Unknown store-ish path -> the theme's own 404 page, like a real store.

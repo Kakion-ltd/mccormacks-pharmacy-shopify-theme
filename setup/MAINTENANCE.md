@@ -113,6 +113,15 @@ Two rules for anyone adding a new product grid or rail:
    *server-rendered sections* precisely so the filtering cannot be bypassed by
    client code.
 
+   **The wishlist page is the one exception**, because the visitor picks the
+   products and they are held in their own browser. It pays for that by
+   re-testing the tag client-side against the same setting, passed down in
+   markup as `data-wish-restricted-tag`, and the tags come from Shopify's own
+   `/products/<handle>.js`, not from anything stored locally. Change the
+   setting and both gates move together. If you touch that surface, keep the
+   test — it is the only thing standing between a saved pharmacist-only
+   medicine and a one-click add.
+
 **This is suppression, not a suitability check.** The product page's own Add to
 bag is ungated. The collection FAQ used to claim customers are screened with
 questions before adding restricted medicines to the basket; that claim was

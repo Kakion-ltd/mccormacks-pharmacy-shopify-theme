@@ -159,6 +159,7 @@
               {%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}
             </button>
           </div>
+          {% render 'wishlist-button', product: product, style: 'text' %}
           {%- comment -%} Shopify's accelerated checkout button (Shop Pay / Apple Pay / …).
               Skips the cart entirely for a shopper who just wants this one item. Behind a
               setting because it can cannibalise cart-based upsell — switch it off in the
