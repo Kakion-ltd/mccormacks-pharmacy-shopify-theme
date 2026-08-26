@@ -4,15 +4,24 @@
   --c-primary-hover: #6BA30F;
   --c-dark: #3F6B4F;
   --c-accent: #92C83F;
+  /* Text that sits on the greens above. theme.liquid recomputes these from the
+     merchant's chosen colours; these defaults match the shipped palette. White on
+     the lime is 2.04:1 and fails WCAG AA — dark ink on it is 6.98:1. */
+  --c-on-primary: #2A2B2A;
+  --c-on-accent: #2A2B2A;
+  --c-on-dark: #FFFFFF;
+  /* The lime as an ink. #82C914 on white is 2.04:1; this is the same hue
+     darkened until it passes AA at 4.60:1. theme.liquid recomputes it. */
+  --c-primary-text: #53820D;
   --c-tint: #E6F2D5;
   --c-text: #2A2B2A;
   --c-muted: #5A6153;
-  --c-muted-2: #8B9182;
+  --c-muted-2: #717769;
   --c-border: #E6E7E4;
   --c-border-2: #DFE1DC;
   --c-error: #B3261E;
   --c-error-bg: #FBEAE9;
-  --c-success: #5E8A1F;
+  --c-success: #58821D;
   --c-success-bg: #EEF6E4;
   --font-heading: 'Arial Rounded MT Bold', Arial, sans-serif;
   --font-body: 'Mulish', system-ui, sans-serif;
@@ -21,8 +30,8 @@
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body { font-family: var(--font-body); color: var(--c-text); background: #ffffff; font-size: 16px; }
-a { color: var(--c-primary); text-decoration: none; }
-a:hover { color: var(--c-primary-hover); }
+a { color:var(--c-primary-text); text-decoration: none; }
+a:hover { color:var(--c-primary-text); }
 img { max-width: 100%; }
 button { font-family: inherit; }
 input, select, textarea { font-family: inherit; }
@@ -39,8 +48,8 @@ h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 
 }
 
 /* Shared hover/focus utilities (converted from the design's style-hover attributes) */
-.hov-green:hover { color: var(--c-primary) !important; }
-.hov-green-dk:hover { color: var(--c-primary-hover) !important; }
+.hov-green:hover { color:var(--c-primary-text) !important; }
+.hov-green-dk:hover { color:var(--c-primary-text) !important; }
 .hov-dark-green:hover { color: var(--c-dark) !important; }
 .hov-bg-green:hover { background: var(--c-primary) !important; }
 .hov-bg-green-dk:hover { background: var(--c-primary-hover) !important; }
@@ -48,8 +57,8 @@ h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 
 .hov-bg-accent-dk:hover { background: #7FB52F !important; }
 .hov-bg-dark:hover { background: #153531 !important; }
 .hov-bg-tint:hover { background: #F6F8F1 !important; }
-.hov-border-accent:hover { border-color: var(--c-accent) !important; color: var(--c-primary) !important; }
-.hov-slide:hover { color: var(--c-primary) !important; transform: translateX(4px); }
+.hov-border-accent:hover { border-color: var(--c-accent) !important; color:var(--c-primary-text) !important; }
+.hov-slide:hover { color:var(--c-primary-text) !important; transform: translateX(4px); }
 .slide-cta:hover .cta-arrow { transform: translate(3px, -3px); }
 
 .hdr-search-form:focus-within { background: #ffffff !important; border-color: var(--c-accent) !important; box-shadow: 0 0 0 4px rgba(146, 200, 63, .15); }
@@ -67,7 +76,7 @@ h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 
   height: 0;
   z-index: 50;
 }
-[data-mega-trigger][data-open="true"] { color: var(--c-primary) !important; }
+[data-mega-trigger][data-open="true"] { color:var(--c-primary-text) !important; }
 
 /* Mobile drawer */
 .mnav-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.45); opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility 0s .25s; }
@@ -143,7 +152,7 @@ body[data-mnav-open] .mnav-drawer { transform: translateX(0); visibility: visibl
   .ftr-cols { text-align: left; padding: 0 !important; gap: 0 !important; grid-template-columns: 1fr !important; }
   .ftr-cols > div:first-child { align-items: flex-start; display: flex; flex-direction: column; padding: 24px 20px; }
   .ftr-cols > div:first-child p { display: none; }
-  .ftr-cols h4 { text-align: left; justify-content: space-between !important; gap: 10px !important; color: var(--c-primary); border-bottom: none !important; padding: 18px 20px !important; margin: 0 !important; font-size: 17px !important; border-top: 1px solid var(--c-border); }
+  .ftr-cols h4 { text-align: left; justify-content: space-between !important; gap: 10px !important; color:var(--c-primary-text); border-bottom: none !important; padding: 18px 20px !important; margin: 0 !important; font-size: 17px !important; border-top: 1px solid var(--c-border); }
   .ftr-acc-chevron { display: inline-flex !important; width: 20px !important; height: 20px !important; }
   .ftr-acc-content[data-open="false"] { display: none !important; }
   .ftr-acc-content { padding: 0 20px 18px; align-items: flex-start !important; }
@@ -203,7 +212,7 @@ body[data-cd-open] { overflow: hidden; }
 .cd-line-img { flex: 0 0 72px; width: 72px; height: 72px; border-radius: 9px; border: 1px solid var(--c-border-2); overflow: hidden; background: #fff; }
 .cd-line-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .cd-line-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
-.cd-line-vendor { font-size: 12px; font-weight: 700; color: var(--c-primary); }
+.cd-line-vendor { font-size: 12px; font-weight: 700; color:var(--c-primary-text); }
 .cd-line-title { font-size: 14.5px; line-height: 1.35; color: var(--c-text); font-weight: 600; }
 .cd-line-title a { color: inherit; }
 .cd-line-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 2px; }
@@ -223,11 +232,11 @@ body[data-cd-open] { overflow: hidden; }
 .cd-sub span:first-child { font-size: 15px; color: var(--c-muted); }
 .cd-sub span:last-child { font-family: var(--font-heading); font-weight: 800; font-size: 21px; color: var(--c-text); font-variant-numeric: tabular-nums; }
 .cd-vat { margin: 0 0 14px; font-size: 12.5px; color: var(--c-muted-2); }
-.cd-checkout { width: 100%; height: 52px; border: none; border-radius: 10px; background: var(--c-primary); color: #fff; font-family: inherit; font-weight: 800; font-size: 15.5px; cursor: pointer; }
+.cd-checkout { width: 100%; height: 52px; border: none; border-radius: 10px; background: var(--c-primary); color:var(--c-on-primary); font-family: inherit; font-weight: 800; font-size: 15.5px; cursor: pointer; }
 .cd-express { display: grid; gap: 10px; margin-top: 10px; }
 .cd-express:empty { display: none; }
 .cd-secondary { display: block; text-align: center; margin-top: 12px; font-size: 14.5px; font-weight: 700; color: var(--c-dark); }
-.cd-secondary:hover { color: var(--c-primary); }
+.cd-secondary:hover { color:var(--c-primary-text); }
 
 @media (max-width: 480px) {
   .cd-drawer { width: 100%; max-width: 100%; }
@@ -255,14 +264,14 @@ body[data-cd-open] { overflow: hidden; }
 .ps-thumb-img { max-width: 86%; max-height: 86%; width: auto; height: auto; object-fit: contain; display: block; }
 .ps-meta { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
 .ps-title { font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.ps-price { font-weight: 800; font-size: 14px; color: var(--c-primary); font-variant-numeric: tabular-nums; }
+.ps-price { font-weight: 800; font-size: 14px; color:var(--c-primary-text); font-variant-numeric: tabular-nums; }
 .ps-oos { font-weight: 700; font-size: 13px; color: var(--c-muted-2); }
 /* Restricted lines show why there is no price-and-add shortcut, not a bare price */
 .ps-flag { font-weight: 700; font-size: 12.5px; color: #8a6210; }
 .ps-collection { font-weight: 600; }
 .ps-empty { margin: 0; padding: 18px 12px; font-size: 14.5px; color: var(--c-muted); }
 .ps-all { display: block; margin-top: 6px; padding: 12px 10px; border-top: 1px solid var(--c-border); font-size: 14px; font-weight: 700; color: var(--c-dark); }
-.ps-all:hover { color: var(--c-primary); }
+.ps-all:hover { color:var(--c-primary-text); }
 
 /* ---- Cart cross-sell rail (sections/cart-recommendations.liquid) ---- */
 /* The mount is display:block once filled, so it needs the !important [hidden]
@@ -277,9 +286,9 @@ body[data-cd-open] { overflow: hidden; }
 .crec-thumb { height: 84px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .crec-img { max-width: 92%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
 .crec-title { font-size: 13px; font-weight: 600; line-height: 1.35; color: var(--c-text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 35px; }
-.crec-title:hover { color: var(--c-primary); }
-.crec-price { font-weight: 800; font-size: 14.5px; color: var(--c-primary); font-variant-numeric: tabular-nums; }
-.crec-add { margin-top: auto; display: flex; align-items: center; justify-content: center; height: 36px; border: none; border-radius: 8px; background: var(--c-accent); color: #fff; font-family: inherit; font-weight: 700; font-size: 13.5px; cursor: pointer; }
+.crec-title:hover { color:var(--c-primary-text); }
+.crec-price { font-weight: 800; font-size: 14.5px; color:var(--c-primary-text); font-variant-numeric: tabular-nums; }
+.crec-add { margin-top: auto; display: flex; align-items: center; justify-content: center; height: 36px; border: none; border-radius: 8px; background: var(--c-accent); color:var(--c-on-primary); font-family: inherit; font-weight: 700; font-size: 13.5px; cursor: pointer; }
 .crec-add-link { text-decoration: none; }
 
 /* ---- Cookie consent (snippets/consent-banner.liquid) ---- */
@@ -291,14 +300,14 @@ body[data-cd-open] { overflow: hidden; }
 .cc-title { font-family: var(--font-heading); font-weight: 800; font-size: 17px; color: var(--c-dark); margin: 0 0 6px; }
 .cc-body { margin: 0; font-size: 14px; line-height: 1.6; color: var(--c-muted); max-width: 68ch; }
 .cc-link { color: var(--c-dark); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
-.cc-link:hover { color: var(--c-primary); }
+.cc-link:hover { color:var(--c-primary-text); }
 
 /* Accept and reject are deliberately identical — equal size, weight and colour.
    Irish ePrivacy requires rejecting to be as easy as accepting, and a quieter
    reject button is the usual way that requirement gets quietly broken. */
 .cc-actions { flex: 0 0 auto; display: flex; flex-wrap: wrap; gap: 10px; }
-.cc-btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border-radius: 9px; border: 1.5px solid var(--c-primary); background: var(--c-primary); color: #fff; font-family: inherit; font-weight: 700; font-size: 14.5px; cursor: pointer; }
-.cc-btn:hover { background: var(--c-primary-hover); border-color: var(--c-primary-hover); }
+.cc-btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border-radius: 9px; border: 1.5px solid var(--c-primary); background: var(--c-primary); color:var(--c-on-primary); font-family: inherit; font-weight: 700; font-size: 14.5px; cursor: pointer; }
+.cc-btn:hover { background: var(--c-primary-hover); border-color:var(--c-primary-text); }
 .cc-btn-quiet { background: #fff; color: var(--c-dark); border-color: var(--c-border-2); }
 .cc-btn-quiet:hover { background: #f1f5ec; border-color: var(--c-accent); color: var(--c-dark); }
 
@@ -308,7 +317,7 @@ body[data-cd-open] { overflow: hidden; }
 .cc-cat-text { display: flex; flex-direction: column; gap: 2px; font-size: 14px; color: var(--c-muted); cursor: pointer; }
 .cc-cat-text strong { font-size: 14.5px; font-weight: 800; color: var(--c-text); }
 .cc-always { flex: 0 0 auto; font-size: 12.5px; font-weight: 700; color: var(--c-muted-2); }
-.cc-switch { flex: 0 0 auto; width: 20px; height: 20px; accent-color: var(--c-primary); cursor: pointer; }
+.cc-switch { flex: 0 0 auto; width: 20px; height: 20px; accent-color:var(--c-primary-text); cursor: pointer; }
 
 @media (max-width: 640px) {
   .cc-inner { padding: 16px 18px 18px; gap: 14px; }
@@ -342,15 +351,15 @@ body[data-cd-open] { overflow: hidden; }
    category, tapping the chevron opens its children. */
 .mnav-link { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; padding: 15px 20px; font-weight: 700; font-size: 15.5px; color: var(--c-text); }
 .mnav-link:active { background: #f4f5f2; }
-.mnav-link-accent { color: var(--c-primary); }
+.mnav-link-accent { color:var(--c-primary-text); }
 .mnav-more { flex: 0 0 auto; width: 56px; border: none; border-left: 1px solid #f1f2ef; background: transparent; color: #c2c6bd; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.mnav-more:active { background: #f4f5f2; color: var(--c-primary); }
+.mnav-more:active { background: #f4f5f2; color:var(--c-primary-text); }
 .mnav-more:focus-visible, .mnav-link:focus-visible, .mnav-back:focus-visible, .mnav-all:focus-visible { outline: 2px solid var(--c-accent); outline-offset: -2px; }
 
 .mnav-back { display: flex; align-items: center; gap: 8px; width: 100%; padding: 14px 18px; border: none; border-bottom: 1px solid #eceee9; background: #f7f8f5; color: var(--c-dark); font-family: inherit; font-weight: 800; font-size: 15px; cursor: pointer; text-align: left; }
 .mnav-back:active { background: #eef2e8; }
 .mnav-back svg { flex: 0 0 auto; }
-.mnav-all { display: block; padding: 13px 20px; border-bottom: 1px solid #f1f2ef; font-weight: 700; font-size: 14px; color: var(--c-primary); }
+.mnav-all { display: block; padding: 13px 20px; border-bottom: 1px solid #f1f2ef; font-weight: 700; font-size: 14px; color:var(--c-primary-text); }
 .mnav-all:active { background: #f4f5f2; }
 
 /* The drawer scrolls; the page behind it must not. */
@@ -361,8 +370,8 @@ body[data-mnav-open] { overflow: hidden; }
 .wish-grid[hidden], .wish-empty[hidden] { display: none !important; }
 
 /* Heart on a product card. Top-right, clear of the SALE badge at top-left. */
-.wish-btn { position: absolute; z-index: 3; top: 10px; right: 10px; width: 38px; height: 38px; border-radius: 999px; border: 1px solid var(--c-border-2); background: rgba(255,255,255,.94); color: #8b9182; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; transition: color .15s ease, border-color .15s ease, transform .15s ease; }
-.wish-btn:hover { color: var(--c-primary); border-color: var(--c-accent); }
+.wish-btn { position: absolute; z-index: 3; top: 10px; right: 10px; width: 38px; height: 38px; border-radius: 999px; border: 1px solid var(--c-border-2); background: rgba(255,255,255,.94); color: #717769; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; transition: color .15s ease, border-color .15s ease, transform .15s ease; }
+.wish-btn:hover { color:var(--c-primary-text); border-color: var(--c-accent); }
 .wish-btn:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
 .wish-btn.is-saved { color: #c0392b; border-color: #e6b9b3; }
 .wish-btn.is-saved .wish-ico { fill: #c0392b; }
@@ -379,9 +388,9 @@ body[data-mnav-open] { overflow: hidden; }
 .wish-card-img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
 .wish-card-ph { display: block; width: 100%; height: 100%; background: repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); }
 .wish-card-title { font-weight: 600; font-size: 15px; line-height: 1.35; color: var(--c-text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 41px; }
-.wish-card-title:hover { color: var(--c-primary); }
-.wish-card-price { color: var(--c-primary); font-weight: 800; font-size: 19px; font-variant-numeric: tabular-nums; }
-.wish-add { display: flex; align-items: center; justify-content: center; height: 44px; border: none; border-radius: 8px; background: var(--c-accent); color: #fff; font-family: inherit; font-weight: 700; font-size: 14.5px; cursor: pointer; }
+.wish-card-title:hover { color:var(--c-primary-text); }
+.wish-card-price { color:var(--c-primary-text); font-weight: 800; font-size: 19px; font-variant-numeric: tabular-nums; }
+.wish-add { display: flex; align-items: center; justify-content: center; height: 44px; border: none; border-radius: 8px; background: var(--c-accent); color:var(--c-on-primary); font-family: inherit; font-weight: 700; font-size: 14.5px; cursor: pointer; }
 .wish-add-link { text-decoration: none; }
 .wish-remove { border: none; background: transparent; padding: 2px 0; font-family: inherit; font-size: 13px; color: var(--c-muted-2); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .wish-remove:hover { color: #c0392b; }
@@ -390,3 +399,19 @@ body[data-mnav-open] { overflow: hidden; }
   .wish-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px 14px; }
   .wish-btn { width: 34px; height: 34px; top: 8px; right: 8px; }
 }
+
+/* Back-in-stock capture — only rendered when a variant is sold out. */
+.bis { margin: 0 0 22px; padding: 18px 20px; border: 1.5px solid var(--c-border-2); border-left: 4px solid var(--c-accent); border-radius: 12px; background: #FBFCFA; }
+.bis-title { font-family: var(--font-body); font-size: 16px; font-weight: 800; margin: 0 0 6px; color: var(--c-text); }
+.bis-copy { margin: 0 0 14px; font-size: 14.5px; line-height: 1.6; color: var(--c-muted); max-width: 56ch; }
+.bis-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.bis-input { flex: 1 1 220px; min-width: 0; height: 48px; padding: 0 14px; font-family: inherit; font-size: 15px; color: var(--c-text); border: 1.5px solid var(--c-border-2); border-radius: 10px; background: #fff; outline: none; }
+.bis-input:focus { border-color: var(--c-accent); box-shadow: 0 0 0 3px rgba(146, 200, 63, .22); }
+.bis-btn { flex: 0 0 auto; height: 48px; padding: 0 24px; border: none; border-radius: 10px; background: var(--c-primary); color: var(--c-on-primary); font-family: inherit; font-weight: 800; font-size: 15px; cursor: pointer; }
+.bis-btn:hover { background: var(--c-primary-hover); }
+.bis-note { margin: 10px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--c-muted-2); }
+.bis-note a { color: var(--c-primary-text); text-decoration: underline; text-underline-offset: 2px; }
+.bis-err { margin: 0 0 12px; padding: 10px 12px; border-radius: 8px; background: var(--c-error-bg); color: var(--c-error); font-size: 13.5px; }
+.bis-done { display: flex; gap: 12px; align-items: flex-start; color: var(--c-primary-text); }
+.bis-done strong { display: block; font-size: 15.5px; color: var(--c-text); margin-bottom: 3px; }
+.bis-done span { font-size: 14.5px; line-height: 1.6; color: var(--c-muted); }

@@ -1,6 +1,6 @@
 <section style="max-width:1440px; margin:0 auto; padding:40px 30px 8px;">
   <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin:0 0 26px;">
-    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(24px,2.6vw,32px); margin:0;">{{ section.settings.heading }}</h2>
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,32px); margin:0;">{{ section.settings.heading }}</h2>
     <a href="/pages/brands" style="font-weight:700; font-size:14.5px;">View all brands →</a>
   </div>
   <div style="position:relative;">
@@ -23,19 +23,19 @@
             <img src="{{ block.settings.logo_asset | asset_url }}" alt="{{ name | escape }}" loading="lazy" width="350" height="240" style="max-width:100%; max-height:100%; object-fit:contain; display:block;">
           {%- else -%}
             {%- comment -%} no logo supplied — set the brand name in the house display face {%- endcomment -%}
-            <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#3f6b4f; letter-spacing:-.01em; text-align:center; line-height:1.15;">{{ name }}</span>
+            <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); letter-spacing:-.01em; text-align:center; line-height:1.15;">{{ name }}</span>
           {%- endif -%}
         </a>
       {%- endfor -%}
     </div>
-    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="brands-{{ section.id }}" data-rail-by="-420" class="hov-scroll" style="position:absolute; left:-14px; top:calc(50% - 22px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82c914; cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
-    <button aria-label="Scroll forward" data-rail-btn data-rail-target="brands-{{ section.id }}" data-rail-by="420" class="hov-scroll" style="position:absolute; right:-14px; top:calc(50% - 22px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82c914; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="brands-{{ section.id }}" data-rail-by="-420" class="hov-scroll" style="position:absolute; left:-14px; top:calc(50% - 22px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+    <button aria-label="Scroll forward" data-rail-btn data-rail-target="brands-{{ section.id }}" data-rail-by="420" class="hov-scroll" style="position:absolute; right:-14px; top:calc(50% - 22px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
   </div>
 </section>
 
 {% style %}
-.hov-border:hover { border-color: #92C83F !important; }
-.hov-scroll:hover { border-color: #92C83F !important; background: #f2f8e9 !important; }
+.hov-border:hover { border-color: var(--c-accent) !important; }
+.hov-scroll:hover { border-color: var(--c-accent) !important; background: #f2f8e9 !important; }
 {% endstyle %}
 
 {% schema %}

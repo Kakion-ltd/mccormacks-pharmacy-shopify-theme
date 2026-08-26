@@ -17,10 +17,10 @@
     <path d="M21 16.5 15.5 11 7 19.5"></path>
   </svg>
   {%- if label != blank -%}
-    <div style="font-size:11.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:#7d8875;">{{ label }}</div>
+    <div style="font-size:11.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:#697262;">{{ label }}</div>
   {%- endif -%}
-  <div style="font-size:clamp(15px,1.5vw,19px); font-weight:800; color:#3f6b4f; font-variant-numeric:tabular-nums; letter-spacing:.01em; font-family:'Arial Rounded MT Bold', Arial, sans-serif;">{{ w }} &times; {{ h }}<span style="font-size:.68em; font-weight:700; margin-left:5px; color:#7d8875;">px</span></div>
+  <div style="font-size:clamp(15px,1.5vw,19px); font-weight:800; color:var(--c-dark); font-variant-numeric:tabular-nums; letter-spacing:.01em; font-family:'Arial Rounded MT Bold', Arial, sans-serif;">{{ w }} &times; {{ h }}<span style="font-size:.68em; font-weight:700; margin-left:5px; color:#697262;">px</span></div>
   {%- if note != blank -%}
-    <div class="imgph-note" style="font-size:12px; line-height:1.45; color:#7d8875; max-width:30ch;">{{ note }}</div>
+    <div class="imgph-note" style="font-size:12px; line-height:1.45; color:#697262; max-width:30ch;">{{ note }}</div>
   {%- endif -%}
 </div>

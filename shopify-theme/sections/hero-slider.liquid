@@ -16,7 +16,7 @@
         <div class="hero-green" style="flex:0 0 500px; background:linear-gradient(160deg,#8fce34 0%,#6fae1c 100%); display:flex; flex-direction:column; justify-content:center; padding:clamp(32px,4.5vw,64px); min-height:460px; height:460px; position:relative; z-index:2;">
           <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#ffffff; font-size:clamp(32px,4.2vw,54px); line-height:1.02; margin:0 0 16px; letter-spacing:-.01em;">{{ block.settings.title }}</h1>
           <p style="color:#ffffff; font-size:clamp(15px,1.3vw,18px); font-weight:600; line-height:1.5; margin:0 0 clamp(24px,3vw,34px); max-width:420px; opacity:.96;">{{ block.settings.subtext }}</p>
-          <a href="{{ block.settings.link }}" class="slide-cta hero-cta" style="align-self:flex-start; background:#ffffff; color:#3f6b4f; font-weight:800; letter-spacing:.03em; font-size:15px; height:42px; padding:0 24px; display:inline-flex; align-items:center; gap:10px; border-radius:9px; box-shadow:0 10px 24px rgba(0,0,0,.15);">{{ block.settings.cta }}<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
+          <a href="{{ block.settings.link }}" class="slide-cta hero-cta" style="align-self:flex-start; background:#ffffff; color:var(--c-dark); font-weight:800; letter-spacing:.03em; font-size:15px; height:42px; padding:0 24px; display:inline-flex; align-items:center; gap:10px; border-radius:9px; box-shadow:0 10px 24px rgba(0,0,0,.15);">{{ block.settings.cta }}<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
           <div style="display:flex; gap:10px; margin-top:clamp(20px,2.6vw,30px); justify-content:flex-start;">
             {%- for b in section.blocks -%}
               {%- assign j = forloop.index0 -%}
@@ -24,7 +24,7 @@
             {%- endfor -%}
           </div>
         </div>
-        <div class="hero-img" style="position:relative; flex:1 1 320px; min-height:460px; height:460px; background:linear-gradient(135deg,#9ed24c 0%,#7cb52e 44%,#82c914 100%);">
+        <div class="hero-img" style="position:relative; flex:1 1 320px; min-height:460px; height:460px; background:linear-gradient(135deg,#9ed24c 0%,#7cb52e 44%,var(--c-primary) 100%);">
           <div style="position:absolute; top:-28%; left:6%; width:46%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.10);"></div>
           <div style="position:absolute; bottom:-32%; right:-8%; width:54%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.07);"></div>
           {%- comment -%} Slide 1 is the LCP element on the homepage: load it eagerly at
@@ -82,7 +82,7 @@
 
 {% style %}
 #hero-{{ section.id }} [data-slide] { display: contents; }
-.hero-cta:hover { background: #3f6b4f !important; color: #ffffff !important; }
+.hero-cta:hover { background: var(--c-dark) !important; color:var(--c-on-dark) !important; }
 {% endstyle %}
 
 <script>

@@ -13,7 +13,18 @@
       src: url(/shopify-theme/assets/mulish-variable.woff2) format('woff2');
     }
   </style>
-  <link rel="stylesheet" href="/shopify-theme/assets/base.css"><script>window.mccRoutes = { cart_url: "/cart", cart_add_url: "/cart/add", cart_change_url: "/cart/change", predictive_search_url: "/search/suggest", product_recommendations_url: "/recommendations/products" };</script>
+  <link rel="stylesheet" href="/shopify-theme/assets/base.css"><style>
+    :root {
+      --c-primary: #82C914;
+      --c-primary-hover: #6BA30F;
+      --c-dark: #3F6B4F;
+      --c-accent: #92C83F;
+      --c-on-primary: #2A2B2A;
+      --c-on-accent: #2A2B2A;
+      --c-on-dark: #FFFFFF;
+      --c-primary-text: #4C750B;
+    }
+  </style><script>window.mccRoutes = { cart_url: "/cart", cart_add_url: "/cart/add", cart_change_url: "/cart/change", predictive_search_url: "/search/suggest", product_recommendations_url: "/recommendations/products" };</script>
   <script src="/shopify-theme/assets/theme.js" defer></script>
   <!-- content_for_header -->
 <script>/* PREVIEW ONLY — never shipped in the theme.
@@ -122,7 +133,7 @@
 </script>
 </head>
 <body>
-  <div style="width:100%; background:#3f6b4f; color:#ffffff;">
+  <div style="width:100%; background:var(--c-dark); color:var(--c-on-dark);">
   <div class="annc-row" style="max-width:1440px; margin:0 auto; padding:5px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 40px; font-size:12.5px; font-weight:400; letter-spacing:.06em;">
     <div style="display:flex; align-items:center; gap:12px; justify-content:flex-start;">
       <span>IRELAND (EUR €)</span>
@@ -149,7 +160,7 @@
              aria-label="Search for products, brands and more"
              style="flex:1; border:none; outline:none; font-family:inherit; font-size:14.5px; color:#2A2B2A; background:transparent; padding:9px 0;">
       <input type="hidden" name="options[prefix]" value="last">
-      <button type="submit" aria-label="Search" class="hov-bg-green" style="flex:0 0 auto; width:46px; border:none; border-radius:9px 0 0 9px; background:#92C83F; color:#ffffff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .15s;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></button>
+      <button type="submit" aria-label="Search" class="hov-bg-green" style="flex:0 0 auto; width:46px; border:none; border-radius:9px 0 0 9px; background:var(--c-accent); color:var(--c-on-accent); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .15s;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></button>
       </form>
       <div class="ps-panel" id="predictive-search-results" data-ps-panel role="listbox"
            aria-label="Search suggestions" tabindex="-1" hidden></div>
@@ -159,19 +170,19 @@
       <a href="/pages/wishlist" class="hide-mobile hov-green" style="color:#2A2B2A; display:flex; align-items:center; gap:7px; font-weight:600; font-size:13.5px; position:relative;">
         <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>
         <span class="icon-label">Wishlist</span>
-        <span data-wish-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 4px;">0</span>
+        <span data-wish-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 4px;">0</span>
       </a>
       <a href="/cart" class="hide-mobile hov-green" style="color:#2A2B2A; display:flex; align-items:center; gap:7px; font-weight:600; font-size:13.5px; position:relative;">
         <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.4 12.3a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L22 7H6"></path></svg>
         <span class="icon-label">My Cart</span>
-        <span data-cart-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
+        <span data-cart-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
       </a>
       <a href="/account" class="hide-mobile hov-green" aria-label="My Account" style="color:#2A2B2A; display:flex; align-items:center; position:relative;">
         <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
       </a>
       <a href="/cart" class="cart-mobile hov-green" aria-label="My Cart" style="color:#2A2B2A; display:none; align-items:center; position:relative;">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.4 12.3a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L22 7H6"></path></svg>
-        <span data-cart-count style="position:absolute; top:-6px; right:-8px; min-width:17px; height:17px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
+        <span data-cart-count style="position:absolute; top:-6px; right:-8px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
       </a>
     </nav>
   </div>
@@ -240,11 +251,11 @@
 
   <div style="padding:18px 20px; margin-top:auto; display:flex; flex-direction:column; gap:12px;">
     <div style="display:flex; gap:12px;">
-      <a href="/pages/in-store-services" class="hov-bg-dark" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:#3f6b4f; color:#ffffff; font-weight:700; font-size:14px; height:46px; border-radius:9px;">
+      <a href="/pages/in-store-services" class="hov-bg-dark" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:14px; height:46px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
         Services
       </a>
-      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14px; height:46px; border-radius:9px;">
+      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14px; height:46px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.5"></circle></svg>
         Store Locator
       </a>
@@ -254,7 +265,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Account
       </a>
       <a href="/pages/wishlist" class="hov-border-accent" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:14px; height:44px; border-radius:9px;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>Wishlist<span data-wish-count style="min-width:19px; height:19px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11.5px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 5px;">0</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>Wishlist<span data-wish-count style="min-width:19px; height:19px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11.5px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 5px;">0</span>
       </a>
     </div>
   </div>
@@ -272,15 +283,15 @@
       <a href="/collections/mother-baby" class="hov-green" data-mega-trigger="mother-baby" style="color:#2A2B2A; font-size:13.5px;">Mother &amp; Baby</a>
       <a href="/collections/fragrance" class="hov-green" data-mega-trigger="fragrance" style="color:#2A2B2A; font-size:13.5px;">Fragrance</a>
       <a href="/collections/gifting" class="hov-green" data-mega-trigger="gifting" style="color:#2A2B2A; font-size:13.5px;">Gifting</a>
-      <a href="/collections/sale" class="hov-green-dk" data-mega-close style="color:#82c914; font-weight:700; font-size:13.5px;">Sale</a>
+      <a href="/collections/sale" class="hov-green-dk" data-mega-close style="color:var(--c-primary-text); font-weight:700; font-size:13.5px;">Sale</a>
       <a href="/pages/brands" class="hov-green" data-mega-close style="color:#2A2B2A; font-size:13.5px;">Brands</a>
     </nav>
     <div style="display:flex; align-items:center; gap:9px;">
-      <a href="/pages/in-store-services" class="hov-bg-green-dk" style="display:flex; align-items:center; gap:9px; background:#3f6b4f; color:#ffffff; font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
+      <a href="/pages/in-store-services" class="hov-bg-green-dk" style="display:flex; align-items:center; gap:9px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
         <span>In-Store Services</span>
       </a>
-      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="display:flex; align-items:center; gap:9px; background:#92C83F; color:#ffffff; font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
+      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="display:flex; align-items:center; gap:9px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.4"></circle></svg>
         <span>Store Locator</span>
       </a>
@@ -293,7 +304,7 @@
           <div style="flex:1; padding:30px 30px; display:grid; grid-template-columns:repeat(6,minmax(155px,1fr)); gap:20px;">
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/pain-relief" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Pain Relief</a>
+                <a href="/collections/pain-relief" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Pain Relief</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/pain-relief-headache" style="color:#2A2B2A;" class="hov-green">Pain Relief &amp; Headache</a>
                   <a href="/collections/baby-children-pain-relief" style="color:#2A2B2A;" class="hov-green">Baby &amp; Children Pain Relief</a>
@@ -301,7 +312,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/cold-flu-allergy" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Cold, Flu &amp; Allergy</a>
+                <a href="/collections/cold-flu-allergy" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Cold, Flu &amp; Allergy</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/cold-flu-combination-products" style="color:#2A2B2A;" class="hov-green">Cold &amp; Flu Combination Products</a>
                   <a href="/collections/cough" style="color:#2A2B2A;" class="hov-green">Cough</a>
@@ -311,7 +322,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/stomach-gastrointestinal" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Stomach &amp; Gastrointestinal</a>
+                <a href="/collections/stomach-gastrointestinal" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Stomach &amp; Gastrointestinal</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/nausea-acid-indigestion-reflux" style="color:#2A2B2A;" class="hov-green">Nausea, Acid Indigestion &amp; Reflux</a>
                   <a href="/collections/bloating-gas" style="color:#2A2B2A;" class="hov-green">Bloating &amp; Gas</a>
@@ -325,7 +336,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/sensitive-conditions" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sensitive Conditions</a>
+                <a href="/collections/sensitive-conditions" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sensitive Conditions</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/menopause" style="color:#2A2B2A;" class="hov-green">Menopause</a>
                   <a href="/collections/hair-loss" style="color:#2A2B2A;" class="hov-green">Hair Loss</a>
@@ -336,7 +347,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/nicotine-replacement" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nicotine Replacement</a>
+                <a href="/collections/nicotine-replacement" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nicotine Replacement</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/nicotine-patches" style="color:#2A2B2A;" class="hov-green">Nicotine Patches</a>
                   <a href="/collections/nicotine-gum" style="color:#2A2B2A;" class="hov-green">Nicotine Gum</a>
@@ -345,7 +356,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/eye-ear-health" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eye &amp; Ear Health</a>
+                <a href="/collections/eye-ear-health" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eye &amp; Ear Health</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/dry-eye" style="color:#2A2B2A;" class="hov-green">Dry Eye</a>
                   <a href="/collections/blepharitis-eyelid-hygiene" style="color:#2A2B2A;" class="hov-green">Blepharitis &amp; Eyelid Hygiene</a>
@@ -360,13 +371,13 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/sleep-rest" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sleep &amp; Rest</a>
+                <a href="/collections/sleep-rest" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sleep &amp; Rest</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/healthy-mind-sleeping-aids" style="color:#2A2B2A;" class="hov-green">Healthy Mind &amp; Sleeping Aids</a>
                 </div>
               </div>
               <div>
-                <a href="/collections/mouth-oral-care" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Mouth &amp; Oral Care</a>
+                <a href="/collections/mouth-oral-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Mouth &amp; Oral Care</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/dry-mouth" style="color:#2A2B2A;" class="hov-green">Dry Mouth</a>
                   <a href="/collections/gum-health-gingivitis" style="color:#2A2B2A;" class="hov-green">Gum Health &amp; Gingivitis</a>
@@ -375,7 +386,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/continence-care" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Continence Care</a>
+                <a href="/collections/continence-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Continence Care</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/bladder-weakness" style="color:#2A2B2A;" class="hov-green">Bladder Weakness</a>
                   <a href="/collections/pads" style="color:#2A2B2A;" class="hov-green">Pads</a>
@@ -387,7 +398,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/trying-to-conceive" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Trying To Conceive</a>
+                <a href="/collections/trying-to-conceive" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Trying To Conceive</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/fertility-aids-lubricant" style="color:#2A2B2A;" class="hov-green">Fertility Aids &amp; Lubricant</a>
                   <a href="/collections/pregnancy-tests" style="color:#2A2B2A;" class="hov-green">Pregnancy Tests</a>
@@ -395,7 +406,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/sexual-health" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sexual Health</a>
+                <a href="/collections/sexual-health" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sexual Health</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/erectile-dysfunction" style="color:#2A2B2A;" class="hov-green">Erectile Dysfunction</a>
                   <a href="/collections/condoms" style="color:#2A2B2A;" class="hov-green">Condoms</a>
@@ -403,7 +414,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/sport" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sport</a>
+                <a href="/collections/sport" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sport</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/warmup-recovery" style="color:#2A2B2A;" class="hov-green">Warmup &amp; Recovery</a>
                 </div>
@@ -411,7 +422,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/first-aid" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">First Aid</a>
+                <a href="/collections/first-aid" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">First Aid</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/antiseptics-wound-cleaning" style="color:#2A2B2A;" class="hov-green">Antiseptics &amp; Wound Cleaning</a>
                   <a href="/collections/bandages-plasters" style="color:#2A2B2A;" class="hov-green">Bandages &amp; Plasters</a>
@@ -421,7 +432,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/foot-care" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Foot Care</a>
+                <a href="/collections/foot-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Foot Care</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/athletes-foot" style="color:#2A2B2A;" class="hov-green">Athletes Foot</a>
                   <a href="/collections/verucca" style="color:#2A2B2A;" class="hov-green">Verucca</a>
@@ -438,7 +449,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/diabetes-care" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Diabetes Care</a>
+                <a href="/collections/diabetes-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Diabetes Care</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/test-strips-blood-glucose-monitors" style="color:#2A2B2A;" class="hov-green">Test Strips &amp; Blood Glucose Monitors</a>
                   <a href="/collections/needles-lancets" style="color:#2A2B2A;" class="hov-green">Needles &amp; Lancets</a>
@@ -446,17 +457,17 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/electrical-healthcare" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Electrical Healthcare</a>
+                <a href="/collections/electrical-healthcare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Electrical Healthcare</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/blood-pressure-monitors" style="color:#2A2B2A;" class="hov-green">Blood Pressure Monitors</a>
                   <a href="/collections/oximeters-weighing-scales" style="color:#2A2B2A;" class="hov-green">Oximeters &amp; Weighing Scales</a>
                 </div>
               </div>
               <div>
-                <a href="/collections/self-testing-kits" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Self Testing Kits</a>
+                <a href="/collections/self-testing-kits" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Self Testing Kits</a>
               </div>
               <div>
-                <a href="/collections/healthcare-medicine-accessories" style="display:block; color:#82C914; font-weight:800; font-size:13.5px;" class="hov-dark-green">Healthcare &amp; Medicine Accessories</a>
+                <a href="/collections/healthcare-medicine-accessories" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px;" class="hov-dark-green">Healthcare &amp; Medicine Accessories</a>
               </div>
             </div>
           </div>
@@ -511,7 +522,7 @@
           <div style="flex:1; padding:30px; display:grid; grid-template-columns:repeat(3,minmax(180px,1fr)); gap:24px;">
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/dermatological-skincare" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Dermatological Skincare</a>
+                <a href="/collections/dermatological-skincare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Dermatological Skincare</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/anti-ageing" style="color:#2A2B2A;" class="hov-green">Anti-Ageing</a>
                   <a href="/collections/acne-blemish" style="color:#2A2B2A;" class="hov-green">Acne &amp; Blemish</a>
@@ -522,7 +533,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/body-skincare" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Body Skincare</a>
+                <a href="/collections/body-skincare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Body Skincare</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/moisturisers" style="color:#2A2B2A;" class="hov-green">Moisturisers</a>
                   <a href="/collections/exfoliators" style="color:#2A2B2A;" class="hov-green">Exfoliators</a>
@@ -531,7 +542,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/facial-skincare" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Facial Skincare</a>
+                <a href="/collections/facial-skincare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Facial Skincare</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/facial-suncare" style="color:#2A2B2A;" class="hov-green">Facial Suncare</a>
                   <a href="/collections/facial-moisturisers" style="color:#2A2B2A;" class="hov-green">Facial Moisturisers</a>
@@ -548,14 +559,14 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/problem-skin" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Problem Skin</a>
+                <a href="/collections/problem-skin" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Problem Skin</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/acne-blemish" style="color:#2A2B2A;" class="hov-green">Acne &amp; Blemish</a>
                   <a href="/collections/dry-skin-eczema-psoriasis" style="color:#2A2B2A;" class="hov-green">Dry Skin, Eczema &amp; Psoriasis</a>
                 </div>
               </div>
               <div>
-                <a href="/collections/hands-nails" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Hands &amp; Nails</a>
+                <a href="/collections/hands-nails" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Hands &amp; Nails</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/hand-cream" style="color:#2A2B2A;" class="hov-green">Hand Cream</a>
                   <a href="/collections/cuticle-nail-care" style="color:#2A2B2A;" class="hov-green">Cuticle &amp; Nail Care</a>
@@ -576,7 +587,7 @@
           <div style="flex:1; padding:30px; display:grid; grid-template-columns:repeat(4,minmax(160px,1fr)); gap:24px;">
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/face" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Face</a>
+                <a href="/collections/face" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Face</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/foundation" style="color:#2A2B2A;" class="hov-green">Foundation</a>
                   <a href="/collections/makeup-remover" style="color:#2A2B2A;" class="hov-green">Makeup Remover</a>
@@ -591,7 +602,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/eyes" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eyes</a>
+                <a href="/collections/eyes" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eyes</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/eyeshadow" style="color:#2A2B2A;" class="hov-green">Eyeshadow</a>
                   <a href="/collections/eyeliner" style="color:#2A2B2A;" class="hov-green">Eyeliner</a>
@@ -602,7 +613,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/lips" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Lips</a>
+                <a href="/collections/lips" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Lips</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/lip-gloss" style="color:#2A2B2A;" class="hov-green">Lip Gloss</a>
                   <a href="/collections/lipstick" style="color:#2A2B2A;" class="hov-green">Lipstick</a>
@@ -612,7 +623,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/tanning" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Tanning</a>
+                <a href="/collections/tanning" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Tanning</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/self-tan" style="color:#2A2B2A;" class="hov-green">Self Tan</a>
                   <a href="/collections/tanning-mitts" style="color:#2A2B2A;" class="hov-green">Tanning Mitts</a>
@@ -622,7 +633,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/nails" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nails</a>
+                <a href="/collections/nails" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nails</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/nail-polish" style="color:#2A2B2A;" class="hov-green">Nail Polish</a>
                   <a href="/collections/false-nails-nail-wraps" style="color:#2A2B2A;" class="hov-green">False Nails &amp; Nail Wraps</a>
@@ -633,7 +644,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/makeup-brushes-tools" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Makeup Brushes &amp; Tools</a>
+                <a href="/collections/makeup-brushes-tools" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Makeup Brushes &amp; Tools</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/makeup-brushes" style="color:#2A2B2A;" class="hov-green">Makeup Brushes</a>
                   <a href="/collections/makeup-sponges" style="color:#2A2B2A;" class="hov-green">Makeup Sponges</a>
@@ -641,7 +652,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/beauty-accessories" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Beauty Accessories</a>
+                <a href="/collections/beauty-accessories" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Beauty Accessories</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/body-tape-nipple-covers" style="color:#2A2B2A;" class="hov-green">Body Tape &amp; Nipple Covers</a>
                   <a href="/collections/tweezers" style="color:#2A2B2A;" class="hov-green">Tweezers</a>
@@ -719,7 +730,7 @@
     </button>
   </header><div class="cd-ship" data-cd-ship hidden>
     <div class="cd-ship-row">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="#82C914" aria-hidden="true"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75Z"></path></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--c-primary)" aria-hidden="true"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75Z"></path></svg>
       <span data-cd-ship-msg></span>
     </div>
     <div class="cd-bar"><div data-cd-bar></div></div>
@@ -728,7 +739,7 @@
   <div class="cd-items" data-cd-items></div><div class="cd-recs" data-crec-mount hidden></div>
 
   <div class="cd-empty" data-cd-empty hidden>
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#92C83F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
     <p>Your bag is empty.</p>
     <a href="/" class="cd-secondary" data-cd-close>Start shopping</a>
   </div>
@@ -740,7 +751,7 @@
     </div>
     <p class="cd-vat">Shipping and VAT calculated at checkout</p>
     <form action="/cart" method="post">
-      <button type="submit" name="checkout" class="cd-checkout hov-bg-green-dk">Checkout securely</button><div class="cd-express"><div data-mock-express style="height:48px;border-radius:10px;border:1.5px dashed #b9c2b3;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#7d8875;background:#f4f6f1;">Express checkout buttons &middot; live store only</div></div></form>
+      <button type="submit" name="checkout" class="cd-checkout hov-bg-green-dk">Checkout securely</button><div class="cd-express"><div data-mock-express style="height:48px;border-radius:10px;border:1.5px dashed #b9c2b3;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#697262;background:#f4f6f1;">Express checkout buttons &middot; live store only</div></div></form>
     <a href="/cart" class="cd-secondary">View full bag</a>
   </footer>
 </aside>
@@ -752,7 +763,7 @@
     <div class="trust-mob-wrap" style="width:100%; background:#ffffff;">
   <div class="trust-inner" style="max-width:1440px; margin:0 auto; padding:8px 50px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 28px;">
     <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:flex-start; gap:10px; font-size:14px;">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="#92C83F" style="flex:0 0 auto;"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75ZM15 7.5v3.5h4v-.32L16.9 7.8a.5.5 0 0 0-.4-.2H15ZM7.7 15.75a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Zm9.6 0a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Z"></path></svg>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--c-accent)" style="flex:0 0 auto;"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75ZM15 7.5v3.5h4v-.32L16.9 7.8a.5.5 0 0 0-.4-.2H15ZM7.7 15.75a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Zm9.6 0a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Z"></path></svg>
       <span><strong style="font-weight:800;">Free Delivery</strong> On orders over €65</span>
     </div>
     <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:14px;">
@@ -762,7 +773,7 @@
       <span><strong style="font-weight:800;">Irish Owned</strong> 7 stores nationwide</span>
     </div>
     <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:14px;">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="#92C83F" style="flex:0 0 auto;"><path d="M11.48 3.5a.6.6 0 0 1 1.04 0l2.2 4.03a.6.6 0 0 0 .43.31l4.52.79a.6.6 0 0 1 .32.99l-3.17 3.33a.6.6 0 0 0-.16.5l.64 4.56a.6.6 0 0 1-.85.62l-4.13-1.97a.6.6 0 0 0-.52 0l-4.13 1.97a.6.6 0 0 1-.85-.62l.64-4.56a.6.6 0 0 0-.16-.5L4.97 9.62a.6.6 0 0 1 .32-.99l4.52-.79a.6.6 0 0 0 .43-.31l2.2-4.03Z"></path></svg>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--c-accent)" style="flex:0 0 auto;"><path d="M11.48 3.5a.6.6 0 0 1 1.04 0l2.2 4.03a.6.6 0 0 0 .43.31l4.52.79a.6.6 0 0 1 .32.99l-3.17 3.33a.6.6 0 0 0-.16.5l.64 4.56a.6.6 0 0 1-.85.62l-4.13-1.97a.6.6 0 0 0-.52 0l-4.13 1.97a.6.6 0 0 1-.85-.62l.64-4.56a.6.6 0 0 0-.16-.5L4.97 9.62a.6.6 0 0 1 .32-.99l4.52-.79a.6.6 0 0 0 .43-.31l2.2-4.03Z"></path></svg>
       <span><strong style="font-weight:800;">Trusted</strong> by over 20,000 customers since 2010</span>
     </div>
   </div>
@@ -775,26 +786,26 @@
   .gv-method { width:100%; text-align:left; }
   #gv-clear { border:none; background:none; padding:0; }
   .gv-amt:focus-visible, .gv-method:focus-visible, .gv-quick:focus-visible,
-  #gv-date-field:focus-visible, #gv-clear:focus-visible, #gv-done:focus-visible { outline:2px solid #3f6b4f; outline-offset:2px; }
+  #gv-date-field:focus-visible, #gv-clear:focus-visible, #gv-done:focus-visible { outline:2px solid var(--c-dark); outline-offset:2px; }
   .gv-amt { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; height:92px; border-radius:14px; border:2px solid #e0e3dd; background:#ffffff; color:#3a3d39; }
-  .gv-amt:hover { border-color: #92C83F !important; }
-  .gv-amt.gv-on { border-color:#82C914; background:#eef2e8; color:#3f6b4f; }
+  .gv-amt:hover { border-color: var(--c-accent) !important; }
+  .gv-amt.gv-on { border-color:var(--c-primary-text); background:#eef2e8; color:var(--c-dark); }
   .gv-method { display:flex; align-items:flex-start; gap:14px; padding:18px 20px; border-radius:14px; border:2px solid #e0e3dd; background:#ffffff; }
-  .gv-method.gv-on { border-color:#82C914; background:#f7faf3; }
+  .gv-method.gv-on { border-color:var(--c-primary-text); background:#f7faf3; }
   .gv-method .gv-dot { flex:0 0 auto; width:20px; height:20px; margin-top:2px; border-radius:999px; border:2px solid #c2c6bd; background:#ffffff; }
-  .gv-method.gv-on .gv-dot { border-color:#82C914; background:#82C914; }
+  .gv-method.gv-on .gv-dot { border-color:var(--c-primary-text); background:var(--c-primary); }
   .gv-quick { display:inline-flex; align-items:center; height:32px; padding:0 13px; border-radius:999px; border:1px solid #e0e3dd; background:#ffffff; color:#5d6159; font-size:13px; font-weight:700; }
-  .gv-quick:hover { border-color:#92C83F !important; }
-  .gv-quick.gv-on { border-color:#82C914; background:#eef2e8; color:#3f6b4f; }
-  .gv-cal-nav { width:34px; height:34px; border-radius:9px; border:1px solid #e0e3dd; background:#ffffff; display:flex; align-items:center; justify-content:center; color:#3f6b4f; cursor:pointer; }
-  .gv-cal-nav:hover { border-color:#92C83F; background:#f7faf3; }
+  .gv-quick:hover { border-color:var(--c-accent) !important; }
+  .gv-quick.gv-on { border-color:var(--c-primary-text); background:#eef2e8; color:var(--c-dark); }
+  .gv-cal-nav { width:34px; height:34px; border-radius:9px; border:1px solid #e0e3dd; background:#ffffff; display:flex; align-items:center; justify-content:center; color:var(--c-dark); cursor:pointer; }
+  .gv-cal-nav:hover { border-color:var(--c-accent); background:#f7faf3; }
   .gv-day { display:flex; align-items:center; justify-content:center; height:38px; border-radius:9px; font-size:14px; font-weight:600; color:#2A2B2A; cursor:pointer; background:transparent; border:none; font-family:inherit; }
   .gv-day:hover { background:#eef2e8; }
   .gv-day.gv-past { color:#c7cbc3; cursor:not-allowed; }
   .gv-day.gv-past:hover { background:transparent; }
   .gv-day.gv-blank { visibility:hidden; }
-  .gv-day.gv-sel { background:#82C914; color:#ffffff; font-weight:800; }
-  .gv-input:focus { border-color:#82C914 !important; }
+  .gv-day.gv-sel { background:var(--c-primary); color:var(--c-on-primary); font-weight:800; }
+  .gv-input:focus { border-color:var(--c-primary-text) !important; }
   @media (max-width: 1000px) {
     .gv-wrap { flex-direction:column !important; gap:32px !important; }
     .gv-side { flex:1 1 auto !important; width:100% !important; position:static !important; }
@@ -812,15 +823,15 @@
 
 <!-- Gift voucher hero -->
 <section style="max-width:1440px; margin:0 auto; padding:24px 30px 6px;">
-  <div class="banner-flex" style="display:flex; flex-wrap:wrap; border-radius:18px; overflow:hidden; background:#3f6b4f; min-height:clamp(300px,30vw,400px);">
+  <div class="banner-flex" style="display:flex; flex-wrap:wrap; border-radius:18px; overflow:hidden; background:var(--c-dark); min-height:clamp(300px,30vw,400px);">
     <div style="flex:1 1 480px; padding:clamp(28px,4vw,56px); display:flex; flex-direction:column; justify-content:center; color:#ffffff;">
-      <span style="display:inline-flex; align-self:flex-start; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:#92C83F; color:#ffffff; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:16px;">Valid 5 years</span>
+      <span style="display:inline-flex; align-self:flex-start; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:var(--c-accent); color:var(--c-on-accent); font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:16px;">Valid 5 years</span>
       <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(34px,4.4vw,58px); line-height:1.02; letter-spacing:-.01em; margin:0 0 20px;">Gift Vouchers</h1>
       <p style="margin:0 0 10px; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:#d6e2cd; max-width:560px;">One voucher, the whole shop. Spend it on pharmacy, vitamins, skincare, beauty, fragrance, baby or toiletries &mdash; online or in any of our seven stores.</p>
       <p style="margin:0; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:#d6e2cd; max-width:560px;">Send it by email in minutes, or have a printed voucher posted free anywhere in Ireland.</p>
     </div>
     <div class="banner-img" style="flex:1 1 380px; background:#1c5225; min-height:clamp(240px,26vw,400px); display:flex; align-items:center; justify-content:center; padding:clamp(24px,3vw,44px);">
-      <div style="width:100%; max-width:340px; aspect-ratio:8/5; border-radius:14px; background:linear-gradient(140deg,#92C83F 0%,#7fb52f 100%); box-shadow:0 20px 44px rgba(0,0,0,.28); padding:clamp(18px,2.4vw,26px); display:flex; flex-direction:column; justify-content:space-between; color:#ffffff;">
+      <div style="width:100%; max-width:340px; aspect-ratio:8/5; border-radius:14px; background:linear-gradient(140deg,var(--c-accent) 0%,#7fb52f 100%); box-shadow:0 20px 44px rgba(0,0,0,.28); padding:clamp(18px,2.4vw,26px); display:flex; flex-direction:column; justify-content:space-between; color:#ffffff;">
         <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
           <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15px; line-height:1.15; letter-spacing:.02em;">McCORMACK&rsquo;S<br>PHARMACY</span>
           <span style="font-size:10.5px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; opacity:.85; padding-top:3px;">Gift Voucher</span>
@@ -840,7 +851,7 @@
   <div class="gv-wrap" style="display:flex; gap:44px; align-items:flex-start;">
     <div style="flex:1 1 auto; min-width:0;">
 
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.4vw,30px); margin:0 0 6px;">1. Choose an amount</h2>
+      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 6px;">1. Choose an amount</h2>
       <p style="margin:0 0 18px; font-size:15.5px; line-height:1.65; color:#5d6159;">Pick a set amount, or enter your own between &euro;10 and &euro;500.</p>
       <div class="gv-amounts" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; margin:0 0 18px;">
         <button type="button" class="gv-amt" aria-pressed="false" data-gv-pick="€10"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:26px; line-height:1;">&euro;10</span><span style="font-size:12.5px; font-weight:700; opacity:.7;"></span></button>
@@ -853,12 +864,12 @@
       <label style="display:flex; flex-direction:column; gap:7px; max-width:320px;">
         <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Or enter your own amount</span>
         <div style="display:flex; align-items:center; height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 14px; gap:8px; background:#ffffff;">
-          <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:#82C914;">&euro;</span>
+          <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-primary-text);">&euro;</span>
           <input type="number" min="10" max="500" placeholder="75" id="gv-custom" style="flex:1; min-width:0; border:none; outline:none; font-family:inherit; font-size:16px; color:#2A2B2A; background:transparent;">
         </div>
       </label>
 
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.4vw,30px); margin:38px 0 6px;">2. How should we send it?</h2>
+      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:38px 0 6px;">2. How should we send it?</h2>
       <p style="margin:0 0 18px; font-size:15.5px; line-height:1.65; color:#5d6159;">Email vouchers arrive within minutes. Printed vouchers are posted free within Ireland.</p>
       <div style="display:flex; flex-direction:column; gap:12px; max-width:620px;">
         <button type="button" class="gv-method gv-on" aria-pressed="true" data-gv-method="By email">
@@ -867,7 +878,7 @@
             <span style="display:block; font-weight:800; font-size:16px; color:#2A2B2A; margin-bottom:3px;">By email</span>
             <span style="display:block; font-size:14.5px; line-height:1.6; color:#5d6159;">Sent to the recipient within minutes, or scheduled for a date you choose.</span>
           </span>
-          <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:#3f6b4f;">Free</span>
+          <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:var(--c-dark);">Free</span>
         </button>
         <button type="button" class="gv-method" aria-pressed="false" data-gv-method="Printed and posted">
           <span class="gv-dot"></span>
@@ -875,7 +886,7 @@
             <span style="display:block; font-weight:800; font-size:16px; color:#2A2B2A; margin-bottom:3px;">Printed and posted</span>
             <span style="display:block; font-size:14.5px; line-height:1.6; color:#5d6159;">Presented in a McCormack&rsquo;s card and posted anywhere in Ireland.</span>
           </span>
-          <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:#3f6b4f;">Free</span>
+          <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:var(--c-dark);">Free</span>
         </button>
         <button type="button" class="gv-method" aria-pressed="false" data-gv-method="Send it to me">
           <span class="gv-dot"></span>
@@ -883,11 +894,11 @@
             <span style="display:block; font-weight:800; font-size:16px; color:#2A2B2A; margin-bottom:3px;">Send it to me</span>
             <span style="display:block; font-size:14.5px; line-height:1.6; color:#5d6159;">We send the voucher to you, so you can pass it on yourself.</span>
           </span>
-          <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:#3f6b4f;">Free</span>
+          <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:var(--c-dark);">Free</span>
         </button>
       </div>
 
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.4vw,30px); margin:38px 0 6px;">3. Who is it for?</h2>
+      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:38px 0 6px;">3. Who is it for?</h2>
       <div style="display:flex; flex-wrap:wrap; gap:14px; max-width:620px; margin-top:12px;">
         <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
           <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Recipient name</span>
@@ -900,9 +911,9 @@
         <div class="gv-date" style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0; position:relative;">
           <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Delivery date</span>
           <button type="button" id="gv-date-field" aria-expanded="false" class="hov-border-accent" style="display:flex; align-items:center; gap:11px; height:52px; border:1.5px solid #dfe1dc; border-radius:10px; padding:0 14px; background:#ffffff; color:#2A2B2A;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#82C914" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
-            <span id="gv-date-label" style="flex:1; min-width:0; font-size:15.5px; font-weight:600; color:#8b9182; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Send immediately</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8b9182" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+            <span id="gv-date-label" style="flex:1; min-width:0; font-size:15.5px; font-weight:600; color:#717769; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Send immediately</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#717769" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div style="display:flex; flex-wrap:wrap; gap:7px; margin-top:2px;">
             <button type="button" class="gv-quick" aria-pressed="false" data-gv-offset="0">Today</button>
@@ -914,18 +925,18 @@
               <button type="button" id="gv-prev" aria-label="Previous month" class="gv-cal-nav">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg>
               </button>
-              <span id="gv-month" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16px; color:#3f6b4f;"></span>
+              <span id="gv-month" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16px; color:var(--c-dark);"></span>
               <button type="button" id="gv-next" aria-label="Next month" class="gv-cal-nav">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg>
               </button>
             </div>
             <div style="display:grid; grid-template-columns:repeat(7,1fr); gap:2px; margin-bottom:6px;">
-              <span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#8b9182; padding:4px 0;">Mon</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#8b9182; padding:4px 0;">Tue</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#8b9182; padding:4px 0;">Wed</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#8b9182; padding:4px 0;">Thu</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#8b9182; padding:4px 0;">Fri</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#8b9182; padding:4px 0;">Sat</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#8b9182; padding:4px 0;">Sun</span>
+              <span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#717769; padding:4px 0;">Mon</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#717769; padding:4px 0;">Tue</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#717769; padding:4px 0;">Wed</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#717769; padding:4px 0;">Thu</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#717769; padding:4px 0;">Fri</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#717769; padding:4px 0;">Sat</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#717769; padding:4px 0;">Sun</span>
             </div>
             <div id="gv-days" style="display:grid; grid-template-columns:repeat(7,1fr); gap:2px;"></div>
             <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:14px; padding-top:12px; border-top:1px solid #eceee9;">
-              <button type="button" id="gv-clear" class="hov-green" style="font-size:13.5px; font-weight:700; color:#8b9182;">Send immediately</button>
-              <button type="button" id="gv-done" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; height:38px; padding:0 18px; border-radius:9px; background:#82C914; color:#ffffff; font-weight:800; font-size:14px;">Done</button>
+              <button type="button" id="gv-clear" class="hov-green" style="font-size:13.5px; font-weight:700; color:#717769;">Send immediately</button>
+              <button type="button" id="gv-done" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; height:38px; padding:0 18px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14px;">Done</button>
             </div>
           </div>
         </div>
@@ -934,7 +945,7 @@
           <input type="text" class="gv-input" style="height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
         </label>
         <label style="flex:1 1 100%; display:flex; flex-direction:column; gap:7px; min-width:0;">
-          <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Message <span style="font-weight:600; color:#8b9182;">(optional, up to 200 characters)</span></span>
+          <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Message <span style="font-weight:600; color:#717769;">(optional, up to 200 characters)</span></span>
           <textarea rows="3" class="gv-input" style="border:1px solid #dfe1dc; border-radius:10px; padding:12px 14px; font-family:inherit; font-size:15.5px; line-height:1.6; color:#2A2B2A; outline:none; resize:vertical;"></textarea>
         </label>
       </div>
@@ -942,22 +953,22 @@
 
     <aside class="gv-side" style="flex:0 0 340px; width:340px; position:sticky; top:20px;">
       <div class="gv-summary" style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-        <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#8b9182; margin-bottom:10px;">Your voucher</div>
+        <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#717769; margin-bottom:10px;">Your voucher</div>
         <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:4px;">
-          <span data-gv-amount style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:40px; line-height:1; color:#3f6b4f;">&euro;50</span>
+          <span data-gv-amount style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:40px; line-height:1; color:var(--c-dark);">&euro;50</span>
         </div>
         <div data-gv-method-label style="font-size:14px; color:#6b7065; margin-bottom:20px;">By email</div>
         <div style="border-top:1px solid #eceee9; padding-top:16px; display:flex; flex-direction:column; gap:10px; font-size:14.5px; color:#3a3d39;">
           <div style="display:flex; justify-content:space-between; gap:12px;"><span style="color:#6b7065;">Voucher value</span><span data-gv-amount style="font-weight:700;">&euro;50</span></div>
           <div style="display:flex; justify-content:space-between; gap:12px;"><span style="color:#6b7065;">Delivery</span><span style="font-weight:700;">Free</span></div>
         </div>
-        <div style="margin-top:20px;"><a href="/cart" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:54px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:16px; width:100%;">Add voucher to bag</a></div>
-        <div style="font-size:12.5px; line-height:1.6; color:#8b9182; margin-top:12px;">Vouchers are valid for five years and can be spent over as many visits as you like.</div>
+        <div style="margin-top:20px;"><a href="/cart" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:54px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:16px; width:100%;">Add voucher to bag</a></div>
+        <div style="font-size:12.5px; line-height:1.6; color:#717769; margin-top:12px;">Vouchers are valid for five years and can be spent over as many visits as you like.</div>
       </div>
       <div style="margin-top:16px; padding:20px 22px; border-radius:16px; background:#eef2e8;">
-        <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:#3f6b4f; margin-bottom:10px;">Prefer to buy in store?</div>
+        <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:10px;">Prefer to buy in store?</div>
         <div style="font-size:14px; line-height:1.7; color:#3a3d39; margin-bottom:12px;">Gift vouchers are available at the counter in all seven stores, in any amount you like.</div>
-        <a href="/pages/store-locator" class="hov-green-dk" style="font-weight:800; font-size:14.5px; color:#82C914;">Find your nearest store &rarr;</a>
+        <a href="/pages/store-locator" class="hov-green-dk" style="font-weight:800; font-size:14.5px; color:var(--c-primary-text);">Find your nearest store &rarr;</a>
       </div>
     </aside>
   </div>
@@ -965,21 +976,21 @@
 
 <!-- How it works -->
 <section style="max-width:1440px; margin:0 auto; padding:48px 30px 8px;">
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">How it works</h2>
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">How it works</h2>
   <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px;">
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:#3f6b4f; display:flex; align-items:center; justify-content:center; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin-bottom:14px;">1</div>
-      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:#3f6b4f; margin-bottom:8px;">Choose and pay</div>
+      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin-bottom:14px;">1</div>
+      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">Choose and pay</div>
       <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Pick an amount and how you want it delivered, then check out as normal. Vouchers count towards free delivery on other items in the same order.</div>
     </div>
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:#3f6b4f; display:flex; align-items:center; justify-content:center; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin-bottom:14px;">2</div>
-      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:#3f6b4f; margin-bottom:8px;">It arrives</div>
+      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin-bottom:14px;">2</div>
+      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">It arrives</div>
       <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Email vouchers land within minutes, or on the date you chose. Printed vouchers are posted in a card within two working days.</div>
     </div>
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:#3f6b4f; display:flex; align-items:center; justify-content:center; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin-bottom:14px;">3</div>
-      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:#3f6b4f; margin-bottom:8px;">They spend it</div>
+      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin-bottom:14px;">3</div>
+      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">They spend it</div>
       <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Online at checkout, or at the counter in any of our seven stores. Any unspent balance stays on the voucher for next time.</div>
     </div>
   </div>
@@ -987,10 +998,10 @@
 
 <!-- SEO copy + FAQ -->
 <section style="max-width:1440px; margin:0 auto; padding:48px 30px 8px;">
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(26px,3vw,40px); line-height:1.1; margin:0 0 20px;">About McCormack&rsquo;s gift vouchers</h2>
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,40px); line-height:1.1; margin:0 0 20px;">About McCormack&rsquo;s gift vouchers</h2>
   <p style="margin:0 0 40px; font-size:16px; line-height:1.7; color:#3a3d39; max-width:1000px;">A McCormack&rsquo;s gift voucher works across everything we sell &mdash; pharmacy and healthcare, vitamins and supplements, skincare, beauty, fragrance, baby and toiletries &mdash; online and in all seven of our stores. It is a practical present for someone who is particular about their skincare, restocking after a new baby, or simply hard to buy for. Email vouchers arrive within minutes and can be scheduled for a specific date. Printed vouchers are posted in a card, free of charge, within Ireland. Vouchers are valid for five years from the date of purchase, can be spent over as many visits as you like, and any remaining balance stays on the voucher.</p>
 
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(24px,2.6vw,34px); margin:0 0 26px;">Frequently Asked Questions</h2>
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,34px); margin:0 0 26px;">Frequently Asked Questions</h2>
   <div style="display:flex; flex-direction:column;">
     <div style="border-bottom:1px solid #eceee9; padding:22px 0;">
       <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">How long is a gift voucher valid for?</h3>
@@ -1021,13 +1032,13 @@
 
 <!-- You may also like -->
 <section style="max-width:1440px; margin:0 auto; padding:44px 30px 8px;">
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">You may also like</h2>
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">You may also like</h2>
   <div style="position:relative;">
-    <div id="also-track" style="display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;"><p style="margin:0; padding:18px 4px; font-size:15px; color:#8b9182;">
+    <div id="also-track" style="display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;"><p style="margin:0; padding:18px 4px; font-size:15px; color:#717769;">
           Pick a collection in <strong>Gift vouchers page &rsaquo; You may also like</strong> to show products here.
         </p></div>
-    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="also-track" data-rail-by="-540" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82C914; cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
-    <button aria-label="Scroll forward" data-rail-btn data-rail-target="also-track" data-rail-by="540" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82C914; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="also-track" data-rail-by="-540" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+    <button aria-label="Scroll forward" data-rail-btn data-rail-target="also-track" data-rail-by="540" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
   </div>
 </section>
 
@@ -1044,7 +1055,7 @@
         label.style.color = '#2A2B2A'; label.style.fontWeight = '700';
       } else {
         label.textContent = 'Send immediately';
-        label.style.color = '#8b9182'; label.style.fontWeight = '600';
+        label.style.color = '#717769'; label.style.fontWeight = '600';
       }
       document.querySelectorAll('.gv-quick').forEach(function (chip) {
         var d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + parseInt(chip.dataset.gvOffset, 10));
@@ -1155,7 +1166,7 @@
   </main>
   <footer style="width:100%; background:#ffffff;">
   
-  <div style="width:100%; background:#3f6b4f; position:relative; overflow:hidden;">
+  <div style="width:100%; background:var(--c-dark); position:relative; overflow:hidden;">
     <div style="position:absolute; top:-60%; right:-6%; width:340px; height:340px; border-radius:999px; background:rgba(255,255,255,.04);"></div>
     <div style="position:absolute; bottom:-70%; right:14%; width:220px; height:220px; border-radius:999px; background:rgba(255,255,255,.03);"></div>
     <div class="ftr-newsletter" style="max-width:1440px; margin:0 auto; height:120px; padding:0 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 48px; position:relative;">
@@ -1168,7 +1179,7 @@
         
           <input type="hidden" name="contact[tags]" value="newsletter">
           <input type="email" name="contact[email]" required placeholder="Enter your email address" style="flex:1; min-width:0; border:none; outline:none; padding:10px 14px; font-family:inherit; font-size:13.5px; color:#2A2B2A; background:transparent;">
-          <button type="submit" class="hov-bg-accent-dk" style="flex:0 0 auto; border:none; border-radius:7px; background:#92C83F; color:#ffffff; font-family:inherit; font-weight:700; font-size:13.5px; letter-spacing:.02em; padding:0 20px; cursor:pointer;">Subscribe</button>
+          <button type="submit" class="hov-bg-accent-dk" style="flex:0 0 auto; border:none; border-radius:7px; background:var(--c-accent); color:var(--c-on-accent); font-family:inherit; font-weight:700; font-size:13.5px; letter-spacing:.02em; padding:0 20px; cursor:pointer;">Subscribe</button>
         
       </form>
       </div>
@@ -1182,22 +1193,22 @@
         <img src="/shopify-theme/assets/mccormacks-logo.png" alt="McCormack's Pharmacy" width="247" height="79" style="width:247px; max-width:100%; height:auto; display:block;">
       </a>
       <p style="margin:0 0 12px; font-size:14px; line-height:1.6; color:#5a6153; max-width:280px;">Ireland's trusted family pharmacy since 2010 — expert care online and across our seven stores.</p>
-      <a href="tel:0526199329" style="display:flex; align-items:center; gap:9px; color:#3f6b4f; font-weight:700; font-size:14px; margin-bottom:20px;">
+      <a href="tel:0526199329" style="display:flex; align-items:center; gap:9px; color:var(--c-dark); font-weight:700; font-size:14px; margin-bottom:20px;">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path></svg>
         052 6199329
       </a>
       <div style="display:flex; gap:10px;"></div>
     </div><div>
-        <h4 data-acc-toggle="shop" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shop<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <h4 data-acc-toggle="shop" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shop<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
         <div class="ftr-acc-content" data-acc-content="shop" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/brands">All Brands</a><a href="/collections/new-in">New In</a><a href="/collections/bundles">Bundles</a><a href="/pages/gift-vouchers">Gift Vouchers</a><a href="/collections/sale">Sale</a></div>
       </div><div>
-        <h4 data-acc-toggle="care" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Customer Care<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <h4 data-acc-toggle="care" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Customer Care<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
         <div class="ftr-acc-content" data-acc-content="care" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/about-us">About Us</a><a href="/pages/contact-us">Contact Us</a><a href="/pages/loyalty-rewards-club">Loyalty Rewards Club</a><a href="/blogs/health-hub">Blog</a></div>
       </div><div>
-        <h4 data-acc-toggle="ship" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shipping & Returns<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <h4 data-acc-toggle="ship" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shipping & Returns<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
         <div class="ftr-acc-content" data-acc-content="ship" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/shipping">Shipping & Free Delivery</a><a href="/pages/returns">Returns & Refunds</a><a href="/pages/click-and-collect">Click & Collect</a></div>
       </div><div>
-        <h4 data-acc-toggle="policies" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Policies<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <h4 data-acc-toggle="policies" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Policies<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
         <div class="ftr-acc-content" data-acc-content="policies" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/terms-and-conditions">Terms & Conditions</a><a href="/pages/privacy-policy">Privacy Policy</a><a href="/pages/cookie-policy">Cookie Policy</a><a href="/pages/internet-supply-pharmacy">Registered Internet Supply Pharmacy</a><a href="/pages/withdraw-from-contract">Withdraw From Contract</a></div>
       </div></div>
 
@@ -1210,13 +1221,13 @@
   </div>
 
   <div style="border-top:1px solid #e6e7e4;">
-    <div class="ftr-bottom" style="max-width:1440px; margin:0 auto; padding:18px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px; font-size:13px; color:#8b9182;">
-      <div class="ftr-copyright">Copyright © 2026 McCormack's Pharmacy</div><button type="button" data-cc-reopen class="ftr-cookie-btn" style="border:none; background:transparent; padding:0; font-family:inherit; font-size:inherit; color:#8b9182; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">Cookie settings</button>
+    <div class="ftr-bottom" style="max-width:1440px; margin:0 auto; padding:18px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px; font-size:13px; color:#717769;">
+      <div class="ftr-copyright">Copyright © 2026 McCormack's Pharmacy</div><button type="button" data-cc-reopen class="ftr-cookie-btn" style="border:none; background:transparent; padding:0; font-family:inherit; font-size:inherit; color:#717769; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">Cookie settings</button>
       <div class="ftr-payments" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
-        <span style="font-size:12.5px; color:#8b9182; margin-right:2px;">We accept</span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span></div>
-      <a href="/pages/terms-and-conditions" class="ftr-terms" style="display:none; color:#8b9182;">Terms &amp; Conditions</a>
+        <span style="font-size:12.5px; color:#717769; margin-right:2px;">We accept</span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span></div>
+      <a href="/pages/terms-and-conditions" class="ftr-terms" style="display:none; color:#717769;">Terms &amp; Conditions</a>
       <div class="ftr-builtby" style="display:flex; align-items:center; gap:22px; flex-wrap:wrap;">
-        <a href="https://kakion.com" style="display:flex; align-items:center; gap:1px; color:#8b9182;">
+        <a href="https://kakion.com" style="display:flex; align-items:center; gap:1px; color:#717769;">
           <span style="font-size:12px;">Built by</span>
           <img src="/shopify-theme/assets/kakion-logo-black.png" alt="Kakion" width="80" height="22" style="height:21.6px; width:auto; display:block;">
         </a>

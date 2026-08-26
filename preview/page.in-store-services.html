@@ -13,7 +13,18 @@
       src: url(/shopify-theme/assets/mulish-variable.woff2) format('woff2');
     }
   </style>
-  <link rel="stylesheet" href="/shopify-theme/assets/base.css"><script>window.mccRoutes = { cart_url: "/cart", cart_add_url: "/cart/add", cart_change_url: "/cart/change", predictive_search_url: "/search/suggest", product_recommendations_url: "/recommendations/products" };</script>
+  <link rel="stylesheet" href="/shopify-theme/assets/base.css"><style>
+    :root {
+      --c-primary: #82C914;
+      --c-primary-hover: #6BA30F;
+      --c-dark: #3F6B4F;
+      --c-accent: #92C83F;
+      --c-on-primary: #2A2B2A;
+      --c-on-accent: #2A2B2A;
+      --c-on-dark: #FFFFFF;
+      --c-primary-text: #4C750B;
+    }
+  </style><script>window.mccRoutes = { cart_url: "/cart", cart_add_url: "/cart/add", cart_change_url: "/cart/change", predictive_search_url: "/search/suggest", product_recommendations_url: "/recommendations/products" };</script>
   <script src="/shopify-theme/assets/theme.js" defer></script>
   <!-- content_for_header -->
 <script>/* PREVIEW ONLY — never shipped in the theme.
@@ -122,7 +133,7 @@
 </script>
 </head>
 <body>
-  <div style="width:100%; background:#3f6b4f; color:#ffffff;">
+  <div style="width:100%; background:var(--c-dark); color:var(--c-on-dark);">
   <div class="annc-row" style="max-width:1440px; margin:0 auto; padding:5px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 40px; font-size:12.5px; font-weight:400; letter-spacing:.06em;">
     <div style="display:flex; align-items:center; gap:12px; justify-content:flex-start;">
       <span>IRELAND (EUR €)</span>
@@ -149,7 +160,7 @@
              aria-label="Search for products, brands and more"
              style="flex:1; border:none; outline:none; font-family:inherit; font-size:14.5px; color:#2A2B2A; background:transparent; padding:9px 0;">
       <input type="hidden" name="options[prefix]" value="last">
-      <button type="submit" aria-label="Search" class="hov-bg-green" style="flex:0 0 auto; width:46px; border:none; border-radius:9px 0 0 9px; background:#92C83F; color:#ffffff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .15s;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></button>
+      <button type="submit" aria-label="Search" class="hov-bg-green" style="flex:0 0 auto; width:46px; border:none; border-radius:9px 0 0 9px; background:var(--c-accent); color:var(--c-on-accent); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .15s;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></button>
       </form>
       <div class="ps-panel" id="predictive-search-results" data-ps-panel role="listbox"
            aria-label="Search suggestions" tabindex="-1" hidden></div>
@@ -159,19 +170,19 @@
       <a href="/pages/wishlist" class="hide-mobile hov-green" style="color:#2A2B2A; display:flex; align-items:center; gap:7px; font-weight:600; font-size:13.5px; position:relative;">
         <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>
         <span class="icon-label">Wishlist</span>
-        <span data-wish-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 4px;">0</span>
+        <span data-wish-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 4px;">0</span>
       </a>
       <a href="/cart" class="hide-mobile hov-green" style="color:#2A2B2A; display:flex; align-items:center; gap:7px; font-weight:600; font-size:13.5px; position:relative;">
         <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.4 12.3a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L22 7H6"></path></svg>
         <span class="icon-label">My Cart</span>
-        <span data-cart-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
+        <span data-cart-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
       </a>
       <a href="/account" class="hide-mobile hov-green" aria-label="My Account" style="color:#2A2B2A; display:flex; align-items:center; position:relative;">
         <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
       </a>
       <a href="/cart" class="cart-mobile hov-green" aria-label="My Cart" style="color:#2A2B2A; display:none; align-items:center; position:relative;">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.4 12.3a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L22 7H6"></path></svg>
-        <span data-cart-count style="position:absolute; top:-6px; right:-8px; min-width:17px; height:17px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
+        <span data-cart-count style="position:absolute; top:-6px; right:-8px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
       </a>
     </nav>
   </div>
@@ -240,11 +251,11 @@
 
   <div style="padding:18px 20px; margin-top:auto; display:flex; flex-direction:column; gap:12px;">
     <div style="display:flex; gap:12px;">
-      <a href="/pages/in-store-services" class="hov-bg-dark" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:#3f6b4f; color:#ffffff; font-weight:700; font-size:14px; height:46px; border-radius:9px;">
+      <a href="/pages/in-store-services" class="hov-bg-dark" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:14px; height:46px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
         Services
       </a>
-      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14px; height:46px; border-radius:9px;">
+      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14px; height:46px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.5"></circle></svg>
         Store Locator
       </a>
@@ -254,7 +265,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Account
       </a>
       <a href="/pages/wishlist" class="hov-border-accent" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:14px; height:44px; border-radius:9px;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>Wishlist<span data-wish-count style="min-width:19px; height:19px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11.5px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 5px;">0</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>Wishlist<span data-wish-count style="min-width:19px; height:19px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11.5px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 5px;">0</span>
       </a>
     </div>
   </div>
@@ -272,15 +283,15 @@
       <a href="/collections/mother-baby" class="hov-green" data-mega-trigger="mother-baby" style="color:#2A2B2A; font-size:13.5px;">Mother &amp; Baby</a>
       <a href="/collections/fragrance" class="hov-green" data-mega-trigger="fragrance" style="color:#2A2B2A; font-size:13.5px;">Fragrance</a>
       <a href="/collections/gifting" class="hov-green" data-mega-trigger="gifting" style="color:#2A2B2A; font-size:13.5px;">Gifting</a>
-      <a href="/collections/sale" class="hov-green-dk" data-mega-close style="color:#82c914; font-weight:700; font-size:13.5px;">Sale</a>
+      <a href="/collections/sale" class="hov-green-dk" data-mega-close style="color:var(--c-primary-text); font-weight:700; font-size:13.5px;">Sale</a>
       <a href="/pages/brands" class="hov-green" data-mega-close style="color:#2A2B2A; font-size:13.5px;">Brands</a>
     </nav>
     <div style="display:flex; align-items:center; gap:9px;">
-      <a href="/pages/in-store-services" class="hov-bg-green-dk" style="display:flex; align-items:center; gap:9px; background:#3f6b4f; color:#ffffff; font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
+      <a href="/pages/in-store-services" class="hov-bg-green-dk" style="display:flex; align-items:center; gap:9px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
         <span>In-Store Services</span>
       </a>
-      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="display:flex; align-items:center; gap:9px; background:#92C83F; color:#ffffff; font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
+      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="display:flex; align-items:center; gap:9px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.4"></circle></svg>
         <span>Store Locator</span>
       </a>
@@ -293,7 +304,7 @@
           <div style="flex:1; padding:30px 30px; display:grid; grid-template-columns:repeat(6,minmax(155px,1fr)); gap:20px;">
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/pain-relief" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Pain Relief</a>
+                <a href="/collections/pain-relief" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Pain Relief</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/pain-relief-headache" style="color:#2A2B2A;" class="hov-green">Pain Relief &amp; Headache</a>
                   <a href="/collections/baby-children-pain-relief" style="color:#2A2B2A;" class="hov-green">Baby &amp; Children Pain Relief</a>
@@ -301,7 +312,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/cold-flu-allergy" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Cold, Flu &amp; Allergy</a>
+                <a href="/collections/cold-flu-allergy" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Cold, Flu &amp; Allergy</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/cold-flu-combination-products" style="color:#2A2B2A;" class="hov-green">Cold &amp; Flu Combination Products</a>
                   <a href="/collections/cough" style="color:#2A2B2A;" class="hov-green">Cough</a>
@@ -311,7 +322,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/stomach-gastrointestinal" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Stomach &amp; Gastrointestinal</a>
+                <a href="/collections/stomach-gastrointestinal" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Stomach &amp; Gastrointestinal</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/nausea-acid-indigestion-reflux" style="color:#2A2B2A;" class="hov-green">Nausea, Acid Indigestion &amp; Reflux</a>
                   <a href="/collections/bloating-gas" style="color:#2A2B2A;" class="hov-green">Bloating &amp; Gas</a>
@@ -325,7 +336,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/sensitive-conditions" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sensitive Conditions</a>
+                <a href="/collections/sensitive-conditions" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sensitive Conditions</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/menopause" style="color:#2A2B2A;" class="hov-green">Menopause</a>
                   <a href="/collections/hair-loss" style="color:#2A2B2A;" class="hov-green">Hair Loss</a>
@@ -336,7 +347,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/nicotine-replacement" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nicotine Replacement</a>
+                <a href="/collections/nicotine-replacement" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nicotine Replacement</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/nicotine-patches" style="color:#2A2B2A;" class="hov-green">Nicotine Patches</a>
                   <a href="/collections/nicotine-gum" style="color:#2A2B2A;" class="hov-green">Nicotine Gum</a>
@@ -345,7 +356,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/eye-ear-health" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eye &amp; Ear Health</a>
+                <a href="/collections/eye-ear-health" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eye &amp; Ear Health</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/dry-eye" style="color:#2A2B2A;" class="hov-green">Dry Eye</a>
                   <a href="/collections/blepharitis-eyelid-hygiene" style="color:#2A2B2A;" class="hov-green">Blepharitis &amp; Eyelid Hygiene</a>
@@ -360,13 +371,13 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/sleep-rest" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sleep &amp; Rest</a>
+                <a href="/collections/sleep-rest" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sleep &amp; Rest</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/healthy-mind-sleeping-aids" style="color:#2A2B2A;" class="hov-green">Healthy Mind &amp; Sleeping Aids</a>
                 </div>
               </div>
               <div>
-                <a href="/collections/mouth-oral-care" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Mouth &amp; Oral Care</a>
+                <a href="/collections/mouth-oral-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Mouth &amp; Oral Care</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/dry-mouth" style="color:#2A2B2A;" class="hov-green">Dry Mouth</a>
                   <a href="/collections/gum-health-gingivitis" style="color:#2A2B2A;" class="hov-green">Gum Health &amp; Gingivitis</a>
@@ -375,7 +386,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/continence-care" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Continence Care</a>
+                <a href="/collections/continence-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Continence Care</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/bladder-weakness" style="color:#2A2B2A;" class="hov-green">Bladder Weakness</a>
                   <a href="/collections/pads" style="color:#2A2B2A;" class="hov-green">Pads</a>
@@ -387,7 +398,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/trying-to-conceive" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Trying To Conceive</a>
+                <a href="/collections/trying-to-conceive" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Trying To Conceive</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/fertility-aids-lubricant" style="color:#2A2B2A;" class="hov-green">Fertility Aids &amp; Lubricant</a>
                   <a href="/collections/pregnancy-tests" style="color:#2A2B2A;" class="hov-green">Pregnancy Tests</a>
@@ -395,7 +406,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/sexual-health" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sexual Health</a>
+                <a href="/collections/sexual-health" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sexual Health</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/erectile-dysfunction" style="color:#2A2B2A;" class="hov-green">Erectile Dysfunction</a>
                   <a href="/collections/condoms" style="color:#2A2B2A;" class="hov-green">Condoms</a>
@@ -403,7 +414,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/sport" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sport</a>
+                <a href="/collections/sport" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sport</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/warmup-recovery" style="color:#2A2B2A;" class="hov-green">Warmup &amp; Recovery</a>
                 </div>
@@ -411,7 +422,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/first-aid" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">First Aid</a>
+                <a href="/collections/first-aid" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">First Aid</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/antiseptics-wound-cleaning" style="color:#2A2B2A;" class="hov-green">Antiseptics &amp; Wound Cleaning</a>
                   <a href="/collections/bandages-plasters" style="color:#2A2B2A;" class="hov-green">Bandages &amp; Plasters</a>
@@ -421,7 +432,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/foot-care" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Foot Care</a>
+                <a href="/collections/foot-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Foot Care</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/athletes-foot" style="color:#2A2B2A;" class="hov-green">Athletes Foot</a>
                   <a href="/collections/verucca" style="color:#2A2B2A;" class="hov-green">Verucca</a>
@@ -438,7 +449,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/diabetes-care" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Diabetes Care</a>
+                <a href="/collections/diabetes-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Diabetes Care</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/test-strips-blood-glucose-monitors" style="color:#2A2B2A;" class="hov-green">Test Strips &amp; Blood Glucose Monitors</a>
                   <a href="/collections/needles-lancets" style="color:#2A2B2A;" class="hov-green">Needles &amp; Lancets</a>
@@ -446,17 +457,17 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/electrical-healthcare" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Electrical Healthcare</a>
+                <a href="/collections/electrical-healthcare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Electrical Healthcare</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/blood-pressure-monitors" style="color:#2A2B2A;" class="hov-green">Blood Pressure Monitors</a>
                   <a href="/collections/oximeters-weighing-scales" style="color:#2A2B2A;" class="hov-green">Oximeters &amp; Weighing Scales</a>
                 </div>
               </div>
               <div>
-                <a href="/collections/self-testing-kits" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Self Testing Kits</a>
+                <a href="/collections/self-testing-kits" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Self Testing Kits</a>
               </div>
               <div>
-                <a href="/collections/healthcare-medicine-accessories" style="display:block; color:#82C914; font-weight:800; font-size:13.5px;" class="hov-dark-green">Healthcare &amp; Medicine Accessories</a>
+                <a href="/collections/healthcare-medicine-accessories" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px;" class="hov-dark-green">Healthcare &amp; Medicine Accessories</a>
               </div>
             </div>
           </div>
@@ -511,7 +522,7 @@
           <div style="flex:1; padding:30px; display:grid; grid-template-columns:repeat(3,minmax(180px,1fr)); gap:24px;">
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/dermatological-skincare" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Dermatological Skincare</a>
+                <a href="/collections/dermatological-skincare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Dermatological Skincare</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/anti-ageing" style="color:#2A2B2A;" class="hov-green">Anti-Ageing</a>
                   <a href="/collections/acne-blemish" style="color:#2A2B2A;" class="hov-green">Acne &amp; Blemish</a>
@@ -522,7 +533,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/body-skincare" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Body Skincare</a>
+                <a href="/collections/body-skincare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Body Skincare</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/moisturisers" style="color:#2A2B2A;" class="hov-green">Moisturisers</a>
                   <a href="/collections/exfoliators" style="color:#2A2B2A;" class="hov-green">Exfoliators</a>
@@ -531,7 +542,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/facial-skincare" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Facial Skincare</a>
+                <a href="/collections/facial-skincare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Facial Skincare</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/facial-suncare" style="color:#2A2B2A;" class="hov-green">Facial Suncare</a>
                   <a href="/collections/facial-moisturisers" style="color:#2A2B2A;" class="hov-green">Facial Moisturisers</a>
@@ -548,14 +559,14 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/problem-skin" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Problem Skin</a>
+                <a href="/collections/problem-skin" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Problem Skin</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/acne-blemish" style="color:#2A2B2A;" class="hov-green">Acne &amp; Blemish</a>
                   <a href="/collections/dry-skin-eczema-psoriasis" style="color:#2A2B2A;" class="hov-green">Dry Skin, Eczema &amp; Psoriasis</a>
                 </div>
               </div>
               <div>
-                <a href="/collections/hands-nails" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Hands &amp; Nails</a>
+                <a href="/collections/hands-nails" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Hands &amp; Nails</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/hand-cream" style="color:#2A2B2A;" class="hov-green">Hand Cream</a>
                   <a href="/collections/cuticle-nail-care" style="color:#2A2B2A;" class="hov-green">Cuticle &amp; Nail Care</a>
@@ -576,7 +587,7 @@
           <div style="flex:1; padding:30px; display:grid; grid-template-columns:repeat(4,minmax(160px,1fr)); gap:24px;">
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/face" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Face</a>
+                <a href="/collections/face" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Face</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/foundation" style="color:#2A2B2A;" class="hov-green">Foundation</a>
                   <a href="/collections/makeup-remover" style="color:#2A2B2A;" class="hov-green">Makeup Remover</a>
@@ -591,7 +602,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/eyes" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eyes</a>
+                <a href="/collections/eyes" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eyes</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/eyeshadow" style="color:#2A2B2A;" class="hov-green">Eyeshadow</a>
                   <a href="/collections/eyeliner" style="color:#2A2B2A;" class="hov-green">Eyeliner</a>
@@ -602,7 +613,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/lips" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Lips</a>
+                <a href="/collections/lips" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Lips</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/lip-gloss" style="color:#2A2B2A;" class="hov-green">Lip Gloss</a>
                   <a href="/collections/lipstick" style="color:#2A2B2A;" class="hov-green">Lipstick</a>
@@ -612,7 +623,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/tanning" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Tanning</a>
+                <a href="/collections/tanning" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Tanning</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/self-tan" style="color:#2A2B2A;" class="hov-green">Self Tan</a>
                   <a href="/collections/tanning-mitts" style="color:#2A2B2A;" class="hov-green">Tanning Mitts</a>
@@ -622,7 +633,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/nails" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nails</a>
+                <a href="/collections/nails" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nails</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/nail-polish" style="color:#2A2B2A;" class="hov-green">Nail Polish</a>
                   <a href="/collections/false-nails-nail-wraps" style="color:#2A2B2A;" class="hov-green">False Nails &amp; Nail Wraps</a>
@@ -633,7 +644,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/makeup-brushes-tools" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Makeup Brushes &amp; Tools</a>
+                <a href="/collections/makeup-brushes-tools" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Makeup Brushes &amp; Tools</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/makeup-brushes" style="color:#2A2B2A;" class="hov-green">Makeup Brushes</a>
                   <a href="/collections/makeup-sponges" style="color:#2A2B2A;" class="hov-green">Makeup Sponges</a>
@@ -641,7 +652,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/beauty-accessories" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Beauty Accessories</a>
+                <a href="/collections/beauty-accessories" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Beauty Accessories</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/body-tape-nipple-covers" style="color:#2A2B2A;" class="hov-green">Body Tape &amp; Nipple Covers</a>
                   <a href="/collections/tweezers" style="color:#2A2B2A;" class="hov-green">Tweezers</a>
@@ -719,7 +730,7 @@
     </button>
   </header><div class="cd-ship" data-cd-ship hidden>
     <div class="cd-ship-row">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="#82C914" aria-hidden="true"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75Z"></path></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--c-primary)" aria-hidden="true"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75Z"></path></svg>
       <span data-cd-ship-msg></span>
     </div>
     <div class="cd-bar"><div data-cd-bar></div></div>
@@ -728,7 +739,7 @@
   <div class="cd-items" data-cd-items></div><div class="cd-recs" data-crec-mount hidden></div>
 
   <div class="cd-empty" data-cd-empty hidden>
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#92C83F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
     <p>Your bag is empty.</p>
     <a href="/" class="cd-secondary" data-cd-close>Start shopping</a>
   </div>
@@ -740,7 +751,7 @@
     </div>
     <p class="cd-vat">Shipping and VAT calculated at checkout</p>
     <form action="/cart" method="post">
-      <button type="submit" name="checkout" class="cd-checkout hov-bg-green-dk">Checkout securely</button><div class="cd-express"><div data-mock-express style="height:48px;border-radius:10px;border:1.5px dashed #b9c2b3;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#7d8875;background:#f4f6f1;">Express checkout buttons &middot; live store only</div></div></form>
+      <button type="submit" name="checkout" class="cd-checkout hov-bg-green-dk">Checkout securely</button><div class="cd-express"><div data-mock-express style="height:48px;border-radius:10px;border:1.5px dashed #b9c2b3;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#697262;background:#f4f6f1;">Express checkout buttons &middot; live store only</div></div></form>
     <a href="/cart" class="cd-secondary">View full bag</a>
   </footer>
 </aside>
@@ -752,7 +763,7 @@
     <div class="trust-mob-wrap" style="width:100%; background:#ffffff;">
   <div class="trust-inner" style="max-width:1440px; margin:0 auto; padding:8px 50px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 28px;">
     <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:flex-start; gap:10px; font-size:14px;">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="#92C83F" style="flex:0 0 auto;"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75ZM15 7.5v3.5h4v-.32L16.9 7.8a.5.5 0 0 0-.4-.2H15ZM7.7 15.75a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Zm9.6 0a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Z"></path></svg>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--c-accent)" style="flex:0 0 auto;"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75ZM15 7.5v3.5h4v-.32L16.9 7.8a.5.5 0 0 0-.4-.2H15ZM7.7 15.75a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Zm9.6 0a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Z"></path></svg>
       <span><strong style="font-weight:800;">Free Delivery</strong> On orders over €65</span>
     </div>
     <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:14px;">
@@ -762,7 +773,7 @@
       <span><strong style="font-weight:800;">Irish Owned</strong> 7 stores nationwide</span>
     </div>
     <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:14px;">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="#92C83F" style="flex:0 0 auto;"><path d="M11.48 3.5a.6.6 0 0 1 1.04 0l2.2 4.03a.6.6 0 0 0 .43.31l4.52.79a.6.6 0 0 1 .32.99l-3.17 3.33a.6.6 0 0 0-.16.5l.64 4.56a.6.6 0 0 1-.85.62l-4.13-1.97a.6.6 0 0 0-.52 0l-4.13 1.97a.6.6 0 0 1-.85-.62l.64-4.56a.6.6 0 0 0-.16-.5L4.97 9.62a.6.6 0 0 1 .32-.99l4.52-.79a.6.6 0 0 0 .43-.31l2.2-4.03Z"></path></svg>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--c-accent)" style="flex:0 0 auto;"><path d="M11.48 3.5a.6.6 0 0 1 1.04 0l2.2 4.03a.6.6 0 0 0 .43.31l4.52.79a.6.6 0 0 1 .32.99l-3.17 3.33a.6.6 0 0 0-.16.5l.64 4.56a.6.6 0 0 1-.85.62l-4.13-1.97a.6.6 0 0 0-.52 0l-4.13 1.97a.6.6 0 0 1-.85-.62l.64-4.56a.6.6 0 0 0-.16-.5L4.97 9.62a.6.6 0 0 1 .32-.99l4.52-.79a.6.6 0 0 0 .43-.31l2.2-4.03Z"></path></svg>
       <span><strong style="font-weight:800;">Trusted</strong> by over 20,000 customers since 2010</span>
     </div>
   </div>
@@ -779,161 +790,161 @@
   .svc-card { display: flex; flex-direction: column; border: 1px solid #e6e7e4; border-radius: 16px; overflow: hidden; background: #ffffff; transition: box-shadow .18s, transform .18s; }
   .svc-card:hover { box-shadow: 0 14px 30px rgba(0,0,0,.09); transform: translateY(-3px); }
   .svc-input { height: 50px; border: 1px solid #dfe1dc; border-radius: 9px; padding: 0 14px; font-family: inherit; font-size: 15.5px; color: #2A2B2A; outline: none; }
-  .svc-input:focus { border-color: #82C914; }
+  .svc-input:focus { border-color:var(--c-primary-text); }
   .svc-textarea { border: 1px solid #dfe1dc; border-radius: 9px; padding: 12px 14px; font-family: inherit; font-size: 15.5px; line-height: 1.6; color: #2A2B2A; outline: none; resize: vertical; }
-  .svc-textarea:focus { border-color: #82C914; }
+  .svc-textarea:focus { border-color:var(--c-primary-text); }
   .svc-link-btn { background: none; border: none; padding: 0; font-family: inherit; cursor: pointer; text-align: left; }
-  .svc-outline:hover { border-color: #92C83F !important; }
-  .svc-band-outline:hover { border-color: #92C83F !important; color: #92C83F !important; }
+  .svc-outline:hover { border-color: var(--c-accent) !important; }
+  .svc-band-outline:hover { border-color: var(--c-accent) !important; color: var(--c-accent) !important; }
   /* Detail body typography (ported from the design's inline styles) */
   .svcd p { margin: 0 0 15px; font-size: 16px; line-height: 1.75; color: #3a3d39; text-wrap: pretty; }
-  .svcd h2, .svcd h3 { font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-weight: 800; color: #3f6b4f; font-size: clamp(19px, 2vw, 24px); line-height: 1.25; margin: 30px 0 12px; }
+  .svcd h2, .svcd h3 { font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-weight: 800; color: var(--c-dark); font-size: clamp(19px, 2vw, 24px); line-height: 1.25; margin: 30px 0 12px; }
   .svcd ul, .svcd ol { margin: 0 0 15px; padding-left: 22px; display: flex; flex-direction: column; gap: 9px; font-size: 16px; line-height: 1.7; color: #3a3d39; }
 </style><div data-view="svc-hub">
   <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
-      <a href="/" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">In-Store Services</span>
+    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
+      <a href="/" class="hov-green" style="color:#717769;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">In-Store Services</span>
     </nav>
-    <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">In-store services</h1>
+    <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">In-store services</h1>
     <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">More than a shop counter. Our pharmacists offer vaccination clinics, health screening, fitting consultations and everyday practical services across our stores — most without a GP referral.</p>
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px;"><div class="svc-card" >
-          <button type="button" class="svc-link-btn" data-view-btn="svc-1" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Covid-19 Vaccination" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid #92C83F;"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:#3f6b4f; opacity:.55;">Covid-19 Vaccination</span></div></button>
+          <button type="button" class="svc-link-btn" data-view-btn="svc-1" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Covid-19 Vaccination" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid var(--c-accent);"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:var(--c-dark); opacity:.55;">Covid-19 Vaccination</span></div></button>
           <div style="padding:20px 22px 24px; display:flex; flex-direction:column; gap:11px; flex:1;">
             <div style="display:flex; flex-wrap:wrap; align-items:center; gap:9px;">
               <span style="display:inline-flex; align-items:center; height:25px; padding:0 10px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:11.5px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;">Appointment</span>
-              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:#3f6b4f;">By appointment</span>
+              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:var(--c-dark);">By appointment</span>
             </div>
-            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-1" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:#3f6b4f;">Covid-19 Vaccination</button>
+            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-1" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:var(--c-dark);">Covid-19 Vaccination</button>
             <div style="font-size:14.5px; line-height:1.65; color:#5d6159; flex:1;">Register your interest for a Covid-19 vaccine appointment. Currently offered in our Tullamore, Newbridge and Clonmel stores.</div>
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-1" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:#82C914; margin-top:2px;">Learn more
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-1" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:var(--c-primary-text); margin-top:2px;">Learn more
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
             </button>
           </div>
         </div><div class="svc-card" >
-          <button type="button" class="svc-link-btn" data-view-btn="svc-2" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Flu Vaccine Clinic" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid #92C83F;"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:#3f6b4f; opacity:.55;">Flu Vaccine Clinic</span></div></button>
+          <button type="button" class="svc-link-btn" data-view-btn="svc-2" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Flu Vaccine Clinic" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid var(--c-accent);"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:var(--c-dark); opacity:.55;">Flu Vaccine Clinic</span></div></button>
           <div style="padding:20px 22px 24px; display:flex; flex-direction:column; gap:11px; flex:1;">
             <div style="display:flex; flex-wrap:wrap; align-items:center; gap:9px;">
               <span style="display:inline-flex; align-items:center; height:25px; padding:0 10px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:11.5px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;">Walk-in & appointment</span>
-              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:#3f6b4f;">Free if eligible</span>
+              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:var(--c-dark);">Free if eligible</span>
             </div>
-            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-2" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:#3f6b4f;">Flu Vaccine Clinic</button>
+            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-2" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:var(--c-dark);">Flu Vaccine Clinic</button>
             <div style="font-size:14.5px; line-height:1.65; color:#5d6159; flex:1;">The seasonal flu vaccine protects against four strains of the flu virus — free of charge if you are in an at-risk group.</div>
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-2" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:#82C914; margin-top:2px;">Learn more
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-2" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:var(--c-primary-text); margin-top:2px;">Learn more
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
             </button>
           </div>
         </div><div class="svc-card" >
-          <button type="button" class="svc-link-btn" data-view-btn="svc-3" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Blood Pressure Screening" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid #92C83F;"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:#3f6b4f; opacity:.55;">Blood Pressure Screening</span></div></button>
+          <button type="button" class="svc-link-btn" data-view-btn="svc-3" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Blood Pressure Screening" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid var(--c-accent);"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:var(--c-dark); opacity:.55;">Blood Pressure Screening</span></div></button>
           <div style="padding:20px 22px 24px; display:flex; flex-direction:column; gap:11px; flex:1;">
             <div style="display:flex; flex-wrap:wrap; align-items:center; gap:9px;">
               <span style="display:inline-flex; align-items:center; height:25px; padding:0 10px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:11.5px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;">Walk-in</span>
-              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:#3f6b4f;">Free</span>
+              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:var(--c-dark);">Free</span>
             </div>
-            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-3" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:#3f6b4f;">Blood Pressure Screening</button>
+            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-3" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:var(--c-dark);">Blood Pressure Screening</button>
             <div style="font-size:14.5px; line-height:1.65; color:#5d6159; flex:1;">A five to ten minute check with your pharmacist, who will talk you through the reading and the next steps.</div>
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-3" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:#82C914; margin-top:2px;">Learn more
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-3" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:var(--c-primary-text); margin-top:2px;">Learn more
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
             </button>
           </div>
         </div><div class="svc-card" >
-          <button type="button" class="svc-link-btn" data-view-btn="svc-4" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Inhaler Technique" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid #92C83F;"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:#3f6b4f; opacity:.55;">Inhaler Technique</span></div></button>
+          <button type="button" class="svc-link-btn" data-view-btn="svc-4" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Inhaler Technique" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid var(--c-accent);"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:var(--c-dark); opacity:.55;">Inhaler Technique</span></div></button>
           <div style="padding:20px 22px 24px; display:flex; flex-direction:column; gap:11px; flex:1;">
             <div style="display:flex; flex-wrap:wrap; align-items:center; gap:9px;">
               <span style="display:inline-flex; align-items:center; height:25px; padding:0 10px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:11.5px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;">Free advice</span>
-              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:#3f6b4f;">Free</span>
+              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:var(--c-dark);">Free</span>
             </div>
-            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-4" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:#3f6b4f;">Inhaler Technique</button>
+            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-4" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:var(--c-dark);">Inhaler Technique</button>
             <div style="font-size:14.5px; line-height:1.65; color:#5d6159; flex:1;">A pharmacist check of your inhaler and spacer technique, plus a review of your asthma management plan.</div>
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-4" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:#82C914; margin-top:2px;">Learn more
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-4" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:var(--c-primary-text); margin-top:2px;">Learn more
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
             </button>
           </div>
         </div><div class="svc-card" >
-          <button type="button" class="svc-link-btn" data-view-btn="svc-5" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Compression Hosiery" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid #92C83F;"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:#3f6b4f; opacity:.55;">Compression Hosiery</span></div></button>
+          <button type="button" class="svc-link-btn" data-view-btn="svc-5" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Compression Hosiery" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid var(--c-accent);"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:var(--c-dark); opacity:.55;">Compression Hosiery</span></div></button>
           <div style="padding:20px 22px 24px; display:flex; flex-direction:column; gap:11px; flex:1;">
             <div style="display:flex; flex-wrap:wrap; align-items:center; gap:9px;">
               <span style="display:inline-flex; align-items:center; height:25px; padding:0 10px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:11.5px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;">Appointment</span>
-              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:#3f6b4f;">Fitting consultation</span>
+              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:var(--c-dark);">Fitting consultation</span>
             </div>
-            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-5" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:#3f6b4f;">Compression Hosiery</button>
+            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-5" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:var(--c-dark);">Compression Hosiery</button>
             <div style="font-size:14.5px; line-height:1.65; color:#5d6159; flex:1;">A private measuring and fitting consultation with a pharmacist, including advice on the medical card scheme.</div>
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-5" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:#82C914; margin-top:2px;">Learn more
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-5" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:var(--c-primary-text); margin-top:2px;">Learn more
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
             </button>
           </div>
         </div><div class="svc-card" >
-          <button type="button" class="svc-link-btn" data-view-btn="svc-6" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Blister Packing Service" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid #92C83F;"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:#3f6b4f; opacity:.55;">Blister Packing Service</span></div></button>
+          <button type="button" class="svc-link-btn" data-view-btn="svc-6" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Blister Packing Service" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid var(--c-accent);"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:var(--c-dark); opacity:.55;">Blister Packing Service</span></div></button>
           <div style="padding:20px 22px 24px; display:flex; flex-direction:column; gap:11px; flex:1;">
             <div style="display:flex; flex-wrap:wrap; align-items:center; gap:9px;">
               <span style="display:inline-flex; align-items:center; height:25px; padding:0 10px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:11.5px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;">Ask in store</span>
-              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:#3f6b4f;">Free</span>
+              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:var(--c-dark);">Free</span>
             </div>
-            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-6" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:#3f6b4f;">Blister Packing Service</button>
+            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-6" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:var(--c-dark);">Blister Packing Service</button>
             <div style="font-size:14.5px; line-height:1.65; color:#5d6159; flex:1;">Your regular medicines sorted into a weekly pack, organised by day and time of dose.</div>
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-6" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:#82C914; margin-top:2px;">Learn more
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-6" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:var(--c-primary-text); margin-top:2px;">Learn more
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
             </button>
           </div>
         </div><div class="svc-card" >
-          <button type="button" class="svc-link-btn" data-view-btn="svc-7" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Hampers Made to Order" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid #92C83F;"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:#3f6b4f; opacity:.55;">Hampers Made to Order</span></div></button>
+          <button type="button" class="svc-link-btn" data-view-btn="svc-7" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Hampers Made to Order" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid var(--c-accent);"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:var(--c-dark); opacity:.55;">Hampers Made to Order</span></div></button>
           <div style="padding:20px 22px 24px; display:flex; flex-direction:column; gap:11px; flex:1;">
             <div style="display:flex; flex-wrap:wrap; align-items:center; gap:9px;">
               <span style="display:inline-flex; align-items:center; height:25px; padding:0 10px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:11.5px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;">Made to order</span>
-              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:#3f6b4f;">Your budget</span>
+              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:var(--c-dark);">Your budget</span>
             </div>
-            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-7" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:#3f6b4f;">Hampers Made to Order</button>
+            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-7" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:var(--c-dark);">Hampers Made to Order</button>
             <div style="font-size:14.5px; line-height:1.65; color:#5d6159; flex:1;">A unique gift hamper, tailored to your needs and your budget, for any occasion.</div>
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-7" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:#82C914; margin-top:2px;">Learn more
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-7" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:var(--c-primary-text); margin-top:2px;">Learn more
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
             </button>
           </div>
         </div><div class="svc-card" >
-          <button type="button" class="svc-link-btn" data-view-btn="svc-8" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Smoking Cessation" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid #92C83F;"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:#3f6b4f; opacity:.55;">Smoking Cessation</span></div></button>
+          <button type="button" class="svc-link-btn" data-view-btn="svc-8" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Smoking Cessation" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid var(--c-accent);"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:var(--c-dark); opacity:.55;">Smoking Cessation</span></div></button>
           <div style="padding:20px 22px 24px; display:flex; flex-direction:column; gap:11px; flex:1;">
             <div style="display:flex; flex-wrap:wrap; align-items:center; gap:9px;">
               <span style="display:inline-flex; align-items:center; height:25px; padding:0 10px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:11.5px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;">Free advice</span>
-              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:#3f6b4f;">Free</span>
+              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:var(--c-dark);">Free</span>
             </div>
-            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-8" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:#3f6b4f;">Smoking Cessation</button>
+            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-8" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:var(--c-dark);">Smoking Cessation</button>
             <div style="font-size:14.5px; line-height:1.65; color:#5d6159; flex:1;">A pharmacist-led plan that can double your chances of quitting, free to anyone who wants to stop smoking.</div>
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-8" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:#82C914; margin-top:2px;">Learn more
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-8" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:var(--c-primary-text); margin-top:2px;">Learn more
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
             </button>
           </div>
         </div><div class="svc-card" >
-          <button type="button" class="svc-link-btn" data-view-btn="svc-9" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Photo Printing" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid #92C83F;"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:#3f6b4f; opacity:.55;">Photo Printing</span></div></button>
+          <button type="button" class="svc-link-btn" data-view-btn="svc-9" style="display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#f4f5f2;"><div role="img" aria-label="Photo Printing" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid var(--c-accent);"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:var(--c-dark); opacity:.55;">Photo Printing</span></div></button>
           <div style="padding:20px 22px 24px; display:flex; flex-direction:column; gap:11px; flex:1;">
             <div style="display:flex; flex-wrap:wrap; align-items:center; gap:9px;">
               <span style="display:inline-flex; align-items:center; height:25px; padding:0 10px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:11.5px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;">Self-serve kiosk</span>
-              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:#3f6b4f;">In selected stores</span>
+              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:var(--c-dark);">In selected stores</span>
             </div>
-            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-9" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:#3f6b4f;">Photo Printing</button>
+            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-9" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:var(--c-dark);">Photo Printing</button>
             <div style="font-size:14.5px; line-height:1.65; color:#5d6159; flex:1;">Print from your phone, USB, disc, memory card or Facebook — self serve, or leave it to us.</div>
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-9" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:#82C914; margin-top:2px;">Learn more
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-9" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:var(--c-primary-text); margin-top:2px;">Learn more
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
             </button>
           </div>
         </div></div>
-    <div style="margin:40px 0 0; padding:26px 28px; border-radius:16px; background:#3f6b4f; color:#ffffff; display:flex; flex-wrap:wrap; align-items:center; gap:20px 32px;">
+    <div style="margin:40px 0 0; padding:26px 28px; border-radius:16px; background:var(--c-dark); color:var(--c-on-dark); display:flex; flex-wrap:wrap; align-items:center; gap:20px 32px;">
       <div style="flex:1 1 340px;">
         <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(20px,2.1vw,26px); line-height:1.25; margin:0 0 7px;">Not sure which service you need?</div>
         <div style="font-size:15px; line-height:1.65; color:#d6e2cd;">Call us and describe what is going on. We will tell you what we can help with in store, and when you are better off seeing your GP.</div>
       </div>
       <div style="flex:0 0 auto; display:flex; flex-wrap:wrap; gap:12px;">
-        <a href="tel:0526199329" class="hov-bg-accent-dk" style="display:inline-flex; align-items:center; height:50px; padding:0 24px; border-radius:10px; background:#92C83F; color:#ffffff; font-weight:800; font-size:15px;">052 6199329</a>
+        <a href="tel:0526199329" class="hov-bg-accent-dk" style="display:inline-flex; align-items:center; height:50px; padding:0 24px; border-radius:10px; background:var(--c-accent); color:var(--c-on-accent); font-weight:800; font-size:15px;">052 6199329</a>
         <button type="button" class="svc-link-btn svc-band-outline" data-view-btn="svc-book" style="display:inline-flex; align-items:center; height:50px; padding:0 24px; border-radius:10px; border:1.5px solid rgba(255,255,255,.28); color:#ffffff; font-weight:700; font-size:15px;">Request an appointment</button>
       </div>
     </div>
   </section>
 </div><div data-view="svc-1" style="display:none">
     <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
-        <a href="/" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#8b9182;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Covid-19 Vaccination</span>
+      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
+        <a href="/" class="hov-green" style="color:#717769;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#717769;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Covid-19 Vaccination</span>
       </nav>
       <div class="svc-wrap" style="display:flex; gap:44px; align-items:flex-start;">
         <div style="flex:1 1 auto; min-width:0; max-width:780px;">
           <span style="display:inline-flex; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:14px;">Appointment</span>
-          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Covid-19 Vaccination</h2>
+          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Covid-19 Vaccination</h2>
           <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">McCormack’s Pharmacy are participating in the national Covid-19 vaccine rollout.</p>
           <div class="svcd"><p>Please complete the form to register your interest for a vaccine appointment. You will be contacted by a member of our team with a time and date. We are currently offering this service in our Tullamore, Newbridge and Clonmel locations.</p>
 <h2>Why is it important to get a Covid-19 vaccine, and is it safe?</h2>
@@ -952,11 +963,11 @@
                   <span style="flex:0 0 190px; font-weight:800; font-size:14.5px; color:#2A2B2A;">What to bring</span>
                   <span style="flex:1 1 260px; font-size:15.5px; line-height:1.7; color:#3a3d39;">Photo ID and your phone. Wear a loose-fitting top.</span>
                 </div></div><div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:28px;">
-            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px;">Request an appointment</button>
-            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:15px;">Call 052 6199329</a>
+            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px;">Request an appointment</button>
+            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:15px;">Call 052 6199329</a>
           </div>
           <div style="margin-top:28px; padding-top:22px; border-top:1px solid #e6e7e4;">
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:#82C914;">
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:var(--c-primary-text);">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
               All services
             </button>
@@ -964,7 +975,7 @@
         </div>
         <aside class="svc-side" style="flex:0 0 330px; width:330px; position:sticky; top:20px;">
           <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#3f6b4f; margin:0 0 4px;">By appointment</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin:0 0 4px;">By appointment</div>
             <div style="font-size:13.5px; color:#6b7065; margin:0 0 18px;">Appointment</div>
             <div style="display:flex; flex-direction:column; gap:14px;">
               <label style="display:flex; flex-direction:column; gap:7px; min-width:0;">
@@ -980,10 +991,10 @@
                 <select class="svc-input" style="padding:0 12px; background:#ffffff;"><option>Clonmel</option><option>Ballylanders</option><option>Newbridge</option><option>Tullamore</option><option>Haggardstown</option><option>Carrick Road Dundalk</option><option>Belmullet</option></select>
               </label>
             </div>
-            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
-            <div style="font-size:12.5px; line-height:1.6; color:#8b9182; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
+            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
+            <div style="font-size:12.5px; line-height:1.6; color:#717769; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
           <div style="margin-top:16px; padding:20px 22px; border-radius:16px; background:#eef2e8;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:#3f6b4f; margin-bottom:7px;">Other services</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:7px;">Other services</div>
             <div style="display:flex; flex-direction:column; gap:9px;"><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-2" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Flu Vaccine Clinic</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-3" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Blood Pressure Screening</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-4" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Inhaler Technique</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-5" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Compression Hosiery</button></div>
           </div>
         </aside>
@@ -991,13 +1002,13 @@
     </section>
   </div><div data-view="svc-2" style="display:none">
     <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
-        <a href="/" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#8b9182;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Flu Vaccine Clinic</span>
+      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
+        <a href="/" class="hov-green" style="color:#717769;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#717769;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Flu Vaccine Clinic</span>
       </nav>
       <div class="svc-wrap" style="display:flex; gap:44px; align-items:flex-start;">
         <div style="flex:1 1 auto; min-width:0; max-width:780px;">
           <span style="display:inline-flex; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:14px;">Walk-in & appointment</span>
-          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Flu Vaccine Clinic</h2>
+          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Flu Vaccine Clinic</h2>
           <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">The seasonal flu vaccine protects against four strains of the flu virus — the strains most likely to be circulating this flu season.</p>
           <div class="svcd"><p>The vaccine is available every year to adults and children at risk of flu and its complications.</p>
 <h2>How does the flu vaccine work?</h2>
@@ -1016,11 +1027,11 @@
                   <span style="flex:0 0 190px; font-weight:800; font-size:14.5px; color:#2A2B2A;">When to come</span>
                   <span style="flex:1 1 260px; font-size:15.5px; line-height:1.7; color:#3a3d39;">During autumn, ahead of the flu season.</span>
                 </div></div><div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:28px;">
-            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px;">Request an appointment</button>
-            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:15px;">Call 052 6199329</a>
+            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px;">Request an appointment</button>
+            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:15px;">Call 052 6199329</a>
           </div>
           <div style="margin-top:28px; padding-top:22px; border-top:1px solid #e6e7e4;">
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:#82C914;">
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:var(--c-primary-text);">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
               All services
             </button>
@@ -1028,7 +1039,7 @@
         </div>
         <aside class="svc-side" style="flex:0 0 330px; width:330px; position:sticky; top:20px;">
           <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#3f6b4f; margin:0 0 4px;">Free if eligible</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin:0 0 4px;">Free if eligible</div>
             <div style="font-size:13.5px; color:#6b7065; margin:0 0 18px;">Walk-in & appointment</div>
             <div style="display:flex; flex-direction:column; gap:14px;">
               <label style="display:flex; flex-direction:column; gap:7px; min-width:0;">
@@ -1044,10 +1055,10 @@
                 <select class="svc-input" style="padding:0 12px; background:#ffffff;"><option>Clonmel</option><option>Ballylanders</option><option>Newbridge</option><option>Tullamore</option><option>Haggardstown</option><option>Carrick Road Dundalk</option><option>Belmullet</option></select>
               </label>
             </div>
-            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
-            <div style="font-size:12.5px; line-height:1.6; color:#8b9182; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
+            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
+            <div style="font-size:12.5px; line-height:1.6; color:#717769; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
           <div style="margin-top:16px; padding:20px 22px; border-radius:16px; background:#eef2e8;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:#3f6b4f; margin-bottom:7px;">Other services</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:7px;">Other services</div>
             <div style="display:flex; flex-direction:column; gap:9px;"><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-1" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Covid-19 Vaccination</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-3" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Blood Pressure Screening</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-4" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Inhaler Technique</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-5" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Compression Hosiery</button></div>
           </div>
         </aside>
@@ -1055,13 +1066,13 @@
     </section>
   </div><div data-view="svc-3" style="display:none">
     <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
-        <a href="/" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#8b9182;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Blood Pressure Screening</span>
+      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
+        <a href="/" class="hov-green" style="color:#717769;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#717769;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Blood Pressure Screening</span>
       </nav>
       <div class="svc-wrap" style="display:flex; gap:44px; align-items:flex-start;">
         <div style="flex:1 1 auto; min-width:0; max-width:780px;">
           <span style="display:inline-flex; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:14px;">Walk-in</span>
-          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Blood Pressure Screening</h2>
+          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Blood Pressure Screening</h2>
           <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">The only way to know if you have high blood pressure is to get it measured — most people with high blood pressure notice no symptoms at all.</p>
           <div class="svcd"><p>Average blood pressure is usually around 120 (systolic) over 80 (diastolic). High blood pressure, also called hypertension, causes silent damage to the blood vessels and the heart. If untreated, this damage progresses over time and may result in stroke or heart attack. These serious events occur at a younger age in people with high blood pressure than in people with normal blood pressure.</p>
 <p>The service takes around five to ten minutes. We place a cuff on your arm connected to the blood pressure monitor and take your readings. The pharmacist in your chosen store will then give you the results and discuss the next steps with you. This might include diet and lifestyle advice, or a referral to your doctor.</p>
@@ -1075,11 +1086,11 @@
                   <span style="flex:0 0 190px; font-weight:800; font-size:14.5px; color:#2A2B2A;">How long it takes</span>
                   <span style="flex:1 1 260px; font-size:15.5px; line-height:1.7; color:#3a3d39;">Around five to ten minutes, including time to discuss your reading.</span>
                 </div></div><div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:28px;">
-            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px;">Request an appointment</button>
-            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:15px;">Call 052 6199329</a>
+            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px;">Request an appointment</button>
+            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:15px;">Call 052 6199329</a>
           </div>
           <div style="margin-top:28px; padding-top:22px; border-top:1px solid #e6e7e4;">
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:#82C914;">
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:var(--c-primary-text);">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
               All services
             </button>
@@ -1087,7 +1098,7 @@
         </div>
         <aside class="svc-side" style="flex:0 0 330px; width:330px; position:sticky; top:20px;">
           <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#3f6b4f; margin:0 0 4px;">Free</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin:0 0 4px;">Free</div>
             <div style="font-size:13.5px; color:#6b7065; margin:0 0 18px;">Walk-in</div>
             <div style="display:flex; flex-direction:column; gap:14px;">
               <label style="display:flex; flex-direction:column; gap:7px; min-width:0;">
@@ -1103,10 +1114,10 @@
                 <select class="svc-input" style="padding:0 12px; background:#ffffff;"><option>Clonmel</option><option>Ballylanders</option><option>Newbridge</option><option>Tullamore</option><option>Haggardstown</option><option>Carrick Road Dundalk</option><option>Belmullet</option></select>
               </label>
             </div>
-            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
-            <div style="font-size:12.5px; line-height:1.6; color:#8b9182; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
+            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
+            <div style="font-size:12.5px; line-height:1.6; color:#717769; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
           <div style="margin-top:16px; padding:20px 22px; border-radius:16px; background:#eef2e8;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:#3f6b4f; margin-bottom:7px;">Other services</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:7px;">Other services</div>
             <div style="display:flex; flex-direction:column; gap:9px;"><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-1" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Covid-19 Vaccination</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-2" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Flu Vaccine Clinic</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-4" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Inhaler Technique</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-5" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Compression Hosiery</button></div>
           </div>
         </aside>
@@ -1114,13 +1125,13 @@
     </section>
   </div><div data-view="svc-4" style="display:none">
     <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
-        <a href="/" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#8b9182;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Inhaler Technique</span>
+      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
+        <a href="/" class="hov-green" style="color:#717769;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#717769;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Inhaler Technique</span>
       </nav>
       <div class="svc-wrap" style="display:flex; gap:44px; align-items:flex-start;">
         <div style="flex:1 1 auto; min-width:0; max-width:780px;">
           <span style="display:inline-flex; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:14px;">Free advice</span>
-          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Inhaler Technique</h2>
+          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Inhaler Technique</h2>
           <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">Asthma affects the airways — the small tubes that carry air in and out of the lungs. Getting your inhaler technique right matters.</p>
           <div class="svcd"><p>In asthma, the airways become over-sensitive, reacting to things that would not usually cause a problem, such as cold air or dust. The muscles of the tube walls tighten, leaving little room for air to flow. The lining can swell and a sticky mucus clogs the breathing passages, so the chest has to work much harder to breathe.</p>
 <h2>The two types of inhaler</h2>
@@ -1137,11 +1148,11 @@
                   <span style="flex:0 0 190px; font-weight:800; font-size:14.5px; color:#2A2B2A;">What to bring</span>
                   <span style="flex:1 1 260px; font-size:15.5px; line-height:1.7; color:#3a3d39;">Your own inhaler and spacer, so we can check your technique with the device you actually use.</span>
                 </div></div><div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:28px;">
-            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px;">Request an appointment</button>
-            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:15px;">Call 052 6199329</a>
+            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px;">Request an appointment</button>
+            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:15px;">Call 052 6199329</a>
           </div>
           <div style="margin-top:28px; padding-top:22px; border-top:1px solid #e6e7e4;">
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:#82C914;">
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:var(--c-primary-text);">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
               All services
             </button>
@@ -1149,7 +1160,7 @@
         </div>
         <aside class="svc-side" style="flex:0 0 330px; width:330px; position:sticky; top:20px;">
           <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#3f6b4f; margin:0 0 4px;">Free</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin:0 0 4px;">Free</div>
             <div style="font-size:13.5px; color:#6b7065; margin:0 0 18px;">Free advice</div>
             <div style="display:flex; flex-direction:column; gap:14px;">
               <label style="display:flex; flex-direction:column; gap:7px; min-width:0;">
@@ -1165,10 +1176,10 @@
                 <select class="svc-input" style="padding:0 12px; background:#ffffff;"><option>Clonmel</option><option>Ballylanders</option><option>Newbridge</option><option>Tullamore</option><option>Haggardstown</option><option>Carrick Road Dundalk</option><option>Belmullet</option></select>
               </label>
             </div>
-            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
-            <div style="font-size:12.5px; line-height:1.6; color:#8b9182; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
+            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
+            <div style="font-size:12.5px; line-height:1.6; color:#717769; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
           <div style="margin-top:16px; padding:20px 22px; border-radius:16px; background:#eef2e8;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:#3f6b4f; margin-bottom:7px;">Other services</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:7px;">Other services</div>
             <div style="display:flex; flex-direction:column; gap:9px;"><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-1" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Covid-19 Vaccination</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-2" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Flu Vaccine Clinic</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-3" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Blood Pressure Screening</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-5" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Compression Hosiery</button></div>
           </div>
         </aside>
@@ -1176,13 +1187,13 @@
     </section>
   </div><div data-view="svc-5" style="display:none">
     <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
-        <a href="/" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#8b9182;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Compression Hosiery</span>
+      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
+        <a href="/" class="hov-green" style="color:#717769;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#717769;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Compression Hosiery</span>
       </nav>
       <div class="svc-wrap" style="display:flex; gap:44px; align-items:flex-start;">
         <div style="flex:1 1 auto; min-width:0; max-width:780px;">
           <span style="display:inline-flex; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:14px;">Appointment</span>
-          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Compression Hosiery</h2>
+          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Compression Hosiery</h2>
           <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">Compression hosiery is designed to improve circulation by applying pressure to the legs, encouraging blood flow back to the heart.</p>
           <div class="svcd"><p>Compression is usually tightest at the ankle and eases gradually further up the leg for optimum comfort. Compression hosiery also helps prevent the build-up of excess fluid in the legs, particularly around the ankles.</p>
 <p>During a consultation, our pharmacist will take the correct measurements and help you choose and fit the right hosiery for you. Your consultation is carried out in one of our private consultation rooms, and new measurements are taken each time you need new hosiery. Our pharmacist will also advise you if you can avail of compression hosiery on the medical card scheme.</p>
@@ -1197,11 +1208,11 @@
                   <span style="flex:0 0 190px; font-weight:800; font-size:14.5px; color:#2A2B2A;">Medical card</span>
                   <span style="flex:1 1 260px; font-size:15.5px; line-height:1.7; color:#3a3d39;">Our pharmacist will advise whether you can avail of compression hosiery on the medical card scheme.</span>
                 </div></div><div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:28px;">
-            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px;">Request an appointment</button>
-            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:15px;">Call 052 6199329</a>
+            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px;">Request an appointment</button>
+            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:15px;">Call 052 6199329</a>
           </div>
           <div style="margin-top:28px; padding-top:22px; border-top:1px solid #e6e7e4;">
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:#82C914;">
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:var(--c-primary-text);">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
               All services
             </button>
@@ -1209,7 +1220,7 @@
         </div>
         <aside class="svc-side" style="flex:0 0 330px; width:330px; position:sticky; top:20px;">
           <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#3f6b4f; margin:0 0 4px;">Fitting consultation</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin:0 0 4px;">Fitting consultation</div>
             <div style="font-size:13.5px; color:#6b7065; margin:0 0 18px;">Appointment</div>
             <div style="display:flex; flex-direction:column; gap:14px;">
               <label style="display:flex; flex-direction:column; gap:7px; min-width:0;">
@@ -1225,10 +1236,10 @@
                 <select class="svc-input" style="padding:0 12px; background:#ffffff;"><option>Clonmel</option><option>Ballylanders</option><option>Newbridge</option><option>Tullamore</option><option>Haggardstown</option><option>Carrick Road Dundalk</option><option>Belmullet</option></select>
               </label>
             </div>
-            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
-            <div style="font-size:12.5px; line-height:1.6; color:#8b9182; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
+            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
+            <div style="font-size:12.5px; line-height:1.6; color:#717769; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
           <div style="margin-top:16px; padding:20px 22px; border-radius:16px; background:#eef2e8;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:#3f6b4f; margin-bottom:7px;">Other services</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:7px;">Other services</div>
             <div style="display:flex; flex-direction:column; gap:9px;"><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-1" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Covid-19 Vaccination</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-2" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Flu Vaccine Clinic</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-3" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Blood Pressure Screening</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-4" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Inhaler Technique</button></div>
           </div>
         </aside>
@@ -1236,13 +1247,13 @@
     </section>
   </div><div data-view="svc-6" style="display:none">
     <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
-        <a href="/" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#8b9182;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Blister Packing Service</span>
+      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
+        <a href="/" class="hov-green" style="color:#717769;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#717769;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Blister Packing Service</span>
       </nav>
       <div class="svc-wrap" style="display:flex; gap:44px; align-items:flex-start;">
         <div style="flex:1 1 auto; min-width:0; max-width:780px;">
           <span style="display:inline-flex; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:14px;">Ask in store</span>
-          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Blister Packing Service</h2>
+          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Blister Packing Service</h2>
           <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">Your regular medicines, sorted by our pharmacy team into a sealed weekly pack organised by day and time of dose.</p>
           <div class="svcd"><p>Blister packing takes the guesswork out of a multi-medicine routine. Rather than managing several boxes and bottles, each dose sits in its own sealed compartment, clearly labelled with the day and the time it should be taken, so it is easy to see at a glance whether a dose has been taken.</p>
 <p>The service is popular with people taking several medicines each day, with carers managing medicines on someone else&rsquo;s behalf, and with anyone who finds a weekly routine easier to keep on top of.</p>
@@ -1256,11 +1267,11 @@
                   <span style="flex:0 0 190px; font-weight:800; font-size:14.5px; color:#2A2B2A;">Getting started</span>
                   <span style="flex:1 1 260px; font-size:15.5px; line-height:1.7; color:#3a3d39;">Speak to our pharmacy team in store or call us, and we will take it from there.</span>
                 </div></div><div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:28px;">
-            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px;">Request an appointment</button>
-            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:15px;">Call 052 6199329</a>
+            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px;">Request an appointment</button>
+            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:15px;">Call 052 6199329</a>
           </div>
           <div style="margin-top:28px; padding-top:22px; border-top:1px solid #e6e7e4;">
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:#82C914;">
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:var(--c-primary-text);">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
               All services
             </button>
@@ -1268,7 +1279,7 @@
         </div>
         <aside class="svc-side" style="flex:0 0 330px; width:330px; position:sticky; top:20px;">
           <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#3f6b4f; margin:0 0 4px;">Free</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin:0 0 4px;">Free</div>
             <div style="font-size:13.5px; color:#6b7065; margin:0 0 18px;">Ask in store</div>
             <div style="display:flex; flex-direction:column; gap:14px;">
               <label style="display:flex; flex-direction:column; gap:7px; min-width:0;">
@@ -1284,10 +1295,10 @@
                 <select class="svc-input" style="padding:0 12px; background:#ffffff;"><option>Clonmel</option><option>Ballylanders</option><option>Newbridge</option><option>Tullamore</option><option>Haggardstown</option><option>Carrick Road Dundalk</option><option>Belmullet</option></select>
               </label>
             </div>
-            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
-            <div style="font-size:12.5px; line-height:1.6; color:#8b9182; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
+            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
+            <div style="font-size:12.5px; line-height:1.6; color:#717769; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
           <div style="margin-top:16px; padding:20px 22px; border-radius:16px; background:#eef2e8;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:#3f6b4f; margin-bottom:7px;">Other services</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:7px;">Other services</div>
             <div style="display:flex; flex-direction:column; gap:9px;"><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-1" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Covid-19 Vaccination</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-2" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Flu Vaccine Clinic</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-3" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Blood Pressure Screening</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-4" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Inhaler Technique</button></div>
           </div>
         </aside>
@@ -1295,13 +1306,13 @@
     </section>
   </div><div data-view="svc-7" style="display:none">
     <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
-        <a href="/" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#8b9182;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Hampers Made to Order</span>
+      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
+        <a href="/" class="hov-green" style="color:#717769;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#717769;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Hampers Made to Order</span>
       </nav>
       <div class="svc-wrap" style="display:flex; gap:44px; align-items:flex-start;">
         <div style="flex:1 1 auto; min-width:0; max-width:780px;">
           <span style="display:inline-flex; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:14px;">Made to order</span>
-          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Hampers Made to Order</h2>
+          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Hampers Made to Order</h2>
           <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">Why not treat a loved one to a unique gift hamper from McCormack’s Pharmacy?</p>
           <div class="svcd"><p>Each hamper we create is unique and tailored to your specific needs and budget. We can create a hamper for all types of occasions &mdash; birthdays, a new baby, a mum to be, a Christmas gift, anniversaries, or just to say thank you to that special someone.</p>
 <p>To create a bespoke hamper, or for more information, call Katie on 052 6199329 ext 3, or just pop into one of our selected stores and a member of staff can help you create that perfect gift.</p></div><div style="margin:26px 0 0; border-top:1px solid #e6e7e4;"><div style="display:flex; flex-wrap:wrap; gap:6px 20px; padding:15px 0; border-bottom:1px solid #eceee9;">
@@ -1314,11 +1325,11 @@
                   <span style="flex:0 0 190px; font-weight:800; font-size:14.5px; color:#2A2B2A;">How to order</span>
                   <span style="flex:1 1 260px; font-size:15.5px; line-height:1.7; color:#3a3d39;">Call Katie on 052 6199329 ext 3, or call into one of our selected stores.</span>
                 </div></div><div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:28px;">
-            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px;">Request an appointment</button>
-            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:15px;">Call 052 6199329</a>
+            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px;">Request an appointment</button>
+            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:15px;">Call 052 6199329</a>
           </div>
           <div style="margin-top:28px; padding-top:22px; border-top:1px solid #e6e7e4;">
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:#82C914;">
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:var(--c-primary-text);">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
               All services
             </button>
@@ -1326,7 +1337,7 @@
         </div>
         <aside class="svc-side" style="flex:0 0 330px; width:330px; position:sticky; top:20px;">
           <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#3f6b4f; margin:0 0 4px;">Your budget</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin:0 0 4px;">Your budget</div>
             <div style="font-size:13.5px; color:#6b7065; margin:0 0 18px;">Made to order</div>
             <div style="display:flex; flex-direction:column; gap:14px;">
               <label style="display:flex; flex-direction:column; gap:7px; min-width:0;">
@@ -1342,10 +1353,10 @@
                 <select class="svc-input" style="padding:0 12px; background:#ffffff;"><option>Clonmel</option><option>Ballylanders</option><option>Newbridge</option><option>Tullamore</option><option>Haggardstown</option><option>Carrick Road Dundalk</option><option>Belmullet</option></select>
               </label>
             </div>
-            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
-            <div style="font-size:12.5px; line-height:1.6; color:#8b9182; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
+            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
+            <div style="font-size:12.5px; line-height:1.6; color:#717769; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
           <div style="margin-top:16px; padding:20px 22px; border-radius:16px; background:#eef2e8;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:#3f6b4f; margin-bottom:7px;">Other services</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:7px;">Other services</div>
             <div style="display:flex; flex-direction:column; gap:9px;"><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-1" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Covid-19 Vaccination</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-2" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Flu Vaccine Clinic</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-3" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Blood Pressure Screening</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-4" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Inhaler Technique</button></div>
           </div>
         </aside>
@@ -1353,13 +1364,13 @@
     </section>
   </div><div data-view="svc-8" style="display:none">
     <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
-        <a href="/" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#8b9182;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Smoking Cessation</span>
+      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
+        <a href="/" class="hov-green" style="color:#717769;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#717769;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Smoking Cessation</span>
       </nav>
       <div class="svc-wrap" style="display:flex; gap:44px; align-items:flex-start;">
         <div style="flex:1 1 auto; min-width:0; max-width:780px;">
           <span style="display:inline-flex; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:14px;">Free advice</span>
-          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Smoking Cessation</h2>
+          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Smoking Cessation</h2>
           <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">Our pharmacists can help you create a plan that can double your chances of quitting smoking.</p>
           <div class="svcd"><p>This service is available free of charge to anyone interested in quitting. Our pharmacists will discuss the various nicotine replacement therapy options available to help, including patches, gums and inhalers, and can also discuss options available on prescription.</p>
 <h2>What happens when you quit</h2>
@@ -1374,11 +1385,11 @@
                   <span style="flex:0 0 190px; font-weight:800; font-size:14.5px; color:#2A2B2A;">What we cover</span>
                   <span style="flex:1 1 260px; font-size:15.5px; line-height:1.7; color:#3a3d39;">Nicotine replacement options including patches, gums and inhalers, plus options available on prescription.</span>
                 </div></div><div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:28px;">
-            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px;">Request an appointment</button>
-            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:15px;">Call 052 6199329</a>
+            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px;">Request an appointment</button>
+            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:15px;">Call 052 6199329</a>
           </div>
           <div style="margin-top:28px; padding-top:22px; border-top:1px solid #e6e7e4;">
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:#82C914;">
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:var(--c-primary-text);">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
               All services
             </button>
@@ -1386,7 +1397,7 @@
         </div>
         <aside class="svc-side" style="flex:0 0 330px; width:330px; position:sticky; top:20px;">
           <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#3f6b4f; margin:0 0 4px;">Free</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin:0 0 4px;">Free</div>
             <div style="font-size:13.5px; color:#6b7065; margin:0 0 18px;">Free advice</div>
             <div style="display:flex; flex-direction:column; gap:14px;">
               <label style="display:flex; flex-direction:column; gap:7px; min-width:0;">
@@ -1402,10 +1413,10 @@
                 <select class="svc-input" style="padding:0 12px; background:#ffffff;"><option>Clonmel</option><option>Ballylanders</option><option>Newbridge</option><option>Tullamore</option><option>Haggardstown</option><option>Carrick Road Dundalk</option><option>Belmullet</option></select>
               </label>
             </div>
-            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
-            <div style="font-size:12.5px; line-height:1.6; color:#8b9182; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
+            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
+            <div style="font-size:12.5px; line-height:1.6; color:#717769; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
           <div style="margin-top:16px; padding:20px 22px; border-radius:16px; background:#eef2e8;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:#3f6b4f; margin-bottom:7px;">Other services</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:7px;">Other services</div>
             <div style="display:flex; flex-direction:column; gap:9px;"><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-1" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Covid-19 Vaccination</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-2" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Flu Vaccine Clinic</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-3" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Blood Pressure Screening</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-4" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Inhaler Technique</button></div>
           </div>
         </aside>
@@ -1413,13 +1424,13 @@
     </section>
   </div><div data-view="svc-9" style="display:none">
     <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
-        <a href="/" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#8b9182;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Photo Printing</span>
+      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
+        <a href="/" class="hov-green" style="color:#717769;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#717769;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Photo Printing</span>
       </nav>
       <div class="svc-wrap" style="display:flex; gap:44px; align-items:flex-start;">
         <div style="flex:1 1 auto; min-width:0; max-width:780px;">
           <span style="display:inline-flex; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:14px;">Self-serve kiosk</span>
-          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Photo Printing</h2>
+          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Photo Printing</h2>
           <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">Bring your precious memories to life with digital photo printing at McCormack’s Pharmacy.</p>
           <div class="svcd"><p>The GoPhoto gift kiosk offers photographs and personalised gifts in store, and it has never been easier to print your digital photos. Whatever device you have them stored on, we can print it &mdash; Android or iPhone, a USB stick, disc or memory card, or your Facebook account. Self serve, or leave it to us.</p>
 <h2>Features of our GoPhoto kiosks</h2>
@@ -1435,11 +1446,11 @@
                   <span style="flex:0 0 190px; font-weight:800; font-size:14.5px; color:#2A2B2A;">What to bring</span>
                   <span style="flex:1 1 260px; font-size:15.5px; line-height:1.7; color:#3a3d39;">Your phone, a USB stick, disc or memory card — or sign into Facebook at the kiosk.</span>
                 </div></div><div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:28px;">
-            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px;">Request an appointment</button>
-            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:15px;">Call 052 6199329</a>
+            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px;">Request an appointment</button>
+            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:15px;">Call 052 6199329</a>
           </div>
           <div style="margin-top:28px; padding-top:22px; border-top:1px solid #e6e7e4;">
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:#82C914;">
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:var(--c-primary-text);">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
               All services
             </button>
@@ -1447,7 +1458,7 @@
         </div>
         <aside class="svc-side" style="flex:0 0 330px; width:330px; position:sticky; top:20px;">
           <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#3f6b4f; margin:0 0 4px;">In selected stores</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin:0 0 4px;">In selected stores</div>
             <div style="font-size:13.5px; color:#6b7065; margin:0 0 18px;">Self-serve kiosk</div>
             <div style="display:flex; flex-direction:column; gap:14px;">
               <label style="display:flex; flex-direction:column; gap:7px; min-width:0;">
@@ -1463,10 +1474,10 @@
                 <select class="svc-input" style="padding:0 12px; background:#ffffff;"><option>Clonmel</option><option>Ballylanders</option><option>Newbridge</option><option>Tullamore</option><option>Haggardstown</option><option>Carrick Road Dundalk</option><option>Belmullet</option></select>
               </label>
             </div>
-            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
-            <div style="font-size:12.5px; line-height:1.6; color:#8b9182; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
+            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
+            <div style="font-size:12.5px; line-height:1.6; color:#717769; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
           <div style="margin-top:16px; padding:20px 22px; border-radius:16px; background:#eef2e8;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:#3f6b4f; margin-bottom:7px;">Other services</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:7px;">Other services</div>
             <div style="display:flex; flex-direction:column; gap:9px;"><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-1" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Covid-19 Vaccination</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-2" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Flu Vaccine Clinic</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-3" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Blood Pressure Screening</button><button type="button" class="svc-link-btn hov-green" data-view-btn="svc-4" style="font-size:14.5px; font-weight:700; color:#3a3d39;">Inhaler Technique</button></div>
           </div>
         </aside>
@@ -1474,10 +1485,10 @@
     </section>
   </div><div data-view="svc-book" style="display:none">
   <section style="max-width:820px; margin:0 auto; padding:34px 30px 20px;">
-    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
-      <a href="/" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#8b9182;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Request an appointment</span>
+    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
+      <a href="/" class="hov-green" style="color:#717769;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#717769;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Request an appointment</span>
     </nav>
-    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Request an appointment</h2>
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Request an appointment</h2>
     <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">Tell us what you need and we will call you back to confirm a time. For urgent matters please phone the store directly.</p>
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;"><form method="post"><input type="hidden" name="contact[form_type]" value="appointment-request"><div style="display:flex; flex-wrap:wrap; gap:16px;">
           <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
@@ -1520,12 +1531,12 @@
           </label>
         </div>
         <label style="display:flex; align-items:flex-start; gap:11px; margin:18px 0 22px; font-size:14px; line-height:1.6; color:#3a3d39;">
-          <input type="checkbox" required style="margin-top:3px; accent-color:#82C914; width:17px; height:17px;">
+          <input type="checkbox" required style="margin-top:3px; accent-color:var(--c-primary-text); width:17px; height:17px;">
           <span>I understand this is a request, not a confirmed booking, and that my details will be handled in line with the <a href="/pages/privacy-policy" class="hov-green-dk" style="font-weight:700;">Privacy Policy</a>.</span>
         </label>
-        <button type="submit" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border:none; cursor:pointer; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px; width:100%;">Send request</button></form></div>
+        <button type="submit" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border:none; cursor:pointer; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px; width:100%;">Send request</button></form></div>
     <div style="margin-top:22px;">
-      <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:#82C914;">
+      <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:var(--c-primary-text);">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
         All services
       </button>
@@ -1545,7 +1556,7 @@
   </main>
   <footer style="width:100%; background:#ffffff;">
   
-  <div style="width:100%; background:#3f6b4f; position:relative; overflow:hidden;">
+  <div style="width:100%; background:var(--c-dark); position:relative; overflow:hidden;">
     <div style="position:absolute; top:-60%; right:-6%; width:340px; height:340px; border-radius:999px; background:rgba(255,255,255,.04);"></div>
     <div style="position:absolute; bottom:-70%; right:14%; width:220px; height:220px; border-radius:999px; background:rgba(255,255,255,.03);"></div>
     <div class="ftr-newsletter" style="max-width:1440px; margin:0 auto; height:120px; padding:0 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 48px; position:relative;">
@@ -1558,7 +1569,7 @@
         
           <input type="hidden" name="contact[tags]" value="newsletter">
           <input type="email" name="contact[email]" required placeholder="Enter your email address" style="flex:1; min-width:0; border:none; outline:none; padding:10px 14px; font-family:inherit; font-size:13.5px; color:#2A2B2A; background:transparent;">
-          <button type="submit" class="hov-bg-accent-dk" style="flex:0 0 auto; border:none; border-radius:7px; background:#92C83F; color:#ffffff; font-family:inherit; font-weight:700; font-size:13.5px; letter-spacing:.02em; padding:0 20px; cursor:pointer;">Subscribe</button>
+          <button type="submit" class="hov-bg-accent-dk" style="flex:0 0 auto; border:none; border-radius:7px; background:var(--c-accent); color:var(--c-on-accent); font-family:inherit; font-weight:700; font-size:13.5px; letter-spacing:.02em; padding:0 20px; cursor:pointer;">Subscribe</button>
         
       </form>
       </div>
@@ -1572,22 +1583,22 @@
         <img src="/shopify-theme/assets/mccormacks-logo.png" alt="McCormack's Pharmacy" width="247" height="79" style="width:247px; max-width:100%; height:auto; display:block;">
       </a>
       <p style="margin:0 0 12px; font-size:14px; line-height:1.6; color:#5a6153; max-width:280px;">Ireland's trusted family pharmacy since 2010 — expert care online and across our seven stores.</p>
-      <a href="tel:0526199329" style="display:flex; align-items:center; gap:9px; color:#3f6b4f; font-weight:700; font-size:14px; margin-bottom:20px;">
+      <a href="tel:0526199329" style="display:flex; align-items:center; gap:9px; color:var(--c-dark); font-weight:700; font-size:14px; margin-bottom:20px;">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path></svg>
         052 6199329
       </a>
       <div style="display:flex; gap:10px;"></div>
     </div><div>
-        <h4 data-acc-toggle="shop" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shop<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <h4 data-acc-toggle="shop" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shop<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
         <div class="ftr-acc-content" data-acc-content="shop" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/brands">All Brands</a><a href="/collections/new-in">New In</a><a href="/collections/bundles">Bundles</a><a href="/pages/gift-vouchers">Gift Vouchers</a><a href="/collections/sale">Sale</a></div>
       </div><div>
-        <h4 data-acc-toggle="care" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Customer Care<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <h4 data-acc-toggle="care" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Customer Care<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
         <div class="ftr-acc-content" data-acc-content="care" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/about-us">About Us</a><a href="/pages/contact-us">Contact Us</a><a href="/pages/loyalty-rewards-club">Loyalty Rewards Club</a><a href="/blogs/health-hub">Blog</a></div>
       </div><div>
-        <h4 data-acc-toggle="ship" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shipping & Returns<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <h4 data-acc-toggle="ship" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shipping & Returns<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
         <div class="ftr-acc-content" data-acc-content="ship" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/shipping">Shipping & Free Delivery</a><a href="/pages/returns">Returns & Refunds</a><a href="/pages/click-and-collect">Click & Collect</a></div>
       </div><div>
-        <h4 data-acc-toggle="policies" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Policies<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <h4 data-acc-toggle="policies" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Policies<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
         <div class="ftr-acc-content" data-acc-content="policies" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/terms-and-conditions">Terms & Conditions</a><a href="/pages/privacy-policy">Privacy Policy</a><a href="/pages/cookie-policy">Cookie Policy</a><a href="/pages/internet-supply-pharmacy">Registered Internet Supply Pharmacy</a><a href="/pages/withdraw-from-contract">Withdraw From Contract</a></div>
       </div></div>
 
@@ -1600,13 +1611,13 @@
   </div>
 
   <div style="border-top:1px solid #e6e7e4;">
-    <div class="ftr-bottom" style="max-width:1440px; margin:0 auto; padding:18px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px; font-size:13px; color:#8b9182;">
-      <div class="ftr-copyright">Copyright © 2026 McCormack's Pharmacy</div><button type="button" data-cc-reopen class="ftr-cookie-btn" style="border:none; background:transparent; padding:0; font-family:inherit; font-size:inherit; color:#8b9182; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">Cookie settings</button>
+    <div class="ftr-bottom" style="max-width:1440px; margin:0 auto; padding:18px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px; font-size:13px; color:#717769;">
+      <div class="ftr-copyright">Copyright © 2026 McCormack's Pharmacy</div><button type="button" data-cc-reopen class="ftr-cookie-btn" style="border:none; background:transparent; padding:0; font-family:inherit; font-size:inherit; color:#717769; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">Cookie settings</button>
       <div class="ftr-payments" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
-        <span style="font-size:12.5px; color:#8b9182; margin-right:2px;">We accept</span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span></div>
-      <a href="/pages/terms-and-conditions" class="ftr-terms" style="display:none; color:#8b9182;">Terms &amp; Conditions</a>
+        <span style="font-size:12.5px; color:#717769; margin-right:2px;">We accept</span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span></div>
+      <a href="/pages/terms-and-conditions" class="ftr-terms" style="display:none; color:#717769;">Terms &amp; Conditions</a>
       <div class="ftr-builtby" style="display:flex; align-items:center; gap:22px; flex-wrap:wrap;">
-        <a href="https://kakion.com" style="display:flex; align-items:center; gap:1px; color:#8b9182;">
+        <a href="https://kakion.com" style="display:flex; align-items:center; gap:1px; color:#717769;">
           <span style="font-size:12px;">Built by</span>
           <img src="/shopify-theme/assets/kakion-logo-black.png" alt="Kakion" width="80" height="22" style="height:21.6px; width:auto; display:block;">
         </a>

@@ -1,8 +1,8 @@
 {% render 'trust-row' %}
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
 
-  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
-    <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><a href="{{ routes.account_url }}" class="hov-green" style="color:#8b9182;">My account</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Addresses</span>
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
+    <a href="{{ routes.root_url }}" class="hov-green" style="color:#717769;">Home</a><span>/</span><a href="{{ routes.account_url }}" class="hov-green" style="color:#717769;">My account</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Addresses</span>
   </nav>
   <div class="acct-wrap" style="display:flex; gap:40px; align-items:flex-start;">
 
@@ -10,7 +10,7 @@
 
     <div style="flex:1 1 auto; min-width:0;">
 
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.1vw,26px); margin:0 0 16px;">Addresses</h2>
+      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.1vw,26px); margin:0 0 16px;">Addresses</h2>
 
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin:0 0 22px;">
         {% for address in customer.addresses %}
@@ -25,7 +25,7 @@
               </div>
               <div class="acct-addr" style="font-size:14.5px; line-height:1.7; color:#3a3d39;">{{ address | format_address }}</div>
               <div style="display:flex; gap:14px; margin-top:14px; align-items:center;">
-                <button type="button" data-addr-toggle="EditAddress-{{ address.id }}" style="border:none; background:transparent; padding:0; cursor:pointer; font-family:inherit; font-size:13.5px; font-weight:700; color:#82C914;">Edit</button>
+                <button type="button" data-addr-toggle="EditAddress-{{ address.id }}" style="border:none; background:transparent; padding:0; cursor:pointer; font-family:inherit; font-size:13.5px; font-weight:700; color:var(--c-primary-text);">Edit</button>
                 <form method="post" action="{{ routes.account_addresses_url }}/{{ address.id }}" data-confirm="Remove this address?" style="margin:0;">
                   <input type="hidden" name="_method" value="delete">
                   <button type="submit" class="hov-remove" style="border:none; background:transparent; padding:0; cursor:pointer; font-family:inherit; font-size:13.5px; font-weight:700; color:#6b7065;">Remove</button>
@@ -38,8 +38,8 @@
             </div>
           </div>
         {% endfor %}
-        <button type="button" data-addr-toggle="NewAddress" class="hov-add-tile" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; border:1.5px dashed #cdd3c5; border-radius:16px; padding:26px; background:transparent; cursor:pointer; font-family:inherit; color:#3f6b4f; min-height:170px;">
-          <span style="width:40px; height:40px; border-radius:999px; background:#eef2e8; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:700; color:#82C914;">+</span>
+        <button type="button" data-addr-toggle="NewAddress" class="hov-add-tile" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; border:1.5px dashed #cdd3c5; border-radius:16px; padding:26px; background:transparent; cursor:pointer; font-family:inherit; color:var(--c-dark); min-height:170px;">
+          <span style="width:40px; height:40px; border-radius:999px; background:#eef2e8; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:700; color:var(--c-primary-text);">+</span>
           <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15.5px;">Add a new address</span>
         </button>
       </div>
@@ -73,11 +73,11 @@
 </script>
 
 {% style %}
-  .acct-input:focus { border-color: #82C914 !important; }
+  .acct-input:focus { border-color:var(--c-primary-text) !important; }
   .acct-addr p { margin: 0; }
-  .hov-border-only:hover { border-color: #92C83F !important; }
+  .hov-border-only:hover { border-color: var(--c-accent) !important; }
   .hov-remove:hover { color: #a33 !important; }
-  .hov-add-tile:hover { border-color: #92C83F !important; background: #fbfcfa !important; }
+  .hov-add-tile:hover { border-color: var(--c-accent) !important; background: #fbfcfa !important; }
   @media (max-width: 1000px) {
     .acct-wrap { align-items: stretch !important; flex-direction: column !important; gap: 26px !important; }
     .acct-side { flex: 1 1 auto !important; width: 100% !important; }

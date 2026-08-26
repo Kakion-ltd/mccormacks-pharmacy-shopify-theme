@@ -11,14 +11,14 @@
   .feat-flex:hover { box-shadow: 0 18px 40px rgba(0,0,0,.1); }
   .art-card:hover { box-shadow: 0 14px 30px rgba(0,0,0,.09); transform: translateY(-3px); }
   .blog-chip { flex: 0 0 auto; display: inline-flex; align-items: center; height: 38px; padding: 0 18px; border-radius: 999px; font-size: 14px; font-weight: 700; background: #f2f3f1; color: #3a3d39; }
-  .blog-chip:hover { background: #e6e9e2; color: #3f6b4f; }
-  .blog-chip--active { background: #82C914; color: #ffffff; }
-  .blog-chip--active:hover { background: #6ba30f; color: #ffffff; }
+  .blog-chip:hover { background: #e6e9e2; color: var(--c-dark); }
+  .blog-chip--active { background: var(--c-primary); color:var(--c-on-primary); }
+  .blog-chip--active:hover { background: var(--c-primary-hover); color:var(--c-on-primary); }
 {% endstyle %}
 
 <section style="max-width:1440px; margin:0 auto; padding:34px 30px 6px;">
-  <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:#82C914; margin:0 0 10px;">{{ blog.title }}</div>
-  <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(32px,4vw,50px); line-height:1.05; margin:0 0 14px;">{{ section.settings.heading }}</h1>
+  <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--c-primary-text); margin:0 0 10px;">{{ blog.title }}</div>
+  <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(32px,4vw,50px); line-height:1.05; margin:0 0 14px;">{{ section.settings.heading }}</h1>
   <p style="margin:0; font-size:17.5px; line-height:1.65; color:#4a4d47; max-width:60ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
 </section>
 
@@ -56,14 +56,14 @@
             {%- if featured.tags.first -%}
               {% render 'blog-tag-chip', tag: featured.tags.first, bg_override: '#ffffff' %}
             {%- endif -%}
-            <span style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#82C914;">Featured</span>
+            <span style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">Featured</span>
           </div>
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(24px,2.6vw,34px); line-height:1.15; color:#3f6b4f;">{{ featured.title }}</div>
+          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(24px,2.6vw,34px); line-height:1.15; color:var(--c-dark);">{{ featured.title }}</div>
           <div style="font-size:16px; line-height:1.7; color:#4a4d47;">{{ featured.excerpt_or_content | strip_html | truncate: 160 }}</div>
           <div class="art-meta" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px 20px; font-size:13.5px; color:#6b7065;">
             <span>{{ featured.published_at | date: '%-d %B %Y' }}</span>
           </div>
-          <span style="display:inline-flex; align-items:center; gap:9px; margin-top:6px; font-weight:800; font-size:15px; color:#82C914;">Read article
+          <span style="display:inline-flex; align-items:center; gap:9px; margin-top:6px; font-weight:800; font-size:15px; color:var(--c-primary-text);">Read article
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
           </span>
         </div>
@@ -72,7 +72,7 @@
   {%- endif -%}
 
   <section style="max-width:1440px; margin:0 auto; padding:44px 30px 0;">
-    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">Latest articles</h2>
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">Latest articles</h2>
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:24px;">
       {%- for article in blog.articles -%}
         {%- if show_featured and forloop.first -%}{%- continue -%}{%- endif -%}

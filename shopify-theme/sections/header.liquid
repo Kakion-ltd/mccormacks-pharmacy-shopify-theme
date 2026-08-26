@@ -18,7 +18,7 @@
              aria-label="Search for products, brands and more"
              style="flex:1; border:none; outline:none; font-family:inherit; font-size:14.5px; color:#2A2B2A; background:transparent; padding:9px 0;">
       <input type="hidden" name="options[prefix]" value="last">
-      <button type="submit" aria-label="Search" class="hov-bg-green" style="flex:0 0 auto; width:46px; border:none; border-radius:9px 0 0 9px; background:#92C83F; color:#ffffff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .15s;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></button>
+      <button type="submit" aria-label="Search" class="hov-bg-green" style="flex:0 0 auto; width:46px; border:none; border-radius:9px 0 0 9px; background:var(--c-accent); color:var(--c-on-accent); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .15s;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></button>
       </form>
       <div class="ps-panel" id="predictive-search-results" data-ps-panel role="listbox"
            aria-label="Search suggestions" tabindex="-1" hidden></div>
@@ -28,19 +28,19 @@
       <a href="/pages/wishlist" class="hide-mobile hov-green" style="color:#2A2B2A; display:flex; align-items:center; gap:7px; font-weight:600; font-size:13.5px; position:relative;">
         <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>
         <span class="icon-label">Wishlist</span>
-        <span data-wish-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 4px;">0</span>
+        <span data-wish-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 4px;">0</span>
       </a>
       <a href="{{ routes.cart_url }}" class="hide-mobile hov-green" style="color:#2A2B2A; display:flex; align-items:center; gap:7px; font-weight:600; font-size:13.5px; position:relative;">
         <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.4 12.3a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L22 7H6"></path></svg>
         <span class="icon-label">My Cart</span>
-        <span data-cart-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11px; font-weight:800; display:{% if cart.item_count > 0 %}flex{% else %}none{% endif %}; align-items:center; justify-content:center; padding:0 4px;">{{ cart.item_count }}</span>
+        <span data-cart-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:{% if cart.item_count > 0 %}flex{% else %}none{% endif %}; align-items:center; justify-content:center; padding:0 4px;">{{ cart.item_count }}</span>
       </a>
       <a href="{{ routes.account_url }}" class="hide-mobile hov-green" aria-label="My Account" style="color:#2A2B2A; display:flex; align-items:center; position:relative;">
         <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
       </a>
       <a href="{{ routes.cart_url }}" class="cart-mobile hov-green" aria-label="My Cart" style="color:#2A2B2A; display:none; align-items:center; position:relative;">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.4 12.3a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L22 7H6"></path></svg>
-        <span data-cart-count style="position:absolute; top:-6px; right:-8px; min-width:17px; height:17px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11px; font-weight:800; display:{% if cart.item_count > 0 %}flex{% else %}none{% endif %}; align-items:center; justify-content:center; padding:0 4px;">{{ cart.item_count }}</span>
+        <span data-cart-count style="position:absolute; top:-6px; right:-8px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:{% if cart.item_count > 0 %}flex{% else %}none{% endif %}; align-items:center; justify-content:center; padding:0 4px;">{{ cart.item_count }}</span>
       </a>
     </nav>
   </div>
@@ -62,11 +62,11 @@
   {% render 'mobile-nav' %}
   <div style="padding:18px 20px; margin-top:auto; display:flex; flex-direction:column; gap:12px;">
     <div style="display:flex; gap:12px;">
-      <a href="/pages/in-store-services" class="hov-bg-dark" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:#3f6b4f; color:#ffffff; font-weight:700; font-size:14px; height:46px; border-radius:9px;">
+      <a href="/pages/in-store-services" class="hov-bg-dark" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:14px; height:46px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
         Services
       </a>
-      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14px; height:46px; border-radius:9px;">
+      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14px; height:46px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.5"></circle></svg>
         Store Locator
       </a>
@@ -79,7 +79,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>Wishlist
         {%- comment -%} The mobile header carries no wishlist icon by design, so this
             is where a phone shopper sees their count. {%- endcomment -%}
-        <span data-wish-count style="min-width:19px; height:19px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11.5px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 5px;">0</span>
+        <span data-wish-count style="min-width:19px; height:19px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11.5px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 5px;">0</span>
       </a>
     </div>
   </div>
@@ -97,15 +97,15 @@
       <a href="/collections/mother-baby" class="hov-green" data-mega-trigger="mother-baby" style="color:#2A2B2A; font-size:13.5px;">Mother &amp; Baby</a>
       <a href="/collections/fragrance" class="hov-green" data-mega-trigger="fragrance" style="color:#2A2B2A; font-size:13.5px;">Fragrance</a>
       <a href="/collections/gifting" class="hov-green" data-mega-trigger="gifting" style="color:#2A2B2A; font-size:13.5px;">Gifting</a>
-      <a href="/collections/sale" class="hov-green-dk" data-mega-close style="color:#82c914; font-weight:700; font-size:13.5px;">Sale</a>
+      <a href="/collections/sale" class="hov-green-dk" data-mega-close style="color:var(--c-primary-text); font-weight:700; font-size:13.5px;">Sale</a>
       <a href="/pages/brands" class="hov-green" data-mega-close style="color:#2A2B2A; font-size:13.5px;">Brands</a>
     </nav>
     <div style="display:flex; align-items:center; gap:9px;">
-      <a href="/pages/in-store-services" class="hov-bg-green-dk" style="display:flex; align-items:center; gap:9px; background:#3f6b4f; color:#ffffff; font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
+      <a href="/pages/in-store-services" class="hov-bg-green-dk" style="display:flex; align-items:center; gap:9px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
         <span>In-Store Services</span>
       </a>
-      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="display:flex; align-items:center; gap:9px; background:#92C83F; color:#ffffff; font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
+      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="display:flex; align-items:center; gap:9px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.4"></circle></svg>
         <span>Store Locator</span>
       </a>

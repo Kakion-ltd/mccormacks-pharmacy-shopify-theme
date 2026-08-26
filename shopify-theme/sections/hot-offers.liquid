@@ -1,18 +1,37 @@
 <section style="max-width:1440px; margin:0 auto; padding:34px 30px 8px;">
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.2vw,28px); margin:0 0 22px;">{{ section.settings.heading }}</h2>
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.2vw,28px); margin:0 0 22px;">{{ section.settings.heading }}</h2>
   <div class="hot-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:22px;">
     {%- for block in section.blocks -%}
       {%- liquid
         assign bg = block.settings.background
         assign badge_bg = block.settings.badge_background
-        assign badge_fg = '#ffffff'
-        if badge_bg == '#ffffff' or badge_bg == blank
+        if badge_bg == blank
           assign badge_bg = '#ffffff'
+        endif
+        # Same reasoning as the tile below: the badge colour is merchant-set, so the
+        # text on it is derived rather than assumed. White on the default accent green
+        # is 1.99:1. A white badge keeps the dark-green wordmark it always had.
+        if badge_bg == '#ffffff'
           assign badge_fg = '#3f6b4f'
+        else
+          assign badge_fg = '#ffffff'
+          assign badge_b = badge_bg | color_brightness
+          if badge_b > 145
+            assign badge_fg = '#2A2B2A'
+          endif
         endif
         assign tile_url = block.settings.link | default: routes.collections_url
+
+        # The tile colour is picked per block in the editor, so the text on it cannot be a
+        # fixed white — the default lime gives 2.04:1, well under WCAG AA. Derive it from
+        # perceived brightness so any colour a merchant picks stays legible.
+        assign tile_fg = '#ffffff'
+        assign tile_b = bg | color_brightness
+        if tile_b > 145
+          assign tile_fg = '#2A2B2A'
+        endif
       -%}
-      <div style="position:relative; overflow:hidden; background:{{ bg }}; border-radius:18px; padding:32px; color:#fff; display:flex; flex-direction:column; min-height:400px;" {{ block.shopify_attributes }}>
+      <div style="position:relative; overflow:hidden; background:{{ bg }}; border-radius:18px; padding:32px; color:{{ tile_fg }}; display:flex; flex-direction:column; min-height:400px;" {{ block.shopify_attributes }}>
         {%- comment -%} soft decorative disc, alternating corner so the row doesn't look stamped {%- endcomment -%}
         <div style="position:absolute; {% cycle 'disc': 'top:-22%; right:-14%;', 'bottom:-18%; right:-10%;', 'top:-20%; left:-12%;' %} width:210px; height:210px; border-radius:999px; background:rgba(255,255,255,.08);"></div>
         {%- if block.settings.image != blank -%}
@@ -33,7 +52,7 @@
           <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(21px,2.2vw,26px); line-height:1.1; margin-bottom:10px;">{{ block.settings.title }}</div>
           <p style="margin:0 0 4px; font-size:14.5px; opacity:.93; line-height:1.5;">{{ block.settings.subtext }}</p>
         </div>
-        <a href="{{ tile_url }}" class="hov-bg-tint2" style="position:relative; z-index:2; margin-top:18px; align-self:flex-start; display:flex; align-items:center; justify-content:center; gap:8px; background:#fff; color:#3f6b4f; font-weight:800; letter-spacing:.03em; font-size:14.5px; padding:13px 22px; border-radius:8px;">{{ block.settings.cta }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        <a href="{{ tile_url }}" class="hov-bg-tint2" style="position:relative; z-index:2; margin-top:18px; align-self:flex-start; display:flex; align-items:center; justify-content:center; gap:8px; background:#fff; color:var(--c-dark); font-weight:800; letter-spacing:.03em; font-size:14.5px; padding:13px 22px; border-radius:8px;">{{ block.settings.cta }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
       </div>
     {%- endfor -%}
   </div>

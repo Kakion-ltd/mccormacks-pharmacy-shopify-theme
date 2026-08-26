@@ -26,7 +26,7 @@
   <div class="trust-mob-wrap" style="width:100%; background:#ffffff;">
     <div class="trust-inner" style="max-width:1440px; margin:0 auto; padding:8px 50px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 28px;">
       <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:flex-start; gap:10px; font-size:14px;">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="#92C83F" style="flex:0 0 auto;"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75ZM15 7.5v3.5h4v-.32L16.9 7.8a.5.5 0 0 0-.4-.2H15ZM7.7 15.75a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Zm9.6 0a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Z"></path></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--c-accent)" style="flex:0 0 auto;"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75ZM15 7.5v3.5h4v-.32L16.9 7.8a.5.5 0 0 0-.4-.2H15ZM7.7 15.75a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Zm9.6 0a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Z"></path></svg>
         <span><strong style="font-weight:800;">Free Delivery</strong> On orders over {% render 'free-delivery-amount' %}</span>
       </div>
       <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:14px;">
@@ -36,7 +36,7 @@
         <span><strong style="font-weight:800;">Irish Owned</strong> 7 stores nationwide</span>
       </div>
       <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:14px;">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="#92C83F" style="flex:0 0 auto;"><path d="M11.48 3.5a.6.6 0 0 1 1.04 0l2.2 4.03a.6.6 0 0 0 .43.31l4.52.79a.6.6 0 0 1 .32.99l-3.17 3.33a.6.6 0 0 0-.16.5l.64 4.56a.6.6 0 0 1-.85.62l-4.13-1.97a.6.6 0 0 0-.52 0l-4.13 1.97a.6.6 0 0 1-.85-.62l.64-4.56a.6.6 0 0 0-.16-.5L4.97 9.62a.6.6 0 0 1 .32-.99l4.52-.79a.6.6 0 0 0 .43-.31l2.2-4.03Z"></path></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--c-accent)" style="flex:0 0 auto;"><path d="M11.48 3.5a.6.6 0 0 1 1.04 0l2.2 4.03a.6.6 0 0 0 .43.31l4.52.79a.6.6 0 0 1 .32.99l-3.17 3.33a.6.6 0 0 0-.16.5l.64 4.56a.6.6 0 0 1-.85.62l-4.13-1.97a.6.6 0 0 0-.52 0l-4.13 1.97a.6.6 0 0 1-.85-.62l.64-4.56a.6.6 0 0 0-.16-.5L4.97 9.62a.6.6 0 0 1 .32-.99l4.52-.79a.6.6 0 0 0 .43-.31l2.2-4.03Z"></path></svg>
         <span><strong style="font-weight:800;">Trusted</strong> by over 20,000 customers since 2010</span>
       </div>
     </div>
@@ -44,10 +44,10 @@
 
   <!-- Breadcrumb -->
   <section style="max-width:1440px; margin:0 auto; padding:18px 30px 0;">
-    <div style="font-size:13px; color:#8b9182; display:flex; flex-wrap:wrap; gap:7px; align-items:center;">
-      <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span>
+    <div style="font-size:13px; color:#717769; display:flex; flex-wrap:wrap; gap:7px; align-items:center;">
+      <a href="{{ routes.root_url }}" class="hov-green" style="color:#717769;">Home</a><span>/</span>
       {%- if product.collections.first -%}
-        <a href="{{ product.collections.first.url }}" class="hov-green" style="color:#8b9182;">{{ product.collections.first.title }}</a><span>/</span>
+        <a href="{{ product.collections.first.url }}" class="hov-green" style="color:#717769;">{{ product.collections.first.title }}</a><span>/</span>
       {%- endif -%}
       <span style="color:#2A2B2A;">{{ product.title }}</span>
     </div>
@@ -63,21 +63,21 @@
           {%- if product.media.size > 1 -%}
           <!-- Thumb rail -->
           <div class="thumb-railbox" style="flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:12px;">
-            <button type="button" class="thumb-nav pdp-thumb-nav" data-thumb-scroll="-1" aria-label="Previous images" style="width:36px; height:36px; border-radius:999px; border:1.5px solid #d9dbd6; background:#fff; color:#82C914; cursor:pointer; display:flex; align-items:center; justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"></polyline></svg></button>
+            <button type="button" class="thumb-nav pdp-thumb-nav" data-thumb-scroll="-1" aria-label="Previous images" style="width:36px; height:36px; border-radius:999px; border:1.5px solid #d9dbd6; background:#fff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"></polyline></svg></button>
             <div class="thumb-rail" data-thumb-rail style="display:flex; flex-direction:column; gap:12px; max-height:472px; overflow-y:auto; scrollbar-width:none;">
               {%- for media in product.media -%}
-                <button type="button" class="thumb" data-pdp-thumb="{{ forloop.index0 }}" aria-label="View image {{ forloop.index }}" style="flex:0 0 auto; width:84px; height:84px; padding:6px; border-radius:9px; border:2px solid {% if forloop.first %}#82C914{% else %}#e2e4df{% endif %}; background:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+                <button type="button" class="thumb" data-pdp-thumb="{{ forloop.index0 }}" aria-label="View image {{ forloop.index }}" style="flex:0 0 auto; width:84px; height:84px; padding:6px; border-radius:9px; border:2px solid {% if forloop.first %}var(--c-primary){% else %}#e2e4df{% endif %}; background:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; overflow:hidden;">
                   {{ media.preview_image | image_url: width: 168 | image_tag: alt: media.alt, style: 'max-width:100%; max-height:100%; object-fit:contain; display:block;' }}
                 </button>
               {%- endfor -%}
             </div>
-            <button type="button" class="thumb-nav pdp-thumb-nav" data-thumb-scroll="1" aria-label="More images" style="width:36px; height:36px; border-radius:999px; border:1.5px solid #d9dbd6; background:#fff; color:#82C914; cursor:pointer; display:flex; align-items:center; justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+            <button type="button" class="thumb-nav pdp-thumb-nav" data-thumb-scroll="1" aria-label="More images" style="width:36px; height:36px; border-radius:999px; border:1.5px solid #d9dbd6; background:#fff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
           </div>
           {%- endif -%}
           <!-- Main image -->
           <div class="gallery-main" style="flex:1; min-width:0; position:relative; background:#f4f5f2; border-radius:14px; display:flex; align-items:center; justify-content:center; padding:28px; min-height:clamp(340px,42vw,560px);">
             {%- if on_sale -%}
-              <span data-pdp-badge style="position:absolute; top:20px; right:20px; background:#82C914; color:#fff; font-weight:800; font-size:12.5px; letter-spacing:.06em; padding:8px 14px; border-radius:6px;">SPECIAL OFFER</span>
+              <span data-pdp-badge style="position:absolute; top:20px; right:20px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:12.5px; letter-spacing:.06em; padding:8px 14px; border-radius:6px;">SPECIAL OFFER</span>
             {%- endif -%}
             {%- if product.media.size > 0 -%}
               {%- for media in product.media -%}
@@ -113,24 +113,24 @@
       <!-- RIGHT: info + you may also like -->
       <div class="pdp-right" style="flex:0 0 400px; width:400px;">
         {%- if on_sale -%}
-          <div style="display:inline-flex; align-items:center; gap:8px; background:#92C83F; color:#fff; font-weight:700; font-size:13.5px; padding:9px 20px; border-radius:8px; margin-bottom:18px;">
+          <div style="display:inline-flex; align-items:center; gap:8px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:13.5px; padding:9px 20px; border-radius:8px; margin-bottom:18px;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><rect x="2" y="7" width="20" height="5" rx="1"></rect><path d="M12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
             Special Offer
           </div>
         {%- endif -%}
         {%- if product.vendor != blank -%}
-          <div style="font-size:14px; font-weight:700; color:#82C914; margin-bottom:8px;"><a href="{{ product.vendor | url_for_vendor }}" class="hov-green-dk" style="color:#82C914;">{{ product.vendor }}</a></div>
+          <div style="font-size:14px; font-weight:700; color:var(--c-primary-text); margin-bottom:8px;"><a href="{{ product.vendor | url_for_vendor }}" class="hov-green-dk" style="color:var(--c-primary-text);">{{ product.vendor }}</a></div>
         {%- endif -%}
-        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(26px,2.8vw,34px); line-height:1.12; margin:0 0 10px;">{{ product.title }}</h1>
+        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(26px,2.8vw,34px); line-height:1.12; margin:0 0 10px;">{{ product.title }}</h1>
         {%- if current_variant.sku != blank -%}
-          <div data-pdp-sku style="font-size:14px; color:#a7ada0; margin-bottom:10px;">SKU {{ current_variant.sku }}</div>
+          <div data-pdp-sku style="font-size:14px; color:#727969; margin-bottom:10px;">SKU {{ current_variant.sku }}</div>
         {%- endif -%}
         <div style="margin-bottom:18px;">{% render 'product-rating', product: product, size: 16, count_label: 'long', link: '#product-reviews' %}</div>
         <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:12px;">
-          <span data-pdp-price style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#82C914; font-weight:800; font-size:clamp(28px,3vw,38px);">{{ current_variant.price | money }}</span>
-          <span data-pdp-compare style="font-weight:600; font-size:clamp(17px,1.8vw,22px); color:#a7ada0; text-decoration:line-through; {% unless on_sale %}display:none;{% endunless %}">{{ current_variant.compare_at_price | money }}</span>
+          <span data-pdp-price style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-primary-text); font-weight:800; font-size:clamp(28px,3vw,38px);">{{ current_variant.price | money }}</span>
+          <span data-pdp-compare style="font-weight:600; font-size:clamp(17px,1.8vw,22px); color:#727969; text-decoration:line-through; {% unless on_sale %}display:none;{% endunless %}">{{ current_variant.compare_at_price | money }}</span>
         </div>
-        <div data-pdp-stock style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:700; margin-bottom:24px; color:{% if current_variant.available %}#5E8A1F{% else %}#B3261E{% endif %};">
+        <div data-pdp-stock style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:700; margin-bottom:24px; color:{% if current_variant.available %}#58821D{% else %}#B3261E{% endif %};">
           <span style="width:9px; height:9px; border-radius:999px; background:currentColor;"></span>
           {% if current_variant.available %}In stock — ready to ship{% else %}Out of stock{% endif %}
         </div>
@@ -152,10 +152,10 @@
           <div class="pdp-addbag" style="display:flex; gap:12px; align-items:stretch; margin-bottom:18px;">
             <div style="flex:0 0 auto; display:flex; align-items:center; border:1.5px solid #dfe1dc; border-radius:12px; overflow:hidden;">
               <button type="button" data-qty-step="-1" aria-label="Decrease quantity" style="width:46px; height:100%; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">−</button>
-              <input type="text" name="quantity" value="1" inputmode="numeric" data-pdp-qty aria-label="Quantity" style="width:44px; border:none; text-align:center; font-weight:700; font-size:16px; color:#82C914; outline:none; background:#fff;">
+              <input type="text" name="quantity" value="1" inputmode="numeric" data-pdp-qty aria-label="Quantity" style="width:44px; border:none; text-align:center; font-weight:700; font-size:16px; color:var(--c-primary-text); outline:none; background:#fff;">
               <button type="button" data-qty-step="1" aria-label="Increase quantity" style="width:46px; height:100%; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">+</button>
             </div>
-            <button type="submit" data-pdp-submit class="hov-bg-accent-dk" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; display:flex; align-items:center; justify-content:center; gap:11px; background:#92C83F; color:#fff; border:none; cursor:pointer; font-family:inherit; font-weight:800; letter-spacing:.06em; font-size:16px; height:60px; border-radius:12px; {% unless current_variant.available %}opacity:.55; cursor:default;{% endunless %}">
+            <button type="submit" data-pdp-submit class="hov-bg-accent-dk" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; display:flex; align-items:center; justify-content:center; gap:11px; background:var(--c-accent); color:var(--c-on-accent); border:none; cursor:pointer; font-family:inherit; font-weight:800; letter-spacing:.06em; font-size:16px; height:60px; border-radius:12px; {% unless current_variant.available %}opacity:.55; cursor:default;{% endunless %}">
               {%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}
             </button>
           </div>
@@ -170,8 +170,14 @@
             </div>
           {%- endif -%}
         {% endform %}
+        {%- comment -%} Outside the product form deliberately: a contact form cannot be
+            nested inside another form, and this is the one case where the buy box has
+            nothing to sell. {%- endcomment -%}
+        {%- unless current_variant.available -%}
+          {% render 'back-in-stock', product: product, variant: current_variant %}
+        {%- endunless -%}
         <div style="display:flex; align-items:center; gap:10px; font-size:15px; color:#2A2B2A; margin-bottom:34px;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="#92C83F" style="flex:0 0 auto;"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75ZM15 7.5v3.5h4v-.32L16.9 7.8a.5.5 0 0 0-.4-.2H15ZM7.7 15.75a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Zm9.6 0a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Z"></path></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--c-accent)" style="flex:0 0 auto;"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75ZM15 7.5v3.5h4v-.32L16.9 7.8a.5.5 0 0 0-.4-.2H15ZM7.7 15.75a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Zm9.6 0a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Z"></path></svg>
           <span><strong style="font-weight:800;">Free delivery</strong> on orders over {% render 'free-delivery-amount' %}</span>
         </div>
         {%- comment -%} Dispatch, collection and pharmacist reassurance, where the
@@ -182,7 +188,7 @@
 
         {%- if rel != blank and rel.size > 0 -%}
         <!-- You may also like -->
-        <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:24px; margin:0 0 20px;">You May Also Like</h2>
+        <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:24px; margin:0 0 20px;">You May Also Like</h2>
         <div style="display:flex; flex-direction:column; gap:6px;">
           {%- assign shown = 0 -%}
           {%- for p in rel -%}
@@ -199,13 +205,13 @@
               <div style="flex:1; min-width:0;">
                 <h3 style="font-weight:700; font-size:15px; line-height:1.3; margin:0 0 6px;"><a href="{{ p.url }}" class="hov-green" style="color:#2A2B2A;">{{ p.title }}</a></h3>
                 <div style="margin-bottom:6px;">{% render 'product-rating', product: p, size: 13, count_label: 'long' %}</div>
-                <div style="color:#82C914; font-weight:800; font-size:17px;">{{ p.price | money }}</div>
+                <div style="color:var(--c-primary-text); font-weight:800; font-size:17px;">{{ p.price | money }}</div>
               </div>
               {%- capture restricted -%}{%- render 'product-restricted', product: p -%}{%- endcapture -%}
               {%- if p.available and p.has_only_default_variant and restricted != 'true' -%}
-                <button type="button" data-add-id="{{ p.first_available_variant.id }}" class="hov-bg-green" style="flex:0 0 auto; align-self:center; background:#92C83F; color:#fff; font-weight:700; font-size:14px; padding:10px 20px; border-radius:8px; border:none; font-family:inherit; cursor:pointer;">Add</button>
+                <button type="button" data-add-id="{{ p.first_available_variant.id }}" class="hov-bg-green" style="flex:0 0 auto; align-self:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14px; padding:10px 20px; border-radius:8px; border:none; font-family:inherit; cursor:pointer;">Add</button>
               {%- else -%}
-                <a href="{{ p.url }}" class="hov-bg-green" style="flex:0 0 auto; align-self:center; background:#92C83F; color:#fff; font-weight:700; font-size:14px; padding:10px 20px; border-radius:8px;">View</a>
+                <a href="{{ p.url }}" class="hov-bg-green" style="flex:0 0 auto; align-self:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14px; padding:10px 20px; border-radius:8px;">View</a>
               {%- endif -%}
             </div>
           {%- endfor -%}
@@ -231,7 +237,7 @@
   {%- if rel != blank and rel.size > 0 -%}
   <!-- Have you checked -->
   <section style="max-width:1440px; margin:0 auto; padding:52px 30px 8px;">
-    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(24px,2.6vw,32px); margin:0 0 26px;">Have You Checked These Products Out?</h2>
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,32px); margin:0 0 26px;">Have You Checked These Products Out?</h2>
     <div style="position:relative;">
       <div id="checked-track-{{ section.id }}" style="display:flex; gap:24px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;">
         {%- assign railshown = 0 -%}
@@ -248,18 +254,18 @@
             </a>
             <h3 style="font-weight:600; font-size:16px; line-height:1.35; margin:0 0 12px; min-height:44px;"><a href="{{ p.url }}" class="hov-green" style="color:#2A2B2A;">{{ p.title }}</a></h3>
             <div style="margin-bottom:14px; min-height:18px;">{% render 'product-rating', product: p, size: 14, count_label: 'long' %}</div>
-            <div style="color:#82C914; font-weight:800; font-size:22px; margin-bottom:16px;">{{ p.price | money }}</div>
+            <div style="color:var(--c-primary-text); font-weight:800; font-size:22px; margin-bottom:16px;">{{ p.price | money }}</div>
             {%- capture restricted -%}{%- render 'product-restricted', product: p -%}{%- endcapture -%}
               {%- if p.available and p.has_only_default_variant and restricted != 'true' -%}
-              <button type="button" data-add-id="{{ p.first_available_variant.id }}" class="hov-bg-green" style="margin-top:auto; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:14px 16px; border-radius:9px; border:none; font-family:inherit; cursor:pointer;">Add To Bag</button>
+              <button type="button" data-add-id="{{ p.first_available_variant.id }}" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:14px 16px; border-radius:9px; border:none; font-family:inherit; cursor:pointer;">Add To Bag</button>
             {%- else -%}
-              <a href="{{ p.url }}" class="hov-bg-green" style="margin-top:auto; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:14px 16px; border-radius:9px;">View</a>
+              <a href="{{ p.url }}" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:14px 16px; border-radius:9px;">View</a>
             {%- endif -%}
           </div>
         {%- endfor -%}
       </div>
-      <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="checked-track-{{ section.id }}" data-rail-by="-648" class="hov-bg-green-dk" style="position:absolute; left:-14px; top:38%; transform:translateY(-50%); width:46px; height:46px; border-radius:999px; border:none; background:#82C914; color:#fff; cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.15);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
-      <button aria-label="Scroll forward" data-rail-btn data-rail-target="checked-track-{{ section.id }}" data-rail-by="648" class="hov-bg-green-dk" style="position:absolute; right:-14px; top:38%; transform:translateY(-50%); width:46px; height:46px; border-radius:999px; border:none; background:#82C914; color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.15);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+      <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="checked-track-{{ section.id }}" data-rail-by="-648" class="hov-bg-green-dk" style="position:absolute; left:-14px; top:38%; transform:translateY(-50%); width:46px; height:46px; border-radius:999px; border:none; background:var(--c-primary); color:var(--c-on-primary); cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.15);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+      <button aria-label="Scroll forward" data-rail-btn data-rail-target="checked-track-{{ section.id }}" data-rail-by="648" class="hov-bg-green-dk" style="position:absolute; right:-14px; top:38%; transform:translateY(-50%); width:46px; height:46px; border-radius:999px; border:none; background:var(--c-primary); color:var(--c-on-primary); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.15);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
     </div>
   </section>
   {%- endif -%}
@@ -268,10 +274,10 @@
   <div class="mobile-buybar" style="display:none; position:fixed; left:0; right:0; bottom:0; z-index:150; background:#ffffff; border-top:1px solid #e6e7e4; box-shadow:0 -6px 20px rgba(0,0,0,.08); padding:12px 16px; gap:12px; align-items:stretch;">
     <div style="flex:0 0 auto; display:flex; align-items:center; border:1.5px solid #dfe1dc; border-radius:11px; overflow:hidden;">
       <button type="button" data-qty-step="-1" aria-label="Decrease quantity" style="width:46px; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">−</button>
-      <span data-buybar-qty style="min-width:34px; text-align:center; font-weight:700; font-size:16px; color:#82C914;">1</span>
+      <span data-buybar-qty style="min-width:34px; text-align:center; font-weight:700; font-size:16px; color:var(--c-primary-text);">1</span>
       <button type="button" data-qty-step="1" aria-label="Increase quantity" style="width:46px; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">+</button>
     </div>
-    <button type="button" data-add-id="{{ current_variant.id }}" data-add-qty="1" data-buybar-add class="hov-bg-accent-dk" style="flex:1; display:flex; align-items:center; justify-content:center; gap:10px; background:#92C83F; color:#fff; font-weight:800; letter-spacing:.05em; font-size:15px; border-radius:11px; border:none; font-family:inherit; cursor:pointer; {% unless current_variant.available %}opacity:.55; pointer-events:none;{% endunless %}">
+    <button type="button" data-add-id="{{ current_variant.id }}" data-add-qty="1" data-buybar-add class="hov-bg-accent-dk" style="flex:1; display:flex; align-items:center; justify-content:center; gap:10px; background:var(--c-accent); color:var(--c-on-accent); font-weight:800; letter-spacing:.05em; font-size:15px; border-radius:11px; border:none; font-family:inherit; cursor:pointer; {% unless current_variant.available %}opacity:.55; pointer-events:none;{% endunless %}">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
       {%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}
     </button>
@@ -281,14 +287,14 @@
 
 {% style %}
   .pcard:hover .pcard-img img { transform: scale(1.04); transition: transform .3s ease; }
-  .pdp-thumb-nav:hover { border-color: #92C83F !important; background: #f2f8e9 !important; }
+  .pdp-thumb-nav:hover { border-color: var(--c-accent) !important; background: #f2f8e9 !important; }
   .pdp-tab {
     background: transparent; border: none; cursor: pointer; padding: 12px 14px 14px;
-    font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-weight: 700; color: #3f6b4f;
+    font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-weight: 700; color: var(--c-dark);
     font-size: clamp(16px, 1.7vw, 20px); border-bottom: 3px solid transparent; margin-bottom: -1px;
   }
-  .pdp-tab:hover { color: #82C914; }
-  .pdp-tab[data-active="true"] { color: #82C914; border-bottom-color: #82C914; }
+  .pdp-tab:hover { color:var(--c-primary-text); }
+  .pdp-tab[data-active="true"] { color:var(--c-primary-text); border-bottom-color:var(--c-primary-text); }
   @media (max-width: 940px) {
     .pdp-cols { flex-direction: column !important; align-items: stretch !important; gap: 24px !important; }
     .pdp-left { display: contents !important; }
@@ -371,7 +377,7 @@
       if (buybarAdd) buybarAdd.dataset.addId = v.id;
       const stockEl = root.querySelector('[data-pdp-stock]');
       if (stockEl) {
-        stockEl.style.color = v.available ? '#5E8A1F' : '#B3261E';
+        stockEl.style.color = v.available ? '#58821D' : '#B3261E';
         stockEl.lastChild.textContent = v.available ? 'In stock — ready to ship' : 'Out of stock';
       }
     }));

@@ -1,13 +1,13 @@
 <section style="max-width:900px; margin:0 auto; padding:40px 30px 70px;">
-  <h1 style="margin:0 0 18px; color:#3f6b4f;">{{ page.title }}</h1>
+  <h1 style="margin:0 0 18px; color:var(--c-dark);">{{ page.title }}</h1>
   <div class="page-rte" style="font-size:15.5px; line-height:1.7; color:#2A2B2A;">
     {{ page.content }}
   </div>
 </section>
 {% style %}
-  .page-rte h2 { font-family: 'Arial Rounded MT Bold', Arial, sans-serif; color: #3f6b4f; font-size: clamp(19px, 2vw, 24px); margin: 28px 0 10px; }
-  .page-rte a { color: #82C914; }
-  .page-rte a:hover { color: #6BA30F; }
+  .page-rte h2 { font-family: 'Arial Rounded MT Bold', Arial, sans-serif; color: var(--c-dark); font-size: clamp(19px, 2vw, 24px); margin: 28px 0 10px; }
+  .page-rte a { color:var(--c-primary-text); }
+  .page-rte a:hover { color:var(--c-primary-text); }
   .page-rte img { max-width: 100%; border-radius: 12px; }
 {% endstyle %}
 

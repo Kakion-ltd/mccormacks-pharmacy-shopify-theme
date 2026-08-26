@@ -6,26 +6,26 @@
   .gv-method { width:100%; text-align:left; }
   #gv-clear { border:none; background:none; padding:0; }
   .gv-amt:focus-visible, .gv-method:focus-visible, .gv-quick:focus-visible,
-  #gv-date-field:focus-visible, #gv-clear:focus-visible, #gv-done:focus-visible { outline:2px solid #3f6b4f; outline-offset:2px; }
+  #gv-date-field:focus-visible, #gv-clear:focus-visible, #gv-done:focus-visible { outline:2px solid var(--c-dark); outline-offset:2px; }
   .gv-amt { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; height:92px; border-radius:14px; border:2px solid #e0e3dd; background:#ffffff; color:#3a3d39; }
-  .gv-amt:hover { border-color: #92C83F !important; }
-  .gv-amt.gv-on { border-color:#82C914; background:#eef2e8; color:#3f6b4f; }
+  .gv-amt:hover { border-color: var(--c-accent) !important; }
+  .gv-amt.gv-on { border-color:var(--c-primary-text); background:#eef2e8; color:var(--c-dark); }
   .gv-method { display:flex; align-items:flex-start; gap:14px; padding:18px 20px; border-radius:14px; border:2px solid #e0e3dd; background:#ffffff; }
-  .gv-method.gv-on { border-color:#82C914; background:#f7faf3; }
+  .gv-method.gv-on { border-color:var(--c-primary-text); background:#f7faf3; }
   .gv-method .gv-dot { flex:0 0 auto; width:20px; height:20px; margin-top:2px; border-radius:999px; border:2px solid #c2c6bd; background:#ffffff; }
-  .gv-method.gv-on .gv-dot { border-color:#82C914; background:#82C914; }
+  .gv-method.gv-on .gv-dot { border-color:var(--c-primary-text); background:var(--c-primary); }
   .gv-quick { display:inline-flex; align-items:center; height:32px; padding:0 13px; border-radius:999px; border:1px solid #e0e3dd; background:#ffffff; color:#5d6159; font-size:13px; font-weight:700; }
-  .gv-quick:hover { border-color:#92C83F !important; }
-  .gv-quick.gv-on { border-color:#82C914; background:#eef2e8; color:#3f6b4f; }
-  .gv-cal-nav { width:34px; height:34px; border-radius:9px; border:1px solid #e0e3dd; background:#ffffff; display:flex; align-items:center; justify-content:center; color:#3f6b4f; cursor:pointer; }
-  .gv-cal-nav:hover { border-color:#92C83F; background:#f7faf3; }
+  .gv-quick:hover { border-color:var(--c-accent) !important; }
+  .gv-quick.gv-on { border-color:var(--c-primary-text); background:#eef2e8; color:var(--c-dark); }
+  .gv-cal-nav { width:34px; height:34px; border-radius:9px; border:1px solid #e0e3dd; background:#ffffff; display:flex; align-items:center; justify-content:center; color:var(--c-dark); cursor:pointer; }
+  .gv-cal-nav:hover { border-color:var(--c-accent); background:#f7faf3; }
   .gv-day { display:flex; align-items:center; justify-content:center; height:38px; border-radius:9px; font-size:14px; font-weight:600; color:#2A2B2A; cursor:pointer; background:transparent; border:none; font-family:inherit; }
   .gv-day:hover { background:#eef2e8; }
   .gv-day.gv-past { color:#c7cbc3; cursor:not-allowed; }
   .gv-day.gv-past:hover { background:transparent; }
   .gv-day.gv-blank { visibility:hidden; }
-  .gv-day.gv-sel { background:#82C914; color:#ffffff; font-weight:800; }
-  .gv-input:focus { border-color:#82C914 !important; }
+  .gv-day.gv-sel { background:var(--c-primary); color:var(--c-on-primary); font-weight:800; }
+  .gv-input:focus { border-color:var(--c-primary-text) !important; }
   @media (max-width: 1000px) {
     .gv-wrap { flex-direction:column !important; gap:32px !important; }
     .gv-side { flex:1 1 auto !important; width:100% !important; position:static !important; }
@@ -43,15 +43,15 @@
 
 <!-- Gift voucher hero -->
 <section style="max-width:1440px; margin:0 auto; padding:24px 30px 6px;">
-  <div class="banner-flex" style="display:flex; flex-wrap:wrap; border-radius:18px; overflow:hidden; background:#3f6b4f; min-height:clamp(300px,30vw,400px);">
+  <div class="banner-flex" style="display:flex; flex-wrap:wrap; border-radius:18px; overflow:hidden; background:var(--c-dark); min-height:clamp(300px,30vw,400px);">
     <div style="flex:1 1 480px; padding:clamp(28px,4vw,56px); display:flex; flex-direction:column; justify-content:center; color:#ffffff;">
-      <span style="display:inline-flex; align-self:flex-start; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:#92C83F; color:#ffffff; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:16px;">Valid 5 years</span>
+      <span style="display:inline-flex; align-self:flex-start; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:var(--c-accent); color:var(--c-on-accent); font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:16px;">Valid 5 years</span>
       <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(34px,4.4vw,58px); line-height:1.02; letter-spacing:-.01em; margin:0 0 20px;">{{ section.settings.heading }}</h1>
       <p style="margin:0 0 10px; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:#d6e2cd; max-width:560px;">One voucher, the whole shop. Spend it on pharmacy, vitamins, skincare, beauty, fragrance, baby or toiletries &mdash; online or in any of our seven stores.</p>
       <p style="margin:0; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:#d6e2cd; max-width:560px;">Send it by email in minutes, or have a printed voucher posted free anywhere in Ireland.</p>
     </div>
     <div class="banner-img" style="flex:1 1 380px; background:#1c5225; min-height:clamp(240px,26vw,400px); display:flex; align-items:center; justify-content:center; padding:clamp(24px,3vw,44px);">
-      <div style="width:100%; max-width:340px; aspect-ratio:8/5; border-radius:14px; background:linear-gradient(140deg,#92C83F 0%,#7fb52f 100%); box-shadow:0 20px 44px rgba(0,0,0,.28); padding:clamp(18px,2.4vw,26px); display:flex; flex-direction:column; justify-content:space-between; color:#ffffff;">
+      <div style="width:100%; max-width:340px; aspect-ratio:8/5; border-radius:14px; background:linear-gradient(140deg,var(--c-accent) 0%,#7fb52f 100%); box-shadow:0 20px 44px rgba(0,0,0,.28); padding:clamp(18px,2.4vw,26px); display:flex; flex-direction:column; justify-content:space-between; color:#ffffff;">
         <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
           <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15px; line-height:1.15; letter-spacing:.02em;">McCORMACK&rsquo;S<br>PHARMACY</span>
           <span style="font-size:10.5px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; opacity:.85; padding-top:3px;">Gift Voucher</span>
@@ -71,7 +71,7 @@
   <div class="gv-wrap" style="display:flex; gap:44px; align-items:flex-start;">
     <div style="flex:1 1 auto; min-width:0;">
 
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.4vw,30px); margin:0 0 6px;">1. Choose an amount</h2>
+      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 6px;">1. Choose an amount</h2>
       <p style="margin:0 0 18px; font-size:15.5px; line-height:1.65; color:#5d6159;">Pick a set amount, or enter your own between &euro;10 and &euro;500.</p>
       <div class="gv-amounts" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; margin:0 0 18px;">
         <button type="button" class="gv-amt" aria-pressed="false" data-gv-pick="€10"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:26px; line-height:1;">&euro;10</span><span style="font-size:12.5px; font-weight:700; opacity:.7;"></span></button>
@@ -84,12 +84,12 @@
       <label style="display:flex; flex-direction:column; gap:7px; max-width:320px;">
         <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Or enter your own amount</span>
         <div style="display:flex; align-items:center; height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 14px; gap:8px; background:#ffffff;">
-          <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:#82C914;">&euro;</span>
+          <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-primary-text);">&euro;</span>
           <input type="number" min="10" max="500" placeholder="75" id="gv-custom" style="flex:1; min-width:0; border:none; outline:none; font-family:inherit; font-size:16px; color:#2A2B2A; background:transparent;">
         </div>
       </label>
 
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.4vw,30px); margin:38px 0 6px;">2. How should we send it?</h2>
+      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:38px 0 6px;">2. How should we send it?</h2>
       <p style="margin:0 0 18px; font-size:15.5px; line-height:1.65; color:#5d6159;">Email vouchers arrive within minutes. Printed vouchers are posted free within Ireland.</p>
       <div style="display:flex; flex-direction:column; gap:12px; max-width:620px;">
         <button type="button" class="gv-method gv-on" aria-pressed="true" data-gv-method="By email">
@@ -98,7 +98,7 @@
             <span style="display:block; font-weight:800; font-size:16px; color:#2A2B2A; margin-bottom:3px;">By email</span>
             <span style="display:block; font-size:14.5px; line-height:1.6; color:#5d6159;">Sent to the recipient within minutes, or scheduled for a date you choose.</span>
           </span>
-          <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:#3f6b4f;">Free</span>
+          <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:var(--c-dark);">Free</span>
         </button>
         <button type="button" class="gv-method" aria-pressed="false" data-gv-method="Printed and posted">
           <span class="gv-dot"></span>
@@ -106,7 +106,7 @@
             <span style="display:block; font-weight:800; font-size:16px; color:#2A2B2A; margin-bottom:3px;">Printed and posted</span>
             <span style="display:block; font-size:14.5px; line-height:1.6; color:#5d6159;">Presented in a McCormack&rsquo;s card and posted anywhere in Ireland.</span>
           </span>
-          <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:#3f6b4f;">Free</span>
+          <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:var(--c-dark);">Free</span>
         </button>
         <button type="button" class="gv-method" aria-pressed="false" data-gv-method="Send it to me">
           <span class="gv-dot"></span>
@@ -114,11 +114,11 @@
             <span style="display:block; font-weight:800; font-size:16px; color:#2A2B2A; margin-bottom:3px;">Send it to me</span>
             <span style="display:block; font-size:14.5px; line-height:1.6; color:#5d6159;">We send the voucher to you, so you can pass it on yourself.</span>
           </span>
-          <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:#3f6b4f;">Free</span>
+          <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:var(--c-dark);">Free</span>
         </button>
       </div>
 
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.4vw,30px); margin:38px 0 6px;">3. Who is it for?</h2>
+      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:38px 0 6px;">3. Who is it for?</h2>
       <div style="display:flex; flex-wrap:wrap; gap:14px; max-width:620px; margin-top:12px;">
         <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
           <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Recipient name</span>
@@ -131,9 +131,9 @@
         <div class="gv-date" style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0; position:relative;">
           <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Delivery date</span>
           <button type="button" id="gv-date-field" aria-expanded="false" class="hov-border-accent" style="display:flex; align-items:center; gap:11px; height:52px; border:1.5px solid #dfe1dc; border-radius:10px; padding:0 14px; background:#ffffff; color:#2A2B2A;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#82C914" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
-            <span id="gv-date-label" style="flex:1; min-width:0; font-size:15.5px; font-weight:600; color:#8b9182; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Send immediately</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8b9182" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+            <span id="gv-date-label" style="flex:1; min-width:0; font-size:15.5px; font-weight:600; color:#717769; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Send immediately</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#717769" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div style="display:flex; flex-wrap:wrap; gap:7px; margin-top:2px;">
             <button type="button" class="gv-quick" aria-pressed="false" data-gv-offset="0">Today</button>
@@ -145,18 +145,18 @@
               <button type="button" id="gv-prev" aria-label="Previous month" class="gv-cal-nav">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg>
               </button>
-              <span id="gv-month" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16px; color:#3f6b4f;"></span>
+              <span id="gv-month" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16px; color:var(--c-dark);"></span>
               <button type="button" id="gv-next" aria-label="Next month" class="gv-cal-nav">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg>
               </button>
             </div>
             <div style="display:grid; grid-template-columns:repeat(7,1fr); gap:2px; margin-bottom:6px;">
-              <span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#8b9182; padding:4px 0;">Mon</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#8b9182; padding:4px 0;">Tue</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#8b9182; padding:4px 0;">Wed</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#8b9182; padding:4px 0;">Thu</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#8b9182; padding:4px 0;">Fri</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#8b9182; padding:4px 0;">Sat</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#8b9182; padding:4px 0;">Sun</span>
+              <span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#717769; padding:4px 0;">Mon</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#717769; padding:4px 0;">Tue</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#717769; padding:4px 0;">Wed</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#717769; padding:4px 0;">Thu</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#717769; padding:4px 0;">Fri</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#717769; padding:4px 0;">Sat</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#717769; padding:4px 0;">Sun</span>
             </div>
             <div id="gv-days" style="display:grid; grid-template-columns:repeat(7,1fr); gap:2px;"></div>
             <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:14px; padding-top:12px; border-top:1px solid #eceee9;">
-              <button type="button" id="gv-clear" class="hov-green" style="font-size:13.5px; font-weight:700; color:#8b9182;">Send immediately</button>
-              <button type="button" id="gv-done" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; height:38px; padding:0 18px; border-radius:9px; background:#82C914; color:#ffffff; font-weight:800; font-size:14px;">Done</button>
+              <button type="button" id="gv-clear" class="hov-green" style="font-size:13.5px; font-weight:700; color:#717769;">Send immediately</button>
+              <button type="button" id="gv-done" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; height:38px; padding:0 18px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14px;">Done</button>
             </div>
           </div>
         </div>
@@ -165,7 +165,7 @@
           <input type="text" class="gv-input" style="height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
         </label>
         <label style="flex:1 1 100%; display:flex; flex-direction:column; gap:7px; min-width:0;">
-          <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Message <span style="font-weight:600; color:#8b9182;">(optional, up to 200 characters)</span></span>
+          <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Message <span style="font-weight:600; color:#717769;">(optional, up to 200 characters)</span></span>
           <textarea rows="3" class="gv-input" style="border:1px solid #dfe1dc; border-radius:10px; padding:12px 14px; font-family:inherit; font-size:15.5px; line-height:1.6; color:#2A2B2A; outline:none; resize:vertical;"></textarea>
         </label>
       </div>
@@ -173,22 +173,22 @@
 
     <aside class="gv-side" style="flex:0 0 340px; width:340px; position:sticky; top:20px;">
       <div class="gv-summary" style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-        <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#8b9182; margin-bottom:10px;">Your voucher</div>
+        <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#717769; margin-bottom:10px;">Your voucher</div>
         <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:4px;">
-          <span data-gv-amount style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:40px; line-height:1; color:#3f6b4f;">&euro;50</span>
+          <span data-gv-amount style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:40px; line-height:1; color:var(--c-dark);">&euro;50</span>
         </div>
         <div data-gv-method-label style="font-size:14px; color:#6b7065; margin-bottom:20px;">By email</div>
         <div style="border-top:1px solid #eceee9; padding-top:16px; display:flex; flex-direction:column; gap:10px; font-size:14.5px; color:#3a3d39;">
           <div style="display:flex; justify-content:space-between; gap:12px;"><span style="color:#6b7065;">Voucher value</span><span data-gv-amount style="font-weight:700;">&euro;50</span></div>
           <div style="display:flex; justify-content:space-between; gap:12px;"><span style="color:#6b7065;">Delivery</span><span style="font-weight:700;">Free</span></div>
         </div>
-        <div style="margin-top:20px;"><a href="{{ routes.cart_url }}" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:54px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:16px; width:100%;">Add voucher to bag</a></div>
-        <div style="font-size:12.5px; line-height:1.6; color:#8b9182; margin-top:12px;">Vouchers are valid for five years and can be spent over as many visits as you like.</div>
+        <div style="margin-top:20px;"><a href="{{ routes.cart_url }}" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:54px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:16px; width:100%;">Add voucher to bag</a></div>
+        <div style="font-size:12.5px; line-height:1.6; color:#717769; margin-top:12px;">Vouchers are valid for five years and can be spent over as many visits as you like.</div>
       </div>
       <div style="margin-top:16px; padding:20px 22px; border-radius:16px; background:#eef2e8;">
-        <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:#3f6b4f; margin-bottom:10px;">Prefer to buy in store?</div>
+        <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:10px;">Prefer to buy in store?</div>
         <div style="font-size:14px; line-height:1.7; color:#3a3d39; margin-bottom:12px;">Gift vouchers are available at the counter in all seven stores, in any amount you like.</div>
-        <a href="/pages/store-locator" class="hov-green-dk" style="font-weight:800; font-size:14.5px; color:#82C914;">Find your nearest store &rarr;</a>
+        <a href="/pages/store-locator" class="hov-green-dk" style="font-weight:800; font-size:14.5px; color:var(--c-primary-text);">Find your nearest store &rarr;</a>
       </div>
     </aside>
   </div>
@@ -196,21 +196,21 @@
 
 <!-- How it works -->
 <section style="max-width:1440px; margin:0 auto; padding:48px 30px 8px;">
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">How it works</h2>
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">How it works</h2>
   <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px;">
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:#3f6b4f; display:flex; align-items:center; justify-content:center; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin-bottom:14px;">1</div>
-      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:#3f6b4f; margin-bottom:8px;">Choose and pay</div>
+      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin-bottom:14px;">1</div>
+      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">Choose and pay</div>
       <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Pick an amount and how you want it delivered, then check out as normal. Vouchers count towards free delivery on other items in the same order.</div>
     </div>
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:#3f6b4f; display:flex; align-items:center; justify-content:center; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin-bottom:14px;">2</div>
-      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:#3f6b4f; margin-bottom:8px;">It arrives</div>
+      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin-bottom:14px;">2</div>
+      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">It arrives</div>
       <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Email vouchers land within minutes, or on the date you chose. Printed vouchers are posted in a card within two working days.</div>
     </div>
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:#3f6b4f; display:flex; align-items:center; justify-content:center; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin-bottom:14px;">3</div>
-      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:#3f6b4f; margin-bottom:8px;">They spend it</div>
+      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin-bottom:14px;">3</div>
+      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">They spend it</div>
       <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Online at checkout, or at the counter in any of our seven stores. Any unspent balance stays on the voucher for next time.</div>
     </div>
   </div>
@@ -218,10 +218,10 @@
 
 <!-- SEO copy + FAQ -->
 <section style="max-width:1440px; margin:0 auto; padding:48px 30px 8px;">
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(26px,3vw,40px); line-height:1.1; margin:0 0 20px;">About McCormack&rsquo;s gift vouchers</h2>
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,40px); line-height:1.1; margin:0 0 20px;">About McCormack&rsquo;s gift vouchers</h2>
   <p style="margin:0 0 40px; font-size:16px; line-height:1.7; color:#3a3d39; max-width:1000px;">A McCormack&rsquo;s gift voucher works across everything we sell &mdash; pharmacy and healthcare, vitamins and supplements, skincare, beauty, fragrance, baby and toiletries &mdash; online and in all seven of our stores. It is a practical present for someone who is particular about their skincare, restocking after a new baby, or simply hard to buy for. Email vouchers arrive within minutes and can be scheduled for a specific date. Printed vouchers are posted in a card, free of charge, within Ireland. Vouchers are valid for five years from the date of purchase, can be spent over as many visits as you like, and any remaining balance stays on the voucher.</p>
 
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(24px,2.6vw,34px); margin:0 0 26px;">Frequently Asked Questions</h2>
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,34px); margin:0 0 26px;">Frequently Asked Questions</h2>
   <div style="display:flex; flex-direction:column;">
     <div style="border-bottom:1px solid #eceee9; padding:22px 0;">
       <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">How long is a gift voucher valid for?</h3>
@@ -252,7 +252,7 @@
 
 <!-- You may also like -->
 <section style="max-width:1440px; margin:0 auto; padding:44px 30px 8px;">
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">You may also like</h2>
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">You may also like</h2>
   <div style="position:relative;">
     <div id="also-track" style="display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;">
       {%- if section.settings.also_collection != blank -%}
@@ -265,22 +265,22 @@
                 <div style="width:100%; height:100%; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); display:flex; align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div>
               {%- endif -%}
             </div>
-            <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">{{ product.vendor }}</div>
+            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">{{ product.vendor }}</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;">{{ product.title }}</h3>
-            <div style="color:#82C914; font-weight:800; font-size:19px; margin-bottom:14px;">{{ product.price | money }}</div>
-            <a href="{{ product.url }}" class="hov-bg-green" style="margin-top:auto; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+            <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">{{ product.price | money }}</div>
+            <a href="{{ product.url }}" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
           </div>
         {%- endfor -%}
       {%- else -%}
         {%- comment -%} No collection chosen: say so rather than shipping five
             hardcoded product shots that duplicate the catalogue and go stale. {%- endcomment -%}
-        <p style="margin:0; padding:18px 4px; font-size:15px; color:#8b9182;">
+        <p style="margin:0; padding:18px 4px; font-size:15px; color:#717769;">
           Pick a collection in <strong>Gift vouchers page &rsaquo; You may also like</strong> to show products here.
         </p>
       {%- endif -%}
     </div>
-    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="also-track" data-rail-by="-540" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82C914; cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
-    <button aria-label="Scroll forward" data-rail-btn data-rail-target="also-track" data-rail-by="540" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82C914; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="also-track" data-rail-by="-540" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+    <button aria-label="Scroll forward" data-rail-btn data-rail-target="also-track" data-rail-by="540" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
   </div>
 </section>
 
@@ -297,7 +297,7 @@
         label.style.color = '#2A2B2A'; label.style.fontWeight = '700';
       } else {
         label.textContent = 'Send immediately';
-        label.style.color = '#8b9182'; label.style.fontWeight = '600';
+        label.style.color = '#717769'; label.style.fontWeight = '600';
       }
       document.querySelectorAll('.gv-quick').forEach(function (chip) {
         var d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + parseInt(chip.dataset.gvOffset, 10));

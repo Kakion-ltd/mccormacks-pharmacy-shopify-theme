@@ -43,30 +43,30 @@
 
   {%- if settings.dispatch_cutoff != blank -%}
     <div style="display:flex; gap:10px; align-items:flex-start; font-size:{{ type_size }}; line-height:1.6; color:{% if compact %}#6b7065{% else %}#3a3d39{% endif %};">
-      <span style="color:#92C83F; font-weight:800;">&check;</span>
+      <span style="color:var(--c-accent); font-weight:800;">&check;</span>
       <span>Order before <strong style="font-weight:800;">{{ settings.dispatch_cutoff }}</strong> {{ settings.dispatch_days | default: 'Monday to Friday' }} for same-day dispatch</span>
     </div>
   {%- endif -%}
 
   {%- if pickup_locations != blank and pickup_locations.size > 0 -%}
     <div style="display:flex; gap:10px; align-items:flex-start; font-size:{{ type_size }}; line-height:1.6; color:{% if compact %}#6b7065{% else %}#3a3d39{% endif %};">
-      <span style="color:#92C83F; font-weight:800;">&check;</span>
+      <span style="color:var(--c-accent); font-weight:800;">&check;</span>
       <span>
         <strong style="font-weight:800;">Click &amp; Collect</strong> from
         {% if pickup_locations.size == 1 %}{{ pickup_locations.first.location.name }}{% else %}{{ pickup_locations.size }} of our stores{% endif %}
-        &mdash; <a href="/pages/click-and-collect" class="hov-green-dk" style="color:#3f6b4f; font-weight:700; text-decoration:underline; text-underline-offset:3px;">how it works</a>
+        &mdash; <a href="/pages/click-and-collect" class="hov-green-dk" style="color:var(--c-dark); font-weight:700; text-decoration:underline; text-underline-offset:3px;">how it works</a>
       </span>
     </div>
   {%- endif -%}
 
   <div style="display:flex; gap:10px; align-items:flex-start; font-size:{{ type_size }}; line-height:1.6; color:{% if compact %}#6b7065{% else %}#3a3d39{% endif %};">
-    <span style="color:#92C83F; font-weight:800;">&check;</span>
-    <span>Dispatched from our <a href="/pages/internet-supply-pharmacy" class="hov-green-dk" style="color:#3f6b4f; font-weight:700; text-decoration:underline; text-underline-offset:3px;">PSI-registered</a> Irish pharmacy</span>
+    <span style="color:var(--c-accent); font-weight:800;">&check;</span>
+    <span>Dispatched from our <a href="/pages/internet-supply-pharmacy" class="hov-green-dk" style="color:var(--c-dark); font-weight:700; text-decoration:underline; text-underline-offset:3px;">PSI-registered</a> Irish pharmacy</span>
   </div>
 
   <div style="display:flex; gap:10px; align-items:flex-start; font-size:{{ type_size }}; line-height:1.6; color:{% if compact %}#6b7065{% else %}#3a3d39{% endif %};">
-    <span style="color:#92C83F; font-weight:800;">&check;</span>
-    <span><a href="/pages/contact-us" class="hov-green-dk" style="color:#3f6b4f; font-weight:700; text-decoration:underline; text-underline-offset:3px;">Ask a pharmacist</a> before you buy &mdash; in store, by phone or by email</span>
+    <span style="color:var(--c-accent); font-weight:800;">&check;</span>
+    <span><a href="/pages/contact-us" class="hov-green-dk" style="color:var(--c-dark); font-weight:700; text-decoration:underline; text-underline-offset:3px;">Ask a pharmacist</a> before you buy &mdash; in store, by phone or by email</span>
   </div>
 
   {%- unless compact -%}

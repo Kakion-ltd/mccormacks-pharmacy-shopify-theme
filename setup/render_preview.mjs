@@ -43,6 +43,54 @@ engine.registerFilter('preload_tag', (url, ...args) => {
     .join('');
   return `<link rel="preload" href="${attrEsc(url)}"${attrs}>`;
 });
+// Shopify's perceived-brightness filter, 0-255. The theme uses it to pick legible text
+// for whatever green a merchant sets, so the harness has to agree with Shopify's maths
+// or the preview shows a different foreground to the real store.
+engine.registerFilter('color_brightness', (v) => {
+  const m = /^#?([0-9a-f]{6})$/i.exec(String(v ?? '').trim());
+  if (!m) return 0;
+  const n = parseInt(m[1], 16);
+  const [r, g, b] = [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  return (r * 299 + g * 587 + b * 114) / 1000;
+});
+const hexToRgb = (v) => {
+  const m = /^#?([0-9a-f]{6})$/i.exec(String(v ?? '').trim());
+  if (!m) return null;
+  const n = parseInt(m[1], 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+};
+const relLum = ([r, g, b]) =>
+  [r, g, b].map((c) => { c /= 255; return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; })
+    .reduce((a, c, i) => a + c * [0.2126, 0.7152, 0.0722][i], 0);
+
+engine.registerFilter('color_contrast', (a, b) => {
+  const [x, y] = [hexToRgb(a), hexToRgb(b)];
+  if (!x || !y) return 1;
+  const [l1, l2] = [relLum(x), relLum(y)];
+  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+});
+// Shopify darkens in HSL, so match that rather than scaling RGB — scaling RGB
+// shifts the hue and the preview would drift from the real store.
+engine.registerFilter('color_darken', (v, pct) => {
+  const rgb = hexToRgb(v);
+  if (!rgb) return v;
+  const [r, g, b] = rgb.map((c) => c / 255);
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h = 0;
+  const l = (max + min) / 2, d = max - min;
+  const s = d === 0 ? 0 : d / (1 - Math.abs(2 * l - 1));
+  if (d !== 0) {
+    if (max === r) h = ((g - b) / d) % 6;
+    else if (max === g) h = (b - r) / d + 2;
+    else h = (r - g) / d + 4;
+    h *= 60;
+    if (h < 0) h += 360;
+  }
+  const nl = Math.max(0, l - Number(pct) / 100);
+  const c = (1 - Math.abs(2 * nl - 1)) * s, x = c * (1 - Math.abs(((h / 60) % 2) - 1)), m2 = nl - c / 2;
+  const seg = [[c, x, 0], [x, c, 0], [0, c, x], [0, x, c], [x, 0, c], [c, 0, x]][Math.floor(h / 60) % 6];
+  return '#' + seg.map((p) => Math.round((p + m2) * 255).toString(16).padStart(2, '0')).join('').toUpperCase();
+});
 engine.registerFilter('money', money);
 engine.registerFilter('money_with_currency', (v) => `${money(v)} EUR`);
 engine.registerFilter('money_without_trailing_zeros', (v) => `€${Math.round(v / 100)}`);
@@ -66,7 +114,7 @@ engine.registerFilter('metafield_text', (v) => (v && v.value) || v || '');
 engine.registerFilter('payment_button', () =>
   '<div data-mock-express style="height:48px;border-radius:10px;border:1.5px dashed #b9c2b3;' +
   'display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;' +
-  'letter-spacing:.06em;text-transform:uppercase;color:#7d8875;background:#f4f6f1;">' +
+  'letter-spacing:.06em;text-transform:uppercase;color:#697262;background:#f4f6f1;">' +
   'Shop Pay / Apple Pay &middot; live store only</div>');
 
 // image_url: keeps the width so image_tag can build a srcset from it
@@ -234,19 +282,23 @@ const CATALOGUE = [
   // in Ireland, so it is the honest example of a product that must never be
   // one-click added from a grid, a search suggestion or a recommendation.
   { t: 'Nurofen Plus 200mg/12.8mg 24 Tablets', v: 'Nurofen', img: 'prod-nurofen.jpg', p: 1099, was: null, ty: 'Pain Relief', tg: ['pharmacist-only'] },
+  // Fixture for the sold-out path. Without one, the out-of-stock product page and its
+  // back-in-stock capture render in no preview and are verified by nobody.
+  { t: 'Difflam Sore Throat Spray 30ml', v: 'Difflam', img: 'prod-cetrine.jpg', p: 1299, was: null, ty: 'Sore Throat', oos: true },
 ];
 
 const handleOf = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const mockVariant = (i) => ({
   id: 40000000 + i, title: 'Default', price: CATALOGUE[i].p, compare_at_price: CATALOGUE[i].was,
-  available: true, sku: `SKU-${i}`, inventory_quantity: 12, featured_image: null,
+  available: !CATALOGUE[i].oos, sku: `SKU-${i}`,
+  inventory_quantity: CATALOGUE[i].oos ? 0 : 12, featured_image: null,
   store_availabilities: [],
   requires_shipping: true, options: ['Default'], selected: i === 0,
 });
 const products = CATALOGUE.map((c, i) => ({
   id: 30000000 + i, title: c.t, handle: handleOf(c.t), vendor: c.v, type: c.ty,
   url: `/products/${handleOf(c.t)}`, price: c.p, price_min: c.p, price_max: c.p,
-  compare_at_price: c.was, compare_at_price_max: c.was, available: true,
+  compare_at_price: c.was, compare_at_price_max: c.was, available: !c.oos,
   featured_image: mockImage(c.img, 700, 700), images: [mockImage(c.img, 700, 700)],
   media: [{ media_type: 'image', preview_image: mockImage(c.img, 700, 700), id: i, alt: c.t }],
   variants: [mockVariant(i)], first_available_variant: mockVariant(i),
@@ -339,7 +391,7 @@ const globals = {
   content_for_additional_checkout_buttons:
     '<div data-mock-express style="height:48px;border-radius:10px;border:1.5px dashed #b9c2b3;' +
     'display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;' +
-    'letter-spacing:.06em;text-transform:uppercase;color:#7d8875;background:#f4f6f1;">' +
+    'letter-spacing:.06em;text-transform:uppercase;color:#697262;background:#f4f6f1;">' +
     'Express checkout buttons &middot; live store only</div>',
   powered_by_link: '<a href="https://shopify.com">Shopify</a>',
   additional_checkout_buttons: false, scripts: [],
@@ -498,6 +550,24 @@ for (const name of [...templateNames, ...customerNames]) {
   }
 }
 console.log(`${ok}/${ok + fail} templates render clean`);
+
+// A second product page for the sold-out fixture. The buy box takes a different
+// path when a variant is unavailable — disabled button plus the back-in-stock
+// capture — and with only one product page rendered, that path shipped unseen.
+{
+  const oos = products.find((p) => p.available === false);
+  if (oos) {
+    const saved = { product: globals.product, request: globals.request };
+    globals.product = oos;
+    globals.request = { ...globals.request, page_type: 'product' };
+    try {
+      writeFileSync(join(outDir, 'product.oos.html'), await renderTemplate('product'));
+      console.log(`sold-out product page: ${oos.handle}`);
+    } finally {
+      Object.assign(globals, saved);
+    }
+  }
+}
 failures.forEach((f) => console.log('  FAIL ' + f));
 
 /* ---------- AJAX endpoints ----------

@@ -15,15 +15,15 @@
   .svc-card { display: flex; flex-direction: column; border: 1px solid #e6e7e4; border-radius: 16px; overflow: hidden; background: #ffffff; transition: box-shadow .18s, transform .18s; }
   .svc-card:hover { box-shadow: 0 14px 30px rgba(0,0,0,.09); transform: translateY(-3px); }
   .svc-input { height: 50px; border: 1px solid #dfe1dc; border-radius: 9px; padding: 0 14px; font-family: inherit; font-size: 15.5px; color: #2A2B2A; outline: none; }
-  .svc-input:focus { border-color: #82C914; }
+  .svc-input:focus { border-color:var(--c-primary-text); }
   .svc-textarea { border: 1px solid #dfe1dc; border-radius: 9px; padding: 12px 14px; font-family: inherit; font-size: 15.5px; line-height: 1.6; color: #2A2B2A; outline: none; resize: vertical; }
-  .svc-textarea:focus { border-color: #82C914; }
+  .svc-textarea:focus { border-color:var(--c-primary-text); }
   .svc-link-btn { background: none; border: none; padding: 0; font-family: inherit; cursor: pointer; text-align: left; }
-  .svc-outline:hover { border-color: #92C83F !important; }
-  .svc-band-outline:hover { border-color: #92C83F !important; color: #92C83F !important; }
+  .svc-outline:hover { border-color: var(--c-accent) !important; }
+  .svc-band-outline:hover { border-color: var(--c-accent) !important; color: var(--c-accent) !important; }
   /* Detail body typography (ported from the design's inline styles) */
   .svcd p { margin: 0 0 15px; font-size: 16px; line-height: 1.75; color: #3a3d39; text-wrap: pretty; }
-  .svcd h2, .svcd h3 { font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-weight: 800; color: #3f6b4f; font-size: clamp(19px, 2vw, 24px); line-height: 1.25; margin: 30px 0 12px; }
+  .svcd h2, .svcd h3 { font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-weight: 800; color: var(--c-dark); font-size: clamp(19px, 2vw, 24px); line-height: 1.25; margin: 30px 0 12px; }
   .svcd ul, .svcd ol { margin: 0 0 15px; padding-left: 22px; display: flex; flex-direction: column; gap: 9px; font-size: 16px; line-height: 1.7; color: #3a3d39; }
 {% endstyle %}
 
@@ -33,10 +33,10 @@
 
 <div data-view="svc-hub">
   <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
-      <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">In-Store Services</span>
+    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
+      <a href="{{ routes.root_url }}" class="hov-green" style="color:#717769;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">In-Store Services</span>
     </nav>
-    <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
+    <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
     <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px;">
       {%- for block in section.blocks -%}
@@ -45,30 +45,30 @@
             {%- if block.settings.image != blank -%}
               {{ block.settings.image | image_url: width: 800 | image_tag: style: 'width:100%; height:100%; object-fit:cover; display:block;', alt: block.settings.title | escape }}
             {%- else -%}
-              <div role="img" aria-label="{{ block.settings.title | escape }}" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid #92C83F;"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:#3f6b4f; opacity:.55;">{{ block.settings.title }}</span></div>
+              <div role="img" aria-label="{{ block.settings.title | escape }}" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid var(--c-accent);"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:var(--c-dark); opacity:.55;">{{ block.settings.title }}</span></div>
             {%- endif -%}
           </button>
           <div style="padding:20px 22px 24px; display:flex; flex-direction:column; gap:11px; flex:1;">
             <div style="display:flex; flex-wrap:wrap; align-items:center; gap:9px;">
               <span style="display:inline-flex; align-items:center; height:25px; padding:0 10px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:11.5px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;">{{ block.settings.tag }}</span>
-              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:#3f6b4f;">{{ block.settings.price_note }}</span>
+              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; color:var(--c-dark);">{{ block.settings.price_note }}</span>
             </div>
-            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-{{ forloop.index }}" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:#3f6b4f;">{{ block.settings.title }}</button>
+            <button type="button" class="svc-link-btn hov-green" data-view-btn="svc-{{ forloop.index }}" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:var(--c-dark);">{{ block.settings.title }}</button>
             <div style="font-size:14.5px; line-height:1.65; color:#5d6159; flex:1;">{{ block.settings.blurb }}</div>
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-{{ forloop.index }}" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:#82C914; margin-top:2px;">Learn more
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-{{ forloop.index }}" style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:14.5px; color:var(--c-primary-text); margin-top:2px;">Learn more
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
             </button>
           </div>
         </div>
       {%- endfor -%}
     </div>
-    <div style="margin:40px 0 0; padding:26px 28px; border-radius:16px; background:#3f6b4f; color:#ffffff; display:flex; flex-wrap:wrap; align-items:center; gap:20px 32px;">
+    <div style="margin:40px 0 0; padding:26px 28px; border-radius:16px; background:var(--c-dark); color:var(--c-on-dark); display:flex; flex-wrap:wrap; align-items:center; gap:20px 32px;">
       <div style="flex:1 1 340px;">
         <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(20px,2.1vw,26px); line-height:1.25; margin:0 0 7px;">Not sure which service you need?</div>
         <div style="font-size:15px; line-height:1.65; color:#d6e2cd;">Call us and describe what is going on. We will tell you what we can help with in store, and when you are better off seeing your GP.</div>
       </div>
       <div style="flex:0 0 auto; display:flex; flex-wrap:wrap; gap:12px;">
-        <a href="tel:0526199329" class="hov-bg-accent-dk" style="display:inline-flex; align-items:center; height:50px; padding:0 24px; border-radius:10px; background:#92C83F; color:#ffffff; font-weight:800; font-size:15px;">052 6199329</a>
+        <a href="tel:0526199329" class="hov-bg-accent-dk" style="display:inline-flex; align-items:center; height:50px; padding:0 24px; border-radius:10px; background:var(--c-accent); color:var(--c-on-accent); font-weight:800; font-size:15px;">052 6199329</a>
         <button type="button" class="svc-link-btn svc-band-outline" data-view-btn="svc-book" style="display:inline-flex; align-items:center; height:50px; padding:0 24px; border-radius:10px; border:1.5px solid rgba(255,255,255,.28); color:#ffffff; font-weight:700; font-size:15px;">Request an appointment</button>
       </div>
     </div>
@@ -78,13 +78,13 @@
 {%- for block in section.blocks -%}
   <div data-view="svc-{{ forloop.index }}" style="display:none">
     <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
-        <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#8b9182;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">{{ block.settings.title }}</span>
+      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
+        <a href="{{ routes.root_url }}" class="hov-green" style="color:#717769;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#717769;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">{{ block.settings.title }}</span>
       </nav>
       <div class="svc-wrap" style="display:flex; gap:44px; align-items:flex-start;">
         <div style="flex:1 1 auto; min-width:0; max-width:780px;">
           <span style="display:inline-flex; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:14px;">{{ block.settings.tag }}</span>
-          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ block.settings.title }}</h2>
+          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ block.settings.title }}</h2>
           <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ block.settings.detail_intro }}</p>
           <div class="svcd">{{ block.settings.body }}</div>
           {%- if block.settings.specs != blank -%}
@@ -100,11 +100,11 @@
             </div>
           {%- endif -%}
           <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:28px;">
-            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px;">Request an appointment</button>
-            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:15px;">Call 052 6199329</a>
+            <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px;">Request an appointment</button>
+            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:15px;">Call 052 6199329</a>
           </div>
           <div style="margin-top:28px; padding-top:22px; border-top:1px solid #e6e7e4;">
-            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:#82C914;">
+            <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:var(--c-primary-text);">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
               All services
             </button>
@@ -112,7 +112,7 @@
         </div>
         <aside class="svc-side" style="flex:0 0 330px; width:330px; position:sticky; top:20px;">
           <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#3f6b4f; margin:0 0 4px;">{{ block.settings.price_note }}</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin:0 0 4px;">{{ block.settings.price_note }}</div>
             <div style="font-size:13.5px; color:#6b7065; margin:0 0 18px;">{{ block.settings.tag }}</div>
             <div style="display:flex; flex-direction:column; gap:14px;">
               <label style="display:flex; flex-direction:column; gap:7px; min-width:0;">
@@ -128,10 +128,10 @@
                 <select class="svc-input" style="padding:0 12px; background:#ffffff;">{{ store_options }}</select>
               </label>
             </div>
-            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
-            <div style="font-size:12.5px; line-height:1.6; color:#8b9182; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
+            <div style="margin-top:18px;"><button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px; width:100%;">Request appointment</button></div>
+            <div style="font-size:12.5px; line-height:1.6; color:#717769; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
           <div style="margin-top:16px; padding:20px 22px; border-radius:16px; background:#eef2e8;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:#3f6b4f; margin-bottom:7px;">Other services</div>
+            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:7px;">Other services</div>
             <div style="display:flex; flex-direction:column; gap:9px;">
               {%- assign current_index = forloop.index -%}
               {%- assign shown = 0 -%}
@@ -150,16 +150,16 @@
 
 <div data-view="svc-book" style="display:none">
   <section style="max-width:820px; margin:0 auto; padding:34px 30px 20px;">
-    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
-      <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#8b9182;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Request an appointment</span>
+    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
+      <a href="{{ routes.root_url }}" class="hov-green" style="color:#717769;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#717769;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Request an appointment</span>
     </nav>
-    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Request an appointment</h2>
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Request an appointment</h2>
     <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">Tell us what you need and we will call you back to confirm a time. For urgent matters please phone the store directly.</p>
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
       {%- form 'contact', id: 'svc-book-form' -%}
         <input type="hidden" name="contact[form_type]" value="appointment-request">
         {%- if form.posted_successfully? -%}
-          <div style="background:#EEF6E4; border:1px solid #d8e9c2; border-radius:12px; padding:16px 18px; margin:0 0 18px; color:#5E8A1F; font-size:14.5px; line-height:1.65; font-weight:700;">Thanks — your appointment request has been received. We will call you back to confirm a time.</div>
+          <div style="background:#EEF6E4; border:1px solid #d8e9c2; border-radius:12px; padding:16px 18px; margin:0 0 18px; color:#58821D; font-size:14.5px; line-height:1.65; font-weight:700;">Thanks — your appointment request has been received. We will call you back to confirm a time.</div>
         {%- endif -%}
         {%- if form.errors -%}
           <div style="background:#FBEAE9; border:1px solid #ecc8c5; border-radius:12px; padding:16px 18px; margin:0 0 18px; color:#B3261E; font-size:14.5px; line-height:1.65;">
@@ -213,14 +213,14 @@
           </label>
         </div>
         <label style="display:flex; align-items:flex-start; gap:11px; margin:18px 0 22px; font-size:14px; line-height:1.6; color:#3a3d39;">
-          <input type="checkbox" required style="margin-top:3px; accent-color:#82C914; width:17px; height:17px;">
+          <input type="checkbox" required style="margin-top:3px; accent-color:var(--c-primary-text); width:17px; height:17px;">
           <span>I understand this is a request, not a confirmed booking, and that my details will be handled in line with the <a href="/pages/privacy-policy" class="hov-green-dk" style="font-weight:700;">Privacy Policy</a>.</span>
         </label>
-        <button type="submit" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border:none; cursor:pointer; border-radius:10px; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px; width:100%;">Send request</button>
+        <button type="submit" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border:none; cursor:pointer; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px; width:100%;">Send request</button>
       {%- endform -%}
     </div>
     <div style="margin-top:22px;">
-      <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:#82C914;">
+      <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:var(--c-primary-text);">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
         All services
       </button>

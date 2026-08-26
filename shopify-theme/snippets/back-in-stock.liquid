@@ -1,0 +1,78 @@
+{% comment %}
+  Out-of-stock recovery.
+
+  An out-of-stock product page was a dead end: a greyed-out OUT OF STOCK button
+  and nothing else. Every visit to a sold-out line was a lost session with no way
+  back, which on a pharmacy catalogue is not an edge case.
+
+  WHAT THIS DOES AND DOES NOT DO — read before changing the copy.
+
+  It captures interest. It does NOT send a notification. Submissions arrive as
+  contact-form emails in the Shopify admin inbox, and a person has to act on
+  them. Nothing in this theme watches inventory or emails anyone when stock
+  returns. That is why the wording is "tell us you want this" and never "we will
+  email you when it is back" — the second is a promise the theme cannot keep.
+
+  If the client wants real automated alerts, that needs an app (Back in Stock,
+  Klaviyo) and this snippet comes out. See setup/MAINTENANCE.md.
+
+  Uses form 'contact' because it is native, needs no app, and already carries
+  Shopify's spam protection. The product is passed in hidden fields so the email
+  says which line it is about.
+
+  Accepts: product (required), variant (required)
+{% endcomment %}
+
+{%- liquid
+  assign form_id = 'bis-' | append: variant.id
+  assign variant_label = variant.title | default: ''
+  if variant_label == 'Default Title'
+    assign variant_label = ''
+  endif
+-%}
+
+<div class="bis" data-back-in-stock>
+  {%- form 'contact', id: form_id -%}
+    {%- if form.posted_successfully? -%}
+      {%- comment -%} Shopify re-renders the page after a post, so this is the whole
+          confirmation — there is no JS state to keep. {%- endcomment -%}
+      <div class="bis-done" role="status">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+        <div>
+          <strong>Thanks — we have your request.</strong>
+          <span>Our team will be in touch when {{ product.title }} is back. In the meantime, a pharmacist can suggest an alternative.</span>
+        </div>
+      </div>
+    {%- else -%}
+      <h2 class="bis-title">Out of stock — tell us you want it</h2>
+      <p class="bis-copy">
+        Leave your email and our team will contact you when {{ product.title }} is
+        back. This is not an automatic alert &mdash; a person from the pharmacy gets
+        in touch. Nothing is ordered and you are not signed up to anything else.
+      </p>
+
+      {%- if form.errors -%}
+        <div class="bis-err" role="alert">
+          {{ form.errors | default_errors }}
+        </div>
+      {%- endif -%}
+
+      <input type="hidden" name="contact[form_type]" value="back-in-stock">
+      <input type="hidden" name="contact[product]" value="{{ product.title | escape }}{% if variant_label != blank %} — {{ variant_label | escape }}{% endif %}">
+      <input type="hidden" name="contact[sku]" value="{{ variant.sku | escape }}">
+      <input type="hidden" name="contact[product_url]" value="{{ shop.url }}{{ product.url }}?variant={{ variant.id }}">
+
+      <div class="bis-row">
+        <label class="visually-hidden" for="{{ form_id }}-email">Your email address</label>
+        <input class="bis-input" id="{{ form_id }}-email" type="email" name="contact[email]"
+               required autocomplete="email" placeholder="you@example.com"
+               value="{{ form.email }}">
+        <button type="submit" class="bis-btn">Notify me</button>
+      </div>
+      <p class="bis-note">
+        We use your email for this one message only. See our
+        <a href="/pages/privacy-policy">Privacy Policy</a>.
+      </p>
+    {%- endif -%}
+  {%- endform -%}
+</div>

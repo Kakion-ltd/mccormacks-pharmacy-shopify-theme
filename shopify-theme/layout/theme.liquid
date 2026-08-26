@@ -28,6 +28,69 @@
     }
   </style>
   {{ 'base.css' | asset_url | stylesheet_tag }}
+  {%- comment -%} The four colour settings had no effect on anything: base.css declared the
+      tokens with literal hexes and every inline style hardcoded its own copy. This block is
+      what connects the theme editor to the page. It must come after base.css so it wins.
+
+      The --c-on-* tokens are the text colour that sits ON each green, and they are computed,
+      not fixed. White on the brand lime measures 2.04:1 against a 4.5:1 AA requirement, so
+      the theme was failing contrast on ADD TO BAG and every other primary button. Deriving
+      the foreground from perceived brightness fixes that and keeps it fixed: a merchant who
+      picks a dark green in the editor gets white text back automatically, and one who picks
+      a pale one keeps dark text. Do not replace these with a literal. {%- endcomment -%}
+  {%- liquid
+    assign c_primary = settings.color_primary | default: '#82C914'
+    assign c_primary_hover = settings.color_primary_hover | default: '#6BA30F'
+    assign c_dark = settings.color_dark | default: '#3F6B4F'
+    assign c_accent = settings.color_accent | default: '#92C83F'
+
+    assign dark_ink = '#2A2B2A'
+    assign light_ink = '#FFFFFF'
+
+    assign on_primary = light_ink
+    assign b = c_primary | color_brightness
+    if b > 145
+      assign on_primary = dark_ink
+    endif
+
+    assign on_accent = light_ink
+    assign b = c_accent | color_brightness
+    if b > 145
+      assign on_accent = dark_ink
+    endif
+
+    assign on_dark = light_ink
+    assign b = c_dark | color_brightness
+    if b > 145
+      assign on_dark = dark_ink
+    endif
+
+    # The brand lime is a background colour, not an ink. On white it measures 2.04:1,
+    # so prices, links and category names were all failing AA. Darken the SAME hue
+    # until it passes rather than substituting a different green, which keeps the
+    # brand reading intact. Steps of 6% reach AA for the shipped lime at #53820D
+    # (4.60:1) and self-correct if the merchant picks something else.
+    assign c_primary_text = c_primary
+    for i in (1..10)
+      assign ct = c_primary_text | color_contrast: '#FFFFFF'
+      if ct >= 4.5
+        break
+      endif
+      assign c_primary_text = c_primary_text | color_darken: 6
+    endfor
+  -%}
+  <style>
+    :root {
+      --c-primary: {{ c_primary }};
+      --c-primary-hover: {{ c_primary_hover }};
+      --c-dark: {{ c_dark }};
+      --c-accent: {{ c_accent }};
+      --c-on-primary: {{ on_primary }};
+      --c-on-accent: {{ on_accent }};
+      --c-on-dark: {{ on_dark }};
+      --c-primary-text: {{ c_primary_text }};
+    }
+  </style>
   {%- comment -%} theme.js is a static asset and can't read Liquid — hand it the cart routes so they survive a locale/market path prefix {%- endcomment -%}
   <script>window.mccRoutes = { cart_url: {{ routes.cart_url | json }}, cart_add_url: {{ routes.cart_add_url | json }}, cart_change_url: {{ routes.cart_change_url | json }}, predictive_search_url: {{ routes.predictive_search_url | json }}, product_recommendations_url: {{ routes.product_recommendations_url | json }} };</script>
   <script src="{{ 'theme.js' | asset_url }}" defer></script>

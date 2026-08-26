@@ -1,5 +1,5 @@
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 8px;">
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; text-align:center; font-size:clamp(24px,2.4vw,32px); margin:0 0 28px;">{{ section.settings.heading }}</h2>
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); text-align:center; font-size:clamp(24px,2.4vw,32px); margin:0 0 28px;">{{ section.settings.heading }}</h2>
   <div style="position:relative;">
     <div id="sale-{{ section.id }}" style="display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;">
       {%- assign coll = collections[section.settings.collection] -%}
@@ -15,12 +15,12 @@
             </a>
             <h3 style="font-weight:700; font-size:14px; margin:0 0 8px; min-height:42px;"><a href="{{ product.url }}" style="color:inherit;">{{ product.title }}</a></h3>
             <div style="display:flex; justify-content:center; margin-bottom:8px;">{% render 'product-rating', product: product, size: 14 %}</div>
-            <div style="color:#82c914; font-weight:800; font-size:19px; margin-bottom:16px;">{{ product.price | money }}</div>
+            <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:16px;">{{ product.price | money }}</div>
             {%- capture restricted -%}{%- render 'product-restricted', product: product -%}{%- endcapture -%}
             {%- if product.available and product.has_only_default_variant and restricted != 'true' -%}
-              <button data-add-id="{{ product.selected_or_first_available_variant.id }}" class="hov-bg-green" style="margin-top:auto; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button>
+              <button data-add-id="{{ product.selected_or_first_available_variant.id }}" class="hov-bg-green" style="margin-top:auto; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button>
             {%- else -%}
-              <a href="{{ product.url }}" class="hov-bg-green" style="margin-top:auto; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:13px 16px; border-radius:8px;">View</a>
+              <a href="{{ product.url }}" class="hov-bg-green" style="margin-top:auto; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:13px 16px; border-radius:8px;">View</a>
             {%- endif -%}
           </div>
         {%- endfor -%}
@@ -34,19 +34,19 @@
           <div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
             <div style="height:200px; border-radius:9px; background:#ffffff; display:flex; align-items:center; justify-content:center; margin-bottom:16px; overflow:hidden;"><img src="{{ ph_imgs[i] | asset_url }}" alt="{{ title | escape }}" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" width="600" height="600"></div>
             <h3 style="font-weight:700; font-size:14px; margin:0 0 8px; min-height:42px;">{{ title }}</h3>
-            <div style="color:#82c914; font-weight:800; font-size:19px; margin-bottom:16px;">{{ ph_prices[i] }}</div>
-            <a href="/collections/sale" class="hov-bg-green" style="margin-top:auto; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:13px 16px; border-radius:8px;">Add To Bag</a>
+            <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:16px;">{{ ph_prices[i] }}</div>
+            <a href="/collections/sale" class="hov-bg-green" style="margin-top:auto; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:13px 16px; border-radius:8px;">Add To Bag</a>
           </div>
         {%- endfor -%}
       {%- endif -%}
     </div>
-    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="sale-{{ section.id }}" data-rail-by="-504" class="hov-scroll" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82c914; cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
-    <button aria-label="Scroll forward" data-rail-btn data-rail-target="sale-{{ section.id }}" data-rail-by="504" class="hov-scroll" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82c914; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="sale-{{ section.id }}" data-rail-by="-504" class="hov-scroll" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+    <button aria-label="Scroll forward" data-rail-btn data-rail-target="sale-{{ section.id }}" data-rail-by="504" class="hov-scroll" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
   </div>
 </section>
 
 {% style %}
-.hov-scroll:hover { border-color: #92C83F !important; background: #f2f8e9 !important; }
+.hov-scroll:hover { border-color: var(--c-accent) !important; background: #f2f8e9 !important; }
 {% endstyle %}
 
 {% schema %}

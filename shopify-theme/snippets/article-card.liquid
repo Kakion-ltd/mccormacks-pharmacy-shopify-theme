@@ -11,9 +11,9 @@
     {%- if article.tags.first -%}
       <span>{% render 'blog-tag-chip', tag: article.tags.first %}</span>
     {%- endif -%}
-    <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:#3f6b4f;">{{ article.title }}</div>
+    <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; line-height:1.25; color:var(--c-dark);">{{ article.title }}</div>
     <div style="font-size:14.5px; line-height:1.65; color:#5d6159; flex:1;">{{ article.excerpt_or_content | strip_html | truncate: 140 }}</div>
-    <div style="display:flex; flex-wrap:wrap; gap:6px 14px; font-size:12.5px; color:#8b9182; padding-top:4px;">
+    <div style="display:flex; flex-wrap:wrap; gap:6px 14px; font-size:12.5px; color:#717769; padding-top:4px;">
       <span>{{ article.published_at | date: '%-d %B %Y' }}</span>
     </div>
   </div>

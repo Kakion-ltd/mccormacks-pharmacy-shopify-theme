@@ -2,16 +2,16 @@
 
 {% style %}
   .brand-tile { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; border:1px solid #e6e7e4; border-radius:14px; padding:26px 20px; background:#ffffff; min-height:150px; }
-  .brand-tile:hover { box-shadow:0 12px 26px rgba(0,0,0,.08); border-color:#92C83F; }
+  .brand-tile:hover { box-shadow:0 12px 26px rgba(0,0,0,.08); border-color:var(--c-accent); }
   .brand-chip { display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:8px; background:#f2f3f1; color:#3a3d39; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; }
-  .brand-chip:hover { background:#82C914 !important; color:#ffffff !important; }
+  .brand-chip:hover { background:var(--c-primary) !important; color:var(--c-on-primary) !important; }
   .brand-az-a { font-size:14.5px; line-height:1.45; color:#3a3d39; }
-  .brand-az-a:hover { color:#82C914 !important; }
+  .brand-az-a:hover { color:var(--c-primary-text) !important; }
   .brand-pill { display:inline-flex; align-items:center; height:38px; padding:0 18px; border-radius:999px; font-size:14px; font-weight:700; background:#f2f3f1; color:#3a3d39; }
-  .brand-pill:hover { background:#eef2e8 !important; color:#3f6b4f !important; }
+  .brand-pill:hover { background:#eef2e8 !important; color:var(--c-dark) !important; }
   .brand-pcard { display:flex; flex-direction:column; border:1px solid #e6e7e4; border-radius:14px; overflow:hidden; background:#ffffff; transition:box-shadow .18s; }
   .brand-pcard:hover { box-shadow:0 12px 26px rgba(0,0,0,.08); }
-  .brand-search:focus { border-color:#82C914 !important; }
+  .brand-search:focus { border-color:var(--c-primary-text) !important; }
 {% endstyle %}
 
 {%- capture stars -%}
@@ -22,18 +22,18 @@
 <div data-view="index">
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
 
-  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
-    <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Brands</span>
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
+    <a href="{{ routes.root_url }}" class="hov-green" style="color:#717769;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Brands</span>
   </nav>
 
-  <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
+  <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
   <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
   <form action="{{ routes.search_url }}" method="get" style="display:flex; flex-wrap:wrap; gap:10px; max-width:460px; margin:0 0 32px;">
     <input type="search" name="q" placeholder="Search brands" class="brand-search" style="flex:1 1 240px; height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 16px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none; min-width:0;">
-    <button type="submit" class="hov-bg-green-dk" style="flex:0 0 auto; height:52px; padding:0 22px; border:none; border-radius:10px; background:#82C914; color:#ffffff; font-family:inherit; font-weight:800; font-size:15px; cursor:pointer;">Search</button>
+    <button type="submit" class="hov-bg-green-dk" style="flex:0 0 auto; height:52px; padding:0 22px; border:none; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-family:inherit; font-weight:800; font-size:15px; cursor:pointer;">Search</button>
   </form>
 
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(20px,2.1vw,26px); margin:0 0 18px;">Featured brands</h2>
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.1vw,26px); margin:0 0 18px;">Featured brands</h2>
   <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:16px; margin:0 0 40px;">
     {%- for block in section.blocks -%}
       {%- if block.type == 'featured_brand' -%}
@@ -47,10 +47,10 @@
               <img src="{{ block.settings.logo_asset | asset_url }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="350" height="112" style="{{ logo_style }}">
             {%- else -%}
               {%- comment -%} No logo: the brand name in the house display face, matching brand-slider. {%- endcomment -%}
-              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; color:#3f6b4f;">{{ block.settings.name }}</span>
+              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; color:var(--c-dark);">{{ block.settings.name }}</span>
             {%- endif -%}
           </span>
-          <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:#3f6b4f; text-align:center;">{{ block.settings.name }}</span>
+          <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:var(--c-dark); text-align:center;">{{ block.settings.name }}</span>
         </a>
       {%- endif -%}
     {%- endfor -%}
@@ -65,7 +65,7 @@
   <div data-brand-az style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:30px 26px;">
     {% render 'brand-az' %}
   </div>
-  <p data-brand-empty hidden style="padding:8px 0 0; font-size:15px; color:#6b7065;">No brand matches that name. <button type="button" data-brand-clear style="border:none; background:none; padding:0; font:inherit; color:#82C914; font-weight:700; cursor:pointer; text-decoration:underline;">Show all brands</button>, or press Search to look for products instead.</p>
+  <p data-brand-empty hidden style="padding:8px 0 0; font-size:15px; color:#6b7065;">No brand matches that name. <button type="button" data-brand-clear style="border:none; background:none; padding:0; font:inherit; color:var(--c-primary-text); font-weight:700; cursor:pointer; text-decoration:underline;">Show all brands</button>, or press Search to look for products instead.</p>
 </section>
 
 <script>
@@ -114,8 +114,8 @@
 <div data-view="brand" style="display:none;">
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
 
-  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;">
-    <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><a href="/pages/brands" data-view-btn="index" class="hov-green" style="color:#8b9182;">Brands</a><span>/</span><span style="color:#3a3d39; font-weight:700;">CeraVe</span>
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
+    <a href="{{ routes.root_url }}" class="hov-green" style="color:#717769;">Home</a><span>/</span><a href="/pages/brands" data-view-btn="index" class="hov-green" style="color:#717769;">Brands</a><span>/</span><span style="color:#3a3d39; font-weight:700;">CeraVe</span>
   </nav>
   <div style="display:flex; flex-wrap:wrap; gap:30px 40px; align-items:center; padding:32px 36px; border-radius:20px; background:#eef2e8; margin:0 0 30px;">
     <div style="flex:0 0 auto; width:150px; height:78px; border-radius:12px; background:#ffffff; display:flex; align-items:center; justify-content:center; padding:14px;">
@@ -124,16 +124,16 @@
       {%- elsif section.settings.spotlight_logo_asset != blank -%}
         <img src="{{ section.settings.spotlight_logo_asset | asset_url }}" alt="{{ section.settings.spotlight_name | escape }}" loading="lazy" width="350" height="112" style="max-width:100%; max-height:100%; object-fit:contain; display:block;">
       {%- else -%}
-        <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:#3f6b4f;">{{ section.settings.spotlight_name }}</span>
+        <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:var(--c-dark);">{{ section.settings.spotlight_name }}</span>
       {%- endif -%}
     </div>
     <div style="flex:1 1 340px; min-width:0;">
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(27px,3vw,38px); line-height:1.08; margin:0 0 10px;">CeraVe</h2>
+      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(27px,3vw,38px); line-height:1.08; margin:0 0 10px;">CeraVe</h2>
       <p style="margin:0; font-size:16.5px; line-height:1.7; color:#3a3d39; max-width:60ch;">Developed with dermatologists, CeraVe cleansers and moisturisers are formulated with three essential ceramides to help restore the skin&rsquo;s natural barrier. Suitable for sensitive, dry and eczema-prone skin.</p>
     </div>
   </div>
   <div style="display:flex; flex-wrap:wrap; gap:10px; margin:0 0 26px;">
-    <a href="/collections/cerave" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; height:38px; padding:0 18px; border-radius:999px; font-size:14px; font-weight:700; background:#82C914; color:#ffffff;">All CeraVe</a>
+    <a href="/collections/cerave" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; height:38px; padding:0 18px; border-radius:999px; font-size:14px; font-weight:700; background:var(--c-primary); color:var(--c-on-primary);">All CeraVe</a>
     <a href="/collections/cleanser" class="brand-pill">Cleansers</a>
     <a href="/collections/moisturisers" class="brand-pill">Moisturisers</a>
     <a href="/collections/serums-oils" class="brand-pill">Serums</a>
@@ -164,24 +164,24 @@
           </span>
         </a>
         <div style="padding:0 18px 18px; display:flex; flex-direction:column; gap:9px; flex:1;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:#82C914;">CeraVe</div>
+          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">CeraVe</div>
           <a href="/collections/cerave" class="hov-green" style="font-weight:700; font-size:15px; line-height:1.45; color:#2A2B2A; flex:1;">{{ f[0] }}</a>
           <div style="display:flex; align-items:center; gap:7px; font-size:12.5px; color:#6b7065;">
             {{ stars }}
             <span>{{ f[2] }}</span>
           </div>
           <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:#2A2B2A;">{{ f[1] }}</div>
-          <a href="/collections/cerave" class="hov-bg-green-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:#82C914; color:#ffffff; font-weight:800; font-size:14.5px; margin-top:2px;">Add To Bag</a>
+          <a href="/collections/cerave" class="hov-bg-green-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px; margin-top:2px;">Add To Bag</a>
         </div>
       </div>
     {%- endfor -%}
   </div>
   <div style="max-width:760px; margin:44px 0 0; padding-top:30px; border-top:1px solid #e6e7e4;">
-    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">About CeraVe</h2>
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">About CeraVe</h2>
     <p style="margin:0 0 15px; font-size:16px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">CeraVe was developed in 2005 with dermatologists to address a simple problem: many cleansers strip the skin of the very lipids that keep it healthy. Every CeraVe product contains three essential ceramides &mdash; the same lipids found naturally in the skin barrier &mdash; alongside hyaluronic acid to help hold moisture.</p>
     <p style="margin:0 0 15px; font-size:16px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">The range is fragrance-free, non-comedogenic and suitable for sensitive skin, which is why it is one of the most commonly recommended brands by dermatologists and pharmacists alike. If you are not sure which cleanser or moisturiser suits your skin, ask our team &mdash; the differences between the blue, green and white bottles matter more than the packaging suggests.</p>
     <div style="margin-top:22px;">
-      <a href="/pages/brands" data-view-btn="index" class="hov-green-dk" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:#82C914;">
+      <a href="/pages/brands" data-view-btn="index" class="hov-green-dk" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:var(--c-primary-text);">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
         All brands
       </a>

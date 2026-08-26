@@ -13,7 +13,18 @@
       src: url(/shopify-theme/assets/mulish-variable.woff2) format('woff2');
     }
   </style>
-  <link rel="stylesheet" href="/shopify-theme/assets/base.css"><script>window.mccRoutes = { cart_url: "/cart", cart_add_url: "/cart/add", cart_change_url: "/cart/change", predictive_search_url: "/search/suggest", product_recommendations_url: "/recommendations/products" };</script>
+  <link rel="stylesheet" href="/shopify-theme/assets/base.css"><style>
+    :root {
+      --c-primary: #82C914;
+      --c-primary-hover: #6BA30F;
+      --c-dark: #3F6B4F;
+      --c-accent: #92C83F;
+      --c-on-primary: #2A2B2A;
+      --c-on-accent: #2A2B2A;
+      --c-on-dark: #FFFFFF;
+      --c-primary-text: #4C750B;
+    }
+  </style><script>window.mccRoutes = { cart_url: "/cart", cart_add_url: "/cart/add", cart_change_url: "/cart/change", predictive_search_url: "/search/suggest", product_recommendations_url: "/recommendations/products" };</script>
   <script src="/shopify-theme/assets/theme.js" defer></script>
   <!-- content_for_header -->
 <script>/* PREVIEW ONLY — never shipped in the theme.
@@ -122,7 +133,7 @@
 </script>
 </head>
 <body>
-  <div style="width:100%; background:#3f6b4f; color:#ffffff;">
+  <div style="width:100%; background:var(--c-dark); color:var(--c-on-dark);">
   <div class="annc-row" style="max-width:1440px; margin:0 auto; padding:5px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 40px; font-size:12.5px; font-weight:400; letter-spacing:.06em;">
     <div style="display:flex; align-items:center; gap:12px; justify-content:flex-start;">
       <span>IRELAND (EUR €)</span>
@@ -149,7 +160,7 @@
              aria-label="Search for products, brands and more"
              style="flex:1; border:none; outline:none; font-family:inherit; font-size:14.5px; color:#2A2B2A; background:transparent; padding:9px 0;">
       <input type="hidden" name="options[prefix]" value="last">
-      <button type="submit" aria-label="Search" class="hov-bg-green" style="flex:0 0 auto; width:46px; border:none; border-radius:9px 0 0 9px; background:#92C83F; color:#ffffff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .15s;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></button>
+      <button type="submit" aria-label="Search" class="hov-bg-green" style="flex:0 0 auto; width:46px; border:none; border-radius:9px 0 0 9px; background:var(--c-accent); color:var(--c-on-accent); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .15s;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></button>
       </form>
       <div class="ps-panel" id="predictive-search-results" data-ps-panel role="listbox"
            aria-label="Search suggestions" tabindex="-1" hidden></div>
@@ -159,19 +170,19 @@
       <a href="/pages/wishlist" class="hide-mobile hov-green" style="color:#2A2B2A; display:flex; align-items:center; gap:7px; font-weight:600; font-size:13.5px; position:relative;">
         <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>
         <span class="icon-label">Wishlist</span>
-        <span data-wish-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 4px;">0</span>
+        <span data-wish-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 4px;">0</span>
       </a>
       <a href="/cart" class="hide-mobile hov-green" style="color:#2A2B2A; display:flex; align-items:center; gap:7px; font-weight:600; font-size:13.5px; position:relative;">
         <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.4 12.3a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L22 7H6"></path></svg>
         <span class="icon-label">My Cart</span>
-        <span data-cart-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
+        <span data-cart-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
       </a>
       <a href="/account" class="hide-mobile hov-green" aria-label="My Account" style="color:#2A2B2A; display:flex; align-items:center; position:relative;">
         <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
       </a>
       <a href="/cart" class="cart-mobile hov-green" aria-label="My Cart" style="color:#2A2B2A; display:none; align-items:center; position:relative;">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.4 12.3a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L22 7H6"></path></svg>
-        <span data-cart-count style="position:absolute; top:-6px; right:-8px; min-width:17px; height:17px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
+        <span data-cart-count style="position:absolute; top:-6px; right:-8px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
       </a>
     </nav>
   </div>
@@ -240,11 +251,11 @@
 
   <div style="padding:18px 20px; margin-top:auto; display:flex; flex-direction:column; gap:12px;">
     <div style="display:flex; gap:12px;">
-      <a href="/pages/in-store-services" class="hov-bg-dark" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:#3f6b4f; color:#ffffff; font-weight:700; font-size:14px; height:46px; border-radius:9px;">
+      <a href="/pages/in-store-services" class="hov-bg-dark" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:14px; height:46px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
         Services
       </a>
-      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14px; height:46px; border-radius:9px;">
+      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14px; height:46px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.5"></circle></svg>
         Store Locator
       </a>
@@ -254,7 +265,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Account
       </a>
       <a href="/pages/wishlist" class="hov-border-accent" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:14px; height:44px; border-radius:9px;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>Wishlist<span data-wish-count style="min-width:19px; height:19px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11.5px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 5px;">0</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>Wishlist<span data-wish-count style="min-width:19px; height:19px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11.5px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 5px;">0</span>
       </a>
     </div>
   </div>
@@ -272,15 +283,15 @@
       <a href="/collections/mother-baby" class="hov-green" data-mega-trigger="mother-baby" style="color:#2A2B2A; font-size:13.5px;">Mother &amp; Baby</a>
       <a href="/collections/fragrance" class="hov-green" data-mega-trigger="fragrance" style="color:#2A2B2A; font-size:13.5px;">Fragrance</a>
       <a href="/collections/gifting" class="hov-green" data-mega-trigger="gifting" style="color:#2A2B2A; font-size:13.5px;">Gifting</a>
-      <a href="/collections/sale" class="hov-green-dk" data-mega-close style="color:#82c914; font-weight:700; font-size:13.5px;">Sale</a>
+      <a href="/collections/sale" class="hov-green-dk" data-mega-close style="color:var(--c-primary-text); font-weight:700; font-size:13.5px;">Sale</a>
       <a href="/pages/brands" class="hov-green" data-mega-close style="color:#2A2B2A; font-size:13.5px;">Brands</a>
     </nav>
     <div style="display:flex; align-items:center; gap:9px;">
-      <a href="/pages/in-store-services" class="hov-bg-green-dk" style="display:flex; align-items:center; gap:9px; background:#3f6b4f; color:#ffffff; font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
+      <a href="/pages/in-store-services" class="hov-bg-green-dk" style="display:flex; align-items:center; gap:9px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
         <span>In-Store Services</span>
       </a>
-      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="display:flex; align-items:center; gap:9px; background:#92C83F; color:#ffffff; font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
+      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="display:flex; align-items:center; gap:9px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.4"></circle></svg>
         <span>Store Locator</span>
       </a>
@@ -293,7 +304,7 @@
           <div style="flex:1; padding:30px 30px; display:grid; grid-template-columns:repeat(6,minmax(155px,1fr)); gap:20px;">
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/pain-relief" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Pain Relief</a>
+                <a href="/collections/pain-relief" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Pain Relief</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/pain-relief-headache" style="color:#2A2B2A;" class="hov-green">Pain Relief &amp; Headache</a>
                   <a href="/collections/baby-children-pain-relief" style="color:#2A2B2A;" class="hov-green">Baby &amp; Children Pain Relief</a>
@@ -301,7 +312,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/cold-flu-allergy" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Cold, Flu &amp; Allergy</a>
+                <a href="/collections/cold-flu-allergy" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Cold, Flu &amp; Allergy</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/cold-flu-combination-products" style="color:#2A2B2A;" class="hov-green">Cold &amp; Flu Combination Products</a>
                   <a href="/collections/cough" style="color:#2A2B2A;" class="hov-green">Cough</a>
@@ -311,7 +322,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/stomach-gastrointestinal" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Stomach &amp; Gastrointestinal</a>
+                <a href="/collections/stomach-gastrointestinal" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Stomach &amp; Gastrointestinal</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/nausea-acid-indigestion-reflux" style="color:#2A2B2A;" class="hov-green">Nausea, Acid Indigestion &amp; Reflux</a>
                   <a href="/collections/bloating-gas" style="color:#2A2B2A;" class="hov-green">Bloating &amp; Gas</a>
@@ -325,7 +336,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/sensitive-conditions" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sensitive Conditions</a>
+                <a href="/collections/sensitive-conditions" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sensitive Conditions</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/menopause" style="color:#2A2B2A;" class="hov-green">Menopause</a>
                   <a href="/collections/hair-loss" style="color:#2A2B2A;" class="hov-green">Hair Loss</a>
@@ -336,7 +347,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/nicotine-replacement" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nicotine Replacement</a>
+                <a href="/collections/nicotine-replacement" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nicotine Replacement</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/nicotine-patches" style="color:#2A2B2A;" class="hov-green">Nicotine Patches</a>
                   <a href="/collections/nicotine-gum" style="color:#2A2B2A;" class="hov-green">Nicotine Gum</a>
@@ -345,7 +356,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/eye-ear-health" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eye &amp; Ear Health</a>
+                <a href="/collections/eye-ear-health" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eye &amp; Ear Health</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/dry-eye" style="color:#2A2B2A;" class="hov-green">Dry Eye</a>
                   <a href="/collections/blepharitis-eyelid-hygiene" style="color:#2A2B2A;" class="hov-green">Blepharitis &amp; Eyelid Hygiene</a>
@@ -360,13 +371,13 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/sleep-rest" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sleep &amp; Rest</a>
+                <a href="/collections/sleep-rest" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sleep &amp; Rest</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/healthy-mind-sleeping-aids" style="color:#2A2B2A;" class="hov-green">Healthy Mind &amp; Sleeping Aids</a>
                 </div>
               </div>
               <div>
-                <a href="/collections/mouth-oral-care" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Mouth &amp; Oral Care</a>
+                <a href="/collections/mouth-oral-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Mouth &amp; Oral Care</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/dry-mouth" style="color:#2A2B2A;" class="hov-green">Dry Mouth</a>
                   <a href="/collections/gum-health-gingivitis" style="color:#2A2B2A;" class="hov-green">Gum Health &amp; Gingivitis</a>
@@ -375,7 +386,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/continence-care" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Continence Care</a>
+                <a href="/collections/continence-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Continence Care</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/bladder-weakness" style="color:#2A2B2A;" class="hov-green">Bladder Weakness</a>
                   <a href="/collections/pads" style="color:#2A2B2A;" class="hov-green">Pads</a>
@@ -387,7 +398,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/trying-to-conceive" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Trying To Conceive</a>
+                <a href="/collections/trying-to-conceive" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Trying To Conceive</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/fertility-aids-lubricant" style="color:#2A2B2A;" class="hov-green">Fertility Aids &amp; Lubricant</a>
                   <a href="/collections/pregnancy-tests" style="color:#2A2B2A;" class="hov-green">Pregnancy Tests</a>
@@ -395,7 +406,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/sexual-health" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sexual Health</a>
+                <a href="/collections/sexual-health" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sexual Health</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/erectile-dysfunction" style="color:#2A2B2A;" class="hov-green">Erectile Dysfunction</a>
                   <a href="/collections/condoms" style="color:#2A2B2A;" class="hov-green">Condoms</a>
@@ -403,7 +414,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/sport" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sport</a>
+                <a href="/collections/sport" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sport</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/warmup-recovery" style="color:#2A2B2A;" class="hov-green">Warmup &amp; Recovery</a>
                 </div>
@@ -411,7 +422,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/first-aid" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">First Aid</a>
+                <a href="/collections/first-aid" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">First Aid</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/antiseptics-wound-cleaning" style="color:#2A2B2A;" class="hov-green">Antiseptics &amp; Wound Cleaning</a>
                   <a href="/collections/bandages-plasters" style="color:#2A2B2A;" class="hov-green">Bandages &amp; Plasters</a>
@@ -421,7 +432,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/foot-care" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Foot Care</a>
+                <a href="/collections/foot-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Foot Care</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/athletes-foot" style="color:#2A2B2A;" class="hov-green">Athletes Foot</a>
                   <a href="/collections/verucca" style="color:#2A2B2A;" class="hov-green">Verucca</a>
@@ -438,7 +449,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/diabetes-care" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Diabetes Care</a>
+                <a href="/collections/diabetes-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Diabetes Care</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/test-strips-blood-glucose-monitors" style="color:#2A2B2A;" class="hov-green">Test Strips &amp; Blood Glucose Monitors</a>
                   <a href="/collections/needles-lancets" style="color:#2A2B2A;" class="hov-green">Needles &amp; Lancets</a>
@@ -446,17 +457,17 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/electrical-healthcare" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Electrical Healthcare</a>
+                <a href="/collections/electrical-healthcare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Electrical Healthcare</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/blood-pressure-monitors" style="color:#2A2B2A;" class="hov-green">Blood Pressure Monitors</a>
                   <a href="/collections/oximeters-weighing-scales" style="color:#2A2B2A;" class="hov-green">Oximeters &amp; Weighing Scales</a>
                 </div>
               </div>
               <div>
-                <a href="/collections/self-testing-kits" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Self Testing Kits</a>
+                <a href="/collections/self-testing-kits" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Self Testing Kits</a>
               </div>
               <div>
-                <a href="/collections/healthcare-medicine-accessories" style="display:block; color:#82C914; font-weight:800; font-size:13.5px;" class="hov-dark-green">Healthcare &amp; Medicine Accessories</a>
+                <a href="/collections/healthcare-medicine-accessories" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px;" class="hov-dark-green">Healthcare &amp; Medicine Accessories</a>
               </div>
             </div>
           </div>
@@ -511,7 +522,7 @@
           <div style="flex:1; padding:30px; display:grid; grid-template-columns:repeat(3,minmax(180px,1fr)); gap:24px;">
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/dermatological-skincare" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Dermatological Skincare</a>
+                <a href="/collections/dermatological-skincare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Dermatological Skincare</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/anti-ageing" style="color:#2A2B2A;" class="hov-green">Anti-Ageing</a>
                   <a href="/collections/acne-blemish" style="color:#2A2B2A;" class="hov-green">Acne &amp; Blemish</a>
@@ -522,7 +533,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/body-skincare" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Body Skincare</a>
+                <a href="/collections/body-skincare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Body Skincare</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/moisturisers" style="color:#2A2B2A;" class="hov-green">Moisturisers</a>
                   <a href="/collections/exfoliators" style="color:#2A2B2A;" class="hov-green">Exfoliators</a>
@@ -531,7 +542,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/facial-skincare" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Facial Skincare</a>
+                <a href="/collections/facial-skincare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Facial Skincare</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/facial-suncare" style="color:#2A2B2A;" class="hov-green">Facial Suncare</a>
                   <a href="/collections/facial-moisturisers" style="color:#2A2B2A;" class="hov-green">Facial Moisturisers</a>
@@ -548,14 +559,14 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/problem-skin" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Problem Skin</a>
+                <a href="/collections/problem-skin" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Problem Skin</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/acne-blemish" style="color:#2A2B2A;" class="hov-green">Acne &amp; Blemish</a>
                   <a href="/collections/dry-skin-eczema-psoriasis" style="color:#2A2B2A;" class="hov-green">Dry Skin, Eczema &amp; Psoriasis</a>
                 </div>
               </div>
               <div>
-                <a href="/collections/hands-nails" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Hands &amp; Nails</a>
+                <a href="/collections/hands-nails" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Hands &amp; Nails</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/hand-cream" style="color:#2A2B2A;" class="hov-green">Hand Cream</a>
                   <a href="/collections/cuticle-nail-care" style="color:#2A2B2A;" class="hov-green">Cuticle &amp; Nail Care</a>
@@ -576,7 +587,7 @@
           <div style="flex:1; padding:30px; display:grid; grid-template-columns:repeat(4,minmax(160px,1fr)); gap:24px;">
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/face" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Face</a>
+                <a href="/collections/face" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Face</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/foundation" style="color:#2A2B2A;" class="hov-green">Foundation</a>
                   <a href="/collections/makeup-remover" style="color:#2A2B2A;" class="hov-green">Makeup Remover</a>
@@ -591,7 +602,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/eyes" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eyes</a>
+                <a href="/collections/eyes" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eyes</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/eyeshadow" style="color:#2A2B2A;" class="hov-green">Eyeshadow</a>
                   <a href="/collections/eyeliner" style="color:#2A2B2A;" class="hov-green">Eyeliner</a>
@@ -602,7 +613,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/lips" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Lips</a>
+                <a href="/collections/lips" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Lips</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/lip-gloss" style="color:#2A2B2A;" class="hov-green">Lip Gloss</a>
                   <a href="/collections/lipstick" style="color:#2A2B2A;" class="hov-green">Lipstick</a>
@@ -612,7 +623,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/tanning" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Tanning</a>
+                <a href="/collections/tanning" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Tanning</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/self-tan" style="color:#2A2B2A;" class="hov-green">Self Tan</a>
                   <a href="/collections/tanning-mitts" style="color:#2A2B2A;" class="hov-green">Tanning Mitts</a>
@@ -622,7 +633,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/nails" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nails</a>
+                <a href="/collections/nails" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nails</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/nail-polish" style="color:#2A2B2A;" class="hov-green">Nail Polish</a>
                   <a href="/collections/false-nails-nail-wraps" style="color:#2A2B2A;" class="hov-green">False Nails &amp; Nail Wraps</a>
@@ -633,7 +644,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/makeup-brushes-tools" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Makeup Brushes &amp; Tools</a>
+                <a href="/collections/makeup-brushes-tools" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Makeup Brushes &amp; Tools</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/makeup-brushes" style="color:#2A2B2A;" class="hov-green">Makeup Brushes</a>
                   <a href="/collections/makeup-sponges" style="color:#2A2B2A;" class="hov-green">Makeup Sponges</a>
@@ -641,7 +652,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/beauty-accessories" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Beauty Accessories</a>
+                <a href="/collections/beauty-accessories" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Beauty Accessories</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/body-tape-nipple-covers" style="color:#2A2B2A;" class="hov-green">Body Tape &amp; Nipple Covers</a>
                   <a href="/collections/tweezers" style="color:#2A2B2A;" class="hov-green">Tweezers</a>
@@ -719,7 +730,7 @@
     </button>
   </header><div class="cd-ship" data-cd-ship hidden>
     <div class="cd-ship-row">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="#82C914" aria-hidden="true"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75Z"></path></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--c-primary)" aria-hidden="true"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75Z"></path></svg>
       <span data-cd-ship-msg></span>
     </div>
     <div class="cd-bar"><div data-cd-bar></div></div>
@@ -728,7 +739,7 @@
   <div class="cd-items" data-cd-items></div><div class="cd-recs" data-crec-mount hidden></div>
 
   <div class="cd-empty" data-cd-empty hidden>
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#92C83F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
     <p>Your bag is empty.</p>
     <a href="/" class="cd-secondary" data-cd-close>Start shopping</a>
   </div>
@@ -740,7 +751,7 @@
     </div>
     <p class="cd-vat">Shipping and VAT calculated at checkout</p>
     <form action="/cart" method="post">
-      <button type="submit" name="checkout" class="cd-checkout hov-bg-green-dk">Checkout securely</button><div class="cd-express"><div data-mock-express style="height:48px;border-radius:10px;border:1.5px dashed #b9c2b3;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#7d8875;background:#f4f6f1;">Express checkout buttons &middot; live store only</div></div></form>
+      <button type="submit" name="checkout" class="cd-checkout hov-bg-green-dk">Checkout securely</button><div class="cd-express"><div data-mock-express style="height:48px;border-radius:10px;border:1.5px dashed #b9c2b3;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#697262;background:#f4f6f1;">Express checkout buttons &middot; live store only</div></div></form>
     <a href="/cart" class="cd-secondary">View full bag</a>
   </footer>
 </aside>
@@ -751,37 +762,37 @@
   <main id="main" style="width:100%; overflow-x:hidden; background:#ffffff;">
     <!-- Breadcrumb + category banner -->
 <section style="max-width:1440px; margin:0 auto; padding:24px 30px 6px;">
-  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#8b9182; margin:0 0 16px;"><a href="/" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><a href="/collections/medicines-health" class="hov-green" style="color:#8b9182;">Medicines &amp; Health</a><span>/</span><a href="/collections/eye-ear-health" class="hov-green" style="color:#8b9182;">Eye &amp; Ear Health</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Dry Eye</span></nav><div class="banner-text" style="border-radius:18px; background:#f4f5f2; padding:clamp(24px,3vw,40px) clamp(24px,3.4vw,48px); display:flex; flex-wrap:wrap; align-items:center; gap:clamp(10px,2.4vw,44px);">
-      <h1 style="flex:1 1 300px; min-width:0; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(28px,3.2vw,44px); line-height:1.05; letter-spacing:-.01em; margin:0;">Dry Eye</h1><div class="banner-copy" style="flex:1 1 380px; min-width:0; font-size:clamp(14.5px,1.15vw,16px); line-height:1.6; color:#3a3d39; max-width:62ch; border-left:3px solid #dfe4d7; padding-left:clamp(14px,1.6vw,22px);"><p>Browse Dry Eye — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p></div></div></section><!-- Sub-category chips -->
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;"><a href="/" class="hov-green" style="color:#717769;">Home</a><span>/</span><a href="/collections/medicines-health" class="hov-green" style="color:#717769;">Medicines &amp; Health</a><span>/</span><a href="/collections/eye-ear-health" class="hov-green" style="color:#717769;">Eye &amp; Ear Health</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Dry Eye</span></nav><div class="banner-text" style="border-radius:18px; background:#f4f5f2; padding:clamp(24px,3vw,40px) clamp(24px,3.4vw,48px); display:flex; flex-wrap:wrap; align-items:center; gap:clamp(10px,2.4vw,44px);">
+      <h1 style="flex:1 1 300px; min-width:0; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,44px); line-height:1.05; letter-spacing:-.01em; margin:0;">Dry Eye</h1><div class="banner-copy" style="flex:1 1 380px; min-width:0; font-size:clamp(14.5px,1.15vw,16px); line-height:1.6; color:#3a3d39; max-width:62ch; border-left:3px solid #dfe4d7; padding-left:clamp(14px,1.6vw,22px);"><p>Browse Dry Eye — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p></div></div></section><!-- Sub-category chips -->
 <section style="max-width:1440px; margin:0 auto; padding:22px 30px 8px;">
   <div class="cat-tile-row" style="display:flex; align-items:center; gap:16px;">
-    <button class="chip-arrow hov-chip-arrow" aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="chips-track" data-rail-by="-372" style="flex:0 0 auto; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82C914; cursor:pointer; display:none; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
-    <div id="chips-track" style="flex:1; display:flex; gap:16px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px;"><a href="/collections/dry-eye" aria-current="page" style="flex:0 0 auto; min-width:210px; background:#3f6b4f; color:#ffffff; font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Dry Eye</a>
-<a href="/collections/blepharitis-eyelid-hygiene" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:#82C914; color:#ffffff; font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Blepharitis &amp; Eyelid Hygiene</a>
-<a href="/collections/macular-degeneration-glaucoma" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:#82C914; color:#ffffff; font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Macular Degeneration &amp; Glaucoma</a>
-<a href="/collections/eye-infections" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:#82C914; color:#ffffff; font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Eye Infections</a>
-<a href="/collections/contact-lens-care" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:#82C914; color:#ffffff; font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Contact Lens Care</a>
-<a href="/collections/ear-wax-treatments" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:#82C914; color:#ffffff; font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Ear Wax Treatments</a>
-<a href="/collections/ear-care-earplugs" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:#82C914; color:#ffffff; font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Ear Care &amp; Earplugs</a>
-<a href="/collections/hearing-aid-batteries" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:#82C914; color:#ffffff; font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Hearing Aid Batteries</a></div>
-    <button class="chip-arrow hov-chip-arrow" aria-label="Scroll for more" data-rail-btn data-rail-target="chips-track" data-rail-by="372" style="flex:0 0 auto; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82C914; cursor:pointer; display:flex; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+    <button class="chip-arrow hov-chip-arrow" aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="chips-track" data-rail-by="-372" style="flex:0 0 auto; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+    <div id="chips-track" style="flex:1; display:flex; gap:16px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px;"><a href="/collections/dry-eye" aria-current="page" style="flex:0 0 auto; min-width:210px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Dry Eye</a>
+<a href="/collections/blepharitis-eyelid-hygiene" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Blepharitis &amp; Eyelid Hygiene</a>
+<a href="/collections/macular-degeneration-glaucoma" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Macular Degeneration &amp; Glaucoma</a>
+<a href="/collections/eye-infections" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Eye Infections</a>
+<a href="/collections/contact-lens-care" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Contact Lens Care</a>
+<a href="/collections/ear-wax-treatments" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Ear Wax Treatments</a>
+<a href="/collections/ear-care-earplugs" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Ear Care &amp; Earplugs</a>
+<a href="/collections/hearing-aid-batteries" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Hearing Aid Batteries</a></div>
+    <button class="chip-arrow hov-chip-arrow" aria-label="Scroll for more" data-rail-btn data-rail-target="chips-track" data-rail-by="372" style="flex:0 0 auto; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
   </div>
-  <div class="chip-progress" style="display:none; margin-top:16px; height:4px; border-radius:999px; background:#e2e4df; overflow:hidden;"><div style="height:100%; border-radius:999px; background:#92C83F; width:12%; transition:width .15s ease;"></div></div>
+  <div class="chip-progress" style="display:none; margin-top:16px; height:4px; border-radius:999px; background:#e2e4df; overflow:hidden;"><div style="height:100%; border-radius:999px; background:var(--c-accent); width:12%; transition:width .15s ease;"></div></div>
 </section><!-- Filter / Sort bar -->
 <section style="max-width:1440px; margin:0 auto; padding:26px 30px 0;">
   <div class="fs-bar" style="display:flex; flex-wrap:wrap; align-items:center; gap:14px 26px; border-bottom:1px solid #e6e7e4; padding-bottom:20px;">
     <button class="filter-toggle" data-filter-toggle aria-controls="filters-sec-main-collection" aria-expanded="true" style="display:flex; align-items:center; gap:9px; background:transparent; border:none; cursor:pointer; font-family:inherit; font-weight:700; font-size:16px; color:#2A2B2A;">
       Filter
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#82C914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"></line><circle cx="9" cy="7" r="2.4" fill="#fff"></circle><line x1="4" y1="17" x2="20" y2="17"></line><circle cx="15" cy="17" r="2.4" fill="#fff"></circle></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"></line><circle cx="9" cy="7" r="2.4" fill="#fff"></circle><line x1="4" y1="17" x2="20" y2="17"></line><circle cx="15" cy="17" r="2.4" fill="#fff"></circle></svg>
     </button>
-    <div class="sortby-box" style="display:flex; align-items:center; gap:10px; border:1.5px solid #82C914; border-radius:9px; padding:12px 16px;">
+    <div class="sortby-box" style="display:flex; align-items:center; gap:10px; border:1.5px solid var(--c-primary); border-radius:9px; padding:12px 16px;">
       <span style="font-weight:700; font-size:15px; color:#2A2B2A;">Sort by:</span>
-      <select data-sort-select aria-label="Sort by" style="border:none; background:transparent; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#82C914; cursor:pointer;"><option value="best-selling" selected>Best selling</option><option value="price-ascending" >Price, low to high</option></select>
+      <select data-sort-select aria-label="Sort by" style="border:none; background:transparent; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:var(--c-primary-text); cursor:pointer;"><option value="best-selling" selected>Best selling</option><option value="price-ascending" >Price, low to high</option></select>
     </div>
-    <span class="prod-count" style="margin-left:auto; font-size:14px; color:#8b9182;">9 products</span>
-    <button class="refine-mobile" data-filter-toggle aria-controls="filters-sec-main-collection" aria-expanded="false" style="display:none; align-items:center; justify-content:space-between; gap:9px; width:100%; background:transparent; border:1.5px solid #82C914; border-radius:9px; padding:14px 18px; cursor:pointer; font-family:inherit; font-weight:700; font-size:16px; color:#2A2B2A;">
+    <span class="prod-count" style="margin-left:auto; font-size:14px; color:#717769;">10 products</span>
+    <button class="refine-mobile" data-filter-toggle aria-controls="filters-sec-main-collection" aria-expanded="false" style="display:none; align-items:center; justify-content:space-between; gap:9px; width:100%; background:transparent; border:1.5px solid var(--c-primary); border-radius:9px; padding:14px 18px; cursor:pointer; font-family:inherit; font-weight:700; font-size:16px; color:#2A2B2A;">
       Refine By
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#82C914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"></line><circle cx="9" cy="7" r="2.4" fill="#fff"></circle><line x1="4" y1="17" x2="20" y2="17"></line><circle cx="15" cy="17" r="2.4" fill="#fff"></circle></svg>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"></line><circle cx="9" cy="7" r="2.4" fill="#fff"></circle><line x1="4" y1="17" x2="20" y2="17"></line><circle cx="15" cy="17" r="2.4" fill="#fff"></circle></svg>
     </button>
   </div></section>
 
@@ -792,28 +803,28 @@
 
     <!-- Filter sidebar -->
     <aside class="filter-side" id="filters-sec-main-collection" style="flex:0 0 260px; width:260px; position:sticky; top:16px;"><div style="margin-bottom:30px; ">
-              <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#82C914; font-size:20px; margin:0 0 18px;">Brand</h3>
+              <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:var(--c-primary-text); font-size:20px; margin:0 0 18px;">Brand</h3>
               <div style="display:flex; flex-direction:column; gap:14px;"><a href="?filter.p.vendor=fab" style="display:flex; align-items:center; gap:12px; font-size:15px; color:#2A2B2A; ">
                     <span style="flex:0 0 auto; width:22px; height:22px; border-radius:5px; border:2px solid #c2c6bd; background:#ffffff; display:flex; align-items:center; justify-content:center;">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="opacity:0;"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     </span>
                     <span style="flex:1;">fabÜ</span>
-                    <span style="color:#a7ada0; font-size:14px;">(4)</span>
+                    <span style="color:#727969; font-size:14px;">(4)</span>
                   </a><a href="?" style="display:flex; align-items:center; gap:12px; font-size:15px; color:#2A2B2A; ">
-                    <span style="flex:0 0 auto; width:22px; height:22px; border-radius:5px; border:2px solid #5E8A1F; background:#5E8A1F; display:flex; align-items:center; justify-content:center;">
+                    <span style="flex:0 0 auto; width:22px; height:22px; border-radius:5px; border:2px solid #58821D; background:#58821D; display:flex; align-items:center; justify-content:center;">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="opacity:1;"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     </span>
                     <span style="flex:1;">Nurofen</span>
-                    <span style="color:#a7ada0; font-size:14px;">(2)</span>
+                    <span style="color:#727969; font-size:14px;">(2)</span>
                   </a></div>
             </div><div style="border-top:1px solid #e6e7e4; padding-top:24px;">
-              <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#82C914; font-size:20px; margin:0 0 18px;">Price</h3>
+              <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:var(--c-primary-text); font-size:20px; margin:0 0 18px;">Price</h3>
               <div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;">
-                <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#8b9182;">€</span><input data-price-input name="filter.v.price.gte" type="number" min="0" step="0.01" placeholder="0" value="" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
-                <span style="color:#8b9182;">&ndash;</span>
-                <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#8b9182;">€</span><input data-price-input name="filter.v.price.lte" type="number" min="0" step="0.01" placeholder="100.00" value="" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
+                <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#717769;">€</span><input data-price-input name="filter.v.price.gte" type="number" min="0" step="0.01" placeholder="0" value="" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
+                <span style="color:#717769;">&ndash;</span>
+                <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#717769;">€</span><input data-price-input name="filter.v.price.lte" type="number" min="0" step="0.01" placeholder="100.00" value="" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
               </div>
-              <button data-price-apply class="hov-bg-green-dk" style="width:100%; border:none; border-radius:8px; background:#82C914; color:#ffffff; font-family:inherit; font-weight:700; font-size:14.5px; padding:11px 8px; cursor:pointer;">Apply</button>
+              <button data-price-apply class="hov-bg-green-dk" style="width:100%; border:none; border-radius:8px; background:var(--c-primary); color:var(--c-on-primary); font-family:inherit; font-weight:700; font-size:14.5px; padding:11px 8px; cursor:pointer;">Apply</button>
             </div></aside>
 
     <!-- Product grid -->
@@ -827,11 +838,11 @@
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
 <button data-add-id="40000000" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
-            <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">fabÜ</div>
+            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">fabÜ</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/fab-skin-hair-nails-glow-60-capsules" class="hov-green" style="color:#2A2B2A;">fabÜ Skin Hair Nails Glow 60 Capsules</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:#82C914; font-weight:800; font-size:20px;">€19.95</span><span style="color:#a7ada0; font-weight:600; font-size:15px; text-decoration:line-through;">€24.95</span></div><button data-add-id="40000000" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€19.95</span><span style="color:#727969; font-weight:600; font-size:15px; text-decoration:line-through;">€24.95</span></div><button data-add-id="40000000" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/cetrine-allergy-10mg-30-tablets" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-cetrine.jpg?width=600&height=600" alt="" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
               <button type="button"
         class="wish-btn"
@@ -841,11 +852,11 @@
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
 <button data-add-id="40000001" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
-            <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">Cetrine</div>
+            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Cetrine</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/cetrine-allergy-10mg-30-tablets" class="hov-green" style="color:#2A2B2A;">Cetrine Allergy 10mg 30 Tablets</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:#82C914; font-weight:800; font-size:20px;">€7.99</span></div><button data-add-id="40000001" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€7.99</span></div><button data-add-id="40000001" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><span style="position:absolute; top:12px; left:12px; z-index:2; background:#c0392b; color:#fff; font-weight:800; font-size:12px; letter-spacing:.04em; padding:5px 10px; border-radius:6px;">SALE</span><a href="/products/revive-active-30-sachets" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-revive.jpg?width=600&height=600" alt="" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
               <button type="button"
         class="wish-btn"
@@ -855,11 +866,11 @@
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
 <button data-add-id="40000002" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
-            <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">Revive Active</div>
+            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Revive Active</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/revive-active-30-sachets" class="hov-green" style="color:#2A2B2A;">Revive Active 30 Sachets</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:#82C914; font-weight:800; font-size:20px;">€64.99</span><span style="color:#a7ada0; font-weight:600; font-size:15px; text-decoration:line-through;">€69.99</span></div><button data-add-id="40000002" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€64.99</span><span style="color:#727969; font-weight:600; font-size:15px; text-decoration:line-through;">€69.99</span></div><button data-add-id="40000002" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/optibac-every-day-max-30-capsules" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-optibac-max.jpg?width=600&height=600" alt="" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
               <button type="button"
         class="wish-btn"
@@ -869,11 +880,11 @@
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
 <button data-add-id="40000003" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
-            <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">Optibac</div>
+            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Optibac</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/optibac-every-day-max-30-capsules" class="hov-green" style="color:#2A2B2A;">Optibac Every Day MAX 30 Capsules</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:#82C914; font-weight:800; font-size:20px;">€27.99</span></div><button data-add-id="40000003" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€27.99</span></div><button data-add-id="40000003" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/nurofen-200mg-ibuprofen-24-tablets" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-nurofen.jpg?width=600&height=600" alt="" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
               <button type="button"
         class="wish-btn"
@@ -883,11 +894,11 @@
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
 <button data-add-id="40000004" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
-            <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">Nurofen</div>
+            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Nurofen</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/nurofen-200mg-ibuprofen-24-tablets" class="hov-green" style="color:#2A2B2A;">Nurofen 200mg Ibuprofen 24 Tablets</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:#82C914; font-weight:800; font-size:20px;">€6.49</span></div><button data-add-id="40000004" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€6.49</span></div><button data-add-id="40000004" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/cerave-hydrating-cleanser-236ml" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-cerave-cleanser.jpg?width=600&height=600" alt="" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
               <button type="button"
         class="wish-btn"
@@ -897,11 +908,11 @@
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
 <button data-add-id="40000005" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
-            <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">CeraVe</div>
+            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">CeraVe</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/cerave-hydrating-cleanser-236ml" class="hov-green" style="color:#2A2B2A;">CeraVe Hydrating Cleanser 236ml</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:#82C914; font-weight:800; font-size:20px;">€13.50</span></div><button data-add-id="40000005" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€13.50</span></div><button data-add-id="40000005" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><span style="position:absolute; top:12px; left:12px; z-index:2; background:#c0392b; color:#fff; font-weight:800; font-size:12px; letter-spacing:.04em; padding:5px 10px; border-radius:6px;">SALE</span><a href="/products/sudocrem-antiseptic-healing-cream-125g" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-sudocrem.jpg?width=600&height=600" alt="" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
               <button type="button"
         class="wish-btn"
@@ -911,11 +922,11 @@
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
 <button data-add-id="40000006" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
-            <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">Sudocrem</div>
+            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Sudocrem</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/sudocrem-antiseptic-healing-cream-125g" class="hov-green" style="color:#2A2B2A;">Sudocrem Antiseptic Healing Cream 125g</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:#82C914; font-weight:800; font-size:20px;">€7.99</span><span style="color:#a7ada0; font-weight:600; font-size:15px; text-decoration:line-through;">€8.99</span></div><button data-add-id="40000006" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€7.99</span><span style="color:#727969; font-weight:600; font-size:15px; text-decoration:line-through;">€8.99</span></div><button data-add-id="40000006" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/vitamin-d3-1000iu-60-capsules" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-vitd.jpg?width=600&height=600" alt="" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
               <button type="button"
         class="wish-btn"
@@ -925,11 +936,11 @@
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
 <button data-add-id="40000007" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
-            <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">McCormack’s</div>
+            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">McCormack’s</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/vitamin-d3-1000iu-60-capsules" class="hov-green" style="color:#2A2B2A;">Vitamin D3 1000IU 60 Capsules</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:#82C914; font-weight:800; font-size:20px;">€9.99</span></div><button data-add-id="40000007" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€9.99</span></div><button data-add-id="40000007" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-nurofen.jpg?width=600&height=600" alt="" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
               <button type="button"
         class="wish-btn"
@@ -939,100 +950,114 @@
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
 <a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease;">View Product</a></div>
-            <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">Nurofen</div>
+            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Nurofen</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" class="hov-green" style="color:#2A2B2A;">Nurofen Plus 200mg/12.8mg 24 Tablets</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:#82C914; font-weight:800; font-size:20px;">€10.99</span></div><a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px;">View Product</a></div></div>
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€10.99</span></div><a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px;">View Product</a></div><div class="pcard" style="display:flex; flex-direction:column;">
+            <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/difflam-sore-throat-spray-30ml" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-cetrine.jpg?width=600&height=600" alt="" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
+              <button type="button"
+        class="wish-btn"
+        data-wish-toggle="difflam-sore-throat-spray-30ml"
+        aria-pressed="false"
+        aria-label="Save Difflam Sore Throat Spray 30ml to your wishlist"><svg class="wish-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
+  </svg></button>
+<a href="/products/difflam-sore-throat-spray-30ml" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease;">View Product</a></div>
+            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Difflam</div>
+            <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/difflam-sore-throat-spray-30ml" class="hov-green" style="color:#2A2B2A;">Difflam Sore Throat Spray 30ml</a></h3>
+            <div style="margin-bottom:14px; min-height:18px;"></div>
+            <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€12.99</span></div><a href="/products/difflam-sore-throat-spray-30ml" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px;">View Product</a></div></div>
 
       <!-- Pagination --></div>
   </div>
 </section>
 <!-- SEO copy + FAQ -->
-<section style="max-width:1440px; margin:0 auto; padding:48px 30px 8px;"><h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(24px,2.6vw,34px); margin:0 0 26px;">Frequently Asked Questions</h2>
+<section style="max-width:1440px; margin:0 auto; padding:48px 30px 8px;"><h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,34px); margin:0 0 26px;">Frequently Asked Questions</h2>
     <div style="display:flex; flex-direction:column;"><div style="border-bottom:1px solid #eceee9; padding:22px 0;" ><button data-acc-toggle="faq-sec-main-collection-1" aria-expanded="true" aria-controls="faq-sec-main-collection-1" style="display:flex; align-items:center; justify-content:space-between; gap:14px; width:100%; background:transparent; border:none; padding:0; cursor:pointer; text-align:left;">
             <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0;">Do I need a prescription?</h3>
-            <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#82C914" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transform:rotate(180deg); transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transform:rotate(180deg); transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div class="faq-content" id="faq-sec-main-collection-1" data-acc-content="faq-sec-main-collection-1" data-open="true">
             <p style="margin:10px 0 0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">All items in this collection can be bought without a GP prescription. Prescription-only medicines are not sold online in Ireland — you can submit a prescription for dispensing instead, and collect it in store or have it delivered.</p>
           </div>
         </div><div style="border-bottom:1px solid #eceee9; padding:22px 0;" ><button data-acc-toggle="faq-sec-main-collection-2" aria-expanded="false" aria-controls="faq-sec-main-collection-2" style="display:flex; align-items:center; justify-content:space-between; gap:14px; width:100%; background:transparent; border:none; padding:0; cursor:pointer; text-align:left;">
             <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0;">Are these genuine pharmacy products?</h3>
-            <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#82C914" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transform:rotate(0deg); transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transform:rotate(0deg); transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div class="faq-content" id="faq-sec-main-collection-2" data-acc-content="faq-sec-main-collection-2" data-open="false">
             <p style="margin:10px 0 0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">Yes — every product is sourced and dispatched from our registered Irish pharmacy and is the same stock carried in our stores.</p>
           </div>
         </div><div style="border-bottom:1px solid #eceee9; padding:22px 0;" ><button data-acc-toggle="faq-sec-main-collection-3" aria-expanded="false" aria-controls="faq-sec-main-collection-3" style="display:flex; align-items:center; justify-content:space-between; gap:14px; width:100%; background:transparent; border:none; padding:0; cursor:pointer; text-align:left;">
             <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0;">Can I get pharmacist advice before I buy?</h3>
-            <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#82C914" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transform:rotate(0deg); transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transform:rotate(0deg); transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div class="faq-content" id="faq-sec-main-collection-3" data-acc-content="faq-sec-main-collection-3" data-open="false">
             <p style="margin:10px 0 0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">You can. Contact our pharmacy team for help choosing a suitable product, checking interactions, or deciding whether to see your GP.</p>
           </div>
         </div><div style="border-bottom:1px solid #eceee9; padding:22px 0;" ><button data-acc-toggle="faq-sec-main-collection-4" aria-expanded="false" aria-controls="faq-sec-main-collection-4" style="display:flex; align-items:center; justify-content:space-between; gap:14px; width:100%; background:transparent; border:none; padding:0; cursor:pointer; text-align:left;">
             <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0;">How fast is delivery?</h3>
-            <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#82C914" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transform:rotate(0deg); transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transform:rotate(0deg); transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div class="faq-content" id="faq-sec-main-collection-4" data-acc-content="faq-sec-main-collection-4" data-open="false">
             <p style="margin:10px 0 0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">We aim to ship all items within the same working day for orders placed before 3pm, Monday to Friday. Delivery is free on orders over €65, and Click & Collect is available at all seven of our stores.</p>
           </div>
         </div></div></section><!-- You may also like -->
 <section style="max-width:1440px; margin:0 auto; padding:44px 30px 8px;">
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">You may also like</h2>
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">You may also like</h2>
   <div style="position:relative;">
     <div id="also-track-sec-main-collection" style="display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;"><div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
           <a href="/products/fab-skin-hair-nails-glow-60-capsules" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"><img src="/shopify-theme/assets/prod-fabu-glow.jpg?width=480&height=480" alt="" width="480" height="480" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block;"></a>
-          <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">fabÜ</div>
+          <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">fabÜ</div>
           <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/fab-skin-hair-nails-glow-60-capsules" class="hov-green" style="color:#2A2B2A;">fabÜ Skin Hair Nails Glow 60 Capsules</a></h3>
           <div style="margin-bottom:12px;"></div>
-          <div style="color:#82C914; font-weight:800; font-size:19px; margin-bottom:14px;">€19.95</div>
-          <a href="/products/fab-skin-hair-nails-glow-60-capsules" class="hov-bg-green" style="margin-top:auto; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+          <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€19.95</div>
+          <a href="/products/fab-skin-hair-nails-glow-60-capsules" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
         </div><div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
           <a href="/products/cetrine-allergy-10mg-30-tablets" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"><img src="/shopify-theme/assets/prod-cetrine.jpg?width=480&height=480" alt="" width="480" height="480" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block;"></a>
-          <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">Cetrine</div>
+          <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Cetrine</div>
           <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/cetrine-allergy-10mg-30-tablets" class="hov-green" style="color:#2A2B2A;">Cetrine Allergy 10mg 30 Tablets</a></h3>
           <div style="margin-bottom:12px;"></div>
-          <div style="color:#82C914; font-weight:800; font-size:19px; margin-bottom:14px;">€7.99</div>
-          <a href="/products/cetrine-allergy-10mg-30-tablets" class="hov-bg-green" style="margin-top:auto; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+          <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€7.99</div>
+          <a href="/products/cetrine-allergy-10mg-30-tablets" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
         </div><div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
           <a href="/products/revive-active-30-sachets" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"><img src="/shopify-theme/assets/prod-revive.jpg?width=480&height=480" alt="" width="480" height="480" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block;"></a>
-          <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">Revive Active</div>
+          <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Revive Active</div>
           <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/revive-active-30-sachets" class="hov-green" style="color:#2A2B2A;">Revive Active 30 Sachets</a></h3>
           <div style="margin-bottom:12px;"></div>
-          <div style="color:#82C914; font-weight:800; font-size:19px; margin-bottom:14px;">€64.99</div>
-          <a href="/products/revive-active-30-sachets" class="hov-bg-green" style="margin-top:auto; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+          <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€64.99</div>
+          <a href="/products/revive-active-30-sachets" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
         </div><div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
           <a href="/products/optibac-every-day-max-30-capsules" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"><img src="/shopify-theme/assets/prod-optibac-max.jpg?width=480&height=480" alt="" width="480" height="480" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block;"></a>
-          <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">Optibac</div>
+          <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Optibac</div>
           <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/optibac-every-day-max-30-capsules" class="hov-green" style="color:#2A2B2A;">Optibac Every Day MAX 30 Capsules</a></h3>
           <div style="margin-bottom:12px;"></div>
-          <div style="color:#82C914; font-weight:800; font-size:19px; margin-bottom:14px;">€27.99</div>
-          <a href="/products/optibac-every-day-max-30-capsules" class="hov-bg-green" style="margin-top:auto; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+          <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€27.99</div>
+          <a href="/products/optibac-every-day-max-30-capsules" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
         </div><div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
           <a href="/products/nurofen-200mg-ibuprofen-24-tablets" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"><img src="/shopify-theme/assets/prod-nurofen.jpg?width=480&height=480" alt="" width="480" height="480" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block;"></a>
-          <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">Nurofen</div>
+          <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Nurofen</div>
           <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/nurofen-200mg-ibuprofen-24-tablets" class="hov-green" style="color:#2A2B2A;">Nurofen 200mg Ibuprofen 24 Tablets</a></h3>
           <div style="margin-bottom:12px;"></div>
-          <div style="color:#82C914; font-weight:800; font-size:19px; margin-bottom:14px;">€6.49</div>
-          <a href="/products/nurofen-200mg-ibuprofen-24-tablets" class="hov-bg-green" style="margin-top:auto; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+          <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€6.49</div>
+          <a href="/products/nurofen-200mg-ibuprofen-24-tablets" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
         </div><div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
           <a href="/products/cerave-hydrating-cleanser-236ml" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"><img src="/shopify-theme/assets/prod-cerave-cleanser.jpg?width=480&height=480" alt="" width="480" height="480" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block;"></a>
-          <div style="font-size:13px; font-weight:700; color:#82C914; margin-bottom:6px;">CeraVe</div>
+          <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">CeraVe</div>
           <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/cerave-hydrating-cleanser-236ml" class="hov-green" style="color:#2A2B2A;">CeraVe Hydrating Cleanser 236ml</a></h3>
           <div style="margin-bottom:12px;"></div>
-          <div style="color:#82C914; font-weight:800; font-size:19px; margin-bottom:14px;">€13.50</div>
-          <a href="/products/cerave-hydrating-cleanser-236ml" class="hov-bg-green" style="margin-top:auto; text-align:center; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+          <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€13.50</div>
+          <a href="/products/cerave-hydrating-cleanser-236ml" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
         </div></div>
-    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="also-track-sec-main-collection" data-rail-by="-540" class="hov-chip-arrow" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82C914; cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
-    <button aria-label="Scroll forward" data-rail-btn data-rail-target="also-track-sec-main-collection" data-rail-by="540" class="hov-chip-arrow" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82C914; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="also-track-sec-main-collection" data-rail-by="-540" class="hov-chip-arrow" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+    <button aria-label="Scroll forward" data-rail-btn data-rail-target="also-track-sec-main-collection" data-rail-by="540" class="hov-chip-arrow" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
   </div>
 </section><style>
   .banner-copy p, .seo-copy p { margin: 0 0 18px; }
   .banner-copy p:last-child, .seo-copy p:last-child { margin-bottom: 0; }
-  .hov-chip-arrow:hover { border-color: #92C83F !important; background: #f2f8e9 !important; }
-  .pcard-hovbtn:hover { background: #92C83F !important; color: #fff !important; border-color: #92C83F !important; }
+  .hov-chip-arrow:hover { border-color: var(--c-accent) !important; background: #f2f8e9 !important; }
+  .pcard-hovbtn:hover { background: var(--c-accent) !important; color:var(--c-on-accent) !important; border-color: var(--c-accent) !important; }
   .pcard:hover .pcard-view { opacity: 1 !important; transform: translateY(0) !important; }
   .pcard:hover .pcard-img img { transform: scale(1.04); }
   .faq-content[data-open="false"] { display: none; }
@@ -1156,7 +1181,7 @@
   </main>
   <footer style="width:100%; background:#ffffff;">
   
-  <div style="width:100%; background:#3f6b4f; position:relative; overflow:hidden;">
+  <div style="width:100%; background:var(--c-dark); position:relative; overflow:hidden;">
     <div style="position:absolute; top:-60%; right:-6%; width:340px; height:340px; border-radius:999px; background:rgba(255,255,255,.04);"></div>
     <div style="position:absolute; bottom:-70%; right:14%; width:220px; height:220px; border-radius:999px; background:rgba(255,255,255,.03);"></div>
     <div class="ftr-newsletter" style="max-width:1440px; margin:0 auto; height:120px; padding:0 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 48px; position:relative;">
@@ -1169,7 +1194,7 @@
         
           <input type="hidden" name="contact[tags]" value="newsletter">
           <input type="email" name="contact[email]" required placeholder="Enter your email address" style="flex:1; min-width:0; border:none; outline:none; padding:10px 14px; font-family:inherit; font-size:13.5px; color:#2A2B2A; background:transparent;">
-          <button type="submit" class="hov-bg-accent-dk" style="flex:0 0 auto; border:none; border-radius:7px; background:#92C83F; color:#ffffff; font-family:inherit; font-weight:700; font-size:13.5px; letter-spacing:.02em; padding:0 20px; cursor:pointer;">Subscribe</button>
+          <button type="submit" class="hov-bg-accent-dk" style="flex:0 0 auto; border:none; border-radius:7px; background:var(--c-accent); color:var(--c-on-accent); font-family:inherit; font-weight:700; font-size:13.5px; letter-spacing:.02em; padding:0 20px; cursor:pointer;">Subscribe</button>
         
       </form>
       </div>
@@ -1183,22 +1208,22 @@
         <img src="/shopify-theme/assets/mccormacks-logo.png" alt="McCormack's Pharmacy" width="247" height="79" style="width:247px; max-width:100%; height:auto; display:block;">
       </a>
       <p style="margin:0 0 12px; font-size:14px; line-height:1.6; color:#5a6153; max-width:280px;">Ireland's trusted family pharmacy since 2010 — expert care online and across our seven stores.</p>
-      <a href="tel:0526199329" style="display:flex; align-items:center; gap:9px; color:#3f6b4f; font-weight:700; font-size:14px; margin-bottom:20px;">
+      <a href="tel:0526199329" style="display:flex; align-items:center; gap:9px; color:var(--c-dark); font-weight:700; font-size:14px; margin-bottom:20px;">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path></svg>
         052 6199329
       </a>
       <div style="display:flex; gap:10px;"></div>
     </div><div>
-        <h4 data-acc-toggle="shop" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shop<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <h4 data-acc-toggle="shop" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shop<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
         <div class="ftr-acc-content" data-acc-content="shop" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/brands">All Brands</a><a href="/collections/new-in">New In</a><a href="/collections/bundles">Bundles</a><a href="/pages/gift-vouchers">Gift Vouchers</a><a href="/collections/sale">Sale</a></div>
       </div><div>
-        <h4 data-acc-toggle="care" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Customer Care<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <h4 data-acc-toggle="care" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Customer Care<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
         <div class="ftr-acc-content" data-acc-content="care" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/about-us">About Us</a><a href="/pages/contact-us">Contact Us</a><a href="/pages/loyalty-rewards-club">Loyalty Rewards Club</a><a href="/blogs/health-hub">Blog</a></div>
       </div><div>
-        <h4 data-acc-toggle="ship" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shipping & Returns<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <h4 data-acc-toggle="ship" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shipping & Returns<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
         <div class="ftr-acc-content" data-acc-content="ship" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/shipping">Shipping & Free Delivery</a><a href="/pages/returns">Returns & Refunds</a><a href="/pages/click-and-collect">Click & Collect</a></div>
       </div><div>
-        <h4 data-acc-toggle="policies" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Policies<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <h4 data-acc-toggle="policies" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Policies<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
         <div class="ftr-acc-content" data-acc-content="policies" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/terms-and-conditions">Terms & Conditions</a><a href="/pages/privacy-policy">Privacy Policy</a><a href="/pages/cookie-policy">Cookie Policy</a><a href="/pages/internet-supply-pharmacy">Registered Internet Supply Pharmacy</a><a href="/pages/withdraw-from-contract">Withdraw From Contract</a></div>
       </div></div>
 
@@ -1211,13 +1236,13 @@
   </div>
 
   <div style="border-top:1px solid #e6e7e4;">
-    <div class="ftr-bottom" style="max-width:1440px; margin:0 auto; padding:18px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px; font-size:13px; color:#8b9182;">
-      <div class="ftr-copyright">Copyright © 2026 McCormack's Pharmacy</div><button type="button" data-cc-reopen class="ftr-cookie-btn" style="border:none; background:transparent; padding:0; font-family:inherit; font-size:inherit; color:#8b9182; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">Cookie settings</button>
+    <div class="ftr-bottom" style="max-width:1440px; margin:0 auto; padding:18px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px; font-size:13px; color:#717769;">
+      <div class="ftr-copyright">Copyright © 2026 McCormack's Pharmacy</div><button type="button" data-cc-reopen class="ftr-cookie-btn" style="border:none; background:transparent; padding:0; font-family:inherit; font-size:inherit; color:#717769; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">Cookie settings</button>
       <div class="ftr-payments" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
-        <span style="font-size:12.5px; color:#8b9182; margin-right:2px;">We accept</span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span></div>
-      <a href="/pages/terms-and-conditions" class="ftr-terms" style="display:none; color:#8b9182;">Terms &amp; Conditions</a>
+        <span style="font-size:12.5px; color:#717769; margin-right:2px;">We accept</span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span></div>
+      <a href="/pages/terms-and-conditions" class="ftr-terms" style="display:none; color:#717769;">Terms &amp; Conditions</a>
       <div class="ftr-builtby" style="display:flex; align-items:center; gap:22px; flex-wrap:wrap;">
-        <a href="https://kakion.com" style="display:flex; align-items:center; gap:1px; color:#8b9182;">
+        <a href="https://kakion.com" style="display:flex; align-items:center; gap:1px; color:#717769;">
           <span style="font-size:12px;">Built by</span>
           <img src="/shopify-theme/assets/kakion-logo-black.png" alt="Kakion" width="80" height="22" style="height:21.6px; width:auto; display:block;">
         </a>

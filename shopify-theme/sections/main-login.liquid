@@ -5,7 +5,7 @@
 
       {%- comment -%} Recover panel (rendered first so recover_success is known before the login card) {%- endcomment -%}
       <div data-view="recover" style="display:none; border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(25px,2.8vw,33px); line-height:1.12; margin:0 0 10px;">Reset your password</h1>
+        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(25px,2.8vw,33px); line-height:1.12; margin:0 0 10px;">Reset your password</h1>
         <p style="margin:0 0 24px; font-size:15.5px; line-height:1.65; color:#4a4d47;">Enter the email address on your account and we will send you a link to set a new password.</p>
         {% form 'recover_customer_password' %}
           {%- assign recover_success = form.posted_successfully? -%}
@@ -17,16 +17,16 @@
             </label>
           </div>
           <div style="margin:22px 0 0;">
-            <button type="submit" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:none; cursor:pointer; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px; width:100%;">Send reset link</button>
+            <button type="submit" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:none; cursor:pointer; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px; width:100%;">Send reset link</button>
           </div>
         {% endform %}
-        <div style="text-align:center; font-size:14.5px; color:#6b7065; margin-top:18px;"><button type="button" data-view-btn="login" style="border:none; background:transparent; padding:0; cursor:pointer; font-family:inherit; font-size:14.5px; font-weight:700; color:#82C914;">Back to sign in</button></div>
+        <div style="text-align:center; font-size:14.5px; color:#6b7065; margin-top:18px;"><button type="button" data-view-btn="login" style="border:none; background:transparent; padding:0; cursor:pointer; font-family:inherit; font-size:14.5px; font-weight:700; color:var(--c-primary-text);">Back to sign in</button></div>
       </div>
 
       <div data-view="login" style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(25px,2.8vw,33px); line-height:1.12; margin:0 0 10px;">Sign in</h1>
+        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(25px,2.8vw,33px); line-height:1.12; margin:0 0 10px;">Sign in</h1>
         {%- if recover_success -%}
-          <div style="background:#EEF6E4; color:#5E8A1F; border:1px solid rgba(94,138,31,.25); border-radius:10px; padding:14px 16px; margin:0 0 18px; font-size:14px; line-height:1.6;">We've sent you an email with a link to update your password.</div>
+          <div style="background:#EEF6E4; color:#58821D; border:1px solid rgba(94,138,31,.25); border-radius:10px; padding:14px 16px; margin:0 0 18px; font-size:14px; line-height:1.6;">We've sent you an email with a link to update your password.</div>
         {%- endif -%}
         <p style="margin:0 0 24px; font-size:15.5px; line-height:1.65; color:#4a4d47;">Enter your email and password to access your account.</p>
         {% form 'customer_login' %}
@@ -43,18 +43,18 @@
           </div>
           <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin:16px 0 22px;">
             <label style="display:flex; align-items:center; gap:10px; font-size:14px; color:#3a3d39;">
-              <input type="checkbox" style="accent-color:#82C914; width:17px; height:17px;"><span>Keep me signed in</span>
+              <input type="checkbox" style="accent-color:var(--c-primary-text); width:17px; height:17px;"><span>Keep me signed in</span>
             </label>
-            <button type="button" data-view-btn="recover" style="border:none; background:transparent; padding:0; cursor:pointer; font-family:inherit; font-size:14px; font-weight:700; color:#82C914;">Forgotten your password?</button>
+            <button type="button" data-view-btn="recover" style="border:none; background:transparent; padding:0; cursor:pointer; font-family:inherit; font-size:14px; font-weight:700; color:var(--c-primary-text);">Forgotten your password?</button>
           </div>
-          <button type="submit" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:none; cursor:pointer; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px; width:100%;">Sign in</button>
+          <button type="submit" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:none; cursor:pointer; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px; width:100%;">Sign in</button>
         {% endform %}
         <div style="display:flex; align-items:center; gap:14px; margin:24px 0;">
           <span style="flex:1; height:1px; background:#e6e7e4;"></span>
-          <span style="font-size:13px; color:#8b9182;">or</span>
+          <span style="font-size:13px; color:#717769;">or</span>
           <span style="flex:1; height:1px; background:#e6e7e4;"></span>
         </div>
-        <a href="{{ routes.account_register_url }}" class="hov-border-only" style="display:flex; align-items:center; justify-content:center; height:52px; border-radius:10px; border:1.5px solid #cdd3c5; color:#3f6b4f; font-weight:700; font-size:15px;">Create an account</a>
+        <a href="{{ routes.account_register_url }}" class="hov-border-only" style="display:flex; align-items:center; justify-content:center; height:52px; border-radius:10px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:15px;">Create an account</a>
       </div>
     </div>
     {% render 'account-aside' %}
@@ -73,8 +73,8 @@
 </script>
 
 {% style %}
-  .acct-input:focus { border-color: #82C914 !important; }
-  .hov-border-only:hover { border-color: #92C83F !important; }
+  .acct-input:focus { border-color:var(--c-primary-text) !important; }
+  .hov-border-only:hover { border-color: var(--c-accent) !important; }
   @media (max-width: 1000px) {
     .auth-wrap { align-items: stretch !important; flex-direction: column !important; gap: 26px !important; }
     .auth-side { flex: 1 1 auto !important; width: 100% !important; }

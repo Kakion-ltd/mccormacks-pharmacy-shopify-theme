@@ -32,9 +32,9 @@
         {%- assign count_text = count | prepend: '(' | append: ')' -%}
       {%- endif -%}
       {%- if link -%}
-        <a href="{{ link }}" style="font-size:13px; color:#82C914; text-decoration:underline; text-underline-offset:2px;">{{ count_text }}</a>
+        <a href="{{ link }}" style="font-size:13px; color:var(--c-primary-text); text-decoration:underline; text-underline-offset:2px;">{{ count_text }}</a>
       {%- else -%}
-        <span style="font-size:13px; color:#8b9182;">{{ count_text }}</span>
+        <span style="font-size:13px; color:#717769;">{{ count_text }}</span>
       {%- endif -%}
     {%- endif -%}
   </div>

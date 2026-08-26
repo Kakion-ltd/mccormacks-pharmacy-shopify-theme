@@ -2,7 +2,7 @@
   Address add/edit form. Usage: {% render 'address-form', address: address, panel_id: 'EditAddress-123', heading: 'Edit address' %}
 {% endcomment %}
 {% form 'customer_address', address %}
-  <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:#3f6b4f; margin:0 0 16px;">{{ heading }}</div>
+  <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin:0 0 16px;">{{ heading }}</div>
   {% render 'form-errors', form: form %}
   <div style="display:flex; flex-wrap:wrap; gap:16px;">
     <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
@@ -18,7 +18,7 @@
       <input type="text" name="address[address1]" value="{{ form.address1 }}" autocomplete="address-line1" class="acct-input" style="height:50px; border:1px solid #dfe1dc; border-radius:9px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
     </label>
     <label style="flex:1 1 100%; display:flex; flex-direction:column; gap:7px; min-width:0;">
-      <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Address line 2 <span style="font-weight:400; color:#8b9182;">(optional)</span></span>
+      <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Address line 2 <span style="font-weight:400; color:#717769;">(optional)</span></span>
       <input type="text" name="address[address2]" value="{{ form.address2 }}" autocomplete="address-line2" class="acct-input" style="height:50px; border:1px solid #dfe1dc; border-radius:9px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
     </label>
     <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
@@ -45,10 +45,10 @@
     </label>
   </div>
   <label style="display:flex; align-items:center; gap:10px; font-size:14px; color:#3a3d39; margin:16px 0 0;">
-    <input type="checkbox" name="address[default]" value="1" {% if form.id and form.id == customer.default_address.id %}checked{% endif %} style="accent-color:#82C914; width:17px; height:17px;"><span>Set as default delivery address</span>
+    <input type="checkbox" name="address[default]" value="1" {% if form.id and form.id == customer.default_address.id %}checked{% endif %} style="accent-color:var(--c-primary-text); width:17px; height:17px;"><span>Set as default delivery address</span>
   </label>
   <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:20px;">
-    <button type="submit" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:none; cursor:pointer; background:#82C914; color:#ffffff; font-weight:800; font-size:15.5px;">Save address</button>
-    <button type="button" data-addr-toggle="{{ panel_id }}" class="hov-border-only" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; cursor:pointer; background:#ffffff; color:#3f6b4f; font-weight:700; font-size:15px;">Cancel</button>
+    <button type="submit" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:none; cursor:pointer; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px;">Save address</button>
+    <button type="button" data-addr-toggle="{{ panel_id }}" class="hov-border-only" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; cursor:pointer; background:#ffffff; color:var(--c-dark); font-weight:700; font-size:15px;">Cancel</button>
   </div>
 {% endform %}

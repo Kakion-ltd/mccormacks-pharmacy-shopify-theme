@@ -13,7 +13,18 @@
       src: url(/shopify-theme/assets/mulish-variable.woff2) format('woff2');
     }
   </style>
-  <link rel="stylesheet" href="/shopify-theme/assets/base.css"><script>window.mccRoutes = { cart_url: "/cart", cart_add_url: "/cart/add", cart_change_url: "/cart/change", predictive_search_url: "/search/suggest", product_recommendations_url: "/recommendations/products" };</script>
+  <link rel="stylesheet" href="/shopify-theme/assets/base.css"><style>
+    :root {
+      --c-primary: #82C914;
+      --c-primary-hover: #6BA30F;
+      --c-dark: #3F6B4F;
+      --c-accent: #92C83F;
+      --c-on-primary: #2A2B2A;
+      --c-on-accent: #2A2B2A;
+      --c-on-dark: #FFFFFF;
+      --c-primary-text: #4C750B;
+    }
+  </style><script>window.mccRoutes = { cart_url: "/cart", cart_add_url: "/cart/add", cart_change_url: "/cart/change", predictive_search_url: "/search/suggest", product_recommendations_url: "/recommendations/products" };</script>
   <script src="/shopify-theme/assets/theme.js" defer></script>
   <!-- content_for_header -->
 <script>/* PREVIEW ONLY — never shipped in the theme.
@@ -122,7 +133,7 @@
 </script>
 </head>
 <body>
-  <div style="width:100%; background:#3f6b4f; color:#ffffff;">
+  <div style="width:100%; background:var(--c-dark); color:var(--c-on-dark);">
   <div class="annc-row" style="max-width:1440px; margin:0 auto; padding:5px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 40px; font-size:12.5px; font-weight:400; letter-spacing:.06em;">
     <div style="display:flex; align-items:center; gap:12px; justify-content:flex-start;">
       <span>IRELAND (EUR €)</span>
@@ -149,7 +160,7 @@
              aria-label="Search for products, brands and more"
              style="flex:1; border:none; outline:none; font-family:inherit; font-size:14.5px; color:#2A2B2A; background:transparent; padding:9px 0;">
       <input type="hidden" name="options[prefix]" value="last">
-      <button type="submit" aria-label="Search" class="hov-bg-green" style="flex:0 0 auto; width:46px; border:none; border-radius:9px 0 0 9px; background:#92C83F; color:#ffffff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .15s;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></button>
+      <button type="submit" aria-label="Search" class="hov-bg-green" style="flex:0 0 auto; width:46px; border:none; border-radius:9px 0 0 9px; background:var(--c-accent); color:var(--c-on-accent); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .15s;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></button>
       </form>
       <div class="ps-panel" id="predictive-search-results" data-ps-panel role="listbox"
            aria-label="Search suggestions" tabindex="-1" hidden></div>
@@ -159,19 +170,19 @@
       <a href="/pages/wishlist" class="hide-mobile hov-green" style="color:#2A2B2A; display:flex; align-items:center; gap:7px; font-weight:600; font-size:13.5px; position:relative;">
         <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>
         <span class="icon-label">Wishlist</span>
-        <span data-wish-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 4px;">0</span>
+        <span data-wish-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 4px;">0</span>
       </a>
       <a href="/cart" class="hide-mobile hov-green" style="color:#2A2B2A; display:flex; align-items:center; gap:7px; font-weight:600; font-size:13.5px; position:relative;">
         <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.4 12.3a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L22 7H6"></path></svg>
         <span class="icon-label">My Cart</span>
-        <span data-cart-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
+        <span data-cart-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
       </a>
       <a href="/account" class="hide-mobile hov-green" aria-label="My Account" style="color:#2A2B2A; display:flex; align-items:center; position:relative;">
         <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
       </a>
       <a href="/cart" class="cart-mobile hov-green" aria-label="My Cart" style="color:#2A2B2A; display:none; align-items:center; position:relative;">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.4 12.3a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L22 7H6"></path></svg>
-        <span data-cart-count style="position:absolute; top:-6px; right:-8px; min-width:17px; height:17px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
+        <span data-cart-count style="position:absolute; top:-6px; right:-8px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
       </a>
     </nav>
   </div>
@@ -240,11 +251,11 @@
 
   <div style="padding:18px 20px; margin-top:auto; display:flex; flex-direction:column; gap:12px;">
     <div style="display:flex; gap:12px;">
-      <a href="/pages/in-store-services" class="hov-bg-dark" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:#3f6b4f; color:#ffffff; font-weight:700; font-size:14px; height:46px; border-radius:9px;">
+      <a href="/pages/in-store-services" class="hov-bg-dark" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:14px; height:46px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
         Services
       </a>
-      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14px; height:46px; border-radius:9px;">
+      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14px; height:46px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.5"></circle></svg>
         Store Locator
       </a>
@@ -254,7 +265,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Account
       </a>
       <a href="/pages/wishlist" class="hov-border-accent" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:14px; height:44px; border-radius:9px;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>Wishlist<span data-wish-count style="min-width:19px; height:19px; border-radius:999px; background:#82C914; color:#ffffff; font-size:11.5px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 5px;">0</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>Wishlist<span data-wish-count style="min-width:19px; height:19px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11.5px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 5px;">0</span>
       </a>
     </div>
   </div>
@@ -272,15 +283,15 @@
       <a href="/collections/mother-baby" class="hov-green" data-mega-trigger="mother-baby" style="color:#2A2B2A; font-size:13.5px;">Mother &amp; Baby</a>
       <a href="/collections/fragrance" class="hov-green" data-mega-trigger="fragrance" style="color:#2A2B2A; font-size:13.5px;">Fragrance</a>
       <a href="/collections/gifting" class="hov-green" data-mega-trigger="gifting" style="color:#2A2B2A; font-size:13.5px;">Gifting</a>
-      <a href="/collections/sale" class="hov-green-dk" data-mega-close style="color:#82c914; font-weight:700; font-size:13.5px;">Sale</a>
+      <a href="/collections/sale" class="hov-green-dk" data-mega-close style="color:var(--c-primary-text); font-weight:700; font-size:13.5px;">Sale</a>
       <a href="/pages/brands" class="hov-green" data-mega-close style="color:#2A2B2A; font-size:13.5px;">Brands</a>
     </nav>
     <div style="display:flex; align-items:center; gap:9px;">
-      <a href="/pages/in-store-services" class="hov-bg-green-dk" style="display:flex; align-items:center; gap:9px; background:#3f6b4f; color:#ffffff; font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
+      <a href="/pages/in-store-services" class="hov-bg-green-dk" style="display:flex; align-items:center; gap:9px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
         <span>In-Store Services</span>
       </a>
-      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="display:flex; align-items:center; gap:9px; background:#92C83F; color:#ffffff; font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
+      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="display:flex; align-items:center; gap:9px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.4"></circle></svg>
         <span>Store Locator</span>
       </a>
@@ -293,7 +304,7 @@
           <div style="flex:1; padding:30px 30px; display:grid; grid-template-columns:repeat(6,minmax(155px,1fr)); gap:20px;">
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/pain-relief" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Pain Relief</a>
+                <a href="/collections/pain-relief" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Pain Relief</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/pain-relief-headache" style="color:#2A2B2A;" class="hov-green">Pain Relief &amp; Headache</a>
                   <a href="/collections/baby-children-pain-relief" style="color:#2A2B2A;" class="hov-green">Baby &amp; Children Pain Relief</a>
@@ -301,7 +312,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/cold-flu-allergy" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Cold, Flu &amp; Allergy</a>
+                <a href="/collections/cold-flu-allergy" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Cold, Flu &amp; Allergy</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/cold-flu-combination-products" style="color:#2A2B2A;" class="hov-green">Cold &amp; Flu Combination Products</a>
                   <a href="/collections/cough" style="color:#2A2B2A;" class="hov-green">Cough</a>
@@ -311,7 +322,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/stomach-gastrointestinal" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Stomach &amp; Gastrointestinal</a>
+                <a href="/collections/stomach-gastrointestinal" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Stomach &amp; Gastrointestinal</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/nausea-acid-indigestion-reflux" style="color:#2A2B2A;" class="hov-green">Nausea, Acid Indigestion &amp; Reflux</a>
                   <a href="/collections/bloating-gas" style="color:#2A2B2A;" class="hov-green">Bloating &amp; Gas</a>
@@ -325,7 +336,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/sensitive-conditions" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sensitive Conditions</a>
+                <a href="/collections/sensitive-conditions" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sensitive Conditions</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/menopause" style="color:#2A2B2A;" class="hov-green">Menopause</a>
                   <a href="/collections/hair-loss" style="color:#2A2B2A;" class="hov-green">Hair Loss</a>
@@ -336,7 +347,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/nicotine-replacement" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nicotine Replacement</a>
+                <a href="/collections/nicotine-replacement" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nicotine Replacement</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/nicotine-patches" style="color:#2A2B2A;" class="hov-green">Nicotine Patches</a>
                   <a href="/collections/nicotine-gum" style="color:#2A2B2A;" class="hov-green">Nicotine Gum</a>
@@ -345,7 +356,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/eye-ear-health" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eye &amp; Ear Health</a>
+                <a href="/collections/eye-ear-health" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eye &amp; Ear Health</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/dry-eye" style="color:#2A2B2A;" class="hov-green">Dry Eye</a>
                   <a href="/collections/blepharitis-eyelid-hygiene" style="color:#2A2B2A;" class="hov-green">Blepharitis &amp; Eyelid Hygiene</a>
@@ -360,13 +371,13 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/sleep-rest" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sleep &amp; Rest</a>
+                <a href="/collections/sleep-rest" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sleep &amp; Rest</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/healthy-mind-sleeping-aids" style="color:#2A2B2A;" class="hov-green">Healthy Mind &amp; Sleeping Aids</a>
                 </div>
               </div>
               <div>
-                <a href="/collections/mouth-oral-care" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Mouth &amp; Oral Care</a>
+                <a href="/collections/mouth-oral-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Mouth &amp; Oral Care</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/dry-mouth" style="color:#2A2B2A;" class="hov-green">Dry Mouth</a>
                   <a href="/collections/gum-health-gingivitis" style="color:#2A2B2A;" class="hov-green">Gum Health &amp; Gingivitis</a>
@@ -375,7 +386,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/continence-care" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Continence Care</a>
+                <a href="/collections/continence-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Continence Care</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/bladder-weakness" style="color:#2A2B2A;" class="hov-green">Bladder Weakness</a>
                   <a href="/collections/pads" style="color:#2A2B2A;" class="hov-green">Pads</a>
@@ -387,7 +398,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/trying-to-conceive" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Trying To Conceive</a>
+                <a href="/collections/trying-to-conceive" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Trying To Conceive</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/fertility-aids-lubricant" style="color:#2A2B2A;" class="hov-green">Fertility Aids &amp; Lubricant</a>
                   <a href="/collections/pregnancy-tests" style="color:#2A2B2A;" class="hov-green">Pregnancy Tests</a>
@@ -395,7 +406,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/sexual-health" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sexual Health</a>
+                <a href="/collections/sexual-health" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sexual Health</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/erectile-dysfunction" style="color:#2A2B2A;" class="hov-green">Erectile Dysfunction</a>
                   <a href="/collections/condoms" style="color:#2A2B2A;" class="hov-green">Condoms</a>
@@ -403,7 +414,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/sport" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sport</a>
+                <a href="/collections/sport" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sport</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/warmup-recovery" style="color:#2A2B2A;" class="hov-green">Warmup &amp; Recovery</a>
                 </div>
@@ -411,7 +422,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/first-aid" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">First Aid</a>
+                <a href="/collections/first-aid" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">First Aid</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/antiseptics-wound-cleaning" style="color:#2A2B2A;" class="hov-green">Antiseptics &amp; Wound Cleaning</a>
                   <a href="/collections/bandages-plasters" style="color:#2A2B2A;" class="hov-green">Bandages &amp; Plasters</a>
@@ -421,7 +432,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/foot-care" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Foot Care</a>
+                <a href="/collections/foot-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Foot Care</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/athletes-foot" style="color:#2A2B2A;" class="hov-green">Athletes Foot</a>
                   <a href="/collections/verucca" style="color:#2A2B2A;" class="hov-green">Verucca</a>
@@ -438,7 +449,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/diabetes-care" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Diabetes Care</a>
+                <a href="/collections/diabetes-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Diabetes Care</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/test-strips-blood-glucose-monitors" style="color:#2A2B2A;" class="hov-green">Test Strips &amp; Blood Glucose Monitors</a>
                   <a href="/collections/needles-lancets" style="color:#2A2B2A;" class="hov-green">Needles &amp; Lancets</a>
@@ -446,17 +457,17 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/electrical-healthcare" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Electrical Healthcare</a>
+                <a href="/collections/electrical-healthcare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Electrical Healthcare</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/blood-pressure-monitors" style="color:#2A2B2A;" class="hov-green">Blood Pressure Monitors</a>
                   <a href="/collections/oximeters-weighing-scales" style="color:#2A2B2A;" class="hov-green">Oximeters &amp; Weighing Scales</a>
                 </div>
               </div>
               <div>
-                <a href="/collections/self-testing-kits" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Self Testing Kits</a>
+                <a href="/collections/self-testing-kits" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Self Testing Kits</a>
               </div>
               <div>
-                <a href="/collections/healthcare-medicine-accessories" style="display:block; color:#82C914; font-weight:800; font-size:13.5px;" class="hov-dark-green">Healthcare &amp; Medicine Accessories</a>
+                <a href="/collections/healthcare-medicine-accessories" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px;" class="hov-dark-green">Healthcare &amp; Medicine Accessories</a>
               </div>
             </div>
           </div>
@@ -511,7 +522,7 @@
           <div style="flex:1; padding:30px; display:grid; grid-template-columns:repeat(3,minmax(180px,1fr)); gap:24px;">
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/dermatological-skincare" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Dermatological Skincare</a>
+                <a href="/collections/dermatological-skincare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Dermatological Skincare</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/anti-ageing" style="color:#2A2B2A;" class="hov-green">Anti-Ageing</a>
                   <a href="/collections/acne-blemish" style="color:#2A2B2A;" class="hov-green">Acne &amp; Blemish</a>
@@ -522,7 +533,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/body-skincare" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Body Skincare</a>
+                <a href="/collections/body-skincare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Body Skincare</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/moisturisers" style="color:#2A2B2A;" class="hov-green">Moisturisers</a>
                   <a href="/collections/exfoliators" style="color:#2A2B2A;" class="hov-green">Exfoliators</a>
@@ -531,7 +542,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/facial-skincare" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Facial Skincare</a>
+                <a href="/collections/facial-skincare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Facial Skincare</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/facial-suncare" style="color:#2A2B2A;" class="hov-green">Facial Suncare</a>
                   <a href="/collections/facial-moisturisers" style="color:#2A2B2A;" class="hov-green">Facial Moisturisers</a>
@@ -548,14 +559,14 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/problem-skin" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Problem Skin</a>
+                <a href="/collections/problem-skin" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Problem Skin</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/acne-blemish" style="color:#2A2B2A;" class="hov-green">Acne &amp; Blemish</a>
                   <a href="/collections/dry-skin-eczema-psoriasis" style="color:#2A2B2A;" class="hov-green">Dry Skin, Eczema &amp; Psoriasis</a>
                 </div>
               </div>
               <div>
-                <a href="/collections/hands-nails" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Hands &amp; Nails</a>
+                <a href="/collections/hands-nails" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Hands &amp; Nails</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/hand-cream" style="color:#2A2B2A;" class="hov-green">Hand Cream</a>
                   <a href="/collections/cuticle-nail-care" style="color:#2A2B2A;" class="hov-green">Cuticle &amp; Nail Care</a>
@@ -576,7 +587,7 @@
           <div style="flex:1; padding:30px; display:grid; grid-template-columns:repeat(4,minmax(160px,1fr)); gap:24px;">
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/face" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Face</a>
+                <a href="/collections/face" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Face</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/foundation" style="color:#2A2B2A;" class="hov-green">Foundation</a>
                   <a href="/collections/makeup-remover" style="color:#2A2B2A;" class="hov-green">Makeup Remover</a>
@@ -591,7 +602,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/eyes" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eyes</a>
+                <a href="/collections/eyes" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eyes</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/eyeshadow" style="color:#2A2B2A;" class="hov-green">Eyeshadow</a>
                   <a href="/collections/eyeliner" style="color:#2A2B2A;" class="hov-green">Eyeliner</a>
@@ -602,7 +613,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/lips" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Lips</a>
+                <a href="/collections/lips" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Lips</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/lip-gloss" style="color:#2A2B2A;" class="hov-green">Lip Gloss</a>
                   <a href="/collections/lipstick" style="color:#2A2B2A;" class="hov-green">Lipstick</a>
@@ -612,7 +623,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/tanning" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Tanning</a>
+                <a href="/collections/tanning" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Tanning</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/self-tan" style="color:#2A2B2A;" class="hov-green">Self Tan</a>
                   <a href="/collections/tanning-mitts" style="color:#2A2B2A;" class="hov-green">Tanning Mitts</a>
@@ -622,7 +633,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/nails" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nails</a>
+                <a href="/collections/nails" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nails</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/nail-polish" style="color:#2A2B2A;" class="hov-green">Nail Polish</a>
                   <a href="/collections/false-nails-nail-wraps" style="color:#2A2B2A;" class="hov-green">False Nails &amp; Nail Wraps</a>
@@ -633,7 +644,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:20px;">
               <div>
-                <a href="/collections/makeup-brushes-tools" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Makeup Brushes &amp; Tools</a>
+                <a href="/collections/makeup-brushes-tools" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Makeup Brushes &amp; Tools</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/makeup-brushes" style="color:#2A2B2A;" class="hov-green">Makeup Brushes</a>
                   <a href="/collections/makeup-sponges" style="color:#2A2B2A;" class="hov-green">Makeup Sponges</a>
@@ -641,7 +652,7 @@
                 </div>
               </div>
               <div>
-                <a href="/collections/beauty-accessories" style="display:block; color:#82C914; font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Beauty Accessories</a>
+                <a href="/collections/beauty-accessories" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Beauty Accessories</a>
                 <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
                   <a href="/collections/body-tape-nipple-covers" style="color:#2A2B2A;" class="hov-green">Body Tape &amp; Nipple Covers</a>
                   <a href="/collections/tweezers" style="color:#2A2B2A;" class="hov-green">Tweezers</a>
@@ -719,7 +730,7 @@
     </button>
   </header><div class="cd-ship" data-cd-ship hidden>
     <div class="cd-ship-row">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="#82C914" aria-hidden="true"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75Z"></path></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--c-primary)" aria-hidden="true"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75Z"></path></svg>
       <span data-cd-ship-msg></span>
     </div>
     <div class="cd-bar"><div data-cd-bar></div></div>
@@ -728,7 +739,7 @@
   <div class="cd-items" data-cd-items></div><div class="cd-recs" data-crec-mount hidden></div>
 
   <div class="cd-empty" data-cd-empty hidden>
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#92C83F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
     <p>Your bag is empty.</p>
     <a href="/" class="cd-secondary" data-cd-close>Start shopping</a>
   </div>
@@ -740,7 +751,7 @@
     </div>
     <p class="cd-vat">Shipping and VAT calculated at checkout</p>
     <form action="/cart" method="post">
-      <button type="submit" name="checkout" class="cd-checkout hov-bg-green-dk">Checkout securely</button><div class="cd-express"><div data-mock-express style="height:48px;border-radius:10px;border:1.5px dashed #b9c2b3;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#7d8875;background:#f4f6f1;">Express checkout buttons &middot; live store only</div></div></form>
+      <button type="submit" name="checkout" class="cd-checkout hov-bg-green-dk">Checkout securely</button><div class="cd-express"><div data-mock-express style="height:48px;border-radius:10px;border:1.5px dashed #b9c2b3;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#697262;background:#f4f6f1;">Express checkout buttons &middot; live store only</div></div></form>
     <a href="/cart" class="cd-secondary">View full bag</a>
   </footer>
 </aside>
@@ -752,7 +763,7 @@
     <div class="trust-mob-wrap" style="width:100%; background:#ffffff;">
   <div class="trust-inner" style="max-width:1440px; margin:0 auto; padding:8px 50px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 28px;">
     <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:flex-start; gap:10px; font-size:14px;">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="#92C83F" style="flex:0 0 auto;"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75ZM15 7.5v3.5h4v-.32L16.9 7.8a.5.5 0 0 0-.4-.2H15ZM7.7 15.75a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Zm9.6 0a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Z"></path></svg>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--c-accent)" style="flex:0 0 auto;"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75ZM15 7.5v3.5h4v-.32L16.9 7.8a.5.5 0 0 0-.4-.2H15ZM7.7 15.75a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Zm9.6 0a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0Z"></path></svg>
       <span><strong style="font-weight:800;">Free Delivery</strong> On orders over €65</span>
     </div>
     <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:14px;">
@@ -762,7 +773,7 @@
       <span><strong style="font-weight:800;">Irish Owned</strong> 7 stores nationwide</span>
     </div>
     <div style="flex:1 1 230px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:14px;">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="#92C83F" style="flex:0 0 auto;"><path d="M11.48 3.5a.6.6 0 0 1 1.04 0l2.2 4.03a.6.6 0 0 0 .43.31l4.52.79a.6.6 0 0 1 .32.99l-3.17 3.33a.6.6 0 0 0-.16.5l.64 4.56a.6.6 0 0 1-.85.62l-4.13-1.97a.6.6 0 0 0-.52 0l-4.13 1.97a.6.6 0 0 1-.85-.62l.64-4.56a.6.6 0 0 0-.16-.5L4.97 9.62a.6.6 0 0 1 .32-.99l4.52-.79a.6.6 0 0 0 .43-.31l2.2-4.03Z"></path></svg>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--c-accent)" style="flex:0 0 auto;"><path d="M11.48 3.5a.6.6 0 0 1 1.04 0l2.2 4.03a.6.6 0 0 0 .43.31l4.52.79a.6.6 0 0 1 .32.99l-3.17 3.33a.6.6 0 0 0-.16.5l.64 4.56a.6.6 0 0 1-.85.62l-4.13-1.97a.6.6 0 0 0-.52 0l-4.13 1.97a.6.6 0 0 1-.85-.62l.64-4.56a.6.6 0 0 0-.16-.5L4.97 9.62a.6.6 0 0 1 .32-.99l4.52-.79a.6.6 0 0 0 .43-.31l2.2-4.03Z"></path></svg>
       <span><strong style="font-weight:800;">Trusted</strong> by over 20,000 customers since 2010</span>
     </div>
   </div>
@@ -775,10 +786,10 @@
         <div class="hero-green" style="flex:0 0 500px; background:linear-gradient(160deg,#8fce34 0%,#6fae1c 100%); display:flex; flex-direction:column; justify-content:center; padding:clamp(32px,4.5vw,64px); min-height:460px; height:460px; position:relative; z-index:2;">
           <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#ffffff; font-size:clamp(32px,4.2vw,54px); line-height:1.02; margin:0 0 16px; letter-spacing:-.01em;">Summer Travel Shop</h1>
           <p style="color:#ffffff; font-size:clamp(15px,1.3vw,18px); font-weight:600; line-height:1.5; margin:0 0 clamp(24px,3vw,34px); max-width:420px; opacity:.96;">Travel essentials made easy. Everything you need for your next trip, all in one place.</p>
-          <a href="/collections/medicines-health" class="slide-cta hero-cta" style="align-self:flex-start; background:#ffffff; color:#3f6b4f; font-weight:800; letter-spacing:.03em; font-size:15px; height:42px; padding:0 24px; display:inline-flex; align-items:center; gap:10px; border-radius:9px; box-shadow:0 10px 24px rgba(0,0,0,.15);">SHOP TRAVEL<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
+          <a href="/collections/medicines-health" class="slide-cta hero-cta" style="align-self:flex-start; background:#ffffff; color:var(--c-dark); font-weight:800; letter-spacing:.03em; font-size:15px; height:42px; padding:0 24px; display:inline-flex; align-items:center; gap:10px; border-radius:9px; box-shadow:0 10px 24px rgba(0,0,0,.15);">SHOP TRAVEL<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
           <div style="display:flex; gap:10px; margin-top:clamp(20px,2.6vw,30px); justify-content:flex-start;"><button aria-label="Go to slide 1" data-dot-proxy="0" style="width:22px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:#ffffff; transition:width .2s ease;"></button><button aria-label="Go to slide 2" data-dot-proxy="1" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button><button aria-label="Go to slide 3" data-dot-proxy="2" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button><button aria-label="Go to slide 4" data-dot-proxy="3" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button><button aria-label="Go to slide 5" data-dot-proxy="4" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button></div>
         </div>
-        <div class="hero-img" style="position:relative; flex:1 1 320px; min-height:460px; height:460px; background:linear-gradient(135deg,#9ed24c 0%,#7cb52e 44%,#82c914 100%);">
+        <div class="hero-img" style="position:relative; flex:1 1 320px; min-height:460px; height:460px; background:linear-gradient(135deg,#9ed24c 0%,#7cb52e 44%,var(--c-primary) 100%);">
           <div style="position:absolute; top:-28%; left:6%; width:46%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.10);"></div>
           <div style="position:absolute; bottom:-32%; right:-8%; width:54%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.07);"></div><img src="/shopify-theme/assets/hero-summer-travel.jpg" alt="Summer Travel Shop"
                  width="1760" height="920" loading="eager" fetchpriority="high"
@@ -787,10 +798,10 @@
         <div class="hero-green" style="flex:0 0 500px; background:linear-gradient(160deg,#8fce34 0%,#6fae1c 100%); display:flex; flex-direction:column; justify-content:center; padding:clamp(32px,4.5vw,64px); min-height:460px; height:460px; position:relative; z-index:2;">
           <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#ffffff; font-size:clamp(32px,4.2vw,54px); line-height:1.02; margin:0 0 16px; letter-spacing:-.01em;">Feel Your Best</h1>
           <p style="color:#ffffff; font-size:clamp(15px,1.3vw,18px); font-weight:600; line-height:1.5; margin:0 0 clamp(24px,3vw,34px); max-width:420px; opacity:.96;">Top vitamins & supplements to support your everyday health and energy.</p>
-          <a href="/collections/vitamins" class="slide-cta hero-cta" style="align-self:flex-start; background:#ffffff; color:#3f6b4f; font-weight:800; letter-spacing:.03em; font-size:15px; height:42px; padding:0 24px; display:inline-flex; align-items:center; gap:10px; border-radius:9px; box-shadow:0 10px 24px rgba(0,0,0,.15);">SHOP VITAMINS<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
+          <a href="/collections/vitamins" class="slide-cta hero-cta" style="align-self:flex-start; background:#ffffff; color:var(--c-dark); font-weight:800; letter-spacing:.03em; font-size:15px; height:42px; padding:0 24px; display:inline-flex; align-items:center; gap:10px; border-radius:9px; box-shadow:0 10px 24px rgba(0,0,0,.15);">SHOP VITAMINS<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
           <div style="display:flex; gap:10px; margin-top:clamp(20px,2.6vw,30px); justify-content:flex-start;"><button aria-label="Go to slide 1" data-dot-proxy="0" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button><button aria-label="Go to slide 2" data-dot-proxy="1" style="width:22px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:#ffffff; transition:width .2s ease;"></button><button aria-label="Go to slide 3" data-dot-proxy="2" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button><button aria-label="Go to slide 4" data-dot-proxy="3" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button><button aria-label="Go to slide 5" data-dot-proxy="4" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button></div>
         </div>
-        <div class="hero-img" style="position:relative; flex:1 1 320px; min-height:460px; height:460px; background:linear-gradient(135deg,#9ed24c 0%,#7cb52e 44%,#82c914 100%);">
+        <div class="hero-img" style="position:relative; flex:1 1 320px; min-height:460px; height:460px; background:linear-gradient(135deg,#9ed24c 0%,#7cb52e 44%,var(--c-primary) 100%);">
           <div style="position:absolute; top:-28%; left:6%; width:46%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.10);"></div>
           <div style="position:absolute; bottom:-32%; right:-8%; width:54%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.07);"></div><img src="/shopify-theme/assets/slide-vitamins.jpg" alt="Feel Your Best"
                  width="1760" height="920" loading="lazy" fetchpriority="auto"
@@ -799,10 +810,10 @@
         <div class="hero-green" style="flex:0 0 500px; background:linear-gradient(160deg,#8fce34 0%,#6fae1c 100%); display:flex; flex-direction:column; justify-content:center; padding:clamp(32px,4.5vw,64px); min-height:460px; height:460px; position:relative; z-index:2;">
           <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#ffffff; font-size:clamp(32px,4.2vw,54px); line-height:1.02; margin:0 0 16px; letter-spacing:-.01em;">Skincare Edit</h1>
           <p style="color:#ffffff; font-size:clamp(15px,1.3vw,18px); font-weight:600; line-height:1.5; margin:0 0 clamp(24px,3vw,34px); max-width:420px; opacity:.96;">Dermatologist-loved brands to keep your skin glowing all year round.</p>
-          <a href="/collections/skincare" class="slide-cta hero-cta" style="align-self:flex-start; background:#ffffff; color:#3f6b4f; font-weight:800; letter-spacing:.03em; font-size:15px; height:42px; padding:0 24px; display:inline-flex; align-items:center; gap:10px; border-radius:9px; box-shadow:0 10px 24px rgba(0,0,0,.15);">SHOP SKINCARE<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
+          <a href="/collections/skincare" class="slide-cta hero-cta" style="align-self:flex-start; background:#ffffff; color:var(--c-dark); font-weight:800; letter-spacing:.03em; font-size:15px; height:42px; padding:0 24px; display:inline-flex; align-items:center; gap:10px; border-radius:9px; box-shadow:0 10px 24px rgba(0,0,0,.15);">SHOP SKINCARE<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
           <div style="display:flex; gap:10px; margin-top:clamp(20px,2.6vw,30px); justify-content:flex-start;"><button aria-label="Go to slide 1" data-dot-proxy="0" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button><button aria-label="Go to slide 2" data-dot-proxy="1" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button><button aria-label="Go to slide 3" data-dot-proxy="2" style="width:22px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:#ffffff; transition:width .2s ease;"></button><button aria-label="Go to slide 4" data-dot-proxy="3" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button><button aria-label="Go to slide 5" data-dot-proxy="4" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button></div>
         </div>
-        <div class="hero-img" style="position:relative; flex:1 1 320px; min-height:460px; height:460px; background:linear-gradient(135deg,#9ed24c 0%,#7cb52e 44%,#82c914 100%);">
+        <div class="hero-img" style="position:relative; flex:1 1 320px; min-height:460px; height:460px; background:linear-gradient(135deg,#9ed24c 0%,#7cb52e 44%,var(--c-primary) 100%);">
           <div style="position:absolute; top:-28%; left:6%; width:46%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.10);"></div>
           <div style="position:absolute; bottom:-32%; right:-8%; width:54%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.07);"></div><img src="/shopify-theme/assets/slide-skincare.jpg" alt="Skincare Edit"
                  width="1760" height="920" loading="lazy" fetchpriority="auto"
@@ -811,10 +822,10 @@
         <div class="hero-green" style="flex:0 0 500px; background:linear-gradient(160deg,#8fce34 0%,#6fae1c 100%); display:flex; flex-direction:column; justify-content:center; padding:clamp(32px,4.5vw,64px); min-height:460px; height:460px; position:relative; z-index:2;">
           <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#ffffff; font-size:clamp(32px,4.2vw,54px); line-height:1.02; margin:0 0 16px; letter-spacing:-.01em;">Mother & Baby</h1>
           <p style="color:#ffffff; font-size:clamp(15px,1.3vw,18px); font-weight:600; line-height:1.5; margin:0 0 clamp(24px,3vw,34px); max-width:420px; opacity:.96;">Trusted essentials for every stage — from bump to little one.</p>
-          <a href="/collections/mother-baby" class="slide-cta hero-cta" style="align-self:flex-start; background:#ffffff; color:#3f6b4f; font-weight:800; letter-spacing:.03em; font-size:15px; height:42px; padding:0 24px; display:inline-flex; align-items:center; gap:10px; border-radius:9px; box-shadow:0 10px 24px rgba(0,0,0,.15);">SHOP BABY<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
+          <a href="/collections/mother-baby" class="slide-cta hero-cta" style="align-self:flex-start; background:#ffffff; color:var(--c-dark); font-weight:800; letter-spacing:.03em; font-size:15px; height:42px; padding:0 24px; display:inline-flex; align-items:center; gap:10px; border-radius:9px; box-shadow:0 10px 24px rgba(0,0,0,.15);">SHOP BABY<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
           <div style="display:flex; gap:10px; margin-top:clamp(20px,2.6vw,30px); justify-content:flex-start;"><button aria-label="Go to slide 1" data-dot-proxy="0" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button><button aria-label="Go to slide 2" data-dot-proxy="1" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button><button aria-label="Go to slide 3" data-dot-proxy="2" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button><button aria-label="Go to slide 4" data-dot-proxy="3" style="width:22px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:#ffffff; transition:width .2s ease;"></button><button aria-label="Go to slide 5" data-dot-proxy="4" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button></div>
         </div>
-        <div class="hero-img" style="position:relative; flex:1 1 320px; min-height:460px; height:460px; background:linear-gradient(135deg,#9ed24c 0%,#7cb52e 44%,#82c914 100%);">
+        <div class="hero-img" style="position:relative; flex:1 1 320px; min-height:460px; height:460px; background:linear-gradient(135deg,#9ed24c 0%,#7cb52e 44%,var(--c-primary) 100%);">
           <div style="position:absolute; top:-28%; left:6%; width:46%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.10);"></div>
           <div style="position:absolute; bottom:-32%; right:-8%; width:54%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.07);"></div><img src="/shopify-theme/assets/slide-baby.jpg" alt="Mother &amp; Baby"
                  width="1760" height="920" loading="lazy" fetchpriority="auto"
@@ -823,10 +834,10 @@
         <div class="hero-green" style="flex:0 0 500px; background:linear-gradient(160deg,#8fce34 0%,#6fae1c 100%); display:flex; flex-direction:column; justify-content:center; padding:clamp(32px,4.5vw,64px); min-height:460px; height:460px; position:relative; z-index:2;">
           <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#ffffff; font-size:clamp(32px,4.2vw,54px); line-height:1.02; margin:0 0 16px; letter-spacing:-.01em;">Gifts & Fragrance</h1>
           <p style="color:#ffffff; font-size:clamp(15px,1.3vw,18px); font-weight:600; line-height:1.5; margin:0 0 clamp(24px,3vw,34px); max-width:420px; opacity:.96;">Find the perfect present with our edit of fragrance and beauty gifting.</p>
-          <a href="/collections/gifting" class="slide-cta hero-cta" style="align-self:flex-start; background:#ffffff; color:#3f6b4f; font-weight:800; letter-spacing:.03em; font-size:15px; height:42px; padding:0 24px; display:inline-flex; align-items:center; gap:10px; border-radius:9px; box-shadow:0 10px 24px rgba(0,0,0,.15);">SHOP GIFTS<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
+          <a href="/collections/gifting" class="slide-cta hero-cta" style="align-self:flex-start; background:#ffffff; color:var(--c-dark); font-weight:800; letter-spacing:.03em; font-size:15px; height:42px; padding:0 24px; display:inline-flex; align-items:center; gap:10px; border-radius:9px; box-shadow:0 10px 24px rgba(0,0,0,.15);">SHOP GIFTS<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
           <div style="display:flex; gap:10px; margin-top:clamp(20px,2.6vw,30px); justify-content:flex-start;"><button aria-label="Go to slide 1" data-dot-proxy="0" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button><button aria-label="Go to slide 2" data-dot-proxy="1" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button><button aria-label="Go to slide 3" data-dot-proxy="2" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button><button aria-label="Go to slide 4" data-dot-proxy="3" style="width:8px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:rgba(255,255,255,.5); transition:width .2s ease;"></button><button aria-label="Go to slide 5" data-dot-proxy="4" style="width:22px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:#ffffff; transition:width .2s ease;"></button></div>
         </div>
-        <div class="hero-img" style="position:relative; flex:1 1 320px; min-height:460px; height:460px; background:linear-gradient(135deg,#9ed24c 0%,#7cb52e 44%,#82c914 100%);">
+        <div class="hero-img" style="position:relative; flex:1 1 320px; min-height:460px; height:460px; background:linear-gradient(135deg,#9ed24c 0%,#7cb52e 44%,var(--c-primary) 100%);">
           <div style="position:absolute; top:-28%; left:6%; width:46%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.10);"></div>
           <div style="position:absolute; bottom:-32%; right:-8%; width:54%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.07);"></div><img src="/shopify-theme/assets/slide-fragrance.jpg" alt="Gifts &amp; Fragrance"
                  width="1760" height="920" loading="lazy" fetchpriority="auto"
@@ -837,7 +848,7 @@
 
 <style>
 #hero-sec-hero-slider [data-slide] { display: contents; }
-.hero-cta:hover { background: #3f6b4f !important; color: #ffffff !important; }
+.hero-cta:hover { background: var(--c-dark) !important; color:var(--c-on-dark) !important; }
 </style>
 
 <script>
@@ -863,80 +874,80 @@
 
 <section class="sec-pad" style="max-width:1440px; margin:0 auto; padding:26px 30px 8px;">
   <div class="cat-tile-row" style="display:flex; align-items:stretch; gap:16px;">
-    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="cats-sec-category-pills" data-rail-by="-260" class="cat-scroll-btn hov-scroll" style="flex:0 0 auto; align-self:center; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#ffffff; color:#82c914; cursor:pointer; display:none; align-items:center; justify-content:center;">
+    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="cats-sec-category-pills" data-rail-by="-260" class="cat-scroll-btn hov-scroll" style="flex:0 0 auto; align-self:center; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#ffffff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg>
     </button>
     <div id="cats-sec-category-pills" style="flex:1; display:flex; gap:16px; overflow-x:auto; scroll-behavior:smooth; padding-bottom:6px; scrollbar-width:none;">
-      <a href="/collections/medicines-health" class="hov-bg-green" style="flex:1 0 170px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Pharmacy</a>
-      <a href="/collections/vitamins" class="hov-bg-green" style="flex:1 0 170px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Supplements</a>
-      <a href="/collections/skincare" class="hov-bg-green" style="flex:1 0 170px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Skincare</a>
-      <a href="/collections/beauty" class="hov-bg-green" style="flex:1 0 170px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Beauty</a>
-      <a href="/collections/toiletries" class="hov-bg-green" style="flex:1 0 170px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Toiletries</a>
-      <a href="/collections/mother-baby" class="hov-bg-green" style="flex:1 0 170px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Baby</a>
-      <a href="/collections/gifting" class="hov-bg-green" style="flex:1 0 170px; background:#92C83F; color:#ffffff; font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Gifts</a>
+      <a href="/collections/medicines-health" class="hov-bg-green" style="flex:1 0 170px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Pharmacy</a>
+      <a href="/collections/vitamins" class="hov-bg-green" style="flex:1 0 170px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Supplements</a>
+      <a href="/collections/skincare" class="hov-bg-green" style="flex:1 0 170px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Skincare</a>
+      <a href="/collections/beauty" class="hov-bg-green" style="flex:1 0 170px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Beauty</a>
+      <a href="/collections/toiletries" class="hov-bg-green" style="flex:1 0 170px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Toiletries</a>
+      <a href="/collections/mother-baby" class="hov-bg-green" style="flex:1 0 170px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Baby</a>
+      <a href="/collections/gifting" class="hov-bg-green" style="flex:1 0 170px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Gifts</a>
     </div>
-    <button aria-label="Scroll for more categories" data-rail-btn data-rail-target="cats-sec-category-pills" data-rail-by="260" class="cat-scroll-btn hov-scroll" style="flex:0 0 auto; align-self:center; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#ffffff; color:#82c914; cursor:pointer; display:flex; align-items:center; justify-content:center;">
+    <button aria-label="Scroll for more categories" data-rail-btn data-rail-target="cats-sec-category-pills" data-rail-by="260" class="cat-scroll-btn hov-scroll" style="flex:0 0 auto; align-self:center; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#ffffff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg>
     </button>
   </div>
 </section>
 
 <style>
-.hov-scroll:hover { border-color: #92C83F !important; background: #f2f8e9 !important; }
+.hov-scroll:hover { border-color: var(--c-accent) !important; background: #f2f8e9 !important; }
 </style>
 
 
 <section style="max-width:1440px; margin:0 auto; padding:20px 30px 44px;">
   <div style="width:100%; background:#e6f2d5; border-radius:9px; padding:12px 18px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px 30px;">
     <p style="margin:0; font-size:clamp(15px,1.4vw,18px); font-weight:600; color:#2A2B2A;">Pollen levels are rising — stock up on your <strong style="font-weight:800;">Hayfever</strong> essentials today.</p>
-    <a href="/collections/hayfever-allergy" class="slide-cta hov-bg-green-dk" style="flex:0 0 auto; background:#82c914; color:#ffffff; font-weight:700; font-size:14px; padding:11px 26px; border-radius:9px; display:inline-flex; align-items:center; gap:9px;">Shop Now<svg class="cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
+    <a href="/collections/hayfever-allergy" class="slide-cta hov-bg-green-dk" style="flex:0 0 auto; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:14px; padding:11px 26px; border-radius:9px; display:inline-flex; align-items:center; gap:9px;">Shop Now<svg class="cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
   </div>
 </section>
 
 
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 8px;">
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; text-align:center; font-size:clamp(24px,2.4vw,32px); margin:0 0 28px;">On Sale This Month</h2>
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); text-align:center; font-size:clamp(24px,2.4vw,32px); margin:0 0 28px;">On Sale This Month</h2>
   <div style="position:relative;">
     <div id="sale-sec-sale-products" style="display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;"><div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
             <a href="/products/fab-skin-hair-nails-glow-60-capsules" style="height:200px; border-radius:9px; background:#ffffff; display:flex; align-items:center; justify-content:center; margin-bottom:16px; overflow:hidden;"><img src="/shopify-theme/assets/prod-fabu-glow.jpg?width=460&height=460" alt="fabÜ Skin Hair Nails Glow 60 Capsules" width="460" height="460" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a>
             <h3 style="font-weight:700; font-size:14px; margin:0 0 8px; min-height:42px;"><a href="/products/fab-skin-hair-nails-glow-60-capsules" style="color:inherit;">fabÜ Skin Hair Nails Glow 60 Capsules</a></h3>
             <div style="display:flex; justify-content:center; margin-bottom:8px;"></div>
-            <div style="color:#82c914; font-weight:800; font-size:19px; margin-bottom:16px;">€19.95</div><button data-add-id="40000000" class="hov-bg-green" style="margin-top:auto; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button></div><div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
+            <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:16px;">€19.95</div><button data-add-id="40000000" class="hov-bg-green" style="margin-top:auto; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button></div><div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
             <a href="/products/cetrine-allergy-10mg-30-tablets" style="height:200px; border-radius:9px; background:#ffffff; display:flex; align-items:center; justify-content:center; margin-bottom:16px; overflow:hidden;"><img src="/shopify-theme/assets/prod-cetrine.jpg?width=460&height=460" alt="Cetrine Allergy 10mg 30 Tablets" width="460" height="460" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a>
             <h3 style="font-weight:700; font-size:14px; margin:0 0 8px; min-height:42px;"><a href="/products/cetrine-allergy-10mg-30-tablets" style="color:inherit;">Cetrine Allergy 10mg 30 Tablets</a></h3>
             <div style="display:flex; justify-content:center; margin-bottom:8px;"></div>
-            <div style="color:#82c914; font-weight:800; font-size:19px; margin-bottom:16px;">€7.99</div><button data-add-id="40000001" class="hov-bg-green" style="margin-top:auto; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button></div><div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
+            <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:16px;">€7.99</div><button data-add-id="40000001" class="hov-bg-green" style="margin-top:auto; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button></div><div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
             <a href="/products/revive-active-30-sachets" style="height:200px; border-radius:9px; background:#ffffff; display:flex; align-items:center; justify-content:center; margin-bottom:16px; overflow:hidden;"><img src="/shopify-theme/assets/prod-revive.jpg?width=460&height=460" alt="Revive Active 30 Sachets" width="460" height="460" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a>
             <h3 style="font-weight:700; font-size:14px; margin:0 0 8px; min-height:42px;"><a href="/products/revive-active-30-sachets" style="color:inherit;">Revive Active 30 Sachets</a></h3>
             <div style="display:flex; justify-content:center; margin-bottom:8px;"></div>
-            <div style="color:#82c914; font-weight:800; font-size:19px; margin-bottom:16px;">€64.99</div><button data-add-id="40000002" class="hov-bg-green" style="margin-top:auto; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button></div><div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
+            <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:16px;">€64.99</div><button data-add-id="40000002" class="hov-bg-green" style="margin-top:auto; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button></div><div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
             <a href="/products/optibac-every-day-max-30-capsules" style="height:200px; border-radius:9px; background:#ffffff; display:flex; align-items:center; justify-content:center; margin-bottom:16px; overflow:hidden;"><img src="/shopify-theme/assets/prod-optibac-max.jpg?width=460&height=460" alt="Optibac Every Day MAX 30 Capsules" width="460" height="460" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a>
             <h3 style="font-weight:700; font-size:14px; margin:0 0 8px; min-height:42px;"><a href="/products/optibac-every-day-max-30-capsules" style="color:inherit;">Optibac Every Day MAX 30 Capsules</a></h3>
             <div style="display:flex; justify-content:center; margin-bottom:8px;"></div>
-            <div style="color:#82c914; font-weight:800; font-size:19px; margin-bottom:16px;">€27.99</div><button data-add-id="40000003" class="hov-bg-green" style="margin-top:auto; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button></div><div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
+            <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:16px;">€27.99</div><button data-add-id="40000003" class="hov-bg-green" style="margin-top:auto; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button></div><div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
             <a href="/products/nurofen-200mg-ibuprofen-24-tablets" style="height:200px; border-radius:9px; background:#ffffff; display:flex; align-items:center; justify-content:center; margin-bottom:16px; overflow:hidden;"><img src="/shopify-theme/assets/prod-nurofen.jpg?width=460&height=460" alt="Nurofen 200mg Ibuprofen 24 Tablets" width="460" height="460" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a>
             <h3 style="font-weight:700; font-size:14px; margin:0 0 8px; min-height:42px;"><a href="/products/nurofen-200mg-ibuprofen-24-tablets" style="color:inherit;">Nurofen 200mg Ibuprofen 24 Tablets</a></h3>
             <div style="display:flex; justify-content:center; margin-bottom:8px;"></div>
-            <div style="color:#82c914; font-weight:800; font-size:19px; margin-bottom:16px;">€6.49</div><button data-add-id="40000004" class="hov-bg-green" style="margin-top:auto; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button></div><div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
+            <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:16px;">€6.49</div><button data-add-id="40000004" class="hov-bg-green" style="margin-top:auto; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button></div><div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
             <a href="/products/cerave-hydrating-cleanser-236ml" style="height:200px; border-radius:9px; background:#ffffff; display:flex; align-items:center; justify-content:center; margin-bottom:16px; overflow:hidden;"><img src="/shopify-theme/assets/prod-cerave-cleanser.jpg?width=460&height=460" alt="CeraVe Hydrating Cleanser 236ml" width="460" height="460" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a>
             <h3 style="font-weight:700; font-size:14px; margin:0 0 8px; min-height:42px;"><a href="/products/cerave-hydrating-cleanser-236ml" style="color:inherit;">CeraVe Hydrating Cleanser 236ml</a></h3>
             <div style="display:flex; justify-content:center; margin-bottom:8px;"></div>
-            <div style="color:#82c914; font-weight:800; font-size:19px; margin-bottom:16px;">€13.50</div><button data-add-id="40000005" class="hov-bg-green" style="margin-top:auto; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button></div><div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
+            <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:16px;">€13.50</div><button data-add-id="40000005" class="hov-bg-green" style="margin-top:auto; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button></div><div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
             <a href="/products/sudocrem-antiseptic-healing-cream-125g" style="height:200px; border-radius:9px; background:#ffffff; display:flex; align-items:center; justify-content:center; margin-bottom:16px; overflow:hidden;"><img src="/shopify-theme/assets/prod-sudocrem.jpg?width=460&height=460" alt="Sudocrem Antiseptic Healing Cream 125g" width="460" height="460" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a>
             <h3 style="font-weight:700; font-size:14px; margin:0 0 8px; min-height:42px;"><a href="/products/sudocrem-antiseptic-healing-cream-125g" style="color:inherit;">Sudocrem Antiseptic Healing Cream 125g</a></h3>
             <div style="display:flex; justify-content:center; margin-bottom:8px;"></div>
-            <div style="color:#82c914; font-weight:800; font-size:19px; margin-bottom:16px;">€7.99</div><button data-add-id="40000006" class="hov-bg-green" style="margin-top:auto; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button></div><div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
+            <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:16px;">€7.99</div><button data-add-id="40000006" class="hov-bg-green" style="margin-top:auto; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button></div><div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
             <a href="/products/vitamin-d3-1000iu-60-capsules" style="height:200px; border-radius:9px; background:#ffffff; display:flex; align-items:center; justify-content:center; margin-bottom:16px; overflow:hidden;"><img src="/shopify-theme/assets/prod-vitd.jpg?width=460&height=460" alt="Vitamin D3 1000IU 60 Capsules" width="460" height="460" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a>
             <h3 style="font-weight:700; font-size:14px; margin:0 0 8px; min-height:42px;"><a href="/products/vitamin-d3-1000iu-60-capsules" style="color:inherit;">Vitamin D3 1000IU 60 Capsules</a></h3>
             <div style="display:flex; justify-content:center; margin-bottom:8px;"></div>
-            <div style="color:#82c914; font-weight:800; font-size:19px; margin-bottom:16px;">€9.99</div><button data-add-id="40000007" class="hov-bg-green" style="margin-top:auto; background:#92C83F; color:#fff; font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button></div></div>
-    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="sale-sec-sale-products" data-rail-by="-504" class="hov-scroll" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82c914; cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
-    <button aria-label="Scroll forward" data-rail-btn data-rail-target="sale-sec-sale-products" data-rail-by="504" class="hov-scroll" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82c914; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+            <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:16px;">€9.99</div><button data-add-id="40000007" class="hov-bg-green" style="margin-top:auto; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:13px 16px; border:none; cursor:pointer; border-radius:8px;">Add To Bag</button></div></div>
+    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="sale-sec-sale-products" data-rail-by="-504" class="hov-scroll" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+    <button aria-label="Scroll forward" data-rail-btn data-rail-target="sale-sec-sale-products" data-rail-by="504" class="hov-scroll" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
   </div>
 </section>
 
 <style>
-.hov-scroll:hover { border-color: #92C83F !important; background: #f2f8e9 !important; }
+.hov-scroll:hover { border-color: var(--c-accent) !important; background: #f2f8e9 !important; }
 </style>
 
 
@@ -944,65 +955,65 @@
   <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:22px;"><div class="ftile" style="position:relative; border-radius:18px; overflow:hidden; aspect-ratio:16/9; background:#e9ede3; display:flex; align-items:flex-end; padding:32px;" ><img src="/shopify-theme/assets/cat-vitamins.jpg" alt="Vitamins &amp; Supplements"
                loading="lazy" width="1360" height="765" class="ftile-img" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"><div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.28), rgba(0,0,0,0) 60%);"></div>
         <div style="position:relative;">
-          <span style="display:inline-block; background:#f3f6ea; color:#3f6b4f; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,34px); padding:8px 18px; border-radius:6px; margin-bottom:16px;">Vitamins & Supplements</span><br>
+          <span style="display:inline-block; background:#f3f6ea; color:var(--c-dark); font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,34px); padding:8px 18px; border-radius:6px; margin-bottom:16px;">Vitamins & Supplements</span><br>
           <a href="/collections/vitamins" class="hov-shop" style="display:inline-block; background:#fff; color:#2A2B2A; font-weight:700; letter-spacing:.06em; font-size:13.5px; padding:12px 26px; border-radius:6px;">SHOP NOW</a>
         </div>
       </div><div class="ftile" style="position:relative; border-radius:18px; overflow:hidden; aspect-ratio:16/9; background:#e9ede3; display:flex; align-items:flex-end; padding:32px;" ><img src="/shopify-theme/assets/cat-suncare.jpg" alt="Suncare"
                loading="lazy" width="1360" height="765" class="ftile-img" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"><div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.28), rgba(0,0,0,0) 60%);"></div>
         <div style="position:relative;">
-          <span style="display:inline-block; background:#f3f6ea; color:#3f6b4f; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,34px); padding:8px 18px; border-radius:6px; margin-bottom:16px;">Suncare</span><br>
+          <span style="display:inline-block; background:#f3f6ea; color:var(--c-dark); font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,34px); padding:8px 18px; border-radius:6px; margin-bottom:16px;">Suncare</span><br>
           <a href="/collections/sun" class="hov-shop" style="display:inline-block; background:#fff; color:#2A2B2A; font-weight:700; letter-spacing:.06em; font-size:13.5px; padding:12px 26px; border-radius:6px;">SHOP NOW</a>
         </div>
       </div></div>
 </section>
 
 <style>
-.hov-shop:hover { background: #92C83F !important; color: #ffffff !important; }
+.hov-shop:hover { background: var(--c-accent) !important; color:var(--c-on-accent) !important; }
 </style>
 
 
 <section style="max-width:1440px; margin:0 auto; padding:34px 30px 8px;">
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.2vw,28px); margin:0 0 22px;">Popular Categories</h2>
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.2vw,28px); margin:0 0 22px;">Popular Categories</h2>
   <div style="position:relative;">
-    <div id="popcats-sec-popular-categories" style="display:flex; gap:20px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding-bottom:6px;"><a href="/collections/medicines-health" class="hov-green" style="flex:0 0 180px; text-align:center; color:#3f6b4f;" ><div style="aspect-ratio:1; border-radius:14px; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center; margin-bottom:12px;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div><span style="font-weight:700; font-size:14.5px;">Pharmacy</span>
-        </a><a href="/collections/vitamins" class="hov-green" style="flex:0 0 180px; text-align:center; color:#3f6b4f;" ><div style="aspect-ratio:1; border-radius:14px; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center; margin-bottom:12px;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div><span style="font-weight:700; font-size:14.5px;">Supplements</span>
-        </a><a href="/collections/skincare" class="hov-green" style="flex:0 0 180px; text-align:center; color:#3f6b4f;" ><div style="aspect-ratio:1; border-radius:14px; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center; margin-bottom:12px;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div><span style="font-weight:700; font-size:14.5px;">Skincare</span>
-        </a><a href="/collections/beauty" class="hov-green" style="flex:0 0 180px; text-align:center; color:#3f6b4f;" ><div style="aspect-ratio:1; border-radius:14px; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center; margin-bottom:12px;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div><span style="font-weight:700; font-size:14.5px;">Beauty</span>
-        </a><a href="/collections/toiletries" class="hov-green" style="flex:0 0 180px; text-align:center; color:#3f6b4f;" ><div style="aspect-ratio:1; border-radius:14px; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center; margin-bottom:12px;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div><span style="font-weight:700; font-size:14.5px;">Toiletries</span>
-        </a><a href="/collections/mother-baby" class="hov-green" style="flex:0 0 180px; text-align:center; color:#3f6b4f;" ><div style="aspect-ratio:1; border-radius:14px; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center; margin-bottom:12px;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div><span style="font-weight:700; font-size:14.5px;">Baby</span>
-        </a><a href="/collections/gifting" class="hov-green" style="flex:0 0 180px; text-align:center; color:#3f6b4f;" ><div style="aspect-ratio:1; border-radius:14px; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center; margin-bottom:12px;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div><span style="font-weight:700; font-size:14.5px;">Gifts</span>
+    <div id="popcats-sec-popular-categories" style="display:flex; gap:20px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding-bottom:6px;"><a href="/collections/medicines-health" class="hov-green" style="flex:0 0 180px; text-align:center; color:var(--c-dark);" ><div style="aspect-ratio:1; border-radius:14px; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center; margin-bottom:12px;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div><span style="font-weight:700; font-size:14.5px;">Pharmacy</span>
+        </a><a href="/collections/vitamins" class="hov-green" style="flex:0 0 180px; text-align:center; color:var(--c-dark);" ><div style="aspect-ratio:1; border-radius:14px; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center; margin-bottom:12px;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div><span style="font-weight:700; font-size:14.5px;">Supplements</span>
+        </a><a href="/collections/skincare" class="hov-green" style="flex:0 0 180px; text-align:center; color:var(--c-dark);" ><div style="aspect-ratio:1; border-radius:14px; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center; margin-bottom:12px;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div><span style="font-weight:700; font-size:14.5px;">Skincare</span>
+        </a><a href="/collections/beauty" class="hov-green" style="flex:0 0 180px; text-align:center; color:var(--c-dark);" ><div style="aspect-ratio:1; border-radius:14px; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center; margin-bottom:12px;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div><span style="font-weight:700; font-size:14.5px;">Beauty</span>
+        </a><a href="/collections/toiletries" class="hov-green" style="flex:0 0 180px; text-align:center; color:var(--c-dark);" ><div style="aspect-ratio:1; border-radius:14px; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center; margin-bottom:12px;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div><span style="font-weight:700; font-size:14.5px;">Toiletries</span>
+        </a><a href="/collections/mother-baby" class="hov-green" style="flex:0 0 180px; text-align:center; color:var(--c-dark);" ><div style="aspect-ratio:1; border-radius:14px; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center; margin-bottom:12px;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div><span style="font-weight:700; font-size:14.5px;">Baby</span>
+        </a><a href="/collections/gifting" class="hov-green" style="flex:0 0 180px; text-align:center; color:var(--c-dark);" ><div style="aspect-ratio:1; border-radius:14px; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center; margin-bottom:12px;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div><span style="font-weight:700; font-size:14.5px;">Gifts</span>
         </a></div>
-    <button aria-label="Previous" data-rail-btn data-rail-back data-rail-target="popcats-sec-popular-categories" data-rail-by="-400" class="hov-scroll" style="position:absolute; left:-14px; top:calc(50% - 22px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#ffffff; color:#82c914; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);">
+    <button aria-label="Previous" data-rail-btn data-rail-back data-rail-target="popcats-sec-popular-categories" data-rail-by="-400" class="hov-scroll" style="position:absolute; left:-14px; top:calc(50% - 22px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#ffffff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg>
     </button>
-    <button aria-label="Next" data-rail-btn data-rail-target="popcats-sec-popular-categories" data-rail-by="400" class="hov-scroll" style="position:absolute; right:-14px; top:calc(50% - 22px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#ffffff; color:#82c914; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);">
+    <button aria-label="Next" data-rail-btn data-rail-target="popcats-sec-popular-categories" data-rail-by="400" class="hov-scroll" style="position:absolute; right:-14px; top:calc(50% - 22px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#ffffff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg>
     </button>
   </div>
 </section>
 
 <style>
-.hov-scroll:hover { border-color: #92C83F !important; background: #f2f8e9 !important; }
+.hov-scroll:hover { border-color: var(--c-accent) !important; background: #f2f8e9 !important; }
 </style>
 
 
 <section style="max-width:1440px; margin:0 auto; padding:34px 30px 8px;">
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.2vw,28px); margin:0 0 22px;">Hot Offers</h2>
-  <div class="hot-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:22px;"><div style="position:relative; overflow:hidden; background:#82c914; border-radius:18px; padding:32px; color:#fff; display:flex; flex-direction:column; min-height:400px;" ><div style="position:absolute; top:-22%; right:-14%; width:210px; height:210px; border-radius:999px; background:rgba(255,255,255,.08);"></div><img src="/shopify-theme/assets/hot-offer-vitamins.jpg" alt="Vitamins &amp; Supplements" loading="lazy" width="1032" height="774" style="position:absolute; right:-5%; top:6%; width:58%; aspect-ratio:4/3; height:auto; border-radius:16px; object-fit:cover; z-index:1;"><span style="align-self:flex-start; background:#ffffff; color:#3f6b4f; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; padding:6px 16px; border-radius:999px; margin-bottom:20px; position:relative; z-index:2;">SAVE 20% · LIMITED TIME</span><div style="position:relative; z-index:2; max-width:64%; margin-top:auto;">
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.2vw,28px); margin:0 0 22px;">Hot Offers</h2>
+  <div class="hot-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:22px;"><div style="position:relative; overflow:hidden; background:#82c914; border-radius:18px; padding:32px; color:#2A2B2A; display:flex; flex-direction:column; min-height:400px;" ><div style="position:absolute; top:-22%; right:-14%; width:210px; height:210px; border-radius:999px; background:rgba(255,255,255,.08);"></div><img src="/shopify-theme/assets/hot-offer-vitamins.jpg" alt="Vitamins &amp; Supplements" loading="lazy" width="1032" height="774" style="position:absolute; right:-5%; top:6%; width:58%; aspect-ratio:4/3; height:auto; border-radius:16px; object-fit:cover; z-index:1;"><span style="align-self:flex-start; background:#ffffff; color:#3f6b4f; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; padding:6px 16px; border-radius:999px; margin-bottom:20px; position:relative; z-index:2;">SAVE 20% · LIMITED TIME</span><div style="position:relative; z-index:2; max-width:64%; margin-top:auto;">
           <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(21px,2.2vw,26px); line-height:1.1; margin-bottom:10px;">Vitamins & Supplements</div>
           <p style="margin:0 0 4px; font-size:14.5px; opacity:.93; line-height:1.5;">Support your daily health & wellbeing — 20% off multivitamins & supplements this month.</p>
         </div>
-        <a href="/collections/vitamins" class="hov-bg-tint2" style="position:relative; z-index:2; margin-top:18px; align-self:flex-start; display:flex; align-items:center; justify-content:center; gap:8px; background:#fff; color:#3f6b4f; font-weight:800; letter-spacing:.03em; font-size:14.5px; padding:13px 22px; border-radius:8px;">Shop Now<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
-      </div><div style="position:relative; overflow:hidden; background:#3f6b4f; border-radius:18px; padding:32px; color:#fff; display:flex; flex-direction:column; min-height:400px;" ><div style="position:absolute; bottom:-18%; right:-10%; width:210px; height:210px; border-radius:999px; background:rgba(255,255,255,.08);"></div><img src="/shopify-theme/assets/mitchum-hot-offers.jpg" alt="Deodorants &amp; Antiperspirants" loading="lazy" width="1032" height="774" style="position:absolute; right:-5%; top:6%; width:58%; aspect-ratio:4/3; height:auto; border-radius:16px; object-fit:cover; z-index:1;"><span style="align-self:flex-start; background:#92C83F; color:#ffffff; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; padding:6px 16px; border-radius:999px; margin-bottom:20px; position:relative; z-index:2;">SAVE 15% · LIMITED TIME</span><div style="position:relative; z-index:2; max-width:64%; margin-top:auto;">
+        <a href="/collections/vitamins" class="hov-bg-tint2" style="position:relative; z-index:2; margin-top:18px; align-self:flex-start; display:flex; align-items:center; justify-content:center; gap:8px; background:#fff; color:var(--c-dark); font-weight:800; letter-spacing:.03em; font-size:14.5px; padding:13px 22px; border-radius:8px;">Shop Now<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </div><div style="position:relative; overflow:hidden; background:#3f6b4f; border-radius:18px; padding:32px; color:#ffffff; display:flex; flex-direction:column; min-height:400px;" ><div style="position:absolute; bottom:-18%; right:-10%; width:210px; height:210px; border-radius:999px; background:rgba(255,255,255,.08);"></div><img src="/shopify-theme/assets/mitchum-hot-offers.jpg" alt="Deodorants &amp; Antiperspirants" loading="lazy" width="1032" height="774" style="position:absolute; right:-5%; top:6%; width:58%; aspect-ratio:4/3; height:auto; border-radius:16px; object-fit:cover; z-index:1;"><span style="align-self:flex-start; background:#92C83F; color:#2A2B2A; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; padding:6px 16px; border-radius:999px; margin-bottom:20px; position:relative; z-index:2;">SAVE 15% · LIMITED TIME</span><div style="position:relative; z-index:2; max-width:64%; margin-top:auto;">
           <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(21px,2.2vw,26px); line-height:1.1; margin-bottom:10px;">Deodorants & Antiperspirants</div>
           <p style="margin:0 0 4px; font-size:14.5px; opacity:.93; line-height:1.5;">Stay fresh for less with long-lasting protection, including Mitchum.</p>
         </div>
-        <a href="/collections/deodorant" class="hov-bg-tint2" style="position:relative; z-index:2; margin-top:18px; align-self:flex-start; display:flex; align-items:center; justify-content:center; gap:8px; background:#fff; color:#3f6b4f; font-weight:800; letter-spacing:.03em; font-size:14.5px; padding:13px 22px; border-radius:8px;">Shop Now<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
-      </div><div style="position:relative; overflow:hidden; background:#92C83F; border-radius:18px; padding:32px; color:#fff; display:flex; flex-direction:column; min-height:400px;" ><div style="position:absolute; top:-20%; left:-12%; width:210px; height:210px; border-radius:999px; background:rgba(255,255,255,.08);"></div><div style="position:absolute; right:-5%; top:6%; width:58%; aspect-ratio:4/3; border-radius:16px; background:repeating-linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.16) 10px,rgba(255,255,255,.07) 10px,rgba(255,255,255,.07) 20px); display:flex; align-items:center; justify-content:center; z-index:1;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:rgba(255,255,255,.85); font-weight:700;">image</span></div><span style="align-self:flex-start; background:#3f6b4f; color:#ffffff; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; padding:6px 16px; border-radius:999px; margin-bottom:20px; position:relative; z-index:2;">SAVE 20% · LIMITED TIME</span><div style="position:relative; z-index:2; max-width:64%; margin-top:auto;">
+        <a href="/collections/deodorant" class="hov-bg-tint2" style="position:relative; z-index:2; margin-top:18px; align-self:flex-start; display:flex; align-items:center; justify-content:center; gap:8px; background:#fff; color:var(--c-dark); font-weight:800; letter-spacing:.03em; font-size:14.5px; padding:13px 22px; border-radius:8px;">Shop Now<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </div><div style="position:relative; overflow:hidden; background:#92C83F; border-radius:18px; padding:32px; color:#2A2B2A; display:flex; flex-direction:column; min-height:400px;" ><div style="position:absolute; top:-20%; left:-12%; width:210px; height:210px; border-radius:999px; background:rgba(255,255,255,.08);"></div><div style="position:absolute; right:-5%; top:6%; width:58%; aspect-ratio:4/3; border-radius:16px; background:repeating-linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.16) 10px,rgba(255,255,255,.07) 10px,rgba(255,255,255,.07) 20px); display:flex; align-items:center; justify-content:center; z-index:1;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:rgba(255,255,255,.85); font-weight:700;">image</span></div><span style="align-self:flex-start; background:#3f6b4f; color:#ffffff; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; padding:6px 16px; border-radius:999px; margin-bottom:20px; position:relative; z-index:2;">SAVE 20% · LIMITED TIME</span><div style="position:relative; z-index:2; max-width:64%; margin-top:auto;">
           <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(21px,2.2vw,26px); line-height:1.1; margin-bottom:10px;">Menopause Support</div>
           <p style="margin:0 0 4px; font-size:14.5px; opacity:.93; line-height:1.5;">Everyday menopause support, including CanesMeno — all month long.</p>
         </div>
-        <a href="/collections/menopause" class="hov-bg-tint2" style="position:relative; z-index:2; margin-top:18px; align-self:flex-start; display:flex; align-items:center; justify-content:center; gap:8px; background:#fff; color:#3f6b4f; font-weight:800; letter-spacing:.03em; font-size:14.5px; padding:13px 22px; border-radius:8px;">Shop Now<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        <a href="/collections/menopause" class="hov-bg-tint2" style="position:relative; z-index:2; margin-top:18px; align-self:flex-start; display:flex; align-items:center; justify-content:center; gap:8px; background:#fff; color:var(--c-dark); font-weight:800; letter-spacing:.03em; font-size:14.5px; padding:13px 22px; border-radius:8px;">Shop Now<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
       </div></div>
 </section>
 
@@ -1013,82 +1024,82 @@
 
 <section data-testimonials style="max-width:1440px; margin:0 auto; padding:40px 30px 8px;">
   <div class="rev-wrap" style="display:flex; gap:20px; align-items:stretch;">
-    <div class="rev-score" style="flex:0 0 auto; width:240px; background:#92C83F; border-radius:16px; padding:32px; color:#fff; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+    <div class="rev-score" style="flex:0 0 auto; width:240px; background:var(--c-accent); border-radius:16px; padding:32px; color:var(--c-on-accent); text-align:center; display:flex; flex-direction:column; justify-content:center;">
       <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:24px; margin-bottom:6px;">Excellent</div>
       <div style="font-size:22px; letter-spacing:2px; margin-bottom:8px;">★★★★★</div>
     </div>
     <div style="position:relative; flex:1; min-width:0;">
       <div id="reviews-sec-reviews" style="display:flex; gap:20px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px 0;"><div style="flex:0 0 300px; border:1px solid #eceee9; border-radius:16px; padding:24px;" >
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;"><strong style="font-weight:800;">Bryan Mc Bride</strong><span style="color:#3f6b4f; letter-spacing:1px;">★★★★★</span></div>
-            <div style="font-size:12.5px; color:#82c914; font-weight:700; margin-bottom:12px;">✔ Google Review</div>
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;"><strong style="font-weight:800;">Bryan Mc Bride</strong><span style="color:var(--c-dark); letter-spacing:1px;">★★★★★</span></div>
+            <div style="font-size:12.5px; color:var(--c-primary-text); font-weight:700; margin-bottom:12px;">✔ Google Review</div>
             <p style="margin:0 0 20px; font-size:15px; line-height:1.5;">In McCormack's for almost 7 years now. Every customer is treated the same, with every effort made to come out and speak to as many people as possible. People come back when they're given good advice and quick, efficient service, time and time again.</p>
           </div><div style="flex:0 0 300px; border:1px solid #eceee9; border-radius:16px; padding:24px;" >
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;"><strong style="font-weight:800;">Amy O'Brien</strong><span style="color:#3f6b4f; letter-spacing:1px;">★★★★★</span></div>
-            <div style="font-size:12.5px; color:#82c914; font-weight:700; margin-bottom:12px;">✔ Google Review</div>
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;"><strong style="font-weight:800;">Amy O'Brien</strong><span style="color:var(--c-dark); letter-spacing:1px;">★★★★★</span></div>
+            <div style="font-size:12.5px; color:var(--c-primary-text); font-weight:700; margin-bottom:12px;">✔ Google Review</div>
             <p style="margin:0 0 20px; font-size:15px; line-height:1.5;">This is a really friendly pharmacy. The staff are all so helpful and really went out of their way to help me. I now get all my prescriptions here because they are so helpful.</p>
           </div><div style="flex:0 0 300px; border:1px solid #eceee9; border-radius:16px; padding:24px;" >
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;"><strong style="font-weight:800;">Stephen Donohoe</strong><span style="color:#3f6b4f; letter-spacing:1px;">★★★★★</span></div>
-            <div style="font-size:12.5px; color:#82c914; font-weight:700; margin-bottom:12px;">✔ Google Review</div>
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;"><strong style="font-weight:800;">Stephen Donohoe</strong><span style="color:var(--c-dark); letter-spacing:1px;">★★★★★</span></div>
+            <div style="font-size:12.5px; color:var(--c-primary-text); font-weight:700; margin-bottom:12px;">✔ Google Review</div>
             <p style="margin:0 0 20px; font-size:15px; line-height:1.5;">The staff here are fantastic and very helpful. Very impressed with the range of products available — they're also extra helpful in ordering in anything you need, usually there the next morning!</p>
           </div><div style="flex:0 0 300px; border:1px solid #eceee9; border-radius:16px; padding:24px;" >
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;"><strong style="font-weight:800;">Ray Keogh</strong><span style="color:#3f6b4f; letter-spacing:1px;">★★★★★</span></div>
-            <div style="font-size:12.5px; color:#82c914; font-weight:700; margin-bottom:12px;">✔ Google Review</div>
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;"><strong style="font-weight:800;">Ray Keogh</strong><span style="color:var(--c-dark); letter-spacing:1px;">★★★★★</span></div>
+            <div style="font-size:12.5px; color:var(--c-primary-text); font-weight:700; margin-bottom:12px;">✔ Google Review</div>
             <p style="margin:0 0 20px; font-size:15px; line-height:1.5;">Brilliant staff, so helpful with everything in store. The male pharmacist is also excellent — always makes time for me and my family, and we've been coming for over 7 years as a result.</p>
           </div><div style="flex:0 0 300px; border:1px solid #eceee9; border-radius:16px; padding:24px;" >
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;"><strong style="font-weight:800;">Eimear Murphy</strong><span style="color:#3f6b4f; letter-spacing:1px;">★★★★★</span></div>
-            <div style="font-size:12.5px; color:#82c914; font-weight:700; margin-bottom:12px;">✔ Google Review</div>
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;"><strong style="font-weight:800;">Eimear Murphy</strong><span style="color:var(--c-dark); letter-spacing:1px;">★★★★★</span></div>
+            <div style="font-size:12.5px; color:var(--c-primary-text); font-weight:700; margin-bottom:12px;">✔ Google Review</div>
             <p style="margin:0 0 20px; font-size:15px; line-height:1.5;">An absolutely brilliant pharmacy, would recommend to anybody. Quick service and nothing is a problem — so very helpful, a great service.</p>
           </div></div>
-      <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="reviews-sec-reviews" data-rail-by="-640" class="hov-scroll" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82c914; cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
-      <button aria-label="Scroll forward" data-rail-btn data-rail-target="reviews-sec-reviews" data-rail-by="640" class="hov-scroll" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82c914; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+      <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="reviews-sec-reviews" data-rail-by="-640" class="hov-scroll" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+      <button aria-label="Scroll forward" data-rail-btn data-rail-target="reviews-sec-reviews" data-rail-by="640" class="hov-scroll" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
     </div>
   </div>
 </section>
 
 <style>
-.hov-scroll:hover { border-color: #92C83F !important; background: #f2f8e9 !important; }
+.hov-scroll:hover { border-color: var(--c-accent) !important; background: #f2f8e9 !important; }
 </style>
 
 
 <section style="max-width:1440px; margin:0 auto; padding:40px 30px 8px;">
   <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin:0 0 26px;">
-    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(24px,2.6vw,32px); margin:0;">Shop by Brand</h2>
+    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,32px); margin:0;">Shop by Brand</h2>
     <a href="/pages/brands" style="font-weight:700; font-size:14.5px;">View all brands →</a>
   </div>
   <div style="position:relative;">
-    <div id="brands-sec-brand-slider" style="display:flex; gap:18px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px 0;"><a href="/collections/loreal-paris" class="hov-border" title="L’Oréal Paris" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><img src="/shopify-theme/assets/brand-loreal.png" alt="L’Oréal Paris" loading="lazy" width="350" height="240" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a><a href="/collections/la-roche-posay" class="hov-border" title="La Roche-Posay" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><img src="/shopify-theme/assets/brand-laroche.png" alt="La Roche-Posay" loading="lazy" width="350" height="240" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a><a href="/collections/cerave" class="hov-border" title="CeraVe" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><img src="/shopify-theme/assets/brand-cerave.png" alt="CeraVe" loading="lazy" width="350" height="240" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a><a href="/collections/viagra-connect" class="hov-border" title="Viagra Connect" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><img src="/shopify-theme/assets/brand-viagra.png" alt="Viagra Connect" loading="lazy" width="350" height="240" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a><a href="/collections/proven" class="hov-border" title="Pro-Ven Biotics" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><img src="/shopify-theme/assets/brand-proven.png" alt="Pro-Ven Biotics" loading="lazy" width="350" height="240" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a><a href="/collections/sculpted-by-aimee" class="hov-border" title="Sculpted by Aimee" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><img src="/shopify-theme/assets/brand-sculpted.png" alt="Sculpted by Aimee" loading="lazy" width="350" height="240" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a><a href="/collections/nivea" class="hov-border" title="NIVEA" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#3f6b4f; letter-spacing:-.01em; text-align:center; line-height:1.15;">NIVEA</span></a><a href="/collections/optibac" class="hov-border" title="Optibac" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#3f6b4f; letter-spacing:-.01em; text-align:center; line-height:1.15;">Optibac</span></a><a href="/collections/revive-active" class="hov-border" title="Revive Active" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#3f6b4f; letter-spacing:-.01em; text-align:center; line-height:1.15;">Revive Active</span></a><a href="/collections/mitchum" class="hov-border" title="Mitchum" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#3f6b4f; letter-spacing:-.01em; text-align:center; line-height:1.15;">Mitchum</span></a><a href="/collections/piz-buin" class="hov-border" title="Piz Buin" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#3f6b4f; letter-spacing:-.01em; text-align:center; line-height:1.15;">Piz Buin</span></a><a href="/collections/nurofen" class="hov-border" title="Nurofen" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#3f6b4f; letter-spacing:-.01em; text-align:center; line-height:1.15;">Nurofen</span></a></div>
-    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="brands-sec-brand-slider" data-rail-by="-420" class="hov-scroll" style="position:absolute; left:-14px; top:calc(50% - 22px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82c914; cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
-    <button aria-label="Scroll forward" data-rail-btn data-rail-target="brands-sec-brand-slider" data-rail-by="420" class="hov-scroll" style="position:absolute; right:-14px; top:calc(50% - 22px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:#82c914; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+    <div id="brands-sec-brand-slider" style="display:flex; gap:18px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px 0;"><a href="/collections/loreal-paris" class="hov-border" title="L’Oréal Paris" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><img src="/shopify-theme/assets/brand-loreal.png" alt="L’Oréal Paris" loading="lazy" width="350" height="240" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a><a href="/collections/la-roche-posay" class="hov-border" title="La Roche-Posay" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><img src="/shopify-theme/assets/brand-laroche.png" alt="La Roche-Posay" loading="lazy" width="350" height="240" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a><a href="/collections/cerave" class="hov-border" title="CeraVe" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><img src="/shopify-theme/assets/brand-cerave.png" alt="CeraVe" loading="lazy" width="350" height="240" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a><a href="/collections/viagra-connect" class="hov-border" title="Viagra Connect" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><img src="/shopify-theme/assets/brand-viagra.png" alt="Viagra Connect" loading="lazy" width="350" height="240" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a><a href="/collections/proven" class="hov-border" title="Pro-Ven Biotics" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><img src="/shopify-theme/assets/brand-proven.png" alt="Pro-Ven Biotics" loading="lazy" width="350" height="240" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a><a href="/collections/sculpted-by-aimee" class="hov-border" title="Sculpted by Aimee" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><img src="/shopify-theme/assets/brand-sculpted.png" alt="Sculpted by Aimee" loading="lazy" width="350" height="240" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></a><a href="/collections/nivea" class="hov-border" title="NIVEA" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); letter-spacing:-.01em; text-align:center; line-height:1.15;">NIVEA</span></a><a href="/collections/optibac" class="hov-border" title="Optibac" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); letter-spacing:-.01em; text-align:center; line-height:1.15;">Optibac</span></a><a href="/collections/revive-active" class="hov-border" title="Revive Active" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); letter-spacing:-.01em; text-align:center; line-height:1.15;">Revive Active</span></a><a href="/collections/mitchum" class="hov-border" title="Mitchum" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); letter-spacing:-.01em; text-align:center; line-height:1.15;">Mitchum</span></a><a href="/collections/piz-buin" class="hov-border" title="Piz Buin" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); letter-spacing:-.01em; text-align:center; line-height:1.15;">Piz Buin</span></a><a href="/collections/nurofen" class="hov-border" title="Nurofen" style="flex:0 0 190px; border:1px solid #eceee9; border-radius:14px; height:110px; display:flex; align-items:center; justify-content:center; padding:22px; background:#fff;" ><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); letter-spacing:-.01em; text-align:center; line-height:1.15;">Nurofen</span></a></div>
+    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="brands-sec-brand-slider" data-rail-by="-420" class="hov-scroll" style="position:absolute; left:-14px; top:calc(50% - 22px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+    <button aria-label="Scroll forward" data-rail-btn data-rail-target="brands-sec-brand-slider" data-rail-by="420" class="hov-scroll" style="position:absolute; right:-14px; top:calc(50% - 22px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
   </div>
 </section>
 
 <style>
-.hov-border:hover { border-color: #92C83F !important; }
-.hov-scroll:hover { border-color: #92C83F !important; background: #f2f8e9 !important; }
+.hov-border:hover { border-color: var(--c-accent) !important; }
+.hov-scroll:hover { border-color: var(--c-accent) !important; background: #f2f8e9 !important; }
 </style>
 
 
 <section style="max-width:1440px; margin:0 auto; padding:40px 30px clamp(48px,5vw,72px);">
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#3f6b4f; font-size:clamp(22px,2.2vw,28px); margin:0 0 22px;">Other Services</h2>
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.2vw,28px); margin:0 0 22px;">Other Services</h2>
   <div class="svc-slider" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:22px;"><div >
         <div style="position:relative; aspect-ratio:1; border-radius:14px; overflow:hidden; margin-bottom:14px; background:#eef1ea;"><img src="/shopify-theme/assets/contact-us.png" alt="Contact Us"
                  loading="lazy" width="658" height="658" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-        <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:18px; margin:0 0 8px;">Contact Us</h3>
+        <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:18px; margin:0 0 8px;">Contact Us</h3>
         <a href="/pages/contact-us" style="font-weight:700;">Find Out More →</a>
       </div><div >
         <div style="position:relative; aspect-ratio:1; border-radius:14px; overflow:hidden; margin-bottom:14px; background:#eef1ea;"><img src="/shopify-theme/assets/our-stores-square.jpg" alt="Our Stores"
                  loading="lazy" width="658" height="658" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-        <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:18px; margin:0 0 8px;">Our Stores</h3>
+        <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:18px; margin:0 0 8px;">Our Stores</h3>
         <a href="/pages/store-locator" style="font-weight:700;">Find Out More →</a>
       </div><div >
         <div style="position:relative; aspect-ratio:1; border-radius:14px; overflow:hidden; margin-bottom:14px; background:#eef1ea;"><img src="/shopify-theme/assets/common-conditions.jpg" alt="Common Conditions"
                  loading="lazy" width="658" height="658" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-        <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:18px; margin:0 0 8px;">Common Conditions</h3>
+        <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:18px; margin:0 0 8px;">Common Conditions</h3>
         <a href="/collections/medicines-health" style="font-weight:700;">Find Out More →</a>
       </div><div >
         <div style="position:relative; aspect-ratio:1; border-radius:14px; overflow:hidden; margin-bottom:14px; background:#eef1ea;"><img src="/shopify-theme/assets/instore-services.png" alt="In-Store Services"
                  loading="lazy" width="658" height="658" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-        <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:18px; margin:0 0 8px;">In-Store Services</h3>
+        <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:18px; margin:0 0 8px;">In-Store Services</h3>
         <a href="/pages/in-store-services" style="font-weight:700;">Find Out More →</a>
       </div></div>
 </section>
@@ -1098,7 +1109,7 @@
   </main>
   <footer style="width:100%; background:#ffffff;">
   
-  <div style="width:100%; background:#3f6b4f; position:relative; overflow:hidden;">
+  <div style="width:100%; background:var(--c-dark); position:relative; overflow:hidden;">
     <div style="position:absolute; top:-60%; right:-6%; width:340px; height:340px; border-radius:999px; background:rgba(255,255,255,.04);"></div>
     <div style="position:absolute; bottom:-70%; right:14%; width:220px; height:220px; border-radius:999px; background:rgba(255,255,255,.03);"></div>
     <div class="ftr-newsletter" style="max-width:1440px; margin:0 auto; height:120px; padding:0 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 48px; position:relative;">
@@ -1111,7 +1122,7 @@
         
           <input type="hidden" name="contact[tags]" value="newsletter">
           <input type="email" name="contact[email]" required placeholder="Enter your email address" style="flex:1; min-width:0; border:none; outline:none; padding:10px 14px; font-family:inherit; font-size:13.5px; color:#2A2B2A; background:transparent;">
-          <button type="submit" class="hov-bg-accent-dk" style="flex:0 0 auto; border:none; border-radius:7px; background:#92C83F; color:#ffffff; font-family:inherit; font-weight:700; font-size:13.5px; letter-spacing:.02em; padding:0 20px; cursor:pointer;">Subscribe</button>
+          <button type="submit" class="hov-bg-accent-dk" style="flex:0 0 auto; border:none; border-radius:7px; background:var(--c-accent); color:var(--c-on-accent); font-family:inherit; font-weight:700; font-size:13.5px; letter-spacing:.02em; padding:0 20px; cursor:pointer;">Subscribe</button>
         
       </form>
       </div>
@@ -1125,22 +1136,22 @@
         <img src="/shopify-theme/assets/mccormacks-logo.png" alt="McCormack's Pharmacy" width="247" height="79" style="width:247px; max-width:100%; height:auto; display:block;">
       </a>
       <p style="margin:0 0 12px; font-size:14px; line-height:1.6; color:#5a6153; max-width:280px;">Ireland's trusted family pharmacy since 2010 — expert care online and across our seven stores.</p>
-      <a href="tel:0526199329" style="display:flex; align-items:center; gap:9px; color:#3f6b4f; font-weight:700; font-size:14px; margin-bottom:20px;">
+      <a href="tel:0526199329" style="display:flex; align-items:center; gap:9px; color:var(--c-dark); font-weight:700; font-size:14px; margin-bottom:20px;">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path></svg>
         052 6199329
       </a>
       <div style="display:flex; gap:10px;"></div>
     </div><div>
-        <h4 data-acc-toggle="shop" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shop<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <h4 data-acc-toggle="shop" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shop<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
         <div class="ftr-acc-content" data-acc-content="shop" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/brands">All Brands</a><a href="/collections/new-in">New In</a><a href="/collections/bundles">Bundles</a><a href="/pages/gift-vouchers">Gift Vouchers</a><a href="/collections/sale">Sale</a></div>
       </div><div>
-        <h4 data-acc-toggle="care" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Customer Care<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <h4 data-acc-toggle="care" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Customer Care<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
         <div class="ftr-acc-content" data-acc-content="care" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/about-us">About Us</a><a href="/pages/contact-us">Contact Us</a><a href="/pages/loyalty-rewards-club">Loyalty Rewards Club</a><a href="/blogs/health-hub">Blog</a></div>
       </div><div>
-        <h4 data-acc-toggle="ship" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shipping & Returns<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <h4 data-acc-toggle="ship" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shipping & Returns<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
         <div class="ftr-acc-content" data-acc-content="ship" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/shipping">Shipping & Free Delivery</a><a href="/pages/returns">Returns & Refunds</a><a href="/pages/click-and-collect">Click & Collect</a></div>
       </div><div>
-        <h4 data-acc-toggle="policies" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:#3f6b4f; font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Policies<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <h4 data-acc-toggle="policies" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Policies<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
         <div class="ftr-acc-content" data-acc-content="policies" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/terms-and-conditions">Terms & Conditions</a><a href="/pages/privacy-policy">Privacy Policy</a><a href="/pages/cookie-policy">Cookie Policy</a><a href="/pages/internet-supply-pharmacy">Registered Internet Supply Pharmacy</a><a href="/pages/withdraw-from-contract">Withdraw From Contract</a></div>
       </div></div>
 
@@ -1153,13 +1164,13 @@
   </div>
 
   <div style="border-top:1px solid #e6e7e4;">
-    <div class="ftr-bottom" style="max-width:1440px; margin:0 auto; padding:18px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px; font-size:13px; color:#8b9182;">
-      <div class="ftr-copyright">Copyright © 2026 McCormack's Pharmacy</div><button type="button" data-cc-reopen class="ftr-cookie-btn" style="border:none; background:transparent; padding:0; font-family:inherit; font-size:inherit; color:#8b9182; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">Cookie settings</button>
+    <div class="ftr-bottom" style="max-width:1440px; margin:0 auto; padding:18px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px; font-size:13px; color:#717769;">
+      <div class="ftr-copyright">Copyright © 2026 McCormack's Pharmacy</div><button type="button" data-cc-reopen class="ftr-cookie-btn" style="border:none; background:transparent; padding:0; font-family:inherit; font-size:inherit; color:#717769; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">Cookie settings</button>
       <div class="ftr-payments" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
-        <span style="font-size:12.5px; color:#8b9182; margin-right:2px;">We accept</span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span></div>
-      <a href="/pages/terms-and-conditions" class="ftr-terms" style="display:none; color:#8b9182;">Terms &amp; Conditions</a>
+        <span style="font-size:12.5px; color:#717769; margin-right:2px;">We accept</span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span></div>
+      <a href="/pages/terms-and-conditions" class="ftr-terms" style="display:none; color:#717769;">Terms &amp; Conditions</a>
       <div class="ftr-builtby" style="display:flex; align-items:center; gap:22px; flex-wrap:wrap;">
-        <a href="https://kakion.com" style="display:flex; align-items:center; gap:1px; color:#8b9182;">
+        <a href="https://kakion.com" style="display:flex; align-items:center; gap:1px; color:#717769;">
           <span style="font-size:12px;">Built by</span>
           <img src="/shopify-theme/assets/kakion-logo-black.png" alt="Kakion" width="80" height="22" style="height:21.6px; width:auto; display:block;">
         </a>

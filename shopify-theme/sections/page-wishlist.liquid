@@ -15,11 +15,11 @@
   wrong panel on a slow connection.
 {%- endcomment -%}
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 60px;">
-  <nav aria-label="Breadcrumb" style="display:flex; gap:8px; font-size:13px; color:#8b9182; margin-bottom:18px;">
-    <a href="{{ routes.root_url }}" class="hov-green" style="color:#8b9182;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Wishlist</span>
+  <nav aria-label="Breadcrumb" style="display:flex; gap:8px; font-size:13px; color:#717769; margin-bottom:18px;">
+    <a href="{{ routes.root_url }}" class="hov-green" style="color:#717769;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Wishlist</span>
   </nav>
 
-  <h1 style="margin:0 0 14px; color:#3f6b4f;">{{ section.settings.heading }}</h1>
+  <h1 style="margin:0 0 14px; color:var(--c-dark);">{{ section.settings.heading }}</h1>
   <p style="font-size:16px; line-height:1.7; color:#5a6153; margin:0 0 26px; max-width:70ch;">{{ section.settings.intro }}</p>
 
   <div class="wish-grid" data-wish-grid
@@ -29,14 +29,14 @@
     <div style="max-width:820px;">
       <div style="background:#eef2e8; border-radius:16px; padding:28px; display:flex; flex-direction:column; gap:14px;">
         <div style="display:flex; align-items:center; gap:12px;">
-          <span style="width:44px; height:44px; border-radius:999px; background:#ffffff; color:#82C914; display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto;">
+          <span style="width:44px; height:44px; border-radius:999px; background:#ffffff; color:var(--c-primary-text); display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto;">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>
           </span>
           <h2 style="margin:0; font-size:18px;">Nothing saved yet</h2>
         </div>
         <p style="margin:0; font-size:14.5px; line-height:1.7; color:#5a6153;">{{ section.settings.body }}</p>
         <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:6px;">
-          <a href="/collections/medicines-health" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; background:#82C914; color:#ffffff; font-weight:800; font-size:14.5px; border-radius:999px; padding:12px 26px;">Start shopping</a>
+          <a href="/collections/medicines-health" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px; border-radius:999px; padding:12px 26px;">Start shopping</a>
           {% if customer %}
             <a href="{{ routes.account_url }}" class="hov-border-accent" style="display:inline-flex; align-items:center; justify-content:center; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:14.5px; border-radius:999px; padding:12px 26px;">My account</a>
           {% else %}
@@ -49,7 +49,7 @@
 
   {%- comment -%} Said once, plainly, rather than letting someone discover it when
       they switch phones. {%- endcomment -%}
-  <p style="margin:22px 0 0; font-size:13px; line-height:1.6; color:#8b9182; max-width:60ch;">
+  <p style="margin:22px 0 0; font-size:13px; line-height:1.6; color:#717769; max-width:60ch;">
     Your wishlist is saved on this device and in this browser. It will not appear on your other devices, and clearing your browsing data clears it.
   </p>
 </section>

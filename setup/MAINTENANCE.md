@@ -265,3 +265,76 @@ observe checkout, so they can never report `begin_checkout` or `purchase`.
 GA4 comes from the Google & YouTube channel; Meta from a custom pixel under
 Settings → Customer events. See [`analytics/README.md`](./analytics/README.md).
 Adding a second GA4 tag alongside the channel double-counts revenue.
+
+---
+
+## Colour is now a token system — do not paste hex into a template
+
+Every brand green comes from a CSS custom property. `layout/theme.liquid` computes
+them from the four theme-editor settings and writes a `:root` block after
+`base.css`; `base.css` holds the same values as defaults so the theme still renders
+if a setting is cleared.
+
+| Token | What it is |
+|---|---|
+| `--c-primary` | The lime, `#82C914`. A **background** colour. |
+| `--c-primary-text` | The lime as an **ink**, darkened until it passes AA (`#4C750B`). |
+| `--c-dark` | Forest `#3F6B4F`. |
+| `--c-accent` | Yellow-green `#92C83F`. |
+| `--c-on-primary` / `--c-on-accent` / `--c-on-dark` | The text colour that sits **on** each of those. Computed, never fixed. |
+
+Before this, the four settings were read by nothing: `base.css` declared the tokens
+with literal hexes and 637 inline styles hardcoded their own copies. Changing
+"Primary green" in the editor did nothing at all.
+
+**Two rules.**
+
+1. **Never write a brand hex into a template.** Use the token. A pasted hex will not
+   follow the editor and will not follow a contrast fix.
+2. **Text on a green takes the matching `--c-on-*` token**, and text on white takes
+   `--c-primary-text`, never `--c-primary`.
+
+### Why the on-* tokens are computed
+
+The theme shipped white text on the lime at **2.04:1**, against a 4.5:1 WCAG AA
+requirement — on ADD TO BAG, Checkout, and every primary button. The lime as an ink
+on white was the same 2.04:1, affecting every price, link and category name: 355
+failing elements in total.
+
+The foreground is now derived from perceived brightness (`color_brightness`), and
+`--c-primary-text` is the brand hue darkened in a loop until `color_contrast` clears
+4.5. That means a merchant who picks a *dark* green in the editor gets white text
+back automatically, and one who picks a pale green keeps dark text. **Do not replace
+these with literals** — that reintroduces the bug the next time a colour changes.
+
+The same derivation is inlined in `sections/hot-offers.liquid`, where the tile and
+badge colours are picked per block in the editor and cannot use a shared token.
+
+`npm run verify` fails if any text on any audited page drops below AA. Text over a
+background *image* is skipped, because contrast there depends on artwork the checker
+cannot measure — the hero headline is not covered and needs a human eye.
+
+### The muted greys moved too
+
+`#8B9182` (3.25:1), `#A7ADA0` (2.30:1) and `#5E8A1F` (4.09:1) were also below AA and
+were darkened along the same hue to `#717769`, `#727969` and `#58821D`.
+
+---
+
+## Back-in-stock capture — it captures, it does not notify
+
+`snippets/back-in-stock.liquid` renders on a product page only when the variant is
+unavailable. Before it, a sold-out product was a dead end: a disabled button and no
+way to recover the session.
+
+**Nothing in this theme watches inventory.** Submissions arrive as `back-in-stock`
+contact-form emails in the Shopify admin inbox, carrying the product title, SKU and a
+link back to the page. **A person has to work that inbox.** If nobody does, the
+customer is never contacted and the copy becomes a lie.
+
+The wording says so explicitly — "not an automatic alert — a person from the pharmacy
+gets in touch". Do not soften that to "we'll email you when it's back" unless the
+client has installed a real alerting app (Back in Stock, Klaviyo), at which point
+this snippet should be removed rather than left alongside it.
+
+Confirm with the client who owns that inbox before launch.

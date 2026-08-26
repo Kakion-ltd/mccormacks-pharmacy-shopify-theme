@@ -62,6 +62,11 @@ def route(path):
         handle = p[len("/pages/"):].split("/")[0]
         return first_existing(f"preview/page.{handle}.html", "preview/page.html")
     if p.startswith("/products/"):
+        # The sold-out fixture has its own rendering so the out-of-stock buy box and
+        # the back-in-stock capture are reachable in the preview.
+        handle = p[len("/products/"):].split("/")[0]
+        if handle == "difflam-sore-throat-spray-30ml":
+            return first_existing("preview/product.oos.html", "preview/product.html")
         return "/preview/product.html"
     if p.startswith("/blogs/"):
         rest = p[len("/blogs/"):].split("/")

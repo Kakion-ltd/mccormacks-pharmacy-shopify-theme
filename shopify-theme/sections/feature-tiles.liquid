@@ -37,7 +37,7 @@
         {%- endif -%}
         <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.28), rgba(0,0,0,0) 60%);"></div>
         <div style="position:relative;">
-          <span style="display:inline-block; background:#f3f6ea; color:#3f6b4f; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,34px); padding:8px 18px; border-radius:6px; margin-bottom:16px;">{{ block.settings.title }}</span><br>
+          <span style="display:inline-block; background:#f3f6ea; color:var(--c-dark); font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,34px); padding:8px 18px; border-radius:6px; margin-bottom:16px;">{{ block.settings.title }}</span><br>
           <a href="{{ block.settings.link }}" class="hov-shop" style="display:inline-block; background:#fff; color:#2A2B2A; font-weight:700; letter-spacing:.06em; font-size:13.5px; padding:12px 26px; border-radius:6px;">{{ block.settings.cta }}</a>
         </div>
       </div>
@@ -46,7 +46,7 @@
 </section>
 
 {% style %}
-.hov-shop:hover { background: #92C83F !important; color: #ffffff !important; }
+.hov-shop:hover { background: var(--c-accent) !important; color:var(--c-on-accent) !important; }
 {% endstyle %}
 
 {% schema %}
