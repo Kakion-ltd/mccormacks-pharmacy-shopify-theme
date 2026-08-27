@@ -78,6 +78,40 @@ with sync_playwright() as pw:
         ck(f"[{label}] no variants JSON block either",
            pg.locator("script[id^='pdp-variants-']").count(), 0)
 
+        # The PDP's own Add to bag, which no check exercised until the harness started
+        # emitting the form's data-ajax-add attribute. Every previous add-to-cart test
+        # clicked a collection tile button, which takes a different code path.
+        pg.goto(BASE + SINGLE, wait_until="networkidle")
+        # The consent banner sits over the buy box until answered, and there are two
+        # submit buttons — the buy box and the sticky bar — with different ones visible
+        # per viewport. Take whichever the viewport actually shows.
+        accept = pg.locator("[data-cc-accept]").first
+        if accept.count() and accept.is_visible():
+            accept.click()
+            pg.wait_for_timeout(400)
+        before = pg.url
+        # The preview server holds one in-memory cart shared across runs and viewports,
+        # so assert the delta rather than an absolute count.
+        qty_before = pg.evaluate(
+            "async () => (await (await fetch('/cart.js')).json()).item_count")
+        # The two viewports use different add controls by design: desktop submits the
+        # product form, mobile hides that and uses the sticky buy bar. Both are the
+        # primary add-to-cart for their viewport, and neither was exercised before —
+        # every previous check clicked a collection tile.
+        add = pg.locator("[data-pdp-submit]" if label == "desktop" else "[data-buybar-add]").first
+        add.scroll_into_view_if_needed()
+        add.click()
+        pg.wait_for_timeout(1200)
+        ck(f"[{label}] the viewport's add control does not navigate away", pg.url, before)
+        ck(f"[{label}] the viewport's add control opens the cart drawer",
+           pg.locator(".cd-drawer").is_visible())
+        qty_after = pg.evaluate(
+            "async () => (await (await fetch('/cart.js')).json()).item_count")
+        # Quantity, not line count: adding a variant already in the bag merges into the
+        # existing line, so the line count correctly does not move.
+        ck(f"[{label}] the add puts exactly one unit in the bag",
+           qty_after - qty_before, 1)
+
         ck(f"[{label}] no JS errors", errs, [])
     b.close()
 

@@ -102,6 +102,33 @@ with sync_playwright() as pw:
         ctx.close()
     b.close()
 
+# The banner must be the topmost fixed layer on every page type. It shipped at
+# z-index 90, below the mobile buy bar (150), the nav drawer (201) and the cart
+# drawer (301) — so on a mobile product page the buy bar physically covered Accept
+# and Reject, and consent could not be answered at all.
+TOPMOST = """(sel) => {
+  const btn = document.querySelector(sel);
+  if (!btn) return 'no banner';
+  const r = btn.getBoundingClientRect();
+  const top = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+  return (top === btn || btn.contains(top)) ? 'clickable' : 'covered';
+}"""
+
+with sync_playwright() as pw:
+    b = pw.chromium.launch(headless=True)
+    for label, vp in (("desktop", {"width": 1440, "height": 900}),
+                      ("mobile", {"width": 390, "height": 844})):
+        ctx = b.new_context(viewport=vp)
+        pg = ctx.new_page()
+        for path in ("/", "/products/cetrine-allergy-10mg-30-tablets", "/cart",
+                     "/collections/medicines-health"):
+            pg.goto(BASE + path, wait_until="networkidle")
+            for what, sel in (("Accept", "[data-cc-accept]"), ("Reject", "[data-cc-reject]")):
+                check(f"[{label}] consent {what} is clickable on {path}",
+                      pg.evaluate(TOPMOST, sel), "clickable")
+        ctx.close()
+    b.close()
+
 for ok, name, got in results:
     print(("  ok  " if ok else "  FAIL") + f"  {name}" + ("" if ok else f"   (got {got!r})"))
 failed = [r for r in results if not r[0]]

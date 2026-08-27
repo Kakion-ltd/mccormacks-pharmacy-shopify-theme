@@ -215,7 +215,23 @@ engine.registerTag('form', {
     stream.start();
   },
   *render(ctx, emitter) {
-    const st = this.args.match(/style:\s*'([^']*)'/);
+    // Shopify emits id, class, style and any data-* argument onto the <form>. The
+    // harness used to keep only style, so document.getElementById('wfc-form') found
+    // nothing and — more importantly — the product form lost data-ajax-add, which is
+    // what theme.js binds AJAX add-to-cart to. The PDP's own Add to bag therefore
+    // did a full page POST in every preview and was exercised by no check.
+    const attrPairs = [...String(this.args || '')
+      .matchAll(/(^|[,\s])((?:data-)?[a-z][\w-]*)\s*:\s*(?:'([^']*)'|"([^"]*)"|([A-Za-z_][\w.]*))/g)];
+    const attrs = [];
+    for (const [, , key, sq, dq, ident] of attrPairs) {
+      if (!/^(id|class|style|accept-charset|enctype|novalidate)$/.test(key) && !key.startsWith('data-')) continue;
+      let value = sq ?? dq;
+      if (value === undefined && ident) {
+        try { value = yield this.liquid.evalValue(ident, ctx); } catch { value = ident; }
+      }
+      if (value === undefined || value === null || value === '') continue;
+      attrs.push(` ${key}="${String(value).replace(/"/g, '&quot;')}"`);
+    }
     // Shopify's property name carries the question mark; both spellings are set so
     // a template reading either resolves. globals.__form drives the success and
     // error renders — without it neither state appeared in any preview, across six
@@ -231,7 +247,7 @@ engine.registerTag('form', {
     });
     const inner = yield this.liquid.renderer.renderTemplates(this.tpls, ctx);
     ctx.pop();
-    emitter.write(`<form method="post"${st ? ` style="${st[1]}"` : ''}>${inner}</form>`);
+    emitter.write(`<form method="post"${attrs.join('')}>${inner}</form>`);
   },
 });
 

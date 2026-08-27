@@ -398,3 +398,49 @@ until the gating spec arrives from the client.
 entry is dropped from both the page and the schema, that internal links survive,
 and that quotes in an answer keep the JSON-LD valid. It does not and cannot check
 whether an answer is *correct*.
+
+---
+
+## Why fixture coverage matters — a worked example
+
+**The variant picker never worked, and it would have shipped.**
+
+`main-product.liquid` emitted its variants JSON *after* the inline IIFE that reads
+it. `getElementById` returned null on every product page, so selecting a pack size
+changed no price, no SKU, and **no hidden variant id**. The form submitted the first
+variant whatever the shopper chose.
+
+On this catalogue that is not a UX bug. Pack sizes and strengths are variants, so a
+customer selecting 240 capsules and receiving 60, or selecting one strength and
+receiving another, is a **dispensing-adjacent error** — wrong quantity or wrong
+strength of a medicine, caused by the storefront rather than by the pharmacy.
+
+It survived because it was invisible to every safeguard:
+
+- **theme-check passed.** The markup is valid Liquid.
+- **Reading the code did not reveal it.** Both halves are correct in isolation; the
+  defect is that one runs before the other exists.
+- **261 automated assertions passed.** Every one of them ran against rendered
+  output, and no multi-variant product rendered in any preview, because every
+  fixture had `has_only_default_variant: true`.
+
+The bug was found in the first minute after a multi-variant fixture existed, by
+clicking the control in a browser.
+
+**The rule this gives us.** A branch that renders in no preview is covered by no
+check, however many checks there are. When adding a branch, the question is not
+"did I write a test" but "does this appear in rendered output at all" — if not, the
+fixture is part of the work, not a follow-up. `COVERAGE.md` tracks what still
+renders nowhere.
+
+Two others found the same way, in the same pass:
+
+- **The PDP's own Add to bag had never been exercised.** The harness dropped the
+  form's `data-ajax-add` attribute, which is what binds the AJAX handler, so every
+  add-to-cart check clicked a collection tile instead — a different code path.
+- **Consent could not be answered on a mobile product page.** The banner shipped at
+  `z-index: 90`, below the sticky buy bar at 150, which physically covered Accept
+  and Reject. Nothing non-essential fires without consent, so the practical effect
+  was a shopper who could neither accept nor reject on the site's highest-traffic
+  page type. Now 400, above every other fixed layer, with a check that measures what
+  is actually topmost at those buttons rather than trusting the stylesheet.
