@@ -51,6 +51,11 @@ ck("a genuinely empty collection says so", "No products here yet" in empty)
 ck("an empty collection offers Continue shopping", "Continue shopping" in empty)
 ck("an empty collection does not blame filters",
    "No products match your filters" in empty, False)
+# The button is only useful if it lands somewhere. It pointed at /collections/all,
+# which the preview did not serve until this state started rendering.
+ck("Continue shopping resolves rather than 404ing",
+   fetch("/collections/all").count("class=\"pcard\"") > 0)
+
 ck("neither empty state lists products",
    len(re.findall(r'class="pcard"', fempty)) + len(re.findall(r'class="pcard"', empty)), 0)
 

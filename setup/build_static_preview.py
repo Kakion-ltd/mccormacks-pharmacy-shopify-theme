@@ -49,7 +49,9 @@ def public_path(rel):
         tail = stem[10:]
         return 'account/index.html' if tail == 'account' else f'account/{tail}/index.html'
     if stem == 'list-collections':
-        return 'collections/all/index.html'
+        # Not /collections/all — that is the all-products collection below, and the
+        # theme links to it. This template is an unrouted extra with no canonical URL.
+        return 'collections/list/index.html'
     if stem in ('cart', 'search', 'product', 'blog', 'article', 'collection',
                 'page', 'password', 'gift_card'):
         return {
@@ -58,7 +60,7 @@ def public_path(rel):
             'product': 'products/index.html',
             'blog': 'blogs/health-hub/index.html',
             'article': 'blogs/health-hub/article/index.html',
-            'collection': 'collections/all-products/index.html',
+            'collection': 'collections/all/index.html',
             'page': 'pages/index.html',
             'password': 'password/index.html',
             'gift_card': 'gift_card/index.html',

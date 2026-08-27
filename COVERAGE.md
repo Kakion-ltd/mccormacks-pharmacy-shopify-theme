@@ -73,8 +73,9 @@ always `[]`. Never rendered:
 - "No products match your filters" / "Clear all filters" (filtered to nothing)
 - active filter chips and `filter.url_to_remove`
 
-The empty state also **links to `/collections/all`, which 404s in the preview** (see
-route gaps below), so even if it rendered, the link would be broken locally.
+The empty state also links to `/collections/all`, which used to 404 in the preview.
+That route is now served (see route gaps below), so the "Continue shopping" button
+is exercisable.
 
 Held item 2.2 (Search & Discovery) will populate these filters, so this becomes more
 pressing once products are mapped.
@@ -112,7 +113,7 @@ Every Shopify route family, requested against the preview server:
 
 | Route | Status | Verdict |
 |---|---|---|
-| `/collections/all` | **404** | **Real gap.** The theme links here from `main-collection.liquid:296` via `routes.all_products_collection_url` |
+| `/collections/all` | **Routed** | Was a real gap — the theme links here from `main-collection.liquid:296` via `routes.all_products_collection_url`, and the empty-collection state made it a live dead link. Now serves the generic collection render, matching Shopify's automatic all-products collection |
 | `/password` | **404** | **Real gap.** `password.json` template exists and renders to `preview/password.html`, but nothing serves it |
 | `/gift_cards/<id>/<token>` | **404** | **Real gap.** `gift_card.liquid` renders to `preview/gift_card.html`, but nothing serves it |
 | `/policies/<handle>` | 404 | Not a gap — the theme uses `/pages/privacy-policy` and never links to `/policies/` |
@@ -250,12 +251,15 @@ This becomes live when held item 2.2 (Search & Discovery) populates real filters
 | Related articles | Article `tags` are populated and render; the earlier entry conflated this with `blog.articles`. |
 | Dispatch cutoff | Blank **by design** — fails closed, awaiting a real time from the client. Correct, not a gap. |
 
-### The three unrouted templates
+### The unrouted templates
 
-`/collections/all`, `/password` and `/gift_cards/<id>/<token>` remain unrouted, as
-asked. One thing changed: the empty-collection state now renders, and its
-"Continue shopping" button demonstrably points at `/collections/all` — so that
-route is no longer a theoretical gap, it is a live link that 404s in the preview.
-Three lines in `serve_preview.py` whenever you want it.
+`/collections/all` is now routed: the empty-collection state renders, so its
+"Continue shopping" button was a live dead link rather than a theoretical gap.
+`build_static_preview.py` was moved in step — it had parked the unrouted
+`list-collections` template on `/collections/all`, which would have left the two
+harnesses disagreeing about what that URL is.
+
+`/password` and `/gift_cards/<id>/<token>` remain unrouted, as asked. Neither is
+linked from any rendered page, so both are still theoretical.
 
 Suite is now **415 assertions**.

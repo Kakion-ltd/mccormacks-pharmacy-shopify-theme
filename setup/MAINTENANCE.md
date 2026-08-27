@@ -401,9 +401,14 @@ whether an answer is *correct*.
 
 ---
 
-## Why fixture coverage matters — a worked example
+## Why fixture coverage matters — two worked examples
 
-**The variant picker never worked, and it would have shipped.**
+Both were found in the same pass, both had shipped through code review, and both
+were invisible for the same reason: nothing in any preview ever rendered the state
+that exposed them.
+
+### 1. The variant picker never worked
+
 
 `main-product.liquid` emitted its variants JSON *after* the inline IIFE that reads
 it. `getElementById` returned null on every product page, so selecting a pack size
@@ -433,14 +438,47 @@ check, however many checks there are. When adding a branch, the question is not
 fixture is part of the work, not a follow-up. `COVERAGE.md` tracks what still
 renders nowhere.
 
-Two others found the same way, in the same pass:
+One other was found the same way in the same pass: **the PDP's own Add to bag had
+never been exercised.** The harness dropped the form's `data-ajax-add` attribute,
+which is what binds the AJAX handler, so every add-to-cart check clicked a
+collection tile instead — a different code path. The button itself turned out to be
+fine; the harness had been lying about it.
 
-- **The PDP's own Add to bag had never been exercised.** The harness dropped the
-  form's `data-ajax-add` attribute, which is what binds the AJAX handler, so every
-  add-to-cart check clicked a collection tile instead — a different code path.
-- **Consent could not be answered on a mobile product page.** The banner shipped at
-  `z-index: 90`, below the sticky buy bar at 150, which physically covered Accept
-  and Reject. Nothing non-essential fires without consent, so the practical effect
-  was a shopper who could neither accept nor reject on the site's highest-traffic
-  page type. Now 400, above every other fixed layer, with a check that measures what
-  is actually topmost at those buttons rather than trusting the stylesheet.
+### 2. Consent could not be answered on a mobile product page
+
+The banner shipped at `z-index: 90`. The sticky mobile buy bar sits at 150. On any
+product page below the mobile breakpoint the buy bar was painted over the bottom of
+the banner, physically covering **Accept and Reject**. The banner was visible. Its
+buttons were not clickable.
+
+Product pages are the highest-traffic page type on the site, and mobile is the
+majority of that traffic. So for most visitors, on the page they were most likely to
+land on, the consent choice could be neither given nor refused.
+
+That makes it **a compliance failure before it is an analytics one**. Under GDPR and
+the ePrivacy regulations a refusal has to be as available as an acceptance; a banner
+whose Reject button cannot be pressed does not meet that, regardless of what the
+banner says. The analytics consequence — the theme fails closed, so nothing
+non-essential fires until consent is answered, so those sessions were invisible to
+GA4 — is the smaller of the two problems.
+
+Like the variant picker, it was invisible in code review. Both values are correct on
+their own. `z-index: 90` is a sensible number for a banner and `150` is a sensible
+number for a buy bar; the defect only exists in the relationship between two
+declarations in different files, at one viewport, on one template.
+
+**The fix, and why the check is written the way it is.** The banner is now `400`,
+above every other fixed layer in the theme. The regression check does *not* read the
+stylesheet — asserting `z-index: 400` would pass while a new element at 500 buried
+the banner again, which is exactly how this arrived. Instead it puts the browser at
+the mobile viewport, finds the Accept and Reject buttons, and calls
+`document.elementFromPoint` at their centres, asserting that what is topmost at that
+pixel is the button itself. That fails for *any* cause — a new fixed element, a
+transform creating a stacking context, a drawer, a chat widget — not just for a
+stylesheet edit. It was confirmed to fail at the old value before being kept.
+
+**If you add a fixed or sticky element to this theme**, that is the check you will
+hit, and it is asking a real question: does your new element cover the consent
+controls on a mobile product page? Raising its `z-index` past 400 to make your
+element sit on top is the wrong answer. The consent banner is meant to be the
+topmost layer on the site.

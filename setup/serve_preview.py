@@ -72,6 +72,11 @@ def route(path):
         if len(rest) >= 3 and rest[1] == "products":
             return product_page(rest[2])
         handle = rest[0]
+        # Shopify's automatic all-products collection. The empty-collection state
+        # links here through routes.all_products_collection_url, so a 404 would be a
+        # dead "Continue shopping" button on a page that now actually renders.
+        if handle == "all":
+            return "/preview/collection.html"
         # The one place a query parameter selects a different rendered page.
         if handle in ("filtered-fixture", "filtered-empty-fixture", "empty-fixture"):
             return first_existing(
