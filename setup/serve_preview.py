@@ -23,6 +23,8 @@ def product_page(handle):
     """
     if handle == "difflam-sore-throat-spray-30ml":
         return first_existing("preview/product.oos.html", "preview/product.html")
+    if handle == "vitamin-d3-1000iu-60-capsules":
+        return first_existing("preview/product.variants.html", "preview/product.html")
     return "/preview/product.html"
 
 

@@ -342,6 +342,14 @@
   }
 {% endstyle %}
 
+{%- comment -%} Must come BEFORE the script below, which is an IIFE that runs at
+    parse time. This block used to sit after it, so getElementById returned null and
+    the variant picker never worked at all: selecting a size changed no price, no SKU
+    and no hidden variant id. It went unnoticed because no multi-variant product
+    rendered in any preview until the fixture was added. {%- endcomment -%}
+{%- unless product.has_only_default_variant -%}
+  <script type="application/json" id="pdp-variants-{{ section.id }}">{{ product.variants | json }}</script>
+{%- endunless -%}
 <script>
   (() => {
     const root = document.getElementById('pdp-{{ section.id }}');
@@ -408,9 +416,6 @@
     }));
   })();
 </script>
-{%- unless product.has_only_default_variant -%}
-  <script type="application/json" id="pdp-variants-{{ section.id }}">{{ product.variants | json }}</script>
-{%- endunless -%}
 
 {% schema %}
 {

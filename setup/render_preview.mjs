@@ -280,7 +280,12 @@ const CATALOGUE = [
   { t: 'Nurofen 200mg Ibuprofen 24 Tablets', cols: ['pain-relief'], v: 'Nurofen', img: 'prod-nurofen.jpg', p: 649, was: null, ty: 'Pain Relief' },
   { t: 'CeraVe Hydrating Cleanser 236ml', cols: ['cerave', 'skincare', 'cleanser'], v: 'CeraVe', img: 'prod-cerave-cleanser.jpg', p: 1350, was: null, ty: 'Skincare' },
   { t: 'Sudocrem Antiseptic Healing Cream 125g', cols: ['baby-skincare'], v: 'Sudocrem', img: 'prod-sudocrem.jpg', p: 799, was: 899, ty: 'Baby' },
-  { t: 'Vitamin D3 1000IU 60 Capsules', cols: ['everyday-multivitamins'], v: 'McCormack’s', img: 'prod-vitd.jpg', p: 999, was: null, ty: 'Vitamins' },
+  // Multi-variant fixture: three pack sizes, the largest deliberately sold out so
+  // the unavailable path renders too.
+  { t: 'Vitamin D3 1000IU 60 Capsules', cols: ['everyday-multivitamins'], v: 'McCormack’s', img: 'prod-vitd.jpg', p: 999, was: null, ty: 'Vitamins',
+    optName: 'Pack size',
+    packs: [{ o: '60 capsules', p: 999 }, { o: '120 capsules', p: 1699, was: 1998 },
+            { o: '240 capsules', p: 2999, oos: true }] },
   // Fixture for the pharmacy gate. A codeine-containing analgesic is pharmacist-only
   // in Ireland, so it is the honest example of a product that must never be
   // one-click added from a grid, a search suggestion or a recommendation.
@@ -310,27 +315,79 @@ const collectionRef = (handle) => {
   const c = COLLECTION_INDEX[handle];
   return { handle, title: c ? c.title : handle, url: `/collections/${handle}` };
 };
+// A single-variant product, the shape most of the fixture catalogue takes.
 const mockVariant = (i) => ({
-  id: 40000000 + i, title: 'Default', price: CATALOGUE[i].p, compare_at_price: CATALOGUE[i].was,
+  id: 40000000 + i, title: 'Default Title', price: CATALOGUE[i].p, compare_at_price: CATALOGUE[i].was,
   available: !CATALOGUE[i].oos, sku: `SKU-${i}`,
   inventory_quantity: CATALOGUE[i].oos ? 0 : 12, featured_image: null,
   store_availabilities: [],
-  requires_shipping: true, options: ['Default'], selected: i === 0,
+  requires_shipping: true, options: ['Default Title'], selected: i === 0,
 });
-const products = CATALOGUE.map((c, i) => ({
-  id: 30000000 + i, title: c.t, handle: handleOf(c.t), vendor: c.v, type: c.ty,
-  url: `/products/${handleOf(c.t)}`, price: c.p, price_min: c.p, price_max: c.p,
-  compare_at_price: c.was, compare_at_price_max: c.was, available: !c.oos,
-  featured_image: mockImage(c.img, 700, 700), images: [mockImage(c.img, 700, 700)],
-  media: [{ media_type: 'image', preview_image: mockImage(c.img, 700, 700), id: i, alt: c.t }],
-  variants: [mockVariant(i)], first_available_variant: mockVariant(i),
-  selected_or_first_available_variant: mockVariant(i), has_only_default_variant: true,
-  options_with_values: [], tags: c.tg || [], selling_plan_groups: [],
-  description: '<p>Product description.</p>',
-  content: '<p>Product description.</p>',
-  collections: (c.cols || []).map(collectionRef),
-  metafields: { reviews: {}, custom: c.faq ? { faq: { value: c.faq } } : {} },
+
+// Multi-variant products, from a `packs` spec on the catalogue entry. Pack sizes are
+// the real shape of a pharmacy catalogue, and without one of these the whole variant
+// picker — the option selects, the price/SKU/stock swap, the unavailable state, and
+// the per-variant Offer in the Product schema — rendered in no preview at all.
+//
+// Images are attached to variants so the variant half of snippets/image-alt.liquid
+// has something to resolve. attached_to_variant? appeared nowhere before this.
+const buildVariants = (c, i) => c.packs.map((pk, k) => ({
+  id: 40000000 + i * 100 + k,
+  title: pk.o,
+  price: pk.p,
+  compare_at_price: pk.was || null,
+  available: pk.oos !== true,
+  sku: `SKU-${i}-${k}`,
+  inventory_quantity: pk.oos ? 0 : 12,
+  featured_image: mockImage(c.img, 700, 700),
+  store_availabilities: [],
+  requires_shipping: true,
+  options: [pk.o],
+  selected: k === 0,
 }));
+
+const products = CATALOGUE.map((c, i) => {
+  const multi = Array.isArray(c.packs) && c.packs.length > 1;
+  const variants = multi ? buildVariants(c, i) : [mockVariant(i)];
+  const firstAvailable = variants.find((v) => v.available) || variants[0];
+
+  // One image per variant, each claiming its variant, plus the shared shot.
+  const media = multi
+    ? [{ media_type: 'image', preview_image: mockImage(c.img, 700, 700), id: `${i}-0`, alt: '' }].concat(
+        variants.map((v, k) => ({
+          media_type: 'image', id: `${i}-${k + 1}`, alt: '',
+          preview_image: Object.assign(mockImage(c.img, 700, 700), {
+            attached_to_variant: true, 'attached_to_variant?': true, variants: [v],
+          }),
+        })))
+    : [{ media_type: 'image', preview_image: mockImage(c.img, 700, 700), id: i, alt: '' }];
+
+  const prices = variants.map((v) => v.price);
+  return {
+    id: 30000000 + i, title: c.t, handle: handleOf(c.t), vendor: c.v, type: c.ty,
+    url: `/products/${handleOf(c.t)}`,
+    price: firstAvailable.price, price_min: Math.min(...prices), price_max: Math.max(...prices),
+    compare_at_price: firstAvailable.compare_at_price,
+    compare_at_price_max: firstAvailable.compare_at_price,
+    available: variants.some((v) => v.available),
+    featured_image: mockImage(c.img, 700, 700), images: [mockImage(c.img, 700, 700)],
+    media,
+    variants,
+    first_available_variant: firstAvailable,
+    selected_or_first_available_variant: firstAvailable,
+    has_only_default_variant: !multi,
+    options: multi ? [c.optName] : [],
+    options_with_values: multi
+      ? [{ name: c.optName, position: 1, selected_value: firstAvailable.title,
+           values: variants.map((v) => v.title) }]
+      : [],
+    tags: c.tg || [], selling_plan_groups: [],
+    description: '<p>Product description.</p>',
+    content: '<p>Product description.</p>',
+    collections: (c.cols || []).map(collectionRef),
+    metafields: { reviews: {}, custom: c.faq ? { faq: { value: c.faq } } : {} },
+  };
+});
 
 const mockCollection = {
   id: 1, title: 'Medicines & Health', handle: 'medicines-health', url: '/collections/medicines-health',
@@ -577,6 +634,21 @@ console.log(`${ok}/${ok + fail} templates render clean`);
 // A second product page for the sold-out fixture. The buy box takes a different
 // path when a variant is unavailable — disabled button plus the back-in-stock
 // capture — and with only one product page rendered, that path shipped unseen.
+{
+  const multi = products.find((p) => p.has_only_default_variant === false);
+  if (multi) {
+    const saved = { product: globals.product, request: globals.request };
+    globals.product = multi;
+    globals.request = { ...globals.request, page_type: 'product' };
+    try {
+      writeFileSync(join(outDir, 'product.variants.html'), await renderTemplate('product'));
+      console.log(`multi-variant product page: ${multi.handle} (${multi.variants.length} variants)`);
+    } finally {
+      Object.assign(globals, saved);
+    }
+  }
+}
+
 {
   const oos = products.find((p) => p.available === false);
   if (oos) {
