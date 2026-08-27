@@ -1,8 +1,10 @@
 """Transform the homepage's 8 mega-dropdown blocks into snippets/mega-menu.liquid.
 Keeps the design markup verbatim; swaps template-hole attrs for data attributes,
 style-hover for utility classes, and .dc.html hrefs for /collections/<handle> URLs."""
-import json, re
+import json, os, re
 from playwright.sync_api import sync_playwright
+
+HERE = os.path.dirname(os.path.abspath(__file__))
 
 MENUS = [  # sc-if key -> (panel key, menu label)
     ('oPharm', 'medicines-health'), ('oSupp', 'vitamins'), ('oSkin', 'skincare'),
@@ -26,8 +28,7 @@ HOVER_MAP = [
     ('color:#3f6b4f;', 'hov-dark-green'),
 ]
 
-JS = """async (keys) => {
-  const txt = await (await fetch('McCormacks%20Homepage.dc.html')).text();
+JS = """([keys, txt]) => {
   const doc = new DOMParser().parseFromString(txt, 'text/html');
   const out = {};
   for (const key of keys) {
@@ -40,8 +41,9 @@ JS = """async (keys) => {
 with sync_playwright() as p:
     b = p.chromium.launch(headless=True)
     pg = b.new_page()
-    pg.goto('http://localhost:8734/pages/McCormacks%20Homepage.dc.html')
-    blocks = pg.evaluate(JS, [k for k, _ in MENUS])
+    src = open(os.path.join(HERE, '..', 'pages', 'McCormacks Homepage.dc.html'),
+                encoding='utf-8').read()
+    blocks = pg.evaluate(JS, [[k for k, _ in MENUS], src])
     b.close()
 
 def link_for(text, panel=None):
@@ -53,6 +55,29 @@ def link_for(text, panel=None):
     return f'/collections/{panel}' if panel else None
 
 unmapped = []
+
+# The design markup carries literal brand hexes. The theme drives colour from CSS
+# custom properties, so emit those instead — otherwise regenerating this file
+# silently reverts the tokens and the contrast work along with them. Same mapping
+# the rest of the theme uses: the lime is a background, never an ink.
+COLOUR_MAP = [
+    ('color:#82c914', 'color:var(--c-primary-text)'),
+    ('color:#82C914', 'color:var(--c-primary-text)'),
+    ('background:#82c914', 'background:var(--c-primary)'),
+    ('background:#82C914', 'background:var(--c-primary)'),
+    ('#92C83F', 'var(--c-accent)'),
+    ('#92c83f', 'var(--c-accent)'),
+    ('#3F6B4F', 'var(--c-dark)'),
+    ('#3f6b4f', 'var(--c-dark)'),
+    ('#8b9182', '#717769'),
+]
+
+
+def tokenise_colours(html):
+    for old_c, new_c in COLOUR_MAP:
+        html = html.replace(old_c, new_c)
+    return html
+
 
 def transform(html, panel_key):
     # strip template-hole event attrs
@@ -79,7 +104,8 @@ def transform(html, panel_key):
         new_attrs = re.sub(r'href="[^"]*"', f'href="{url}"', attrs)
         return f'<a {new_attrs}>{inner}</a>'
     html = re.sub(r'<a ([^>]*)>(.*?)</a>', href_repl, html, flags=re.S)
-    return html
+    # Last, so HOVER_MAP still sees the literal hexes it matches on.
+    return tokenise_colours(html)
 
 # Panels overridden to a simple single-column list, no promo images (client request).
 # left offsets = measured trigger positions at 1440; theme.js re-aligns at runtime,
