@@ -1192,7 +1192,24 @@
   </script>
 
 
-
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://mock.myshopify.com#website",
+    "url": "https://mock.myshopify.com",
+    "name": "McCormack's Pharmacy",
+    "publisher": { "@id": "https://mock.myshopify.com#organization" },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://mock.myshopify.com/search?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
 
 <div class="cc-banner" data-cc-banner role="dialog" aria-modal="false"
      aria-labelledby="cc-title" aria-describedby="cc-body" hidden>

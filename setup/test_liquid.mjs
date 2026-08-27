@@ -19,7 +19,7 @@ import { fileURLToPath } from 'node:url';
 const THEME = join(dirname(dirname(fileURLToPath(import.meta.url))), 'shopify-theme');
 const engine = new Liquid({ root: join(THEME, 'snippets'), extname: '.liquid' });
 
-const SHOP = { secure_url: 'https://mccormacks.ie', url: 'https://mccormacks.ie' };
+const SHOP = { name: "McCormack's Pharmacy", secure_url: 'https://mccormacks.ie', url: 'https://mccormacks.ie' };
 const render = (snippet, scope) =>
   engine.renderFileSync(snippet, { shop: SHOP, ...scope }).trim();
 
@@ -156,5 +156,65 @@ check('PSI registration is always shown',
 check('the PSI mark is on the product page but not the cart',
   [assurance({}).includes('psi-logo'), assurance({ compact: true }).includes('psi-logo')].join(),
   'true,false');
+
+/* ---------- structured-data: ItemList and SearchAction ----------
+   Both must stay silent when there is nothing real to describe. The preview
+   cannot cover the empty cases: every mock collection has the same 10 products,
+   so the "collection with no products" branch renders nowhere. */
+
+const ld = (scope) => {
+  const out = engine.renderFileSync('structured-data', {
+    shop: SHOP, cart: { currency: { iso_code: 'EUR' } },
+    routes: { search_url: '/search' }, ...scope,
+  });
+  return out;
+};
+const parseLd = (html, type) => {
+  const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+    .map((m) => m[1]);
+  const hit = blocks.find((b) => b.includes(`"${type}"`));
+  return hit ? JSON.parse(hit) : null;   // throws on malformed JSON, which is the point
+};
+
+const COLLECTION = {
+  title: 'Vitamins', url: '/collections/vitamins', handle: 'vitamins',
+  products: [
+    { title: 'Vitamin D3 1000IU', url: '/products/vitamin-d3-1000iu' },
+    { title: 'Magnesium "high strength" 60s', url: '/products/magnesium-60s' },
+  ],
+};
+
+const listHtml = ld({ request: { page_type: 'collection' }, collection: COLLECTION });
+const list = parseLd(listHtml, 'ItemList');
+check('ItemList is emitted on a collection that has products', list !== null, true);
+check('ItemList counts the products on the page', list.numberOfItems, 2);
+check('ItemList positions start at 1 and increment',
+  list.itemListElement.map((i) => i.position).join(), '1,2');
+check('ItemList URLs are absolute',
+  list.itemListElement.every((i) => i.url.startsWith('https://')), true);
+check('a quoted product title does not break the JSON',
+  list.itemListElement[1].name, 'Magnesium "high strength" 60s');
+check('ItemList carries no nested Product node',
+  listHtml.includes('"@type": "Product"'), false);
+
+check('no ItemList when the collection has no products',
+  parseLd(ld({ request: { page_type: 'collection' },
+               collection: { ...COLLECTION, products: [] } }), 'ItemList'), null);
+
+const site = parseLd(ld({ request: { page_type: 'index' } }), 'WebSite');
+check('SearchAction is emitted on the homepage', site !== null, true);
+check('SearchAction target is absolute and carries the placeholder',
+  site.potentialAction.target.urlTemplate,
+  'https://mccormacks.ie/search?q={search_term_string}');
+check('SearchAction query-input matches the placeholder name',
+  site.potentialAction['query-input'], 'required name=search_term_string');
+check('WebSite points at the Organization node emitted by the footer',
+  site.publisher['@id'], 'https://mccormacks.ie#organization');
+check('SearchAction follows routes.search_url, not a hardcoded /search',
+  parseLd(ld({ request: { page_type: 'index' }, routes: { search_url: '/en/search' } }), 'WebSite')
+    .potentialAction.target.urlTemplate,
+  'https://mccormacks.ie/en/search?q={search_term_string}');
+check('no SearchAction on a collection page',
+  parseLd(listHtml, 'WebSite'), null);
 
 console.log(`${passed}/${passed} liquid snippet checks passed`);

@@ -65,6 +65,41 @@
   }
   </script>
 
+{%- elsif request.page_type == 'index' -%}
+
+  {%- comment -%} WebSite + SearchAction, the sitelinks search box. Homepage only:
+      Google reads it from the site's root, and repeating it on every page adds
+      bytes without adding meaning.
+
+      The search URL comes from routes.search_url rather than a hardcoded /search,
+      so it survives a locale or market path prefix. If that route were ever blank
+      the markup would describe a search box that does not exist, so it is guarded.
+
+      Note this is a request to Google, not a guarantee: the search box appears only
+      if Google already shows sitelinks for the brand. The markup costs nothing and
+      is the only way to be eligible. {%- endcomment -%}
+  {%- assign search_url = routes.search_url | default: '/search' -%}
+  {%- if search_url != blank -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": {{ shop_url | append: '#website' | json }},
+    "url": {{ shop_url | json }},
+    "name": {{ shop.name | default: 'Shop' | json }},
+    "publisher": { "@id": {{ shop_url | append: '#organization' | json }} },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": {{ shop_url | append: search_url | append: '?q={search_term_string}' | json }}
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  {%- endif -%}
+
 {%- elsif request.page_type == 'product' -%}
 
   {%- assign og_image = product.featured_media.preview_image | default: product.featured_image -%}
@@ -156,5 +191,46 @@
     ]
   }
   </script>
+
+  {%- comment -%} ItemList: what this collection actually lists, in the order a
+      visitor sees it. Emitted only when the page has products — an empty
+      itemElement list is worse than no ItemList, and a filtered or paginated view
+      that came back empty must not claim otherwise.
+
+      Deliberately only the paginated slice, not the whole collection. This
+      describes the page being viewed; claiming 400 products on a page showing 24
+      is a mismatch between markup and content.
+
+      url only, not a nested Product per item. The product page already carries the
+      full Product node with price and availability; duplicating a partial copy here
+      gives Google two sources for the same facts and a chance to disagree with
+      itself. position + url is what ItemList is for. {%- endcomment -%}
+  {%- if collection.products.size > 0 -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": {{ collection.title | json }},
+    "url": {{ shop_url | append: collection.url | json }},
+    "numberOfItems": {{ collection.products.size }},
+    "itemListOrder": "https://schema.org/ItemListOrderAscending",
+    "itemListElement": [
+      {%- assign item_position = 0 -%}
+      {%- for item in collection.products -%}
+        {%- if item.url != blank -%}
+          {%- assign item_position = item_position | plus: 1 -%}
+          {%- unless item_position == 1 -%},{%- endunless -%}
+      {
+        "@type": "ListItem",
+        "position": {{ item_position }},
+        "url": {{ shop_url | append: item.url | json }},
+        "name": {{ item.title | json }}
+      }
+        {%- endif -%}
+      {%- endfor -%}
+    ]
+  }
+  </script>
+  {%- endif -%}
 
 {%- endif -%}
