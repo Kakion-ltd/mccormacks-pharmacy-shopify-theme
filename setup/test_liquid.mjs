@@ -217,4 +217,29 @@ check('SearchAction follows routes.search_url, not a hardcoded /search',
 check('no SearchAction on a collection page',
   parseLd(listHtml, 'WebSite'), null);
 
+/* ---------- product-primary-collection ----------
+   Which parent the PDP breadcrumb and the related-products fallback use. Every
+   fixture below lists the LOW-ranked collection first, so a pass proves the rank
+   is doing the work rather than the iteration order happening to agree. */
+
+const primary = (handles) =>
+  engine.renderFileSync('product-primary-collection',
+    { product: { collections: handles.map((h) => ({ handle: h })) } }).trim();
+
+check('a leaf beats the department it sits under',
+  primary(['vitamins', 'skin-hair-nails']), 'skin-hair-nails');
+check('a depth-3 leaf beats a depth-2 leaf',
+  primary(['cleanser', 'facial-skincare'].reverse()), 'cleanser');
+check('a taxonomy group beats a brand',
+  primary(['nurofen', 'pain-relief']), 'pain-relief');
+check('a brand still wins over nothing else',
+  primary(['nurofen']), 'nurofen');
+check('an unknown handle loses to any ranked collection',
+  primary(['not-a-real-collection', 'pain-relief']), 'pain-relief');
+check('an unknown handle is still returned when it is all there is',
+  primary(['not-a-real-collection']), 'not-a-real-collection');
+check('no collections returns nothing', primary([]), '');
+check('ties keep the earlier collection, so the result is stable',
+  primary(['pain-relief', 'stomach-gastrointestinal']), 'pain-relief');
+
 console.log(`${passed}/${passed} liquid snippet checks passed`);

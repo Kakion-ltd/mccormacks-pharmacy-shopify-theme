@@ -1,0 +1,57 @@
+{% comment %}
+  Which collection should represent this product?
+
+  The PDP breadcrumb used product.collections.first, which is Shopify's ordering —
+  arbitrary, and not a statement about which parent means more. A product sitting in
+  both Vitamins and Skin, Hair & Nails could breadcrumb to either, depending on
+  nothing the merchant controls or intends.
+
+  Both parents are true. The leaf is the more useful one: "Home / Skin, Hair & Nails"
+  tells a visitor where they are, "Home / Vitamins" tells them the department they
+  could already see in the nav.
+
+  Ranks come from snippets/collection-rank.liquid, generated from the same taxonomy
+  as the category breadcrumbs, so this cannot drift from the site's own structure:
+
+    leaf at depth 3   7      most specific
+    beauty-accessories 6
+    leaf at depth 2   5
+    group at depth 2  4
+    menu at depth 1   2
+    brand             1      a facet, not a taxonomy parent — last resort
+    unknown           0
+
+  Ties keep the earlier collection, so the result is stable rather than depending on
+  iteration order for two equally specific parents.
+
+  Brands rank last deliberately. "Home / Nurofen / Nurofen Plus" is a worse trail
+  than "Home / Pain Relief / Nurofen Plus" — but it still beats no trail at all,
+  which is why brands score 1 and not 0.
+
+  Returns the chosen collection's HANDLE, or nothing when the product is in no
+  collection. The caller resolves it back to the object; a snippet cannot return one.
+
+  Usage:
+    {%- capture primary %}{% render 'product-primary-collection', product: product %}{% endcapture -%}
+    {%- assign primary = primary | strip -%}
+
+  Accepts: product (required)
+{% endcomment %}
+{%- liquid
+  assign best_handle = ''
+  assign best_rank = -1
+
+  for c in product.collections
+    capture rank_raw
+      render 'collection-rank', handle: c.handle
+    endcapture
+    assign rank = rank_raw | strip | plus: 0
+
+    if rank > best_rank
+      assign best_rank = rank
+      assign best_handle = c.handle
+    endif
+  endfor
+
+  echo best_handle
+-%}
