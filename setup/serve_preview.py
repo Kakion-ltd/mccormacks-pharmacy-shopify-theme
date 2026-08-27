@@ -15,6 +15,17 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PREVIEW = os.path.join(ROOT, "preview")
 
 
+def product_page(handle):
+    """Which rendered product page serves this handle.
+
+    The sold-out fixture has its own rendering so the out-of-stock buy box and the
+    back-in-stock capture are reachable; everything else shares product.html.
+    """
+    if handle == "difflam-sore-throat-spray-30ml":
+        return first_existing("preview/product.oos.html", "preview/product.html")
+    return "/preview/product.html"
+
+
 def first_existing(*rels):
     for r in rels:
         if r and os.path.isfile(os.path.join(ROOT, r)):
@@ -52,7 +63,13 @@ def route(path):
         return "/preview/list-collections.html"
 
     if p.startswith("/collections/"):
-        handle = p[len("/collections/"):].split("/")[0]
+        # Shopify serves /collections/<c>/products/<p> as the PRODUCT page. Routing it
+        # to the collection page hid the whole collection-scoped product path from the
+        # preview, so nothing could be checked against it.
+        rest = p[len("/collections/"):].split("/")
+        if len(rest) >= 3 and rest[1] == "products":
+            return product_page(rest[2])
+        handle = rest[0]
         # Every collection was rendered into categories/. No generic fallback:
         # an unknown handle should 404, not quietly render a blank collection
         # page and hide a broken link.
@@ -62,12 +79,7 @@ def route(path):
         handle = p[len("/pages/"):].split("/")[0]
         return first_existing(f"preview/page.{handle}.html", "preview/page.html")
     if p.startswith("/products/"):
-        # The sold-out fixture has its own rendering so the out-of-stock buy box and
-        # the back-in-stock capture are reachable in the preview.
-        handle = p[len("/products/"):].split("/")[0]
-        if handle == "difflam-sore-throat-spray-30ml":
-            return first_existing("preview/product.oos.html", "preview/product.html")
-        return "/preview/product.html"
+        return product_page(p[len("/products/"):].split("/")[0])
     if p.startswith("/blogs/"):
         rest = p[len("/blogs/"):].split("/")
         return "/preview/article.html" if len(rest) > 1 and rest[1] else "/preview/blog.html"

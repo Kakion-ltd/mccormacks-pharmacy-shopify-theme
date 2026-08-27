@@ -269,22 +269,25 @@ const mockImage = (name, w = 1000, h = 1000) => ({
   alt: '', aspect_ratio: w / h,
 });
 
+const COLLECTION_INDEX = Object.fromEntries(
+  JSON.parse(readFileSync(join(PROJECT, 'setup/collections.json'), 'utf8')).map((c) => [c.handle, c]));
+
 const CATALOGUE = [
-  { t: 'fabÜ Skin Hair Nails Glow 60 Capsules', v: 'fabÜ', img: 'prod-fabu-glow.jpg', p: 1995, was: 2495, ty: 'Vitamins' },
-  { t: 'Cetrine Allergy 10mg 30 Tablets', v: 'Cetrine', img: 'prod-cetrine.jpg', p: 799, was: null, ty: 'Allergy' },
-  { t: 'Revive Active 30 Sachets', v: 'Revive Active', img: 'prod-revive.jpg', p: 6499, was: 6999, ty: 'Supplements' },
-  { t: 'Optibac Every Day MAX 30 Capsules', v: 'Optibac', img: 'prod-optibac-max.jpg', p: 2799, was: null, ty: 'Probiotics' },
-  { t: 'Nurofen 200mg Ibuprofen 24 Tablets', v: 'Nurofen', img: 'prod-nurofen.jpg', p: 649, was: null, ty: 'Pain Relief' },
-  { t: 'CeraVe Hydrating Cleanser 236ml', v: 'CeraVe', img: 'prod-cerave-cleanser.jpg', p: 1350, was: null, ty: 'Skincare' },
-  { t: 'Sudocrem Antiseptic Healing Cream 125g', v: 'Sudocrem', img: 'prod-sudocrem.jpg', p: 799, was: 899, ty: 'Baby' },
-  { t: 'Vitamin D3 1000IU 60 Capsules', v: 'McCormack’s', img: 'prod-vitd.jpg', p: 999, was: null, ty: 'Vitamins' },
+  { t: 'fabÜ Skin Hair Nails Glow 60 Capsules', col: 'skin-hair-nails', v: 'fabÜ', img: 'prod-fabu-glow.jpg', p: 1995, was: 2495, ty: 'Vitamins' },
+  { t: 'Cetrine Allergy 10mg 30 Tablets', col: 'hayfever-allergy', v: 'Cetrine', img: 'prod-cetrine.jpg', p: 799, was: null, ty: 'Allergy' },
+  { t: 'Revive Active 30 Sachets', col: 'energy-wellbeing', v: 'Revive Active', img: 'prod-revive.jpg', p: 6499, was: 6999, ty: 'Supplements' },
+  { t: 'Optibac Every Day MAX 30 Capsules', col: 'probiotics-digestive-health', v: 'Optibac', img: 'prod-optibac-max.jpg', p: 2799, was: null, ty: 'Probiotics' },
+  { t: 'Nurofen 200mg Ibuprofen 24 Tablets', col: 'pain-relief', v: 'Nurofen', img: 'prod-nurofen.jpg', p: 649, was: null, ty: 'Pain Relief' },
+  { t: 'CeraVe Hydrating Cleanser 236ml', col: 'cleanser', v: 'CeraVe', img: 'prod-cerave-cleanser.jpg', p: 1350, was: null, ty: 'Skincare' },
+  { t: 'Sudocrem Antiseptic Healing Cream 125g', col: 'baby-skincare', v: 'Sudocrem', img: 'prod-sudocrem.jpg', p: 799, was: 899, ty: 'Baby' },
+  { t: 'Vitamin D3 1000IU 60 Capsules', col: 'everyday-multivitamins', v: 'McCormack’s', img: 'prod-vitd.jpg', p: 999, was: null, ty: 'Vitamins' },
   // Fixture for the pharmacy gate. A codeine-containing analgesic is pharmacist-only
   // in Ireland, so it is the honest example of a product that must never be
   // one-click added from a grid, a search suggestion or a recommendation.
-  { t: 'Nurofen Plus 200mg/12.8mg 24 Tablets', v: 'Nurofen', img: 'prod-nurofen.jpg', p: 1099, was: null, ty: 'Pain Relief', tg: ['pharmacist-only'] },
+  { t: 'Nurofen Plus 200mg/12.8mg 24 Tablets', col: 'pain-relief', v: 'Nurofen', img: 'prod-nurofen.jpg', p: 1099, was: null, ty: 'Pain Relief', tg: ['pharmacist-only'] },
   // Fixture for the sold-out path. Without one, the out-of-stock product page and its
   // back-in-stock capture render in no preview and are verified by nobody.
-  { t: 'Difflam Sore Throat Spray 30ml', v: 'Difflam', img: 'prod-cetrine.jpg', p: 1299, was: null, ty: 'Sore Throat', oos: true },
+  { t: 'Difflam Sore Throat Spray 30ml', col: 'sore-throat', v: 'Difflam', img: 'prod-cetrine.jpg', p: 1299, was: null, ty: 'Sore Throat', oos: true },
 ];
 
 // Harness-only FAQ fixture. NOT customer copy and never shipped: the theme's FAQ
@@ -301,6 +304,12 @@ CATALOGUE[0].faq = [
 ];
 
 const handleOf = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+// Minimal collection stub for product.collections — the PDP breadcrumb reads
+// .first.url and .first.title from it.
+const collectionRef = (handle) => {
+  const c = COLLECTION_INDEX[handle];
+  return { handle, title: c ? c.title : handle, url: `/collections/${handle}` };
+};
 const mockVariant = (i) => ({
   id: 40000000 + i, title: 'Default', price: CATALOGUE[i].p, compare_at_price: CATALOGUE[i].was,
   available: !CATALOGUE[i].oos, sku: `SKU-${i}`,
@@ -318,7 +327,8 @@ const products = CATALOGUE.map((c, i) => ({
   selected_or_first_available_variant: mockVariant(i), has_only_default_variant: true,
   options_with_values: [], tags: c.tg || [], selling_plan_groups: [],
   description: '<p>Product description.</p>',
-  content: '<p>Product description.</p>', collections: [],
+  content: '<p>Product description.</p>',
+  collections: c.col ? [collectionRef(c.col)] : [],
   metafields: { reviews: {}, custom: c.faq ? { faq: { value: c.faq } } : {} },
 }));
 
