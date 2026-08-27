@@ -401,6 +401,45 @@ whether an answer is *correct*.
 
 ---
 
+## White text on the brand green — a recorded decision, not a defect
+
+`button_text_white` is set to **"Always white"** in the theme editor. That was asked
+for, after the trade-off was laid out, and it is the original design handoff's
+appearance.
+
+What it costs, measured: **63 text elements sit at 2.04:1 against a WCAG AA
+requirement of 4.5:1** — every primary button, the consent banner's Accept and
+Reject, and the category chips. `setup/verify/contrast.py` reports these as
+**ACCEPTED** on every run: they are counted and printed, with the worst ratio, but
+they do not fail the suite. Anything not explained by this setting still fails
+normally, so the check has not been weakened — only this one decision is carved out,
+and it stays visible.
+
+**To reverse it, change nothing in the code.** Set `button_text_white` to
+"Automatic" in the theme editor and the accessible pairing returns, computed from
+whatever primary colour is set. There is no hard-coded white anywhere.
+
+**If it is ever revisited**, the two things worth knowing:
+
+- There is no green in this hue that carries both white and dark ink. Darkening
+  `#82C914` raises white and lowers ink, and they cross around `#5E910E` where
+  *neither* reaches 4.5:1. The choice is genuinely binary: keep the lime and use
+  dark ink (6.98:1), or move to `#53820D` or darker and keep white (4.60:1).
+- The consent banner's buttons are in the accepted set. Everything else here is
+  commerce; that one is the mechanism by which a visitor exercises a legal choice,
+  and it is the element most worth carving back out if only one is.
+
+### The bug this surfaced
+
+Flipping the token exposed a real mismatch that had been invisible: `.crec-add` and
+`.wish-add` set `background: var(--c-accent)` but `color: var(--c-on-primary)`. It
+passed for as long as both tokens happened to resolve to the same ink, and broke the
+moment one changed. Both now use `--c-on-accent`. **When adding a rule, take the ink
+from the same family as the surface** — an on-token that does not match its
+background is a latent failure waiting for an unrelated setting to move.
+
+---
+
 ## Why fixture coverage matters — two worked examples
 
 Both were found in the same pass, both had shipped through code review, and both

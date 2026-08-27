@@ -35,6 +35,23 @@
         "default": "#92C83F"
       },
       {
+        "type": "select",
+        "id": "button_text_white",
+        "label": "Text on the primary colour",
+        "options": [
+          {
+            "value": "auto",
+            "label": "Automatic \u2014 always readable"
+          },
+          {
+            "value": "white",
+            "label": "Always white"
+          }
+        ],
+        "default": "white",
+        "info": "Automatic picks white or near-black from the primary colour's brightness so buttons always meet WCAG AA. Always white matches the original design, but on the shipped lime #82C914 white measures 2.04:1 against a 4.5:1 requirement."
+      },
+      {
         "type": "text",
         "id": "phone",
         "label": "Customer service phone",
@@ -57,7 +74,7 @@
         "id": "restricted_tag",
         "label": "Restricted product tag",
         "default": "pharmacist-only",
-        "info": "Products carrying this tag cannot be added to the bag in one click from a listing, a search result or a recommendation — the button becomes a link to the product page. Matching ignores capitals. Clear this field to disable the check."
+        "info": "Products carrying this tag cannot be added to the bag in one click from a listing, a search result or a recommendation \u2014 the button becomes a link to the product page. Matching ignores capitals. Clear this field to disable the check."
       },
       {
         "type": "header",
@@ -65,7 +82,7 @@
       },
       {
         "type": "paragraph",
-        "content": "The dispatch cutoff appears beside the Add to bag button and in the cart. Leave it blank and no cutoff is shown anywhere — nothing unconfirmed goes next to a buy button. Note that 12 collection FAQ answers say \"before 3pm\" independently; check those before setting this."
+        "content": "The dispatch cutoff appears beside the Add to bag button and in the cart. Leave it blank and no cutoff is shown anywhere \u2014 nothing unconfirmed goes next to a buy button. Note that 12 collection FAQ answers say \"before 3pm\" independently; check those before setting this."
       },
       {
         "type": "text",

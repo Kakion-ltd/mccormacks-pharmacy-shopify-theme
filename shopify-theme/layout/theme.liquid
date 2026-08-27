@@ -53,6 +53,14 @@
       assign on_primary = dark_ink
     endif
 
+    # Merchant override. The design handoff specified white on the lime, which measures
+    # 2.04:1 — under half of AA. Kept as an explicit, reversible choice rather than
+    # hard-coded, so switching the setting to 'auto' restores the accessible pairing
+    # with no code change. setup/verify/contrast.py reports what this costs.
+    if settings.button_text_white == 'white'
+      assign on_primary = light_ink
+    endif
+
     assign on_accent = light_ink
     assign b = c_accent | color_brightness
     if b > 145

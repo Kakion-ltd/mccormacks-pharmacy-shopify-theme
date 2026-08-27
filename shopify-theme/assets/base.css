@@ -288,7 +288,7 @@ body[data-cd-open] { overflow: hidden; }
 .crec-title { font-size: 13px; font-weight: 600; line-height: 1.35; color: var(--c-text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 35px; }
 .crec-title:hover { color:var(--c-primary-text); }
 .crec-price { font-weight: 800; font-size: 14.5px; color:var(--c-primary-text); font-variant-numeric: tabular-nums; }
-.crec-add { margin-top: auto; display: flex; align-items: center; justify-content: center; height: 36px; border: none; border-radius: 8px; background: var(--c-accent); color:var(--c-on-primary); font-family: inherit; font-weight: 700; font-size: 13.5px; cursor: pointer; }
+.crec-add { margin-top: auto; display: flex; align-items: center; justify-content: center; height: 36px; border: none; border-radius: 8px; background: var(--c-accent); color:var(--c-on-accent); font-family: inherit; font-weight: 700; font-size: 13.5px; cursor: pointer; }
 .crec-add-link { text-decoration: none; }
 
 /* ---- Cookie consent (snippets/consent-banner.liquid) ---- */
@@ -390,7 +390,7 @@ body[data-mnav-open] { overflow: hidden; }
 .wish-card-title { font-weight: 600; font-size: 15px; line-height: 1.35; color: var(--c-text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 41px; }
 .wish-card-title:hover { color:var(--c-primary-text); }
 .wish-card-price { color:var(--c-primary-text); font-weight: 800; font-size: 19px; font-variant-numeric: tabular-nums; }
-.wish-add { display: flex; align-items: center; justify-content: center; height: 44px; border: none; border-radius: 8px; background: var(--c-accent); color:var(--c-on-primary); font-family: inherit; font-weight: 700; font-size: 14.5px; cursor: pointer; }
+.wish-add { display: flex; align-items: center; justify-content: center; height: 44px; border: none; border-radius: 8px; background: var(--c-accent); color:var(--c-on-accent); font-family: inherit; font-weight: 700; font-size: 14.5px; cursor: pointer; }
 .wish-add-link { text-decoration: none; }
 .wish-remove { border: none; background: transparent; padding: 2px 0; font-family: inherit; font-size: 13px; color: var(--c-muted-2); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .wish-remove:hover { color: #c0392b; }
