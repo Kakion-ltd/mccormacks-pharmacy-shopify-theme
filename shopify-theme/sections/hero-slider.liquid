@@ -63,9 +63,17 @@
                    style: hero_style }}
             </picture>
           {%- elsif block.settings.image_asset != blank -%}
-            <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}"
-                 width="1760" height="920" loading="{{ slide_loading }}" fetchpriority="{{ slide_priority }}"
-                 class="hero-img-el" style="{{ hero_style }}">
+            {%- comment -%} Theme assets get the same mobile swap as picked images. Without
+                this the onboarding path could never have separate mobile art, and every
+                slide is on the onboarding path until the merchant uploads. {%- endcomment -%}
+            <picture>
+              {%- if block.settings.image_mobile_asset != blank -%}
+                <source media="(max-width: 900px)" srcset="{{ block.settings.image_mobile_asset | asset_url }}">
+              {%- endif -%}
+              <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}"
+                   width="1760" height="920" loading="{{ slide_loading }}" fetchpriority="{{ slide_priority }}"
+                   class="hero-img-el" style="{{ hero_style }}">
+            </picture>
           {%- else -%}
             {%- render 'image-placeholder', w: 1760, h: 920, label: 'Hero slide', note: 'Landscape — the left 500px sits under the green panel.' -%}
           {%- endif -%}
@@ -122,7 +130,8 @@
         { "type": "url", "id": "link", "label": "Button link" },
         { "type": "image_picker", "id": "image", "label": "Image" },
         { "type": "image_picker", "id": "image_mobile", "label": "Mobile image", "info": "Optional. Desktop frame is 1.91:1, mobile is 1.30:1 — supply a taller crop here rather than letting the landscape image be cut." },
-        { "type": "text", "id": "image_asset", "label": "Fallback theme asset (onboarding only)", "info": "Filename of a theme asset used until an image is picked." }
+        { "type": "text", "id": "image_asset", "label": "Fallback theme asset (onboarding only)", "info": "Filename of a theme asset used until an image is picked." },
+        { "type": "text", "id": "image_mobile_asset", "label": "Fallback mobile theme asset (onboarding only)", "info": "Filename of a theme asset used below 900px. Supply a 1.30:1 crop, 1100x850." }
       ]
     }
   ],

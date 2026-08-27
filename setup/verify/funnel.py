@@ -22,6 +22,21 @@ with sync_playwright() as pw:
 
         # ---- A. Predictive search ----
         page.goto(BASE + "/", wait_until="networkidle")
+
+        # The hero's <picture> mobile swap. Asserting currentSrc rather than the markup:
+        # a <source> that is present but never selected looks identical in the HTML and
+        # serves the wrong file to every phone. Slides past the first are lazy, so nudge
+        # this one to load in place — clicking the slider here would be blocked by the
+        # consent banner, which by design sits above everything until it is answered.
+        page.evaluate("() => { document.querySelectorAll('.hero-img-el')[1].loading = 'eager'; }")
+        page.wait_for_function(
+            "() => { const i = document.querySelectorAll('.hero-img-el')[1];"
+            "        return i && i.complete && i.currentSrc; }", timeout=8000)
+        hero_src = page.evaluate(
+            "() => document.querySelectorAll('.hero-img-el')[1].currentSrc.split('/').pop()")
+        want = "banner-vitamins-mobile.jpg" if label == "mobile" else "banner-vitamins.jpg"
+        check(f"[{label}] hero serves the right crop for the viewport", hero_src, want)
+
         inp = page.locator("[data-ps-input]")
         panel = page.locator("[data-ps-panel]")
 
