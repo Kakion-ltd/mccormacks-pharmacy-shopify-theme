@@ -19,7 +19,7 @@ def handleize(s):
     s = s.lower().replace('&', ' ').replace("'", '')
     return re.sub(r'-{2,}', '-', re.sub(r'[^a-z0-9]+', '-', s)).strip('-')
 
-handles = {c['handle'] for c in json.load(open('/Users/matthewtobin/Web Apps/design_handoff_mccormacks_site/setup/collections.json'))}
+handles = {c['handle'] for c in json.load(open(os.path.join(HERE, 'collections.json')))}
 
 HOVER_MAP = [
     ('color:#82c914; transform:translateX(4px);', 'hov-slide'),
@@ -113,7 +113,7 @@ def transform(html, panel_key):
 SINGLE_COLUMN = {'toiletries': 379, 'mother-baby': 454, 'fragrance': 566, 'gifting': 648}
 
 def single_column_panel(panel):
-    taxonomy = json.load(open('/Users/matthewtobin/Web Apps/design_handoff_mccormacks_site/setup/taxonomy.json'))
+    taxonomy = json.load(open(os.path.join(HERE, 'taxonomy.json')))
     menu = next(m for m in taxonomy if handleize(m['menu']) == panel)
     items = m_items = menu.get('flat') or [g['title'] for g in menu.get('groups', [])]
     links = '\n'.join(
@@ -137,7 +137,7 @@ for key, panel in MENUS:
     parts.append(f'<div class="mega-panel" data-mega-panel="{panel}">\n{transform(inner, panel)}\n</div>')
 
 out = '\n'.join(parts)
-path = '/Users/matthewtobin/Web Apps/design_handoff_mccormacks_site/shopify-theme/snippets/mega-menu.liquid'
+path = os.path.join(HERE, '..', 'shopify-theme', 'snippets', 'mega-menu.liquid')
 import os
 os.makedirs(os.path.dirname(path), exist_ok=True)
 open(path, 'w').write(out)

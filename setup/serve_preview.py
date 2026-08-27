@@ -72,6 +72,11 @@ def route(path):
         if len(rest) >= 3 and rest[1] == "products":
             return product_page(rest[2])
         handle = rest[0]
+        # The one place a query parameter selects a different rendered page.
+        if handle == "paginated-fixture":
+            page = "2" if query.get("page", ["1"])[0] == "2" else "1"
+            return first_existing(f"preview/collection.paginated.p{page}.html",
+                                  "preview/collection.html")
         # Every collection was rendered into categories/. No generic fallback:
         # an unknown handle should 404, not quietly render a blank collection
         # page and hide a broken link.

@@ -9,7 +9,7 @@
     "build": "python3 setup/build_static_preview.py --base '' --out _site",
     "package": "bash setup/package_theme.sh",
     "test": "node setup/test_liquid.mjs && node check.mjs",
-    "verify": "python3 setup/verify/generators.py && python3 setup/verify/consent.py && python3 setup/verify/funnel.py && python3 setup/verify/mobile-nav.py && python3 setup/verify/sweep.py && python3 setup/verify/fonts.py && python3 setup/verify/wishlist.py && python3 setup/verify/back-in-stock.py && python3 setup/verify/variants.py && python3 setup/verify/product-faq.py && python3 setup/verify/contrast.py"
+    "verify": "python3 setup/verify/generators.py && python3 setup/verify/consent.py && python3 setup/verify/funnel.py && python3 setup/verify/mobile-nav.py && python3 setup/verify/sweep.py && python3 setup/verify/fonts.py && python3 setup/verify/wishlist.py && python3 setup/verify/back-in-stock.py && python3 setup/verify/variants.py && python3 setup/verify/pagination.py && python3 setup/verify/product-faq.py && python3 setup/verify/contrast.py"
   },
   "devDependencies": {
     "@shopify/theme-check-node": "^3.28.1",

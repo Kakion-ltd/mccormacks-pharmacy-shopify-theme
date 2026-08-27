@@ -1,0 +1,1455 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Collection | McCormack's Pharmacy</title><meta name="description" content="Ireland’s trusted family pharmacy."><link rel="canonical" href="https://mock.myshopify.com/"><link rel="preload" href="/shopify-theme/assets/mulish-variable.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <style>
+    @font-face {
+      font-family: 'Mulish';
+      font-style: normal;
+      font-weight: 400 900;
+      font-display: swap;
+      src: url(/shopify-theme/assets/mulish-variable.woff2) format('woff2');
+    }
+  </style>
+  <link rel="stylesheet" href="/shopify-theme/assets/base.css"><style>
+    :root {
+      --c-primary: #82C914;
+      --c-primary-hover: #6BA30F;
+      --c-dark: #3F6B4F;
+      --c-accent: #92C83F;
+      --c-on-primary: #2A2B2A;
+      --c-on-accent: #2A2B2A;
+      --c-on-dark: #FFFFFF;
+      --c-primary-text: #4C750B;
+    }
+  </style><script>window.mccRoutes = { cart_url: "/cart", cart_add_url: "/cart/add", cart_change_url: "/cart/change", predictive_search_url: "/search/suggest", product_recommendations_url: "/recommendations/products" };</script>
+  <script src="/shopify-theme/assets/theme.js" defer></script>
+  <!-- content_for_header -->
+<script>/* PREVIEW ONLY — never shipped in the theme.
+ *
+ * render_preview.mjs injects this as content_for_header, which is where a real
+ * store gets window.Shopify from. It stands in for two things the local preview
+ * has no access to:
+ *
+ *   1. Shopify.loadFeatures + Shopify.customerPrivacy — the Customer Privacy
+ *      API the consent banner drives.
+ *   2. The permission-gated pixels under Settings > Customer events, modelled
+ *      as two fake pixels that refuse to fire until their category is granted.
+ *
+ * WHAT THIS DOES AND DOES NOT PROVE
+ *
+ *   It proves the theme's half: that the banner appears before any choice, that
+ *   nothing is recorded until the visitor acts, that reject sends the same shape
+ *   of call as accept, that the choice persists, and that it can be changed.
+ *
+ *   It cannot prove Shopify's half — that Shopify actually withholds a real
+ *   pixel. The gating here is modelled, not observed. That has to be checked on
+ *   a real store; the procedure is in setup/analytics/README.md.
+ */
+(function () {
+  var KEY = 'preview_consent';
+  var EMPTY = { analytics: '', marketing: '', preferences: '', sale_of_data: '' };
+
+  function read() {
+    try {
+      var raw = window.localStorage.getItem(KEY);
+      return raw ? JSON.parse(raw) : Object.assign({}, EMPTY);
+    } catch (e) {
+      return Object.assign({}, EMPTY);
+    }
+  }
+
+  function write(consent) {
+    try { window.localStorage.setItem(KEY, JSON.stringify(consent)); } catch (e) { /* private mode */ }
+  }
+
+  // Every attempt a "pixel" makes to fire is appended here, granted or not, so a
+  // test can assert on the whole history rather than on a final state.
+  window.__pixelLog = [];
+
+  var customerPrivacy = {
+    currentVisitorConsent: function () { return read(); },
+    shouldShowBanner: function () {
+      var c = read();
+      // A visitor who has answered — either way — is not asked again.
+      return c.analytics === '' && c.marketing === '' && c.preferences === '';
+    },
+    analyticsProcessingAllowed: function () { return read().analytics === 'yes'; },
+    marketingAllowed: function () { return read().marketing === 'yes'; },
+    preferencesProcessingAllowed: function () { return read().preferences === 'yes'; },
+    saleOfDataAllowed: function () { return read().sale_of_data === 'yes'; },
+    userCanBeTracked: function () { return read().analytics === 'yes' || read().marketing === 'yes'; },
+    setTrackingConsent: function (payload, callback) {
+      var next = {
+        analytics: payload.analytics ? 'yes' : 'no',
+        marketing: payload.marketing ? 'yes' : 'no',
+        preferences: payload.preferences ? 'yes' : 'no',
+        sale_of_data: payload.sale_of_data ? 'yes' : 'no',
+      };
+      write(next);
+      window.__consentCalls = (window.__consentCalls || []).concat([payload]);
+      document.dispatchEvent(new CustomEvent('visitorConsentCollected', { detail: next }));
+      releasePixels();
+      if (typeof callback === 'function') callback({ error: false });
+    },
+  };
+
+  // Stand-ins for the pixels configured in Settings > Customer events. Each
+  // declares the permission it needs, exactly as a real custom pixel does.
+  var PIXELS = [
+    { name: 'ga4', permission: 'analytics' },
+    { name: 'meta', permission: 'marketing' },
+  ];
+  var fired = {};
+
+  function releasePixels() {
+    var consent = read();
+    PIXELS.forEach(function (pixel) {
+      var granted = consent[pixel.permission] === 'yes';
+      window.__pixelLog.push({ pixel: pixel.name, granted: granted, at: 'release' });
+      if (granted && !fired[pixel.name]) {
+        fired[pixel.name] = true;
+        window.__pixelLog.push({ pixel: pixel.name, granted: true, at: 'fired' });
+      }
+    });
+  }
+
+  window.Shopify = window.Shopify || {};
+  window.Shopify.shop = 'mock.myshopify.com';
+  window.Shopify.loadFeatures = function (features, callback) {
+    // Async, like the real one, so anything that assumes synchronous
+    // availability of customerPrivacy fails here too rather than only in production.
+    window.setTimeout(function () {
+      window.Shopify.customerPrivacy = customerPrivacy;
+      callback(null);
+    }, 0);
+  };
+
+  // On load, pixels attempt to fire and are gated by whatever is already stored.
+  releasePixels();
+})();
+</script>
+</head>
+<body>
+  <div style="width:100%; background:var(--c-dark); color:var(--c-on-dark);">
+  <div class="annc-row" style="max-width:1440px; margin:0 auto; padding:5px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 40px; font-size:12.5px; font-weight:400; letter-spacing:.06em;">
+    <div style="display:flex; align-items:center; gap:12px; justify-content:flex-start;">
+      <span>IRELAND (EUR €)</span>
+    </div>
+    <div class="annc-hide" style="text-align:center;">FREE DELIVERY OVER €65</div>
+    <div style="text-align:right;">CALL US: <a href="tel:0526199329" style="color:#ffffff; text-decoration:underline; text-underline-offset:3px;">052 6199329</a></div>
+  </div>
+</div>
+
+
+<header style="width:100%; background:#ffffff;">
+  <div class="hdr-row" style="max-width:1440px; margin:0 auto; padding:16px 30px; display:flex; flex-wrap:wrap; align-items:center; gap:12px 30px;">
+    <div class="hdr-mobile-left" style="display:none; align-items:center; gap:16px; order:1;">
+      <button aria-label="Menu" data-mnav-open-btn style="border:none; background:transparent; padding:0; color:#2A2B2A; cursor:pointer; display:flex;"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+      <a href="/account" aria-label="My Account" class="hov-green" style="color:#2A2B2A; display:flex;"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg></a>
+    </div>
+    <a href="/" class="hdr-logo" style="display:block; flex:0 0 auto;">
+      <img src="/shopify-theme/assets/mccormacks-logo.png" alt="McCormack's Pharmacy" width="185" height="59" style="width:185px; max-width:100%; height:auto; display:block;">
+    </a><div class="hdr-search" style="flex:0 1 550px; min-width:200px; order:0; margin:0 auto; position:relative;">
+      <form class="hdr-search-form" action="/search" method="get" role="search" style="display:flex; align-items:stretch; background:#f4f5f2; border:1.5px solid transparent; border-radius:12px; overflow:hidden; padding:0 0 0 16px; transition:border-color .18s, box-shadow .18s, background .18s;">
+      <input type="text" name="q" value="vitamins" placeholder="Search for products, brands and more…"
+             data-ps-input autocomplete="off" role="combobox" aria-expanded="false"
+             aria-controls="predictive-search-results" aria-autocomplete="list"
+             aria-label="Search for products, brands and more"
+             style="flex:1; border:none; outline:none; font-family:inherit; font-size:14.5px; color:#2A2B2A; background:transparent; padding:9px 0;">
+      <input type="hidden" name="options[prefix]" value="last">
+      <button type="submit" aria-label="Search" class="hov-bg-green" style="flex:0 0 auto; width:46px; border:none; border-radius:9px 0 0 9px; background:var(--c-accent); color:var(--c-on-accent); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .15s;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></button>
+      </form>
+      <div class="ps-panel" id="predictive-search-results" data-ps-panel role="listbox"
+           aria-label="Search suggestions" tabindex="-1" hidden></div>
+      <span class="visually-hidden" data-ps-status role="status" aria-live="polite"></span>
+    </div>
+    <nav class="hdr-icons" style="flex:0 0 auto; display:flex; align-items:center; gap:26px; color:#2A2B2A;">
+      <a href="/pages/wishlist" class="hide-mobile hov-green" style="color:#2A2B2A; display:flex; align-items:center; gap:7px; font-weight:600; font-size:13.5px; position:relative;">
+        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>
+        <span class="icon-label">Wishlist</span>
+        <span data-wish-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 4px;">0</span>
+      </a>
+      <a href="/cart" class="hide-mobile hov-green" style="color:#2A2B2A; display:flex; align-items:center; gap:7px; font-weight:600; font-size:13.5px; position:relative;">
+        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.4 12.3a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L22 7H6"></path></svg>
+        <span class="icon-label">My Cart</span>
+        <span data-cart-count style="position:absolute; top:-7px; left:13px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
+      </a>
+      <a href="/account" class="hide-mobile hov-green" aria-label="My Account" style="color:#2A2B2A; display:flex; align-items:center; position:relative;">
+        <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
+      </a>
+      <a href="/cart" class="cart-mobile hov-green" aria-label="My Cart" style="color:#2A2B2A; display:none; align-items:center; position:relative;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.4 12.3a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L22 7H6"></path></svg>
+        <span data-cart-count style="position:absolute; top:-6px; right:-8px; min-width:17px; height:17px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px;">2</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+
+<div class="mnav-overlay" data-mnav-close></div>
+<aside class="mnav-drawer" role="dialog" aria-modal="true" aria-label="Menu">
+  <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-bottom:1px solid #eceee9;">
+    <a href="/" aria-label="McCormack's Pharmacy — home" style="display:block;">
+      <img src="/shopify-theme/assets/mccormacks-logo.png" alt="McCormack's Pharmacy" width="150" height="48" style="width:150px; height:auto; display:block;">
+    </a>
+    <button aria-label="Close menu" data-mnav-close style="border:none; background:#f4f5f2; width:38px; height:38px; border-radius:999px; color:#2A2B2A; cursor:pointer; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
+  </div>
+<div class="mnav-stack" data-mnav-stack>
+<div class="mnav-panel is-current" data-mnav-panel="root">
+<ul class="mnav-list">
+<li class="mnav-row"><a class="mnav-link" href="/collections/medicines-health">Medicines &amp; Health</a><button type="button" class="mnav-more" data-mnav-into="medicines-health" aria-label="Browse Medicines &amp; Health categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li>
+<li class="mnav-row"><a class="mnav-link" href="/collections/vitamins">Vitamins &amp; Supplements</a><button type="button" class="mnav-more" data-mnav-into="vitamins" aria-label="Browse Vitamins &amp; Supplements categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li>
+<li class="mnav-row"><a class="mnav-link" href="/collections/beauty">Beauty</a><button type="button" class="mnav-more" data-mnav-into="beauty" aria-label="Browse Beauty categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li>
+<li class="mnav-row"><a class="mnav-link" href="/collections/skincare">Skincare</a><button type="button" class="mnav-more" data-mnav-into="skincare" aria-label="Browse Skincare categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li>
+<li class="mnav-row"><a class="mnav-link" href="/collections/toiletries">Toiletries</a><button type="button" class="mnav-more" data-mnav-into="toiletries" aria-label="Browse Toiletries categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li>
+<li class="mnav-row"><a class="mnav-link" href="/collections/mother-baby">Mother &amp; Baby</a><button type="button" class="mnav-more" data-mnav-into="mother-baby" aria-label="Browse Mother &amp; Baby categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li>
+<li class="mnav-row"><a class="mnav-link" href="/collections/fragrance">Fragrance</a><button type="button" class="mnav-more" data-mnav-into="fragrance" aria-label="Browse Fragrance categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li>
+<li class="mnav-row"><a class="mnav-link" href="/collections/gifting">Gifting</a><button type="button" class="mnav-more" data-mnav-into="gifting" aria-label="Browse Gifting categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li>
+<li class="mnav-row"><a class="mnav-link mnav-link-accent" href="/collections/sale">Sale</a></li>
+<li class="mnav-row"><a class="mnav-link" href="/pages/brands">Brands</a></li>
+</ul></div>
+<div class="mnav-panel" data-mnav-panel="pain-relief" data-mnav-parent="medicines-health" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Pain Relief</span></button><a class="mnav-all" href="/collections/pain-relief">Shop all Pain Relief</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/pain-relief-headache">Pain Relief &amp; Headache</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/baby-children-pain-relief">Baby &amp; Children Pain Relief</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/muscle-joint-pain">Muscle &amp; Joint Pain</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="cold-flu-allergy" data-mnav-parent="medicines-health" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Cold, Flu &amp; Allergy</span></button><a class="mnav-all" href="/collections/cold-flu-allergy">Shop all Cold, Flu &amp; Allergy</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/cold-flu-combination-products">Cold &amp; Flu Combination Products</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/cough">Cough</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/hayfever-allergy">Hayfever &amp; Allergy</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/sore-throat">Sore Throat</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/blocked-nose-sinus">Blocked Nose &amp; Sinus</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="stomach-gastrointestinal" data-mnav-parent="medicines-health" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Stomach &amp; Gastrointestinal</span></button><a class="mnav-all" href="/collections/stomach-gastrointestinal">Shop all Stomach &amp; Gastrointestinal</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/nausea-acid-indigestion-reflux">Nausea, Acid Indigestion &amp; Reflux</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/bloating-gas">Bloating &amp; Gas</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/constipation">Constipation</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/diarrhoea">Diarrhoea</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/cramping-irritable-bowel">Cramping &amp; Irritable Bowel</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/travel-sickness">Travel Sickness</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/haemorrhoids-piles">Haemorrhoids &amp; Piles</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="sensitive-conditions" data-mnav-parent="medicines-health" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Sensitive Conditions</span></button><a class="mnav-all" href="/collections/sensitive-conditions">Shop all Sensitive Conditions</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/menopause">Menopause</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/hair-loss">Hair Loss</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/thrush-antifungal">Thrush &amp; Antifungal</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/headlice">Headlice</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/cystitis">Cystitis</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/skintags-warts-veruccas">Skintags, Warts &amp; Veruccas</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="nicotine-replacement" data-mnav-parent="medicines-health" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Nicotine Replacement</span></button><a class="mnav-all" href="/collections/nicotine-replacement">Shop all Nicotine Replacement</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/nicotine-patches">Nicotine Patches</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/nicotine-gum">Nicotine Gum</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/nicotine-lozenges">Nicotine Lozenges</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/nicotine-sprays">Nicotine Sprays</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="eye-ear-health" data-mnav-parent="medicines-health" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Eye &amp; Ear Health</span></button><a class="mnav-all" href="/collections/eye-ear-health">Shop all Eye &amp; Ear Health</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/dry-eye">Dry Eye</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/blepharitis-eyelid-hygiene">Blepharitis &amp; Eyelid Hygiene</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/macular-degeneration-glaucoma">Macular Degeneration &amp; Glaucoma</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/eye-infections">Eye Infections</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/contact-lens-care">Contact Lens Care</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/ear-wax-treatments">Ear Wax Treatments</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/ear-care-earplugs">Ear Care &amp; Earplugs</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/hearing-aid-batteries">Hearing Aid Batteries</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="sleep-rest" data-mnav-parent="medicines-health" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Sleep &amp; Rest</span></button><a class="mnav-all" href="/collections/sleep-rest">Shop all Sleep &amp; Rest</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/healthy-mind-sleeping-aids">Healthy Mind &amp; Sleeping Aids</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="mouth-oral-care" data-mnav-parent="medicines-health" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Mouth &amp; Oral Care</span></button><a class="mnav-all" href="/collections/mouth-oral-care">Shop all Mouth &amp; Oral Care</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/dry-mouth">Dry Mouth</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/gum-health-gingivitis">Gum Health &amp; Gingivitis</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/mouth-ulcers-cold-sores">Mouth Ulcers &amp; Cold Sores</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/teething">Teething</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="continence-care" data-mnav-parent="medicines-health" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Continence Care</span></button><a class="mnav-all" href="/collections/continence-care">Shop all Continence Care</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/bladder-weakness">Bladder Weakness</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/pads">Pads</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/liners">Liners</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/pants">Pants</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/odour-control-barrier-creams">Odour Control &amp; Barrier Creams</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="trying-to-conceive" data-mnav-parent="medicines-health" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Trying To Conceive</span></button><a class="mnav-all" href="/collections/trying-to-conceive">Shop all Trying To Conceive</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/fertility-aids-lubricant">Fertility Aids &amp; Lubricant</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/pregnancy-tests">Pregnancy Tests</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/ovulation-tests">Ovulation Tests</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="sexual-health" data-mnav-parent="medicines-health" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Sexual Health</span></button><a class="mnav-all" href="/collections/sexual-health">Shop all Sexual Health</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/erectile-dysfunction">Erectile Dysfunction</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/condoms">Condoms</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/lubricants-accessories">Lubricants &amp; Accessories</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="sport" data-mnav-parent="medicines-health" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Sport</span></button><a class="mnav-all" href="/collections/sport">Shop all Sport</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/warmup-recovery">Warmup &amp; Recovery</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="first-aid" data-mnav-parent="medicines-health" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>First Aid</span></button><a class="mnav-all" href="/collections/first-aid">Shop all First Aid</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/antiseptics-wound-cleaning">Antiseptics &amp; Wound Cleaning</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/bandages-plasters">Bandages &amp; Plasters</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/supports">Supports</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/cold-therapy-heat-therapy">Cold Therapy &amp; Heat Therapy</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/insect-bites-prevention">Insect Bites &amp; Prevention</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="foot-care" data-mnav-parent="medicines-health" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Foot Care</span></button><a class="mnav-all" href="/collections/foot-care">Shop all Foot Care</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/athletes-foot">Athletes Foot</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/verucca">Verucca</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/fungal-nail-infection">Fungal Nail Infection</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/cracked-heels-dry-skin">Cracked Heels &amp; Dry Skin</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/blisters-bunion-care">Blisters &amp; Bunion Care</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/corn-callous-care">Corn &amp; Callous Care</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/chiropody-felt-padding">Chiropody Felt &amp; Padding</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/insoles">Insoles</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/toe-nail-care">Toe Nail Care</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/foot-soak-odour-control">Foot Soak &amp; Odour Control</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="diabetes-care" data-mnav-parent="medicines-health" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Diabetes Care</span></button><a class="mnav-all" href="/collections/diabetes-care">Shop all Diabetes Care</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/test-strips-blood-glucose-monitors">Test Strips &amp; Blood Glucose Monitors</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/needles-lancets">Needles &amp; Lancets</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/sugar-level-maintenance">Sugar Level Maintenance</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="electrical-healthcare" data-mnav-parent="medicines-health" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Electrical Healthcare</span></button><a class="mnav-all" href="/collections/electrical-healthcare">Shop all Electrical Healthcare</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/blood-pressure-monitors">Blood Pressure Monitors</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/oximeters-weighing-scales">Oximeters &amp; Weighing Scales</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="medicines-health" data-mnav-parent="root" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Medicines &amp; Health</span></button><a class="mnav-all" href="/collections/medicines-health">Shop all Medicines &amp; Health</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/pain-relief">Pain Relief</a><button type="button" class="mnav-more" data-mnav-into="pain-relief" aria-label="Browse Pain Relief categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/cold-flu-allergy">Cold, Flu &amp; Allergy</a><button type="button" class="mnav-more" data-mnav-into="cold-flu-allergy" aria-label="Browse Cold, Flu &amp; Allergy categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/stomach-gastrointestinal">Stomach &amp; Gastrointestinal</a><button type="button" class="mnav-more" data-mnav-into="stomach-gastrointestinal" aria-label="Browse Stomach &amp; Gastrointestinal categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/sensitive-conditions">Sensitive Conditions</a><button type="button" class="mnav-more" data-mnav-into="sensitive-conditions" aria-label="Browse Sensitive Conditions categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/nicotine-replacement">Nicotine Replacement</a><button type="button" class="mnav-more" data-mnav-into="nicotine-replacement" aria-label="Browse Nicotine Replacement categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/eye-ear-health">Eye &amp; Ear Health</a><button type="button" class="mnav-more" data-mnav-into="eye-ear-health" aria-label="Browse Eye &amp; Ear Health categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/sleep-rest">Sleep &amp; Rest</a><button type="button" class="mnav-more" data-mnav-into="sleep-rest" aria-label="Browse Sleep &amp; Rest categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/mouth-oral-care">Mouth &amp; Oral Care</a><button type="button" class="mnav-more" data-mnav-into="mouth-oral-care" aria-label="Browse Mouth &amp; Oral Care categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/continence-care">Continence Care</a><button type="button" class="mnav-more" data-mnav-into="continence-care" aria-label="Browse Continence Care categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/trying-to-conceive">Trying To Conceive</a><button type="button" class="mnav-more" data-mnav-into="trying-to-conceive" aria-label="Browse Trying To Conceive categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/sexual-health">Sexual Health</a><button type="button" class="mnav-more" data-mnav-into="sexual-health" aria-label="Browse Sexual Health categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/sport">Sport</a><button type="button" class="mnav-more" data-mnav-into="sport" aria-label="Browse Sport categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/first-aid">First Aid</a><button type="button" class="mnav-more" data-mnav-into="first-aid" aria-label="Browse First Aid categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/foot-care">Foot Care</a><button type="button" class="mnav-more" data-mnav-into="foot-care" aria-label="Browse Foot Care categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/diabetes-care">Diabetes Care</a><button type="button" class="mnav-more" data-mnav-into="diabetes-care" aria-label="Browse Diabetes Care categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/electrical-healthcare">Electrical Healthcare</a><button type="button" class="mnav-more" data-mnav-into="electrical-healthcare" aria-label="Browse Electrical Healthcare categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/self-testing-kits">Self Testing Kits</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/healthcare-medicine-accessories">Healthcare &amp; Medicine Accessories</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="vitamins" data-mnav-parent="root" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Vitamins &amp; Supplements</span></button><a class="mnav-all" href="/collections/vitamins">Shop all Vitamins &amp; Supplements</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/probiotics-digestive-health">Probiotics &amp; Digestive Health</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/children-vitamins">Children Vitamins</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/fish-oils-omegas">Fish Oils &amp; Omegas</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/healthy-mind-sleeping-aids">Healthy Mind &amp; Sleeping Aids</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/womens-health">Women&#x27;s Health</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/everyday-multivitamins">Everyday Multivitamins</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/energy-wellbeing">Energy &amp; Wellbeing</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/skin-hair-nails">Skin, Hair &amp; Nails</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/joint-bone-health">Joint &amp; Bone Health</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/fertility-pregnancy">Fertility &amp; Pregnancy</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/brain-health">Brain Health</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/eye-health">Eye Health</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/heart-health">Heart Health</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/slimming">Slimming</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/herbal-remedies">Herbal Remedies</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/immune-support">Immune Support</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/essential-oils">Essential Oils</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/mens-health">Men&#x27;s Health</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="face" data-mnav-parent="beauty" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Face</span></button><a class="mnav-all" href="/collections/face">Shop all Face</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/foundation">Foundation</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/makeup-remover">Makeup Remover</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/bronzer">Bronzer</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/concealer">Concealer</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/blusher">Blusher</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/powders-primers">Powders &amp; Primers</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/contouring-highlighting">Contouring &amp; Highlighting</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/tinted-moisturiser">Tinted Moisturiser</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="eyes" data-mnav-parent="beauty" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Eyes</span></button><a class="mnav-all" href="/collections/eyes">Shop all Eyes</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/eyeshadow">Eyeshadow</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/eyeliner">Eyeliner</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/mascara">Mascara</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/eyebrows">Eyebrows</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/false-eyelashes">False Eyelashes</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/eye-makeup-remover">Eye Makeup Remover</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="lips" data-mnav-parent="beauty" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Lips</span></button><a class="mnav-all" href="/collections/lips">Shop all Lips</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/lip-gloss">Lip Gloss</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/lipstick">Lipstick</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/lip-liner">Lip Liner</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="tanning" data-mnav-parent="beauty" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Tanning</span></button><a class="mnav-all" href="/collections/tanning">Shop all Tanning</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/self-tan">Self Tan</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/tanning-mitts">Tanning Mitts</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/gradual-tan">Gradual Tan</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/prep-maintain">Prep &amp; Maintain</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/tan-remover">Tan Remover</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="nails" data-mnav-parent="beauty" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Nails</span></button><a class="mnav-all" href="/collections/nails">Shop all Nails</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/nail-polish">Nail Polish</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/false-nails-nail-wraps">False Nails &amp; Nail Wraps</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/nail-care">Nail Care</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/nail-polish-remover">Nail Polish Remover</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="makeup-brushes-tools" data-mnav-parent="beauty" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Makeup Brushes &amp; Tools</span></button><a class="mnav-all" href="/collections/makeup-brushes-tools">Shop all Makeup Brushes &amp; Tools</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/makeup-brushes">Makeup Brushes</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/makeup-sponges">Makeup Sponges</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/makeup-brush-cleaners">Makeup Brush Cleaners</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="beauty-accessories" data-mnav-parent="beauty" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Beauty Accessories</span></button><a class="mnav-all" href="/collections/beauty-accessories">Shop all Beauty Accessories</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/body-tape-nipple-covers">Body Tape &amp; Nipple Covers</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/tweezers">Tweezers</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/beauty-accessories">Beauty Accessories</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="beauty" data-mnav-parent="root" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Beauty</span></button><a class="mnav-all" href="/collections/beauty">Shop all Beauty</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/face">Face</a><button type="button" class="mnav-more" data-mnav-into="face" aria-label="Browse Face categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/eyes">Eyes</a><button type="button" class="mnav-more" data-mnav-into="eyes" aria-label="Browse Eyes categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/lips">Lips</a><button type="button" class="mnav-more" data-mnav-into="lips" aria-label="Browse Lips categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/tanning">Tanning</a><button type="button" class="mnav-more" data-mnav-into="tanning" aria-label="Browse Tanning categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/nails">Nails</a><button type="button" class="mnav-more" data-mnav-into="nails" aria-label="Browse Nails categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/makeup-brushes-tools">Makeup Brushes &amp; Tools</a><button type="button" class="mnav-more" data-mnav-into="makeup-brushes-tools" aria-label="Browse Makeup Brushes &amp; Tools categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/beauty-accessories">Beauty Accessories</a><button type="button" class="mnav-more" data-mnav-into="beauty-accessories" aria-label="Browse Beauty Accessories categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="dermatological-skincare" data-mnav-parent="skincare" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Dermatological Skincare</span></button><a class="mnav-all" href="/collections/dermatological-skincare">Shop all Dermatological Skincare</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/anti-ageing">Anti-Ageing</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/acne-blemish">Acne &amp; Blemish</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/dry-skin">Dry Skin</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/sensitive-skin">Sensitive Skin</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/irritated-damaged-skin">Irritated &amp; Damaged Skin</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/sun">Sun</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="body-skincare" data-mnav-parent="skincare" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Body Skincare</span></button><a class="mnav-all" href="/collections/body-skincare">Shop all Body Skincare</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/moisturisers">Moisturisers</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/exfoliators">Exfoliators</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="facial-skincare" data-mnav-parent="skincare" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Facial Skincare</span></button><a class="mnav-all" href="/collections/facial-skincare">Shop all Facial Skincare</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/facial-suncare">Facial Suncare</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/facial-moisturisers">Facial Moisturisers</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/eye-cream">Eye Cream</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/serums-oils">Serums &amp; Oils</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/cleanser">Cleanser</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/toner">Toner</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/exfoliators-peels">Exfoliators &amp; Peels</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/face-masks">Face Masks</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/treatments">Treatments</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/lip-care">Lip Care</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="problem-skin" data-mnav-parent="skincare" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Problem Skin</span></button><a class="mnav-all" href="/collections/problem-skin">Shop all Problem Skin</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/acne-blemish">Acne &amp; Blemish</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/dry-skin-eczema-psoriasis">Dry Skin, Eczema &amp; Psoriasis</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="hands-nails" data-mnav-parent="skincare" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Hands &amp; Nails</span></button><a class="mnav-all" href="/collections/hands-nails">Shop all Hands &amp; Nails</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/hand-cream">Hand Cream</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/cuticle-nail-care">Cuticle &amp; Nail Care</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="skincare" data-mnav-parent="root" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Skincare</span></button><a class="mnav-all" href="/collections/skincare">Shop all Skincare</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/dermatological-skincare">Dermatological Skincare</a><button type="button" class="mnav-more" data-mnav-into="dermatological-skincare" aria-label="Browse Dermatological Skincare categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/body-skincare">Body Skincare</a><button type="button" class="mnav-more" data-mnav-into="body-skincare" aria-label="Browse Body Skincare categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/facial-skincare">Facial Skincare</a><button type="button" class="mnav-more" data-mnav-into="facial-skincare" aria-label="Browse Facial Skincare categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/problem-skin">Problem Skin</a><button type="button" class="mnav-more" data-mnav-into="problem-skin" aria-label="Browse Problem Skin categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li><li class="mnav-row"><a class="mnav-link" href="/collections/hands-nails">Hands &amp; Nails</a><button type="button" class="mnav-more" data-mnav-into="hands-nails" aria-label="Browse Hands &amp; Nails categories"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="toiletries" data-mnav-parent="root" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Toiletries</span></button><a class="mnav-all" href="/collections/toiletries">Shop all Toiletries</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/hair-care">Hair Care</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/dental-care">Dental Care</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/deodorant">Deodorant</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/mens-grooming">Men&#x27;s Grooming</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/feminine-care">Feminine Care</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/bath-shower">Bath &amp; Shower</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/travel">Travel</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="mother-baby" data-mnav-parent="root" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Mother &amp; Baby</span></button><a class="mnav-all" href="/collections/mother-baby">Shop all Mother &amp; Baby</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/baby-health">Baby Health</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/baby-feeding">Baby Feeding</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/maternity-care">Maternity Care</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/baby-skincare">Baby Skincare</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/baby-wipes-toiletries">Baby Wipes &amp; Toiletries</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/baby-accessories">Baby Accessories</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="fragrance" data-mnav-parent="root" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Fragrance</span></button><a class="mnav-all" href="/collections/fragrance">Shop all Fragrance</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/ladies-fragrance">Ladies Fragrance</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/ladies-fragrance-singles">Ladies Fragrance Singles</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/ladies-fragrance-sets">Ladies Fragrance Sets</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/mens-fragrance">Mens Fragrance</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/mens-fragrance-singles">Mens Fragrance Singles</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/mens-fragrance-sets">Mens Fragrance Sets</a></li></ul></div>
+<div class="mnav-panel" data-mnav-panel="gifting" data-mnav-parent="root" hidden><button type="button" class="mnav-back" data-mnav-back><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg><span>Gifting</span></button><a class="mnav-all" href="/collections/gifting">Shop all Gifting</a><ul class="mnav-list"><li class="mnav-row"><a class="mnav-link" href="/collections/christmas-shop">Christmas Shop</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/womens-fragrance">Women&#x27;s Fragrance</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/mens-fragrance">Men&#x27;s Fragrance</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/gifts-for-her">Gifts for Her</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/gifts-for-him">Gifts for Him</a></li><li class="mnav-row"><a class="mnav-link" href="/collections/candles-diffusers">Candles &amp; Diffusers</a></li></ul></div>
+</div>
+
+  <div style="padding:18px 20px; margin-top:auto; display:flex; flex-direction:column; gap:12px;">
+    <div style="display:flex; gap:12px;">
+      <a href="/pages/in-store-services" class="hov-bg-dark" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:14px; height:46px; border-radius:9px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
+        Services
+      </a>
+      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14px; height:46px; border-radius:9px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.5"></circle></svg>
+        Store Locator
+      </a>
+    </div>
+    <div style="display:flex; gap:12px;">
+      <a href="/account" class="hov-border-accent" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:14px; height:44px; border-radius:9px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Account
+      </a>
+      <a href="/pages/wishlist" class="hov-border-accent" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:14px; height:44px; border-radius:9px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>Wishlist<span data-wish-count style="min-width:19px; height:19px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11.5px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 5px;">0</span>
+      </a>
+    </div>
+  </div>
+</aside>
+
+
+<div class="main-nav-bar" style="width:100%; background:#f2f3f1; border-top:1px solid #e6e7e4; border-bottom:1px solid #e6e7e4;">
+  <div data-mega-root style="max-width:1440px; margin:0 auto; padding:3px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px 30px; position:relative;">
+    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:8px 18px; font-weight:600; font-size:14px;">
+      <a href="/collections/medicines-health" class="hov-green" data-mega-trigger="medicines-health" style="color:#2A2B2A; font-size:13.5px;">Medicines &amp; Health</a>
+      <a href="/collections/vitamins" class="hov-green" data-mega-trigger="vitamins" style="color:#2A2B2A; font-size:13.5px;">Vitamins &amp; Supplements</a>
+      <a href="/collections/beauty" class="hov-green" data-mega-trigger="beauty" style="color:#2A2B2A; font-size:13.5px;">Beauty</a>
+      <a href="/collections/skincare" class="hov-green" data-mega-trigger="skincare" style="color:#2A2B2A; font-size:13.5px;">Skincare</a>
+      <a href="/collections/toiletries" class="hov-green" data-mega-trigger="toiletries" style="color:#2A2B2A; font-size:13.5px;">Toiletries</a>
+      <a href="/collections/mother-baby" class="hov-green" data-mega-trigger="mother-baby" style="color:#2A2B2A; font-size:13.5px;">Mother &amp; Baby</a>
+      <a href="/collections/fragrance" class="hov-green" data-mega-trigger="fragrance" style="color:#2A2B2A; font-size:13.5px;">Fragrance</a>
+      <a href="/collections/gifting" class="hov-green" data-mega-trigger="gifting" style="color:#2A2B2A; font-size:13.5px;">Gifting</a>
+      <a href="/collections/sale" class="hov-green-dk" data-mega-close style="color:var(--c-primary-text); font-weight:700; font-size:13.5px;">Sale</a>
+      <a href="/pages/brands" class="hov-green" data-mega-close style="color:#2A2B2A; font-size:13.5px;">Brands</a>
+    </nav>
+    <div style="display:flex; align-items:center; gap:9px;">
+      <a href="/pages/in-store-services" class="hov-bg-green-dk" style="display:flex; align-items:center; gap:9px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
+        <span>In-Store Services</span>
+      </a>
+      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="display:flex; align-items:center; gap:9px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.4"></circle></svg>
+        <span>Store Locator</span>
+      </a>
+    </div>
+    
+<div class="mega-panel" data-mega-panel="medicines-health">
+
+      <div style="position:absolute; left:30px; width:1380px; max-width:calc(100vw - 60px); top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:78vh; overflow:auto; animation:megaIn .16s ease-out;">
+        <div style="display:flex; align-items:stretch;">
+          <div style="flex:1; padding:30px 30px; display:grid; grid-template-columns:repeat(6,minmax(155px,1fr)); gap:20px;">
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="/collections/pain-relief" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Pain Relief</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/pain-relief-headache" style="color:#2A2B2A;" class="hov-green">Pain Relief &amp; Headache</a>
+                  <a href="/collections/baby-children-pain-relief" style="color:#2A2B2A;" class="hov-green">Baby &amp; Children Pain Relief</a>
+                  <a href="/collections/muscle-joint-pain" style="color:#2A2B2A;" class="hov-green">Muscle &amp; Joint Pain</a>
+                </div>
+              </div>
+              <div>
+                <a href="/collections/cold-flu-allergy" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Cold, Flu &amp; Allergy</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/cold-flu-combination-products" style="color:#2A2B2A;" class="hov-green">Cold &amp; Flu Combination Products</a>
+                  <a href="/collections/cough" style="color:#2A2B2A;" class="hov-green">Cough</a>
+                  <a href="/collections/hayfever-allergy" style="color:#2A2B2A;" class="hov-green">Hayfever &amp; Allergy</a>
+                  <a href="/collections/sore-throat" style="color:#2A2B2A;" class="hov-green">Sore Throat</a>
+                  <a href="/collections/blocked-nose-sinus" style="color:#2A2B2A;" class="hov-green">Blocked Nose &amp; Sinus</a>
+                </div>
+              </div>
+              <div>
+                <a href="/collections/stomach-gastrointestinal" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Stomach &amp; Gastrointestinal</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/nausea-acid-indigestion-reflux" style="color:#2A2B2A;" class="hov-green">Nausea, Acid Indigestion &amp; Reflux</a>
+                  <a href="/collections/bloating-gas" style="color:#2A2B2A;" class="hov-green">Bloating &amp; Gas</a>
+                  <a href="/collections/constipation" style="color:#2A2B2A;" class="hov-green">Constipation</a>
+                  <a href="/collections/diarrhoea" style="color:#2A2B2A;" class="hov-green">Diarrhoea</a>
+                  <a href="/collections/cramping-irritable-bowel" style="color:#2A2B2A;" class="hov-green">Cramping &amp; Irritable Bowel</a>
+                  <a href="/collections/travel-sickness" style="color:#2A2B2A;" class="hov-green">Travel Sickness</a>
+                  <a href="/collections/haemorrhoids-piles" style="color:#2A2B2A;" class="hov-green">Haemorrhoids &amp; Piles</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="/collections/sensitive-conditions" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sensitive Conditions</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/menopause" style="color:#2A2B2A;" class="hov-green">Menopause</a>
+                  <a href="/collections/hair-loss" style="color:#2A2B2A;" class="hov-green">Hair Loss</a>
+                  <a href="/collections/thrush-antifungal" style="color:#2A2B2A;" class="hov-green">Thrush &amp; Antifungal</a>
+                  <a href="/collections/headlice" style="color:#2A2B2A;" class="hov-green">Headlice</a>
+                  <a href="/collections/cystitis" style="color:#2A2B2A;" class="hov-green">Cystitis</a>
+                  <a href="/collections/skintags-warts-veruccas" style="color:#2A2B2A;" class="hov-green">Skintags, Warts &amp; Veruccas</a>
+                </div>
+              </div>
+              <div>
+                <a href="/collections/nicotine-replacement" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nicotine Replacement</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/nicotine-patches" style="color:#2A2B2A;" class="hov-green">Nicotine Patches</a>
+                  <a href="/collections/nicotine-gum" style="color:#2A2B2A;" class="hov-green">Nicotine Gum</a>
+                  <a href="/collections/nicotine-lozenges" style="color:#2A2B2A;" class="hov-green">Nicotine Lozenges</a>
+                  <a href="/collections/nicotine-sprays" style="color:#2A2B2A;" class="hov-green">Nicotine Sprays</a>
+                </div>
+              </div>
+              <div>
+                <a href="/collections/eye-ear-health" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eye &amp; Ear Health</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/dry-eye" style="color:#2A2B2A;" class="hov-green">Dry Eye</a>
+                  <a href="/collections/blepharitis-eyelid-hygiene" style="color:#2A2B2A;" class="hov-green">Blepharitis &amp; Eyelid Hygiene</a>
+                  <a href="/collections/macular-degeneration-glaucoma" style="color:#2A2B2A;" class="hov-green">Macular Degeneration &amp; Glaucoma</a>
+                  <a href="/collections/eye-infections" style="color:#2A2B2A;" class="hov-green">Eye Infections</a>
+                  <a href="/collections/contact-lens-care" style="color:#2A2B2A;" class="hov-green">Contact Lens Care</a>
+                  <a href="/collections/ear-wax-treatments" style="color:#2A2B2A;" class="hov-green">Ear Wax Treatments</a>
+                  <a href="/collections/ear-care-earplugs" style="color:#2A2B2A;" class="hov-green">Ear Care &amp; Earplugs</a>
+                  <a href="/collections/hearing-aid-batteries" style="color:#2A2B2A;" class="hov-green">Hearing Aid Batteries</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="/collections/sleep-rest" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sleep &amp; Rest</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/healthy-mind-sleeping-aids" style="color:#2A2B2A;" class="hov-green">Healthy Mind &amp; Sleeping Aids</a>
+                </div>
+              </div>
+              <div>
+                <a href="/collections/mouth-oral-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Mouth &amp; Oral Care</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/dry-mouth" style="color:#2A2B2A;" class="hov-green">Dry Mouth</a>
+                  <a href="/collections/gum-health-gingivitis" style="color:#2A2B2A;" class="hov-green">Gum Health &amp; Gingivitis</a>
+                  <a href="/collections/mouth-ulcers-cold-sores" style="color:#2A2B2A;" class="hov-green">Mouth Ulcers &amp; Cold Sores</a>
+                  <a href="/collections/teething" style="color:#2A2B2A;" class="hov-green">Teething</a>
+                </div>
+              </div>
+              <div>
+                <a href="/collections/continence-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Continence Care</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/bladder-weakness" style="color:#2A2B2A;" class="hov-green">Bladder Weakness</a>
+                  <a href="/collections/pads" style="color:#2A2B2A;" class="hov-green">Pads</a>
+                  <a href="/collections/liners" style="color:#2A2B2A;" class="hov-green">Liners</a>
+                  <a href="/collections/pants" style="color:#2A2B2A;" class="hov-green">Pants</a>
+                  <a href="/collections/odour-control-barrier-creams" style="color:#2A2B2A;" class="hov-green">Odour Control &amp; Barrier Creams</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="/collections/trying-to-conceive" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Trying To Conceive</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/fertility-aids-lubricant" style="color:#2A2B2A;" class="hov-green">Fertility Aids &amp; Lubricant</a>
+                  <a href="/collections/pregnancy-tests" style="color:#2A2B2A;" class="hov-green">Pregnancy Tests</a>
+                  <a href="/collections/ovulation-tests" style="color:#2A2B2A;" class="hov-green">Ovulation Tests</a>
+                </div>
+              </div>
+              <div>
+                <a href="/collections/sexual-health" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sexual Health</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/erectile-dysfunction" style="color:#2A2B2A;" class="hov-green">Erectile Dysfunction</a>
+                  <a href="/collections/condoms" style="color:#2A2B2A;" class="hov-green">Condoms</a>
+                  <a href="/collections/lubricants-accessories" style="color:#2A2B2A;" class="hov-green">Lubricants &amp; Accessories</a>
+                </div>
+              </div>
+              <div>
+                <a href="/collections/sport" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Sport</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/warmup-recovery" style="color:#2A2B2A;" class="hov-green">Warmup &amp; Recovery</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="/collections/first-aid" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">First Aid</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/antiseptics-wound-cleaning" style="color:#2A2B2A;" class="hov-green">Antiseptics &amp; Wound Cleaning</a>
+                  <a href="/collections/bandages-plasters" style="color:#2A2B2A;" class="hov-green">Bandages &amp; Plasters</a>
+                  <a href="/collections/supports" style="color:#2A2B2A;" class="hov-green">Supports</a>
+                  <a href="/collections/cold-therapy-heat-therapy" style="color:#2A2B2A;" class="hov-green">Cold Therapy &amp; Heat Therapy</a>
+                  <a href="/collections/insect-bites-prevention" style="color:#2A2B2A;" class="hov-green">Insect Bites &amp; Prevention</a>
+                </div>
+              </div>
+              <div>
+                <a href="/collections/foot-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Foot Care</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/athletes-foot" style="color:#2A2B2A;" class="hov-green">Athletes Foot</a>
+                  <a href="/collections/verucca" style="color:#2A2B2A;" class="hov-green">Verucca</a>
+                  <a href="/collections/fungal-nail-infection" style="color:#2A2B2A;" class="hov-green">Fungal Nail Infection</a>
+                  <a href="/collections/cracked-heels-dry-skin" style="color:#2A2B2A;" class="hov-green">Cracked Heels &amp; Dry Skin</a>
+                  <a href="/collections/blisters-bunion-care" style="color:#2A2B2A;" class="hov-green">Blisters &amp; Bunion Care</a>
+                  <a href="/collections/corn-callous-care" style="color:#2A2B2A;" class="hov-green">Corn &amp; Callous Care</a>
+                  <a href="/collections/chiropody-felt-padding" style="color:#2A2B2A;" class="hov-green">Chiropody Felt &amp; Padding</a>
+                  <a href="/collections/insoles" style="color:#2A2B2A;" class="hov-green">Insoles</a>
+                  <a href="/collections/toe-nail-care" style="color:#2A2B2A;" class="hov-green">Toe Nail Care</a>
+                  <a href="/collections/foot-soak-odour-control" style="color:#2A2B2A;" class="hov-green">Foot Soak &amp; Odour Control</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="/collections/diabetes-care" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Diabetes Care</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/test-strips-blood-glucose-monitors" style="color:#2A2B2A;" class="hov-green">Test Strips &amp; Blood Glucose Monitors</a>
+                  <a href="/collections/needles-lancets" style="color:#2A2B2A;" class="hov-green">Needles &amp; Lancets</a>
+                  <a href="/collections/sugar-level-maintenance" style="color:#2A2B2A;" class="hov-green">Sugar Level Maintenance</a>
+                </div>
+              </div>
+              <div>
+                <a href="/collections/electrical-healthcare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Electrical Healthcare</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/blood-pressure-monitors" style="color:#2A2B2A;" class="hov-green">Blood Pressure Monitors</a>
+                  <a href="/collections/oximeters-weighing-scales" style="color:#2A2B2A;" class="hov-green">Oximeters &amp; Weighing Scales</a>
+                </div>
+              </div>
+              <div>
+                <a href="/collections/self-testing-kits" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Self Testing Kits</a>
+              </div>
+              <div>
+                <a href="/collections/healthcare-medicine-accessories" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px;" class="hov-dark-green">Healthcare &amp; Medicine Accessories</a>
+              </div>
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+      
+</div>
+<div class="mega-panel" data-mega-panel="vitamins">
+
+      <div style="position:absolute; left:30px; width:1000px; max-width:calc(100vw - 60px); top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:78vh; overflow:auto; animation:megaIn .16s ease-out;">
+        <div style="display:flex; align-items:stretch;">
+          <div style="flex:1; padding:34px 32px; display:grid; grid-template-columns:repeat(4,minmax(150px,1fr)); gap:26px;">
+            <div style="display:flex; flex-direction:column; gap:11px; font-size:14px;">
+              <a href="/collections/probiotics-digestive-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Probiotics &amp; Digestive Health</a>
+              <a href="/collections/children-vitamins" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Children Vitamins</a>
+              <a href="/collections/fish-oils-omegas" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Fish Oils &amp; Omegas</a>
+              <a href="/collections/healthy-mind-sleeping-aids" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Healthy Mind &amp; Sleeping Aids</a>
+              <a href="/collections/womens-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Women's Health</a>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:11px; font-size:14px;">
+              <a href="/collections/everyday-multivitamins" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Everyday Multivitamins</a>
+              <a href="/collections/energy-wellbeing" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Energy &amp; Wellbeing</a>
+              <a href="/collections/skin-hair-nails" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Skin, Hair &amp; Nails</a>
+              <a href="/collections/joint-bone-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Joint &amp; Bone Health</a>
+              <a href="/collections/fertility-pregnancy" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Fertility &amp; Pregnancy</a>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:11px; font-size:14px;">
+              <a href="/collections/brain-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Brain Health</a>
+              <a href="/collections/eye-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Eye Health</a>
+              <a href="/collections/heart-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Heart Health</a>
+              <a href="/collections/slimming" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Slimming</a>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:11px; font-size:14px;">
+              <a href="/collections/herbal-remedies" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Herbal Remedies</a>
+              <a href="/collections/immune-support" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Immune Support</a>
+              <a href="/collections/essential-oils" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Essential Oils</a>
+              <a href="/collections/mens-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Men's Health</a>
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+      
+</div>
+<div class="mega-panel" data-mega-panel="skincare">
+
+      <div style="position:absolute; left:30px; width:1100px; max-width:calc(100vw - 60px); top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:78vh; overflow:auto; animation:megaIn .16s ease-out;">
+        <div style="display:flex; align-items:stretch;">
+          <div style="flex:1; padding:30px; display:grid; grid-template-columns:repeat(3,minmax(180px,1fr)); gap:24px;">
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="/collections/dermatological-skincare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Dermatological Skincare</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/anti-ageing" style="color:#2A2B2A;" class="hov-green">Anti-Ageing</a>
+                  <a href="/collections/acne-blemish" style="color:#2A2B2A;" class="hov-green">Acne &amp; Blemish</a>
+                  <a href="/collections/dry-skin" style="color:#2A2B2A;" class="hov-green">Dry Skin</a>
+                  <a href="/collections/sensitive-skin" style="color:#2A2B2A;" class="hov-green">Sensitive Skin</a>
+                  <a href="/collections/irritated-damaged-skin" style="color:#2A2B2A;" class="hov-green">Irritated &amp; Damaged Skin</a>
+                  <a href="/collections/sun" style="color:#2A2B2A;" class="hov-green">Sun</a>
+                </div>
+              </div>
+              <div>
+                <a href="/collections/body-skincare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Body Skincare</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/moisturisers" style="color:#2A2B2A;" class="hov-green">Moisturisers</a>
+                  <a href="/collections/exfoliators" style="color:#2A2B2A;" class="hov-green">Exfoliators</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="/collections/facial-skincare" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Facial Skincare</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/facial-suncare" style="color:#2A2B2A;" class="hov-green">Facial Suncare</a>
+                  <a href="/collections/facial-moisturisers" style="color:#2A2B2A;" class="hov-green">Facial Moisturisers</a>
+                  <a href="/collections/eye-cream" style="color:#2A2B2A;" class="hov-green">Eye Cream</a>
+                  <a href="/collections/serums-oils" style="color:#2A2B2A;" class="hov-green">Serums &amp; Oils</a>
+                  <a href="/collections/cleanser" style="color:#2A2B2A;" class="hov-green">Cleanser</a>
+                  <a href="/collections/toner" style="color:#2A2B2A;" class="hov-green">Toner</a>
+                  <a href="/collections/exfoliators-peels" style="color:#2A2B2A;" class="hov-green">Exfoliators &amp; Peels</a>
+                  <a href="/collections/face-masks" style="color:#2A2B2A;" class="hov-green">Face Masks</a>
+                  <a href="/collections/treatments" style="color:#2A2B2A;" class="hov-green">Treatments</a>
+                  <a href="/collections/lip-care" style="color:#2A2B2A;" class="hov-green">Lip Care</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="/collections/problem-skin" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Problem Skin</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/acne-blemish" style="color:#2A2B2A;" class="hov-green">Acne &amp; Blemish</a>
+                  <a href="/collections/dry-skin-eczema-psoriasis" style="color:#2A2B2A;" class="hov-green">Dry Skin, Eczema &amp; Psoriasis</a>
+                </div>
+              </div>
+              <div>
+                <a href="/collections/hands-nails" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Hands &amp; Nails</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/hand-cream" style="color:#2A2B2A;" class="hov-green">Hand Cream</a>
+                  <a href="/collections/cuticle-nail-care" style="color:#2A2B2A;" class="hov-green">Cuticle &amp; Nail Care</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+      
+</div>
+<div class="mega-panel" data-mega-panel="beauty">
+
+      <div style="position:absolute; left:30px; width:1240px; max-width:calc(100vw - 60px); top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:78vh; overflow:auto; animation:megaIn .16s ease-out;">
+        <div style="display:flex; align-items:stretch;">
+          <div style="flex:1; padding:30px; display:grid; grid-template-columns:repeat(4,minmax(160px,1fr)); gap:24px;">
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="/collections/face" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Face</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/foundation" style="color:#2A2B2A;" class="hov-green">Foundation</a>
+                  <a href="/collections/makeup-remover" style="color:#2A2B2A;" class="hov-green">Makeup Remover</a>
+                  <a href="/collections/bronzer" style="color:#2A2B2A;" class="hov-green">Bronzer</a>
+                  <a href="/collections/concealer" style="color:#2A2B2A;" class="hov-green">Concealer</a>
+                  <a href="/collections/blusher" style="color:#2A2B2A;" class="hov-green">Blusher</a>
+                  <a href="/collections/powders-primers" style="color:#2A2B2A;" class="hov-green">Powders &amp; Primers</a>
+                  <a href="/collections/contouring-highlighting" style="color:#2A2B2A;" class="hov-green">Contouring &amp; Highlighting</a>
+                  <a href="/collections/tinted-moisturiser" style="color:#2A2B2A;" class="hov-green">Tinted Moisturiser</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="/collections/eyes" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Eyes</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/eyeshadow" style="color:#2A2B2A;" class="hov-green">Eyeshadow</a>
+                  <a href="/collections/eyeliner" style="color:#2A2B2A;" class="hov-green">Eyeliner</a>
+                  <a href="/collections/mascara" style="color:#2A2B2A;" class="hov-green">Mascara</a>
+                  <a href="/collections/eyebrows" style="color:#2A2B2A;" class="hov-green">Eyebrows</a>
+                  <a href="/collections/false-eyelashes" style="color:#2A2B2A;" class="hov-green">False Eyelashes</a>
+                  <a href="/collections/eye-makeup-remover" style="color:#2A2B2A;" class="hov-green">Eye Makeup Remover</a>
+                </div>
+              </div>
+              <div>
+                <a href="/collections/lips" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Lips</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/lip-gloss" style="color:#2A2B2A;" class="hov-green">Lip Gloss</a>
+                  <a href="/collections/lipstick" style="color:#2A2B2A;" class="hov-green">Lipstick</a>
+                  <a href="/collections/lip-liner" style="color:#2A2B2A;" class="hov-green">Lip Liner</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="/collections/tanning" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Tanning</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/self-tan" style="color:#2A2B2A;" class="hov-green">Self Tan</a>
+                  <a href="/collections/tanning-mitts" style="color:#2A2B2A;" class="hov-green">Tanning Mitts</a>
+                  <a href="/collections/gradual-tan" style="color:#2A2B2A;" class="hov-green">Gradual Tan</a>
+                  <a href="/collections/prep-maintain" style="color:#2A2B2A;" class="hov-green">Prep &amp; Maintain</a>
+                  <a href="/collections/tan-remover" style="color:#2A2B2A;" class="hov-green">Tan Remover</a>
+                </div>
+              </div>
+              <div>
+                <a href="/collections/nails" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Nails</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/nail-polish" style="color:#2A2B2A;" class="hov-green">Nail Polish</a>
+                  <a href="/collections/false-nails-nail-wraps" style="color:#2A2B2A;" class="hov-green">False Nails &amp; Nail Wraps</a>
+                  <a href="/collections/nail-care" style="color:#2A2B2A;" class="hov-green">Nail Care</a>
+                  <a href="/collections/nail-polish-remover" style="color:#2A2B2A;" class="hov-green">Nail Polish Remover</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <a href="/collections/makeup-brushes-tools" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Makeup Brushes &amp; Tools</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/makeup-brushes" style="color:#2A2B2A;" class="hov-green">Makeup Brushes</a>
+                  <a href="/collections/makeup-sponges" style="color:#2A2B2A;" class="hov-green">Makeup Sponges</a>
+                  <a href="/collections/makeup-brush-cleaners" style="color:#2A2B2A;" class="hov-green">Makeup Brush Cleaners</a>
+                </div>
+              </div>
+              <div>
+                <a href="/collections/beauty-accessories" style="display:block; color:var(--c-primary-text); font-weight:800; font-size:13.5px; margin-bottom:8px;" class="hov-dark-green">Beauty Accessories</a>
+                <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+                  <a href="/collections/body-tape-nipple-covers" style="color:#2A2B2A;" class="hov-green">Body Tape &amp; Nipple Covers</a>
+                  <a href="/collections/tweezers" style="color:#2A2B2A;" class="hov-green">Tweezers</a>
+                  <a href="/collections/beauty-accessories" style="color:#2A2B2A;" class="hov-green">Beauty Accessories</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+      
+</div>
+<div class="mega-panel" data-mega-panel="toiletries">
+<div style="position:absolute; left:379px; width:240px; top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:74vh; overflow-y:auto; animation:megaIn .16s ease-out;">
+<div style="padding:26px 28px; display:flex; flex-direction:column; gap:11px; font-size:14px;">
+<a href="/collections/hair-care" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Hair Care</a>
+<a href="/collections/dental-care" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Dental Care</a>
+<a href="/collections/deodorant" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Deodorant</a>
+<a href="/collections/mens-grooming" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Men's Grooming</a>
+<a href="/collections/feminine-care" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Feminine Care</a>
+<a href="/collections/bath-shower" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Bath &amp; Shower</a>
+<a href="/collections/travel" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Travel</a>
+</div>
+</div>
+</div>
+<div class="mega-panel" data-mega-panel="mother-baby">
+<div style="position:absolute; left:454px; width:240px; top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:74vh; overflow-y:auto; animation:megaIn .16s ease-out;">
+<div style="padding:26px 28px; display:flex; flex-direction:column; gap:11px; font-size:14px;">
+<a href="/collections/baby-health" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Baby Health</a>
+<a href="/collections/baby-feeding" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Baby Feeding</a>
+<a href="/collections/maternity-care" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Maternity Care</a>
+<a href="/collections/baby-skincare" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Baby Skincare</a>
+<a href="/collections/baby-wipes-toiletries" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Baby Wipes &amp; Toiletries</a>
+<a href="/collections/baby-accessories" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Baby Accessories</a>
+</div>
+</div>
+</div>
+<div class="mega-panel" data-mega-panel="fragrance">
+<div style="position:absolute; left:566px; width:240px; top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:74vh; overflow-y:auto; animation:megaIn .16s ease-out;">
+<div style="padding:26px 28px; display:flex; flex-direction:column; gap:11px; font-size:14px;">
+<a href="/collections/ladies-fragrance" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Ladies Fragrance</a>
+<a href="/collections/ladies-fragrance-singles" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Ladies Fragrance Singles</a>
+<a href="/collections/ladies-fragrance-sets" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Ladies Fragrance Sets</a>
+<a href="/collections/mens-fragrance" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Mens Fragrance</a>
+<a href="/collections/mens-fragrance-singles" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Mens Fragrance Singles</a>
+<a href="/collections/mens-fragrance-sets" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Mens Fragrance Sets</a>
+</div>
+</div>
+</div>
+<div class="mega-panel" data-mega-panel="gifting">
+<div style="position:absolute; left:648px; width:240px; top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:74vh; overflow-y:auto; animation:megaIn .16s ease-out;">
+<div style="padding:26px 28px; display:flex; flex-direction:column; gap:11px; font-size:14px;">
+<a href="/collections/christmas-shop" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Christmas Shop</a>
+<a href="/collections/womens-fragrance" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Women's Fragrance</a>
+<a href="/collections/mens-fragrance" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Men's Fragrance</a>
+<a href="/collections/gifts-for-her" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Gifts for Her</a>
+<a href="/collections/gifts-for-him" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Gifts for Him</a>
+<a href="/collections/candles-diffusers" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Candles &amp; Diffusers</a>
+</div>
+</div>
+</div>
+  </div>
+</div><div class="cd-overlay" data-cd-overlay hidden></div>
+
+<aside class="cd-drawer" data-cd-drawer role="dialog" aria-modal="true"
+       aria-label="Shopping bag" data-cd-threshold="6500"
+       data-cd-currency="€{{amount}}" hidden>
+
+  <header class="cd-head">
+    <h2>Your bag <span data-cd-count>(2)</span></h2>
+    <button type="button" data-cd-close aria-label="Close bag" class="cd-x">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
+    </button>
+  </header><div class="cd-ship" data-cd-ship hidden>
+    <div class="cd-ship-row">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--c-primary)" aria-hidden="true"><path d="M3 5.75A1.75 1.75 0 0 1 4.75 4h8.5A1.75 1.75 0 0 1 15 5.75V6h2.6c.5 0 .96.24 1.25.64l2.4 3.3c.16.22.25.49.25.76V15a1.5 1.5 0 0 1-1.5 1.5h-.6a2.75 2.75 0 0 1-5.4 0H10.4a2.75 2.75 0 0 1-5.4 0h-.25A1.75 1.75 0 0 1 3 14.75V5.75Z"></path></svg>
+      <span data-cd-ship-msg></span>
+    </div>
+    <div class="cd-bar"><div data-cd-bar></div></div>
+  </div>
+
+  <div class="cd-items" data-cd-items></div><div class="cd-recs" data-crec-mount hidden></div>
+
+  <div class="cd-empty" data-cd-empty hidden>
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+    <p>Your bag is empty.</p>
+    <a href="/" class="cd-secondary" data-cd-close>Start shopping</a>
+  </div>
+
+  <footer class="cd-foot" data-cd-foot hidden>
+    <div class="cd-sub">
+      <span>Subtotal</span>
+      <span data-cd-subtotal></span>
+    </div>
+    <p class="cd-vat">Shipping and VAT calculated at checkout</p>
+    <form action="/cart" method="post">
+      <button type="submit" name="checkout" class="cd-checkout hov-bg-green-dk">Checkout securely</button><div class="cd-express"><div data-mock-express style="height:48px;border-radius:10px;border:1.5px dashed #b9c2b3;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#697262;background:#f4f6f1;">Express checkout buttons &middot; live store only</div></div></form>
+    <a href="/cart" class="cd-secondary">View full bag</a>
+  </footer>
+</aside>
+
+
+
+
+  <main id="main" style="width:100%; overflow-x:hidden; background:#ffffff;">
+    <!-- Breadcrumb + category banner -->
+<section style="max-width:1440px; margin:0 auto; padding:24px 30px 6px;">
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;"><a href="/" class="hov-green" style="color:#717769;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Paginated fixture</span></nav><div class="banner-flex" style="display:flex; flex-wrap:wrap; border-radius:18px; overflow:hidden; background:#f4f5f2; min-height:clamp(180px,19vw,252px);">
+      <div class="banner-body" style="flex:1 1 440px; padding:clamp(22px,2.6vw,38px) clamp(22px,3vw,44px); display:flex; flex-direction:column; justify-content:center;">
+        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,44px); line-height:1.05; letter-spacing:-.01em; margin:0 0 12px;">Paginated fixture</h1>
+        <div class="banner-copy" style="font-size:clamp(14.5px,1.15vw,16px); line-height:1.55; color:#3a3d39; max-width:560px;">
+          <p>Everyday healthcare for the whole family.</p>
+        </div>
+      </div>
+      <div class="banner-img" style="position:relative; flex:1 1 360px; background-color:#e9ede3; min-height:clamp(150px,17vw,252px); overflow:hidden;"><link rel="preload" as="image" href="/shopify-theme/assets/cat-vitamins.jpg?width=1300&height=451" imagesrcset="/shopify-theme/assets/cat-vitamins.jpg?width=400 400w, /shopify-theme/assets/cat-vitamins.jpg?width=600 600w, /shopify-theme/assets/cat-vitamins.jpg?width=800 800w, /shopify-theme/assets/cat-vitamins.jpg?width=1000 1000w, /shopify-theme/assets/cat-vitamins.jpg?width=1300 1300w" imagesizes="(max-width: 900px) 92vw, 45vw" fetchpriority="high"><img src="/shopify-theme/assets/cat-vitamins.jpg?width=1300&height=451" srcset="/shopify-theme/assets/cat-vitamins.jpg?width=400 400w, /shopify-theme/assets/cat-vitamins.jpg?width=600 600w, /shopify-theme/assets/cat-vitamins.jpg?width=800 800w, /shopify-theme/assets/cat-vitamins.jpg?width=1000 1000w, /shopify-theme/assets/cat-vitamins.jpg?width=1300 1300w" sizes="(max-width: 900px) 92vw, 45vw" alt="Paginated fixture" width="1300" height="451" loading="eager" fetchpriority="high" class="banner-img-el" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;"></div>
+    </div></section><!-- Sub-category chips -->
+<section style="max-width:1440px; margin:0 auto; padding:22px 30px 8px;">
+  <div class="cat-tile-row" style="display:flex; align-items:center; gap:16px;">
+    <button class="chip-arrow hov-chip-arrow" aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="chips-track" data-rail-by="-372" style="flex:0 0 auto; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+    <div id="chips-track" style="flex:1; display:flex; gap:16px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px;"><a href="/collections/pain-relief" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Pain Relief</a>
+<a href="/collections/cold-flu-allergy" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Cold, Flu &amp; Allergy</a>
+<a href="/collections/stomach-gastrointestinal" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Stomach &amp; Gastrointestinal</a>
+<a href="/collections/sensitive-conditions" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Sensitive Conditions</a>
+<a href="/collections/nicotine-replacement" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Nicotine Replacement</a>
+<a href="/collections/eye-ear-health" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Eye &amp; Ear Health</a>
+<a href="/collections/sleep-rest" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Sleep &amp; Rest</a>
+<a href="/collections/mouth-oral-care" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Mouth &amp; Oral Care</a>
+<a href="/collections/continence-care" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Continence Care</a>
+<a href="/collections/trying-to-conceive" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Trying To Conceive</a>
+<a href="/collections/sexual-health" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Sexual Health</a>
+<a href="/collections/sport" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Sport</a>
+<a href="/collections/first-aid" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">First Aid</a>
+<a href="/collections/foot-care" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Foot Care</a>
+<a href="/collections/diabetes-care" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Diabetes Care</a>
+<a href="/collections/electrical-healthcare" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Electrical Healthcare</a>
+<a href="/collections/self-testing-kits" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Self Testing Kits</a>
+<a href="/collections/healthcare-medicine-accessories" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Healthcare &amp; Medicine Accessories</a></div>
+    <button class="chip-arrow hov-chip-arrow" aria-label="Scroll for more" data-rail-btn data-rail-target="chips-track" data-rail-by="372" style="flex:0 0 auto; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+  </div>
+  <div class="chip-progress" style="display:none; margin-top:16px; height:4px; border-radius:999px; background:#e2e4df; overflow:hidden;"><div style="height:100%; border-radius:999px; background:var(--c-accent); width:12%; transition:width .15s ease;"></div></div>
+</section><!-- Filter / Sort bar -->
+<section style="max-width:1440px; margin:0 auto; padding:26px 30px 0;">
+  <div class="fs-bar" style="display:flex; flex-wrap:wrap; align-items:center; gap:14px 26px; border-bottom:1px solid #e6e7e4; padding-bottom:20px;">
+    <button class="filter-toggle" data-filter-toggle aria-controls="filters-sec-main-collection" aria-expanded="true" style="display:flex; align-items:center; gap:9px; background:transparent; border:none; cursor:pointer; font-family:inherit; font-weight:700; font-size:16px; color:#2A2B2A;">
+      Filter
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"></line><circle cx="9" cy="7" r="2.4" fill="#fff"></circle><line x1="4" y1="17" x2="20" y2="17"></line><circle cx="15" cy="17" r="2.4" fill="#fff"></circle></svg>
+    </button>
+    <div class="sortby-box" style="display:flex; align-items:center; gap:10px; border:1.5px solid var(--c-primary); border-radius:9px; padding:12px 16px;">
+      <span style="font-weight:700; font-size:15px; color:#2A2B2A;">Sort by:</span>
+      <select data-sort-select aria-label="Sort by" style="border:none; background:transparent; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:var(--c-primary-text); cursor:pointer;"><option value="best-selling" selected>Best selling</option><option value="price-ascending" >Price, low to high</option></select>
+    </div>
+    <span class="prod-count" style="margin-left:auto; font-size:14px; color:#717769;">30 products</span>
+    <button class="refine-mobile" data-filter-toggle aria-controls="filters-sec-main-collection" aria-expanded="false" style="display:none; align-items:center; justify-content:space-between; gap:9px; width:100%; background:transparent; border:1.5px solid var(--c-primary); border-radius:9px; padding:14px 18px; cursor:pointer; font-family:inherit; font-weight:700; font-size:16px; color:#2A2B2A;">
+      Refine By
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"></line><circle cx="9" cy="7" r="2.4" fill="#fff"></circle><line x1="4" y1="17" x2="20" y2="17"></line><circle cx="15" cy="17" r="2.4" fill="#fff"></circle></svg>
+    </button>
+  </div></section>
+
+
+<!-- Sidebar + grid -->
+<section style="max-width:1440px; margin:0 auto; padding:24px 30px 8px;">
+  <div class="col-wrap" style="display:flex; gap:40px; align-items:flex-start;">
+
+    <!-- Filter sidebar -->
+    <aside class="filter-side" id="filters-sec-main-collection" style="flex:0 0 260px; width:260px; position:sticky; top:16px;"><div style="margin-bottom:30px; ">
+              <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:var(--c-primary-text); font-size:20px; margin:0 0 18px;">Brand</h3>
+              <div style="display:flex; flex-direction:column; gap:14px;"><a href="?filter.p.vendor=fab" style="display:flex; align-items:center; gap:12px; font-size:15px; color:#2A2B2A; ">
+                    <span style="flex:0 0 auto; width:22px; height:22px; border-radius:5px; border:2px solid #c2c6bd; background:#ffffff; display:flex; align-items:center; justify-content:center;">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="opacity:0;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
+                    <span style="flex:1;">fabÜ</span>
+                    <span style="color:#727969; font-size:14px;">(4)</span>
+                  </a><a href="?" style="display:flex; align-items:center; gap:12px; font-size:15px; color:#2A2B2A; ">
+                    <span style="flex:0 0 auto; width:22px; height:22px; border-radius:5px; border:2px solid #58821D; background:#58821D; display:flex; align-items:center; justify-content:center;">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="opacity:1;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
+                    <span style="flex:1;">Nurofen</span>
+                    <span style="color:#727969; font-size:14px;">(2)</span>
+                  </a></div>
+            </div><div style="border-top:1px solid #e6e7e4; padding-top:24px;">
+              <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:var(--c-primary-text); font-size:20px; margin:0 0 18px;">Price</h3>
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;">
+                <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#717769;">€</span><input data-price-input name="filter.v.price.gte" type="number" min="0" step="0.01" placeholder="0" value="" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
+                <span style="color:#717769;">&ndash;</span>
+                <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#717769;">€</span><input data-price-input name="filter.v.price.lte" type="number" min="0" step="0.01" placeholder="100.00" value="" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
+              </div>
+              <button data-price-apply class="hov-bg-green-dk" style="width:100%; border:none; border-radius:8px; background:var(--c-primary); color:var(--c-on-primary); font-family:inherit; font-weight:700; font-size:14.5px; padding:11px 8px; cursor:pointer;">Apply</button>
+            </div></aside>
+
+    <!-- Product grid -->
+    <div style="flex:1; min-width:0;"><div class="pgrid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:26px 22px;"><div class="pcard" style="display:flex; flex-direction:column;">
+            <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/nurofen-200mg-ibuprofen-24-tablets" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-nurofen.jpg?width=600&height=600" alt="Nurofen 200mg Ibuprofen 24 Tablets" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
+              <button type="button"
+        class="wish-btn"
+        data-wish-toggle="nurofen-200mg-ibuprofen-24-tablets"
+        aria-pressed="false"
+        aria-label="Save Nurofen 200mg Ibuprofen 24 Tablets to your wishlist"><svg class="wish-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
+  </svg></button>
+<button data-add-id="40000004" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
+            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Nurofen</div>
+            <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/nurofen-200mg-ibuprofen-24-tablets" class="hov-green" style="color:#2A2B2A;">Nurofen 200mg Ibuprofen 24 Tablets</a></h3>
+            <div style="margin-bottom:14px; min-height:18px;"></div>
+            <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€6.49</span></div><button data-add-id="40000004" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+            <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/cerave-hydrating-cleanser-236ml" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-cerave-cleanser.jpg?width=600&height=600" alt="CeraVe Hydrating Cleanser 236ml" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
+              <button type="button"
+        class="wish-btn"
+        data-wish-toggle="cerave-hydrating-cleanser-236ml"
+        aria-pressed="false"
+        aria-label="Save CeraVe Hydrating Cleanser 236ml to your wishlist"><svg class="wish-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
+  </svg></button>
+<button data-add-id="40000005" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
+            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">CeraVe</div>
+            <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/cerave-hydrating-cleanser-236ml" class="hov-green" style="color:#2A2B2A;">CeraVe Hydrating Cleanser 236ml</a></h3>
+            <div style="margin-bottom:14px; min-height:18px;"></div>
+            <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€13.50</span></div><button data-add-id="40000005" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+            <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><span style="position:absolute; top:12px; left:12px; z-index:2; background:#c0392b; color:#fff; font-weight:800; font-size:12px; letter-spacing:.04em; padding:5px 10px; border-radius:6px;">SALE</span><a href="/products/sudocrem-antiseptic-healing-cream-125g" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-sudocrem.jpg?width=600&height=600" alt="Sudocrem Antiseptic Healing Cream 125g" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
+              <button type="button"
+        class="wish-btn"
+        data-wish-toggle="sudocrem-antiseptic-healing-cream-125g"
+        aria-pressed="false"
+        aria-label="Save Sudocrem Antiseptic Healing Cream 125g to your wishlist"><svg class="wish-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
+  </svg></button>
+<button data-add-id="40000006" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
+            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Sudocrem</div>
+            <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/sudocrem-antiseptic-healing-cream-125g" class="hov-green" style="color:#2A2B2A;">Sudocrem Antiseptic Healing Cream 125g</a></h3>
+            <div style="margin-bottom:14px; min-height:18px;"></div>
+            <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€7.99</span><span style="color:#727969; font-weight:600; font-size:15px; text-decoration:line-through;">€8.99</span></div><button data-add-id="40000006" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+            <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/vitamin-d3-1000iu-60-capsules" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-vitd.jpg?width=600&height=600" alt="Vitamin D3 1000IU 60 Capsules" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
+              <button type="button"
+        class="wish-btn"
+        data-wish-toggle="vitamin-d3-1000iu-60-capsules"
+        aria-pressed="false"
+        aria-label="Save Vitamin D3 1000IU 60 Capsules to your wishlist"><svg class="wish-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
+  </svg></button>
+<a href="/products/vitamin-d3-1000iu-60-capsules" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease;">View Product</a></div>
+            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">McCormack’s</div>
+            <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/vitamin-d3-1000iu-60-capsules" class="hov-green" style="color:#2A2B2A;">Vitamin D3 1000IU 60 Capsules</a></h3>
+            <div style="margin-bottom:14px; min-height:18px;"></div>
+            <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€9.99</span></div><a href="/products/vitamin-d3-1000iu-60-capsules" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px;">View Product</a></div><div class="pcard" style="display:flex; flex-direction:column;">
+            <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-nurofen.jpg?width=600&height=600" alt="Nurofen Plus 200mg/12.8mg 24 Tablets" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
+              <button type="button"
+        class="wish-btn"
+        data-wish-toggle="nurofen-plus-200mg-12-8mg-24-tablets"
+        aria-pressed="false"
+        aria-label="Save Nurofen Plus 200mg/12.8mg 24 Tablets to your wishlist"><svg class="wish-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
+  </svg></button>
+<a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease;">View Product</a></div>
+            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Nurofen</div>
+            <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" class="hov-green" style="color:#2A2B2A;">Nurofen Plus 200mg/12.8mg 24 Tablets</a></h3>
+            <div style="margin-bottom:14px; min-height:18px;"></div>
+            <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€10.99</span></div><a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px;">View Product</a></div><div class="pcard" style="display:flex; flex-direction:column;">
+            <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/difflam-sore-throat-spray-30ml" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-cetrine.jpg?width=600&height=600" alt="Difflam Sore Throat Spray 30ml" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
+              <button type="button"
+        class="wish-btn"
+        data-wish-toggle="difflam-sore-throat-spray-30ml"
+        aria-pressed="false"
+        aria-label="Save Difflam Sore Throat Spray 30ml to your wishlist"><svg class="wish-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
+  </svg></button>
+<a href="/products/difflam-sore-throat-spray-30ml" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease;">View Product</a></div>
+            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Difflam</div>
+            <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/difflam-sore-throat-spray-30ml" class="hov-green" style="color:#2A2B2A;">Difflam Sore Throat Spray 30ml</a></h3>
+            <div style="margin-bottom:14px; min-height:18px;"></div>
+            <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€12.99</span></div><a href="/products/difflam-sore-throat-spray-30ml" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px;">View Product</a></div></div>
+
+      <!-- Pagination --><div style="display:flex; align-items:center; justify-content:center; gap:8px; margin:44px 0 8px;"><a href="/collections/paginated-fixture" class="hov-border-accent" style="min-width:40px; height:40px; padding:0 6px; border-radius:8px; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; display:flex; align-items:center; justify-content:center;">1</a><span style="min-width:40px; height:40px; padding:0 6px; border-radius:8px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; display:flex; align-items:center; justify-content:center;">2</span></div></div>
+  </div>
+</section>
+<!-- SEO copy + FAQ -->
+<section style="max-width:1440px; margin:0 auto; padding:48px 30px 8px;"><h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,34px); margin:0 0 26px;">Frequently Asked Questions</h2>
+    <div style="display:flex; flex-direction:column;"><div style="border-bottom:1px solid #eceee9; padding:22px 0;" ><button data-acc-toggle="faq-sec-main-collection-1" aria-expanded="true" aria-controls="faq-sec-main-collection-1" style="display:flex; align-items:center; justify-content:space-between; gap:14px; width:100%; background:transparent; border:none; padding:0; cursor:pointer; text-align:left;">
+            <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0;">Do I need a prescription?</h3>
+            <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transform:rotate(180deg); transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-content" id="faq-sec-main-collection-1" data-acc-content="faq-sec-main-collection-1" data-open="true">
+            <p style="margin:10px 0 0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">All items in this collection can be bought without a GP prescription. Prescription-only medicines are not sold online in Ireland — you can submit a prescription for dispensing instead, and collect it in store or have it delivered.</p>
+          </div>
+        </div><div style="border-bottom:1px solid #eceee9; padding:22px 0;" ><button data-acc-toggle="faq-sec-main-collection-2" aria-expanded="false" aria-controls="faq-sec-main-collection-2" style="display:flex; align-items:center; justify-content:space-between; gap:14px; width:100%; background:transparent; border:none; padding:0; cursor:pointer; text-align:left;">
+            <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0;">Are these genuine pharmacy products?</h3>
+            <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transform:rotate(0deg); transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-content" id="faq-sec-main-collection-2" data-acc-content="faq-sec-main-collection-2" data-open="false">
+            <p style="margin:10px 0 0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">Yes — every product is sourced and dispatched from our registered Irish pharmacy and is the same stock carried in our stores.</p>
+          </div>
+        </div><div style="border-bottom:1px solid #eceee9; padding:22px 0;" ><button data-acc-toggle="faq-sec-main-collection-3" aria-expanded="false" aria-controls="faq-sec-main-collection-3" style="display:flex; align-items:center; justify-content:space-between; gap:14px; width:100%; background:transparent; border:none; padding:0; cursor:pointer; text-align:left;">
+            <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0;">Can I get pharmacist advice before I buy?</h3>
+            <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transform:rotate(0deg); transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-content" id="faq-sec-main-collection-3" data-acc-content="faq-sec-main-collection-3" data-open="false">
+            <p style="margin:10px 0 0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">You can. Contact our pharmacy team for help choosing a suitable product, checking interactions, or deciding whether to see your GP.</p>
+          </div>
+        </div><div style="border-bottom:1px solid #eceee9; padding:22px 0;" ><button data-acc-toggle="faq-sec-main-collection-4" aria-expanded="false" aria-controls="faq-sec-main-collection-4" style="display:flex; align-items:center; justify-content:space-between; gap:14px; width:100%; background:transparent; border:none; padding:0; cursor:pointer; text-align:left;">
+            <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0;">How fast is delivery?</h3>
+            <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transform:rotate(0deg); transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-content" id="faq-sec-main-collection-4" data-acc-content="faq-sec-main-collection-4" data-open="false">
+            <p style="margin:10px 0 0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">We aim to ship all items within the same working day for orders placed before 3pm, Monday to Friday. Delivery is free on orders over €65, and Click & Collect is available at all seven of our stores.</p>
+          </div>
+        </div></div></section><!-- You may also like -->
+<section style="max-width:1440px; margin:0 auto; padding:44px 30px 8px;">
+  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">You may also like</h2>
+  <div style="position:relative;">
+    <div id="also-track-sec-main-collection" style="display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;"><div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
+          <a href="/products/fab-skin-hair-nails-glow-60-capsules" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"><img src="/shopify-theme/assets/prod-fabu-glow.jpg?width=480&height=480" alt="fabÜ Skin Hair Nails Glow 60 Capsules" width="480" height="480" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block;"></a>
+          <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">fabÜ</div>
+          <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/fab-skin-hair-nails-glow-60-capsules" class="hov-green" style="color:#2A2B2A;">fabÜ Skin Hair Nails Glow 60 Capsules</a></h3>
+          <div style="margin-bottom:12px;"></div>
+          <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€19.95</div>
+          <a href="/products/fab-skin-hair-nails-glow-60-capsules" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+        </div><div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
+          <a href="/products/cetrine-allergy-10mg-30-tablets" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"><img src="/shopify-theme/assets/prod-cetrine.jpg?width=480&height=480" alt="Cetrine Allergy 10mg 30 Tablets" width="480" height="480" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block;"></a>
+          <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Cetrine</div>
+          <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/cetrine-allergy-10mg-30-tablets" class="hov-green" style="color:#2A2B2A;">Cetrine Allergy 10mg 30 Tablets</a></h3>
+          <div style="margin-bottom:12px;"></div>
+          <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€7.99</div>
+          <a href="/products/cetrine-allergy-10mg-30-tablets" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+        </div><div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
+          <a href="/products/revive-active-30-sachets" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"><img src="/shopify-theme/assets/prod-revive.jpg?width=480&height=480" alt="Revive Active 30 Sachets" width="480" height="480" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block;"></a>
+          <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Revive Active</div>
+          <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/revive-active-30-sachets" class="hov-green" style="color:#2A2B2A;">Revive Active 30 Sachets</a></h3>
+          <div style="margin-bottom:12px;"></div>
+          <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€64.99</div>
+          <a href="/products/revive-active-30-sachets" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+        </div><div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
+          <a href="/products/optibac-every-day-max-30-capsules" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"><img src="/shopify-theme/assets/prod-optibac-max.jpg?width=480&height=480" alt="Optibac Every Day MAX 30 Capsules" width="480" height="480" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block;"></a>
+          <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Optibac</div>
+          <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/optibac-every-day-max-30-capsules" class="hov-green" style="color:#2A2B2A;">Optibac Every Day MAX 30 Capsules</a></h3>
+          <div style="margin-bottom:12px;"></div>
+          <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€27.99</div>
+          <a href="/products/optibac-every-day-max-30-capsules" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+        </div><div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
+          <a href="/products/nurofen-200mg-ibuprofen-24-tablets" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"><img src="/shopify-theme/assets/prod-nurofen.jpg?width=480&height=480" alt="Nurofen 200mg Ibuprofen 24 Tablets" width="480" height="480" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block;"></a>
+          <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Nurofen</div>
+          <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/nurofen-200mg-ibuprofen-24-tablets" class="hov-green" style="color:#2A2B2A;">Nurofen 200mg Ibuprofen 24 Tablets</a></h3>
+          <div style="margin-bottom:12px;"></div>
+          <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€6.49</div>
+          <a href="/products/nurofen-200mg-ibuprofen-24-tablets" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+        </div><div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
+          <a href="/products/cerave-hydrating-cleanser-236ml" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"><img src="/shopify-theme/assets/prod-cerave-cleanser.jpg?width=480&height=480" alt="CeraVe Hydrating Cleanser 236ml" width="480" height="480" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block;"></a>
+          <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">CeraVe</div>
+          <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/cerave-hydrating-cleanser-236ml" class="hov-green" style="color:#2A2B2A;">CeraVe Hydrating Cleanser 236ml</a></h3>
+          <div style="margin-bottom:12px;"></div>
+          <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€13.50</div>
+          <a href="/products/cerave-hydrating-cleanser-236ml" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+        </div></div>
+    <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="also-track-sec-main-collection" data-rail-by="-540" class="hov-chip-arrow" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+    <button aria-label="Scroll forward" data-rail-btn data-rail-target="also-track-sec-main-collection" data-rail-by="540" class="hov-chip-arrow" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+  </div>
+</section><style>
+  .banner-copy p, .seo-copy p { margin: 0 0 18px; }
+  .banner-copy p:last-child, .seo-copy p:last-child { margin-bottom: 0; }
+  .hov-chip-arrow:hover { border-color: var(--c-accent) !important; background: #f2f8e9 !important; }
+  .pcard-hovbtn:hover { background: var(--c-accent) !important; color:var(--c-on-accent) !important; border-color: var(--c-accent) !important; }
+  .pcard:hover .pcard-view { opacity: 1 !important; transform: translateY(0) !important; }
+  .pcard:hover .pcard-img img { transform: scale(1.04); }
+  .faq-content[data-open="false"] { display: none; }
+  .filter-side input[type=number]::-webkit-outer-spin-button,
+  .filter-side input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .filter-side input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+  /* Filter sidebar visibility. The toggle sets BOTH classes at once; each
+     breakpoint reads the one that applies, so the button works everywhere:
+     wide screens open by default and collapse on click, narrow screens are
+     closed by default and open on click. The mobile rules come later in the
+     sheet, so .is-open wins there at equal specificity. */
+  .filter-side.is-collapsed { display: none; }
+  @media (min-width: 961px) {
+    /* Sticky pins the sidebar, so a long list (Brand can run to dozens of
+       values) would extend past the viewport with no way to reach the bottom. */
+    .filter-side { max-height: calc(100vh - 32px); overflow-y: auto; }
+  }
+  @media (max-width: 960px) {
+    .col-wrap { align-items: stretch !important; flex-direction: column !important; }
+    .filter-side { flex: 1 1 auto !important; width: 100% !important; position: static !important; }
+    .filter-side { display: none; }
+    .filter-side.is-open { display: block; }
+    .filter-toggle { display: inline-flex !important; }
+  }
+  @media (max-width: 900px) {
+    /* Stacked: reset flex-basis to auto, or the basis set for the ROW (440px/360px)
+       becomes a forced HEIGHT and the banner balloons past a phone viewport.
+       Text sizes itself to its copy; the image becomes a landscape band. */
+    /* text-only hero: the rule between heading and copy moves above the copy once stacked */
+    .banner-text .banner-copy {
+      border-left: 0 !important; padding-left: 0 !important;
+      border-top: 3px solid #dfe4d7; padding-top: 16px;
+    }
+    .banner-flex { flex-direction: column !important; min-height: 0 !important; }
+    .banner-body { flex: 0 0 auto !important; }
+    .banner-img {
+      flex: 0 0 auto !important;
+      min-height: 0 !important;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      max-height: 260px;   /* 16:9 gets tall near 900px — keep the band letterboxed */
+    }
+    .pgrid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    /* Category labels run long ("Baby & Children Pain Relief"), so each chip
+       sizes to its own text instead of being squeezed into the shared 120px
+       homepage width and wrapping to two cramped lines. min-width still holds
+       the floor for short labels. ID beats the .cat-tile-row rule in base.css. */
+    #chips-track a {
+      flex: 0 0 auto !important;
+      width: auto !important;
+      white-space: nowrap;
+    }
+    .chip-arrow { display: none !important; }
+    .chip-progress { display: block !important; }
+    .fs-bar { flex-direction: column !important; align-items: stretch !important; gap: 12px !important; }
+    .filter-toggle { display: none !important; }
+    .sortby-box { width: 100% !important; justify-content: space-between !important; }
+    .sortby-box select { flex: 1; text-align: right; }
+    .prod-count { display: none !important; }
+    .refine-mobile { display: flex !important; }
+    .pcard-view { display: none !important; }
+    .pcard-mobile-btn { display: block !important; }
+  }
+</style>
+
+<script>
+  (() => {
+    // Mobile "Refine By" / desktop "Filter" toggle (design's filterOpen state).
+    // aria-expanded is read back off the computed style rather than tracked in
+    // JS, because the default differs by breakpoint and can change on resize.
+    const side = document.querySelector('.filter-side');
+    const fbtns = document.querySelectorAll('[data-filter-toggle]');
+    if (side && fbtns.length) {
+      const syncAria = () => {
+        const open = getComputedStyle(side).display !== 'none';
+        fbtns.forEach(b => b.setAttribute('aria-expanded', String(open)));
+      };
+      fbtns.forEach(btn => btn.addEventListener('click', () => {
+        side.classList.toggle('is-collapsed');
+        side.classList.toggle('is-open');
+        syncAria();
+      }));
+      window.addEventListener('resize', syncAria);
+      syncAria();
+    }
+
+    // Sort select -> sort_by URL param
+    const sel = document.querySelector('[data-sort-select]');
+    if (sel) sel.addEventListener('change', () => {
+      const u = new URL(location.href);
+      u.searchParams.set('sort_by', sel.value);
+      u.searchParams.delete('page');
+      location.href = u.href;
+    });
+
+    // Price range apply -> filter.v.price params
+    const apply = document.querySelector('[data-price-apply]');
+    if (apply) apply.addEventListener('click', () => {
+      const u = new URL(location.href);
+      document.querySelectorAll('[data-price-input]').forEach(inp => {
+        u.searchParams.delete(inp.name);
+        if (inp.value) u.searchParams.set(inp.name, inp.value);
+      });
+      u.searchParams.delete('page');
+      location.href = u.href;
+    });
+
+    // Mobile chip progress bar
+    const track = document.getElementById('chips-track');
+    const bar = document.querySelector('.chip-progress > div');
+    if (track && bar) track.addEventListener('scroll', () => {
+      const max = track.scrollWidth - track.clientWidth;
+      const pct = max > 0 ? Math.round((track.scrollLeft / max) * 100) : 0;
+      bar.style.width = Math.max(12, pct) + '%';
+    }, { passive: true });
+  })();
+</script>
+
+
+
+  </main>
+  <footer style="width:100%; background:#ffffff;">
+  
+  <div style="width:100%; background:var(--c-dark); position:relative; overflow:hidden;">
+    <div style="position:absolute; top:-60%; right:-6%; width:340px; height:340px; border-radius:999px; background:rgba(255,255,255,.04);"></div>
+    <div style="position:absolute; bottom:-70%; right:14%; width:220px; height:220px; border-radius:999px; background:rgba(255,255,255,.03);"></div>
+    <div class="ftr-newsletter" style="max-width:1440px; margin:0 auto; height:120px; padding:0 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 48px; position:relative;">
+      <div style="flex:1 1 340px;">
+        <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#ffffff; font-size:clamp(19px,1.9vw,24px); margin:0 0 4px; line-height:1.15;">Join the McCormack's family</h3>
+        <p style="margin:0; color:rgba(255,255,255,.78); font-size:13.5px; line-height:1.4;">Health tips, exclusive offers & 10% off your first order.</p>
+      </div>
+      <div style="flex:1 1 340px; max-width:400px; border-radius:9px; background:#ffffff; padding:3px;">
+      <form method="post" style="display:flex; gap:0;">
+        
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input type="email" name="contact[email]" required placeholder="Enter your email address" style="flex:1; min-width:0; border:none; outline:none; padding:10px 14px; font-family:inherit; font-size:13.5px; color:#2A2B2A; background:transparent;">
+          <button type="submit" class="hov-bg-accent-dk" style="flex:0 0 auto; border:none; border-radius:7px; background:var(--c-accent); color:var(--c-on-accent); font-family:inherit; font-weight:700; font-size:13.5px; letter-spacing:.02em; padding:0 20px; cursor:pointer;">Subscribe</button>
+        
+      </form>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="ftr-cols" style="max-width:1440px; margin:0 auto; padding:48px 30px 40px; display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr 1fr; gap:40px;">
+    <div style="min-width:200px;">
+      <a href="/" aria-label="McCormack's Pharmacy — home" style="display:block; width:fit-content; margin-bottom:20px;">
+        <img src="/shopify-theme/assets/mccormacks-logo.png" alt="McCormack's Pharmacy" width="247" height="79" style="width:247px; max-width:100%; height:auto; display:block;">
+      </a>
+      <p style="margin:0 0 12px; font-size:14px; line-height:1.6; color:#5a6153; max-width:280px;">Ireland's trusted family pharmacy since 2010 — expert care online and across our seven stores.</p>
+      <a href="tel:0526199329" style="display:flex; align-items:center; gap:9px; color:var(--c-dark); font-weight:700; font-size:14px; margin-bottom:20px;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path></svg>
+        052 6199329
+      </a>
+      <div style="display:flex; gap:10px;"></div>
+    </div><div>
+        <h4 data-acc-toggle="shop" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shop<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <div class="ftr-acc-content" data-acc-content="shop" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/brands">All Brands</a><a href="/collections/new-in">New In</a><a href="/collections/bundles">Bundles</a><a href="/pages/gift-vouchers">Gift Vouchers</a><a href="/collections/sale">Sale</a></div>
+      </div><div>
+        <h4 data-acc-toggle="care" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Customer Care<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <div class="ftr-acc-content" data-acc-content="care" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/about-us">About Us</a><a href="/pages/contact-us">Contact Us</a><a href="/pages/loyalty-rewards-club">Loyalty Rewards Club</a><a href="/blogs/health-hub">Blog</a></div>
+      </div><div>
+        <h4 data-acc-toggle="ship" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Shipping & Returns<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <div class="ftr-acc-content" data-acc-content="ship" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/shipping">Shipping & Free Delivery</a><a href="/pages/returns">Returns & Refunds</a><a href="/pages/click-and-collect">Click & Collect</a></div>
+      </div><div>
+        <h4 data-acc-toggle="policies" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">Policies<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <div class="ftr-acc-content" data-acc-content="policies" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;"><a href="/pages/terms-and-conditions">Terms & Conditions</a><a href="/pages/privacy-policy">Privacy Policy</a><a href="/pages/cookie-policy">Cookie Policy</a><a href="/pages/internet-supply-pharmacy">Registered Internet Supply Pharmacy</a><a href="/pages/withdraw-from-contract">Withdraw From Contract</a></div>
+      </div></div>
+
+  <div>
+    <div class="ftr-psi" style="max-width:1440px; margin:0 auto; padding:8px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end;">
+      <a href="/pages/internet-supply-pharmacy" aria-label="PSI — verify this pharmacy is operating legally" style="display:flex; align-items:center; margin-right:15px; margin-top:-40px;">
+        <img src="/shopify-theme/assets/psi-logo.avif" alt="PSI internet supply registration" width="93" height="78" style="height:78px; width:auto; display:block; border-radius:4px;">
+      </a>
+    </div>
+  </div>
+
+  <div style="border-top:1px solid #e6e7e4;">
+    <div class="ftr-bottom" style="max-width:1440px; margin:0 auto; padding:18px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px; font-size:13px; color:#717769;">
+      <div class="ftr-copyright">Copyright © 2026 McCormack's Pharmacy</div><button type="button" data-cc-reopen class="ftr-cookie-btn" style="border:none; background:transparent; padding:0; font-family:inherit; font-size:inherit; color:#717769; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">Cookie settings</button>
+      <div class="ftr-payments" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
+        <span style="font-size:12.5px; color:#717769; margin-right:2px;">We accept</span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span><span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;"><svg width="38" height="24"></svg></span></div>
+      <a href="/pages/terms-and-conditions" class="ftr-terms" style="display:none; color:#717769;">Terms &amp; Conditions</a>
+      <div class="ftr-builtby" style="display:flex; align-items:center; gap:22px; flex-wrap:wrap;">
+        <a href="https://kakion.com" style="display:flex; align-items:center; gap:1px; color:#717769;">
+          <span style="font-size:12px;">Built by</span>
+          <img src="/shopify-theme/assets/kakion-logo-black.png" alt="Kakion" width="80" height="22" style="height:21.6px; width:auto; display:block;">
+        </a>
+      </div>
+    </div>
+  </div>
+</footer><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Pharmacy",
+    "@id": "https://mock.myshopify.com#organization",
+    "name": "McCormack's Pharmacy",
+    "url": "https://mock.myshopify.com",
+    "logo": "https://mock.myshopify.com/shopify-theme/assets/mccormacks-logo.png",
+    "description": "Ireland's trusted family pharmacy since 2010 — expert care online and across our seven stores.",
+    "telephone": "052 6199329",
+    "areaServed": { "@type": "Country", "name": "Ireland" }
+  }
+  </script>
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://mock.myshopify.com" },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Paginated fixture",
+        "item": "https://mock.myshopify.com/collections/paginated-fixture"
+      }
+    ]
+  }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Paginated fixture",
+    "url": "https://mock.myshopify.com/collections/paginated-fixture",
+    "numberOfItems": 30,
+    "itemListOrder": "https://schema.org/ItemListOrderAscending",
+    "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "url": "https://mock.myshopify.com/products/fab-skin-hair-nails-glow-60-capsules",
+        "name": "fabÜ Skin Hair Nails Glow 60 Capsules"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "url": "https://mock.myshopify.com/products/cetrine-allergy-10mg-30-tablets",
+        "name": "Cetrine Allergy 10mg 30 Tablets"
+      },{
+        "@type": "ListItem",
+        "position": 3,
+        "url": "https://mock.myshopify.com/products/revive-active-30-sachets",
+        "name": "Revive Active 30 Sachets"
+      },{
+        "@type": "ListItem",
+        "position": 4,
+        "url": "https://mock.myshopify.com/products/optibac-every-day-max-30-capsules",
+        "name": "Optibac Every Day MAX 30 Capsules"
+      },{
+        "@type": "ListItem",
+        "position": 5,
+        "url": "https://mock.myshopify.com/products/nurofen-200mg-ibuprofen-24-tablets",
+        "name": "Nurofen 200mg Ibuprofen 24 Tablets"
+      },{
+        "@type": "ListItem",
+        "position": 6,
+        "url": "https://mock.myshopify.com/products/cerave-hydrating-cleanser-236ml",
+        "name": "CeraVe Hydrating Cleanser 236ml"
+      },{
+        "@type": "ListItem",
+        "position": 7,
+        "url": "https://mock.myshopify.com/products/sudocrem-antiseptic-healing-cream-125g",
+        "name": "Sudocrem Antiseptic Healing Cream 125g"
+      },{
+        "@type": "ListItem",
+        "position": 8,
+        "url": "https://mock.myshopify.com/products/vitamin-d3-1000iu-60-capsules",
+        "name": "Vitamin D3 1000IU 60 Capsules"
+      },{
+        "@type": "ListItem",
+        "position": 9,
+        "url": "https://mock.myshopify.com/products/nurofen-plus-200mg-12-8mg-24-tablets",
+        "name": "Nurofen Plus 200mg/12.8mg 24 Tablets"
+      },{
+        "@type": "ListItem",
+        "position": 10,
+        "url": "https://mock.myshopify.com/products/difflam-sore-throat-spray-30ml",
+        "name": "Difflam Sore Throat Spray 30ml"
+      },{
+        "@type": "ListItem",
+        "position": 11,
+        "url": "https://mock.myshopify.com/products/fab-skin-hair-nails-glow-60-capsules",
+        "name": "fabÜ Skin Hair Nails Glow 60 Capsules"
+      },{
+        "@type": "ListItem",
+        "position": 12,
+        "url": "https://mock.myshopify.com/products/cetrine-allergy-10mg-30-tablets",
+        "name": "Cetrine Allergy 10mg 30 Tablets"
+      },{
+        "@type": "ListItem",
+        "position": 13,
+        "url": "https://mock.myshopify.com/products/revive-active-30-sachets",
+        "name": "Revive Active 30 Sachets"
+      },{
+        "@type": "ListItem",
+        "position": 14,
+        "url": "https://mock.myshopify.com/products/optibac-every-day-max-30-capsules",
+        "name": "Optibac Every Day MAX 30 Capsules"
+      },{
+        "@type": "ListItem",
+        "position": 15,
+        "url": "https://mock.myshopify.com/products/nurofen-200mg-ibuprofen-24-tablets",
+        "name": "Nurofen 200mg Ibuprofen 24 Tablets"
+      },{
+        "@type": "ListItem",
+        "position": 16,
+        "url": "https://mock.myshopify.com/products/cerave-hydrating-cleanser-236ml",
+        "name": "CeraVe Hydrating Cleanser 236ml"
+      },{
+        "@type": "ListItem",
+        "position": 17,
+        "url": "https://mock.myshopify.com/products/sudocrem-antiseptic-healing-cream-125g",
+        "name": "Sudocrem Antiseptic Healing Cream 125g"
+      },{
+        "@type": "ListItem",
+        "position": 18,
+        "url": "https://mock.myshopify.com/products/vitamin-d3-1000iu-60-capsules",
+        "name": "Vitamin D3 1000IU 60 Capsules"
+      },{
+        "@type": "ListItem",
+        "position": 19,
+        "url": "https://mock.myshopify.com/products/nurofen-plus-200mg-12-8mg-24-tablets",
+        "name": "Nurofen Plus 200mg/12.8mg 24 Tablets"
+      },{
+        "@type": "ListItem",
+        "position": 20,
+        "url": "https://mock.myshopify.com/products/difflam-sore-throat-spray-30ml",
+        "name": "Difflam Sore Throat Spray 30ml"
+      },{
+        "@type": "ListItem",
+        "position": 21,
+        "url": "https://mock.myshopify.com/products/fab-skin-hair-nails-glow-60-capsules",
+        "name": "fabÜ Skin Hair Nails Glow 60 Capsules"
+      },{
+        "@type": "ListItem",
+        "position": 22,
+        "url": "https://mock.myshopify.com/products/cetrine-allergy-10mg-30-tablets",
+        "name": "Cetrine Allergy 10mg 30 Tablets"
+      },{
+        "@type": "ListItem",
+        "position": 23,
+        "url": "https://mock.myshopify.com/products/revive-active-30-sachets",
+        "name": "Revive Active 30 Sachets"
+      },{
+        "@type": "ListItem",
+        "position": 24,
+        "url": "https://mock.myshopify.com/products/optibac-every-day-max-30-capsules",
+        "name": "Optibac Every Day MAX 30 Capsules"
+      },{
+        "@type": "ListItem",
+        "position": 25,
+        "url": "https://mock.myshopify.com/products/nurofen-200mg-ibuprofen-24-tablets",
+        "name": "Nurofen 200mg Ibuprofen 24 Tablets"
+      },{
+        "@type": "ListItem",
+        "position": 26,
+        "url": "https://mock.myshopify.com/products/cerave-hydrating-cleanser-236ml",
+        "name": "CeraVe Hydrating Cleanser 236ml"
+      },{
+        "@type": "ListItem",
+        "position": 27,
+        "url": "https://mock.myshopify.com/products/sudocrem-antiseptic-healing-cream-125g",
+        "name": "Sudocrem Antiseptic Healing Cream 125g"
+      },{
+        "@type": "ListItem",
+        "position": 28,
+        "url": "https://mock.myshopify.com/products/vitamin-d3-1000iu-60-capsules",
+        "name": "Vitamin D3 1000IU 60 Capsules"
+      },{
+        "@type": "ListItem",
+        "position": 29,
+        "url": "https://mock.myshopify.com/products/nurofen-plus-200mg-12-8mg-24-tablets",
+        "name": "Nurofen Plus 200mg/12.8mg 24 Tablets"
+      },{
+        "@type": "ListItem",
+        "position": 30,
+        "url": "https://mock.myshopify.com/products/difflam-sore-throat-spray-30ml",
+        "name": "Difflam Sore Throat Spray 30ml"
+      }]
+  }
+  </script>
+
+<div class="cc-banner" data-cc-banner role="dialog" aria-modal="false"
+     aria-labelledby="cc-title" aria-describedby="cc-body" hidden>
+  <div class="cc-inner">
+    <div class="cc-copy">
+      <h2 class="cc-title" id="cc-title">Your privacy</h2>
+      <p class="cc-body" id="cc-body">
+        We use cookies to run the shop, understand how it is used, and show you relevant offers. You can accept everything, reject everything, or choose. Cookies needed to run the shop are always on.
+        <a href="/pages/cookie-policy" class="cc-link">Read our cookie policy</a>
+      </p>
+    </div><div class="cc-actions">
+      <button type="button" class="cc-btn" data-cc-accept>Accept all</button>
+      <button type="button" class="cc-btn" data-cc-reject>Reject all</button>
+      <button type="button" class="cc-btn cc-btn-quiet" data-cc-manage aria-expanded="false" aria-controls="cc-options">Choose</button>
+    </div>
+
+    <div class="cc-options" id="cc-options" data-cc-options hidden><ul class="cc-cats">
+        <li class="cc-cat">
+          <span class="cc-cat-text">
+            <strong>Strictly necessary</strong>
+            <span>Your bag, checkout, and keeping you signed in. These cannot be switched off.</span>
+          </span>
+          <span class="cc-always">Always on</span>
+        </li>
+        <li class="cc-cat">
+          <label class="cc-cat-text" for="cc-preferences">
+            <strong>Preferences</strong>
+            <span>Remembers choices like your nearest store, so you are not asked twice.</span>
+          </label>
+          <input type="checkbox" id="cc-preferences" data-cc-toggle="preferences" class="cc-switch">
+        </li>
+        <li class="cc-cat">
+          <label class="cc-cat-text" for="cc-analytics">
+            <strong>Analytics</strong>
+            <span>Counts visits and shows us which pages are not working, in aggregate.</span>
+          </label>
+          <input type="checkbox" id="cc-analytics" data-cc-toggle="analytics" class="cc-switch">
+        </li>
+        <li class="cc-cat">
+          <label class="cc-cat-text" for="cc-marketing">
+            <strong>Marketing</strong>
+            <span>Lets us measure our advertising and show you offers on other sites.</span>
+          </label>
+          <input type="checkbox" id="cc-marketing" data-cc-toggle="marketing" class="cc-switch">
+        </li>
+      </ul>
+      <button type="button" class="cc-btn" data-cc-save>Save my choices</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -223,8 +223,15 @@ engine.registerTag('form', {
   },
 });
 
+// Real pagination, not a stub. This tag used to hardcode pages:1 with empty parts,
+// so the page links, next/prev and every ?page= URL rendered in no preview at all —
+// which is awkward given the open question is what Shopify canonicalises on page 2.
+// Parses `<array> by <n>`, slices the array, and builds paginate.parts the way
+// Shopify does: numbered pages around the current one, with … for gaps.
+// globals.__page selects which page is being rendered.
 engine.registerTag('paginate', {
   parse(tagToken, remainTokens) {
+    this.args = tagToken.args;
     this.tpls = [];
     const stream = this.liquid.parser.parseStream(remainTokens);
     stream.on('tag:endpaginate', () => stream.stop())
@@ -233,7 +240,49 @@ engine.registerTag('paginate', {
     stream.start();
   },
   *render(ctx, emitter) {
-    ctx.push({ paginate: { pages: 1, current_page: 1, items: 8, parts: [], next: null, previous: null } });
+    const m = /^(.*?)\s+by\s+(\d+)/.exec(String(this.args || '').trim());
+    const expr = m ? m[1].trim() : String(this.args || '').trim();
+    const per = m ? Number(m[2]) : 24;
+
+    let items = [];
+    try {
+      items = (yield this.liquid.evalValue(expr, ctx)) || [];
+    } catch { items = []; }
+    if (!Array.isArray(items)) items = [];
+
+    const pages = Math.max(1, Math.ceil(items.length / per));
+    const current = Math.min(Math.max(1, Number(globals.__page) || 1), pages);
+    const base = (globals.collection && globals.collection.url) || '/collections/all';
+    const urlFor = (n) => (n === 1 ? base : `${base}?page=${n}`);
+
+    // Shopify shows first, last, and a window around the current page, with gaps as
+    // a non-link "…" part. Reproduced so the markup under test is the real shape.
+    const shown = new Set([1, pages, current, current - 1, current + 1]);
+    const parts = [];
+    let previousShown = 0;
+    for (let n = 1; n <= pages; n++) {
+      if (!shown.has(n)) continue;
+      if (previousShown && n - previousShown > 1) {
+        parts.push({ title: '…', url: '', is_link: false });
+      }
+      parts.push({ title: String(n), url: urlFor(n), is_link: n !== current });
+      previousShown = n;
+    }
+
+    ctx.push({
+      paginate: {
+        pages, current_page: current, current_offset: (current - 1) * per,
+        items: items.length, page_size: per, parts,
+        next: current < pages ? { title: 'Next', url: urlFor(current + 1), is_link: true } : null,
+        previous: current > 1 ? { title: 'Previous', url: urlFor(current - 1), is_link: true } : null,
+      },
+      // Shopify rebinds the paginated array inside the block, so a for-loop over
+      // collection.products yields only this page. Mirror that.
+      collection: {
+        ...(ctx.getSync(['collection']) || {}),
+        products: items.slice((current - 1) * per, current * per),
+      },
+    });
     emitter.write(yield this.liquid.renderer.renderTemplates(this.tpls, ctx));
     ctx.pop();
   },
@@ -634,6 +683,36 @@ console.log(`${ok}/${ok + fail} templates render clean`);
 // A second product page for the sold-out fixture. The buy box takes a different
 // path when a variant is unavailable — disabled button plus the back-in-stock
 // capture — and with only one product page rendered, that path shipped unseen.
+// Paginated collection pages. The default fixture collection holds 10 products
+// against `by 24`, so page 2 could never exist — and the open canonical question is
+// precisely about what Shopify does on page 2. Rendered as separate pages so the
+// product counts every other check relies on stay put.
+{
+  const big = {
+    ...globals.collection,
+    title: 'Paginated fixture', handle: 'paginated-fixture',
+    url: '/collections/paginated-fixture',
+    // 30 products over 24 per page gives two pages, the second deliberately partial.
+    products: Array.from({ length: 30 }, (_, n) => products[n % products.length]),
+  };
+  big.products_count = big.products.length;
+  big.all_products_count = big.products.length;
+
+  const saved = { collection: globals.collection, request: globals.request, __page: globals.__page };
+  globals.collection = big;
+  globals.request = { ...globals.request, page_type: 'collection' };
+  try {
+    for (const n of [1, 2]) {
+      globals.__page = n;
+      writeFileSync(join(outDir, `collection.paginated.p${n}.html`), await renderTemplate('collection'));
+    }
+    console.log(`paginated collection: ${big.products.length} products over 2 pages`);
+  } finally {
+    Object.assign(globals, saved);
+    delete globals.__page;
+  }
+}
+
 {
   const multi = products.find((p) => p.has_only_default_variant === false);
   if (multi) {
