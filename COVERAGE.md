@@ -14,8 +14,7 @@ globals cross-referenced against every Liquid conditional that reads them; every
 Shopify route family requested against the preview server; and theme settings checked
 for blank values that gate a branch.
 
-**Not fixed** — this is the map, so the fixtures can be built in priority order rather
-than reactively.
+**Items A, B and C are now fixed** — see "Status" at the end. The rest stands as the map.
 
 ---
 
@@ -148,3 +147,61 @@ pages, and every item above sits outside all of them.
 
 When adding a branch, the question is not "did I test it" but "does it appear in
 rendered output at all" — if not, the fixture is part of the work, not a follow-up.
+
+
+---
+
+## Status — 27 August, after the fixture pass
+
+### Done
+
+| Item | Result |
+|---|---|
+| **B. Multi-variant** | Fixed. **Found the variant picker was broken.** |
+| **A. Pagination** | Fixed. The `paginate` tag was stubbed, not just under-populated. |
+| **C. Form states** | Fixed. All six form pages render success and error. |
+| Generator drift | Fixed, and guarded. **All three generators had drifted, not one.** |
+
+Suite grew from 261 to **347 assertions**: +35 variants, +11 pagination,
++40 form states, and 9 generated files checked against their generators.
+
+### What the fixtures found
+
+**The variant picker had never worked.** The variants JSON block sat *after* the
+IIFE that reads it, so `getElementById` returned null on every product page.
+Selecting a pack size changed no price, no SKU, and no hidden variant id — the form
+would have submitted the first variant whatever the shopper chose, and threw into
+the console every time. The markup was correct; the bug was execution order, which
+is why only driving it in a browser could catch it.
+
+That is the concrete cost of a coverage gap: not a hypothetical, a buy button that
+added the wrong item, sitting behind a fixture nobody had written.
+
+**Pagination was stubbed, not just unpopulated.** The harness's `paginate` tag
+hardcoded `pages: 1` with empty `parts`, so no product count would ever have
+produced a second page. It now parses `by n`, slices, rebinds
+`collection.products` the way Shopify does inside a paginate block, and builds
+`parts` with the same first/last/window shape.
+
+**All three generators had drifted**, not just `gen_category_nav.py`.
+`gen_brands.py` and `gen_mega.py` both emitted literal hexes where the committed
+snippets had tokens. `gen_mega.py` was also broken outright — it fetched the design
+handoff through a preview route that no longer serves it — and carried the last
+hardcoded absolute project path, which broke when the directory was renamed.
+`setup/verify/generators.py` now regenerates all three against a scratch copy and
+diffs, so this cannot recur silently.
+
+### Corrections to this document
+
+The original said four public contact forms rendered no error state. **That was
+wrong** — they use inline error blocks rather than the shared `form-errors` snippet,
+and my marker only looked for the snippet. All six render both states.
+
+One real inconsistency remains, not worth changing on its own: the theme has two
+error presentations, the `form-errors` snippet (account pages, withdrawal,
+back-in-stock) and inline blocks (the four public contact forms). Both work.
+
+### Still open
+
+Items D through G, and the three unrouted templates (`/collections/all`,
+`/password`, `/gift_cards/<id>/<token>`), are unchanged and still listed above.

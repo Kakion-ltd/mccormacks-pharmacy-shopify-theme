@@ -51,11 +51,7 @@
         in touch. Nothing is ordered and you are not signed up to anything else.
       </p>
 
-      {%- if form.errors -%}
-        <div class="bis-err" role="alert">
-          {{ form.errors | default_errors }}
-        </div>
-      {%- endif -%}
+      {% render 'form-errors', form: form %}
 
       <input type="hidden" name="contact[form_type]" value="back-in-stock">
       <input type="hidden" name="contact[product]" value="{{ product.title | escape }}{% if variant_label != blank %} — {{ variant_label | escape }}{% endif %}">

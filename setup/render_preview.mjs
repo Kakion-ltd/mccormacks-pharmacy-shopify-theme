@@ -216,7 +216,19 @@ engine.registerTag('form', {
   },
   *render(ctx, emitter) {
     const st = this.args.match(/style:\s*'([^']*)'/);
-    ctx.push({ form: { posted_successfully: false, errors: null } });
+    // Shopify's property name carries the question mark; both spellings are set so
+    // a template reading either resolves. globals.__form drives the success and
+    // error renders — without it neither state appeared in any preview, across six
+    // contact forms, the newsletter and back-in-stock.
+    const f = globals.__form || {};
+    const posted = f.posted_successfully === true;
+    ctx.push({
+      form: {
+        posted_successfully: posted, 'posted_successfully?': posted,
+        errors: f.errors || null,
+        email: f.email || null,
+      },
+    });
     const inner = yield this.liquid.renderer.renderTemplates(this.tpls, ctx);
     ctx.pop();
     emitter.write(`<form method="post"${st ? ` style="${st[1]}"` : ''}>${inner}</form>`);
@@ -683,6 +695,48 @@ console.log(`${ok}/${ok + fail} templates render clean`);
 // A second product page for the sold-out fixture. The buy box takes a different
 // path when a variant is unavailable — disabled button plus the back-in-stock
 // capture — and with only one product page rendered, that path shipped unseen.
+// Form success and error states. Neither had rendered anywhere: form.posted_successfully
+// was hardcoded false and form.errors null, so across six contact forms, the newsletter
+// signup and back-in-stock, no confirmation and no error box existed in any preview.
+// These are the two screens where a customer needs to see their data landed.
+{
+  const FORM_PAGES = [
+    'page.contact-us', 'page.prescriptions', 'page.careers',
+    'page.withdraw-from-contract', 'page.in-store-services',
+  ];
+  // Shape mirrors Shopify's: errors iterates field names, with messages and
+  // translated_fields keyed by those names.
+  const ERRORS = Object.assign(['email', 'form'], {
+    messages: { email: 'is not a valid email address', form: 'Please try again.' },
+    translated_fields: { email: 'Email', form: 'Form' },
+  });
+
+  const saved = { __form: globals.__form };
+  try {
+    for (const [suffix, formState] of [['success', { posted_successfully: true }],
+                                       ['errors', { errors: ERRORS }]]) {
+      globals.__form = formState;
+      for (const name of FORM_PAGES) {
+        writeFileSync(join(outDir, `${name}.${suffix}.html`), await renderTemplate(name));
+      }
+      // The product page carries back-in-stock, which is a form too.
+      const oosProduct = products.find((p) => p.available === false);
+      if (oosProduct) {
+        const s2 = { product: globals.product, request: globals.request };
+        globals.product = oosProduct;
+        globals.request = { ...globals.request, page_type: 'product' };
+        try {
+          writeFileSync(join(outDir, `product.oos.${suffix}.html`), await renderTemplate('product'));
+        } finally { Object.assign(globals, s2); }
+      }
+    }
+    console.log(`form states: ${FORM_PAGES.length + 1} pages x success + errors`);
+  } finally {
+    Object.assign(globals, saved);
+    delete globals.__form;
+  }
+}
+
 // Paginated collection pages. The default fixture collection holds 10 products
 // against `by 24`, so page 2 could never exist — and the open canonical question is
 // precisely about what Shopify does on page 2. Rendered as separate pages so the
