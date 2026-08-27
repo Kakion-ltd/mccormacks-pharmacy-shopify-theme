@@ -205,3 +205,57 @@ back-in-stock) and inline blocks (the four public contact forms). Both work.
 
 Items D through G, and the three unrouted templates (`/collections/all`,
 `/password`, `/gift_cards/<id>/<token>`), are unchanged and still listed above.
+
+---
+
+## Status — items D to G
+
+| Item | Result |
+|---|---|
+| **D. Empty and filtered collections** | Fixed. Three fixtures: filtered-with-results, filtered-to-nothing, genuinely empty. |
+| **E. Predictive search** | **Not a gap — my original entry was wrong.** See below. |
+| **F. Logged-in customer** | Fixed. Signed-in renders for the two storefront `{% if customer %}` branches. |
+| **G. Smaller states** | Mostly fixed: order shipping method, expired gift card. The rest are unchanged and explained below. |
+
+### Correction to item E
+
+The original entry said page, article and query suggestions never rendered.
+**Two thirds of that was wrong.** `predictive-search.liquid` reads exactly three
+resources — products, collections and queries — and **all three already rendered**:
+collections on 10 pages, query suggestions in 10 of 11 suggest fixtures. It never
+reads `pages` or `articles` at all, so those being empty in the mock is correct
+rather than a gap.
+
+Nothing needed fixing. The entry was a bad reading of the mock rather than a real
+finding.
+
+### What D actually protects
+
+The useful distinction is between *filtered to nothing* and *empty*. They are
+different messages — "No products match your filters" with a Clear all, versus
+"No products here yet" with Continue shopping — and getting them the wrong way
+round tells a shopper to clear filters they never set, or to give up on a
+collection that is one click from showing results. Both directions are now
+asserted, including that neither message appears on the other's page.
+
+This becomes live when held item 2.2 (Search & Discovery) populates real filters.
+
+### What remains in G, and why
+
+| Path | Status |
+|---|---|
+| Express checkout buttons | Still live-only. `additional_checkout_buttons` cannot be mocked meaningfully — a stand-in would prove nothing about real payment providers. Stays on the dev-store list. |
+| Subscriptions | `selling_plan_groups` is empty and the theme has no subscription UI to exercise. Nothing to cover until that is built. |
+| Blog tag filtering | `current_tags` is null. Reachable only via `/blogs/<b>/tagged/<tag>`, which is not routed. Left with the other unrouted templates. |
+| Related articles | Article `tags` are populated and render; the earlier entry conflated this with `blog.articles`. |
+| Dispatch cutoff | Blank **by design** — fails closed, awaiting a real time from the client. Correct, not a gap. |
+
+### The three unrouted templates
+
+`/collections/all`, `/password` and `/gift_cards/<id>/<token>` remain unrouted, as
+asked. One thing changed: the empty-collection state now renders, and its
+"Continue shopping" button demonstrably points at `/collections/all` — so that
+route is no longer a theoretical gap, it is a live link that 404s in the preview.
+Three lines in `serve_preview.py` whenever you want it.
+
+Suite is now **415 assertions**.

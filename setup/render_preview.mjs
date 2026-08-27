@@ -522,12 +522,12 @@ const globals = {
   products: new Proxy({}, { get: (_, k) => (typeof k === 'string' ? products[0] : undefined) }),
   recommendations: { performed: true, products_count: 4, products: products.slice(0, 4) },
   predictive_search: { performed: false, terms: '', resources: { products: [], collections: [], queries: [], pages: [], articles: [] } },
-  blog: { title: 'Health Hub', handle: 'health-hub', url: '/blogs/health-hub', articles, articles_count: 4, all_tags: ['Advice'], tags: [] },
+  blog: { title: 'Health Hub', handle: 'health-hub', url: '/blogs/health-hub', articles, articles_count: 4, all_tags: ['Advice', 'Winter health'], tags: [] },
   article: articles[0],
   articles, search: { performed: true, terms: 'vitamins', results: products, results_count: products.length, results_url: '/search' },
   customer: null, gift_card: { balance: 5000, initial_value: 5000, code: 'XXXX-XXXX', expired: false, enabled: true, currency: 'EUR', qr_identifier: '', pass_url: null, url: '#' },
   page: { title: 'Page', handle: 'page', content: '<p>Page content.</p>' },
-  order: { name: '#1001', created_at: '2026-05-01', line_items: [], financial_status: 'paid', fulfillment_status: 'fulfilled', shipping_address: {}, billing_address: {}, subtotal_price: 4990, total_price: 4990, shipping_methods: [], tax_lines: [], cancelled: false },
+  order: { name: '#1001', created_at: '2026-05-01', line_items: [], financial_status: 'paid', fulfillment_status: 'fulfilled', shipping_address: {}, billing_address: {}, subtotal_price: 4990, total_price: 4990, shipping_methods: [{ title: 'Standard delivery', price: 550 }], tax_lines: [], cancelled: false },
   linklists: {}, images: {}, current_tags: null, canonical_url: 'https://mock.myshopify.com/',
   page_title: "McCormack's Pharmacy", page_description: 'Ireland’s trusted family pharmacy.',
   template: { name: 'index', suffix: null, directory: null },
@@ -750,6 +750,87 @@ console.log(`${ok}/${ok + fail} templates render clean`);
   } finally {
     Object.assign(globals, saved);
     delete globals.__form;
+  }
+}
+
+// F: logged-in customer. customer is null across the storefront, so every
+// {% if customer %} branch outside the account templates showed only its
+// logged-out half — the wishlist's "My account" vs "Create an account" fork and
+// the loyalty page's members-only panel.
+{
+  const saved = { customer: globals.customer, request: globals.request };
+  globals.customer = {
+    id: 900, first_name: 'Test', last_name: 'Customer', name: 'Test Customer',
+    email: 'test@example.com', orders_count: 2, total_spent: 8450,
+    default_address: null, addresses: [], addresses_count: 0, orders: [],
+    tags: [], accepts_marketing: true,
+  };
+  try {
+    for (const name of ['page.loyalty-rewards-club', 'page.wishlist']) {
+      writeFileSync(join(outDir, `${name}.signed-in.html`), await renderTemplate(name));
+    }
+    console.log('signed-in variants: loyalty, wishlist');
+  } finally {
+    Object.assign(globals, saved);
+  }
+}
+
+// G: an expired gift card. gift_card.expired was always false, so the expired and
+// spent panels rendered nowhere.
+{
+  const saved = { gift_card: globals.gift_card };
+  globals.gift_card = { ...globals.gift_card, expired: true, balance: 0 };
+  try {
+    writeFileSync(join(outDir, 'gift_card.expired.html'), await renderTemplate('gift_card'));
+    console.log('gift card: expired variant');
+  } finally {
+    Object.assign(globals, saved);
+  }
+}
+
+// Empty and filtered collection states. Every mock collection held the same 10
+// products with no active filters, so three branches rendered nowhere: the empty
+// collection, the filtered-to-nothing message, and the active filter chips with
+// their url_to_remove links.
+{
+  const base = globals.collection;
+  const saved = { collection: globals.collection, request: globals.request };
+  globals.request = { ...globals.request, page_type: 'collection' };
+
+  // Active filters, still returning products: the chips and their remove links.
+  const withFilters = {
+    ...base,
+    handle: 'filtered-fixture', url: '/collections/filtered-fixture',
+    products: products.slice(0, 3), products_count: 3, all_products_count: 3,
+    filters: (base.filters || []).map((f, i) => (i !== 0 ? f : {
+      ...f,
+      active_values: [{ ...(f.values || [])[0], active: true,
+                        url_to_remove: '/collections/filtered-fixture' }],
+      values: (f.values || []).map((v, k) => (k === 0 ? { ...v, active: true } : v)),
+    })),
+  };
+
+  // Filtered down to nothing: the message must say the filters are the reason,
+  // not that the collection is empty.
+  const filteredEmpty = { ...withFilters, handle: 'filtered-empty-fixture',
+    url: '/collections/filtered-empty-fixture',
+    products: [], products_count: 0, all_products_count: 0 };
+
+  // Genuinely empty, no filters applied.
+  const empty = { ...base, handle: 'empty-fixture', url: '/collections/empty-fixture',
+    products: [], products_count: 0, all_products_count: 0,
+    filters: (base.filters || []).map((f) => ({ ...f, active_values: [] })) };
+
+  try {
+    for (const [file, col] of [['collection.filtered', withFilters],
+                               ['collection.filtered-empty', filteredEmpty],
+                               ['collection.empty', empty]]) {
+      globals.collection = col;
+      writeFileSync(join(outDir, `${file}.html`), await renderTemplate('collection'));
+    }
+    console.log('collection states: filtered, filtered-empty, empty');
+  } finally {
+    Object.assign(globals, saved);
   }
 }
 
