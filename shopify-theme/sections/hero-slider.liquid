@@ -90,6 +90,8 @@
 
 {% style %}
 #hero-{{ section.id }} [data-slide] { display: contents; }
+/* Vertical panning stays with the browser; horizontal is ours to interpret. */
+#hero-{{ section.id }} { touch-action: pan-y; }
 .hero-cta:hover { background: var(--c-dark) !important; color:var(--c-on-dark) !important; }
 {% endstyle %}
 
@@ -97,19 +99,66 @@
 (() => {
   const root = document.getElementById('hero-{{ section.id }}');
   if (!root) return;
-  root.addEventListener('click', e => {
-    const btn = e.target.closest('[data-dot-proxy]');
-    if (!btn) return;
-    const i = parseInt(btn.dataset.dotProxy, 10);
+  const panes = root.querySelectorAll('[data-slide]');
+
+  /* One path for every way of changing slide, so the dots can never disagree with
+     the pane on show. */
+  let internal = false;   /* true only while select() is clicking the master dot */
+  const select = i => {
     const master = root.querySelectorAll('[data-slide-dot]')[i];
-    if (master) master.click(); /* theme.js switches the visible pane */
-    root.querySelectorAll('[data-slide]').forEach(pane => {
+    /* theme.js switches the visible pane and stops autoplay */
+    if (master) { internal = true; master.click(); internal = false; }
+    panes.forEach(pane => {
       pane.querySelectorAll('[data-dot-proxy]').forEach((d, j) => {
         d.style.background = j === i ? '#ffffff' : 'rgba(255,255,255,.5)';
         d.style.width = j === i ? '22px' : '8px';
       });
     });
+  };
+
+  root.addEventListener('click', e => {
+    const btn = e.target.closest('[data-dot-proxy]');
+    if (!btn) return;
+    select(parseInt(btn.dataset.dotProxy, 10));
   });
+
+  /* Swipe, for touch. Horizontal only: a vertical drag has to keep scrolling the
+     page, so the gesture is claimed only once it is clearly sideways. Nothing calls
+     preventDefault and every listener is passive, so scrolling is never blocked
+     while we decide. */
+  if (panes.length > 1) {
+    const shown = () => [...panes].findIndex(p => p.style.display !== 'none');
+    let x0 = null, y0 = 0, sideways = false, swipedAt = 0;
+
+    root.addEventListener('touchstart', e => {
+      if (e.touches.length !== 1) { x0 = null; return; }   /* pinch-zoom is not a swipe */
+      x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; sideways = false;
+    }, { passive: true });
+
+    root.addEventListener('touchmove', e => {
+      if (x0 === null) return;
+      const dx = e.touches[0].clientX - x0, dy = e.touches[0].clientY - y0;
+      if (Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy)) sideways = true;
+    }, { passive: true });
+
+    root.addEventListener('touchend', e => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      x0 = null;
+      if (!sideways || Math.abs(dx) < 45) return;          /* a tap or a scroll, not a swipe */
+      swipedAt = Date.now();
+      const i = shown();
+      select(((dx < 0 ? i + 1 : i - 1) + panes.length) % panes.length);
+    }, { passive: true });
+
+    /* A swipe that started on the SHOP button must change slide, not follow the link.
+       Guarded on `internal` so it never swallows select()'s own dot click, which is
+       dispatched inside root and would otherwise be stopped before theme.js sees it. */
+    root.addEventListener('click', e => {
+      if (internal) return;
+      if (Date.now() - swipedAt < 400) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
+  }
 })();
 </script>
 
