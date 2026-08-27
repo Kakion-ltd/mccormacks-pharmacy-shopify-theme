@@ -108,11 +108,7 @@ Measured from the rendered output, not from the source.
 - **`WebSite` + `SearchAction` — 0 pages.** No sitelinks search box markup anywhere.
 - `FAQPage` was also absent; the mechanism for it is now built (Phase B).
 
-I have **not** built `ItemList` or `SearchAction`. They were listed in your brief as
-things to *report on*, and Phase B specified two build items, neither of which was
-these. Both are small and self-contained if you want them next — `ItemList` in
-particular is a natural extension of the existing collection branch in
-`snippets/structured-data.liquid`.
+**Both were subsequently built** — see "Follow-up" at the end of this report.
 
 One thing that looked like a bug and was not: grepping for `"Organization"` shows it
 on the product page only. The footer actually emits `Pharmacy` — a subtype of
@@ -258,3 +254,74 @@ Each is independently revertable.
 - **No apps, no admin settings, no deletions, no design or layout changes.**
 - **`ItemList` and `SearchAction` reported but not built** — they were in the
   investigate list, not the build list.
+
+
+---
+
+# Follow-up — 27 August, after review
+
+## ItemList and SearchAction
+
+Both built; commit `d3e69a5`. Sitewide JSON-LD now: **959/959 blocks parse**, with
+306 `ItemList`, 306 `BreadcrumbList`, 342 `Pharmacy`, 1 `WebSite`.
+
+`ItemList` covers only the paginated slice, not the whole collection — claiming 400
+products on a page showing 24 is a mismatch between markup and content. Each entry
+is position + url + name, not a nested `Product`: the product page already carries
+the full `Product` node, and a partial second copy gives Google two sources for the
+same facts. It stays silent on an empty collection.
+
+`SearchAction` is homepage-only and builds its target from `routes.search_url`, so a
+locale or market prefix survives. Its `publisher` points at the `#organization` node
+the footer already emits, so the graph joins up rather than floating free. It is a
+request rather than a guarantee — the sitelinks search box appears only where Google
+already shows sitelinks for the brand.
+
+The empty-collection branch renders in no preview, since every mock collection holds
+the same 10 products, so both are unit-tested at snippet level: 13 checks covering
+the empty guard, absolute URLs, position ordering, a quoted product title, and a
+locale-prefixed search route. `npm test` is now 45 checks.
+
+Writing those surfaced a robustness gap worth noting: `{{ shop.name | json }}` with
+no value emits *nothing* rather than `null`, which invalidates the entire block.
+Shopify always sets a shop name so this could not fire on a live store, but liquidjs
+and Shopify differ here and the preview would have shipped invalid JSON-LD. Guarded.
+
+## Breadcrumbs after the `within:` change — verified, not assumed
+
+**Result: identical on every entry path.** Checked by loading the same product three
+ways and reading the rendered breadcrumb:
+
+| Entry path | Breadcrumb |
+|---|---|
+| `/products/fabu-…` | Home / Skin, Hair & Nails / fabÜ Skin Hair Nails Glow 60 Capsules |
+| `/collections/skin-hair-nails/products/fabu-…` | *identical* |
+| `/collections/vitamins/products/fabu-…` | *identical* |
+
+The reason it is identical is the thing worth knowing: **the breadcrumb is built from
+`product.collections.first`, not from the URL.** It never read the `collection` object
+that `within:` populates, so the change could not have affected it — and the third row
+shows the consequence. A visitor arriving from Vitamins still sees "Skin, Hair &
+Nails", because that is the product's first collection.
+
+That behaviour is unchanged by this work and I have not touched it, but it is a real
+limitation: the breadcrumb reflects Shopify's collection ordering rather than the path
+the visitor took. Restoring path-awareness would mean reading the `collection` object
+and therefore restoring `within:` — the opposite of the canonical fix. The two goals
+are in direct tension, and which wins is a judgement call rather than a bug fix.
+
+### Two more harness blind spots, both fixed
+
+Verifying this could not be done at first, for two reasons that are the same class of
+problem as the missing sold-out fixture — a real path that rendered nowhere:
+
+1. **`product.collections` was `[]` on every mock product**, so the breadcrumb's middle
+   segment had never rendered in any preview.
+2. **`serve_preview` routed `/collections/<c>/products/<p>` to the collection page**,
+   because the `/collections/` branch matched first. Shopify serves that path as the
+   product page, so the entire collection-scoped product URL was untestable — the exact
+   path the `within:` change was about.
+
+Both fixed in `9c2c00b`. The pattern is now familiar enough to state plainly: when a
+code path renders in no preview, it gets verified by nobody, and it ships on
+assumption.
