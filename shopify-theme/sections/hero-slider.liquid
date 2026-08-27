@@ -5,7 +5,15 @@
     is picked in the editor. {%- endcomment -%}
 {%- assign first_slide = section.blocks.first -%}
 {%- if first_slide and first_slide.settings.image == blank and first_slide.settings.image_mobile == blank and first_slide.settings.image_asset != blank -%}
-  <link rel="preload" as="image" href="{{ first_slide.settings.image_asset | asset_url }}" fetchpriority="high">
+  {%- comment -%} Scoped by media once a mobile crop exists: an unqualified preload would
+      pull the 1760px desktop file onto every phone, which then fetches the mobile one
+      as well — two downloads to render one LCP element. {%- endcomment -%}
+  {%- if first_slide.settings.image_mobile_asset != blank -%}
+    <link rel="preload" as="image" href="{{ first_slide.settings.image_asset | asset_url }}" media="(min-width: 901px)" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ first_slide.settings.image_mobile_asset | asset_url }}" media="(max-width: 900px)" fetchpriority="high">
+  {%- else -%}
+    <link rel="preload" as="image" href="{{ first_slide.settings.image_asset | asset_url }}" fetchpriority="high">
+  {%- endif -%}
 {%- endif -%}
 
 <section style="max-width:1440px; margin:0 auto; padding:12px 30px 8px;">
