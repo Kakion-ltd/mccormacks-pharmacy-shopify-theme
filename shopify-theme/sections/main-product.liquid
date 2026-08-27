@@ -67,7 +67,8 @@
             <div class="thumb-rail" data-thumb-rail style="display:flex; flex-direction:column; gap:12px; max-height:472px; overflow-y:auto; scrollbar-width:none;">
               {%- for media in product.media -%}
                 <button type="button" class="thumb" data-pdp-thumb="{{ forloop.index0 }}" aria-label="View image {{ forloop.index }}" style="flex:0 0 auto; width:84px; height:84px; padding:6px; border-radius:9px; border:2px solid {% if forloop.first %}var(--c-primary){% else %}#e2e4df{% endif %}; background:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-                  {{ media.preview_image | image_url: width: 168 | image_tag: alt: media.alt, style: 'max-width:100%; max-height:100%; object-fit:contain; display:block;' }}
+                  {%- capture thumb_alt %}{% render 'image-alt', image: media.preview_image, product: product %}{% endcapture -%}
+                  {{ media.preview_image | image_url: width: 168 | image_tag: alt: thumb_alt, style: 'max-width:100%; max-height:100%; object-fit:contain; display:block;' }}
                 </button>
               {%- endfor -%}
             </div>
@@ -81,7 +82,8 @@
             {%- endif -%}
             {%- if product.media.size > 0 -%}
               {%- for media in product.media -%}
-                <img src="{{ media.preview_image | image_url: width: 900 }}" alt="{{ media.alt | escape }}" data-pdp-img="{{ forloop.index0 }}" loading="lazy" style="max-width:78%; max-height:90%; object-fit:contain; display:block;{% unless forloop.first %} display:none;{% endunless %}" width="600" height="600">
+                {%- capture main_alt %}{% render 'image-alt', image: media.preview_image, product: product %}{% endcapture -%}
+                <img src="{{ media.preview_image | image_url: width: 900 }}" alt="{{ main_alt | escape }}" data-pdp-img="{{ forloop.index0 }}" loading="lazy" style="max-width:78%; max-height:90%; object-fit:contain; display:block;{% unless forloop.first %} display:none;{% endunless %}" width="600" height="600">
               {%- endfor -%}
             {%- else -%}
               <div style="width:70%; aspect-ratio:1; border-radius:9px; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); display:flex; align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div>
@@ -197,7 +199,8 @@
             <div style="display:flex; align-items:center; gap:16px; padding:14px 0; border-bottom:1px solid #eceee9;">
               <a href="{{ p.url }}" style="flex:0 0 92px; height:92px; border-radius:10px; background:#f4f5f2; display:flex; align-items:center; justify-content:center; overflow:hidden;">
                 {%- if p.featured_image -%}
-                  {{ p.featured_image | image_url: width: 184 | image_tag: alt: p.title, style: 'max-width:84%; max-height:84%; object-fit:contain; display:block;', loading: 'lazy' }}
+                  {%- capture rel_alt %}{% render 'image-alt', image: p.featured_image, product: p %}{% endcapture -%}
+                  {{ p.featured_image | image_url: width: 184 | image_tag: alt: rel_alt, style: 'max-width:84%; max-height:84%; object-fit:contain; display:block;', loading: 'lazy' }}
                 {%- else -%}
                   <div style="width:80%; height:80%; border-radius:7px; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px);"></div>
                 {%- endif -%}
@@ -247,7 +250,8 @@
           <div class="checked-card pcard" style="flex:0 0 300px; display:flex; flex-direction:column;">
             <a href="{{ p.url }}" class="pcard-img" style="position:relative; aspect-ratio:1; background:#f4f5f2; border-radius:12px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:16px;">
               {%- if p.featured_image -%}
-                {{ p.featured_image | image_url: width: 600 | image_tag: alt: p.title, style: 'max-width:82%; max-height:82%; object-fit:contain; display:block;', loading: 'lazy' }}
+                {%- capture rel_alt %}{% render 'image-alt', image: p.featured_image, product: p %}{% endcapture -%}
+                  {{ p.featured_image | image_url: width: 600 | image_tag: alt: rel_alt, style: 'max-width:82%; max-height:82%; object-fit:contain; display:block;', loading: 'lazy' }}
               {%- else -%}
                 <div style="width:70%; height:70%; border-radius:9px; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); display:flex; align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div>
               {%- endif -%}

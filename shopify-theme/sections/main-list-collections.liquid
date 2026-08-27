@@ -13,7 +13,8 @@
       <a href="{{ collection.url }}" class="colcard" style="display:block; border-radius:14px; overflow:hidden; border:1px solid #e6e7e4; background:#ffffff;">
         <span style="display:block; width:100%; aspect-ratio:4/3; overflow:hidden; background:#f4f5f2;">
           {%- if collection.featured_image -%}
-            {{ collection.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', style: 'width:100%; height:100%; object-fit:cover; display:block;' }}
+            {%- capture col_alt %}{% render 'image-alt', image: collection.featured_image, collection: collection %}{% endcapture -%}
+            {{ collection.featured_image | image_url: width: 600 | image_tag: alt: col_alt, loading: 'lazy', style: 'width:100%; height:100%; object-fit:cover; display:block;' }}
           {%- else -%}
             <span style="display:flex; width:100%; height:100%; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></span>
           {%- endif -%}

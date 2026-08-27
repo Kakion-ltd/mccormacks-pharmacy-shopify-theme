@@ -1,0 +1,70 @@
+{% comment %}
+  Alt text, resolved in one place.
+
+  Every image on the site was reaching the page with `alt=""` unless someone had
+  typed alt text into the Shopify admin for that specific image — which, for a
+  bulk-imported pharmacy catalogue, is essentially never. A product image with an
+  empty alt is announced by a screen reader as nothing at all, so a collection
+  grid read as a list of prices with no products attached.
+
+  ORDER OF PRECEDENCE — the first rule that applies wins:
+
+    1. Whatever a person wrote in the admin. Manual alt text always survives;
+       this snippet only ever fills a gap, it never overwrites. That is the whole
+       reason the fallback lives here rather than being hardcoded at each call
+       site — one place to be sure of the precedence.
+    2. Product title, plus the variant name when the image belongs to a specific
+       variant. "Sudocrem Antiseptic Healing Cream — 250g" tells you which of the
+       five tins you are looking at; "Sudocrem Antiseptic Healing Cream" five
+       times does not.
+    3. Collection title, for category and banner imagery.
+    4. Empty, for decoration. An empty alt is correct for a decorative image and
+       is not the same thing as a missing one: it tells assistive tech to skip
+       the image rather than to guess at it from the filename.
+
+  Deliberately NOT done here: describing what is in the picture. That is
+  copywriting, it needs a human who can see the image, and a wrong description is
+  worse than a plain one. This gives every image an accurate, mechanical name.
+
+  Usage:
+    {%- capture alt -%}{%- render 'image-alt', image: img, product: product -%}{%- endcapture -%}
+    {{ img | image_url: width: 600 | image_tag: alt: alt }}
+
+  Accepts:
+    image      — the image or media object; its own .alt wins if set
+    product    — for rule 2
+    variant    — optional; overrides the variant lookup when the caller knows it
+    collection — for rule 3
+    decorative — pass true to force an empty alt regardless of everything above
+{% endcomment %}
+{%- liquid
+  assign manual = image.alt | default: '' | strip
+
+  if decorative
+    # nothing: a decorative image takes an empty alt, and says so deliberately.
+  elsif manual != blank
+    echo manual
+  else
+    assign variant_name = ''
+
+    # A caller that already knows the variant is trusted over the lookup.
+    if variant and variant.title != 'Default Title'
+      assign variant_name = variant.title
+    elsif image.attached_to_variant? and image.variants.size > 0
+      assign first_variant = image.variants | first
+      if first_variant.title != 'Default Title'
+        assign variant_name = first_variant.title
+      endif
+    endif
+
+    if product and product.title != blank
+      if variant_name != blank
+        echo product.title | append: ' — ' | append: variant_name
+      else
+        echo product.title
+      endif
+    elsif collection and collection.title != blank
+      echo collection.title
+    endif
+  endif
+-%}
