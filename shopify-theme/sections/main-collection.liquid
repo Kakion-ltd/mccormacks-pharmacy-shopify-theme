@@ -230,7 +230,7 @@
               {%- if on_sale -%}
                 <span style="position:absolute; top:12px; left:12px; z-index:2; background:#c0392b; color:#fff; font-weight:800; font-size:12px; letter-spacing:.04em; padding:5px 10px; border-radius:6px;">SALE</span>
               {%- endif -%}
-              <a href="{{ product.url | within: collection }}" style="display:block; width:100%; height:100%;">
+              <a href="{{ product.url }}" style="display:block; width:100%; height:100%;">
                 {%- if product.featured_image -%}
                   {%- capture card_alt %}{% render 'image-alt', image: product.featured_image, product: product %}{% endcapture -%}
                   {{ product.featured_image | image_url: width: 600 | image_tag: alt: card_alt, loading: 'lazy', style: 'width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;' }}
@@ -242,11 +242,11 @@
               {%- if quick_add -%}
                 <button data-add-id="{{ variant.id }}" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button>
               {%- else -%}
-                <a href="{{ product.url | within: collection }}" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease;">View Product</a>
+                <a href="{{ product.url }}" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease;">View Product</a>
               {%- endif -%}
             </div>
             <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">{{ product.vendor }}</div>
-            <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="{{ product.url | within: collection }}" class="hov-green" style="color:#2A2B2A;">{{ product.title }}</a></h3>
+            <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="{{ product.url }}" class="hov-green" style="color:#2A2B2A;">{{ product.title }}</a></h3>
             <div style="margin-bottom:14px; min-height:18px;">{% render 'product-rating', product: product, size: 14 %}</div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
               <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">{% if product.price_varies %}From {% endif %}{{ product.price | money }}</span>
@@ -257,7 +257,7 @@
             {%- if quick_add -%}
               <button data-add-id="{{ variant.id }}" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button>
             {%- else -%}
-              <a href="{{ product.url | within: collection }}" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px;">View Product</a>
+              <a href="{{ product.url }}" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px;">View Product</a>
             {%- endif -%}
           </div>
         {%- endfor -%}
