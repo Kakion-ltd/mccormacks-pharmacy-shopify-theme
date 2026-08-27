@@ -77,6 +77,12 @@ with sync_playwright() as pw:
     start = pg.evaluate(STATE)
     ck("slider starts on the first slide", start["shown"], 0)
 
+    # Running order read from the page, not hard-coded: reordering slides is a content
+    # change made in the theme editor and must not fail a check.
+    titles = pg.evaluate(
+        "() => [...document.querySelectorAll('[data-slide] h1')].map(h => h.textContent.trim())")
+    ck("five slides in the running order", len(titles), 5)
+
     # A vertical drag is the page scrolling, not a slide change.
     pg.evaluate(SWIPE, [0, -160])
     ck("a vertical drag does not change slide", pg.evaluate(STATE)["shown"], 0)
@@ -90,7 +96,7 @@ with sync_playwright() as pw:
     after = pg.evaluate(STATE)
     ck("swiping left advances a slide", after["shown"], 1)
     ck("the dots follow the swipe", after["lit"], 1)
-    ck("the advanced slide is the next one", (after["title"] or "").strip(), "Feel Your Best")
+    ck("the advanced slide is the next one", (after["title"] or "").strip(), titles[1])
 
     # And back.
     pg.evaluate(SWIPE, [140, 0])

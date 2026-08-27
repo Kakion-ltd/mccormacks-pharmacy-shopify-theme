@@ -23,19 +23,31 @@ with sync_playwright() as pw:
         # ---- A. Predictive search ----
         page.goto(BASE + "/", wait_until="networkidle")
 
-        # The hero's <picture> mobile swap. Asserting currentSrc rather than the markup:
-        # a <source> that is present but never selected looks identical in the HTML and
-        # serves the wrong file to every phone. Slides past the first are lazy, so nudge
-        # this one to load in place — clicking the slider here would be blocked by the
-        # consent banner, which by design sits above everything until it is answered.
-        page.evaluate("() => { document.querySelectorAll('.hero-img-el')[1].loading = 'eager'; }")
-        page.wait_for_function(
-            "() => { const i = document.querySelectorAll('.hero-img-el')[1];"
-            "        return i && i.complete && i.currentSrc; }", timeout=8000)
-        hero_src = page.evaluate(
-            "() => document.querySelectorAll('.hero-img-el')[1].currentSrc.split('/').pop()")
-        want = "banner-vitamins-mobile.jpg" if label == "mobile" else "banner-vitamins.jpg"
-        check(f"[{label}] hero serves the right crop for the viewport", hero_src, want)
+        # The hero's <picture> mobile swap, asserted on whichever slide actually carries
+        # a mobile crop rather than a fixed index — reordering slides in the editor must
+        # not quietly turn this into a no-op. currentSrc rather than the markup: a
+        # <source> that is present but never selected looks identical in the HTML and
+        # serves the wrong file to every phone. Lazy slides are nudged to load in place;
+        # clicking the slider here would be blocked by the consent banner, which by
+        # design sits above everything until it is answered.
+        FIND = ("() => [...document.querySelectorAll('.hero-img-el')]"
+                "        .findIndex(i => i.parentElement.querySelector('source'))")
+        WANT = ("() => { const i = document.querySelectorAll('.hero-img-el')[IDX];"
+                "        const s = i.parentElement.querySelector('source');"
+                "        const m = matchMedia('(max-width: 900px)').matches;"
+                "        return (m ? s.getAttribute('srcset') : i.getAttribute('src'))"
+                "                 .split('/').pop(); }")
+        idx = page.evaluate(FIND)
+        check(f"[{label}] a hero slide carries a mobile crop", idx >= 0)
+        if idx >= 0:
+            page.evaluate("() => { document.querySelectorAll('.hero-img-el')[%d].loading = 'eager'; }" % idx)
+            page.wait_for_function(
+                "() => { const i = document.querySelectorAll('.hero-img-el')[%d];"
+                "        return i && i.complete && i.currentSrc; }" % idx, timeout=8000)
+            got = page.evaluate(
+                "() => document.querySelectorAll('.hero-img-el')[%d].currentSrc.split('/').pop()" % idx)
+            check(f"[{label}] hero serves the right crop for the viewport",
+                  got, page.evaluate(WANT.replace("IDX", str(idx))))
 
         inp = page.locator("[data-ps-input]")
         panel = page.locator("[data-ps-panel]")
