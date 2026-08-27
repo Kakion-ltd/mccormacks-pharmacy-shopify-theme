@@ -7,7 +7,7 @@
           "type": "faq",
           "settings": {
             "question": "Do I need a prescription?",
-            "answer": "All items in this collection can be bought without a GP prescription. Prescription-only medicines are not sold online in Ireland — you can submit a prescription for dispensing instead, and collect it in store or have it delivered."
+            "answer": "All items in this collection can be bought without a GP prescription. Prescription-only medicines are not sold online in Ireland \u2014 you can submit a prescription for dispensing instead, and collect it in store or have it delivered."
           }
         },
         "faq2": {
@@ -42,7 +42,7 @@
         "banner_style": "standard",
         "banner_heading": "Medicines & Health",
         "banner_text": "<p>Our Medicines &amp; Health range covers everyday healthcare for the whole family \u2014 from pain relief, hayfever and cold &amp; flu remedies to heartburn, digestive care, vitamins and sexual health. It's home to trusted brands like <a href=\"/search?q=Nurofen\">Nurofen</a>, <a href=\"/search?q=Gaviscon\">Gaviscon</a>, <a href=\"/search?q=Cetrine\">Cetrine</a> and <a href=\"/search?q=Nytol\">Nytol</a>.</p><p>Everything here is dispatched from our registered Irish pharmacy, with pharmacist advice on hand whenever you need it.</p>",
-        "banner_image_asset": "",
+        "banner_image_asset": "banner-medicines-health.jpg",
         "show_chips": true,
         "chip_links": "Pain Relief | /collections/pain-relief\nErectile Dysfunction | /collections/erectile-dysfunction\nCold, Flu & Allergy | /collections/cold-flu-allergy\nEye & Ear Health | /collections/eye-ear-health\nNicotine Replacement | /collections/nicotine-replacement\nDigestive Health | /collections/stomach-gastrointestinal\nVitamins & Minerals | /collections/vitamins",
         "seo_heading": "Shopping medicines & health online in Ireland",
