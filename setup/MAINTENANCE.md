@@ -338,3 +338,63 @@ client has installed a real alerting app (Back in Stock, Klaviyo), at which poin
 this snippet should be removed rather than left alongside it.
 
 Confirm with the client who owns that inbox before launch.
+
+---
+
+## Product FAQ — the definition lives in the admin, not in the theme
+
+`snippets/product-faq.liquid` renders a per-product FAQ and emits FAQPage JSON-LD
+from the same data. **The theme ships it empty.** Nothing appears until two things
+happen: someone creates the metafield definition, and someone writes approved
+content into it.
+
+### Creating the definition
+
+**Settings → Custom data → Products → Add definition**
+
+| Field | Value |
+|---|---|
+| Namespace and key | `custom.faq` |
+| Name | Product FAQ |
+| Type | **JSON** — not "JSON string", and not a list of rich text |
+
+The value is a list of question/answer pairs:
+
+```json
+[
+  {
+    "question": "How long does a course last?",
+    "answer": "<p>Fourteen days. See our <a href=\"/pages/returns\">returns policy</a>.</p>"
+  }
+]
+```
+
+Answers may contain HTML so internal links work. Only staff with admin access can
+write a metafield, so this is the same trust level as a product description — but
+it does mean a broken tag in an answer is a broken tag on the page.
+
+### It fails closed, in three ways
+
+- Absent, empty, or not a list → renders nothing, emits no schema.
+- An entry missing either half → that entry is skipped entirely. A question with no
+  answer is worse than no question, and an empty `acceptedAnswer` is invalid
+  structured data.
+- Nothing left to show → the whole section is omitted rather than left as an empty
+  heading.
+
+### Before populating it — pharmacist sign-off
+
+FAQPage markup makes these answers eligible to appear **directly in Google's
+results**, lifted away from the page and from any surrounding context. An answer
+that reads as reasonable next to a product photo can read very differently as a
+standalone snippet under a search query.
+
+On a pharmacy that is a higher bar than ordinary product copy. Treat the first batch
+as needing the same sign-off already pending on the collection FAQ answer (see
+"AWAITING PHARMACIST SIGN-OFF" above), and do not populate pharmacist-only lines
+until the gating spec arrives from the client.
+
+`npm run verify` checks the mechanism — that content renders, that a half-filled
+entry is dropped from both the page and the schema, that internal links survive,
+and that quotes in an answer keep the JSON-LD valid. It does not and cannot check
+whether an answer is *correct*.

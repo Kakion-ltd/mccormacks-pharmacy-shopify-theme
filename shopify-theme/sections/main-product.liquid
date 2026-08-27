@@ -110,6 +110,11 @@
             <div data-view="how" style="display:none; padding:22px 4px 26px; font-size:15.5px; line-height:1.7; color:#4a4d47;">{{ how_to_use_mf | metafield_tag }}</div>
           {%- endif -%}
         </div>
+
+        {%- comment -%} Renders nothing at all until the FAQ metafield holds content.
+            Below the tabs rather than inside them: the answers have to stay in the
+            DOM to be eligible for the rich result. {%- endcomment -%}
+        {% render 'product-faq', product: product %}
       </div>
 
       <!-- RIGHT: info + you may also like -->

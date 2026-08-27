@@ -114,6 +114,11 @@
   }
   </script>
 
+{%- comment -%} FAQPage, emitted alongside Product when the product carries FAQ
+      content. Its own snippet so the visible copy and the schema can never drift
+      apart — both read the same metafield through the same validation. {%- endcomment -%}
+  {% render 'product-faq', product: product, scope: 'schema' %}
+
 {%- elsif request.page_type == 'collection' -%}
 
   {%- comment -%} Trail as data, from the same generator as the visible breadcrumb. {%- endcomment -%}

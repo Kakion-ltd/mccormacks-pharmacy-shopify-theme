@@ -287,6 +287,19 @@ const CATALOGUE = [
   { t: 'Difflam Sore Throat Spray 30ml', v: 'Difflam', img: 'prod-cetrine.jpg', p: 1299, was: null, ty: 'Sore Throat', oos: true },
 ];
 
+// Harness-only FAQ fixture. NOT customer copy and never shipped: the theme's FAQ
+// metafield is empty by design and its content needs pharmacist sign-off. This
+// exists so the mechanism is exercised — that it renders, that an entry missing
+// half a pair is dropped rather than half-rendered, that an internal link
+// survives, and that the JSON-LD stays valid when an answer contains quotes.
+CATALOGUE[0].faq = [
+  { question: 'HARNESS FIXTURE - does the accordion render?',
+    answer: '<p>Fixture answer with an <a href="/pages/shipping">internal link</a>.</p>' },
+  { question: 'HARNESS FIXTURE - does "quoting" keep the JSON valid?',
+    answer: '<p>Fixture answer containing "double quotes" and an apostrophe.</p>' },
+  { question: 'HARNESS FIXTURE - is a half-filled entry dropped?', answer: '   ' },
+];
+
 const handleOf = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const mockVariant = (i) => ({
   id: 40000000 + i, title: 'Default', price: CATALOGUE[i].p, compare_at_price: CATALOGUE[i].was,
@@ -306,7 +319,7 @@ const products = CATALOGUE.map((c, i) => ({
   options_with_values: [], tags: c.tg || [], selling_plan_groups: [],
   description: '<p>Product description.</p>',
   content: '<p>Product description.</p>', collections: [],
-  metafields: { reviews: {}, custom: {} },
+  metafields: { reviews: {}, custom: c.faq ? { faq: { value: c.faq } } : {} },
 }));
 
 const mockCollection = {

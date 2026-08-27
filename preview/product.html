@@ -803,7 +803,22 @@
         <div class="pdp-accordions" style="margin-top:34px;">
           <div style="display:flex; flex-wrap:wrap; gap:0 8px; border-bottom:1px solid #e6e7e4;">
             <button type="button" class="pdp-tab" data-view-btn="desc" data-active="true">Description</button></div>
-          <div data-view="desc" style="padding:22px 4px 26px; font-size:15.5px; line-height:1.7; color:#4a4d47;"><p>Product description.</p></div></div>
+          <div data-view="desc" style="padding:22px 4px 26px; font-size:15.5px; line-height:1.7; color:#4a4d47;"><p>Product description.</p></div></div><section class="pfaq" aria-labelledby="pfaq-heading-30000000">
+  <h2 class="pfaq-heading" id="pfaq-heading-30000000">Frequently asked questions</h2>
+  <div class="pfaq-list"><details class="pfaq-item">
+          <summary class="pfaq-q">
+            <span>HARNESS FIXTURE - does the accordion render?</span>
+            <svg class="pfaq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="pfaq-a"><p>Fixture answer with an <a href="/pages/shipping">internal link</a>.</p></div>
+        </details><details class="pfaq-item">
+          <summary class="pfaq-q">
+            <span>HARNESS FIXTURE - does "quoting" keep the JSON valid?</span>
+            <svg class="pfaq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="pfaq-a"><p>Fixture answer containing "double quotes" and an apostrophe.</p></div>
+        </details></div>
+</section>
       </div>
 
       <!-- RIGHT: info + you may also like -->
@@ -1115,7 +1130,21 @@
           "seller": { "@type": "Organization", "name": "McCormack's Pharmacy" }
         }]
   }
-  </script>
+  </script><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+          "@type": "Question",
+          "name": "HARNESS FIXTURE - does the accordion render?",
+          "acceptedAnswer": { "@type": "Answer", "text": "<p>Fixture answer with an <a href=\"/pages/shipping\">internal link</a>.</p>" }
+        },{
+          "@type": "Question",
+          "name": "HARNESS FIXTURE - does \"quoting\" keep the JSON valid?",
+          "acceptedAnswer": { "@type": "Answer", "text": "<p>Fixture answer containing \"double quotes\" and an apostrophe.</p>" }
+        }]
+}
+</script>
 
 <div class="cc-banner" data-cc-banner role="dialog" aria-modal="false"
      aria-labelledby="cc-title" aria-describedby="cc-body" hidden>

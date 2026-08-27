@@ -1,0 +1,105 @@
+{% comment %}
+  Product FAQ — the mechanism only. No content ships with this.
+
+  Reads product.metafields.custom.faq, a JSON metafield holding a list of
+  question/answer pairs. The definition has to be created in the Shopify admin
+  before anything can be entered; see setup/MAINTENANCE.md under "Product FAQ".
+
+  Expected shape:
+
+    [
+      { "question": "How long does a course last?",
+        "answer": "<p>Fourteen days. See our <a href=\"/pages/returns\">returns policy</a>.</p>" }
+    ]
+
+  FAILS CLOSED, deliberately, and in three ways:
+
+    - Absent, empty, or not a list  -> renders nothing, emits no schema.
+    - An entry missing either half  -> that entry is skipped, not half-rendered.
+      A question with no answer is worse than no question, and FAQPage schema
+      with an empty acceptedAnswer is invalid structured data.
+    - Nothing to show                -> the whole section is omitted, not left as
+      an empty heading.
+
+  This matters more here than in most themes. FAQPage markup makes these answers
+  eligible to appear directly in Google's results, detached from the page and from
+  any surrounding context. On a pharmacy that is a higher bar than ordinary product
+  copy, which is why the mechanism ships empty and the content needs pharmacist
+  sign-off before anyone populates it.
+
+  ANSWERS MAY CONTAIN HTML, so internal links work. Only staff with admin access
+  can write a metafield, so this is the same trust level as a product description.
+  The visible copy renders that HTML; the JSON-LD carries it json-encoded, which
+  keeps the block valid whatever the punctuation.
+
+  Renders as <details>/<summary>: keyboard-operable and screen-reader-announced
+  with no JavaScript, and the answers stay in the DOM when collapsed, which is what
+  makes them eligible for the rich result.
+
+  Usage:
+    {% render 'product-faq', product: product %}                  visible section
+    {% render 'product-faq', product: product, scope: 'schema' %}  JSON-LD only
+
+  Accepts: product (required), scope ('schema' for the JSON-LD, omit for markup)
+{% endcomment %}
+
+{%- liquid
+  assign faq = product.metafields.custom.faq.value
+
+  assign pairs_count = 0
+  if faq != blank and faq.size > 0
+    for item in faq
+      assign q = item.question | default: '' | strip
+      assign a = item.answer | default: '' | strip
+      if q != blank and a != blank
+        assign pairs_count = pairs_count | plus: 1
+      endif
+    endfor
+  endif
+-%}
+
+{%- if pairs_count > 0 -%}
+  {%- if scope == 'schema' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- assign emitted = 0 -%}
+    {%- for item in faq -%}
+      {%- assign q = item.question | default: '' | strip -%}
+      {%- assign a = item.answer | default: '' | strip -%}
+      {%- if q != blank and a != blank -%}
+        {%- if emitted > 0 -%},{%- endif -%}
+        {
+          "@type": "Question",
+          "name": {{ q | strip_html | json }},
+          "acceptedAnswer": { "@type": "Answer", "text": {{ a | json }} }
+        }
+        {%- assign emitted = emitted | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+  {%- else -%}
+<section class="pfaq" aria-labelledby="pfaq-heading-{{ product.id }}">
+  <h2 class="pfaq-heading" id="pfaq-heading-{{ product.id }}">{{ heading | default: 'Frequently asked questions' }}</h2>
+  <div class="pfaq-list">
+    {%- for item in faq -%}
+      {%- assign q = item.question | default: '' | strip -%}
+      {%- assign a = item.answer | default: '' | strip -%}
+      {%- if q != blank and a != blank -%}
+        <details class="pfaq-item">
+          <summary class="pfaq-q">
+            <span>{{ q }}</span>
+            <svg class="pfaq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="pfaq-a">{{ a }}</div>
+        </details>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+  {%- endif -%}
+{%- endif -%}

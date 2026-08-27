@@ -415,3 +415,22 @@ body[data-mnav-open] { overflow: hidden; }
 .bis-done { display: flex; gap: 12px; align-items: flex-start; color: var(--c-primary-text); }
 .bis-done strong { display: block; font-size: 15.5px; color: var(--c-text); margin-bottom: 3px; }
 .bis-done span { font-size: 14.5px; line-height: 1.6; color: var(--c-muted); }
+
+/* Product FAQ — native <details>, so it is keyboard-operable with no JS and the
+   answers stay in the DOM when collapsed. Renders only when the metafield has content. */
+.pfaq { max-width: 1440px; margin: 0 auto; padding: 8px 0 34px; }
+.pfaq-heading { font-family: var(--font-heading); font-size: clamp(19px, 2vw, 24px); color: var(--c-dark); margin: 0 0 16px; }
+.pfaq-list { display: flex; flex-direction: column; gap: 10px; }
+.pfaq-item { border: 1.5px solid var(--c-border-2); border-radius: 12px; background: #fff; overflow: hidden; }
+.pfaq-item[open] { border-color: var(--c-accent); }
+.pfaq-q { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 18px; font-size: 15.5px; font-weight: 800; color: var(--c-text); cursor: pointer; list-style: none; }
+.pfaq-q::-webkit-details-marker { display: none; }
+.pfaq-q:hover { color: var(--c-primary-text); }
+.pfaq-q:focus-visible { outline: 3px solid var(--c-accent); outline-offset: -3px; }
+.pfaq-chev { flex: 0 0 auto; color: var(--c-primary-text); transition: transform .2s ease; }
+.pfaq-item[open] .pfaq-chev { transform: rotate(180deg); }
+.pfaq-a { padding: 0 18px 18px; font-size: 15px; line-height: 1.7; color: var(--c-muted); }
+.pfaq-a > *:first-child { margin-top: 0; }
+.pfaq-a > *:last-child { margin-bottom: 0; }
+.pfaq-a a { color: var(--c-primary-text); text-decoration: underline; text-underline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .pfaq-chev { transition: none; } }
