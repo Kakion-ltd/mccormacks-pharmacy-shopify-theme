@@ -39,10 +39,10 @@
   }
   @media (max-width: 900px) {
     .hdr-row { flex-wrap:wrap; gap:12px 14px !important; padding:10px 16px !important; }
-    .hdr-mobile-left { display:flex !important; order:1; }
-    .hdr-logo { order:2; flex:1 1 auto !important; }
-    .hdr-logo img { margin:0 auto; width:170px !important; }
-    .hdr-icons { order:3; gap:18px !important; }
+    .hdr-mobile-left { display:flex !important; order:1; flex:1 1 0 !important; }
+    .hdr-logo { order:2; flex:0 0 auto !important; }
+    .hdr-logo img { width:160px !important; }
+    .hdr-icons { order:3; gap:18px !important; flex:1 1 0 !important; justify-content:flex-end !important; }
     .hdr-search { order:4 !important; flex:1 1 100% !important; max-width:100% !important; margin:2px 0 0 !important; }
     .hide-mobile { display:none !important; }
     .cart-mobile { display:flex !important; }
@@ -63,7 +63,6 @@
     .sec-pad { padding-left:16px !important; padding-right:16px !important; }
     section { padding-left:16px !important; padding-right:16px !important; }
     .hero-flex { border-radius:16px !important; }
-    .hdr-logo img { width:160px !important; }
     .hdr-mobile-left { gap:14px !important; }
     .hdr-icons { gap:16px !important; }
   }
