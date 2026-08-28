@@ -32,6 +32,10 @@
             <div style="aspect-ratio:1; border-radius:14px; overflow:hidden; margin-bottom:12px;">
               {{ tile_image | image_url: width: 400 | image_tag: widths: '180,360,540', alt: label, loading: 'lazy', style: 'width:100%; height:100%; object-fit:cover; display:block;' }}
             </div>
+          {%- elsif block.settings.image_asset != blank -%}
+            <div style="aspect-ratio:1; border-radius:14px; overflow:hidden; margin-bottom:12px;">
+              <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ label | escape }}" loading="lazy" width="600" height="600" style="width:100%; height:100%; object-fit:cover; display:block;">
+            </div>
           {%- else -%}
             <div style="aspect-ratio:1; border-radius:14px; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center; margin-bottom:12px;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div>
           {%- endif -%}
@@ -66,7 +70,8 @@
         { "type": "collection", "id": "collection", "label": "Collection" },
         { "type": "text", "id": "label", "label": "Label", "info": "Leave blank to use the collection name." },
         { "type": "url", "id": "link", "label": "Custom link", "info": "Leave blank to link to the collection." },
-        { "type": "image_picker", "id": "image", "label": "Image", "info": "Leave blank to use the collection's own image. Square crop, 400×400px or larger." }
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Leave blank to use the collection's own image. Square crop, 400×400px or larger." },
+        { "type": "text", "id": "image_asset", "label": "Fallback theme asset (onboarding only)", "info": "Filename of a theme asset used until an image is picked." }
       ]
     }
   ],

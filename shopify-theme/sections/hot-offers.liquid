@@ -39,11 +39,11 @@
              widths: '400,700,1032',
              alt: block.settings.title,
              loading: 'lazy',
-             style: 'position:absolute; right:-5%; top:6%; width:58%; aspect-ratio:4/3; height:auto; border-radius:16px; object-fit:cover; z-index:1;' }}
+             style: 'position:absolute; right:0; top:0; width:58%; aspect-ratio:4/3; height:auto; border-radius:0 0 0 18px; object-fit:cover; z-index:1;' }}
         {%- elsif block.settings.image_asset != blank -%}
-          <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="1032" height="774" style="position:absolute; right:-5%; top:6%; width:58%; aspect-ratio:4/3; height:auto; border-radius:16px; object-fit:cover; z-index:1;">
+          <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="1032" height="774" style="position:absolute; right:0; top:0; width:58%; aspect-ratio:4/3; height:auto; border-radius:0 0 0 18px; object-fit:cover; z-index:1;">
         {%- else -%}
-          <div style="position:absolute; right:-5%; top:6%; width:58%; aspect-ratio:4/3; border-radius:16px; background:repeating-linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.16) 10px,rgba(255,255,255,.07) 10px,rgba(255,255,255,.07) 20px); display:flex; align-items:center; justify-content:center; z-index:1;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:rgba(255,255,255,.85); font-weight:700;">image</span></div>
+          <div style="position:absolute; right:0; top:0; width:58%; aspect-ratio:4/3; border-radius:0 0 0 18px; background:repeating-linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.16) 10px,rgba(255,255,255,.07) 10px,rgba(255,255,255,.07) 20px); display:flex; align-items:center; justify-content:center; z-index:1;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:rgba(255,255,255,.85); font-weight:700; text-align:center; line-height:1.8;">Offer image<br>1032 &times; 774 px</span></div>
         {%- endif -%}
         {%- if block.settings.badge != blank -%}
           <span style="align-self:flex-start; background:{{ badge_bg }}; color:{{ badge_fg }}; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; padding:6px 16px; border-radius:999px; margin-bottom:20px; position:relative; z-index:2;">{{ block.settings.badge }}</span>

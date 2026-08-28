@@ -35,7 +35,8 @@
             "subtext": "Dermatologist-loved brands to keep your skin glowing all year round.",
             "cta": "SHOP SKINCARE",
             "link": "/collections/skincare",
-            "image_asset": "slide-skincare.jpg"
+            "image_asset": "hero-skincare.jpg",
+            "image_mobile_asset": "hero-skincare-mobile.jpg"
           }
         },
         "slide-baby": {
@@ -45,7 +46,7 @@
             "subtext": "Trusted essentials for every stage \u2014 from bump to little one.",
             "cta": "SHOP BABY",
             "link": "/collections/mother-baby",
-            "image_asset": "slide-baby.jpg"
+            "image_asset": ""
           }
         },
         "slide-gifts": {
@@ -55,7 +56,7 @@
             "subtext": "Find the perfect present with our edit of fragrance and beauty gifting.",
             "cta": "SHOP GIFTS",
             "link": "/collections/gifting",
-            "image_asset": "slide-fragrance.jpg"
+            "image_asset": ""
           }
         }
       },
@@ -124,28 +125,32 @@
           "type": "category",
           "settings": {
             "collection": "medicines-health",
-            "label": "Pharmacy"
+            "label": "Medicines & Health",
+            "image_asset": "cat-medicines.jpg"
           }
         },
         "supplements": {
           "type": "category",
           "settings": {
             "collection": "vitamins",
-            "label": "Supplements"
-          }
-        },
-        "skincare": {
-          "type": "category",
-          "settings": {
-            "collection": "skincare",
-            "label": "Skincare"
+            "label": "Vitamins & Supplements",
+            "image_asset": "cat-supplements.jpg"
           }
         },
         "beauty": {
           "type": "category",
           "settings": {
             "collection": "beauty",
-            "label": "Beauty"
+            "label": "Beauty",
+            "image_asset": "cat-beauty.jpg"
+          }
+        },
+        "skincare": {
+          "type": "category",
+          "settings": {
+            "collection": "skincare",
+            "label": "Skincare",
+            "image_asset": "cat-skincare.jpg"
           }
         },
         "toiletries": {
@@ -159,24 +164,32 @@
           "type": "category",
           "settings": {
             "collection": "mother-baby",
-            "label": "Baby"
+            "label": "Mother & Baby"
+          }
+        },
+        "fragrance": {
+          "type": "category",
+          "settings": {
+            "collection": "fragrance",
+            "label": "Fragrance"
           }
         },
         "gifts": {
           "type": "category",
           "settings": {
             "collection": "gifting",
-            "label": "Gifts"
+            "label": "Gifting"
           }
         }
       },
       "block_order": [
         "pharmacy",
         "supplements",
-        "skincare",
         "beauty",
+        "skincare",
         "toiletries",
         "baby",
+        "fragrance",
         "gifts"
       ]
     },
