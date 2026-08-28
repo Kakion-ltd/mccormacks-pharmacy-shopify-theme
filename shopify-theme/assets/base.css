@@ -320,11 +320,11 @@ body[data-cd-open] { overflow: hidden; }
 /* .cc-banner sets display:block below, which beats the UA [hidden] rule. */
 .cc-banner[hidden], .cc-options[hidden] { display: none !important; }
 .cc-banner { position: fixed; z-index: 400; left: 0; right: 0; bottom: 0; display: block; background: #fff; border-top: 1px solid var(--c-border); box-shadow: 0 -8px 28px rgba(0, 0, 0, .12); }
-.cc-inner { max-width: 1120px; margin: 0 auto; padding: 20px 24px 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
+.cc-inner { max-width: 1120px; margin: 0 auto; padding: 15px 24px 17px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }
 .cc-copy { flex: 1 1 420px; min-width: 0; }
 .cc-title { font-family: var(--font-heading); font-weight: 800; font-size: 17px; color: var(--c-dark); margin: 0 0 6px; }
-.cc-body { margin: 0; font-size: 14px; line-height: 1.6; color: var(--c-muted); max-width: 68ch; }
-.cc-link { color: var(--c-dark); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.cc-body { margin: 0; font-size: 14px; line-height: 1.55; color: var(--c-muted); max-width: 82ch; text-wrap: pretty; }
+.cc-link { color: var(--c-dark); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 .cc-link:hover { color:var(--c-primary-text); }
 
 /* Accept and reject are deliberately identical — equal size, weight and colour.
@@ -345,9 +345,15 @@ body[data-cd-open] { overflow: hidden; }
 .cc-switch { flex: 0 0 auto; width: 20px; height: 20px; accent-color:var(--c-primary-text); cursor: pointer; }
 
 @media (max-width: 640px) {
-  .cc-inner { padding: 16px 18px 18px; gap: 14px; }
-  .cc-actions { width: 100%; }
-  .cc-actions .cc-btn { flex: 1 1 auto; }
+  .cc-inner { padding: 14px 16px 16px; gap: 12px; }
+  .cc-title { font-size: 16px; margin-bottom: 4px; }
+  .cc-body { font-size: 13.5px; line-height: 1.5; }
+  /* Three equal columns on one row. Equal is the point — a reject that is harder to
+     reach than an accept is not a free choice — and one row costs 50px less height
+     than stacking, which is what made the banner overwhelming on a small phone.
+     flex-basis 0 with min-width 0 keeps them identical down to 320px. */
+  .cc-actions { width: 100%; display: flex; flex-wrap: nowrap; gap: 8px; }
+  .cc-actions .cc-btn { flex: 1 1 0; min-width: 0; height: 42px; padding: 0 8px; font-size: 14px; }
   .cc-banner { max-height: 85vh; overflow-y: auto; }
 }
 

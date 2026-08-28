@@ -2,6 +2,22 @@ import sys
 from playwright.sync_api import sync_playwright
 
 BASE = "http://localhost:8734"
+
+PROBE = """() => {
+  const bn = document.querySelector('.cc-banner');
+  const bs = [...bn.querySelectorAll('.cc-actions .cc-btn')];
+  const a = bn.querySelector('[data-cc-accept]').getBoundingClientRect();
+  const r = bn.querySelector('[data-cc-reject]').getBoundingClientRect();
+  return {
+    pct: (bn.getBoundingClientRect().height / innerHeight) * 100,
+    rows: new Set(bs.map(x => Math.round(x.getBoundingClientRect().top))).size,
+    clipped: bs.some(x => x.scrollWidth > x.clientWidth + 1),
+    sameSize: Math.abs(a.width - r.width) < 12 && Math.abs(a.height - r.height) < 2,
+    sameRow: Math.abs(a.top - r.top) < 2,
+    linkLines: bn.querySelector('.cc-link').getClientRects().length
+  };
+}"""
+
 results = []
 def check(name, got, want=True):
     results.append((got == want, name, got))
@@ -128,6 +144,29 @@ with sync_playwright() as pw:
                       pg.evaluate(TOPMOST, sel), "clickable")
         ctx.close()
     b.close()
+
+# --- Footprint and layout -----------------------------------------------------
+# The banner is modal in practice: nothing non-essential runs until it is answered,
+# so on a small phone it was covering more than half the screen. These cap it, and
+# hold the two answers to the same size — an easier accept than reject is a dark
+# pattern, not a layout preference.
+with sync_playwright() as pw:
+    b = pw.chromium.launch(headless=True)
+    for w, h, cap in ((320, 568, 40), (360, 740, 32), (390, 844, 26), (1440, 900, 18)):
+        ctx = b.new_context(viewport={"width": w, "height": h})
+        pg = ctx.new_page()
+        pg.goto(BASE + "/", wait_until="networkidle")
+        pg.wait_for_timeout(300)
+        d = pg.evaluate(PROBE)
+        check(f"[{w}] banner takes under {cap}% of the screen", d["pct"] < cap, True)
+        check(f"[{w}] the three answers stay on one row", d["rows"], 1)
+        check(f"[{w}] no button label is clipped", d["clipped"], False)
+        check(f"[{w}] accept and reject are the same size", d["sameSize"], True)
+        check(f"[{w}] accept and reject sit side by side", d["sameRow"], True)
+        check(f"[{w}] the policy link is not broken across lines", d["linkLines"], 1)
+        ctx.close()
+    b.close()
+
 
 for ok, name, got in results:
     print(("  ok  " if ok else "  FAIL") + f"  {name}" + ("" if ok else f"   (got {got!r})"))
