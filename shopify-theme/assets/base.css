@@ -113,9 +113,6 @@ body[data-mnav-open] .mnav-drawer { transform: translateX(0); visibility: visibl
   .cart-mobile { display: flex !important; }
   .icon-label { display: none !important; }
   .main-nav-bar { display: none !important; }
-  .trust-mob-wrap { overflow: hidden; }
-  .trust-inner { flex-wrap: nowrap !important; padding: 9px 20px !important; gap: 0 !important; animation: trustSlide 10.5s infinite; }
-  .trust-inner > div { flex: 0 0 100% !important; justify-content: center !important; font-size: 13.5px !important; }
   .hero-flex { flex-direction: column !important; border-radius: 16px !important; }
   .hero-green { order: 2; flex: 1 1 auto !important; min-height: auto !important; height: auto !important; text-align: center; align-items: center !important; padding: 26px 22px 28px !important; }
   .hero-green .slide-cta { align-self: center !important; }
@@ -133,6 +130,34 @@ body[data-mnav-open] .mnav-drawer { transform: translateX(0); visibility: visibl
   .rev-score { width: 100% !important; padding: 22px !important; }
   .ftr-cols { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important; }
 }
+
+/* Trust bar carousel.
+
+   Breakpoint is 1150, not the theme's usual 900: three across only fits on one line
+   from 1151px up, and below that the longest message wrapped to two lines while its
+   icon stayed vertically centred against the block.
+
+   The row carries NO horizontal padding here. translateX(-100%) resolves against the
+   border box, so padding on the animated element makes every step overshoot by that
+   amount — the second message sat 40px left of centre and the third 80px. The inset
+   lives on the items instead, where it does not affect the slide distance. */
+@media (max-width: 1150px) {
+  .trust-mob-wrap { overflow: hidden; }
+  .trust-inner { flex-wrap: nowrap !important; padding: 9px 0 !important; gap: 0 !important; animation: trustSlide 10.5s infinite; }
+  .trust-inner > div { flex: 0 0 100% !important; justify-content: center !important; font-size: 13.5px !important; padding: 0 20px; }
+  /* Some way to stop it, for anyone reading at their own pace. */
+  .trust-mob-wrap:hover .trust-inner,
+  .trust-mob-wrap:focus-within .trust-inner { animation-play-state: paused; }
+}
+
+/* Reduced motion: stop rotating and show all three at once rather than hiding two
+   thirds of the content. Scoped to the carousel widths — above 1150 they are already
+   side by side and this must not restack them. */
+@media (max-width: 1150px) and (prefers-reduced-motion: reduce) {
+  .trust-inner { animation: none !important; flex-wrap: wrap !important; }
+  .trust-inner > div { flex: 1 1 100% !important; }
+}
+
 .svc-slider::-webkit-scrollbar { height: 4px; }
 .svc-slider::-webkit-scrollbar-thumb { background: var(--c-border-2); border-radius: 999px; }
 @media (max-width: 1024px) {
