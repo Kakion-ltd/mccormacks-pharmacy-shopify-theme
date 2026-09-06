@@ -1,8 +1,49 @@
 {
-  "type": "footer",
-  "name": "Footer group",
-  "sections": {
-    "footer": { "type": "footer", "settings": {} }
-  },
-  "order": ["footer"]
+ "type": "footer",
+ "name": "Footer group",
+ "sections": {
+  "footer": {
+   "type": "footer",
+   "settings": {},
+   "blocks": {
+    "col1": {
+     "type": "column",
+     "settings": {
+      "heading": "Shop",
+      "menu": "footer-shop"
+     }
+    },
+    "col2": {
+     "type": "column",
+     "settings": {
+      "heading": "Customer Care",
+      "menu": "footer-customer-care"
+     }
+    },
+    "col3": {
+     "type": "column",
+     "settings": {
+      "heading": "Shipping & Returns",
+      "menu": "footer-shipping-returns"
+     }
+    },
+    "col4": {
+     "type": "column",
+     "settings": {
+      "heading": "Policies",
+      "menu": "footer-policies"
+     }
+    }
+   },
+   "block_order": [
+    "col1",
+    "col2",
+    "col3",
+    "col4"
+   ]
+  }
+ },
+ "order": [
+  "footer"
+ ]
 }

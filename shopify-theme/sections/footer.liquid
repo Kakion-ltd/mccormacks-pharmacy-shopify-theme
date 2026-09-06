@@ -42,16 +42,31 @@
       </div>
     </div>
     {%- assign col_data = 'Shop;shop;All Brands|/pages/brands,New In|/collections/new-in,Bundles|/collections/bundles,Gift Vouchers|/pages/gift-vouchers,Sale|/collections/sale__Customer Care;care;About Us|/pages/about-us,Contact Us|/pages/contact-us,Loyalty Rewards Club|/pages/loyalty-rewards-club,Blog|/blogs/health-hub__Shipping & Returns;ship;Shipping & Free Delivery|/pages/shipping,Returns & Refunds|/pages/returns,Click & Collect|/pages/click-and-collect__Policies;policies;Terms & Conditions|/pages/terms-and-conditions,Privacy Policy|/pages/privacy-policy,Cookie Policy|/pages/cookie-policy,Registered Internet Supply Pharmacy|/pages/internet-supply-pharmacy,Withdraw From Contract|/pages/withdraw-from-contract' | split: '__' -%}
-    {%- for col in col_data -%}
-      {%- assign parts = col | split: ';' -%}
-      <div>
-        <h4 data-acc-toggle="{{ parts[1] }}" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">{{ parts[0] }}<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
-        <div class="ftr-acc-content" data-acc-content="{{ parts[1] }}" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;">
+    {%- comment -%} Columns come from the merchant's column blocks, each backed by a
+        menu from Navigation admin. Until a named menu exists (onboarding), a column
+        falls back to the built-in links below, so the footer never renders empty. {%- endcomment -%}
+    {%- for block in section.blocks -%}
+      {%- assign parts = col_data[forloop.index0] | split: ';' -%}
+      {%- assign menu = linklists[block.settings.menu] -%}
+      {%- if menu.links.size > 0 -%}
+        {%- assign slug = block.settings.heading | handleize -%}
+      {%- else -%}
+        {%- assign slug = parts[1] | default: block.id -%}
+      {%- endif -%}
+      <div {{ block.shopify_attributes }}>
+        <h4 data-acc-toggle="{{ slug }}" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">{{ block.settings.heading }}<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <div class="ftr-acc-content" data-acc-content="{{ slug }}" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;">
+          {%- if menu.links.size > 0 -%}
+            {%- for link in menu.links -%}
+            <a href="{{ link.url }}">{{ link.title }}</a>
+            {%- endfor -%}
+          {%- else -%}
           {%- assign links = parts[2] | split: ',' -%}
           {%- for link in links -%}
             {%- assign bits = link | split: '|' -%}
             <a href="{{ bits[1] }}">{{ bits[0] }}</a>
           {%- endfor -%}
+          {%- endif -%}
         </div>
       </div>
     {%- endfor -%}
@@ -102,12 +117,60 @@
 {
   "name": "Footer",
   "settings": [
-    { "type": "text", "id": "newsletter_heading", "label": "Newsletter heading", "default": "Join the McCormack's family" },
-    { "type": "text", "id": "newsletter_subtext", "label": "Newsletter subtext", "default": "Health tips, exclusive offers & 10% off your first order." },
-    { "type": "textarea", "id": "about_text", "label": "About text", "default": "Ireland's trusted family pharmacy since 2010 — expert care online and across our seven stores." },
-    { "type": "url", "id": "facebook_url", "label": "Facebook URL" },
-    { "type": "url", "id": "instagram_url", "label": "Instagram URL" },
-    { "type": "url", "id": "tiktok_url", "label": "TikTok URL" }
-  ]
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter heading",
+      "default": "Join the McCormack's family"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_subtext",
+      "label": "Newsletter subtext",
+      "default": "Health tips, exclusive offers & 10% off your first order."
+    },
+    {
+      "type": "textarea",
+      "id": "about_text",
+      "label": "About text",
+      "default": "Ireland's trusted family pharmacy since 2010 \u2014 expert care online and across our seven stores."
+    },
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "tiktok_url",
+      "label": "TikTok URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Link column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Links"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "info": "Create the menu under Online Store > Navigation. Until it exists, this column shows the theme's built-in links."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6
 }
 {% endschema %}
