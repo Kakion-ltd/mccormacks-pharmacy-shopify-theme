@@ -4,7 +4,7 @@
 {% endcomment %}
 {%- assign fi = customer.first_name | slice: 0 | upcase -%}
 {%- assign li = customer.last_name | slice: 0 | upcase -%}
-{%- capture on_style -%}background:#eef2e8; color:#3f6b4f; font-weight:800; border-left:3px solid #92C83F;{%- endcapture -%}
+{%- capture on_style -%}background:#eef2e8; color:var(--c-dark); font-weight:800; border-left:3px solid var(--c-accent);{%- endcapture -%}
 {%- capture off_style -%}background:transparent; color:#3a3d39; font-weight:600; border-left:3px solid transparent;{%- endcapture -%}
 <style>
   .acct-nav-link:hover { background:#f4f6f0 !important; color:var(--c-dark) !important; }

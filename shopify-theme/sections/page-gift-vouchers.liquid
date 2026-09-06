@@ -348,7 +348,7 @@
       var open = cal.style.display !== 'none';
       cal.style.display = open ? 'none' : 'block';
       var field = document.getElementById('gv-date-field');
-      field.style.borderColor = open ? '#dfe1dc' : '#82C914';
+      field.style.borderColor = open ? '#dfe1dc' : 'var(--c-primary)';
       field.setAttribute('aria-expanded', open ? 'false' : 'true');
       if (!open) renderCal();
     };

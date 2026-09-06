@@ -3,7 +3,7 @@
   Usage: {% render 'legal-sidebar', active: 'shipping', updated_date: section.settings.updated_date, show_help: section.settings.show_help_card, phone: section.settings.help_phone %}
   active: shipping | returns | click-and-collect | terms | privacy | cookie | isp
 {% endcomment %}
-{%- assign on_style = 'display:block; padding:11px 14px; border-radius:9px; font-size:14.5px; line-height:1.4; font-weight:800; color:#3f6b4f; background:#eef2e8; border-left:3px solid #92C83F;' -%}
+{%- assign on_style = 'display:block; padding:11px 14px; border-radius:9px; font-size:14.5px; line-height:1.4; font-weight:800; color:var(--c-dark); background:#eef2e8; border-left:3px solid var(--c-accent);' -%}
 {%- assign off_style = 'display:block; padding:11px 14px; border-radius:9px; font-size:14.5px; line-height:1.4; font-weight:600; color:#3a3d39; background:transparent; border-left:3px solid transparent;' -%}
 
 {% style %}

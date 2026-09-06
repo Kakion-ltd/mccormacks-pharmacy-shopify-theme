@@ -965,7 +965,7 @@
     const thumbs = [...root.querySelectorAll('[data-pdp-thumb]')];
     const showImg = i => {
       mains.forEach(img => { img.style.display = img.dataset.pdpImg == i ? 'block' : 'none'; });
-      thumbs.forEach(t => { t.style.borderColor = t.dataset.pdpThumb == i ? '#82C914' : '#e2e4df'; });
+      thumbs.forEach(t => { t.style.borderColor = t.dataset.pdpThumb == i ? 'var(--c-primary)' : '#e2e4df'; });
     };
     if (mains.length > 1) showImg(0);
     thumbs.forEach(t => t.addEventListener('click', () => showImg(t.dataset.pdpThumb)));

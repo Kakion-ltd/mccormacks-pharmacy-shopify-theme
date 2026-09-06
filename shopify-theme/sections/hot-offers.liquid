@@ -12,7 +12,7 @@
         # text on it is derived rather than assumed. White on the default accent green
         # is 1.99:1. A white badge keeps the dark-green wordmark it always had.
         if badge_bg == '#ffffff'
-          assign badge_fg = '#3f6b4f'
+          assign badge_fg = settings.color_dark
         else
           assign badge_fg = '#ffffff'
           assign badge_b = badge_bg | color_brightness
