@@ -26,7 +26,9 @@
   <div class="ftr-cols" style="max-width:1440px; margin:0 auto; padding:48px 30px 40px; display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr 1fr; gap:40px;">
     <div style="min-width:200px;">
       <a href="{{ routes.root_url }}" aria-label="{{ shop.name }} — home" style="display:block; width:fit-content; margin-bottom:20px;">
-        <img src="{{ 'mccormacks-logo.png' | asset_url }}" alt="{{ shop.name }}" width="247" height="79" style="width:247px; max-width:100%; height:auto; display:block;">
+        {% # theme-check-disable RemoteAsset -%}
+        <img src="{% render 'logo-src', width: 494 %}" alt="{{ shop.name }}" width="247" height="79" style="width:247px; max-width:100%; height:auto; display:block;">
+        {%- # theme-check-enable RemoteAsset %}
       </a>
       <p style="margin:0 0 12px; font-size:14px; line-height:1.6; color:#5a6153; max-width:280px;">{{ section.settings.about_text }}</p>
       <a href="tel:{{ settings.phone | remove: ' ' }}" style="display:flex; align-items:center; gap:9px; color:var(--c-dark); font-weight:700; font-size:14px; margin-bottom:20px;">

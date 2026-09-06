@@ -68,7 +68,7 @@
         <div style="font-size:15px; line-height:1.65; color:#d6e2cd;">Call us and describe what is going on. We will tell you what we can help with in store, and when you are better off seeing your GP.</div>
       </div>
       <div style="flex:0 0 auto; display:flex; flex-wrap:wrap; gap:12px;">
-        <a href="tel:0526199329" class="hov-bg-accent-dk" style="display:inline-flex; align-items:center; height:50px; padding:0 24px; border-radius:10px; background:var(--c-accent); color:var(--c-on-accent); font-weight:800; font-size:15px;">052 6199329</a>
+        <a href="tel:{{ settings.phone | remove: ' ' }}" class="hov-bg-accent-dk" style="display:inline-flex; align-items:center; height:50px; padding:0 24px; border-radius:10px; background:var(--c-accent); color:var(--c-on-accent); font-weight:800; font-size:15px;">{{ settings.phone }}</a>
         <button type="button" class="svc-link-btn svc-band-outline" data-view-btn="svc-book" style="display:inline-flex; align-items:center; height:50px; padding:0 24px; border-radius:10px; border:1.5px solid rgba(255,255,255,.28); color:#ffffff; font-weight:700; font-size:15px;">Request an appointment</button>
       </div>
     </div>
@@ -101,7 +101,7 @@
           {%- endif -%}
           <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:28px;">
             <button type="button" class="svc-link-btn hov-bg-green-dk" data-view-btn="svc-book" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px;">Request an appointment</button>
-            <a href="tel:0526199329" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:15px;">Call 052 6199329</a>
+            <a href="tel:{{ settings.phone | remove: ' ' }}" class="svc-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:15px;">Call {{ settings.phone }}</a>
           </div>
           <div style="margin-top:28px; padding-top:22px; border-top:1px solid #e6e7e4;">
             <button type="button" class="svc-link-btn hov-green-dk" data-view-btn="svc-hub" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:var(--c-primary-text);">

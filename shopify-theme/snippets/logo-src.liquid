@@ -1,0 +1,6 @@
+{%- comment -%}
+  Prints the shop logo URL: the Brand logo setting when one is picked,
+  otherwise the bundled asset. width: pixels to request for a picked image
+  (pass 2x the rendered CSS width); the asset fallback ignores it.
+{%- endcomment -%}
+{%- if settings.logo != blank -%}{{ settings.logo | image_url: width: width }}{%- else -%}{{ 'mccormacks-logo.png' | asset_url }}{%- endif -%}

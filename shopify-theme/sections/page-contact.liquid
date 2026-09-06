@@ -104,12 +104,12 @@
         <div style="display:flex; flex-direction:column; gap:16px;">
           <div>
             <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#717769; margin-bottom:4px;">Phone</div>
-            <a href="tel:0526199329" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark);">052 6199329</a>
+            <a href="tel:{{ settings.phone | remove: ' ' }}" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark);">{{ settings.phone }}</a>
             <div style="font-size:13.5px; color:#6b7065; margin-top:3px;">Mon&ndash;Fri 9am&ndash;6pm, Sat 9.30am&ndash;5.30pm</div>
           </div>
           <div style="padding-top:14px; border-top:1px solid #eceee9;">
             <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#717769; margin-bottom:4px;">Email</div>
-            <a href="mailto:info@mccormackspharmacy.ie" class="hov-green-dk" style="font-weight:700; font-size:14.5px; word-break:break-word;">info@mccormackspharmacy.ie</a>
+            <a href="mailto:{{ settings.email }}" class="hov-green-dk" style="font-weight:700; font-size:14.5px; word-break:break-word;">{{ settings.email }}</a>
           </div>
           <div style="padding-top:14px; border-top:1px solid #eceee9;">
             <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#717769; margin-bottom:4px;">In person</div>

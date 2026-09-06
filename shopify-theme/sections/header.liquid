@@ -5,7 +5,9 @@
       <a href="{{ routes.account_url }}" aria-label="My Account" class="hov-green" style="color:#2A2B2A; display:flex;"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg></a>
     </div>
     <a href="{{ routes.root_url }}" class="hdr-logo" style="display:block; flex:0 0 auto;">
-      <img src="{{ 'mccormacks-logo.png' | asset_url }}" alt="{{ shop.name }}" width="185" height="59" style="width:185px; max-width:100%; height:auto; display:block;">
+      {% # theme-check-disable RemoteAsset -%}
+      <img src="{% render 'logo-src', width: 370 %}" alt="{{ shop.name }}" width="185" height="59" style="width:185px; max-width:100%; height:auto; display:block;">
+      {%- # theme-check-enable RemoteAsset %}
     </a>
     {%- comment -%} .hdr-search moves to the wrapper so the existing responsive rules
         (flex/order at 960px and 640px) keep applying, and so the suggestions panel has
@@ -51,7 +53,9 @@
 <aside class="mnav-drawer" role="dialog" aria-modal="true" aria-label="Menu">
   <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-bottom:1px solid #eceee9;">
     <a href="{{ routes.root_url }}" aria-label="{{ shop.name }} — home" style="display:block;">
-      <img src="{{ 'mccormacks-logo.png' | asset_url }}" alt="{{ shop.name }}" width="150" height="48" style="width:150px; height:auto; display:block;">
+      {% # theme-check-disable RemoteAsset -%}
+      <img src="{% render 'logo-src', width: 300 %}" alt="{{ shop.name }}" width="150" height="48" style="width:150px; height:auto; display:block;">
+      {%- # theme-check-enable RemoteAsset %}
     </a>
     <button aria-label="Close menu" data-mnav-close style="border:none; background:#f4f5f2; width:38px; height:38px; border-radius:999px; color:#2A2B2A; cursor:pointer; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
   </div>

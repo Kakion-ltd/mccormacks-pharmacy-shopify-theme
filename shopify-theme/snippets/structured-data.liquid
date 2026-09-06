@@ -37,7 +37,7 @@
 
 {%- if scope == 'organization' -%}
 
-  {%- assign logo_src = 'mccormacks-logo.png' | asset_url -%}
+  {%- capture logo_src -%}{%- render 'logo-src', width: 600 -%}{%- endcapture -%}
   {%- capture logo_url -%}{%- render 'absolute-url', src: logo_src -%}{%- endcapture -%}
   {%- capture social -%}
     {%- if facebook != blank -%}{{ facebook | json }}{%- endif -%}

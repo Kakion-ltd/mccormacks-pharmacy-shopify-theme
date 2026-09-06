@@ -144,7 +144,7 @@
         <div style="margin-top:16px; padding:22px 24px; border-radius:16px; background:var(--c-dark); color:var(--c-on-dark);">
           <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin:0 0 8px;">Talk to our dispensary</div>
           <div style="font-size:14px; line-height:1.65; color:#d6e2cd; margin:0 0 16px;">Questions about a dose, a supply issue or a medicine change? Our team will help.</div>
-          <a href="tel:0526199329" class="hov-bg-accent-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:var(--c-accent); color:var(--c-on-accent); font-weight:800; font-size:15px;">052 6199329</a>
+          <a href="tel:{{ settings.phone | remove: ' ' }}" class="hov-bg-accent-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:var(--c-accent); color:var(--c-on-accent); font-weight:800; font-size:15px;">{{ settings.phone }}</a>
         </div>
       </aside>
     </div>

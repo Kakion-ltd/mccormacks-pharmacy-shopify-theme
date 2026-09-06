@@ -26,7 +26,9 @@
 </head>
 <body>
   <div style="max-width:520px; margin:60px auto; padding:0 20px; text-align:center;">
-    <img src="{{ 'mccormacks-logo.png' | asset_url }}" alt="{{ shop.name }}" width="185" height="59" style="width:185px; height:auto; margin:0 auto 30px; display:block;">
+    {% # theme-check-disable RemoteAsset -%}
+    <img src="{% render 'logo-src', width: 370 %}" alt="{{ shop.name }}" width="185" height="59" style="width:185px; height:auto; margin:0 auto 30px; display:block;">
+    {%- # theme-check-enable RemoteAsset %}
     <div style="border:1px solid var(--c-border); border-radius:16px; padding:36px 28px;">
       <h1 style="margin:0 0 8px; color:var(--c-dark);">Your gift card</h1>
       <p style="color:var(--c-muted); margin:0 0 22px;">Use this code at checkout to redeem your gift card.</p>

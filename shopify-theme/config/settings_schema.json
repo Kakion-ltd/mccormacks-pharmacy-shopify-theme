@@ -11,6 +11,12 @@
     "name": "Brand",
     "settings": [
       {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo",
+        "info": "Used in the header, menu drawer, footer, password page and gift card. Leave blank to keep the built-in logo."
+      },
+      {
         "type": "color",
         "id": "color_primary",
         "label": "Primary green",
@@ -56,6 +62,12 @@
         "id": "phone",
         "label": "Customer service phone",
         "default": "052 6199329"
+      },
+      {
+        "type": "text",
+        "id": "email",
+        "label": "Email address",
+        "default": "info@mccormackspharmacy.ie"
       },
       {
         "type": "number",
