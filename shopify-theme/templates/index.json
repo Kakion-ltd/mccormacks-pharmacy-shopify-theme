@@ -71,7 +71,67 @@
     },
     "pills": {
       "type": "category-pills",
-      "settings": {}
+      "settings": {},
+      "blocks": {
+        "pill1": {
+          "type": "pill",
+          "settings": {
+            "label": "Pharmacy",
+            "link": "/collections/medicines-health"
+          }
+        },
+        "pill2": {
+          "type": "pill",
+          "settings": {
+            "label": "Supplements",
+            "link": "/collections/vitamins"
+          }
+        },
+        "pill3": {
+          "type": "pill",
+          "settings": {
+            "label": "Skincare",
+            "link": "/collections/skincare"
+          }
+        },
+        "pill4": {
+          "type": "pill",
+          "settings": {
+            "label": "Beauty",
+            "link": "/collections/beauty"
+          }
+        },
+        "pill5": {
+          "type": "pill",
+          "settings": {
+            "label": "Toiletries",
+            "link": "/collections/toiletries"
+          }
+        },
+        "pill6": {
+          "type": "pill",
+          "settings": {
+            "label": "Baby",
+            "link": "/collections/mother-baby"
+          }
+        },
+        "pill7": {
+          "type": "pill",
+          "settings": {
+            "label": "Gifts",
+            "link": "/collections/gifting"
+          }
+        }
+      },
+      "block_order": [
+        "pill1",
+        "pill2",
+        "pill3",
+        "pill4",
+        "pill5",
+        "pill6",
+        "pill7"
+      ]
     },
     "promo": {
       "type": "promo-strip",
