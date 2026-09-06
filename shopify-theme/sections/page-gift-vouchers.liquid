@@ -41,6 +41,8 @@
   }
 {% endstyle %}
 
+{%- assign gv_default = 50 -%}
+{%- for block in section.blocks -%}{%- if block.type == 'amount' and block.settings.preselected -%}{%- assign gv_default = block.settings.amount -%}{%- endif -%}{%- endfor -%}
 <!-- Gift voucher hero -->
 <section style="max-width:1440px; margin:0 auto; padding:24px 30px 6px;">
   <div class="banner-flex" style="display:flex; flex-wrap:wrap; border-radius:18px; overflow:hidden; background:var(--c-dark); min-height:clamp(300px,30vw,400px);">
@@ -56,7 +58,7 @@
           <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15px; line-height:1.15; letter-spacing:.02em;">McCORMACK&rsquo;S<br>PHARMACY</span>
           <span style="font-size:10.5px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; opacity:.85; padding-top:3px;">Gift Voucher</span>
         </div>
-        <div data-gv-amount style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(34px,4.6vw,46px); line-height:1;">&euro;50</div>
+        <div data-gv-amount style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(34px,4.6vw,46px); line-height:1;">&euro;{{ gv_default }}</div>
         <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:12px; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; opacity:.9;">
           <span>Valid 5 years</span>
           <span>Online &amp; in store</span>
@@ -74,12 +76,11 @@
       <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 6px;">1. Choose an amount</h2>
       <p style="margin:0 0 18px; font-size:15.5px; line-height:1.65; color:#5d6159;">Pick a set amount, or enter your own between &euro;10 and &euro;500.</p>
       <div class="gv-amounts" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; margin:0 0 18px;">
-        <button type="button" class="gv-amt" aria-pressed="false" data-gv-pick="€10"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:26px; line-height:1;">&euro;10</span><span style="font-size:12.5px; font-weight:700; opacity:.7;"></span></button>
-        <button type="button" class="gv-amt" aria-pressed="false" data-gv-pick="€20"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:26px; line-height:1;">&euro;20</span><span style="font-size:12.5px; font-weight:700; opacity:.7;"></span></button>
-        <button type="button" class="gv-amt" aria-pressed="false" data-gv-pick="€25"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:26px; line-height:1;">&euro;25</span><span style="font-size:12.5px; font-weight:700; opacity:.7;">Popular</span></button>
-        <button type="button" class="gv-amt gv-on" aria-pressed="true" data-gv-pick="€50"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:26px; line-height:1;">&euro;50</span><span style="font-size:12.5px; font-weight:700; opacity:.7;">Most gifted</span></button>
-        <button type="button" class="gv-amt" aria-pressed="false" data-gv-pick="€100"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:26px; line-height:1;">&euro;100</span><span style="font-size:12.5px; font-weight:700; opacity:.7;"></span></button>
-        <button type="button" class="gv-amt" aria-pressed="false" data-gv-pick="€150"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:26px; line-height:1;">&euro;150</span><span style="font-size:12.5px; font-weight:700; opacity:.7;"></span></button>
+        {%- for block in section.blocks -%}
+        {%- if block.type == 'amount' %}
+        <button type="button" class="gv-amt{% if block.settings.preselected %} gv-on{% endif %}" aria-pressed="{% if block.settings.preselected %}true{% else %}false{% endif %}" data-gv-pick="€{{ block.settings.amount }}" {{ block.shopify_attributes }}><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:26px; line-height:1;">&euro;{{ block.settings.amount }}</span><span style="font-size:12.5px; font-weight:700; opacity:.7;">{{ block.settings.tag }}</span></button>
+        {%- endif -%}
+        {%- endfor %}
       </div>
       <label style="display:flex; flex-direction:column; gap:7px; max-width:320px;">
         <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Or enter your own amount</span>
@@ -408,9 +409,100 @@
 {
   "name": "Gift Vouchers page",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Gift Vouchers" },
-    { "type": "collection", "id": "also_collection", "label": "\"You may also like\" collection", "info": "Optional. When empty, the design's sample products are shown." }
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Gift Vouchers"
+    },
+    {
+      "type": "collection",
+      "id": "also_collection",
+      "label": "\"You may also like\" collection",
+      "info": "Optional. When empty, the design's sample products are shown."
+    }
   ],
-  "presets": [{ "name": "Gift Vouchers page" }]
+  "presets": [
+    {
+      "name": "Gift Vouchers page",
+      "blocks": [
+        {
+          "type": "amount",
+          "settings": {
+            "amount": 10,
+            "tag": "",
+            "preselected": false
+          }
+        },
+        {
+          "type": "amount",
+          "settings": {
+            "amount": 20,
+            "tag": "",
+            "preselected": false
+          }
+        },
+        {
+          "type": "amount",
+          "settings": {
+            "amount": 25,
+            "tag": "Popular",
+            "preselected": false
+          }
+        },
+        {
+          "type": "amount",
+          "settings": {
+            "amount": 50,
+            "tag": "Most gifted",
+            "preselected": true
+          }
+        },
+        {
+          "type": "amount",
+          "settings": {
+            "amount": 100,
+            "tag": "",
+            "preselected": false
+          }
+        },
+        {
+          "type": "amount",
+          "settings": {
+            "amount": 150,
+            "tag": "",
+            "preselected": false
+          }
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "amount",
+      "name": "Voucher amount",
+      "settings": [
+        {
+          "type": "number",
+          "id": "amount",
+          "label": "Amount (EUR)",
+          "default": 25
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag",
+          "info": "Optional label under the amount, e.g. Popular."
+        },
+        {
+          "type": "checkbox",
+          "id": "preselected",
+          "label": "Preselected",
+          "default": false,
+          "info": "Mark exactly one amount; it starts selected and shows on the voucher preview."
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}
