@@ -79,6 +79,123 @@
     ]
   },
   {
+    "name": "Trust bar",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "The three messages in the strip under the header, shown on every page. Write [threshold] to print the free delivery amount from Brand settings. The strip is built for exactly three messages."
+      },
+      {
+        "type": "header",
+        "content": "Message 1"
+      },
+      {
+        "type": "select",
+        "id": "trust_icon_1",
+        "label": "Icon",
+        "default": "truck",
+        "options": [
+          {
+            "value": "truck",
+            "label": "Delivery van"
+          },
+          {
+            "value": "shamrock",
+            "label": "Shamrock"
+          },
+          {
+            "value": "star",
+            "label": "Star"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "trust_bold_1",
+        "label": "Bold lead",
+        "default": "Free Delivery"
+      },
+      {
+        "type": "text",
+        "id": "trust_text_1",
+        "label": "Text",
+        "default": "On orders over [threshold]"
+      },
+      {
+        "type": "header",
+        "content": "Message 2"
+      },
+      {
+        "type": "select",
+        "id": "trust_icon_2",
+        "label": "Icon",
+        "default": "shamrock",
+        "options": [
+          {
+            "value": "truck",
+            "label": "Delivery van"
+          },
+          {
+            "value": "shamrock",
+            "label": "Shamrock"
+          },
+          {
+            "value": "star",
+            "label": "Star"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "trust_bold_2",
+        "label": "Bold lead",
+        "default": "Irish Owned"
+      },
+      {
+        "type": "text",
+        "id": "trust_text_2",
+        "label": "Text",
+        "default": "7 stores nationwide"
+      },
+      {
+        "type": "header",
+        "content": "Message 3"
+      },
+      {
+        "type": "select",
+        "id": "trust_icon_3",
+        "label": "Icon",
+        "default": "star",
+        "options": [
+          {
+            "value": "truck",
+            "label": "Delivery van"
+          },
+          {
+            "value": "shamrock",
+            "label": "Shamrock"
+          },
+          {
+            "value": "star",
+            "label": "Star"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "trust_bold_3",
+        "label": "Bold lead",
+        "default": "Trusted"
+      },
+      {
+        "type": "text",
+        "id": "trust_text_3",
+        "label": "Text",
+        "default": "by over 20,000 customers since 2010"
+      }
+    ]
+  },
+  {
     "name": "Pharmacy",
     "settings": [
       {

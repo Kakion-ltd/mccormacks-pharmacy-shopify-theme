@@ -1,9 +1,12 @@
 # Overnight questions
 
 Items stopped under the escalation rule, with findings, options and a
-recommendation. Nothing below has been built.
+recommendation.
 
 ## Item 3 — Trust bar blocks
+
+**RESOLVED** — option 1 (global theme settings) approved and built the
+following morning; the analysis below is kept for the record.
 
 **What I found.** The instruction was "convert to 3 blocks, each with text
 plus an icon choice". Blocks belong to one section instance, but the trust
