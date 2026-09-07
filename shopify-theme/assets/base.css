@@ -177,7 +177,7 @@ body[data-mnav-open] .mnav-drawer { transform: translateX(0); visibility: visibl
   .ftr-cols { text-align: left; padding: 0 !important; gap: 0 !important; grid-template-columns: 1fr !important; }
   .ftr-cols > div:first-child { align-items: flex-start; display: flex; flex-direction: column; padding: 24px 20px; }
   .ftr-cols > div:first-child p { display: none; }
-  .ftr-cols h4 { text-align: left; justify-content: space-between !important; gap: 10px !important; color:var(--c-primary-text); border-bottom: none !important; padding: 18px 20px !important; margin: 0 !important; font-size: 17px !important; border-top: 1px solid var(--c-border); }
+  .ftr-cols .ftr-acc-btn { text-align: left; justify-content: space-between !important; gap: 10px !important; color:var(--c-primary-text); border-bottom: none !important; padding: 18px 20px !important; margin: 0 !important; font-size: 17px !important; border-top: 1px solid var(--c-border); }
   .ftr-acc-chevron { display: inline-flex !important; width: 20px !important; height: 20px !important; }
   .ftr-acc-content[data-open="false"] { display: none !important; }
   .ftr-acc-content { padding: 0 20px 18px; align-items: flex-start !important; }
@@ -465,3 +465,7 @@ body[data-mnav-open] { overflow: hidden; }
 .pfaq-a > *:last-child { margin-bottom: 0; }
 .pfaq-a a { color: var(--c-primary-text); text-decoration: underline; text-underline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .pfaq-chev { transition: none; } }
+
+/* Skip link: offscreen until keyboard focus, then a visible pill over the header. */
+.skip-link { position: absolute; left: -9999px; top: 0; z-index: 500; background: var(--c-dark); color: var(--c-on-dark); font-weight: 700; font-size: 14px; padding: 12px 20px; border-radius: 0 0 9px 0; }
+.skip-link:focus { left: 0; outline: 2px solid var(--c-accent); outline-offset: -2px; }

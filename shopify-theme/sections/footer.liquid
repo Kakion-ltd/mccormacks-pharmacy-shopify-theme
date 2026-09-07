@@ -14,7 +14,7 @@
           <p style="margin:0; padding:10px 14px; color:#58821D; font-weight:700; font-size:13.5px;">Thanks — you're subscribed!</p>
         {% else %}
           <input type="hidden" name="contact[tags]" value="newsletter">
-          <input type="email" name="contact[email]" required placeholder="Enter your email address" style="flex:1; min-width:0; border:none; outline:none; padding:10px 14px; font-family:inherit; font-size:13.5px; color:#2A2B2A; background:transparent;">
+          <input type="email" name="contact[email]" required aria-label="Email address" placeholder="Enter your email address" style="flex:1; min-width:0; border:none; outline:none; padding:10px 14px; font-family:inherit; font-size:13.5px; color:#2A2B2A; background:transparent;">
           <button type="submit" class="hov-bg-accent-dk" style="flex:0 0 auto; border:none; border-radius:7px; background:var(--c-accent); color:var(--c-on-accent); font-family:inherit; font-weight:700; font-size:13.5px; letter-spacing:.02em; padding:0 20px; cursor:pointer;">Subscribe</button>
         {% endif %}
       {% endform %}
@@ -54,7 +54,7 @@
         {%- assign slug = parts[1] | default: block.id -%}
       {%- endif -%}
       <div {{ block.shopify_attributes }}>
-        <h4 data-acc-toggle="{{ slug }}" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding-bottom:10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">{{ block.settings.heading }}<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></h4>
+        <h4 style="margin:0;"><button type="button" data-acc-toggle="{{ slug }}" aria-expanded="false" class="ftr-acc-btn" style="width:100%; background:none; border:none; text-align:left; font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding:0 0 10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">{{ block.settings.heading }}<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></button></h4>
         <div class="ftr-acc-content" data-acc-content="{{ slug }}" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;">
           {%- if menu.links.size > 0 -%}
             {%- for link in menu.links -%}
