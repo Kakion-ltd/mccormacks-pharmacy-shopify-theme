@@ -63,7 +63,7 @@
       setup/gen_category_nav.py, so the mobile nav, the desktop mega menu and the
       breadcrumbs all describe the same tree. Services is reached from the button
       at the foot of this drawer, mirroring the desktop nav. {%- endcomment -%}
-  {% render 'mobile-nav' %}
+  {% render 'mobile-nav', promo_blocks: section.blocks %}
   <div style="padding:18px 20px; margin-top:auto; display:flex; flex-direction:column; gap:12px;">
     <div style="display:flex; gap:12px;">
       <a href="/pages/in-store-services" class="hov-bg-dark" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:14px; height:46px; border-radius:9px;">
@@ -101,8 +101,13 @@
       <a href="/collections/mother-baby" class="hov-green" data-mega-trigger="mother-baby" style="color:#2A2B2A; font-size:13.5px;">Mother &amp; Baby</a>
       <a href="/collections/fragrance" class="hov-green" data-mega-trigger="fragrance" style="color:#2A2B2A; font-size:13.5px;">Fragrance</a>
       <a href="/collections/gifting" class="hov-green" data-mega-trigger="gifting" style="color:#2A2B2A; font-size:13.5px;">Gifting</a>
-      <a href="/collections/sale" class="hov-green-dk" data-mega-close style="color:var(--c-primary-text); font-weight:700; font-size:13.5px;">Sale</a>
-      <a href="/pages/brands" class="hov-green" data-mega-close style="color:#2A2B2A; font-size:13.5px;">Brands</a>
+      {%- comment -%} Merchant promo links (max 4) - the category links above stay
+          taxonomy-generated; see SPEC-header-promo-links.md {%- endcomment -%}
+      {%- for block in section.blocks -%}
+      {%- if block.type == 'promo_link' and block.settings.label != blank %}
+      <a href="{{ block.settings.link }}" class="{% if block.settings.highlight %}hov-green-dk{% else %}hov-green{% endif %}" data-mega-close style="{% if block.settings.highlight %}color:var(--c-primary-text); font-weight:700; {% else %}color:#2A2B2A; {% endif %}font-size:13.5px;" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+      {%- endif -%}
+      {%- endfor %}
     </nav>
     <div style="display:flex; align-items:center; gap:9px;">
       <a href="/pages/in-store-services" class="hov-bg-green-dk" style="display:flex; align-items:center; gap:9px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
@@ -125,6 +130,32 @@
 {% schema %}
 {
   "name": "Header",
-  "settings": []
+  "settings": [],
+  "blocks": [
+    {
+      "type": "promo_link",
+      "name": "Promo link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight",
+          "label": "Highlight",
+          "default": false,
+          "info": "Renders in the Sale link's accent style."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4
 }
 {% endschema %}

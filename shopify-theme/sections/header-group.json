@@ -1,9 +1,40 @@
 {
-  "type": "header",
-  "name": "Header group",
-  "sections": {
-    "announcement": { "type": "announcement-bar", "settings": {} },
-    "header": { "type": "header", "settings": {} }
+ "type": "header",
+ "name": "Header group",
+ "sections": {
+  "announcement": {
+   "type": "announcement-bar",
+   "settings": {}
   },
-  "order": ["announcement", "header"]
+  "header": {
+   "type": "header",
+   "settings": {},
+   "blocks": {
+    "sale": {
+     "type": "promo_link",
+     "settings": {
+      "label": "Sale",
+      "link": "/collections/sale",
+      "highlight": true
+     }
+    },
+    "brands": {
+     "type": "promo_link",
+     "settings": {
+      "label": "Brands",
+      "link": "/pages/brands",
+      "highlight": false
+     }
+    }
+   },
+   "block_order": [
+    "sale",
+    "brands"
+   ]
+  }
+ },
+ "order": [
+  "announcement",
+  "header"
+ ]
 }

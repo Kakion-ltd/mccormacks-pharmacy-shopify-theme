@@ -97,7 +97,10 @@ open(os.path.join(THEME, 'snippets', 'category-breadcrumb-data.liquid'), 'w').wr
 # 18-group department flattened into one panel would be an 88-row scroll.
 
 MNAV_ORDER = ['Medicines & Health', 'Vitamins', 'Beauty', 'Skincare', 'Toiletries',
-              'Mother & Baby', 'Fragrance', 'Gifting', 'Sale', 'Brands']
+              'Mother & Baby', 'Fragrance', 'Gifting']
+# Sale and Brands are no longer generated rows: the drawer ends with the header
+# section's promo_link blocks (passed in as promo_blocks), so the merchant's
+# promo links appear in both surfaces from one source.
 # The nav says "Vitamins & Supplements"; the taxonomy and the handle say "Vitamins".
 MNAV_LABEL = {'Vitamins': 'Vitamins & Supplements'}
 MNAV_URL = {'Brands': '/pages/brands'}
@@ -173,6 +176,11 @@ for menu_name in MNAV_ORDER:
 mnav_parts.append('<div class="mnav-panel is-current" data-mnav-panel="root">')
 mnav_parts.append('<ul class="mnav-list">')
 mnav_parts.extend(root_rows)
+mnav_parts.append(
+    "{%- for block in promo_blocks -%}{%- if block.type == 'promo_link' and block.settings.label != blank -%}"
+    '<li class="mnav-row"><a class="mnav-link{% if block.settings.highlight %} mnav-link-accent{% endif %}" '
+    'href="{{ block.settings.link }}">{{ block.settings.label }}</a></li>'
+    "{%- endif -%}{%- endfor -%}")
 mnav_parts.append('</ul></div>')
 mnav_parts.extend(sub_panels)
 mnav_parts.append('</div>')
