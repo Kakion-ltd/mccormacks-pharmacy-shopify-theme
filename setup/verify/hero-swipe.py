@@ -63,7 +63,7 @@ STATE = """() => {
   const shown = panes.findIndex(p => p.style.display !== 'none');
   const dots = [...panes[shown].querySelectorAll('[data-dot-proxy]')];
   const lit = dots.findIndex(d => d.style.width === '22px');
-  return { shown, lit, title: (panes[shown].querySelector('h1') || {}).textContent };
+  return { shown, lit, title: (panes[shown].querySelector('h1, h2') || {}).textContent };
 }"""
 
 with sync_playwright() as pw:
@@ -80,7 +80,7 @@ with sync_playwright() as pw:
     # Running order read from the page, not hard-coded: reordering slides is a content
     # change made in the theme editor and must not fail a check.
     titles = pg.evaluate(
-        "() => [...document.querySelectorAll('[data-slide] h1')].map(h => h.textContent.trim())")
+        "() => [...document.querySelectorAll('[data-slide] h1, [data-slide] h2')].map(h => h.textContent.trim())")
     ck("five slides in the running order", len(titles), 5)
 
     # A vertical drag is the page scrolling, not a slide change.
