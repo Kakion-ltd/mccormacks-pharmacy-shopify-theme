@@ -174,7 +174,7 @@
           {%- endunless -%}
           <div class="pdp-addbag" style="display:flex; gap:12px; align-items:stretch; margin-bottom:18px;">
             <div style="flex:0 0 auto; display:flex; align-items:center; border:1.5px solid #dfe1dc; border-radius:12px; overflow:hidden;">
-              <button type="button" data-qty-step="-1" aria-label="Decrease quantity" style="width:46px; height:100%; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">−</button>
+              <button type="button" data-qty-step="-1" disabled aria-label="Decrease quantity" style="width:46px; height:100%; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">−</button>
               <input type="text" name="quantity" value="1" inputmode="numeric" data-pdp-qty aria-label="Quantity" style="width:44px; border:none; text-align:center; font-weight:700; font-size:16px; color:var(--c-primary-text); outline:none; background:#fff;">
               <button type="button" data-qty-step="1" aria-label="Increase quantity" style="width:46px; height:100%; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">+</button>
             </div>
@@ -298,11 +298,11 @@
   <!-- Mobile sticky add-to-bag bar -->
   <div class="mobile-buybar" style="display:none; position:fixed; left:0; right:0; bottom:0; z-index:150; background:#ffffff; border-top:1px solid #e6e7e4; box-shadow:0 -6px 20px rgba(0,0,0,.08); padding:12px 16px; gap:12px; align-items:stretch;">
     <div style="flex:0 0 auto; display:flex; align-items:center; border:1.5px solid #dfe1dc; border-radius:11px; overflow:hidden;">
-      <button type="button" data-qty-step="-1" aria-label="Decrease quantity" style="width:46px; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">−</button>
+      <button type="button" data-qty-step="-1" disabled aria-label="Decrease quantity" style="width:46px; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">−</button>
       <span data-buybar-qty style="min-width:34px; text-align:center; font-weight:700; font-size:16px; color:var(--c-primary-text);">1</span>
       <button type="button" data-qty-step="1" aria-label="Increase quantity" style="width:46px; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">+</button>
     </div>
-    <button type="button" data-add-id="{{ current_variant.id }}" data-add-qty="1" data-buybar-add class="hov-bg-accent-dk" style="flex:1; display:flex; align-items:center; justify-content:center; gap:10px; background:var(--c-accent); color:var(--c-on-accent); font-weight:800; letter-spacing:.05em; font-size:15px; border-radius:11px; border:none; font-family:inherit; cursor:pointer; {% unless current_variant.available %}opacity:.55; pointer-events:none;{% endunless %}">
+    <button type="button" data-add-id="{{ current_variant.id }}" data-add-qty="1" data-buybar-add class="hov-bg-accent-dk" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; display:flex; align-items:center; justify-content:center; gap:10px; background:var(--c-accent); color:var(--c-on-accent); font-weight:800; letter-spacing:.05em; font-size:15px; border-radius:11px; border:none; font-family:inherit; cursor:pointer; {% unless current_variant.available %}opacity:.55;{% endunless %}">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
       {%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}
     </button>
@@ -318,7 +318,9 @@
     font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-weight: 700; color: var(--c-dark);
     font-size: clamp(16px, 1.7vw, 20px); border-bottom: 3px solid transparent; margin-bottom: -1px;
   }
-  .pdp-tab:hover { color:var(--c-primary-text); }
+  .pdp-tab:not([data-active="true"]):hover { color:var(--c-primary-text); }
+  [data-qty-step]:hover:not(:disabled) { background: #f4f5f2 !important; }
+  [data-qty-step]:disabled { opacity: .4; cursor: default; }
   .pdp-tab[data-active="true"] { color:var(--c-primary-text); border-bottom-color:var(--c-primary-text); }
   @media (max-width: 940px) {
     .pdp-cols { flex-direction: column !important; align-items: stretch !important; gap: 24px !important; }
@@ -390,6 +392,7 @@
     document.querySelectorAll('[data-qty-step]').forEach(btn => {
       btn.addEventListener('click', () => {
         const q = Math.max(1, (parseInt(qtyInput.value, 10) || 1) + parseInt(btn.dataset.qtyStep, 10));
+        document.querySelectorAll('[data-qty-step="-1"]').forEach(b => { b.disabled = q <= 1; });
         qtyInput.value = q;
         if (buybarQty) buybarQty.textContent = q;
         if (buybarAdd) buybarAdd.dataset.addQty = q;
@@ -419,7 +422,11 @@
       const skuEl = root.querySelector('[data-pdp-sku]');
       if (skuEl && v.sku) skuEl.textContent = 'SKU ' + v.sku;
       if (submit) { submit.disabled = !v.available; submit.style.opacity = v.available ? '' : '.55'; submit.textContent = v.available ? 'ADD TO BAG' : 'OUT OF STOCK'; }
-      if (buybarAdd) buybarAdd.dataset.addId = v.id;
+      if (buybarAdd) {
+        buybarAdd.dataset.addId = v.id;
+        buybarAdd.disabled = !v.available;
+        buybarAdd.style.opacity = v.available ? '' : '.55';
+      }
       const stockEl = root.querySelector('[data-pdp-stock]');
       if (stockEl) {
         stockEl.style.color = v.available ? '#58821D' : '#B3261E';

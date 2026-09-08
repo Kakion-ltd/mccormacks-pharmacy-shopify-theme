@@ -473,3 +473,24 @@ body[data-mnav-open] { overflow: hidden; }
    inline styles ship 13.5-15.5px, so this floor must win over them. Checkboxes,
    radios and ranges don't trigger the zoom and keep their inherited size. */
 input:not([type=checkbox]):not([type=radio]):not([type=range]), select, textarea { font-size: 16px !important; }
+
+/* Footer accordion headers only collapse below 641px; on desktop the columns
+   are always open, so the pointer affordance was a lie - a click did nothing. */
+@media (min-width: 641px) { .ftr-acc-btn { cursor: default !important; } }
+
+/* Hover states for controls the interaction audit found dead. !important
+   because each fights an inline colour, same as the rest of the hov-* set. */
+.annc-phone:hover { color: var(--c-accent) !important; }
+.ftr-cookie-btn:hover { color: var(--c-primary-text) !important; }
+.filter-toggle:hover { color: var(--c-primary-text) !important; }
+.sortby-box:hover { border-color: var(--c-primary-hover) !important; }
+.sortby-box:focus-within { box-shadow: 0 0 0 4px rgba(146, 200, 63, .15); }
+
+/* Interaction-triggered transforms sit still under reduced motion; the
+   product-card View button appears by fade alone. */
+@media (prefers-reduced-motion: reduce) {
+  .hov-slide:hover, .wish-btn.is-saved:hover, .svc-card:hover, .art-card:hover { transform: none !important; }
+  .slide-cta:hover .cta-arrow { transform: none !important; }
+  .pcard .pcard-view { transform: none !important; }
+  .pcard:hover .pcard-img img { transform: none !important; }
+}
