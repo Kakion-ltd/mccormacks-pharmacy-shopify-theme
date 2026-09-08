@@ -469,3 +469,8 @@ body[data-mnav-open] { overflow: hidden; }
 /* Skip link: offscreen until keyboard focus, then a visible pill over the header. */
 .skip-link { position: absolute; left: -9999px; top: 0; z-index: 500; background: var(--c-dark); color: var(--c-on-dark); font-weight: 700; font-size: 14px; padding: 12px 20px; border-radius: 0 0 9px 0; }
 .skip-link:focus { left: 0; outline: 2px solid var(--c-accent); outline-offset: -2px; }
+
+/* iOS Safari zooms the page when a focused text control is under 16px. The
+   inline styles ship 13.5-15.5px, so this floor must win over them. Checkboxes,
+   radios and ranges don't trigger the zoom and keep their inherited size. */
+input:not([type=checkbox]):not([type=radio]):not([type=range]), select, textarea { font-size: 16px !important; }
