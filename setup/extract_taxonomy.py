@@ -43,7 +43,7 @@ JS = """async (menus) => {
 with sync_playwright() as p:
     b = p.chromium.launch(headless=True)
     pg = b.new_page()
-    pg.goto('http://localhost:8734/pages/McCormacks%20Homepage.dc.html')
+    pg.goto('http://localhost:8734/design/pages/McCormacks%20Homepage.dc.html')
     data = pg.evaluate(JS, MENUS)
     b.close()
 

@@ -41,7 +41,7 @@ JS = """([keys, txt]) => {
 with sync_playwright() as p:
     b = p.chromium.launch(headless=True)
     pg = b.new_page()
-    src = open(os.path.join(HERE, '..', 'pages', 'McCormacks Homepage.dc.html'),
+    src = open(os.path.join(HERE, '..', 'design', 'pages', 'McCormacks Homepage.dc.html'),
                 encoding='utf-8').read()
     blocks = pg.evaluate(JS, [[k for k, _ in MENUS], src])
     b.close()

@@ -2,7 +2,7 @@
 
 You are porting high-fidelity HTML design references into a Shopify Online Store 2.0 theme.
 
-**Design sources:** `pages/*.dc.html` (project root). **Theme root:** `shopify-theme/`.
+**Design sources:** `design/pages/*.dc.html`. **Theme root:** `shopify-theme/`.
 
 ## Reading the design files
 

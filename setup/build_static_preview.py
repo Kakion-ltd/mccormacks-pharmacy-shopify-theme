@@ -93,7 +93,7 @@ def main():
         shutil.rmtree(a.out)
 
     # Assets are referenced as /shopify-theme/assets/... so keep that shape.
-    for sub in ('shopify-theme/assets', 'assets'):
+    for sub in ('shopify-theme/assets',):
         src = os.path.join(ROOT, sub)
         if os.path.isdir(src):
             shutil.copytree(src, os.path.join(a.out, sub))

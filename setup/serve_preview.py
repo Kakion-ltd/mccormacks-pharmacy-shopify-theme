@@ -111,7 +111,7 @@ def route(path):
     if p.startswith("/account"):
         return "/preview/customers_account.html"
     if p == "/design":
-        return "/pages/McCormacks Homepage.dc.html"
+        return "/design/pages/McCormacks Homepage.dc.html"
     return None
 
 
