@@ -937,6 +937,14 @@
   }
   @media (max-width: 900px) {
     .mobile-buybar { display: flex !important; }
+    /* While the consent banner is open it fully overlaps the fixed buy bar
+       (z-index 400 vs 150) - hide the bar rather than leave dead pixels
+       behind the banner. visibility keeps it mounted, so no reflow; the
+       150ms visibility delay plus 300ms fade stops the Accept tap - at the
+       same y as ADD TO BAG - from landing on a bar that appears under a
+       lifting finger. */
+    .mobile-buybar { transition: opacity .3s ease .15s, visibility 0s linear .15s; }
+    body:has([data-cc-banner]:not([hidden])) .mobile-buybar { visibility: hidden; opacity: 0; transition: none; }
     body { padding-bottom: 82px; } /* keep footer content clear of the fixed buybar */
     .pdp-addbag { display: none !important; }
     .thumb-nav { display: none !important; }
