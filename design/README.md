@@ -72,4 +72,11 @@ Nav order left-to-right is fixed per client brief — do not reorder without con
 All images/icons referenced by the pages are in `assets/` (logos, product photos, category placeholders, PSI registration badge, social icons as inline SVG). Some category/product tiles use a placeholder diagonal-stripe pattern (`repeating-linear-gradient`) where real photography hasn't been supplied yet — replace with real product imagery before launch.
 
 ## Files
-See `pages/` for every page listed above. `assets/` holds all referenced images.
+See `pages/` for every page listed above.
+
+**Note (Sep 2026):** these pages are a design reference, not a working site.
+`assets/` was pruned to the four images the theme does not carry; every image
+that was byte-identical to a file in `shopify-theme/assets/` was dropped, so
+most pages show missing images when opened directly. Masters live in
+`artwork/`, superseded cut-outs in `artwork/superseded/`. `setup/gen_mega.py`
+still reads `pages/McCormacks Homepage.dc.html` to generate the mega menu.

@@ -19,6 +19,10 @@ tree. One folder per slot, sized per `IMAGE-BRIEF.md`.
 | `products/` | Mock product shots used by the preview | 1200 × 1200 |
 | `superseded/` | Replaced artwork kept for reference | |
 
+Folders are created when the first master arrives; an empty slot has no folder yet.
+Files ending `-master` are the higher-resolution originals behind an existing
+under-size export (see IMAGE-BRIEF priority 2).
+
 A master keeps the same stem as its export: `category-banners/banner-beauty.png`
 becomes `shopify-theme/assets/banner-beauty.jpg`. Export to JPEG at quality
 about 80, under 300 KB, PNG only where transparency is needed.
