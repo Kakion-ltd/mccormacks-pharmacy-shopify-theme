@@ -1,7 +1,7 @@
 # McCormack's Pharmacy — Shopify theme
 
 Online Store 2.0 theme for mccormackspharmacy.ie, built from the design
-handoff in `design/`.
+handoff now kept in `archive/design/`.
 
 ## Layout
 
@@ -11,8 +11,7 @@ handoff in `design/`.
 | `setup/` | Generators, taxonomy data, store provisioning, the preview renderer and `verify/` checks. See `setup/README.md`. |
 | `preview/` | Rendered output of `npm run render`. Committed because Vercel and GitHub Pages deploy it without Node. |
 | `artwork/` | Image masters, one folder per slot. Never deployed. See `artwork/README.md`. |
-| `design/` | The original hifi HTML handoff and its images. Reference only; `gen_mega.py` reads the homepage file. |
-| `docs/` | Build reports, the coverage map and the header-promo spec. |
+| `archive/` | Historical: build reports, the hifi HTML design handoff, superseded artwork. Kept in git, nothing reads it. |
 | `STORE-SETUP.md` | Admin checklist for pages, collections, blog and menus. |
 | `IMAGE-BRIEF.md` | Sizes and status of every image slot, for whoever supplies artwork. |
 

@@ -78,5 +78,6 @@ See `pages/` for every page listed above.
 `assets/` was pruned to the four images the theme does not carry; every image
 that was byte-identical to a file in `shopify-theme/assets/` was dropped, so
 most pages show missing images when opened directly. Masters live in
-`artwork/`, superseded cut-outs in `artwork/superseded/`. `setup/gen_mega.py`
-still reads `pages/McCormacks Homepage.dc.html` to generate the mega menu.
+`artwork/`, superseded cut-outs in `archive/artwork-superseded/`. The homepage
+file is not here: `setup/gen_mega.py` reads it, so it lives at
+`setup/McCormacks Homepage.dc.html`.

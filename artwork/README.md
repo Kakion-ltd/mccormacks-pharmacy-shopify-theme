@@ -17,7 +17,7 @@ tree. One folder per slot, sized per `IMAGE-BRIEF.md`.
 | `brand-logos/` | Brand slider and Brands page | 350 × 240 transparent PNG |
 | `about/` | About page storefront | 1520 × 700 |
 | `products/` | Mock product shots used by the preview | 1200 × 1200 |
-| `superseded/` | Replaced artwork kept for reference | |
+| `../archive/artwork-superseded/` | Replaced artwork kept for reference | |
 
 Folders are created when the first master arrives; an empty slot has no folder yet.
 Files ending `-master` are the higher-resolution originals behind an existing

@@ -474,7 +474,7 @@ clicking the control in a browser.
 **The rule this gives us.** A branch that renders in no preview is covered by no
 check, however many checks there are. When adding a branch, the question is not
 "did I write a test" but "does this appear in rendered output at all" — if not, the
-fixture is part of the work, not a follow-up. `docs/COVERAGE.md` tracks what still
+fixture is part of the work, not a follow-up. `archive/docs/COVERAGE.md` tracks what still
 renders nowhere.
 
 One other was found the same way in the same pass: **the PDP's own Add to bag had
@@ -555,3 +555,11 @@ not).
 
 **Agreed line (Sep 2026):** if seasonal slots become a pattern across pills,
 hero and hot offers together, build one shared JS mechanism then. Not before.
+
+## Stale path in a theme comment — left on purpose
+
+`sections/header.liquid` (line ~105) says "see SPEC-header-promo-links.md".
+That file now lives at `archive/docs/SPEC-header-promo-links.md`. The comment
+was not updated because a theme edit for a prose reference is not worth a
+theme commit plus a preview redeploy. Fix it the next time that section is
+touched for a real reason.

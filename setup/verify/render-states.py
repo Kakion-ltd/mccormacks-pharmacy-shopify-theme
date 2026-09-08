@@ -1,4 +1,4 @@
-"""Alternate render states — docs/COVERAGE.md items D, F and G.
+"""Alternate render states — archive/docs/COVERAGE.md items D, F and G.
 
 Each of these is a branch the theme has always had and no preview ever reached,
 because the mock data could only ever produce the other side of the condition:

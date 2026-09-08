@@ -57,7 +57,7 @@ def route(path):
         pid = (query.get("product_id") or [""])[0].strip()
         return first_existing(f"preview/_recs/{slug(pid)}.html")
 
-    # /index.html would otherwise hit the project's root redirect file, which
+    # /index.html used to hit a root redirect file (now archive/index.html), which
     # bounces to the ORIGINAL DESIGN homepage — not what we want to serve.
     if p in ("/", "/index.html", "/index.htm"):
         return "/preview/index.html"
@@ -111,7 +111,7 @@ def route(path):
     if p.startswith("/account"):
         return "/preview/customers_account.html"
     if p == "/design":
-        return "/design/pages/McCormacks Homepage.dc.html"
+        return "/setup/McCormacks Homepage.dc.html"
     return None
 
 
