@@ -7,14 +7,14 @@
           "type": "faq",
           "settings": {
             "question": "Do I need a prescription?",
-            "answer": "All items in this collection can be bought without a GP prescription. Prescription-only medicines are not sold online in Ireland — you can submit a prescription for dispensing instead, and collect it in store or have it delivered."
+            "answer": "All items in this collection can be bought without a GP prescription. Prescription-only medicines are not sold online in Ireland \u2014 you can submit a prescription for dispensing instead, and collect it in store or have it delivered."
           }
         },
         "faq2": {
           "type": "faq",
           "settings": {
             "question": "Are these genuine pharmacy products?",
-            "answer": "Yes — every product is sourced and dispatched from our registered Irish pharmacy and is the same stock carried in our stores."
+            "answer": "Yes \u2014 every product is sourced and dispatched from our registered Irish pharmacy and is the same stock carried in our stores."
           }
         },
         "faq3": {
@@ -41,10 +41,10 @@
       "settings": {
         "banner_style": "standard",
         "banner_heading": "Gifting",
-        "banner_text": "<p>Find the perfect present — fragrance, candles &amp; diffusers, and curated gifts for her and him. Gift vouchers available online and in store.</p>",
+        "banner_text": "<p>Find the perfect present \u2014 fragrance, candles &amp; diffusers, and curated gifts for her and him. Gift vouchers available online and in store.</p>",
         "banner_image_asset": "",
         "show_chips": true,
-        "chip_links": "",
+        "chip_links": "Gifts for Her | /collections/gifts-for-her\nGifts for Him | /collections/gifts-for-him\nWomen's Fragrance | /collections/womens-fragrance\nMen's Fragrance | /collections/mens-fragrance\nCandles & Diffusers | /collections/candles-diffusers\nChristmas Shop | /collections/christmas-shop",
         "show_also": true,
         "also_heading": "You may also like"
       }

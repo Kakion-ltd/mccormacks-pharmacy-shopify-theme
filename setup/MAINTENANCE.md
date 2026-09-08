@@ -521,3 +521,37 @@ hit, and it is asking a real question: does your new element cover the consent
 controls on a mobile product page? Raising its `z-index` past 400 to make your
 element sit on top is the wrong answer. The consent banner is meant to be the
 topmost layer on the site.
+
+---
+
+## Seasonal rotation is manual — nothing in this theme is date-scheduled
+
+**There is no date scheduling anywhere in the theme. Not the hero slides, not
+the hot offers, not the category pills.** This gets assumed otherwise, so:
+rotating anything seasonal is a person editing the theme, twice a year, in
+these places:
+
+- **Category pills** on a department page: the `chip_links` override on that
+  collection's template (theme editor → the collection page → Category chips).
+  September 2026 example: Gifting's override lists its six taxonomy entries
+  with Christmas Shop moved last; delete the override in November and the
+  taxonomy order (Christmas Shop first) shows again. Overrides on taxonomy
+  departments are validated by `setup/verify/chips-taxonomy.py` — labels and
+  links must match taxonomy entries, order is free.
+- **Hero slides**: add/remove/reorder the slide blocks in the editor.
+- **Hot offers**: edit the offer blocks. Do not bake limited-time claims into
+  the artwork itself; the badge text is a setting precisely so it can expire.
+
+**Why not Liquid date gating** (`{% if "now" ... %}`): Shopify caches rendered
+pages on its CDN, and Liquid runs when the cache fills, not when the customer
+loads the page. A date comparison evaluated at cache time shows stale state
+for as long as the cached copy lives — a "Christmas from Nov 1" pill can stay
+hidden days into November, or a "until Dec 26" banner can survive into
+January, differently per CDN node. The failure is silent and unreproducible
+from the office. If gating is ever built, it must be client-side JS reading
+`data-start`/`data-end` attributes (visitor clock, link still present in
+cached HTML, brief flash before JS hides it — all acceptable; stale cache is
+not).
+
+**Agreed line (Sep 2026):** if seasonal slots become a pattern across pills,
+hero and hot offers together, build one shared JS mechanism then. Not before.
