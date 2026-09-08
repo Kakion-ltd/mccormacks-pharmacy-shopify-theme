@@ -157,3 +157,22 @@ textures, no logo work — `mccormacks-logo.png` and the PSI mark are in place.
 tiles, 6 brand logos.
 **Wanted but optional: 11** — 9 service cards, social share, favicon.
 **Re-exports of existing artwork: 13.**
+
+## Post-launch: rename theme assets to the slot convention
+
+Deferred until the store is live. Theme asset names are inconsistent
+(`banner-vitamins.jpg` is a hero slide, `cat-suncare.jpg` is a feature tile,
+`contact-us.png` is an Other Services tile). The intended convention is
+`<slot>-<subject>[-mobile].<ext>` with prefixes `hero-`, `banner-`, `tile-`,
+`offer-`, `popular-`, `service-`, `store-`, `about-`, `logo-`, `prod-`,
+`placeholder-`; masters in `artwork/` already follow it where they can.
+
+Why not now: if the theme is installed and anything has been saved in the
+theme editor, the store's copy of `templates/*.json` names the old files.
+A push with renamed assets leaves those slots blank until each is re-picked.
+Do it as one commit after launch, with the merchant's editor changes pulled
+first (`shopify theme pull`), then `npm run render` and the full verify run.
+Files touched: `templates/index.json`, the department collection templates,
+hero-slider, feature-tiles, other-services, hot-offers, brand-slider,
+page-brands, page-about, footer, buy-assurance, logo-src, sale-products,
+`setup/render_preview.mjs`, `setup/serve_preview.py`, and this brief.
