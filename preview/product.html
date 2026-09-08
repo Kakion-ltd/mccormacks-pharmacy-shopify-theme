@@ -939,6 +939,10 @@
     .pdp-right { flex: 1 1 auto !important; width: 100% !important; order: 2 !important; }
     .gallery-flex { order: 1 !important; width: 100% !important; }
     .pdp-accordions { order: 3 !important; width: 100% !important; }
+    /* The FAQ lives in .pdp-left too; display:contents releases it into the
+       flex order, and without its own order it sorted to 0 - above the
+       gallery. Order 4 keeps it last, matching the desktop flow. */
+    .pfaq { order: 4 !important; width: 100% !important; }
   }
   @media (max-width: 900px) {
     .mobile-buybar { display: flex !important; }

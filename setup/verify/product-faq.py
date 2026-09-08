@@ -76,6 +76,28 @@ for b in ld_blocks(html2):
         ck(f"all JSON-LD on the no-FAQ page stays valid ({e})", False)
 ck("all JSON-LD on the no-FAQ page stays valid", True)
 
+# --- position, not just presence --------------------------------------------
+# The FAQ sits in .pdp-left, which the mobile reflow releases via
+# display:contents; a missing flex order once sorted it above the gallery while
+# every presence check here stayed green. Assert geometry in a real layout.
+from playwright.sync_api import sync_playwright
+with sync_playwright() as p:
+    b = p.chromium.launch(headless=True)
+    pg = b.new_page(viewport={"width": 390, "height": 844})
+    pg.goto(BASE + WITH_FAQ)
+    pg.wait_for_load_state("networkidle")
+    pos = pg.evaluate("""() => {
+      const y = el => el ? el.getBoundingClientRect().top + scrollY : null;
+      return { faq: y(document.querySelector('.pfaq')),
+               gallery: y(document.querySelector('.gallery-flex')),
+               title: y(document.querySelector('h1')) };
+    }""")
+    b.close()
+ck("mobile: FAQ present for the position check", pos["faq"] is not None and pos["gallery"] is not None and pos["title"] is not None)
+if pos["faq"] is not None:
+    ck("mobile: FAQ renders below the gallery", pos["faq"] > (pos["gallery"] or 0))
+    ck("mobile: FAQ renders below the product title", pos["faq"] > (pos["title"] or 0))
+
 for ok, name, got in res:
     if not ok:
         print(f"FAIL  {name}   (got {got!r})")
