@@ -8,17 +8,6 @@
 {% render 'category-chip', h: 'nicotine-replacement', l: 'Nicotine Replacement', cur: collection.handle %}
 {% render 'category-chip', h: 'eye-ear-health', l: 'Eye &amp; Ear Health', cur: collection.handle %}
 {% render 'category-chip', h: 'sleep-rest', l: 'Sleep &amp; Rest', cur: collection.handle %}
-{% render 'category-chip', h: 'mouth-oral-care', l: 'Mouth &amp; Oral Care', cur: collection.handle %}
-{% render 'category-chip', h: 'continence-care', l: 'Continence Care', cur: collection.handle %}
-{% render 'category-chip', h: 'trying-to-conceive', l: 'Trying To Conceive', cur: collection.handle %}
-{% render 'category-chip', h: 'sexual-health', l: 'Sexual Health', cur: collection.handle %}
-{% render 'category-chip', h: 'sport', l: 'Sport', cur: collection.handle %}
-{% render 'category-chip', h: 'first-aid', l: 'First Aid', cur: collection.handle %}
-{% render 'category-chip', h: 'foot-care', l: 'Foot Care', cur: collection.handle %}
-{% render 'category-chip', h: 'diabetes-care', l: 'Diabetes Care', cur: collection.handle %}
-{% render 'category-chip', h: 'electrical-healthcare', l: 'Electrical Healthcare', cur: collection.handle %}
-{% render 'category-chip', h: 'self-testing-kits', l: 'Self Testing Kits', cur: collection.handle %}
-{% render 'category-chip', h: 'healthcare-medicine-accessories', l: 'Healthcare &amp; Medicine Accessories', cur: collection.handle %}
 {%- when 'pain-relief' or 'pain-relief-headache' or 'baby-children-pain-relief' or 'muscle-joint-pain' -%}
 {% render 'category-chip', h: 'pain-relief-headache', l: 'Pain Relief &amp; Headache', cur: collection.handle %}
 {% render 'category-chip', h: 'baby-children-pain-relief', l: 'Baby &amp; Children Pain Relief', cur: collection.handle %}
@@ -143,7 +132,15 @@
 {% render 'category-chip', h: 'electrical-healthcare', l: 'Electrical Healthcare', cur: collection.handle %}
 {% render 'category-chip', h: 'self-testing-kits', l: 'Self Testing Kits', cur: collection.handle %}
 {% render 'category-chip', h: 'healthcare-medicine-accessories', l: 'Healthcare &amp; Medicine Accessories', cur: collection.handle %}
-{%- when 'vitamins' or 'probiotics-digestive-health' or 'children-vitamins' or 'fish-oils-omegas' or 'womens-health' or 'everyday-multivitamins' or 'energy-wellbeing' or 'skin-hair-nails' or 'joint-bone-health' or 'fertility-pregnancy' or 'brain-health' or 'eye-health' or 'heart-health' or 'slimming' or 'herbal-remedies' or 'immune-support' or 'essential-oils' or 'mens-health' -%}
+{%- when 'vitamins' -%}
+{% render 'category-chip', h: 'probiotics-digestive-health', l: 'Probiotics &amp; Digestive Health', cur: collection.handle %}
+{% render 'category-chip', h: 'children-vitamins', l: 'Children Vitamins', cur: collection.handle %}
+{% render 'category-chip', h: 'fish-oils-omegas', l: 'Fish Oils &amp; Omegas', cur: collection.handle %}
+{% render 'category-chip', h: 'healthy-mind-sleeping-aids', l: 'Healthy Mind &amp; Sleeping Aids', cur: collection.handle %}
+{% render 'category-chip', h: 'womens-health', l: 'Women&#x27;s Health', cur: collection.handle %}
+{% render 'category-chip', h: 'everyday-multivitamins', l: 'Everyday Multivitamins', cur: collection.handle %}
+{% render 'category-chip', h: 'energy-wellbeing', l: 'Energy &amp; Wellbeing', cur: collection.handle %}
+{%- when 'probiotics-digestive-health' or 'children-vitamins' or 'fish-oils-omegas' or 'womens-health' or 'everyday-multivitamins' or 'energy-wellbeing' or 'skin-hair-nails' or 'joint-bone-health' or 'fertility-pregnancy' or 'brain-health' or 'eye-health' or 'heart-health' or 'slimming' or 'herbal-remedies' or 'immune-support' or 'essential-oils' or 'mens-health' -%}
 {% render 'category-chip', h: 'probiotics-digestive-health', l: 'Probiotics &amp; Digestive Health', cur: collection.handle %}
 {% render 'category-chip', h: 'children-vitamins', l: 'Children Vitamins', cur: collection.handle %}
 {% render 'category-chip', h: 'fish-oils-omegas', l: 'Fish Oils &amp; Omegas', cur: collection.handle %}
@@ -242,7 +239,7 @@
 {% render 'category-chip', h: 'body-tape-nipple-covers', l: 'Body Tape &amp; Nipple Covers', cur: collection.handle %}
 {% render 'category-chip', h: 'tweezers', l: 'Tweezers', cur: collection.handle %}
 {% render 'category-chip', h: 'beauty-accessories', l: 'Beauty Accessories', cur: collection.handle %}
-{%- when 'toiletries' or 'hair-care' or 'dental-care' or 'deodorant' or 'mens-grooming' or 'feminine-care' or 'bath-shower' or 'travel' -%}
+{%- when 'toiletries' -%}
 {% render 'category-chip', h: 'hair-care', l: 'Hair Care', cur: collection.handle %}
 {% render 'category-chip', h: 'dental-care', l: 'Dental Care', cur: collection.handle %}
 {% render 'category-chip', h: 'deodorant', l: 'Deodorant', cur: collection.handle %}
@@ -250,21 +247,50 @@
 {% render 'category-chip', h: 'feminine-care', l: 'Feminine Care', cur: collection.handle %}
 {% render 'category-chip', h: 'bath-shower', l: 'Bath &amp; Shower', cur: collection.handle %}
 {% render 'category-chip', h: 'travel', l: 'Travel', cur: collection.handle %}
-{%- when 'mother-baby' or 'baby-health' or 'baby-feeding' or 'maternity-care' or 'baby-skincare' or 'baby-wipes-toiletries' or 'baby-accessories' -%}
+{%- when 'hair-care' or 'dental-care' or 'deodorant' or 'mens-grooming' or 'feminine-care' or 'bath-shower' or 'travel' -%}
+{% render 'category-chip', h: 'hair-care', l: 'Hair Care', cur: collection.handle %}
+{% render 'category-chip', h: 'dental-care', l: 'Dental Care', cur: collection.handle %}
+{% render 'category-chip', h: 'deodorant', l: 'Deodorant', cur: collection.handle %}
+{% render 'category-chip', h: 'mens-grooming', l: 'Men&#x27;s Grooming', cur: collection.handle %}
+{% render 'category-chip', h: 'feminine-care', l: 'Feminine Care', cur: collection.handle %}
+{% render 'category-chip', h: 'bath-shower', l: 'Bath &amp; Shower', cur: collection.handle %}
+{% render 'category-chip', h: 'travel', l: 'Travel', cur: collection.handle %}
+{%- when 'mother-baby' -%}
 {% render 'category-chip', h: 'baby-health', l: 'Baby Health', cur: collection.handle %}
 {% render 'category-chip', h: 'baby-feeding', l: 'Baby Feeding', cur: collection.handle %}
 {% render 'category-chip', h: 'maternity-care', l: 'Maternity Care', cur: collection.handle %}
 {% render 'category-chip', h: 'baby-skincare', l: 'Baby Skincare', cur: collection.handle %}
 {% render 'category-chip', h: 'baby-wipes-toiletries', l: 'Baby Wipes &amp; Toiletries', cur: collection.handle %}
 {% render 'category-chip', h: 'baby-accessories', l: 'Baby Accessories', cur: collection.handle %}
-{%- when 'fragrance' or 'ladies-fragrance' or 'ladies-fragrance-singles' or 'ladies-fragrance-sets' or 'mens-fragrance' or 'mens-fragrance-singles' or 'mens-fragrance-sets' -%}
+{%- when 'baby-health' or 'baby-feeding' or 'maternity-care' or 'baby-skincare' or 'baby-wipes-toiletries' or 'baby-accessories' -%}
+{% render 'category-chip', h: 'baby-health', l: 'Baby Health', cur: collection.handle %}
+{% render 'category-chip', h: 'baby-feeding', l: 'Baby Feeding', cur: collection.handle %}
+{% render 'category-chip', h: 'maternity-care', l: 'Maternity Care', cur: collection.handle %}
+{% render 'category-chip', h: 'baby-skincare', l: 'Baby Skincare', cur: collection.handle %}
+{% render 'category-chip', h: 'baby-wipes-toiletries', l: 'Baby Wipes &amp; Toiletries', cur: collection.handle %}
+{% render 'category-chip', h: 'baby-accessories', l: 'Baby Accessories', cur: collection.handle %}
+{%- when 'fragrance' -%}
 {% render 'category-chip', h: 'ladies-fragrance', l: 'Ladies Fragrance', cur: collection.handle %}
 {% render 'category-chip', h: 'ladies-fragrance-singles', l: 'Ladies Fragrance Singles', cur: collection.handle %}
 {% render 'category-chip', h: 'ladies-fragrance-sets', l: 'Ladies Fragrance Sets', cur: collection.handle %}
 {% render 'category-chip', h: 'mens-fragrance', l: 'Mens Fragrance', cur: collection.handle %}
 {% render 'category-chip', h: 'mens-fragrance-singles', l: 'Mens Fragrance Singles', cur: collection.handle %}
 {% render 'category-chip', h: 'mens-fragrance-sets', l: 'Mens Fragrance Sets', cur: collection.handle %}
-{%- when 'gifting' or 'christmas-shop' or 'womens-fragrance' or 'gifts-for-her' or 'gifts-for-him' or 'candles-diffusers' -%}
+{%- when 'ladies-fragrance' or 'ladies-fragrance-singles' or 'ladies-fragrance-sets' or 'mens-fragrance' or 'mens-fragrance-singles' or 'mens-fragrance-sets' -%}
+{% render 'category-chip', h: 'ladies-fragrance', l: 'Ladies Fragrance', cur: collection.handle %}
+{% render 'category-chip', h: 'ladies-fragrance-singles', l: 'Ladies Fragrance Singles', cur: collection.handle %}
+{% render 'category-chip', h: 'ladies-fragrance-sets', l: 'Ladies Fragrance Sets', cur: collection.handle %}
+{% render 'category-chip', h: 'mens-fragrance', l: 'Mens Fragrance', cur: collection.handle %}
+{% render 'category-chip', h: 'mens-fragrance-singles', l: 'Mens Fragrance Singles', cur: collection.handle %}
+{% render 'category-chip', h: 'mens-fragrance-sets', l: 'Mens Fragrance Sets', cur: collection.handle %}
+{%- when 'gifting' -%}
+{% render 'category-chip', h: 'christmas-shop', l: 'Christmas Shop', cur: collection.handle %}
+{% render 'category-chip', h: 'womens-fragrance', l: 'Women&#x27;s Fragrance', cur: collection.handle %}
+{% render 'category-chip', h: 'mens-fragrance', l: 'Men&#x27;s Fragrance', cur: collection.handle %}
+{% render 'category-chip', h: 'gifts-for-her', l: 'Gifts for Her', cur: collection.handle %}
+{% render 'category-chip', h: 'gifts-for-him', l: 'Gifts for Him', cur: collection.handle %}
+{% render 'category-chip', h: 'candles-diffusers', l: 'Candles &amp; Diffusers', cur: collection.handle %}
+{%- when 'christmas-shop' or 'womens-fragrance' or 'gifts-for-her' or 'gifts-for-him' or 'candles-diffusers' -%}
 {% render 'category-chip', h: 'christmas-shop', l: 'Christmas Shop', cur: collection.handle %}
 {% render 'category-chip', h: 'womens-fragrance', l: 'Women&#x27;s Fragrance', cur: collection.handle %}
 {% render 'category-chip', h: 'mens-fragrance', l: 'Men&#x27;s Fragrance', cur: collection.handle %}
@@ -279,15 +305,4 @@
 {% render 'category-chip', h: 'nicotine-replacement', l: 'Nicotine Replacement', cur: collection.handle %}
 {% render 'category-chip', h: 'eye-ear-health', l: 'Eye &amp; Ear Health', cur: collection.handle %}
 {% render 'category-chip', h: 'sleep-rest', l: 'Sleep &amp; Rest', cur: collection.handle %}
-{% render 'category-chip', h: 'mouth-oral-care', l: 'Mouth &amp; Oral Care', cur: collection.handle %}
-{% render 'category-chip', h: 'continence-care', l: 'Continence Care', cur: collection.handle %}
-{% render 'category-chip', h: 'trying-to-conceive', l: 'Trying To Conceive', cur: collection.handle %}
-{% render 'category-chip', h: 'sexual-health', l: 'Sexual Health', cur: collection.handle %}
-{% render 'category-chip', h: 'sport', l: 'Sport', cur: collection.handle %}
-{% render 'category-chip', h: 'first-aid', l: 'First Aid', cur: collection.handle %}
-{% render 'category-chip', h: 'foot-care', l: 'Foot Care', cur: collection.handle %}
-{% render 'category-chip', h: 'diabetes-care', l: 'Diabetes Care', cur: collection.handle %}
-{% render 'category-chip', h: 'electrical-healthcare', l: 'Electrical Healthcare', cur: collection.handle %}
-{% render 'category-chip', h: 'self-testing-kits', l: 'Self Testing Kits', cur: collection.handle %}
-{% render 'category-chip', h: 'healthcare-medicine-accessories', l: 'Healthcare &amp; Medicine Accessories', cur: collection.handle %}
 {%- endcase -%}
