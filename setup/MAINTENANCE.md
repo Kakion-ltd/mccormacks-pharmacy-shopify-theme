@@ -474,7 +474,7 @@ clicking the control in a browser.
 **The rule this gives us.** A branch that renders in no preview is covered by no
 check, however many checks there are. When adding a branch, the question is not
 "did I write a test" but "does this appear in rendered output at all" — if not, the
-fixture is part of the work, not a follow-up. `COVERAGE.md` tracks what still
+fixture is part of the work, not a follow-up. `docs/COVERAGE.md` tracks what still
 renders nowhere.
 
 One other was found the same way in the same pass: **the PDP's own Add to bag had

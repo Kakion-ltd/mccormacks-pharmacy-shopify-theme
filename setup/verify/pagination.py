@@ -4,7 +4,7 @@ Nothing beyond page 1 had ever rendered: the fixture collection held 10 products
 against `by 24`, and the harness's paginate tag was stubbed to pages:1 with no parts.
 So the page links, next/prev and every ?page= URL existed only in source.
 
-That matters beyond tidiness. The open canonical question (OVERNIGHT-QUESTIONS.md Q1,
+That matters beyond tidiness. The open canonical question (docs/OVERNIGHT-QUESTIONS.md Q1,
 item 2) is what Shopify canonicalises on page 2 — and if it points every page back to
 page 1, deep products on a 293-collection catalogue become invisible to Google. These
 checks make the markup that produces those URLs real and testable locally, ahead of

@@ -102,7 +102,7 @@
       <a href="/collections/fragrance" class="hov-green" data-mega-trigger="fragrance" style="color:#2A2B2A; font-size:13.5px;">Fragrance</a>
       <a href="/collections/gifting" class="hov-green" data-mega-trigger="gifting" style="color:#2A2B2A; font-size:13.5px;">Gifting</a>
       {%- comment -%} Merchant promo links (max 4) - the category links above stay
-          taxonomy-generated; see SPEC-header-promo-links.md {%- endcomment -%}
+          taxonomy-generated; see docs/SPEC-header-promo-links.md {%- endcomment -%}
       {%- for block in section.blocks -%}
       {%- if block.type == 'promo_link' and block.settings.label != blank %}
       <a href="{{ block.settings.link }}" class="{% if block.settings.highlight %}hov-green-dk{% else %}hov-green{% endif %}" data-mega-close style="{% if block.settings.highlight %}color:var(--c-primary-text); font-weight:700; {% else %}color:#2A2B2A; {% endif %}font-size:13.5px;" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
