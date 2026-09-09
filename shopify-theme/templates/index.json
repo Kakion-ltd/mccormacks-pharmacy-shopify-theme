@@ -233,6 +233,7 @@
           "type": "category",
           "settings": {
             "collection": "fragrance",
+            "image_asset": "cat-fragrance.jpg",
             "label": "Fragrance"
           }
         },
