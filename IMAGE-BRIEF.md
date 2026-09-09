@@ -61,7 +61,7 @@ Carrick Road (Dundalk) · Erris Pharmacy
   plain-ground. Renders as the square thumb on a compact offer row; the same
   crop spec as the popular-category tiles, so one artwork order covers both.
   (If Menopause is ever promoted to the spotlight slot, that wants the
-  `1200 × 800` spotlight spec instead.)
+  `1500 × 800` spotlight spec instead.)
 - **About Us storefront** — `1520 × 700`. One hero shot for the About page.
 
 ### D. Brand logos — 6 needed
@@ -120,7 +120,7 @@ few lines.
 | Category / sale banner | 1300 × 600 | 2.17:1 | Subject right |
 | Feature tile | 1360 × 765 | 16:9 | Subject right and upper; bottom-left 55% × 55% is background only; theme darkens the bottom 60%; no text or badges; both tiles in a section share one image language. See the house rule below |
 | Feature tile (mobile) | 800 × 800 | 1:1 | Optional. Same rule applied to its own bottom-left corner |
-| Hot-offer spotlight | 1200 × 800 | 3:2 | Bleeds to the card's top, right and bottom edges; phones crop it to a 2:1 band, so keep the subject inside the central 2:1. Any background. See the house rule below |
+| Hot-offer spotlight | 1500 × 800 | 15:8 | Bleeds to the card's top, right and bottom edges; phones crop it to a 2:1 band, so keep the subject inside the central 2:1. Any background. See the house rule below |
 | Hot-offer row thumbnail | 600 × 600 | 1:1 | Square thumb on the compact rows — same spec as the popular-category tile, one crop serves both |
 | Service / other tile | 658 × 658 | 1:1 | Title and link sit below the image |
 | Popular-category tile | 400 × 400 | 1:1 | Falls back to the collection's own image |
@@ -167,7 +167,7 @@ master for it in `artwork/`, so ask the supplier for one with this rule.
 Two slots, and the spotlight one changed shape in September 2026 when the
 image stopped floating inside the card and started bleeding to its edge.
 
-- **Spotlight:** 1200 × 800 JPEG (3:2). The panel fills the card's right 46%
+- **Spotlight:** 1500 × 800 JPEG (15:8). The panel fills the card's right 46%
   from top edge to bottom edge on desktop and becomes a full-width 2:1 band
   on a phone, so keep the subject inside the central 2:1 with 8% clear on
   every side. **Any background works.** The image's rectangle is never
