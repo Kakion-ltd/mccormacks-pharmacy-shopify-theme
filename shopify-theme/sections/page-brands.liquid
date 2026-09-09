@@ -33,6 +33,9 @@
     <button type="submit" class="hov-bg-green-dk" style="flex:0 0 auto; height:52px; padding:0 22px; border:none; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-family:inherit; font-weight:800; font-size:15px; cursor:pointer;">Search</button>
   </form>
 
+  {%- comment -%} A heading over an empty grid is worse than no section, so the whole
+      featured-brands block renders only when the template supplies blocks. {%- endcomment -%}
+  {%- if section.blocks.size > 0 -%}
   <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.1vw,26px); margin:0 0 18px;">Featured brands</h2>
   <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:16px; margin:0 0 40px;">
     {%- for block in section.blocks -%}
@@ -55,6 +58,7 @@
       {%- endif -%}
     {%- endfor -%}
   </div>
+  {%- endif -%}
 
   <div style="display:flex; flex-wrap:wrap; gap:7px; padding:16px 0 24px; border-top:1px solid #e6e7e4; border-bottom:1px solid #e6e7e4; margin:0 0 30px;">
     {%- assign letters = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z' | split: ',' -%}

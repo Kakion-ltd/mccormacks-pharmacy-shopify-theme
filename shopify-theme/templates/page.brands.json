@@ -2,8 +2,68 @@
   "sections": {
     "main": {
       "type": "page-brands",
-      "settings": {}
+      "settings": {},
+      "blocks": {
+        "brand_1": {
+          "type": "featured_brand",
+          "settings": {
+            "name": "CeraVe",
+            "link": "/collections/cerave",
+            "logo_asset": "brand-cerave.png"
+          }
+        },
+        "brand_2": {
+          "type": "featured_brand",
+          "settings": {
+            "name": "La Roche-Posay",
+            "link": "/collections/la-roche-posay",
+            "logo_asset": "brand-laroche.png"
+          }
+        },
+        "brand_3": {
+          "type": "featured_brand",
+          "settings": {
+            "name": "L’Oréal Paris",
+            "link": "/collections/loreal-paris",
+            "logo_asset": "brand-loreal.png"
+          }
+        },
+        "brand_4": {
+          "type": "featured_brand",
+          "settings": {
+            "name": "Proven",
+            "link": "/collections/proven",
+            "logo_asset": "brand-proven.png"
+          }
+        },
+        "brand_5": {
+          "type": "featured_brand",
+          "settings": {
+            "name": "Sculpted by Aimee",
+            "link": "/collections/sculpted-by-aimee",
+            "logo_asset": "brand-sculpted.png"
+          }
+        },
+        "brand_6": {
+          "type": "featured_brand",
+          "settings": {
+            "name": "Viagra Connect",
+            "link": "/collections/viagra-connect",
+            "logo_asset": "brand-viagra.png"
+          }
+        }
+      },
+      "block_order": [
+        "brand_1",
+        "brand_2",
+        "brand_3",
+        "brand_4",
+        "brand_5",
+        "brand_6"
+      ]
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

@@ -103,3 +103,11 @@ and the ones marked **decision** need a merchant answer before they can be check
 - `/blogs/<blog>/tagged/<tag>`, `/account/orders/<id>`, `/account/logout`,
   `/account/recover`, `/account/reset`, `/account/activate`, `/challenge`,
   `/policies/*`, `/checkout`.
+
+## Confirm with the client
+
+- Free delivery threshold. The theme setting `free_shipping_threshold` is
+  €65. Checked 9 September 2026 against three sources that disagreed: the live
+  site said €65, the theme said €65, the client's own About copy said €60.
+  €65 is taken as correct; the €60 in the About copy is the outlier. Confirm
+  with the client before launch and correct whichever source is wrong.
