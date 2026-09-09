@@ -103,13 +103,18 @@
                     sizes matching the gallery column, eager + high priority + preload. The rest stay
                     lazy and are swapped in by theme.js via data-pdp-img. {%- endcomment -%}
                 {%- if forloop.first -%}
+                  {%- comment -%} Written by hand, as the hero slider does. image_tag's preload argument
+                      emitted nothing on the dev store, and a link carrying imagesrcset was dropped
+                      from the served page; two media-scoped links, the pattern the slider already
+                      uses, do render. 600 covers 78vw on phones at 2x, 1000 covers 40vw on desktop. {%- endcomment -%}
+                  <link rel="preload" as="image" href="{{ media.preview_image | image_url: width: 1000 }}" media="(min-width: 901px)" fetchpriority="high">
+                  <link rel="preload" as="image" href="{{ media.preview_image | image_url: width: 600 }}" media="(max-width: 900px)" fetchpriority="high">
                   {{ media.preview_image | image_url: width: 1200 | image_tag:
                        widths: '400,600,800,1000,1200',
                        sizes: '(max-width: 900px) 78vw, 40vw',
                        alt: main_alt,
                        loading: 'eager',
                        fetchpriority: 'high',
-                       preload: true,
                        data-pdp-img: forloop.index0,
                        style: 'max-width:78%; max-height:90%; object-fit:contain; display:block;' }}
                 {%- else -%}

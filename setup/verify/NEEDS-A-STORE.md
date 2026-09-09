@@ -84,6 +84,14 @@ and the ones marked **decision** need a merchant answer before they can be check
   and whether consent genuinely withholds a pixel. See `../analytics/README.md`.
 - Inline "Liquid error" output. Shopify prints it on the page; the harness
   swallows unknown filters and undefined variables silently.
+- Output whitespace and head injection, seen 2026-09-09: Shopify emitted a
+  leading newline from a snippet that opened with an undashed `{% comment %}`
+  (liquidjs did not), so every alt text began with "\n" until the tags were
+  dashed. `image_tag: preload: true` injected nothing into `content_for_header`,
+  and a hand-written `<link rel="preload">` carrying `imagesrcset` was dropped
+  from the served page; media-scoped preload links, as the hero slider writes
+  them, do render. Filters inside a `for` expression are a syntax error on
+  Shopify; theme-check catches that one.
 
 ## Assets and images
 

@@ -62,8 +62,22 @@ async function createCollections() {
   let created = 0, skipped = 0;
   for (const c of collections) {
     const existing = await gql(
-      `query($h: String!) { collectionByHandle(handle: $h) { id } }`, { h: c.handle });
-    if (existing.collectionByHandle) { skipped++; continue; }
+      `query($h: String!) { collectionByHandle(handle: $h) { id templateSuffix } }`, { h: c.handle });
+    if (existing.collectionByHandle) {
+      // A collection that already existed keeps its rules and content, but a
+      // department handle must still get its template or it renders the generic
+      // one, which has no banner artwork.
+      const want = TEMPLATED_COLLECTIONS.has(c.handle) ? c.handle : null;
+      if (want && existing.collectionByHandle.templateSuffix !== want) {
+        const u = await gql(
+          `mutation($input: CollectionInput!) {
+            collectionUpdate(input: $input) { collection { handle templateSuffix } userErrors { field message } }
+          }`, { input: { id: existing.collectionByHandle.id, templateSuffix: want } });
+        userErrs(u.collectionUpdate);
+        console.log(`assigned template collection.${want} to existing /collections/${c.handle}`);
+      }
+      skipped++; continue;
+    }
     const data = await gql(
       `mutation($input: CollectionInput!) {
         collectionCreate(input: $input) { collection { id handle } userErrors { field message } }

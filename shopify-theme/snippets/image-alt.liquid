@@ -1,4 +1,4 @@
-{% comment %}
+{%- comment -%}
   Alt text, resolved in one place.
 
   Every image on the site was reaching the page with `alt=""` unless someone had
@@ -36,7 +36,7 @@
     variant    — optional; overrides the variant lookup when the caller knows it
     collection — for rule 3
     decorative — pass true to force an empty alt regardless of everything above
-{% endcomment %}
+{%- endcomment -%}
 {%- liquid
   assign manual = image.alt | default: '' | strip
 
