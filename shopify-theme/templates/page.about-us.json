@@ -2,8 +2,41 @@
   "sections": {
     "main": {
       "type": "page-about",
-      "settings": {}
+      "settings": {},
+      "blocks": {
+        "stat1": {
+          "type": "stat",
+          "settings": {
+            "value": "7",
+            "label": "pharmacies",
+            "sub": "Tipperary to Mayo"
+          }
+        },
+        "stat2": {
+          "type": "stat",
+          "settings": {
+            "value": "40+",
+            "label": "team members",
+            "sub": "Pharmacists, technicians and advisors"
+          }
+        },
+        "stat3": {
+          "type": "stat",
+          "settings": {
+            "value": "2010",
+            "label": "first store",
+            "sub": "Clonmel"
+          }
+        }
+      },
+      "block_order": [
+        "stat1",
+        "stat2",
+        "stat3"
+      ]
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
