@@ -116,8 +116,8 @@ few lines.
 | Hero slide (desktop) | 1760 × 920 | 1.91:1 | Left ~500px sits under the green copy panel |
 | Hero slide (mobile) | 1100 × 850 | 1.30:1 | Optional but recommended — the desktop crop loses the subject on a phone |
 | Category / sale banner | 1300 × 600 | 2.17:1 | Subject right |
-| Feature tile | 1360 × 765 | 16:9 | Label and button bottom-left |
-| Feature tile (mobile) | 800 × 800 | 1:1 | Optional |
+| Feature tile | 1360 × 765 | 16:9 | Subject right and upper; bottom-left 55% × 55% is background only; theme darkens the bottom 60%; no text or badges; both tiles in a section share one image language. See the house rule below |
+| Feature tile (mobile) | 800 × 800 | 1:1 | Optional. Same rule applied to its own bottom-left corner |
 | Hot-offer tile | 1032 × 774 | 4:3 | Floats right over a coloured panel, rounded corners |
 | Service / other tile | 658 × 658 | 1:1 | Title and link sit below the image |
 | Popular-category tile | 400 × 400 | 1:1 | Falls back to the collection's own image |
@@ -127,6 +127,37 @@ few lines.
 | Brand logo | 350 × 240 max | — | Transparent PNG, contained not cropped |
 | Product photo | 1200 × 1200 | 1:1 | White ground, pack centred, ~10% margin |
 | Social share | 1200 × 630 | 1.91:1 | |
+
+---
+
+## House rule: homepage feature tiles
+
+The two promo tiles under the hero. The theme sets the title in white on a
+dark scrim in the bottom-left corner, so the image has to be composed for that
+corner rather than fitted after the fact. Both tiles run through the same
+treatment, so they only read as a pair if the artwork follows the same rule.
+
+1. **Frame.** 1360 × 765 JPEG at quality 80, under 300 KB. Optional mobile
+   crop 800 × 800 with the same rule applied to its own corner.
+2. **Safe area.** The bottom-left corner, 55% of the width by 55% of the
+   height, is background only. No product, face, text, badge, logo, or hard
+   edge in it. The theme sets the title and button there.
+3. **Subject.** Sits in the right half and upper two-thirds, with at least 8%
+   clear on every edge. The frame is cropped by the browser at every width, so
+   a subject that touches an edge will be cut.
+4. **Brightness.** The theme darkens the bottom 60% of the frame. Supply the
+   image at its true tone. No baked-in gradients, vignettes, or drop shadows.
+5. **No text in the image.** No price flashes, "special offer" badges, or
+   brand lockups. Copy belongs to the theme so it can be edited in the theme
+   editor and read by screen readers.
+6. **One language per section.** Both tiles use the same kind of image: both
+   lifestyle photography, or both product on a flat brand-green ground. Never
+   one of each.
+7. **Check.** Before sending, cover the bottom-left 55% × 55% with a rectangle.
+   If anything you would miss is under it, recompose.
+
+`tile-vitamins.jpg` fails rules 2, 5 and 6 and needs a re-cut; there is no
+master for it in `artwork/`, so ask the supplier for one with this rule.
 
 ---
 

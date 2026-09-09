@@ -7,11 +7,16 @@
   be 1.886:1 on desktop and 0.99:1 on mobile, which turned a landscape
   composition into a square. A mobile image field covers art that cannot survive
   even the 16:9 crop.
+
+  The title sits straight on the image over a bottom scrim. It used to be a cream
+  chip, which read as a sticker on busy artwork and depended on what was behind
+  it. The scrim guarantees contrast; the brief's feature-tile rule keeps the
+  bottom-left corner clear so nothing important is darkened.
 {%- endcomment -%}
 <section style="max-width:1440px; margin:0 auto; padding:34px 30px 8px;">
   <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:22px;">
     {%- for block in section.blocks -%}
-      <div class="ftile" style="position:relative; border-radius:18px; overflow:hidden; aspect-ratio:16/9; background:#e9ede3; display:flex; align-items:flex-end; padding:32px;" {{ block.shopify_attributes }}>
+      <div class="ftile" style="position:relative; border-radius:18px; overflow:hidden; aspect-ratio:16/9; background:#e9ede3;" {{ block.shopify_attributes }}>
         {%- assign tile_style = 'position:absolute; inset:0; width:100%; height:100%; object-fit:cover;' -%}
         {%- if block.settings.image or block.settings.image_mobile -%}
           <picture>
@@ -33,12 +38,15 @@
           <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}"
                loading="lazy" width="1360" height="765" class="ftile-img" style="{{ tile_style }}">
         {%- else -%}
-          {%- render 'image-placeholder', w: 1360, h: 765, label: 'Feature tile', note: 'Landscape 16:9 — the label and button sit bottom-left.' -%}
+          {%- render 'image-placeholder', w: 1360, h: 765, label: 'Feature tile', note: 'Landscape 16:9. Subject right and upper; the bottom-left 55% × 55% stays clear for the title and button.' -%}
         {%- endif -%}
-        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.28), rgba(0,0,0,0) 60%);"></div>
-        <div style="position:relative;">
-          <span style="display:inline-block; background:#f3f6ea; color:var(--c-dark); font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,34px); padding:8px 18px; border-radius:6px; margin-bottom:16px;">{{ block.settings.title }}</span><br>
+        {%- comment -%} The copy lives inside the scrim, not beside it, so the scrim is
+            what any reader (and the contrast check) finds behind the glyphs. {%- endcomment -%}
+        <div class="ftile-scrim" style="position:absolute; inset:0; background:linear-gradient(to top, rgba(18,28,20,.78) 0%, rgba(18,28,20,.42) 34%, rgba(18,28,20,0) 62%); display:flex; align-items:flex-end;">
+        <div class="ftile-copy" style="position:relative; color:#fff;">
+          <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,34px); line-height:1.1; margin:0 0 14px; text-wrap:balance;">{{ block.settings.title }}</h3>
           <a href="{{ block.settings.link }}" class="hov-shop" style="display:inline-block; background:#fff; color:#2A2B2A; font-weight:700; letter-spacing:.06em; font-size:13.5px; padding:12px 26px; border-radius:6px;">{{ block.settings.cta }}</a>
+        </div>
         </div>
       </div>
     {%- endfor -%}
@@ -46,6 +54,9 @@
 </section>
 
 {% style %}
+.ftile-scrim { padding:32px; }
+.ftile-copy { max-width:60%; }
+@media (max-width: 749px) { .ftile-scrim { padding:22px; } .ftile-copy { max-width:100%; } }
 .hov-shop:hover { background: var(--c-accent) !important; color:var(--c-on-accent) !important; }
 {% endstyle %}
 
@@ -61,7 +72,7 @@
         { "type": "text", "id": "title", "label": "Title", "default": "Vitamins & Supplements" },
         { "type": "url", "id": "link", "label": "Link" },
         { "type": "text", "id": "cta", "label": "Button label", "default": "SHOP NOW" },
-        { "type": "image_picker", "id": "image", "label": "Image", "info": "16:9 landscape. Export 1360x765." },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "16:9 landscape, 1360x765. Subject right and upper; keep the bottom-left 55% x 55% clear, the theme sets the title there. See IMAGE-BRIEF.md." },
         { "type": "image_picker", "id": "image_mobile", "label": "Mobile image", "info": "Optional. Use when the desktop crop loses the subject on a phone." },
         { "type": "text", "id": "image_asset", "label": "Fallback theme asset (onboarding only)", "info": "Filename of a theme asset used until an image is picked." }
       ]
