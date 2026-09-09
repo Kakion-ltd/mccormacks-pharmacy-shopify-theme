@@ -217,6 +217,7 @@
           "type": "category",
           "settings": {
             "collection": "toiletries",
+            "image_asset": "cat-toiletries.jpg",
             "label": "Toiletries"
           }
         },
