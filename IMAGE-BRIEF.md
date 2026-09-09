@@ -37,13 +37,12 @@ banners and the hot-offer tiles.
 `1300 × 600` (2.17:1). Subject right, left third quiet.
 
 **Supplied (Sep 2026):** Beauty, Fragrance, Medicines & Health, Mother & Baby,
-Skincare, Toiletries, Vitamins. Masters in `artwork/category-banners/`.
+Sale, Skincare, Toiletries, Vitamins. Masters in `artwork/category-banners/`.
 
 Still **empty** and rendering a dashed placeholder:
 
 - Gifting
 - New In
-- Sale
 
 Two more are **filled with a borrowed image** at the wrong aspect ratio:
 

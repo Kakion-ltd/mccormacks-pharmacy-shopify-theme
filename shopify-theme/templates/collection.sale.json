@@ -7,7 +7,7 @@
         "banner_heading": "Sale",
         "banner_badge": "Up to 30% off",
         "banner_text": "<p>Reduced lines across health, beauty and everyday essentials. While stocks last — sale prices apply online only.</p>",
-        "banner_image_asset": "",
+        "banner_image_asset": "banner-sale.jpg",
         "show_chips": true,
         "chip_links": "All offers | /collections/sale\nUnder €10 | /collections/sale?filter.v.price.lte=10\nVitamins & Supplements | /collections/vitamins\nSkincare | /collections/skincare\nBeauty | /collections/beauty\nBaby | /collections/mother-baby",
         "show_also": false
