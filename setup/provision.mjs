@@ -10,8 +10,8 @@
  *   node provision.mjs menus | pages | blog | metafields | products | metaobjects | all
  *
  * Token needs scopes: write_products, write_online_store_navigation, write_online_store_pages,
- * write_content, write_metaobject_definitions, write_inventory. (Product metafield
- * definitions are covered by write_products.)
+ * write_content, write_metaobject_definitions, write_inventory, read_locations.
+ * (Product metafield definitions are covered by write_products.)
  * Idempotent: existing handles are skipped.
  */
 import { readFileSync } from 'node:fs';
@@ -150,9 +150,22 @@ async function createPages() {
   let created = 0, skipped = 0;
   for (const [title, handle] of PAGES) {
     const existing = await gql(
-      `query($q: String!) { pages(first: 1, query: $q) { nodes { handle } } }`,
+      `query($q: String!) { pages(first: 1, query: $q) { nodes { id handle templateSuffix } } }`,
       { q: `handle:${handle}` });
-    if (existing.pages.nodes.length) { skipped++; continue; }
+    if (existing.pages.nodes.length) {
+      // A page that already existed before this script, created by hand, keeps its
+      // content but must still get the theme's template or it renders as a plain page.
+      const page = existing.pages.nodes[0];
+      if (page.templateSuffix !== handle) {
+        const upd = await gql(
+          `mutation($id: ID!, $page: PageUpdateInput!) {
+            pageUpdate(id: $id, page: $page) { page { handle templateSuffix } userErrors { field message } }
+          }`, { id: page.id, page: { templateSuffix: handle } });
+        userErrs(upd.pageUpdate);
+        console.log(`assigned template page.${handle} to existing /pages/${handle}`);
+      }
+      skipped++; continue;
+    }
     const data = await gql(
       `mutation($page: PageCreateInput!) {
         pageCreate(page: $page) { page { id handle } userErrors { field message } }
@@ -215,7 +228,7 @@ async function createMetafields() {
           createdDefinition { id key } userErrors { field message }
         }
       }`,
-      { definition: { ...def, access: { admin: 'MERCHANT_READ_WRITE', storefront: 'PUBLIC_READ' } } });
+      { definition: { ...def, access: { storefront: 'PUBLIC_READ' } } });
     userErrs(data.metafieldDefinitionCreate);
     console.log('created metafield:', `${def.namespace}.${def.key}`);
   }
@@ -274,7 +287,8 @@ async function createProducts() {
 const QUESTION_DEF = {
   type: 'pharmacy_question', name: 'Pharmacy question',
   displayNameKey: 'label',
-  access: { admin: 'MERCHANT_READ_WRITE', storefront: 'PUBLIC_READ' },
+  // No access block: Shopify rejects any explicit value on merchant-owned types and
+  // defaults to admin read/write with the storefront able to read.
   fieldDefinitions: [
     { key: 'label', name: 'Question', type: 'single_line_text_field', required: true },
     { key: 'kind', name: 'Kind', type: 'single_line_text_field', required: true,
@@ -290,7 +304,8 @@ const QUESTION_DEF = {
 const QUESTIONNAIRE_DEF = (questionDefId) => ({
   type: 'pharmacy_questionnaire', name: 'Pharmacy questionnaire',
   displayNameKey: 'title',
-  access: { admin: 'MERCHANT_READ_WRITE', storefront: 'PUBLIC_READ' },
+  // No access block: Shopify rejects any explicit value on merchant-owned types and
+  // defaults to admin read/write with the storefront able to read.
   fieldDefinitions: [
     { key: 'title', name: 'Title', type: 'single_line_text_field', required: true },
     { key: 'intro', name: 'Intro', type: 'rich_text_field' },
@@ -343,7 +358,7 @@ async function createMetaobjects() {
     const data = await gql(
       `mutation($definition: MetafieldDefinitionInput!) {
         metafieldDefinitionCreate(definition: $definition) { createdDefinition { id key } userErrors { field message } } }`,
-      { definition: { ...def, access: { admin: 'MERCHANT_READ_WRITE', storefront: 'PUBLIC_READ' } } });
+      { definition: { ...def, access: { storefront: 'PUBLIC_READ' } } });
     userErrs(data.metafieldDefinitionCreate);
     console.log('created metafield:', `${def.namespace}.${def.key}`);
   }

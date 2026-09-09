@@ -31,17 +31,27 @@ and the ones marked **decision** need a merchant answer before they can be check
 
 ## SEO and page metadata
 
-- `canonical_url`, including what Shopify sets on page 2 of a collection and
-  on a collection-scoped product URL.
+- `canonical_url` — **checked 2026-09-09 on the dev store.** Collection page N
+  canonicalises to `?page=N` and drops sort and filter params; a
+  collection-scoped product URL and a `?variant=` URL canonicalise to the bare
+  product URL; search and blog keep `page` and `q`. The list-collections page
+  drops `page` entirely (`/collections?page=13` → `/collections`). Out-of-range
+  pages return 200 with a self-canonical, so a `noindex` when
+  `paginate.current_page > paginate.pages` is worth adding. The theme's own
+  pagination links preserve active filters.
 - `page_title` and `page_description` per resource. The harness derives the
   title from the template filename and uses one constant description.
 - Sitemap, robots, structured data as Google actually reads it.
 
 ## Customer accounts — **decision**
 
-- Whether the store uses classic or new customer accounts. With new customer
-  accounts, every `templates/customers/*` file never renders and `/account`
-  redirects off-site. The theme ships classic templates.
+- **Answered 2026-09-09 on the dev store: new customer accounts are on**
+  (`customerAccountsVersion: NEW_CUSTOMER_ACCOUNTS`). Every `/account/*` URL
+  redirects to shopify.com, so none of the seven `templates/customers/*` files
+  renders. Either switch the store to classic accounts (Settings > Customer
+  accounts) or accept that those templates, the account sidebar and the address
+  forms are dead code on this store. The `customer` object still populates on
+  the storefront after a hosted login, so the wishlist and loyalty forks work.
 - Login, register, recover, reset, activate, logout, address create/edit/delete,
   `form.id` on address forms, `all_country_option_tags`, `format_address`
   ordering per country.
