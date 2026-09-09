@@ -239,16 +239,10 @@
         "content": "Wording for the cookie consent banner. Turn OFF Shopify's own banner in Settings > Customer privacy > Cookie banner, or visitors will see two."
       },
       {
-        "type": "text",
-        "id": "consent_heading",
-        "label": "Banner heading",
-        "default": "Your privacy"
-      },
-      {
         "type": "textarea",
         "id": "consent_body",
         "label": "Banner text",
-        "default": "We use cookies to run the shop, understand how it is used, and show you relevant offers. You can accept everything, reject everything, or choose. Cookies needed to run the shop are always on."
+        "default": "We use cookies to run the shop, measure how it is used and show you relevant offers. Essential cookies are always on; accept or reject the rest, or choose by type."
       },
       {
         "type": "url",

@@ -36,13 +36,14 @@
   Rendered from layout/theme.liquid.
 {% endcomment %}
 
+{%- comment -%} No visible heading: on a phone it was 20px saying "Your privacy" above
+    copy that already says it. The dialog is named by aria-label instead. {%- endcomment -%}
 <div class="cc-banner" data-cc-banner role="dialog" aria-modal="false"
-     aria-labelledby="cc-title" aria-describedby="cc-body" hidden>
+     aria-label="Cookie settings" aria-describedby="cc-body" hidden>
   <div class="cc-inner">
     <div class="cc-copy">
-      <h2 class="cc-title" id="cc-title">{{ settings.consent_heading | default: 'Your privacy' }}</h2>
       <p class="cc-body" id="cc-body">
-        {{ settings.consent_body | default: 'We use cookies to run the shop, understand how it is used, and show you relevant offers. You can accept everything, reject everything, or choose. Cookies needed to run the shop are always on.' }}
+        {{ settings.consent_body | default: 'We use cookies to run the shop, measure how it is used and show you relevant offers. Essential cookies are always on; accept or reject the rest, or choose by type.' }}
         <a href="{{ settings.consent_policy_url | default: '/pages/cookie-policy' }}" class="cc-link">Read our cookie policy</a>
       </p>
     </div>

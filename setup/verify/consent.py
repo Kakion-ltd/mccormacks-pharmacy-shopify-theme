@@ -152,7 +152,7 @@ with sync_playwright() as pw:
 # pattern, not a layout preference.
 with sync_playwright() as pw:
     b = pw.chromium.launch(headless=True)
-    for w, h, cap in ((320, 568, 40), (360, 740, 32), (390, 844, 26), (1440, 900, 18)):
+    for w, h, cap in ((320, 568, 34), (360, 740, 25), (390, 844, 22), (1440, 900, 14)):
         ctx = b.new_context(viewport={"width": w, "height": h})
         pg = ctx.new_page()
         pg.goto(BASE + "/", wait_until="networkidle")
