@@ -112,9 +112,9 @@ engine.registerFilter('metafield_text', (v) => (v && v.value) || v || '');
 // Shopify renders these from the store's enabled payment providers. The mock shows a
 // labelled stand-in so placement is reviewable; the real buttons only appear on a store.
 engine.registerFilter('payment_button', () =>
-  '<div data-mock-express style="height:48px;border-radius:10px;border:1.5px dashed #b9c2b3;' +
+  '<div data-mock-express style="height:48px;border-radius:10px;background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px);' +
   'display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;' +
-  'letter-spacing:.06em;text-transform:uppercase;color:#697262;background:#f4f6f1;">' +
+  'letter-spacing:.06em;text-transform:uppercase;color:#697262;">' +
   'Shop Pay / Apple Pay &middot; live store only</div>');
 
 // image_url: keeps the width so image_tag can build a srcset from it
@@ -546,9 +546,9 @@ const globals = {
     + readFileSync(join(PROJECT, 'setup/preview_shopify_shim.js'), 'utf8')
     + '</script>',
   content_for_additional_checkout_buttons:
-    '<div data-mock-express style="height:48px;border-radius:10px;border:1.5px dashed #b9c2b3;' +
+    '<div data-mock-express style="height:48px;border-radius:10px;background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px);' +
     'display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;' +
-    'letter-spacing:.06em;text-transform:uppercase;color:#697262;background:#f4f6f1;">' +
+    'letter-spacing:.06em;text-transform:uppercase;color:#697262;">' +
     'Express checkout buttons &middot; live store only</div>',
   powered_by_link: '<a href="https://shopify.com">Shopify</a>',
   additional_checkout_buttons: false, scripts: [],
