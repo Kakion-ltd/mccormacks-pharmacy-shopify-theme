@@ -16,5 +16,42 @@ for (const o of offenses.slice().sort((a, b) => a.severity - b.severity)) {
   const rel = String(o.uri).replace(/^file:\/\//, '').replace(root, '');
   console.log(`${SEV[o.severity] ?? 'INFO'}  ${rel}:${(o.start?.line ?? 0) + 1}  ${o.check}  ${o.message}`);
 }
+// Two rules Shopify enforces at upload that theme-check and liquidjs do not. Both
+// rejected files on the first push to the dev store while every local check was green.
+import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { join } from 'node:path';
+const liquidFiles = (dir) => readdirSync(dir).flatMap((f) => {
+  const p = join(dir, f);
+  return statSync(p).isDirectory() ? liquidFiles(p) : p.endsWith('.liquid') ? [p] : [];
+});
+let uploadErrors = 0;
+for (const file of liquidFiles(root)) {
+  const src = readFileSync(file, 'utf8');
+  const rel = file.replace(root, '');
+  // Shopify's tokenizer ends an output tag at the first "}" that is not part of "}}".
+  for (const m of src.matchAll(/\{\{(?:(?!\}\}).)*?\}(?!\})/gs)) {
+    const line = src.slice(0, m.index).split('\n').length;
+    console.log(`ERROR  ${rel}:${line}  ShopifyLoneBrace  a "}" inside {{ }} ends the output tag on Shopify; build the value with assign in a {% %} tag`);
+    uploadErrors++;
+  }
+  // A text setting with default "" is rejected as "default can't be blank"; omit the key.
+  const schema = src.match(/{%-?\s*schema\s*-?%}([\s\S]*?){%-?\s*endschema/);
+  if (schema) {
+    try {
+      const j = JSON.parse(schema[1]);
+      const walk = (defs, where) => {
+        for (const d of defs || []) {
+          if ((d.type === 'text' || d.type === 'textarea') && d.default === '') {
+            console.log(`ERROR  ${rel}  ShopifyBlankDefault  setting "${d.id}"${where} has default "": Shopify rejects the schema; drop the default key`);
+            uploadErrors++;
+          }
+        }
+      };
+      walk(j.settings, '');
+      for (const b of j.blocks || []) walk(b.settings, ` in block ${b.type}`);
+    } catch { /* theme-check reports invalid JSON */ }
+  }
+}
+counts.ERROR += uploadErrors;
 console.log(`\n${counts.ERROR} errors, ${counts.WARNING} warnings, ${counts.INFO} info`);
 process.exit(counts.ERROR > 0 ? 1 : 0);

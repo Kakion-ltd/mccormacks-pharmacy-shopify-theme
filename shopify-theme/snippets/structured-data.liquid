@@ -92,7 +92,11 @@
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": {{ shop_url | append: search_url | append: '?q={search_term_string}' | json }}
+        {%- comment -%} Built in a tag, not an output: Shopify's lexer ends {{ }} at the
+            first lone "}", so the {search_term_string} placeholder inside an output tag is
+            a syntax error on the store even though liquidjs renders it. {%- endcomment -%}
+        {%- assign search_url_template = shop_url | append: search_url | append: '?q={search_term_string}' -%}
+        "urlTemplate": {{ search_url_template | json }}
       },
       "query-input": "required name=search_term_string"
     }
