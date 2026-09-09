@@ -114,6 +114,30 @@ and the ones marked **decision** need a merchant answer before they can be check
   wraps it in the theme layout.
 - The password page and blog comments.
 
+## Harness blind spots found on the store
+
+Each of these passed every local check and failed, or misbehaved, on the dev
+store. They are the reason a green `npm run verify` is not a release signal.
+
+1. A `text` setting with `"default": ""` is rejected at upload and takes the
+   section and every template that uses it down with it. Now caught in
+   `check.mjs`.
+2. A lone `}` inside `{{ }}` ends the output tag on Shopify. Now caught in
+   `check.mjs`.
+3. Predictive search's `resources[limit]` is shared across result types unless
+   `limit_scope=each` is sent. The harness answered with six products; the
+   store answered with two.
+4. `featured_image` on a collection with no image returns the first product's
+   photo. The harness's collections had no products, so the asset fallback
+   always rendered locally and never on the store.
+5. `image_tag: preload: true` injects nothing into `content_for_header`, and a
+   hand-written `<link rel="preload">` with `imagesrcset` is dropped from the
+   page. Only media-scoped preload links render. The harness emitted all three.
+6. Every alt text on the store began with a newline. The image-alt snippet
+   opened with an undashed `{% comment %}`, and Shopify keeps the newline that
+   liquidjs trims. It affected every product, collection and card image on the
+   site and was invisible locally.
+
 ## Routes the harness does not model
 
 - `/collections/<handle>/<tag>`, `?sort_by=`, `?filter.*`, `?page=` outside

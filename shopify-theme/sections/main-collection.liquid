@@ -67,7 +67,9 @@
         {%- render 'banner-image', image: banner_object, asset: banner_asset, alt: banner_heading, label: 'Sale banner', note: 'Landscape — keep the subject centred, edges get cropped.' -%}
       </div>
     </div>
-  {%- elsif cat_level == 'group' or cat_level == 'leaf' or cat_level == 'brand' -%}
+  {%- elsif cat_level == 'group' or cat_level == 'leaf' or cat_level == 'brand' or banner_object == blank and banner_asset == blank -%}
+    {%- comment -%} Also the path for a department with no landscape image and no asset: a
+        text hero reads as designed, a striped placeholder reads as broken. {%- endcomment -%}
     {%- comment -%} Text-only hero: heading and copy sit side by side and use the
         width the image used to take, rather than leaving a wide empty band. {%- endcomment -%}
     <div class="banner-text" style="border-radius:18px; background:#f4f5f2; padding:clamp(24px,3vw,40px) clamp(24px,3.4vw,48px); display:flex; flex-wrap:wrap; align-items:center; gap:clamp(10px,2.4vw,44px);">

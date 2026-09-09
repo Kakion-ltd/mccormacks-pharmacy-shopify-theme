@@ -56,13 +56,20 @@ All seven currently show a grey map placeholder.
 Clonmel · Ballylanders · Newbridge · Tullamore · Haggardstown (Dundalk) ·
 Carrick Road (Dundalk) · Erris Pharmacy
 
-### C. Homepage tiles — 2 needed
+### C. Homepage tiles — 3 needed
 - **Menopause Support** hot-offer thumbnail — `600 × 600` (1:1), product-on-
   plain-ground. Renders as the square thumb on a compact offer row; the same
   crop spec as the popular-category tiles, so one artwork order covers both.
   (If Menopause is ever promoted to the spotlight slot, that wants the
   `1200 × 800` spotlight spec instead.)
 - **About Us storefront** — `1520 × 700`. One hero shot for the About page.
+
+- **Gifting** popular-category tile — `cat-gifting.jpg`, `400 × 400` (1:1),
+  same crop spec as the other seven category tiles in
+  `artwork/popular-categories/`. The only tile without artwork: on the dev
+  store it renders the striped placeholder, since the collection has no image
+  of its own and nothing may fall back to a product photo. Wire it as
+  `image_asset` on the `gifts` block in `templates/index.json` once exported.
 
 ### D. Brand logos — 6 needed
 `350 × 240` max, **transparent PNG**, mark centred with even padding, dark
