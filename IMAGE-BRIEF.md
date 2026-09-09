@@ -58,8 +58,11 @@ Clonmel · Ballylanders · Newbridge · Tullamore · Haggardstown (Dundalk) ·
 Carrick Road (Dundalk) · Erris Pharmacy
 
 ### C. Homepage tiles — 2 needed
-- **Menopause Support** hot-offer tile — `1032 × 774` (4:3), product-on-plain-
-  ground, cut out or shot on a light surface. Sits on a coloured panel.
+- **Menopause Support** hot-offer thumbnail — `600 × 600` (1:1), product-on-
+  plain-ground. Renders as the square thumb on a compact offer row; the same
+  crop spec as the popular-category tiles, so one artwork order covers both.
+  (If Menopause is ever promoted to the spotlight slot, that wants the
+  `1200 × 900` spotlight spec instead.)
 - **About Us storefront** — `1520 × 700`. One hero shot for the About page.
 
 ### D. Brand logos — 6 needed
@@ -85,7 +88,7 @@ or cropping badly. Ordered by how visible the problem is.
 | `contact-us.png` | 299×299 | 658×658 | Less than half resolution, homepage |
 | `instore-services.png` | 299×299 | 658×658 | Same |
 | `common-conditions.jpg` | 299×299 | 658×658 | Same |
-| `mitchum-hot-offers.jpg` | 536×545 | 1032×774 | Half resolution **and** square in a 4:3 frame |
+| `mitchum-hot-offers.jpg` | 536×545 | 600×600 | Near-square now fits its slot — the offer redesign shows it as a 72px row thumb, so resolution is fine too |
 | `cat-suncare.jpg` | 860×531 | 1360×765 | Under-size, wrong aspect |
 | `cat-vitamins.jpg` | 1440×500 | 1360×765 | 2.88:1 forced into 16:9 — heavy crop |
 | Hero slides ×4 | 1440×500 | 1760×920 | 2.88:1 forced into 1.91:1 — heavy crop |
@@ -118,7 +121,8 @@ few lines.
 | Category / sale banner | 1300 × 600 | 2.17:1 | Subject right |
 | Feature tile | 1360 × 765 | 16:9 | Subject right and upper; bottom-left 55% × 55% is background only; theme darkens the bottom 60%; no text or badges; both tiles in a section share one image language. See the house rule below |
 | Feature tile (mobile) | 800 × 800 | 1:1 | Optional. Same rule applied to its own bottom-left corner |
-| Hot-offer tile | 1032 × 774 | 4:3 | Floats right over a coloured panel, rounded corners |
+| Hot-offer spotlight | 1200 × 900 | 4:3 | Right panel of the spotlight banner; phones crop it to a 16:9 band, so keep the subject inside the central 16:9 |
+| Hot-offer row thumbnail | 600 × 600 | 1:1 | Square thumb on the compact rows — same spec as the popular-category tile, one crop serves both |
 | Service / other tile | 658 × 658 | 1:1 | Title and link sit below the image |
 | Popular-category tile | 400 × 400 | 1:1 | Falls back to the collection's own image |
 | Store photo | 1520 × 700 | 2.17:1 | |

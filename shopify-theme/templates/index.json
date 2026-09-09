@@ -265,12 +265,12 @@
           "settings": {
             "title": "Vitamins & Supplements",
             "subtext": "Support your daily health & wellbeing \u2014 20% off multivitamins & supplements this month.",
-            "badge": "SAVE 20% \u00b7 LIMITED TIME",
             "cta": "Shop Now",
             "link": "/collections/vitamins",
             "image_asset": "hot-offer-vitamins.jpg",
             "background": "#82c914",
-            "badge_background": "#ffffff"
+            "deal": "Save 20%",
+            "ends": ""
           }
         },
         "deodorant": {
@@ -278,12 +278,12 @@
           "settings": {
             "title": "Deodorants & Antiperspirants",
             "subtext": "Stay fresh for less with long-lasting protection, including Mitchum.",
-            "badge": "SAVE 15% \u00b7 LIMITED TIME",
             "cta": "Shop Now",
             "link": "/collections/deodorant",
             "image_asset": "mitchum-hot-offers.jpg",
             "background": "#3f6b4f",
-            "badge_background": "#92C83F"
+            "deal": "Save 15%",
+            "ends": ""
           }
         },
         "menopause": {
@@ -291,12 +291,12 @@
           "settings": {
             "title": "Menopause Support",
             "subtext": "Everyday menopause support, including CanesMeno \u2014 all month long.",
-            "badge": "SAVE 20% \u00b7 LIMITED TIME",
             "cta": "Shop Now",
             "link": "/collections/menopause",
             "image_asset": "",
             "background": "#92C83F",
-            "badge_background": "#3f6b4f"
+            "deal": "Save 20%",
+            "ends": ""
           }
         }
       },

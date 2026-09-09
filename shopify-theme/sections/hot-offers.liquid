@@ -1,25 +1,21 @@
+{%- comment -%}
+  Hot offers: one spotlight deal plus compact rows.
+
+  The FIRST block renders as a full-width spotlight banner — the month's
+  headline deal, led by the Deal field in display type. Every block after it
+  renders as a compact row. One block is just the banner; the section never
+  assumes three offers.
+
+  Urgency is opt-in: the Ends field renders only when someone typed a date,
+  so the section cannot claim "limited time" forever by default. Seasonal
+  rotation is manual — see setup/MAINTENANCE.md.
+{%- endcomment -%}
 <section style="max-width:1440px; margin:0 auto; padding:34px 30px 8px;">
   <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.2vw,28px); margin:0 0 22px;">{{ section.settings.heading }}</h2>
-  <div class="hot-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:22px;">
+  <div class="hot-stack" style="display:flex; flex-direction:column; gap:16px;">
     {%- for block in section.blocks -%}
       {%- liquid
         assign bg = block.settings.background
-        assign badge_bg = block.settings.badge_background
-        if badge_bg == blank
-          assign badge_bg = '#ffffff'
-        endif
-        # Same reasoning as the tile below: the badge colour is merchant-set, so the
-        # text on it is derived rather than assumed. White on the default accent green
-        # is 1.99:1. A white badge keeps the dark-green wordmark it always had.
-        if badge_bg == '#ffffff'
-          assign badge_fg = settings.color_dark
-        else
-          assign badge_fg = '#ffffff'
-          assign badge_b = badge_bg | color_brightness
-          if badge_b > 145
-            assign badge_fg = '#2A2B2A'
-          endif
-        endif
         assign tile_url = block.settings.link | default: routes.collections_url
 
         # The tile colour is picked per block in the editor, so the text on it cannot be a
@@ -31,103 +27,106 @@
           assign tile_fg = '#2A2B2A'
         endif
       -%}
-      <div style="position:relative; overflow:hidden; background:{{ bg }}; border-radius:18px; padding:32px; color:{{ tile_fg }}; display:flex; flex-direction:column; min-height:400px;" {{ block.shopify_attributes }}>
-        {%- comment -%} soft decorative disc, alternating corner so the row doesn't look stamped {%- endcomment -%}
-        <div style="position:absolute; {% cycle 'disc': 'top:-22%; right:-14%;', 'bottom:-18%; right:-10%;', 'top:-20%; left:-12%;' %} width:210px; height:210px; border-radius:999px; background:rgba(255,255,255,.08);"></div>
-        {%- if block.settings.image != blank -%}
-          {{ block.settings.image | image_url: width: 1032 | image_tag:
-             widths: '400,700,1032',
-             alt: block.settings.title,
-             loading: 'lazy',
-             style: 'position:absolute; right:0; top:0; width:58%; aspect-ratio:4/3; height:auto; border-radius:0 0 0 18px; object-fit:cover; z-index:1;' }}
-        {%- elsif block.settings.image_asset != blank -%}
-          <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="1032" height="774" style="position:absolute; right:0; top:0; width:58%; aspect-ratio:4/3; height:auto; border-radius:0 0 0 18px; object-fit:cover; z-index:1;">
-        {%- else -%}
-          <div style="position:absolute; right:0; top:0; width:58%; aspect-ratio:4/3; border-radius:0 0 0 18px; background:repeating-linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.16) 10px,rgba(255,255,255,.07) 10px,rgba(255,255,255,.07) 20px); display:flex; align-items:center; justify-content:center; z-index:1;"><span title="Upload 1032 &times; 774 px" style="font-size:11px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:rgba(255,255,255,.85); text-align:center;">Offer image</span></div>
-        {%- endif -%}
-        {%- if block.settings.badge != blank -%}
-          <span style="align-self:flex-start; background:{{ badge_bg }}; color:{{ badge_fg }}; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14px; padding:6px 16px; border-radius:999px; margin-bottom:20px; position:relative; z-index:2;">{{ block.settings.badge }}</span>
-        {%- endif -%}
-        <div style="position:relative; z-index:2; max-width:64%; margin-top:auto;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(21px,2.2vw,26px); line-height:1.1; margin-bottom:10px;">{{ block.settings.title }}</div>
-          <p style="margin:0 0 4px; font-size:14.5px; opacity:.93; line-height:1.5;">{{ block.settings.subtext }}</p>
+      {%- if forloop.first -%}
+      <div class="hot-spot" style="position:relative; overflow:hidden; background:{{ bg }}; border-radius:18px; color:{{ tile_fg }}; display:flex; flex-wrap:wrap; align-items:center; gap:22px 40px; padding:clamp(24px,3vw,40px);" {{ block.shopify_attributes }}>
+        <div style="position:absolute; top:-24%; left:42%; width:220px; height:220px; border-radius:999px; background:rgba(255,255,255,.07);"></div>
+        <div class="hot-spot-copy" style="position:relative; z-index:2; flex:1 1 360px; min-width:0;">
+          {%- if block.settings.deal != blank -%}
+          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(26px,3vw,40px); line-height:1.04; margin:0 0 10px;">{{ block.settings.deal }}</div>
+          {%- endif -%}
+          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(19px,1.9vw,24px); line-height:1.15; margin:0 0 8px;">{{ block.settings.title }}</div>
+          {%- if block.settings.subtext != blank -%}
+          <p style="margin:0 0 18px; font-size:14.5px; opacity:.93; line-height:1.5; max-width:48ch;">{{ block.settings.subtext }}</p>
+          {%- endif -%}
+          <a href="{{ tile_url }}" class="hov-bg-tint2" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; background:#fff; color:var(--c-dark); font-weight:800; letter-spacing:.03em; font-size:14.5px; padding:13px 22px; border-radius:8px;">{{ block.settings.cta }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+          {%- if block.settings.ends != blank -%}
+          <div style="margin-top:12px; font-size:13px; font-weight:700; opacity:.85;">{{ block.settings.ends }}</div>
+          {%- endif -%}
         </div>
-        <a href="{{ tile_url }}" class="hov-bg-tint2" style="position:relative; z-index:2; margin-top:18px; align-self:flex-start; display:flex; align-items:center; justify-content:center; gap:8px; background:#fff; color:var(--c-dark); font-weight:800; letter-spacing:.03em; font-size:14.5px; padding:13px 22px; border-radius:8px;">{{ block.settings.cta }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        <div class="hot-spot-img" style="position:relative; z-index:1; flex:0 1 44%; min-width:260px; margin-left:auto; aspect-ratio:4/3; border-radius:14px; overflow:hidden;">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 1200 | image_tag:
+               widths: '500,800,1200',
+               sizes: '(max-width: 900px) 100vw, 44vw',
+               alt: block.settings.title,
+               loading: 'lazy',
+               style: 'position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;' }}
+          {%- elsif block.settings.image_asset != blank -%}
+            <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="1200" height="900" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
+          {%- else -%}
+            {%- render 'image-placeholder', w: 1200, h: 900, label: 'Offer image', note: 'Subject centred — phones crop to 16:9.' -%}
+          {%- endif -%}
+        </div>
       </div>
+      {%- else -%}
+      <div class="hot-row" style="display:flex; flex-wrap:wrap; align-items:center; gap:12px 18px; background:{{ bg }}; border-radius:14px; padding:12px 18px; color:{{ tile_fg }};" {{ block.shopify_attributes }}>
+        <div style="flex:0 0 72px; aspect-ratio:1; border-radius:10px; overflow:hidden; position:relative;">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 240 | image_tag:
+               alt: block.settings.title,
+               loading: 'lazy',
+               style: 'position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;' }}
+          {%- elsif block.settings.image_asset != blank -%}
+            <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="240" height="240" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
+          {%- else -%}
+            <div title="Upload 600 &times; 600 px" style="position:absolute; inset:0; background:repeating-linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.16) 8px, rgba(255,255,255,.07) 8px, rgba(255,255,255,.07) 16px);" role="img" aria-label="Offer image placeholder — upload 600 by 600 pixels"></div>
+          {%- endif -%}
+        </div>
+        <div style="flex:1 1 220px; min-width:0;">
+          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25;">{% if block.settings.deal != blank %}{{ block.settings.deal }} &mdash; {% endif %}{{ block.settings.title }}</div>
+          {%- if block.settings.ends != blank -%}
+          <div style="font-size:12.5px; font-weight:700; opacity:.85; margin-top:3px;">{{ block.settings.ends }}</div>
+          {%- endif -%}
+        </div>
+        <a href="{{ tile_url }}" class="hov-bg-tint2" style="flex:0 0 auto; margin-left:auto; display:inline-flex; align-items:center; justify-content:center; gap:8px; background:#fff; color:var(--c-dark); font-weight:800; letter-spacing:.03em; font-size:14px; padding:10px 18px; border-radius:8px;">{{ block.settings.cta }}<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </div>
+      {%- endif -%}
     {%- endfor -%}
   </div>
 </section>
 
 {% style %}
-.hov-bg-tint2:hover { background: #e6f2d5 !important; }
+@media (max-width: 900px) {
+  /* Spotlight stacks: 16:9 image band on top, copy below. Rows are already
+     compact and keep their shape. */
+  .hot-spot { flex-direction: column !important; align-items: stretch !important; gap: 0 !important; padding: 0 !important; }
+  .hot-spot-img { order: -1; flex: 0 0 auto !important; width: 100%; min-width: 0 !important; margin: 0 !important; aspect-ratio: 16 / 9 !important; border-radius: 0 !important; }
+  .hot-spot-copy { padding: 18px 20px 22px; }
+}
 {% endstyle %}
 
 {% schema %}
 {
   "name": "Hot offers",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Hot Offers" }
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Hot Offers" },
+    { "type": "paragraph", "content": "The first offer is the spotlight — the month's headline deal, rendered as a full-width banner led by its Deal text. Every offer after it renders as a compact row beneath. One offer is fine: the section is just the banner." }
   ],
   "blocks": [
     {
       "type": "offer",
       "name": "Offer",
       "settings": [
+        { "type": "text", "id": "deal", "label": "Deal", "info": "The headline fact, e.g. Save 20% or 3 for €10. Leads the design; leave blank for a plain promotion." },
         { "type": "text", "id": "title", "label": "Title", "default": "Vitamins & Supplements" },
-        { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Support your daily health & wellbeing — 20% off this month." },
-        { "type": "text", "id": "badge", "label": "Badge", "default": "SAVE 20% · LIMITED TIME" },
+        { "type": "textarea", "id": "subtext", "label": "Subtext", "info": "Shown on the spotlight only." },
+        { "type": "text", "id": "ends", "label": "Ends", "info": "Optional, e.g. Until 30 September. Urgency renders only when this is filled in — there is no automatic date handling, so clear it when the offer ends." },
         { "type": "text", "id": "cta", "label": "Button label", "default": "Shop Now" },
         { "type": "url", "id": "link", "label": "Button link" },
-        { "type": "image_picker", "id": "image", "label": "Image", "info": "Landscape, 1200px wide or larger. Leave blank for a placeholder." },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Spotlight: 1200×900 (4:3), subject centred — phones crop it to a 16:9 band. Rows show a square thumbnail: 600×600, same spec as the popular-category tiles." },
         { "type": "text", "id": "image_asset", "label": "Fallback theme asset (onboarding only)", "info": "Filename of a theme asset used until an image is picked." },
-        { "type": "color", "id": "background", "label": "Tile colour", "default": "#82c914" },
-        { "type": "color", "id": "badge_background", "label": "Badge colour", "default": "#ffffff" }
+        { "type": "color", "id": "background", "label": "Tile colour", "default": "#82c914" }
       ]
     }
   ],
-  "max_blocks": 6,
+  "max_blocks": 4,
   "presets": [
     {
       "name": "Hot offers",
       "blocks": [
-        {
-          "type": "offer",
-          "settings": {
-            "title": "Vitamins & Supplements",
-            "subtext": "Support your daily health & wellbeing — 20% off multivitamins & supplements this month.",
-            "badge": "SAVE 20% · LIMITED TIME",
-            "cta": "Shop Now",
-            "link": "/collections/vitamins",
-            "image_asset": "hot-offer-vitamins.jpg",
-            "background": "#82c914",
-            "badge_background": "#ffffff"
-          }
-        },
-        {
-          "type": "offer",
-          "settings": {
-            "title": "Deodorants & Antiperspirants",
-            "subtext": "Stay fresh for less with long-lasting protection, including Mitchum.",
-            "badge": "SAVE 15% · LIMITED TIME",
-            "cta": "Shop Now",
-            "link": "/collections/deodorant",
-            "image_asset": "mitchum-hot-offers.jpg",
-            "background": "#3f6b4f",
-            "badge_background": "#92C83F"
-          }
-        },
-        {
-          "type": "offer",
-          "settings": {
-            "title": "Menopause Support",
-            "subtext": "Everyday menopause support, including CanesMeno — all month long.",
-            "badge": "SAVE 20% · LIMITED TIME",
-            "cta": "Shop Now",
-            "link": "/collections/menopause",
-            "background": "#92C83F",
-            "badge_background": "#3f6b4f"
-          }
-        }
+        { "type": "offer", "settings": { "deal": "Save 20%", "title": "Vitamins & Supplements", "subtext": "Support your daily health & wellbeing — 20% off multivitamins & supplements this month.", "link": "/collections/vitamins", "image_asset": "hot-offer-vitamins.jpg", "background": "#82c914" } },
+        { "type": "offer", "settings": { "deal": "Save 15%", "title": "Deodorants & Antiperspirants", "subtext": "Stay fresh for less with long-lasting protection, including Mitchum.", "link": "/collections/deodorant", "image_asset": "mitchum-hot-offers.jpg", "background": "#3f6b4f" } },
+        { "type": "offer", "settings": { "deal": "Save 20%", "title": "Menopause Support", "subtext": "Everyday menopause support, including CanesMeno — all month long.", "link": "/collections/menopause", "background": "#92C83F" } }
       ]
     }
   ]
