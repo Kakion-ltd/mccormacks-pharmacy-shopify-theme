@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Provision the McCormack's store from the design taxonomy.
- * Creates: category collections (smart, tag-based), navigation menus, pages, blog,
+ * Creates: category collections (smart, tag-based), the four footer menus, pages, blog,
  * the product metafield definitions the product page reads, the fixture products
  * from setup/catalogue.json, and the questionnaire metaobject definitions.
  *
@@ -44,7 +44,6 @@ const userErrs = (payload) => {
 };
 
 const collections = JSON.parse(readFileSync(join(HERE, 'collections.json'), 'utf8'));
-const taxonomy = JSON.parse(readFileSync(join(HERE, 'taxonomy.json'), 'utf8'));
 
 const handleize = (s) =>
   s.normalize('NFKD').replace(/[̀-ͯ]/g, '')
@@ -93,34 +92,45 @@ async function createCollections() {
 }
 
 // ---------------------------------------------------------------- menus
-async function createMenus() {
-  const PAGES = { Brands: '/pages/brands', Services: '/pages/in-store-services' };
-  const items = taxonomy.map((m) => {
-    const url = PAGES[m.menu] || `/collections/${handleize(m.menu)}`;
-    const children = [
-      ...(m.groups || []).map((g) => ({
-        title: g.title, type: 'HTTP', url: `/collections/${handleize(g.title)}`,
-        items: g.items.map((i) => ({ title: i, type: 'HTTP', url: `/collections/${handleize(i)}` })),
-      })),
-      ...(m.flat || []).map((i) => ({ title: i, type: 'HTTP', url: `/collections/${handleize(i)}`, items: [] })),
-    ];
-    return { title: m.menu, type: 'HTTP', url, items: children };
-  });
+// Only the four footer columns read a menu (sections/footer-group.json, by handle).
+// The header and mega menu are generated from the taxonomy and read nothing from
+// Navigation admin, so no header menu is created. Handles and links mirror
+// STORE-SETUP.md section 4. A column whose menu is missing shows the theme's
+// built-in fallback links, so this can land last without breaking the footer.
+const FOOTER_MENUS = [
+  ['Footer Shop', 'footer-shop', [
+    ['All Brands', '/pages/brands'], ['New In', '/collections/new-in'], ['Bundles', '/collections/bundles'],
+    ['Gift Vouchers', '/pages/gift-vouchers'], ['Sale', '/collections/sale']]],
+  ['Footer Customer Care', 'footer-customer-care', [
+    ['About Us', '/pages/about-us'], ['Contact Us', '/pages/contact-us'],
+    ['Loyalty Rewards Club', '/pages/loyalty-rewards-club'], ['Blog', '/blogs/health-hub']]],
+  ['Footer Shipping Returns', 'footer-shipping-returns', [
+    ['Shipping & Free Delivery', '/pages/shipping'], ['Returns & Refunds', '/pages/returns'],
+    ['Click & Collect', '/pages/click-and-collect']]],
+  ['Footer Policies', 'footer-policies', [
+    ['Terms & Conditions', '/pages/terms-and-conditions'], ['Privacy Policy', '/pages/privacy-policy'],
+    ['Cookie Policy', '/pages/cookie-policy'], ['Registered Internet Supply Pharmacy', '/pages/internet-supply-pharmacy'],
+    ['Withdraw From Contract', '/pages/withdraw-from-contract']]],
+];
 
+async function createMenus() {
   const existing = await gql(`{ menus(first: 50) { nodes { handle } } }`);
-  if (existing.menus.nodes.some((m) => m.handle === 'main-menu-mccormacks')) {
-    console.log('menu main-menu-mccormacks already exists, skipping');
-    return;
+  const have = new Set(existing.menus.nodes.map((m) => m.handle));
+  let created = 0, skipped = 0;
+  for (const [title, handle, links] of FOOTER_MENUS) {
+    if (have.has(handle)) { skipped++; continue; }
+    const data = await gql(
+      `mutation($title: String!, $handle: String!, $items: [MenuItemCreateInput!]!) {
+        menuCreate(title: $title, handle: $handle, items: $items) {
+          menu { id handle } userErrors { field message }
+        }
+      }`,
+      { title, handle, items: links.map(([t, url]) => ({ title: t, type: 'HTTP', url, items: [] })) });
+    userErrs(data.menuCreate);
+    created++;
+    console.log(`created menu ${data.menuCreate.menu.handle} (${links.length} links)`);
   }
-  const data = await gql(
-    `mutation($title: String!, $handle: String!, $items: [MenuItemCreateInput!]!) {
-      menuCreate(title: $title, handle: $handle, items: $items) {
-        menu { id handle } userErrors { field message }
-      }
-    }`,
-    { title: "McCormack's Main Menu", handle: 'main-menu-mccormacks', items });
-  userErrs(data.menuCreate);
-  console.log('created menu:', data.menuCreate.menu.handle);
+  console.log(`footer menus: ${created} created, ${skipped} already existed`);
 }
 
 // ---------------------------------------------------------------- pages
