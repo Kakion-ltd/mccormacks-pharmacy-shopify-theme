@@ -8,6 +8,11 @@ walks every generated chip set and asserts each (label, handle) pair exists
 in the taxonomy, and that every department page's pills are exactly its
 first seven groups (or leaves, for flat departments) in taxonomy order.
 
+The homepage pill row is checked the same way: snippets/departments.liquid
+must list the eight nav departments in nav order, the header and the pill
+section must both render it, the homepage's promo pills must equal the
+header's promo links, and any Pill override block must be a nav entry.
+
 Runs against the generated snippet, not a live server, so it also fails at
 build time if gen_category_nav.py and taxonomy.json fall out of step.
 """
@@ -96,6 +101,36 @@ for p in glob.glob(os.path.join(ROOT, "shopify-theme", "templates", "collection.
             label, _, url = (x.strip() for x in line.partition("|"))
             h = url.replace("/collections/", "").strip("/ ")
             ck(f"override on {handle}: '{label}' matches taxonomy", (label, h) in dept_pairs[handle])
+
+# homepage: eight departments in nav order + the header's promo links
+NAV = ['Medicines & Health', 'Vitamins & Supplements', 'Beauty', 'Skincare',
+       'Toiletries', 'Mother & Baby', 'Fragrance', 'Gifting']
+theme = lambda *p: open(os.path.join(ROOT, "shopify-theme", *p)).read()
+data = re.sub(r"{%-?\s*comment\s*-?%}.*?{%-?\s*endcomment\s*-?%}", "", theme("snippets", "departments.liquid"), flags=re.S).strip()
+depts = [tuple(row.split("~")) for row in data.split("|")]
+ck("departments snippet lists the eight nav departments in nav order", [l for l, _ in depts], NAV)
+menu_handles = {handleize(m["menu"]) for m in tax}
+for l, h in depts:
+    ck(f"'{l}' -> /collections/{h} is a taxonomy department", h in menu_handles)
+for f in ("header.liquid", "category-pills.liquid"):
+    ck(f"sections/{f} renders the departments snippet", "render 'departments'" in theme("sections", f))
+ck("header carries no hand-typed department link", 'data-mega-trigger="medicines-health"' not in theme("sections", "header.liquid"))
+
+def promo(sec):
+    return [(sec["blocks"][i]["settings"]["label"], sec["blocks"][i]["settings"]["link"])
+            for i in sec.get("block_order", []) if sec["blocks"][i]["type"] == "promo_link"]
+hdr = json.loads(theme("sections", "header-group.json"))["sections"]["header"]
+home = next(s for s in json.loads(theme("templates", "index.json"))["sections"].values()
+            if s["type"] == "category-pills")
+ck("homepage promo pills equal the header's promo links", promo(home), promo(hdr))
+ck("homepage pill row is the ten nav entries in nav order",
+   [l for l, _ in depts] + [l for l, _ in promo(home)], NAV + ["Sale", "Brands"])
+allowed = {(l, f"/collections/{h}") for l, h in depts} | set(promo(hdr))
+for i in home.get("block_order", []):
+    b = home["blocks"][i]
+    if b["type"] == "pill":
+        pair = (b["settings"]["label"], b["settings"]["link"])
+        ck(f"homepage override '{pair[0]}' is a nav entry", pair in allowed)
 
 for ok, name, got in res:
     if not ok:

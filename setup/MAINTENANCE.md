@@ -538,6 +538,13 @@ these places:
   taxonomy order (Christmas Shop first) shows again. Overrides on taxonomy
   departments are validated by `setup/verify/chips-taxonomy.py` — labels and
   links must match taxonomy entries, order is free.
+- **Homepage category pills**: the row is the eight departments from
+  `snippets/departments.liquid` (generated, nav order) plus the section's
+  promo-link blocks (Sale, Brands, kept equal to the header's). To promote
+  something for a season add Pill blocks to the section: any Pill block
+  replaces the generated eight, the promo links stay; delete the Pill blocks
+  to go back. `setup/verify/chips-taxonomy.py` rejects a pill that is not a
+  nav department or a header promo link.
 - **Hero slides**: add/remove/reorder the slide blocks in the editor. The
   "Summer Travel Shop" slide is one of these; retitle or remove it when the
   season turns.
@@ -565,11 +572,3 @@ not).
 
 **Agreed line (Sep 2026):** if seasonal slots become a pattern across pills,
 hero and hot offers together, build one shared JS mechanism then. Not before.
-
-## Stale path in a theme comment — left on purpose
-
-`sections/header.liquid` (line ~105) says "see SPEC-header-promo-links.md".
-That file now lives at `archive/docs/SPEC-header-promo-links.md`. The comment
-was not updated because a theme edit for a prose reference is not worth a
-theme commit plus a preview redeploy. Fix it the next time that section is
-touched for a real reason.

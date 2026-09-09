@@ -1,11 +1,33 @@
+{%- comment -%} The row is the eight departments from snippets/departments.liquid
+    (generated from taxonomy.json in nav order, shared with the header and the
+    mobile drawer) followed by the section's promo-link blocks, which mirror the
+    header's (Sale, Brands). Pill blocks are the merchant override: if any exist
+    they replace the generated eight, the promo links stay. setup/verify/
+    chips-taxonomy.py checks every pill against the nav. {%- endcomment -%}
+{%- capture depts -%}{%- render 'departments' -%}{%- endcapture -%}
+{%- assign depts = depts | strip | split: '|' -%}
+{%- assign pills = section.blocks | where: 'type', 'pill' -%}
+{%- capture pill_style -%}flex:1 1 auto; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 14px; border-radius:9px; display:flex; align-items:center; justify-content:center;{%- endcapture -%}
 <section class="sec-pad" style="max-width:1440px; margin:0 auto; padding:26px 30px 8px;">
   <div class="cat-tile-row" style="display:flex; align-items:stretch; gap:16px;">
     <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="cats-{{ section.id }}" data-rail-by="-260" class="cat-scroll-btn hov-scroll" style="flex:0 0 auto; align-self:center; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#ffffff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg>
     </button>
     <div id="cats-{{ section.id }}" style="flex:1; display:flex; gap:16px; overflow-x:auto; scroll-behavior:smooth; padding-bottom:6px; scrollbar-width:none;">
-      {%- for block in section.blocks %}
-      <a href="{{ block.settings.link }}" class="hov-bg-green" style="flex:1 0 170px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 8px; border-radius:9px; display:flex; align-items:center; justify-content:center;" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+      {%- if pills.size > 0 -%}
+      {%- for block in pills %}
+      <a href="{{ block.settings.link }}" class="hov-bg-green" style="{{ pill_style }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+      {%- endfor %}
+      {%- else -%}
+      {%- for dept in depts -%}
+      {%- assign d = dept | split: '~' %}
+      <a href="/collections/{{ d[1] }}" class="hov-bg-green" style="{{ pill_style }}">{{ d[0] | escape }}</a>
+      {%- endfor %}
+      {%- endif -%}
+      {%- for block in section.blocks -%}
+      {%- if block.type == 'promo_link' and block.settings.label != blank %}
+      <a href="{{ block.settings.link }}" class="hov-bg-green" style="{{ pill_style }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+      {%- endif -%}
       {%- endfor %}
     </div>
     <button aria-label="Scroll for more categories" data-rail-btn data-rail-target="cats-{{ section.id }}" data-rail-by="260" class="cat-scroll-btn hov-scroll" style="flex:0 0 auto; align-self:center; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#ffffff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center;">
@@ -16,6 +38,9 @@
 
 {% style %}
 .hov-scroll:hover { border-color: var(--c-accent) !important; background: #f2f8e9 !important; }
+/* Desktop: each pill sizes to its label so all ten sit on one row at 1440.
+   Under 640px base.css fixes pills at 120px and lets labels wrap. */
+@media (min-width: 641px) { #cats-{{ section.id }} a { white-space: nowrap; } }
 {% endstyle %}
 
 {% schema %}
@@ -25,13 +50,31 @@
   "blocks": [
     {
       "type": "pill",
-      "name": "Pill",
+      "name": "Pill (override)",
       "settings": [
         {
           "type": "text",
           "id": "label",
           "label": "Label",
-          "default": "Category"
+          "default": "Category",
+          "info": "Adding any Pill block replaces the generated department row. Delete all Pill blocks to restore it."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "promo_link",
+      "name": "Promo link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "info": "Keep equal to the header's promo links (Sale, Brands); the taxonomy check enforces it."
         },
         {
           "type": "url",
@@ -41,58 +84,23 @@
       ]
     }
   ],
-  "max_blocks": 10,
+  "max_blocks": 12,
   "presets": [
     {
       "name": "Category pill row",
       "blocks": [
         {
-          "type": "pill",
+          "type": "promo_link",
           "settings": {
-            "label": "Pharmacy",
-            "link": "/collections/medicines-health"
+            "label": "Sale",
+            "link": "/collections/sale"
           }
         },
         {
-          "type": "pill",
+          "type": "promo_link",
           "settings": {
-            "label": "Supplements",
-            "link": "/collections/vitamins"
-          }
-        },
-        {
-          "type": "pill",
-          "settings": {
-            "label": "Skincare",
-            "link": "/collections/skincare"
-          }
-        },
-        {
-          "type": "pill",
-          "settings": {
-            "label": "Beauty",
-            "link": "/collections/beauty"
-          }
-        },
-        {
-          "type": "pill",
-          "settings": {
-            "label": "Toiletries",
-            "link": "/collections/toiletries"
-          }
-        },
-        {
-          "type": "pill",
-          "settings": {
-            "label": "Baby",
-            "link": "/collections/mother-baby"
-          }
-        },
-        {
-          "type": "pill",
-          "settings": {
-            "label": "Gifts",
-            "link": "/collections/gifting"
+            "label": "Brands",
+            "link": "/pages/brands"
           }
         }
       ]
