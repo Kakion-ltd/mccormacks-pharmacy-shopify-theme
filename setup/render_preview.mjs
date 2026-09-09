@@ -524,7 +524,11 @@ const globals = {
   predictive_search: { performed: false, terms: '', resources: { products: [], collections: [], queries: [], pages: [], articles: [] } },
   blog: { title: 'Health Hub', handle: 'health-hub', url: '/blogs/health-hub', articles, articles_count: 4, all_tags: ['Advice', 'Winter health'], tags: [] },
   article: articles[0],
-  articles, search: { performed: true, terms: 'vitamins', results: products, results_count: products.length, results_url: '/search' },
+  articles,
+  // Shopify only fills search.terms on the search template; everywhere else the
+  // header input must render empty. The populated object is swapped in per
+  // template by renderTemplate.
+  search: { performed: false, terms: '', results: [], results_count: 0, results_url: '/search' },
   customer: null, gift_card: { balance: 5000, initial_value: 5000, code: 'XXXX-XXXX', expired: false, enabled: true, currency: 'EUR', qr_identifier: '', pass_url: null, url: '#' },
   page: { title: 'Page', handle: 'page', content: '<p>Page content.</p>' },
   order: { name: '#1001', created_at: '2026-05-01', line_items: [], financial_status: 'paid', fulfillment_status: 'fulfilled', shipping_address: {}, billing_address: {}, subtotal_price: 4990, total_price: 4990, shipping_methods: [{ title: 'Standard delivery', price: 550 }], tax_lines: [], cancelled: false },
@@ -631,6 +635,9 @@ async function renderTemplate(name, extraGlobals = {}) {
   if (name.startsWith('page.')) {
     const handle = name.slice('page.'.length);
     extraGlobals.page = { ...globals.page, handle, url: `/pages/${handle}` };
+  }
+  if (name === 'search') {
+    extraGlobals.search = { ...globals.search, performed: true, terms: 'vitamins', results: products, results_count: products.length };
   }
 
   // {% render %} isolates scope in liquidjs, so a snippet sees engine globals and

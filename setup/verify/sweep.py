@@ -26,9 +26,13 @@ with sync_playwright() as pw:
             # the search input must still exist and be usable after the header rewrap
             if pg.locator("[data-ps-input]").count() != 1:
                 bad.append(f"{label} {path}: search input missing")
+            # and empty everywhere except the results page, which holds the term searched
+            want = "vitamins" if path.startswith("/search") else ""
+            if pg.locator("[data-ps-input]").input_value() != want:
+                bad.append(f"{label} {path}: search input holds {pg.locator('[data-ps-input]').input_value()!r}, want {want!r}")
             for e in errs:
                 bad.append(f"{label} {path}: JS {e}")
         pg.close()
     b.close()
-print("\n".join(bad) if bad else "26 page-loads clean: no overflow, no broken images, no JS errors, search input present on every page")
+print("\n".join(bad) if bad else "26 page-loads clean: no overflow, no broken images, no JS errors, search input present on every page, empty off the results page")
 sys.exit(1 if bad else 0)
