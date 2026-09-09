@@ -677,6 +677,9 @@
         + '?q=' + encodeURIComponent(term)
         + '&resources[type]=product,collection,query'
         + '&resources[limit]=6'
+        // Per type. Shopify's default scope shares the limit across products,
+        // collections and queries, which left every dropdown showing two products.
+        + '&resources[limit_scope]=each'
         + '&resources[options][unavailable_products]=last'
         + '&section_id=predictive-search';
       try {

@@ -21,11 +21,13 @@
         {%- else -%}
           {%- assign url = routes.collections_url -%}
         {%- endif -%}
-        {%- comment -%} picked image wins, then the collection's own image, then the striped placeholder {%- endcomment -%}
+        {%- comment -%} picked image, then the collection's OWN image, then the theme asset, then
+            the placeholder. Not featured_image: on a collection with no image that returns the
+            first product's photo, which beat the artwork on every tile the store had no image for. {%- endcomment -%}
         {%- if block.settings.image != blank -%}
           {%- assign tile_image = block.settings.image -%}
         {%- else -%}
-          {%- assign tile_image = linked.featured_image -%}
+          {%- assign tile_image = linked.image -%}
         {%- endif -%}
         <a href="{{ url }}" class="hov-green" style="flex:0 0 180px; text-align:center; color:var(--c-dark);" {{ block.shopify_attributes }}>
           {%- if tile_image != blank -%}

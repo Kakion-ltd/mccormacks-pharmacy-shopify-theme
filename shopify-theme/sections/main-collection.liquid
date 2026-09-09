@@ -35,7 +35,10 @@
   assign banner_asset = ''
   if section.settings.banner_image
     assign banner_object = section.settings.banner_image
-  elsif collection.image
+  elsif collection.image != blank and collection.image.aspect_ratio >= 1.5
+    # Only a landscape collection image can fill a 1300x600 slot. The store's
+    # imported collection images are 600x600 thumbnails; upscaled into the banner
+    # they beat the theme's own artwork, so squares fall through to the asset.
     assign banner_object = collection.image
   elsif section.settings.banner_image_asset != blank
     assign banner_asset = section.settings.banner_image_asset | asset_url

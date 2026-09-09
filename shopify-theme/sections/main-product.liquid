@@ -99,7 +99,28 @@
             {%- if product.media.size > 0 -%}
               {%- for media in product.media -%}
                 {%- capture main_alt %}{% render 'image-alt', image: media.preview_image, product: product %}{% endcapture -%}
-                <img src="{{ media.preview_image | image_url: width: 900 }}" alt="{{ main_alt | escape }}" data-pdp-img="{{ forloop.index0 }}" loading="lazy" style="max-width:78%; max-height:90%; object-fit:contain; display:block;{% unless forloop.first %} display:none;{% endunless %}" width="600" height="600">
+                {%- comment -%} The first image is the LCP element on every product page: real srcset,
+                    sizes matching the gallery column, eager + high priority + preload. The rest stay
+                    lazy and are swapped in by theme.js via data-pdp-img. {%- endcomment -%}
+                {%- if forloop.first -%}
+                  {{ media.preview_image | image_url: width: 1200 | image_tag:
+                       widths: '400,600,800,1000,1200',
+                       sizes: '(max-width: 900px) 78vw, 40vw',
+                       alt: main_alt,
+                       loading: 'eager',
+                       fetchpriority: 'high',
+                       preload: true,
+                       data-pdp-img: forloop.index0,
+                       style: 'max-width:78%; max-height:90%; object-fit:contain; display:block;' }}
+                {%- else -%}
+                  {{ media.preview_image | image_url: width: 1200 | image_tag:
+                       widths: '400,600,800,1000,1200',
+                       sizes: '(max-width: 900px) 78vw, 40vw',
+                       alt: main_alt,
+                       loading: 'lazy',
+                       data-pdp-img: forloop.index0,
+                       style: 'max-width:78%; max-height:90%; object-fit:contain; display:block; display:none;' }}
+                {%- endif -%}
               {%- endfor -%}
             {%- else -%}
               <div style="width:70%; aspect-ratio:1; border-radius:9px; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); display:flex; align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div>

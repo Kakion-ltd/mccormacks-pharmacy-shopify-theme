@@ -171,6 +171,8 @@ engine.registerFilter('image_tag', (url, ...rest) => {
   if (o.class) at.push(`class="${attrEsc(o.class)}"`);
   if (o.id) at.push(`id="${attrEsc(o.id)}"`);
   if (o.style) at.push(`style="${attrEsc(o.style)}"`);
+  // Shopify passes any other named argument through as an attribute; the PDP gallery relies on data-pdp-img.
+  for (const [k, v] of Object.entries(o)) if (k.startsWith('data-')) at.push(`${k}="${attrEsc(v)}"`);
   return `${preloadLink}<img ${at.join(' ')}>`;
 });
 
