@@ -12,6 +12,12 @@ import sys
 from playwright.sync_api import sync_playwright
 
 BASE = "http://localhost:8734"
+# The expected slide count comes from the template: a slide hidden with "disabled"
+# in the editor drops out of the running order and must not fail these checks.
+import json, os
+_tpl = json.load(open(os.path.join(os.path.dirname(__file__), "..", "..", "shopify-theme", "templates", "index.json")))
+_hero = next(s for s in _tpl["sections"].values() if s["type"] == "hero-slider")
+LAST = len([b for b in _hero["block_order"] if not _hero["blocks"][b].get("disabled")]) - 1
 
 res = []
 def ck(name, got, want=True): res.append((got == want, name, got))
@@ -81,7 +87,7 @@ with sync_playwright() as pw:
     # change made in the theme editor and must not fail a check.
     titles = pg.evaluate(
         "() => [...document.querySelectorAll('[data-slide] h1, [data-slide] h2')].map(h => h.textContent.trim())")
-    ck("five slides in the running order", len(titles), 5)
+    ck(f"{LAST + 1} enabled slides in the running order", len(titles), LAST + 1)
 
     # A vertical drag is the page scrolling, not a slide change.
     pg.evaluate(SWIPE, [0, -160])
@@ -105,12 +111,12 @@ with sync_playwright() as pw:
     # Wrapping, so a swipe never dead-ends.
     pg.evaluate(SWIPE, [140, 0])
     wrapped = pg.evaluate(STATE)
-    ck("swiping back from the first wraps to the last", wrapped["shown"], 4)
-    ck("the dots follow the wrap", wrapped["lit"], 4)
+    ck("swiping back from the first wraps to the last", wrapped["shown"], LAST)
+    ck("the dots follow the wrap", wrapped["lit"], LAST)
 
     # A mostly-vertical diagonal is still a scroll: the page must win ambiguous drags.
     pg.evaluate(SWIPE, [-60, -200])
-    ck("a mostly-vertical diagonal does not change slide", pg.evaluate(STATE)["shown"], 4)
+    ck("a mostly-vertical diagonal does not change slide", pg.evaluate(STATE)["shown"], LAST)
 
     # The subtle one: a swipe that begins on the SHOP button must move the slider and
     # must NOT follow the link. Without the suppressor the browser fires a click on

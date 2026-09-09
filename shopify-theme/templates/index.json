@@ -9,6 +9,7 @@
       "blocks": {
         "slide-travel": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "title": "Summer Travel Shop",
             "subtext": "Travel essentials made easy. Everything you need for your next trip, all in one place.",

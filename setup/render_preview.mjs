@@ -329,7 +329,7 @@ engine.registerTag('sections', {
     const order = group.order || Object.keys(group.sections || {});
     for (const id of order) {
       const sec = group.sections[id];
-      if (!sec) continue;
+      if (!sec || sec.disabled) continue;
       emitter.write(yield renderSection(sec.type, sec.settings || {},
         { order: sec.block_order || [], blocks: sec.blocks || {} }, ctx.getAll()));
     }
@@ -578,7 +578,8 @@ async function renderSection(type, settings, blocksSpec, extraGlobals = {}) {
   const blockDefs = schema.blocks || [];
   const defFor = (t) => blockDefs.find((b) => b.type === t) || { settings: [] };
   if (blocksSpec && blocksSpec.order && blocksSpec.order.length) {
-    blocks = blocksSpec.order.map((id) => {
+    // Shopify skips a block or section marked disabled in the template JSON; so must we.
+    blocks = blocksSpec.order.filter((id) => !blocksSpec.blocks[id].disabled).map((id) => {
       const b = blocksSpec.blocks[id];
       return { id, type: b.type, settings: { ...defaultsFrom(defFor(b.type).settings), ...(b.settings || {}) }, shopify_attributes: '' };
     });
@@ -647,6 +648,7 @@ async function renderTemplateInner(name, extraGlobals) {
     const tpl = JSON.parse(readFileSync(jsonPath, 'utf8'));
     for (const id of tpl.order) {
       const s = tpl.sections[id];
+      if (s.disabled) continue;
       body += await renderSection(s.type, s.settings || {}, { order: s.block_order || [], blocks: s.blocks || {} }, extraGlobals);
     }
   } else if (existsSync(liquidPath)) {
