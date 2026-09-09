@@ -1,10 +1,12 @@
 {%- comment -%}
   Hot offers: one spotlight deal plus compact rows.
 
-  The FIRST block renders as a full-width spotlight banner — the month's
-  headline deal, led by the Deal field in display type. Every block after it
-  renders as a compact row. One block is just the banner; the section never
-  assumes three offers.
+  The FIRST block renders as the spotlight — the month's headline deal, led by
+  the Deal field in display type, taking the left two thirds with its image
+  bleeding to the card edge. Every block after it renders as a compact card
+  stacked in the right third; that column sets the height, so the spotlight is
+  never taller than the offers beside it. One block is just the spotlight at
+  full width; the section never assumes three offers.
 
   Urgency is opt-in: the Ends field renders only when someone typed a date,
   so the section cannot claim "limited time" forever by default. Seasonal
@@ -12,7 +14,11 @@
 {%- endcomment -%}
 <section style="max-width:1440px; margin:0 auto; padding:34px 30px 8px;">
   <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.2vw,28px); margin:0 0 22px;">{{ section.settings.heading }}</h2>
-  <div class="hot-stack" style="display:flex; flex-direction:column; gap:16px;">
+  {%- comment -%} Spotlight left, the other offers stacked in the right column. The row
+      column sets the height, so the spotlight is exactly as tall as the offers beside it
+      and never taller than its copy needs. One block: the spotlight takes the full width. {%- endcomment -%}
+  {%- assign row_count = section.blocks.size | minus: 1 | at_least: 1 -%}
+  <div class="hot-stack" style="display:grid; grid-template-columns:{% if section.blocks.size > 1 %}minmax(0,2fr) minmax(0,1fr){% else %}minmax(0,1fr){% endif %}; grid-auto-rows:1fr; gap:16px;">
     {%- for block in section.blocks -%}
       {%- liquid
         assign bg = block.settings.background
@@ -28,39 +34,42 @@
         endif
       -%}
       {%- if forloop.first -%}
-      <div class="hot-spot" style="position:relative; overflow:hidden; background:{{ bg }}; border-radius:18px; color:{{ tile_fg }}; display:flex; flex-wrap:wrap; align-items:center; gap:22px 40px; padding:clamp(24px,3vw,40px);" {{ block.shopify_attributes }}>
-        <div style="position:absolute; top:-24%; left:42%; width:220px; height:220px; border-radius:999px; background:rgba(255,255,255,.07);"></div>
-        <div class="hot-spot-copy" style="position:relative; z-index:2; flex:1 1 360px; min-width:0;">
+      <div class="hot-spot" style="grid-row:1 / span {{ row_count }}; position:relative; overflow:hidden; background:{{ bg }}; border-radius:18px; color:{{ tile_fg }}; display:flex; align-items:center; padding:36px 40px; min-height:240px;" {{ block.shopify_attributes }}>
+        {%- comment -%} flex-basis 0 0 50%, not 1 1 360px: in the mobile column layout a 360px basis
+            became a 360px minimum height and left 150px of empty tile under the button. {%- endcomment -%}
+        <div class="hot-spot-copy" style="position:relative; z-index:2; flex:0 0 50%; max-width:50%; min-width:0;">
           {%- if block.settings.deal != blank -%}
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(26px,3vw,40px); line-height:1.04; margin:0 0 10px;">{{ block.settings.deal }}</div>
+          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(26px,3vw,40px); line-height:1.04; margin:0 0 8px;">{{ block.settings.deal }}</div>
           {%- endif -%}
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(19px,1.9vw,24px); line-height:1.15; margin:0 0 8px;">{{ block.settings.title }}</div>
+          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(19px,1.8vw,22px); line-height:1.15; margin:0 0 8px;">{{ block.settings.title }}</div>
           {%- if block.settings.subtext != blank -%}
-          <p style="margin:0 0 18px; font-size:14.5px; opacity:.93; line-height:1.5; max-width:48ch;">{{ block.settings.subtext }}</p>
+          <p style="margin:0 0 18px; font-size:14.5px; opacity:.93; line-height:1.5; max-width:44ch;">{{ block.settings.subtext }}</p>
           {%- endif -%}
           <a href="{{ tile_url }}" class="hov-bg-tint2" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; background:#fff; color:var(--c-dark); font-weight:800; letter-spacing:.03em; font-size:14.5px; padding:13px 22px; border-radius:8px;">{{ block.settings.cta }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
           {%- if block.settings.ends != blank -%}
           <div style="margin-top:12px; font-size:13px; font-weight:700; opacity:.85;">{{ block.settings.ends }}</div>
           {%- endif -%}
         </div>
-        <div class="hot-spot-img" style="position:relative; z-index:1; flex:0 1 44%; min-width:260px; margin-left:auto; aspect-ratio:4/3; border-radius:14px; overflow:hidden;">
+        {%- comment -%} The image bleeds to the card's top, right and bottom edges, so its own
+            background is never seen as a rectangle. Any ground works. {%- endcomment -%}
+        <div class="hot-spot-img" style="position:absolute; top:0; right:0; bottom:0; width:46%; z-index:1;">
           {%- if block.settings.image != blank -%}
             {{ block.settings.image | image_url: width: 1200 | image_tag:
                widths: '500,800,1200',
-               sizes: '(max-width: 900px) 100vw, 44vw',
+               sizes: '(max-width: 900px) 100vw, 30vw',
                alt: block.settings.title,
                loading: 'lazy',
                style: 'position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;' }}
           {%- elsif block.settings.image_asset != blank -%}
-            <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="1200" height="900" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
+            <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="1200" height="800" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
           {%- else -%}
-            {%- render 'image-placeholder', w: 1200, h: 900, label: 'Offer image', note: 'Subject centred — phones crop to 16:9.' -%}
+            {%- render 'image-placeholder', w: 1200, h: 800, label: 'Offer image', note: 'Subject centred — phones crop to a 2:1 band.' -%}
           {%- endif -%}
         </div>
       </div>
       {%- else -%}
-      <div class="hot-row" style="display:flex; flex-wrap:wrap; align-items:center; gap:12px 18px; background:{{ bg }}; border-radius:14px; padding:12px 18px; color:{{ tile_fg }};" {{ block.shopify_attributes }}>
-        <div style="flex:0 0 72px; aspect-ratio:1; border-radius:10px; overflow:hidden; position:relative;">
+      <div class="hot-row" style="display:flex; align-items:center; gap:16px; background:{{ bg }}; border-radius:14px; padding:16px 18px; color:{{ tile_fg }};" {{ block.shopify_attributes }}>
+        <div class="hot-row-img" style="flex:0 0 96px; aspect-ratio:1; border-radius:10px; overflow:hidden; position:relative;">
           {%- if block.settings.image != blank -%}
             {{ block.settings.image | image_url: width: 240 | image_tag:
                alt: block.settings.title,
@@ -72,13 +81,16 @@
             <div title="Upload 600 &times; 600 px" style="position:absolute; inset:0; background:repeating-linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.16) 8px, rgba(255,255,255,.07) 8px, rgba(255,255,255,.07) 16px);" role="img" aria-label="Offer image placeholder — upload 600 by 600 pixels"></div>
           {%- endif -%}
         </div>
-        <div style="flex:1 1 220px; min-width:0;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25;">{% if block.settings.deal != blank %}{{ block.settings.deal }} &mdash; {% endif %}{{ block.settings.title }}</div>
+        <div style="flex:1 1 auto; min-width:0;">
+          {%- if block.settings.deal != blank -%}
+          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:22px; line-height:1.1;">{{ block.settings.deal }}</div>
+          {%- endif -%}
+          <div style="font-size:15px; font-weight:700; line-height:1.3; opacity:.92; margin-top:3px;">{{ block.settings.title }}</div>
           {%- if block.settings.ends != blank -%}
           <div style="font-size:12.5px; font-weight:700; opacity:.85; margin-top:3px;">{{ block.settings.ends }}</div>
           {%- endif -%}
+          <a href="{{ tile_url }}" class="hov-underline-off" style="display:inline-flex; align-items:center; gap:6px; margin-top:8px; color:inherit; font-weight:800; font-size:14px; text-decoration:underline; text-underline-offset:3px;">{{ block.settings.cta }}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
         </div>
-        <a href="{{ tile_url }}" class="hov-bg-tint2" style="flex:0 0 auto; margin-left:auto; display:inline-flex; align-items:center; justify-content:center; gap:8px; background:#fff; color:var(--c-dark); font-weight:800; letter-spacing:.03em; font-size:14px; padding:10px 18px; border-radius:8px;">{{ block.settings.cta }}<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
       </div>
       {%- endif -%}
     {%- endfor -%}
@@ -86,12 +98,16 @@
 </section>
 
 {% style %}
+.hov-underline-off:hover { text-decoration: none; }
 @media (max-width: 900px) {
-  /* Spotlight stacks: 16:9 image band on top, copy below. Rows are already
-     compact and keep their shape. */
-  .hot-spot { flex-direction: column !important; align-items: stretch !important; gap: 0 !important; padding: 0 !important; }
-  .hot-spot-img { order: -1; flex: 0 0 auto !important; width: 100%; min-width: 0 !important; margin: 0 !important; aspect-ratio: 16 / 9 !important; border-radius: 0 !important; }
-  .hot-spot-copy { padding: 18px 20px 22px; }
+  /* One column. Spotlight stacks: 2:1 image band on top, copy below. Rows keep
+     their shape with a smaller thumb. */
+  .hot-stack { grid-template-columns: minmax(0,1fr) !important; grid-auto-rows: auto !important; gap: 12px !important; }
+  .hot-spot { grid-row: auto !important; flex-direction: column !important; align-items: stretch !important; padding: 0 !important; min-height: 0 !important; }
+  .hot-spot-img { order: -1; position: relative !important; width: 100% !important; aspect-ratio: 2 / 1; }
+  .hot-spot-copy { flex: 0 0 auto !important; max-width: none !important; padding: 18px 20px 22px; }
+  .hot-row { padding: 12px 14px !important; gap: 12px !important; }
+  .hot-row-img { flex-basis: 72px !important; }
 }
 {% endstyle %}
 
@@ -100,7 +116,7 @@
   "name": "Hot offers",
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "Hot Offers" },
-    { "type": "paragraph", "content": "The first offer is the spotlight — the month's headline deal, rendered as a full-width banner led by its Deal text. Every offer after it renders as a compact row beneath. One offer is fine: the section is just the banner." }
+    { "type": "paragraph", "content": "The first offer is the spotlight — the month's headline deal, shown large on the left and led by its Deal text. Every offer after it renders as a compact card stacked on the right. One offer is fine: the spotlight takes the full width." }
   ],
   "blocks": [
     {
@@ -113,7 +129,7 @@
         { "type": "text", "id": "ends", "label": "Ends", "info": "Optional, e.g. Until 30 September. Urgency renders only when this is filled in — there is no automatic date handling, so clear it when the offer ends." },
         { "type": "text", "id": "cta", "label": "Button label", "default": "Shop Now" },
         { "type": "url", "id": "link", "label": "Button link" },
-        { "type": "image_picker", "id": "image", "label": "Image", "info": "Spotlight: 1200×900 (4:3), subject centred — phones crop it to a 16:9 band. Rows show a square thumbnail: 600×600, same spec as the popular-category tiles." },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Spotlight: 1200×800 (3:2), subject centred inside the middle 2:1 band — the panel bleeds to the card edge, so any background works. Rows show a square thumbnail: 600×600, same spec as the popular-category tiles." },
         { "type": "text", "id": "image_asset", "label": "Fallback theme asset (onboarding only)", "info": "Filename of a theme asset used until an image is picked." },
         { "type": "color", "id": "background", "label": "Tile colour", "default": "#82c914" }
       ]
