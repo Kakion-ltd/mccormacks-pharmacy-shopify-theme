@@ -36,12 +36,12 @@ banners and the hot-offer tiles.
 ### A. Category / department banners — 12 needed
 `1300 × 600` (2.17:1). Subject right, left third quiet.
 
-**Supplied (Sep 2026):** Beauty, Fragrance, Medicines & Health, Mother & Baby,
-Sale, Skincare, Toiletries, Vitamins. Masters in `artwork/category-banners/`.
+**Supplied (Sep 2026):** Beauty, Fragrance, Gifting, Medicines & Health,
+Mother & Baby, Sale, Skincare, Toiletries, Vitamins. Masters in
+`artwork/category-banners/`.
 
 Still **empty** and rendering a dashed placeholder:
 
-- Gifting
 - New In
 
 Two more are **filled with a borrowed image** at the wrong aspect ratio:
