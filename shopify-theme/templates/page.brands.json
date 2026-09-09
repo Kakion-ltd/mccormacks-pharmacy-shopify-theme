@@ -7,9 +7,9 @@
         "brand_1": {
           "type": "featured_brand",
           "settings": {
-            "name": "CeraVe",
-            "link": "/collections/cerave",
-            "logo_asset": "brand-cerave.png"
+            "name": "Uriage",
+            "link": "/collections/uriage",
+            "logo_asset": ""
           }
         },
         "brand_2": {

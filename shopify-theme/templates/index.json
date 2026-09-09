@@ -379,12 +379,12 @@
             "logo_asset": "brand-laroche.png"
           }
         },
-        "cerave": {
+        "uriage": {
           "type": "brand",
           "settings": {
-            "name": "CeraVe",
-            "collection": "cerave",
-            "logo_asset": "brand-cerave.png"
+            "name": "Uriage",
+            "collection": "uriage",
+            "logo_asset": ""
           }
         },
         "viagra": {
@@ -463,7 +463,7 @@
       "block_order": [
         "loreal",
         "laroche",
-        "cerave",
+        "uriage",
         "viagra",
         "proven",
         "sculpted",

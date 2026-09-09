@@ -20,9 +20,7 @@ for letter, items in by_letter.items():
     out.append(f'  <div style="font-family:\'Arial Rounded MT Bold\', Arial, sans-serif; font-weight:800; font-size:22px; color:var(--c-accent); padding-bottom:8px; margin-bottom:10px; border-bottom:2px solid #eef2e8;">{letter}</div>')
     out.append('  <div style="display:flex; flex-direction:column; gap:8px;">')
     for b in items:
-        # CeraVe also opens the in-page brand-detail demo view; the href is the no-JS fallback
-        demo = ' data-view-btn="brand"' if b['display'] == 'CeraVe' else ''
-        out.append(f'    <a href="/collections/{b["handle"]}"{demo} class="brand-az-a">{esc(b["display"])}</a>')
+        out.append(f'    <a href="/collections/{b["handle"]}" class="brand-az-a">{esc(b["display"])}</a>')
     out.append('  </div>')
     out.append('</div>')
 

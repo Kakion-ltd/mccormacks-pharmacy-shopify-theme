@@ -781,7 +781,10 @@
   .brand-pcard { display:flex; flex-direction:column; border:1px solid #e6e7e4; border-radius:14px; overflow:hidden; background:#ffffff; transition:box-shadow .18s; }
   .brand-pcard:hover { box-shadow:0 12px 26px rgba(0,0,0,.08); }
   .brand-search:focus { border-color:var(--c-primary-text) !important; }
-</style><!-- Brand index view -->
+</style>
+
+
+<!-- Brand index view -->
 <div data-view="index">
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
 
@@ -795,9 +798,9 @@
     <input type="search" name="q" placeholder="Search brands" class="brand-search" style="flex:1 1 240px; height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 16px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none; min-width:0;">
     <button type="submit" class="hov-bg-green-dk" style="flex:0 0 auto; height:52px; padding:0 22px; border:none; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-family:inherit; font-weight:800; font-size:15px; cursor:pointer;">Search</button>
   </form><h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.1vw,26px); margin:0 0 18px;">Featured brands</h2>
-  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:16px; margin:0 0 40px;"><a href="/collections/cerave" class="brand-tile" >
-          <span style="display:flex; align-items:center; justify-content:center; width:100%; height:56px;"><img src="/shopify-theme/assets/brand-cerave.png" alt="CeraVe" loading="lazy" width="350" height="112" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></span>
-          <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:var(--c-dark); text-align:center;">CeraVe</span>
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:16px; margin:0 0 40px;"><a href="/collections/uriage" class="brand-tile" >
+          <span style="display:flex; align-items:center; justify-content:center; width:100%; height:56px;"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; color:var(--c-dark);">Uriage</span></span>
+          <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:var(--c-dark); text-align:center;">Uriage</span>
         </a><a href="/collections/la-roche-posay" class="brand-tile" >
           <span style="display:flex; align-items:center; justify-content:center; width:100%; height:56px;"><img src="/shopify-theme/assets/brand-laroche.png" alt="La Roche-Posay" loading="lazy" width="350" height="112" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></span>
           <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:var(--c-dark); text-align:center;">La Roche-Posay</span>
@@ -838,7 +841,7 @@
   <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:22px; color:var(--c-accent); padding-bottom:8px; margin-bottom:10px; border-bottom:2px solid #eef2e8;">C</div>
   <div style="display:flex; flex-direction:column; gap:8px;">
     <a href="/collections/calpol" class="brand-az-a">Calpol</a>
-    <a href="/collections/cerave" data-view-btn="brand" class="brand-az-a">CeraVe</a>
+    <a href="/collections/cerave" class="brand-az-a">CeraVe</a>
     <a href="/collections/cetaphil" class="brand-az-a">Cetaphil</a>
     <a href="/collections/cleanmarine" class="brand-az-a">Cleanmarine</a>
     <a href="/collections/compeed" class="brand-az-a">Compeed</a>
@@ -1079,164 +1082,6 @@
   root.querySelector('[data-brand-clear]')?.addEventListener('click', () => { input.value = ''; filter(); input.focus(); });
 })();
 </script>
-</div>
-
-<!-- Brand detail view (CeraVe demo, toggled via data-view) -->
-<div data-view="brand" style="display:none;">
-<section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-
-  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
-    <a href="/" class="hov-green" style="color:#717769;">Home</a><span>/</span><a href="/pages/brands" data-view-btn="index" class="hov-green" style="color:#717769;">Brands</a><span>/</span><span style="color:#3a3d39; font-weight:700;">CeraVe</span>
-  </nav>
-  <div style="display:flex; flex-wrap:wrap; gap:30px 40px; align-items:center; padding:32px 36px; border-radius:20px; background:#eef2e8; margin:0 0 30px;">
-    <div style="flex:0 0 auto; width:150px; height:78px; border-radius:12px; background:#ffffff; display:flex; align-items:center; justify-content:center; padding:14px;"><img src="/shopify-theme/assets/brand-cerave.png" alt="CeraVe" loading="lazy" width="350" height="112" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></div>
-    <div style="flex:1 1 340px; min-width:0;">
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(27px,3vw,38px); line-height:1.08; margin:0 0 10px;">CeraVe</h2>
-      <p style="margin:0; font-size:16.5px; line-height:1.7; color:#3a3d39; max-width:60ch;">Developed with dermatologists, CeraVe cleansers and moisturisers are formulated with three essential ceramides to help restore the skin&rsquo;s natural barrier. Suitable for sensitive, dry and eczema-prone skin.</p>
-    </div>
-  </div>
-  <div style="display:flex; flex-wrap:wrap; gap:10px; margin:0 0 26px;">
-    <a href="/collections/cerave" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; height:38px; padding:0 18px; border-radius:999px; font-size:14px; font-weight:700; background:var(--c-primary); color:var(--c-on-primary);">All CeraVe</a>
-    <a href="/collections/cleanser" class="brand-pill">Cleansers</a>
-    <a href="/collections/moisturisers" class="brand-pill">Moisturisers</a>
-    <a href="/collections/serums-oils" class="brand-pill">Serums</a>
-    <a href="/collections/baby-skincare" class="brand-pill">Baby</a>
-    <a href="/collections/facial-suncare" class="brand-pill">Sun care</a>
-  </div>
-  <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding:0 0 18px;">
-    <span style="font-size:14.5px; color:#6b7065;">Showing 1&ndash;8 of 34 products</span>
-    <label style="display:flex; align-items:center; gap:10px;">
-      <span style="font-size:14px; font-weight:700; color:#2A2B2A;">Sort</span>
-      <select style="height:44px; border:1px solid #dfe1dc; border-radius:9px; padding:0 12px; font-family:inherit; font-size:14.5px; color:#2A2B2A; background:#ffffff; outline:none;">
-        <option>Most popular</option><option>Price: low to high</option><option>Price: high to low</option><option>Top rated</option>
-      </select>
-    </label>
-  </div>
-  <div class="pgrid2" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(226px,1fr)); gap:20px;"><div class="brand-pcard">
-        <a href="/collections/cerave" style="display:block; padding:18px;">
-          <span style="display:block; width:100%; aspect-ratio:1/1; overflow:hidden;"><img src="/shopify-theme/assets/prod-cerave-cleanser.jpg" alt="Hydrating Cleanser for Normal to Dry Skin, 236ml" loading="lazy" width="600" height="600" style="width:100%; height:100%; object-fit:contain; display:block;"></span>
-        </a>
-        <div style="padding:0 18px 18px; display:flex; flex-direction:column; gap:9px; flex:1;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">CeraVe</div>
-          <a href="/collections/cerave" class="hov-green" style="font-weight:700; font-size:15px; line-height:1.45; color:#2A2B2A; flex:1;">Hydrating Cleanser for Normal to Dry Skin, 236ml</a>
-          <div style="display:flex; align-items:center; gap:7px; font-size:12.5px; color:#6b7065;">
-            <span style="display:flex; gap:1.5px; color:#e8a33d;"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg></span>
-            <span>4.9 (640)</span>
-          </div>
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:#2A2B2A;">€13.50</div>
-          <a href="/collections/cerave" class="hov-bg-green-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px; margin-top:2px;">Add To Bag</a>
-        </div>
-      </div><div class="brand-pcard">
-        <a href="/collections/cerave" style="display:block; padding:18px;">
-          <span style="display:block; width:100%; aspect-ratio:1/1; overflow:hidden;"><img src="/shopify-theme/assets/prod-cerave-cleanser.jpg" alt="Foaming Cleanser for Normal to Oily Skin, 236ml" loading="lazy" width="600" height="600" style="width:100%; height:100%; object-fit:contain; display:block;"></span>
-        </a>
-        <div style="padding:0 18px 18px; display:flex; flex-direction:column; gap:9px; flex:1;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">CeraVe</div>
-          <a href="/collections/cerave" class="hov-green" style="font-weight:700; font-size:15px; line-height:1.45; color:#2A2B2A; flex:1;">Foaming Cleanser for Normal to Oily Skin, 236ml</a>
-          <div style="display:flex; align-items:center; gap:7px; font-size:12.5px; color:#6b7065;">
-            <span style="display:flex; gap:1.5px; color:#e8a33d;"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg></span>
-            <span>4.8 (412)</span>
-          </div>
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:#2A2B2A;">€13.50</div>
-          <a href="/collections/cerave" class="hov-bg-green-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px; margin-top:2px;">Add To Bag</a>
-        </div>
-      </div><div class="brand-pcard">
-        <a href="/collections/cerave" style="display:block; padding:18px;">
-          <span style="display:block; width:100%; aspect-ratio:1/1; overflow:hidden;"><img src="/shopify-theme/assets/prod-cerave-cleanser.jpg" alt="Moisturising Lotion for Dry Skin, 473ml" loading="lazy" width="600" height="600" style="width:100%; height:100%; object-fit:contain; display:block;"></span>
-        </a>
-        <div style="padding:0 18px 18px; display:flex; flex-direction:column; gap:9px; flex:1;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">CeraVe</div>
-          <a href="/collections/cerave" class="hov-green" style="font-weight:700; font-size:15px; line-height:1.45; color:#2A2B2A; flex:1;">Moisturising Lotion for Dry Skin, 473ml</a>
-          <div style="display:flex; align-items:center; gap:7px; font-size:12.5px; color:#6b7065;">
-            <span style="display:flex; gap:1.5px; color:#e8a33d;"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg></span>
-            <span>4.9 (388)</span>
-          </div>
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:#2A2B2A;">€18.95</div>
-          <a href="/collections/cerave" class="hov-bg-green-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px; margin-top:2px;">Add To Bag</a>
-        </div>
-      </div><div class="brand-pcard">
-        <a href="/collections/cerave" style="display:block; padding:18px;">
-          <span style="display:block; width:100%; aspect-ratio:1/1; overflow:hidden;"><img src="/shopify-theme/assets/prod-cerave-cleanser.jpg" alt="SA Smoothing Cleanser for Rough Skin, 236ml" loading="lazy" width="600" height="600" style="width:100%; height:100%; object-fit:contain; display:block;"></span>
-        </a>
-        <div style="padding:0 18px 18px; display:flex; flex-direction:column; gap:9px; flex:1;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">CeraVe</div>
-          <a href="/collections/cerave" class="hov-green" style="font-weight:700; font-size:15px; line-height:1.45; color:#2A2B2A; flex:1;">SA Smoothing Cleanser for Rough Skin, 236ml</a>
-          <div style="display:flex; align-items:center; gap:7px; font-size:12.5px; color:#6b7065;">
-            <span style="display:flex; gap:1.5px; color:#e8a33d;"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg></span>
-            <span>4.7 (164)</span>
-          </div>
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:#2A2B2A;">€14.95</div>
-          <a href="/collections/cerave" class="hov-bg-green-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px; margin-top:2px;">Add To Bag</a>
-        </div>
-      </div><div class="brand-pcard">
-        <a href="/collections/cerave" style="display:block; padding:18px;">
-          <span style="display:block; width:100%; aspect-ratio:1/1; overflow:hidden;"><img src="/shopify-theme/assets/prod-cerave-cleanser.jpg" alt="Baby Wash &amp; Shampoo, 236ml" loading="lazy" width="600" height="600" style="width:100%; height:100%; object-fit:contain; display:block;"></span>
-        </a>
-        <div style="padding:0 18px 18px; display:flex; flex-direction:column; gap:9px; flex:1;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">CeraVe</div>
-          <a href="/collections/cerave" class="hov-green" style="font-weight:700; font-size:15px; line-height:1.45; color:#2A2B2A; flex:1;">Baby Wash & Shampoo, 236ml</a>
-          <div style="display:flex; align-items:center; gap:7px; font-size:12.5px; color:#6b7065;">
-            <span style="display:flex; gap:1.5px; color:#e8a33d;"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg></span>
-            <span>4.9 (210)</span>
-          </div>
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:#2A2B2A;">€11.50</div>
-          <a href="/collections/cerave" class="hov-bg-green-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px; margin-top:2px;">Add To Bag</a>
-        </div>
-      </div><div class="brand-pcard">
-        <a href="/collections/cerave" style="display:block; padding:18px;">
-          <span style="display:block; width:100%; aspect-ratio:1/1; overflow:hidden;"><img src="/shopify-theme/assets/prod-cerave-cleanser.jpg" alt="Eye Repair Cream, 14ml" loading="lazy" width="600" height="600" style="width:100%; height:100%; object-fit:contain; display:block;"></span>
-        </a>
-        <div style="padding:0 18px 18px; display:flex; flex-direction:column; gap:9px; flex:1;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">CeraVe</div>
-          <a href="/collections/cerave" class="hov-green" style="font-weight:700; font-size:15px; line-height:1.45; color:#2A2B2A; flex:1;">Eye Repair Cream, 14ml</a>
-          <div style="display:flex; align-items:center; gap:7px; font-size:12.5px; color:#6b7065;">
-            <span style="display:flex; gap:1.5px; color:#e8a33d;"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg></span>
-            <span>4.6 (96)</span>
-          </div>
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:#2A2B2A;">€15.50</div>
-          <a href="/collections/cerave" class="hov-bg-green-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px; margin-top:2px;">Add To Bag</a>
-        </div>
-      </div><div class="brand-pcard">
-        <a href="/collections/cerave" style="display:block; padding:18px;">
-          <span style="display:block; width:100%; aspect-ratio:1/1; overflow:hidden;"><img src="/shopify-theme/assets/prod-cerave-cleanser.jpg" alt="AM Facial Moisturising Lotion SPF25, 52ml" loading="lazy" width="600" height="600" style="width:100%; height:100%; object-fit:contain; display:block;"></span>
-        </a>
-        <div style="padding:0 18px 18px; display:flex; flex-direction:column; gap:9px; flex:1;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">CeraVe</div>
-          <a href="/collections/cerave" class="hov-green" style="font-weight:700; font-size:15px; line-height:1.45; color:#2A2B2A; flex:1;">AM Facial Moisturising Lotion SPF25, 52ml</a>
-          <div style="display:flex; align-items:center; gap:7px; font-size:12.5px; color:#6b7065;">
-            <span style="display:flex; gap:1.5px; color:#e8a33d;"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg></span>
-            <span>4.8 (271)</span>
-          </div>
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:#2A2B2A;">€16.95</div>
-          <a href="/collections/cerave" class="hov-bg-green-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px; margin-top:2px;">Add To Bag</a>
-        </div>
-      </div><div class="brand-pcard">
-        <a href="/collections/cerave" style="display:block; padding:18px;">
-          <span style="display:block; width:100%; aspect-ratio:1/1; overflow:hidden;"><img src="/shopify-theme/assets/prod-cerave-cleanser.jpg" alt="Retinol Serum for Post-Blemish Marks, 30ml" loading="lazy" width="600" height="600" style="width:100%; height:100%; object-fit:contain; display:block;"></span>
-        </a>
-        <div style="padding:0 18px 18px; display:flex; flex-direction:column; gap:9px; flex:1;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">CeraVe</div>
-          <a href="/collections/cerave" class="hov-green" style="font-weight:700; font-size:15px; line-height:1.45; color:#2A2B2A; flex:1;">Retinol Serum for Post-Blemish Marks, 30ml</a>
-          <div style="display:flex; align-items:center; gap:7px; font-size:12.5px; color:#6b7065;">
-            <span style="display:flex; gap:1.5px; color:#e8a33d;"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"></path></svg></span>
-            <span>4.5 (118)</span>
-          </div>
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:#2A2B2A;">€21.50</div>
-          <a href="/collections/cerave" class="hov-bg-green-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px; margin-top:2px;">Add To Bag</a>
-        </div>
-      </div></div>
-  <div style="max-width:760px; margin:44px 0 0; padding-top:30px; border-top:1px solid #e6e7e4;">
-    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">About CeraVe</h2>
-    <p style="margin:0 0 15px; font-size:16px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">CeraVe was developed in 2005 with dermatologists to address a simple problem: many cleansers strip the skin of the very lipids that keep it healthy. Every CeraVe product contains three essential ceramides &mdash; the same lipids found naturally in the skin barrier &mdash; alongside hyaluronic acid to help hold moisture.</p>
-    <p style="margin:0 0 15px; font-size:16px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">The range is fragrance-free, non-comedogenic and suitable for sensitive skin, which is why it is one of the most commonly recommended brands by dermatologists and pharmacists alike. If you are not sure which cleanser or moisturiser suits your skin, ask our team &mdash; the differences between the blue, green and white bottles matter more than the packaging suggests.</p>
-    <div style="margin-top:22px;">
-      <a href="/pages/brands" data-view-btn="index" class="hov-green-dk" style="display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:15px; color:var(--c-primary-text);">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 6 5 12 11 18"></polyline></svg>
-        All brands
-      </a>
-    </div>
-  </div>
-</section>
 </div>
 
 
