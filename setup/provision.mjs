@@ -364,16 +364,54 @@ async function createMetaobjects() {
   }
 }
 
+// ---------------------------------------------------------------- rules
+// Smart-collection rules mapped to the CLIENT's product types and vendors, from
+// setup/collection-rules.json (built 2026-09-09 against the 2,474 products on the
+// dev store). Titles, handles and taxonomy stay ours; only the rule set changes.
+// A collection whose rule is not the one this script created is the client's and is left alone.
+const RULES = JSON.parse(readFileSync(join(HERE, 'collection-rules.json'), 'utf8'));
+
+async function applyRules() {
+  let updated = 0, same = 0, skipped = [];
+  for (const [handle, spec] of Object.entries(RULES)) {
+    const d = await gql(
+      `query($h: String!) { collectionByHandle(handle: $h) { id ruleSet { appliedDisjunctively rules { column relation condition } } } }`,
+      { h: handle });
+    const c = d.collectionByHandle;
+    if (!c) { skipped.push(`${handle} (missing)`); continue; }
+    const want = { appliedDisjunctively: spec.appliedDisjunctively, rules: spec.rules };
+    if (JSON.stringify(c.ruleSet) === JSON.stringify(want)) { same++; continue; }
+    // Only overwrite the rule this script itself created. A collection carrying any
+    // other rule was the client's before we arrived and is theirs to change.
+    const created = { appliedDisjunctively: false,
+      rules: [{ column: spec.rules[0].column === 'VENDOR' ? 'VENDOR' : 'TAG', relation: 'EQUALS', condition: spec.title }] };
+    if (JSON.stringify(c.ruleSet) !== JSON.stringify(created)) {
+      skipped.push(`${handle} (client's rule: ${c.ruleSet ? c.ruleSet.rules.map((r) => `${r.column} ${r.relation} "${r.condition}"`).join(' OR ') : 'manual'})`);
+      continue;
+    }
+    const u = await gql(
+      `mutation($input: CollectionInput!) {
+        collectionUpdate(input: $input) { collection { handle } userErrors { field message } }
+      }`, { input: { id: c.id, ruleSet: want } });
+    userErrs(u.collectionUpdate);
+    updated++;
+    console.log(`rules -> /collections/${handle}: ${spec.rules.map((r) => `${r.column} ${r.relation} "${r.condition}"`).join(' OR ')}`);
+  }
+  console.log(`rules: ${updated} updated, ${same} already matched, ${skipped.length} skipped`);
+  for (const s of skipped) console.log('  skipped', s);
+}
+
 // ---------------------------------------------------------------- main
 const cmd = process.argv[2] || 'all';
-const steps = { collections: createCollections, menus: createMenus, pages: createPages, blog: createBlog, metafields: createMetafields, products: createProducts, metaobjects: createMetaobjects };
+const steps = { collections: createCollections, menus: createMenus, pages: createPages, blog: createBlog, metafields: createMetafields, products: createProducts, metaobjects: createMetaobjects, rules: applyRules };
 try {
   if (cmd === 'all') {
-    for (const fn of Object.values(steps)) await fn();
+    // products is deliberately not in 'all': the client catalogue is already on the store.
+    for (const [name, fn] of Object.entries(steps)) if (name !== 'products') await fn();
   } else if (steps[cmd]) {
     await steps[cmd]();
   } else {
-    console.error(`unknown command: ${cmd} (use collections|menus|pages|blog|metafields|products|metaobjects|all)`);
+    console.error(`unknown command: ${cmd} (use collections|menus|pages|blog|metafields|products|metaobjects|rules|all)`);
     process.exit(1);
   }
 } catch (e) {

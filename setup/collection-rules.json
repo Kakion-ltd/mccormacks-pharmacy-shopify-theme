@@ -1,0 +1,1166 @@
+{
+ "beauty": {
+  "title": "Beauty",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "STARTS_WITH",
+    "condition": "Beauty"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "bundles": {
+  "title": "Bundles",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Sale > Bundles"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "fragrance": {
+  "title": "Fragrance",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Gifts > Women's Fragrance"
+   },
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Gifts > Men's Fragrance"
+   },
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Gifts > All Fragrances"
+   }
+  ],
+  "appliedDisjunctively": true
+ },
+ "gifting": {
+  "title": "Gifting",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "STARTS_WITH",
+    "condition": "Gifts"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "medicines-health": {
+  "title": "Medicines & Health",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "STARTS_WITH",
+    "condition": "Pharmacy"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "mother-baby": {
+  "title": "Mother & Baby",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "STARTS_WITH",
+    "condition": "Baby"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "skincare": {
+  "title": "Skincare",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "STARTS_WITH",
+    "condition": "Skincare"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "toiletries": {
+  "title": "Toiletries",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "STARTS_WITH",
+    "condition": "Toiletries"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "vitamins": {
+  "title": "Vitamins",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "STARTS_WITH",
+    "condition": "Supplements"
+   },
+   {
+    "column": "TYPE",
+    "relation": "STARTS_WITH",
+    "condition": "Vitamins"
+   },
+   {
+    "column": "TYPE",
+    "relation": "STARTS_WITH",
+    "condition": "Vitamins & Supplements"
+   }
+  ],
+  "appliedDisjunctively": true
+ },
+ "anbesol": {
+  "title": "Anbesol",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Anbesol"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "aveeno": {
+  "title": "Aveeno",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Aveeno"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "baby-health": {
+  "title": "Baby Health",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Baby > Baby Health"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "baby-wipes-toiletries": {
+  "title": "Baby Wipes & Toiletries",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Baby > Baby Wipes & Changing"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "bath-shower": {
+  "title": "Bath & Shower",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Toiletries > Bath & Shower"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "beauty-accessories": {
+  "title": "Beauty Accessories",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Beauty > Brushes & Accessories"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "bepanthen": {
+  "title": "Bepanthen",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Bepanthen"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "bio-oil": {
+  "title": "Bio-Oil",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Bio-Oil"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "body-skincare": {
+  "title": "Body Skincare",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Skincare > Body Care"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "calpol": {
+  "title": "Calpol",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Calpol"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "candles-diffusers": {
+  "title": "Candles & Diffusers",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Gifts > Candles & Diffusers"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "cerave": {
+  "title": "CeraVe",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Cerave"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "cetaphil": {
+  "title": "Cetaphil",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Cetaphil"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "children-vitamins": {
+  "title": "Children Vitamins",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Supplements > Children's Supplements"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "christmas-shop": {
+  "title": "Christmas Shop",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Gifts > Christmas Shop"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "cleanmarine": {
+  "title": "Cleanmarine",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Cleanmarine"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "cold-flu-allergy": {
+  "title": "Cold, Flu & Allergy",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Pharmacy > Cold & Flu"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "compeed": {
+  "title": "Compeed",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Compeed"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "dental-care": {
+  "title": "Dental Care",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Toiletries > Dental"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "deodorant": {
+  "title": "Deodorant",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Toiletries > Deodorant"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "difflam": {
+  "title": "Difflam",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Difflam"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "elave": {
+  "title": "Elave",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Elave"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "energy-wellbeing": {
+  "title": "Energy & Wellbeing",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Supplements > Women's Wellbeing"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "eskimo-3": {
+  "title": "Eskimo-3",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Eskimo"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "eucerin": {
+  "title": "Eucerin",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Eucerin"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "exfoliators-peels": {
+  "title": "Exfoliators & Peels",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Skincare > Masks & Peels"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "eye-cream": {
+  "title": "Eye Cream",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Skincare > Eye Care"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "eye-ear-health": {
+  "title": "Eye & Ear Health",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Pharmacy > Eye & Ear Care"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "eye-health": {
+  "title": "Eye Health",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Supplements > Eyes & Ears"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "eyes": {
+  "title": "Eyes",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Beauty > Eyes"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "face": {
+  "title": "Face",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Beauty > Face"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "face-masks": {
+  "title": "Face Masks",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Skincare > Face"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "feminine-care": {
+  "title": "Feminine Care",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Toiletries > Feminine Care"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "first-aid": {
+  "title": "First Aid",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Pharmacy > First Aid"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "fish-oils-omegas": {
+  "title": "Fish Oils & Omegas",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Supplements > Brain Health & Omega Oils"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "foot-care": {
+  "title": "Foot Care",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Pharmacy > Foot & Nail Care"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "gaviscon": {
+  "title": "Gaviscon",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Gaviscon"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "gifts-for-her": {
+  "title": "Gifts for Her",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Gifts > Gifts for Her"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "gifts-for-him": {
+  "title": "Gifts for Him",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Gifts > Gifts for Him"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "gillette": {
+  "title": "Gillette",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Gillette"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "hair-care": {
+  "title": "Hair Care",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Toiletries > Hair Care"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "hands-nails": {
+  "title": "Hands & Nails",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Skincare > Hands & Feet"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "hayfever-allergy": {
+  "title": "Hayfever & Allergy",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Pharmacy > Allergy Relief"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "heart-health": {
+  "title": "Heart Health",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Supplements > Healthy Heart"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "immune-support": {
+  "title": "Immune Support",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Supplements > Immune Support"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "imodium": {
+  "title": "Imodium",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Imodium"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "joint-bone-health": {
+  "title": "Joint & Bone Health",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Supplements > Muscle, Joint & Bone"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "lips": {
+  "title": "Lips",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Beauty > Lips"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "maternity-care": {
+  "title": "Maternity Care",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Baby > Maternity Care"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "mens-fragrance": {
+  "title": "Mens Fragrance",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Gifts > Men's Fragrance"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "mens-grooming": {
+  "title": "Men's Grooming",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Toiletries > Men's Grooming"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "mens-health": {
+  "title": "Men's Health",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Supplements > Men's Wellbeing"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "mitchum": {
+  "title": "Mitchum",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Mitchum"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "mouth-oral-care": {
+  "title": "Mouth & Oral Care",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Pharmacy > Oral Health"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "nails": {
+  "title": "Nails",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Beauty > Nails"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "neutrogena": {
+  "title": "Neutrogena",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Neutrogena"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "nicotine-replacement": {
+  "title": "Nicotine Replacement",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Pharmacy > Nicotine Replacement"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "nivea": {
+  "title": "NIVEA",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Nivea"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "nizoral": {
+  "title": "Nizoral",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Nizoral"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "nurofen": {
+  "title": "Nurofen",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Nurofen"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "optibac": {
+  "title": "OptiBac",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Optibac"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "oral-b": {
+  "title": "Oral-B",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Oral B"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "otrivine": {
+  "title": "Otrivine",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Otrivine"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "pain-relief": {
+  "title": "Pain Relief",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Pharmacy > Pain Relief"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "panadol": {
+  "title": "Panadol",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Panadol"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "pharmaton": {
+  "title": "Pharmaton",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Pharmaton"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "piriton": {
+  "title": "Piriton",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Piriton"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "piz-buin": {
+  "title": "Piz Buin",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Piz Buin"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "probiotics-digestive-health": {
+  "title": "Probiotics & Digestive Health",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Supplements > Probiotics & Gut"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "quies": {
+  "title": "Quies",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Quies"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "rennie": {
+  "title": "Rennie",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Rennie"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "rescue-remedy": {
+  "title": "Rescue Remedy",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Rescue Remedy"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "revive-active": {
+  "title": "Revive Active",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Revive Active"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "sculpted-by-aimee": {
+  "title": "Sculpted by Aimee",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Sculpted By Aimee"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "sensitive-conditions": {
+  "title": "Sensitive Conditions",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Pharmacy > Sensitive Conditions"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "sensodyne": {
+  "title": "Sensodyne",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Sensodyne"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "sexual-health": {
+  "title": "Sexual Health",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Pharmacy > Sexual Health"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "solgar": {
+  "title": "Solgar",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Solgar"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "stomach-gastrointestinal": {
+  "title": "Stomach & Gastrointestinal",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Pharmacy > Stomach & Digestion"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "strepsils": {
+  "title": "Strepsils",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Strepsils"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "sudocrem": {
+  "title": "Sudocrem",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Sudocrem"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "sun": {
+  "title": "Sun",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Skincare > Sun Care & SPF"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "tanning": {
+  "title": "Tanning",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Beauty > Tanning"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "tepe": {
+  "title": "TePe",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Tepe"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "travel": {
+  "title": "Travel",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Toiletries > Travel"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "travel-sickness": {
+  "title": "Travel Sickness",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Pharmacy > Travel Essentials"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "udos-choice": {
+  "title": "Udo’s Choice",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Udos"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "uriage": {
+  "title": "Uriage",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Uriage"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "viagra-connect": {
+  "title": "Viagra Connect",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Viagra Connect"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "vitabiotics": {
+  "title": "Vitabiotics",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Vitabiotics"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "voltarol": {
+  "title": "Voltarol",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Voltarol"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "wild-nutrition": {
+  "title": "Wild Nutrition",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "WILD"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "womens-fragrance": {
+  "title": "Women's Fragrance",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Gifts > Women's Fragrance"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "zirtek": {
+  "title": "Zirtek",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Zirtek"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "zovirax": {
+  "title": "Zovirax",
+  "rules": [
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Zovirax"
+   }
+  ],
+  "appliedDisjunctively": false
+ }
+}
