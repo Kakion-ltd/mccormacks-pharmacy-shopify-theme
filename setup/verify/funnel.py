@@ -124,7 +124,7 @@ with sync_playwright() as pw:
         check(f"[{label}] drawer free-delivery msg: {ship!r}", "delivery" in ship)
 
         # ---- D2. Buy-box assurance (3.3 / 3.4) ----
-        page.goto(BASE + "/products/x", wait_until="networkidle")
+        page.goto(BASE + "/products/nurofen-200mg-ibuprofen-24-tablets", wait_until="networkidle")
         body = page.locator("body").inner_text()
         check(f"[{label}] PSI registration shown beside the buy box",
               page.locator("[data-buy-assurance] a[href='/pages/internet-supply-pharmacy']").count() >= 1)

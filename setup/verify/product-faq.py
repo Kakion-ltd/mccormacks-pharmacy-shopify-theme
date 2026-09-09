@@ -12,7 +12,7 @@ import sys
 import urllib.request
 
 BASE = "http://localhost:8734"
-WITH_FAQ = "/products/fabu-skin-hair-nails-glow-60-capsules"   # harness fixture
+WITH_FAQ = "/products/fab-skin-hair-nails-glow-60-capsules"   # harness fixture
 WITHOUT_FAQ = "/products/difflam-sore-throat-spray-30ml"       # no faq metafield
 
 res = []

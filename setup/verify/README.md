@@ -18,7 +18,7 @@ npm run verify       # in another
 
 All run at 1440 and 390.
 
-**What these cannot check.** The preview has no Shopify backend. Express
-checkout buttons, `payment_button`, and whether Shopify genuinely withholds a
-permission-gated pixel are modelled here, not observed — they need a dev store.
-See [`../analytics/README.md`](../analytics/README.md) for those procedures.
+**What these cannot check.** The preview has no Shopify backend. The full list
+of what only a store can verify, from express checkout to customer accounts to
+markets, is in [`NEEDS-A-STORE.md`](NEEDS-A-STORE.md). Pixel and consent
+procedures are in [`../analytics/README.md`](../analytics/README.md).

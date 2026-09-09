@@ -25,6 +25,10 @@ def product_page(handle):
         return first_existing("preview/product.oos.html", "preview/product.html")
     if handle == "vitamin-d3-1000iu-60-capsules":
         return first_existing("preview/product.variants.html", "preview/product.html")
+    # Unknown handles 404, as on Shopify. Serving the generic page for any handle
+    # hid dead product links and let verify scripts pass against URLs that do not exist.
+    if handle not in HANDLES:
+        return None
     return "/preview/product.html"
 
 
@@ -93,7 +97,9 @@ def route(path):
                               f"preview/collection.{handle}.html")
     if p.startswith("/pages/"):
         handle = p[len("/pages/"):].split("/")[0]
-        return first_existing(f"preview/page.{handle}.html", "preview/page.html")
+        # No generic fallback: a page handle with no template must 404, like a
+        # store with no such page, or a dead footer link never shows up.
+        return first_existing(f"preview/page.{handle}.html")
     if p.startswith("/products/"):
         return product_page(p[len("/products/"):].split("/")[0])
     if p.startswith("/blogs/"):
@@ -143,20 +149,25 @@ CATALOGUE = [
     ("Sudocrem Antiseptic Healing Cream 125g", "Sudocrem", 799, "prod-sudocrem.jpg", []),
     ("Vitamin D3 1000IU 60 Capsules", "McCormack\u2019s", 999, "prod-vitd.jpg", []),
     ("Nurofen Plus 200mg/12.8mg 24 Tablets", "Nurofen", 1099, "prod-nurofen.jpg", ["pharmacist-only"]),
+    ("Difflam Sore Throat Spray 30ml", "Difflam", 1299, "prod-cetrine.jpg", []),
 ]
+SOLD_OUT = {"Difflam Sore Throat Spray 30ml"}
 
 
 def handleize(title):
     return re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
 
 
+HANDLES = {handleize(t[0]) for t in CATALOGUE}
+
+
 def product_json(i):
     title, vendor, price, img, tags = CATALOGUE[i]
     return {
         "id": 30000000 + i, "title": title, "handle": handleize(title), "vendor": vendor,
-        "price": price, "available": True, "tags": tags,
+        "price": price, "available": title not in SOLD_OUT, "tags": tags,
         "featured_image": f"/shopify-theme/assets/{img}",
-        "variants": [{"id": 40000000 + i, "title": "Default", "price": price, "available": True}],
+        "variants": [{"id": 40000000 + i, "title": "Default", "price": price, "available": title not in SOLD_OUT}],
     }
 
 

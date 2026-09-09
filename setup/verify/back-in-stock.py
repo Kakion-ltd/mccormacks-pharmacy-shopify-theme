@@ -9,7 +9,7 @@ from playwright.sync_api import sync_playwright
 
 BASE = "http://localhost:8734"
 OOS = "/products/difflam-sore-throat-spray-30ml"
-IN_STOCK = "/products/cetrine-allergy-tablets"
+IN_STOCK = "/products/cetrine-allergy-10mg-30-tablets"
 
 res = []
 def ck(name, got, want=True): res.append((got == want, name, got))

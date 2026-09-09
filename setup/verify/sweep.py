@@ -1,9 +1,9 @@
 import sys
 from playwright.sync_api import sync_playwright
 BASE = "http://localhost:8734"
-PAGES = ["/", "/collections/medicines-health", "/collections/skincare", "/products/x",
+PAGES = ["/", "/collections/medicines-health", "/collections/skincare", "/products/nurofen-200mg-ibuprofen-24-tablets",
          "/cart", "/search?q=vitamins", "/pages/shipping", "/pages/contact-us",
-         "/pages/store-locator", "/blogs/health-hub", "/pages/services",
+         "/pages/store-locator", "/blogs/health-hub", "/pages/in-store-services",
          "/pages/prescriptions", "/account/login"]
 bad = []
 with sync_playwright() as pw:

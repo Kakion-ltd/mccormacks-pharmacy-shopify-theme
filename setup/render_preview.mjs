@@ -93,7 +93,8 @@ engine.registerFilter('color_darken', (v, pct) => {
 });
 engine.registerFilter('money', money);
 engine.registerFilter('money_with_currency', (v) => `${money(v)} EUR`);
-engine.registerFilter('money_without_trailing_zeros', (v) => `€${Math.round(v / 100)}`);
+// Shopify drops only a .00 fraction; €49.99 stays €49.99. Rounding here hid that.
+engine.registerFilter('money_without_trailing_zeros', (v) => (v == null || isNaN(v) ? v : `€${(v / 100).toFixed(2).replace(/\.00$/, '')}`));
 engine.registerFilter('money_without_currency', (v) => (v == null || isNaN(v) ? v : (v / 100).toFixed(2)));
 engine.registerFilter('handleize', (v) => String(v ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
 engine.registerFilter('handle', (v) => String(v ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
@@ -598,15 +599,10 @@ async function renderSection(type, settings, blocksSpec, extraGlobals = {}) {
       const b = blocksSpec.blocks[id];
       return { id, type: b.type, settings: { ...defaultsFrom(defFor(b.type).settings), ...(b.settings || {}) }, shopify_attributes: '' };
     });
-  } else if (schema.presets && schema.presets[0] && schema.presets[0].blocks) {
-    blocks = schema.presets[0].blocks.map((b, i) => ({
-      id: `b${i}`, type: b.type, settings: { ...defaultsFrom(defFor(b.type).settings), ...(b.settings || {}) }, shopify_attributes: '',
-    }));
-  } else if (blockDefs.length) {
-    blocks = blockDefs.filter((d) => d.type !== '@app').map((d, i) => ({
-      id: `b${i}`, type: d.type, settings: defaultsFrom(d.settings), shopify_attributes: '',
-    }));
   }
+  // No preset fallback. A JSON template only gets the blocks it lists; Shopify
+  // applies presets when a merchant adds a section in the editor, never at render.
+  // Filling in from presets showed six featured brands that do not exist.
 
   const section = { id: `sec-${type}`, settings: merged, blocks, blocks_count: blocks.length, index: 1, location: 'template' };
   return engine.parseAndRender(src, { ...globals, ...extraGlobals, section });
