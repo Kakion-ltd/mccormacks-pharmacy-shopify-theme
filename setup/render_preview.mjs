@@ -625,6 +625,10 @@ const pageTypeOf = (name) => {
   return name; // product, cart, search, blog, article, 404, password
 };
 
+// Flipped for the one render of the search template that must stay unperformed:
+// the empty-search state, the only place the popular-category pills appear.
+let renderSearchEmpty = false;
+
 async function renderTemplate(name, extraGlobals = {}) {
   extraGlobals = {
     ...extraGlobals,
@@ -636,7 +640,7 @@ async function renderTemplate(name, extraGlobals = {}) {
     const handle = name.slice('page.'.length);
     extraGlobals.page = { ...globals.page, handle, url: `/pages/${handle}` };
   }
-  if (name === 'search') {
+  if (name === 'search' && !renderSearchEmpty) {
     extraGlobals.search = { ...globals.search, performed: true, terms: 'vitamins', results: products, results_count: products.length };
   }
 
@@ -836,6 +840,15 @@ console.log(`${ok}/${ok + fail} templates render clean`);
       writeFileSync(join(outDir, `${file}.html`), await renderTemplate('collection'));
     }
     console.log('collection states: filtered, filtered-empty, empty');
+    // The empty-search state is the only place the popular-category pills render,
+    // and they come from a section setting, so render it or the setting is unchecked.
+    renderSearchEmpty = true;
+    try {
+      writeFileSync(join(outDir, 'search.empty.html'), await renderTemplate('search'));
+    } finally {
+      renderSearchEmpty = false;
+    }
+    console.log('search state: empty');
   } finally {
     Object.assign(globals, saved);
   }

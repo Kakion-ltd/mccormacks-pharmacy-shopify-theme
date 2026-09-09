@@ -538,7 +538,17 @@ these places:
   taxonomy order (Christmas Shop first) shows again. Overrides on taxonomy
   departments are validated by `setup/verify/chips-taxonomy.py` — labels and
   links must match taxonomy entries, order is free.
-- **Hero slides**: add/remove/reorder the slide blocks in the editor.
+- **Hero slides**: add/remove/reorder the slide blocks in the editor. The
+  "Summer Travel Shop" slide is one of these; retitle or remove it when the
+  season turns.
+- **Homepage promo strip**: the strip's text, button and link are section
+  settings (theme editor → homepage → Promo strip). September 2026 it still
+  reads "Pollen levels are rising"; that is hayfever copy from spring.
+- **Sale page**: heading, badge, copy and chips are settings on the Sale
+  collection template. Keep the heading "Sale" outside a named event.
+- **Search page popular categories**: the pills on the empty-search state
+  are the `popular_links` setting on the Search results section, one
+  "Label | URL" per line.
 - **Hot offers**: edit the offer blocks. Do not bake limited-time claims into
   the artwork itself; the badge text is a setting precisely so it can expire.
 

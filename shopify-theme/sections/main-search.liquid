@@ -196,10 +196,14 @@
         sections — four image downloads for a screen most visitors never see.
         Same destinations, same hit area, no assets. {%- endcomment -%}
     <div style="display:flex; flex-wrap:wrap; gap:12px;">
-      {%- assign popular = 'Vitamins & Supplements|vitamins,Skincare|skincare,Sun Care|sun,Baby & Child|mother-baby,Medicines & Health|medicines-health,Beauty|beauty,Fragrance|fragrance,Gifting|gifting' | split: ',' -%}
-      {%- for entry in popular -%}
-        {%- assign bits = entry | split: '|' -%}
-        <a href="/collections/{{ bits[1] }}" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; height:44px; padding:0 20px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:14.5px; white-space:nowrap;">{{ bits[0] }}</a>
+      {%- comment -%} Editor setting, one "Label | URL" per line, so a seasonal pill
+          (Sun Care, Christmas Shop) is rotated in the editor and not by a developer. {%- endcomment -%}
+      {%- assign popular_lines = section.settings.popular_links | newline_to_br | split: '<br />' -%}
+      {%- for line in popular_lines -%}
+        {%- assign parts = line | strip | split: '|' -%}
+        {%- if parts.size >= 2 -%}
+          <a href="{{ parts[1] | strip }}" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; height:44px; padding:0 20px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:14.5px; white-space:nowrap;">{{ parts[0] | strip | escape }}</a>
+        {%- endif -%}
       {%- endfor -%}
     </div>
   </div>
@@ -258,6 +262,13 @@
       "id": "popular_terms",
       "label": "Popular searches (comma separated)",
       "default": "vitamin d, hayfever, cerave, sudocrem, probiotics"
+    },
+    {
+      "type": "textarea",
+      "id": "popular_links",
+      "label": "Popular categories (empty-search state)",
+      "info": "One per line: Label | URL. Rotate seasonal pills here, not in code.",
+      "default": "Vitamins & Supplements | /collections/vitamins\nSkincare | /collections/skincare\nBaby & Child | /collections/mother-baby\nMedicines & Health | /collections/medicines-health\nBeauty | /collections/beauty\nFragrance | /collections/fragrance\nGifting | /collections/gifting"
     }
   ],
   "presets": [

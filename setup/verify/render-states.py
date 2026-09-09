@@ -72,6 +72,16 @@ for stem, signed_out_text, signed_in_text in (
     ck(f"{stem}: signed in offers the member route", signed_in_text in in_html)
     ck(f"{stem}: signed in drops the register prompt", signed_out_text in in_html, False)
 
+# --- E. Empty search: popular-category pills come from a section setting --------
+se = read("search.empty.html")
+ck("an empty-search render exists", se is not None)
+if se:
+    pills = re.findall(r'<a href="(/collections/[^"]+)"[^>]*border-radius:999px[^>]*>([^<]+)</a>', se)
+    ck("empty search renders the popular pills from popular_links", len(pills), 7)
+    ck("popular pills carry the taxonomy label, not the short one",
+       ("/collections/vitamins", "Vitamins &amp; Supplements") in pills)
+    ck("no seasonal pill is hardcoded", "Sun Care" in se, False)
+
 # --- G. Smaller states --------------------------------------------------------
 gc_live, gc_expired = read("gift_card.html"), read("gift_card.expired.html")
 ck("an expired gift card render exists", gc_expired is not None)

@@ -3,7 +3,8 @@
     "main": {
       "type": "main-search",
       "settings": {
-        "popular_terms": "vitamin d, hayfever, cerave, sudocrem, probiotics"
+        "popular_terms": "vitamin d, hayfever, cerave, sudocrem, probiotics",
+        "popular_links": "Vitamins & Supplements | /collections/vitamins\nSkincare | /collections/skincare\nBaby & Child | /collections/mother-baby\nMedicines & Health | /collections/medicines-health\nBeauty | /collections/beauty\nFragrance | /collections/fragrance\nGifting | /collections/gifting"
       }
     }
   },
