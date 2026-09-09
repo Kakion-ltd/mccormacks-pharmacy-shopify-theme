@@ -36,21 +36,21 @@ banners and the hot-offer tiles.
 ### A. Category / department banners — 12 needed
 `1300 × 600` (2.17:1). Subject right, left third quiet.
 
-Five are **completely empty** and currently render a dashed placeholder:
+**Supplied (Sep 2026):** Beauty, Medicines & Health, Skincare, Toiletries,
+Vitamins. Masters in `artwork/category-banners/`.
 
-- Beauty
+Still **empty** and rendering a dashed placeholder:
+
+- Fragrance
 - Gifting
-- Medicines & Health
+- Mother & Baby
 - New In
-- Toiletries
+- Sale
 
-Seven more are **filled with a borrowed image** — a homepage hero slide or a
-hot-offer tile reused at the wrong aspect ratio (1440×500 dropped into a
-1300×600 frame crops ~30% off the top and bottom). Replace:
+Two more are **filled with a borrowed image** at the wrong aspect ratio:
 
-- Fragrance, Mother & Baby, Skincare *(currently hero slides)*
-- Vitamins, Hot Offers, Sale *(Sale and Hot Offers share one file)*
-- Bundles *(currently the hero travel shot)*
+- Hot Offers *(the 536×545 Mitchum hot-offer tile)*
+- Bundles *(the hero travel shot)*
 
 ### B. Store photography — 7 needed
 `1520 × 700` landscape. One exterior per store, shopfront and signage legible.
