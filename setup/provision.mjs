@@ -10,7 +10,8 @@
  *   node provision.mjs menus | pages | blog | metafields | products | metaobjects | all
  *
  * Token needs scopes: write_products, write_online_store_navigation, write_online_store_pages,
- * write_content, write_metaobject_definitions, write_inventory, read_locations.
+ * write_content, write_metaobject_definitions, write_inventory, read_locations,
+ * read_publications, write_publications (for the publish step).
  * (Product metafield definitions are covered by write_products.)
  * Idempotent: existing handles are skipped.
  */
@@ -401,9 +402,35 @@ async function applyRules() {
   for (const s of skipped) console.log('  skipped', s);
 }
 
+// ---------------------------------------------------------------- publish
+// A collection created through the API is not on the Online Store sales channel
+// until it is published there, so the storefront 404s it while the admin counts
+// its products. Needs read_publications and write_publications. Idempotent.
+async function publishCollections() {
+  const pubs = await gql(`{ publications(first: 20) { nodes { id name } } }`);
+  const online = pubs.publications.nodes.find((p) => p.name === 'Online Store');
+  if (!online) throw new Error('no Online Store publication found');
+  let published = 0, already = 0, missing = 0;
+  for (const c of collections) {
+    const d = await gql(
+      `query($h: String!, $p: ID!) { collectionByHandle(handle: $h) { id publishedOnPublication(publicationId: $p) } }`,
+      { h: c.handle, p: online.id });
+    const col = d.collectionByHandle;
+    if (!col) { missing++; continue; }
+    if (col.publishedOnPublication) { already++; continue; }
+    const u = await gql(
+      `mutation($id: ID!, $input: [PublicationInput!]!) {
+        publishablePublish(id: $id, input: $input) { userErrors { field message } }
+      }`, { id: col.id, input: [{ publicationId: online.id }] });
+    userErrs(u.publishablePublish);
+    published++;
+  }
+  console.log(`publish: ${published} published to Online Store, ${already} already were, ${missing} missing`);
+}
+
 // ---------------------------------------------------------------- main
 const cmd = process.argv[2] || 'all';
-const steps = { collections: createCollections, menus: createMenus, pages: createPages, blog: createBlog, metafields: createMetafields, products: createProducts, metaobjects: createMetaobjects, rules: applyRules };
+const steps = { collections: createCollections, menus: createMenus, pages: createPages, blog: createBlog, metafields: createMetafields, products: createProducts, metaobjects: createMetaobjects, rules: applyRules, publish: publishCollections };
 try {
   if (cmd === 'all') {
     // products is deliberately not in 'all': the client catalogue is already on the store.
@@ -411,7 +438,7 @@ try {
   } else if (steps[cmd]) {
     await steps[cmd]();
   } else {
-    console.error(`unknown command: ${cmd} (use collections|menus|pages|blog|metafields|products|metaobjects|rules|all)`);
+    console.error(`unknown command: ${cmd} (use collections|menus|pages|blog|metafields|products|metaobjects|rules|publish|all)`);
     process.exit(1);
   }
 } catch (e) {
