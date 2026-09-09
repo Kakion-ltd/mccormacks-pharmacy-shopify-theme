@@ -69,16 +69,16 @@
       </div>
       {%- else -%}
       <div class="hot-row" style="display:flex; align-items:center; gap:16px; background:{{ bg }}; border-radius:14px; padding:16px 18px; color:{{ tile_fg }};" {{ block.shopify_attributes }}>
-        <div class="hot-row-img" style="flex:0 0 96px; aspect-ratio:1; border-radius:10px; overflow:hidden; position:relative;">
+        <div class="hot-row-img" style="flex:0 0 128px; aspect-ratio:4/3; border-radius:10px; overflow:hidden; position:relative;">
           {%- if block.settings.image != blank -%}
-            {{ block.settings.image | image_url: width: 240 | image_tag:
+            {{ block.settings.image | image_url: width: 320 | image_tag:
                alt: block.settings.title,
                loading: 'lazy',
                style: 'position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;' }}
           {%- elsif block.settings.image_asset != blank -%}
-            <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="240" height="240" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
+            <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="320" height="240" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
           {%- else -%}
-            <div title="Upload 600 &times; 600 px" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.16) 8px, rgba(255,255,255,.07) 8px, rgba(255,255,255,.07) 16px);" role="img" aria-label="Offer image placeholder — upload 600 by 600 pixels"><span style="font-size:10px; font-weight:800; letter-spacing:.06em; opacity:.85;">600 &times; 600</span></div>
+            <div title="Upload 800 &times; 600 px" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.16) 8px, rgba(255,255,255,.07) 8px, rgba(255,255,255,.07) 16px);" role="img" aria-label="Offer image placeholder — upload 800 by 600 pixels"><span style="font-size:10px; font-weight:800; letter-spacing:.06em; opacity:.85;">800 &times; 600</span></div>
           {%- endif -%}
         </div>
         <div style="flex:1 1 auto; min-width:0;">
@@ -107,7 +107,7 @@
   .hot-spot-img { order: -1; position: relative !important; width: 100% !important; aspect-ratio: 2 / 1; }
   .hot-spot-copy { flex: 0 0 auto !important; max-width: none !important; padding: 18px 20px 22px; }
   .hot-row { padding: 12px 14px !important; gap: 12px !important; }
-  .hot-row-img { flex-basis: 72px !important; }
+  .hot-row-img { flex-basis: 96px !important; }
 }
 {% endstyle %}
 
@@ -129,7 +129,7 @@
         { "type": "text", "id": "ends", "label": "Ends", "info": "Optional, e.g. Until 30 September. Urgency renders only when this is filled in — there is no automatic date handling, so clear it when the offer ends." },
         { "type": "text", "id": "cta", "label": "Button label", "default": "Shop Now" },
         { "type": "url", "id": "link", "label": "Button link" },
-        { "type": "image_picker", "id": "image", "label": "Image", "info": "Spotlight: 1500×800 (15:8), subject centred inside the middle 2:1 band — the panel bleeds to the card edge, so any background works. Rows show a square thumbnail: 600×600, same spec as the popular-category tiles." },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Spotlight: 1500×800 (15:8), subject centred inside the middle 2:1 band — the panel bleeds to the card edge, so any background works. Rows show a 4:3 thumbnail: 800×600." },
         { "type": "text", "id": "image_asset", "label": "Fallback theme asset (onboarding only)", "info": "Filename of a theme asset used until an image is picked." },
         { "type": "color", "id": "background", "label": "Tile colour", "default": "#82c914" }
       ]
