@@ -136,22 +136,12 @@ CART_LOCK = threading.Lock()
 CART = {"items": []}
 
 
-# The mock catalogue, mirroring render_preview.mjs by index. One table feeds both
-# the cart line items and the product JSON the wishlist reads, so the two cannot
-# disagree about a price the way two copies would.
-CATALOGUE = [
-    ("fab\u00dc Skin Hair Nails Glow 60 Capsules", "fab\u00dc", 1995, "prod-fabu-glow.jpg", []),
-    ("Cetrine Allergy 10mg 30 Tablets", "Cetrine", 799, "prod-cetrine.jpg", []),
-    ("Revive Active 30 Sachets", "Revive Active", 6499, "prod-revive.jpg", []),
-    ("Optibac Every Day MAX 30 Capsules", "Optibac", 2799, "prod-optibac-max.jpg", []),
-    ("Nurofen 200mg Ibuprofen 24 Tablets", "Nurofen", 649, "prod-nurofen.jpg", []),
-    ("CeraVe Hydrating Cleanser 236ml", "CeraVe", 1350, "prod-cerave-cleanser.jpg", []),
-    ("Sudocrem Antiseptic Healing Cream 125g", "Sudocrem", 799, "prod-sudocrem.jpg", []),
-    ("Vitamin D3 1000IU 60 Capsules", "McCormack\u2019s", 999, "prod-vitd.jpg", []),
-    ("Nurofen Plus 200mg/12.8mg 24 Tablets", "Nurofen", 1099, "prod-nurofen.jpg", ["pharmacist-only"]),
-    ("Difflam Sore Throat Spray 30ml", "Difflam", 1299, "prod-cetrine.jpg", []),
-]
-SOLD_OUT = {"Difflam Sore Throat Spray 30ml"}
+# The fixture catalogue, read from the same file render_preview.mjs renders from, so
+# the cart line items and product JSON cannot disagree with the pages about a price.
+with open(os.path.join(ROOT, "setup", "catalogue.json"), encoding="utf-8") as _fh:
+    _CAT = json.load(_fh)
+CATALOGUE = [(c["t"], c["v"], c["p"], c["img"], c.get("tg", [])) for c in _CAT]
+SOLD_OUT = {c["t"] for c in _CAT if c.get("oos")}
 
 
 def handleize(title):

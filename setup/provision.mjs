@@ -2,14 +2,16 @@
 /**
  * Provision the McCormack's store from the design taxonomy.
  * Creates: category collections (smart, tag-based), navigation menus, pages, blog,
- * and the product metafield definitions the product page reads.
+ * the product metafield definitions the product page reads, the fixture products
+ * from setup/catalogue.json, and the questionnaire metaobject definitions.
  *
  * Usage:
  *   SHOP=your-store.myshopify.com ADMIN_TOKEN=shpat_xxx node provision.mjs collections
- *   node provision.mjs menus | pages | blog | metafields | all
+ *   node provision.mjs menus | pages | blog | metafields | products | metaobjects | all
  *
  * Token needs scopes: write_products, write_online_store_navigation, write_online_store_pages,
- * write_content. (Product metafield definitions are covered by write_products.)
+ * write_content, write_metaobject_definitions, write_inventory. (Product metafield
+ * definitions are covered by write_products.)
  * Idempotent: existing handles are skipped.
  */
 import { readFileSync } from 'node:fs';
@@ -209,16 +211,144 @@ async function createMetafields() {
   }
 }
 
+// ---------------------------------------------------------------- products
+// The ten fixture products the preview renders, so collection pages on the dev
+// store are not empty. Images are pulled from the public Vercel preview. Tags carry
+// the exact category titles the smart collections match on, plus the restricted
+// tag on the codeine product. Idempotent by handle.
+const CATALOGUE = JSON.parse(readFileSync(join(HERE, 'catalogue.json'), 'utf8'));
+const IMAGE_BASE = process.env.IMAGE_BASE || 'https://mccormacks-pharmacy-shopify-theme.vercel.app/shopify-theme/assets';
+const money = (cents) => (cents / 100).toFixed(2);
+
+async function createProducts() {
+  const byHandle = Object.fromEntries(collections.map((c) => [c.handle, c.title]));
+  const loc = await gql(`{ locations(first: 1) { nodes { id name } } }`);
+  const locationId = loc.locations.nodes[0]?.id;
+  if (!locationId) throw new Error('no location found for inventory');
+  let created = 0, skipped = 0;
+  for (const c of CATALOGUE) {
+    const handle = handleize(c.t);
+    const existing = await gql(`query($q: String!) { products(first: 1, query: $q) { nodes { handle } } }`, { q: `handle:${handle}` });
+    if (existing.products.nodes.length) { skipped++; continue; }
+    const tags = [...(c.cols || []).map((h) => byHandle[h]).filter(Boolean), ...(c.tg || [])];
+    const packs = Array.isArray(c.packs) && c.packs.length > 1 ? c.packs : null;
+    const variants = (packs || [{ o: 'Default Title', p: c.p, was: c.was, oos: c.oos }]).map((pk) => ({
+      optionValues: packs ? [{ optionName: c.optName, name: pk.o }] : [{ optionName: 'Title', name: 'Default Title' }],
+      price: money(pk.p), compareAtPrice: pk.was ? money(pk.was) : null,
+      inventoryPolicy: 'DENY',
+      inventoryItem: { tracked: true },
+      inventoryQuantities: [{ locationId, name: 'available', quantity: pk.oos ? 0 : 12 }],
+    }));
+    const input = {
+      title: c.t, handle, vendor: c.v, productType: c.ty, status: 'ACTIVE', tags,
+      descriptionHtml: `<p>${c.t} from ${c.v}.</p>`,
+      productOptions: [{ name: packs ? c.optName : 'Title', values: (packs ? c.packs.map((p) => p.o) : ['Default Title']).map((n) => ({ name: n })) }],
+      variants,
+      files: [{ originalSource: `${IMAGE_BASE}/${c.img}`, contentType: 'IMAGE', alt: c.t }],
+    };
+    const data = await gql(
+      `mutation($input: ProductSetInput!) {
+        productSet(input: $input, synchronous: true) { product { id handle } userErrors { field message } }
+      }`, { input });
+    userErrs(data.productSet);
+    created++;
+    console.log(`created /products/${data.productSet.product.handle} (${variants.length} variant${variants.length > 1 ? 's' : ''}, tags: ${tags.join(', ')})`);
+  }
+  console.log(`products: ${created} created, ${skipped} already existed`);
+}
+
+// ---------------------------------------------------------------- metaobjects
+// Definitions for the pharmacist questionnaire, per the spec: the pharmacist edits
+// questions under Content > Metaobjects; a product is gated by referencing one
+// questionnaire. Creating the definitions commits no copy and no questions.
+const QUESTION_DEF = {
+  type: 'pharmacy_question', name: 'Pharmacy question',
+  displayNameKey: 'label',
+  access: { admin: 'MERCHANT_READ_WRITE', storefront: 'PUBLIC_READ' },
+  fieldDefinitions: [
+    { key: 'label', name: 'Question', type: 'single_line_text_field', required: true },
+    { key: 'kind', name: 'Kind', type: 'single_line_text_field', required: true,
+      validations: [{ name: 'choices', value: JSON.stringify(['yes_no', 'choice', 'short_text', 'long_text']) }],
+      description: 'yes_no, choice, short_text or long_text' },
+    { key: 'options', name: 'Options', type: 'list.single_line_text_field', description: 'For choice questions only' },
+    { key: 'optional', name: 'Optional', type: 'boolean', description: 'Every question is required unless ticked' },
+    { key: 'blocking_answers', name: 'Blocking answers', type: 'list.single_line_text_field',
+      description: 'Any of these answers stops the sale. yes or no for yes/no questions; exact option text for choice.' },
+    { key: 'help', name: 'Help text', type: 'single_line_text_field' },
+  ],
+};
+const QUESTIONNAIRE_DEF = (questionDefId) => ({
+  type: 'pharmacy_questionnaire', name: 'Pharmacy questionnaire',
+  displayNameKey: 'title',
+  access: { admin: 'MERCHANT_READ_WRITE', storefront: 'PUBLIC_READ' },
+  fieldDefinitions: [
+    { key: 'title', name: 'Title', type: 'single_line_text_field', required: true },
+    { key: 'intro', name: 'Intro', type: 'rich_text_field' },
+    { key: 'questions', name: 'Questions', type: 'list.metaobject_reference', required: true,
+      validations: [{ name: 'metaobject_definition_id', value: questionDefId }] },
+    { key: 'max_quantity', name: 'Maximum quantity per order', type: 'number_integer' },
+    { key: 'blocked_message', name: 'Message when a blocking answer is given', type: 'rich_text_field' },
+    { key: 'version', name: 'Version', type: 'single_line_text_field', required: true,
+      description: 'Bump when the questions change; recorded on every order line' },
+  ],
+});
+
+async function metaobjectDefinitionId(type) {
+  const d = await gql(`query($t: String!) { metaobjectDefinitionByType(type: $t) { id } }`, { t: type });
+  return d.metaobjectDefinitionByType?.id || null;
+}
+
+async function createMetaobjects() {
+  let qId = await metaobjectDefinitionId('pharmacy_question');
+  if (qId) console.log('metaobject pharmacy_question already exists, skipping');
+  else {
+    const d = await gql(`mutation($def: MetaobjectDefinitionCreateInput!) {
+      metaobjectDefinitionCreate(definition: $def) { metaobjectDefinition { id type } userErrors { field message } } }`, { def: QUESTION_DEF });
+    userErrs(d.metaobjectDefinitionCreate);
+    qId = d.metaobjectDefinitionCreate.metaobjectDefinition.id;
+    console.log('created metaobject definition: pharmacy_question');
+  }
+  let sId = await metaobjectDefinitionId('pharmacy_questionnaire');
+  if (sId) console.log('metaobject pharmacy_questionnaire already exists, skipping');
+  else {
+    const d = await gql(`mutation($def: MetaobjectDefinitionCreateInput!) {
+      metaobjectDefinitionCreate(definition: $def) { metaobjectDefinition { id type } userErrors { field message } } }`, { def: QUESTIONNAIRE_DEF(qId) });
+    userErrs(d.metaobjectDefinitionCreate);
+    sId = d.metaobjectDefinitionCreate.metaobjectDefinition.id;
+    console.log('created metaobject definition: pharmacy_questionnaire');
+  }
+  // Product metafields that point at a questionnaire and carry product-specific intro copy.
+  const defs = [
+    { name: 'Pharmacist questionnaire', namespace: 'pharmacy', key: 'questionnaire', ownerType: 'PRODUCT',
+      type: 'metaobject_reference', validations: [{ name: 'metaobject_definition_id', value: sId }],
+      description: 'Set this and the product can only be bought after answering the questionnaire.' },
+    { name: 'Pharmacist notice intro', namespace: 'pharmacy', key: 'intro', ownerType: 'PRODUCT',
+      type: 'rich_text_field', description: 'Product-specific wording shown above the questionnaire button.' },
+  ];
+  for (const def of defs) {
+    const existing = await gql(
+      `query($ns: String!, $key: String!) { metafieldDefinitions(first: 1, namespace: $ns, key: $key, ownerType: PRODUCT) { nodes { id } } }`,
+      { ns: def.namespace, key: def.key });
+    if (existing.metafieldDefinitions.nodes.length) { console.log(`metafield ${def.namespace}.${def.key} already exists, skipping`); continue; }
+    const data = await gql(
+      `mutation($definition: MetafieldDefinitionInput!) {
+        metafieldDefinitionCreate(definition: $definition) { createdDefinition { id key } userErrors { field message } } }`,
+      { definition: { ...def, access: { admin: 'MERCHANT_READ_WRITE', storefront: 'PUBLIC_READ' } } });
+    userErrs(data.metafieldDefinitionCreate);
+    console.log('created metafield:', `${def.namespace}.${def.key}`);
+  }
+}
+
 // ---------------------------------------------------------------- main
 const cmd = process.argv[2] || 'all';
-const steps = { collections: createCollections, menus: createMenus, pages: createPages, blog: createBlog, metafields: createMetafields };
+const steps = { collections: createCollections, menus: createMenus, pages: createPages, blog: createBlog, metafields: createMetafields, products: createProducts, metaobjects: createMetaobjects };
 try {
   if (cmd === 'all') {
     for (const fn of Object.values(steps)) await fn();
   } else if (steps[cmd]) {
     await steps[cmd]();
   } else {
-    console.error(`unknown command: ${cmd} (use collections|menus|pages|blog|metafields|all)`);
+    console.error(`unknown command: ${cmd} (use collections|menus|pages|blog|metafields|products|metaobjects|all)`);
     process.exit(1);
   }
 } catch (e) {

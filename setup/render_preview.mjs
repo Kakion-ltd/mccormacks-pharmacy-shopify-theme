@@ -350,28 +350,9 @@ const mockImage = (name, w = 1000, h = 1000) => ({
 const COLLECTION_INDEX = Object.fromEntries(
   JSON.parse(readFileSync(join(PROJECT, 'setup/collections.json'), 'utf8')).map((c) => [c.handle, c]));
 
-const CATALOGUE = [
-  { t: 'fabÜ Skin Hair Nails Glow 60 Capsules', cols: ['vitamins', 'skin-hair-nails'], v: 'fabÜ', img: 'prod-fabu-glow.jpg', p: 1995, was: 2495, ty: 'Vitamins' },
-  { t: 'Cetrine Allergy 10mg 30 Tablets', cols: ['hayfever-allergy'], v: 'Cetrine', img: 'prod-cetrine.jpg', p: 799, was: null, ty: 'Allergy' },
-  { t: 'Revive Active 30 Sachets', cols: ['energy-wellbeing'], v: 'Revive Active', img: 'prod-revive.jpg', p: 6499, was: 6999, ty: 'Supplements' },
-  { t: 'Optibac Every Day MAX 30 Capsules', cols: ['probiotics-digestive-health'], v: 'Optibac', img: 'prod-optibac-max.jpg', p: 2799, was: null, ty: 'Probiotics' },
-  { t: 'Nurofen 200mg Ibuprofen 24 Tablets', cols: ['pain-relief'], v: 'Nurofen', img: 'prod-nurofen.jpg', p: 649, was: null, ty: 'Pain Relief' },
-  { t: 'CeraVe Hydrating Cleanser 236ml', cols: ['cerave', 'skincare', 'cleanser'], v: 'CeraVe', img: 'prod-cerave-cleanser.jpg', p: 1350, was: null, ty: 'Skincare' },
-  { t: 'Sudocrem Antiseptic Healing Cream 125g', cols: ['baby-skincare'], v: 'Sudocrem', img: 'prod-sudocrem.jpg', p: 799, was: 899, ty: 'Baby' },
-  // Multi-variant fixture: three pack sizes, the largest deliberately sold out so
-  // the unavailable path renders too.
-  { t: 'Vitamin D3 1000IU 60 Capsules', cols: ['everyday-multivitamins'], v: 'McCormack’s', img: 'prod-vitd.jpg', p: 999, was: null, ty: 'Vitamins',
-    optName: 'Pack size',
-    packs: [{ o: '60 capsules', p: 999 }, { o: '120 capsules', p: 1699, was: 1998 },
-            { o: '240 capsules', p: 2999, oos: true }] },
-  // Fixture for the pharmacy gate. A codeine-containing analgesic is pharmacist-only
-  // in Ireland, so it is the honest example of a product that must never be
-  // one-click added from a grid, a search suggestion or a recommendation.
-  { t: 'Nurofen Plus 200mg/12.8mg 24 Tablets', cols: ['nurofen', 'pain-relief'], v: 'Nurofen', img: 'prod-nurofen.jpg', p: 1099, was: null, ty: 'Pain Relief', tg: ['pharmacist-only'] },
-  // Fixture for the sold-out path. Without one, the out-of-stock product page and its
-  // back-in-stock capture render in no preview and are verified by nobody.
-  { t: 'Difflam Sore Throat Spray 30ml', cols: ['sore-throat'], v: 'Difflam', img: 'prod-cetrine.jpg', p: 1299, was: null, ty: 'Sore Throat', oos: true },
-];
+// The fixture catalogue, shared with serve_preview.py (cart and product JSON) and
+// provision.mjs (seeding the dev store), so all three cannot disagree about a price.
+const CATALOGUE = JSON.parse(readFileSync(join(HERE, 'catalogue.json'), 'utf8'));
 
 // Harness-only FAQ fixture. NOT customer copy and never shipped: the theme's FAQ
 // metafield is empty by design and its content needs pharmacist sign-off. This
