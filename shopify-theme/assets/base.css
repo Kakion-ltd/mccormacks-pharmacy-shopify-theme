@@ -484,11 +484,19 @@ input:not([type=checkbox]):not([type=radio]):not([type=range]), select, textarea
 .sortby-box:hover { border-color: var(--c-primary-hover) !important; }
 .sortby-box:focus-within { box-shadow: 0 0 0 4px rgba(146, 200, 63, .15); }
 
+/* Card hover: the View button fades up over the image, the image eases in
+   4%. Shared by the collection product cards (.pcard is a div holding the link)
+   and the homepage category tiles (.pcard IS the link, hence :focus-visible). */
+.pcard .pcard-view { box-shadow: 0 2px 8px rgba(0, 0, 0, .12); }
+.pcard-hovbtn:hover { background: var(--c-accent) !important; color: var(--c-on-accent) !important; border-color: var(--c-accent) !important; }
+.pcard:hover .pcard-view, .pcard:focus-visible .pcard-view { opacity: 1 !important; transform: translateY(0) !important; }
+.pcard:hover .pcard-img img, .pcard:focus-visible .pcard-img img { transform: scale(1.04); }
+
 /* Interaction-triggered transforms sit still under reduced motion; the
    product-card View button appears by fade alone. */
 @media (prefers-reduced-motion: reduce) {
   .hov-slide:hover, .wish-btn.is-saved:hover, .svc-card:hover, .art-card:hover { transform: none !important; }
   .slide-cta:hover .cta-arrow { transform: none !important; }
   .pcard .pcard-view { transform: none !important; }
-  .pcard:hover .pcard-img img { transform: none !important; }
+  .pcard:hover .pcard-img img, .pcard:focus-visible .pcard-img img { transform: none !important; }
 }
