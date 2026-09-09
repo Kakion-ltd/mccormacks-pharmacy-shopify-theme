@@ -956,9 +956,11 @@
 
 <style>
 /* Desktop: message and button read as one centred cluster instead of
-   opposite ends of an empty bar. Below 901px the wrap layout is unchanged. */
+   opposite ends of an empty bar, and the bar sits 60px in from each edge of
+   the rail so it is narrower than the hero and pills above it. Height, radius
+   and type are the bar's original. Below 901px it stays full width. */
 @media (min-width: 901px) {
-  .promo-strip-bar { justify-content: center !important; gap: 16px 34px !important; }
+  .promo-strip-bar { justify-content: center !important; gap: 16px 34px !important; width: calc(100% - 120px) !important; margin: 0 auto !important; }
 }
 </style>
 
