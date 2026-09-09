@@ -224,6 +224,7 @@
           "type": "category",
           "settings": {
             "collection": "mother-baby",
+            "image_asset": "cat-mother-baby.jpg",
             "label": "Mother & Baby"
           }
         },
