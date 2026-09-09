@@ -167,7 +167,7 @@ master for it in `artwork/`, so ask the supplier for one with this rule.
 Two slots, and the spotlight one changed shape in September 2026 when the
 image stopped floating inside the card and started bleeding to its edge.
 
-- **Spotlight:** 1500 × 800 JPEG (15:8). The panel fills the card's right 46%
+- **Spotlight:** 1500 × 800 JPEG (15:8). The panel fills the card's right 58%
   from top edge to bottom edge on desktop and becomes a full-width 2:1 band
   on a phone, so keep the subject inside the central 2:1 with 8% clear on
   every side. **Any background works.** The image's rectangle is never
