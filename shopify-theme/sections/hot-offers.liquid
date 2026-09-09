@@ -63,7 +63,7 @@
           {%- elsif block.settings.image_asset != blank -%}
             <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="1200" height="800" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
           {%- else -%}
-            {%- render 'image-placeholder', w: 1200, h: 800, label: 'Offer image', note: 'Subject centred — phones crop to a 2:1 band.' -%}
+            {%- render 'image-placeholder', w: 1200, h: 800, label: 'Offer image · 1200 × 800', note: 'Subject centred — phones crop to a 2:1 band.' -%}
           {%- endif -%}
         </div>
       </div>
@@ -78,7 +78,7 @@
           {%- elsif block.settings.image_asset != blank -%}
             <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="240" height="240" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
           {%- else -%}
-            <div title="Upload 600 &times; 600 px" style="position:absolute; inset:0; background:repeating-linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.16) 8px, rgba(255,255,255,.07) 8px, rgba(255,255,255,.07) 16px);" role="img" aria-label="Offer image placeholder — upload 600 by 600 pixels"></div>
+            <div title="Upload 600 &times; 600 px" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.16) 8px, rgba(255,255,255,.07) 8px, rgba(255,255,255,.07) 16px);" role="img" aria-label="Offer image placeholder — upload 600 by 600 pixels"><span style="font-size:10px; font-weight:800; letter-spacing:.06em; opacity:.85;">600 &times; 600</span></div>
           {%- endif -%}
         </div>
         <div style="flex:1 1 auto; min-width:0;">
@@ -140,8 +140,8 @@
     {
       "name": "Hot offers",
       "blocks": [
-        { "type": "offer", "settings": { "deal": "Save 20%", "title": "Vitamins & Supplements", "subtext": "Support your daily health & wellbeing — 20% off multivitamins & supplements this month.", "link": "/collections/vitamins", "image_asset": "hot-offer-vitamins.jpg", "background": "#82c914" } },
-        { "type": "offer", "settings": { "deal": "Save 15%", "title": "Deodorants & Antiperspirants", "subtext": "Stay fresh for less with long-lasting protection, including Mitchum.", "link": "/collections/deodorant", "image_asset": "mitchum-hot-offers.jpg", "background": "#3f6b4f" } },
+        { "type": "offer", "settings": { "deal": "Save 20%", "title": "Vitamins & Supplements", "subtext": "Support your daily health & wellbeing — 20% off multivitamins & supplements this month.", "link": "/collections/vitamins", "background": "#82c914" } },
+        { "type": "offer", "settings": { "deal": "Save 15%", "title": "Deodorants & Antiperspirants", "subtext": "Stay fresh for less with long-lasting protection, including Mitchum.", "link": "/collections/deodorant", "background": "#3f6b4f" } },
         { "type": "offer", "settings": { "deal": "Save 20%", "title": "Menopause Support", "subtext": "Everyday menopause support, including CanesMeno — all month long.", "link": "/collections/menopause", "background": "#92C83F" } }
       ]
     }
