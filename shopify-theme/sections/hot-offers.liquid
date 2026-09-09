@@ -54,16 +54,16 @@
             background is never seen as a rectangle. Any ground works. {%- endcomment -%}
         <div class="hot-spot-img" style="position:absolute; top:0; right:0; bottom:0; width:58%; z-index:1;">
           {%- if block.settings.image != blank -%}
-            {{ block.settings.image | image_url: width: 1500 | image_tag:
-               widths: '500,800,1200,1500',
+            {{ block.settings.image | image_url: width: 1600 | image_tag:
+               widths: '500,800,1200,1600',
                sizes: '(max-width: 900px) 100vw, 38vw',
                alt: block.settings.title,
                loading: 'lazy',
                style: 'position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;' }}
           {%- elsif block.settings.image_asset != blank -%}
-            <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="1500" height="800" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
+            <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="1600" height="800" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
           {%- else -%}
-            {%- render 'image-placeholder', w: 1500, h: 800, label: 'Offer image · 1500 × 800', note: 'Subject centred — phones crop to a 2:1 band.' -%}
+            {%- render 'image-placeholder', w: 1600, h: 800, label: 'Offer image · 1600 × 800', note: 'Subject centred — phones crop to a 2:1 band.' -%}
           {%- endif -%}
         </div>
       </div>
@@ -129,7 +129,7 @@
         { "type": "text", "id": "ends", "label": "Ends", "info": "Optional, e.g. Until 30 September. Urgency renders only when this is filled in — there is no automatic date handling, so clear it when the offer ends." },
         { "type": "text", "id": "cta", "label": "Button label", "default": "Shop Now" },
         { "type": "url", "id": "link", "label": "Button link" },
-        { "type": "image_picker", "id": "image", "label": "Image", "info": "Spotlight: 1500×800 (15:8), subject centred inside the middle 2:1 band — the panel bleeds to the card edge, so any background works. Rows show a 4:3 thumbnail: 800×600." },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Spotlight: 1600×800 (2:1), subject centred inside the middle 2:1 band — the panel bleeds to the card edge, so any background works. Rows show a 4:3 thumbnail: 800×600." },
         { "type": "text", "id": "image_asset", "label": "Fallback theme asset (onboarding only)", "info": "Filename of a theme asset used until an image is picked." },
         { "type": "color", "id": "background", "label": "Tile colour", "default": "#82c914" }
       ]
