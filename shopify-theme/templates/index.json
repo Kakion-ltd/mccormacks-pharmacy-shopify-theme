@@ -241,7 +241,8 @@
           "type": "category",
           "settings": {
             "collection": "gifting",
-            "label": "Gifting"
+            "label": "Gifting",
+            "image_asset": "cat-gifting.jpg"
           }
         },
         "sale": {
