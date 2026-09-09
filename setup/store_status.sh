@@ -48,11 +48,16 @@ import os, re, sys, subprocess
 store, repo = sys.argv[1], sys.argv[2]
 SKIP = {'config/settings_data.json'}  # the store owns this file; the editor rewrites it
 import json
+def prune(v):
+    # Shopify writes "settings": {} into every section that had none; an empty object is no change.
+    if isinstance(v, dict): return {k: prune(x) for k, x in v.items() if x != {} and x != []}
+    if isinstance(v, list): return [prune(x) for x in v]
+    return v
 def norm(b):
     try: s = b.decode()
     except UnicodeDecodeError: return b
     s = re.sub(r'^\s*/\*.*?\*/\s*', '', s, flags=re.S)  # Shopify's auto-generated JSON header
-    try: return json.dumps(json.loads(s), sort_keys=True)   # the store reformats JSON; compare meaning
+    try: return json.dumps(prune(json.loads(s)), sort_keys=True)   # the store reformats JSON; compare meaning
     except ValueError: return s.replace('\r\n', '\n').rstrip('\n')
 def files(root):
     out = {}
