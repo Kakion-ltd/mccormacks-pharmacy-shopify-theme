@@ -14,7 +14,17 @@
   <div class="co-wrap" style="display:flex; gap:44px; align-items:flex-start;">
     <div style="flex:1 1 auto; min-width:0; max-width:760px;">
       <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
-      <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
+      {%- comment -%} Blank lines in the Intro setting become paragraph breaks;
+          [threshold] prints the free delivery amount from Brand settings, as in
+          the announcement bar, so the copy can never drift from the cart. {%- endcomment -%}
+      {%- capture fd_amount -%}{%- render 'free-delivery-amount' -%}{%- endcapture -%}
+      {%- capture nl %}
+{% endcapture -%}
+      {%- assign para_delim = nl | append: nl -%}
+      {%- assign intro_paras = section.settings.intro | replace: '[threshold]', fd_amount | split: para_delim -%}
+      {%- for para in intro_paras -%}
+      <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ para }}</p>
+      {%- endfor -%}
       {%- comment -%} 13:6 (was 16:7) — consolidated with the category banner so both
           share one export. The fallback asset is re-exported to match. {%- endcomment -%}
       <div style="width:100%; aspect-ratio:13/6; border-radius:16px; overflow:hidden; background:#f4f5f2; margin:0 0 8px;">
@@ -75,10 +85,29 @@
 {
   "name": "About Us",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Heading", "default": "A family pharmacy, since 1982" },
-    { "type": "textarea", "id": "intro", "label": "Intro", "default": "McCormack’s has grown from a single counter in Clonmel to seven pharmacies — in Tipperary, Limerick, Kildare, Offaly, Louth and Mayo — and a busy online pharmacy serving the whole country." },
-    { "type": "image_picker", "id": "image", "label": "Storefront image" }
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A family pharmacy, since 1982"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro",
+      "default": "McCormack\u2019s Pharmacy is an independent pharmacy and healthcare group, established in 2010 and owned and run by Fergal McCormack. Seven stores across six counties: Clonmel in Tipperary, Ballylanders in Limerick, Newbridge in Kildare, Tullamore in Offaly, two in Dundalk in Louth and Belmullet in Mayo, trading as Erris Pharmacy.\n\nEverything you would find on our shelves is available online, with free delivery over [threshold] and free click and collect from any of the seven stores.\n\nWe stock CeraVe, La Roche-Posay, Uriage, Revive Active, Pestle & Mortar, Sculpted by Aimee, BPerfect and SOSU, among others, and our staff are trained to give proper advice on health and beauty rather than just point at a shelf.",
+      "info": "Blank lines start a new paragraph. Write [threshold] to print the free delivery amount from Brand settings."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Storefront image"
+    }
   ],
-  "presets": [{ "name": "About Us" }]
+  "presets": [
+    {
+      "name": "About Us"
+    }
+  ]
 }
 {% endschema %}
