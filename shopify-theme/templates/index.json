@@ -243,6 +243,14 @@
             "collection": "gifting",
             "label": "Gifting"
           }
+        },
+        "sale": {
+          "type": "category",
+          "settings": {
+            "collection": "sale",
+            "label": "Sale",
+            "image_asset": "cat-sale.jpg"
+          }
         }
       },
       "block_order": [
@@ -253,7 +261,8 @@
         "toiletries",
         "baby",
         "fragrance",
-        "gifts"
+        "gifts",
+        "sale"
       ]
     },
     "offers": {
