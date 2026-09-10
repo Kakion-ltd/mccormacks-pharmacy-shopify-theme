@@ -79,7 +79,11 @@ h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 
 .btn, .btn-sm, .chip { display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box; font-family: inherit; font-weight: 700; line-height: 1.2; text-align: center; text-decoration: none; white-space: nowrap; cursor: pointer; border: 1.5px solid transparent; transition: background .15s ease, border-color .15s ease, color .15s ease, transform .15s ease, box-shadow .15s ease; }
 .btn    { min-height: 44px; padding: 0 20px; font-size: 15px;   border-radius: 9px; }
 .btn-sm { min-height: 36px; padding: 0 14px; font-size: 13.5px; border-radius: 8px; }
-.chip   { min-height: 40px; padding: 0 18px; font-size: 14.5px; border-radius: 9px; background: #f2f3f1; color: #3a3d39; }
+.chip   { min-height: var(--chip-h, 40px); padding: 0 18px; font-size: 14.5px; border-radius: 9px; background: #f2f3f1; color: #3a3d39; }
+/* The homepage category row runs its chips at 38px. The modifier sets the height
+   variable and nothing else, so the row can only ever differ from the collection
+   chips by height; setup/verify/chips-taxonomy.py asserts that. */
+.chip-row-compact { --chip-h: 38px; }
 .btn-fill { background: var(--c-dark); color: var(--c-on-dark); border-color: var(--c-dark); }
 /* Hover goes lime and the ink flips to dark in the same transition (7.14:1), never
    white on lime (1.99:1). A 1px lift with a soft shadow; the transform is dropped

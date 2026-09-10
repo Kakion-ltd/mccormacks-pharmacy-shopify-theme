@@ -132,6 +132,20 @@ for i in home.get("block_order", []):
         pair = (b["settings"]["label"], b["settings"]["link"])
         ck(f"homepage override '{pair[0]}' is a nav entry", pair in allowed)
 
+# homepage pills and collection chips are the same chip; the homepage row may differ
+# only by the height variable its modifier sets
+import re as _re
+css = theme("assets", "base.css")
+mod = _re.search(r"\.chip-row-compact\s*{([^}]*)}", css)
+ck("base.css has the homepage chip-row modifier", mod is not None)
+if mod:
+    decls = [d.strip().split(":")[0] for d in mod.group(1).split(";") if d.strip()]
+    ck("the modifier sets only the chip height variable", decls, ["--chip-h"])
+ck(".chip reads its height from the variable", "min-height: var(--chip-h" in css)
+ck("homepage pills use the shared chip classes", theme("sections", "category-pills.liquid").count('class="chip chip-lime"'), 3)
+ck("collection chips use the shared chip classes", 'class="chip chip-lime"' in theme("snippets", "category-chip.liquid"))
+ck("homepage row carries the modifier", 'class="chip-row-compact"' in theme("sections", "category-pills.liquid"))
+
 for ok, name, got in res:
     if not ok:
         print(f"FAIL  {name}   (got {got!r})")
