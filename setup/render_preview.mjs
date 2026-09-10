@@ -361,12 +361,15 @@ const CATALOGUE = JSON.parse(readFileSync(join(HERE, 'catalogue.json'), 'utf8'))
 // exists so the mechanism is exercised — that it renders, that an entry missing
 // half a pair is dropped rather than half-rendered, that an internal link
 // survives, and that the JSON-LD stays valid when an answer contains quotes.
+// Wording is deliberately flat "TEST DATA" so a screenshot reads as a fixture, not
+// as broken customer copy. Keep the internal link: verify/product-faq.py looks for it.
 CATALOGUE[0].faq = [
-  { question: 'HARNESS FIXTURE - does the accordion render?',
-    answer: '<p>Fixture answer with an <a href="/pages/shipping">internal link</a>.</p>' },
-  { question: 'HARNESS FIXTURE - does "quoting" keep the JSON valid?',
-    answer: '<p>Fixture answer containing "double quotes" and an apostrophe.</p>' },
-  { question: 'HARNESS FIXTURE - is a half-filled entry dropped?', answer: '   ' },
+  { question: 'TEST DATA 1 of 2: sample FAQ question. Not customer copy.',
+    answer: '<p>TEST DATA: sample answer with an <a href="/pages/shipping">internal link</a>. Not customer copy.</p>' },
+  { question: 'TEST DATA 2 of 2: sample FAQ question with "quotes" in it. Not customer copy.',
+    answer: '<p>TEST DATA: sample answer with "double quotes" and an apostrophe\'s. Not customer copy.</p>' },
+  // Third entry has a blank answer and must be dropped by the theme, so only two render.
+  { question: 'TEST DATA: this entry has no answer and must not render.', answer: '   ' },
 ];
 
 const handleOf = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
