@@ -118,26 +118,37 @@ body[data-mnav-open] .mnav-overlay { opacity: 1; visibility: visible; transition
 body[data-mnav-open] .mnav-drawer { transform: translateX(0); visibility: visible; transition: transform .28s cubic-bezier(.4,0,.2,1), visibility 0s; }
 
 /* Responsive shell (ported verbatim from the design pages) */
-/* ---- Sticky header. Desktop: .hdr-sticky (logo/search row + nav bar) sticks, always
-   compact. The search lives in its own row in the markup so phones can drop it; on
+/* ---- Sticky header. Desktop: .hdr-sticky (logo, search, icons) sticks; the nav bar
+   scrolls away with the page. The search lives in its own row in the markup so phones can drop it; on
    desktop the header is a grid that puts it back between the logo and the icons.
    z-index sits above page content and below the drawers (200+); no overflow, or the
-   mega menu and the suggestions panel would be clipped. ---- */
-.hdr-sticky { position: sticky; top: 0; z-index: 150; background: #ffffff; box-shadow: 0 6px 18px rgba(0, 0, 0, .08); }
+   suggestions panel would be clipped. ---- */
+.hdr-sticky { position: sticky; top: 0; z-index: 150; background: #ffffff; }
+.hdr-sticky.is-stuck { box-shadow: 0 6px 18px rgba(0, 0, 0, .08); }
+/* Compression is a transition, and the wrapper's flow height must not change while it
+   runs: everything below would move up by the difference, which Chrome scores as a
+   layout shift even mid-scroll. The bottom margin grows by the same amount, on the same
+   curve, so header box plus margin is constant at every frame. --hdr-delta is the
+   at-rest height minus the stuck height per breakpoint. */
+.hdr-sticky { --hdr-delta: 32px; margin-bottom: 0; transition: margin-bottom .22s ease; } /* 78 at rest, 46 stuck */
+@media (min-width: 901px) { .hdr-sticky.is-stuck { margin-bottom: var(--hdr-delta); } }
+.hdr-sticky header, .hdr-row, .hdr-logo img, .hdr-search-form input { transition: padding .22s ease, width .22s ease; }
+@media (prefers-reduced-motion: reduce) { .hdr-sticky, .hdr-sticky header, .hdr-row, .hdr-logo img, .hdr-search-form input { transition: none; } }
 @media (min-width: 901px) {
-  .hdr-sticky header { display: grid; grid-template-columns: 1fr minmax(200px, 550px) 1fr; align-items: center; column-gap: 30px; max-width: 1440px; margin: 0 auto; padding: 6px 30px; }
+  .hdr-sticky header { display: grid; grid-template-columns: 1fr minmax(200px, 550px) 1fr; align-items: center; column-gap: 30px; max-width: 1440px; margin: 0 auto; padding: 16px 30px; }
+  .hdr-sticky.is-stuck header { padding: 6px 30px; }
+  .hdr-sticky.is-stuck .hdr-logo img { width: 130px !important; }
+  .hdr-sticky.is-stuck .hdr-search-form input { padding: 6px 0 !important; }
   /* !important: .hdr-row carries display:flex inline for the phone layout. */
   .hdr-row, .hdr-search-row { display: contents !important; }
   .hdr-logo { grid-column: 1; grid-row: 1; justify-self: start; }
   .hdr-search { grid-column: 2; grid-row: 1; margin: 0 !important; }
   .hdr-icons { grid-column: 3; grid-row: 1; justify-self: end; }
-  /* The open mega panel is capped to the viewport below the stuck bar. The cap goes on the
-     panel's inner container: the anchor is height:0 and relies on visible overflow. */
-  .mega-panel[data-open="true"] > * { max-height: calc(100vh - 84px); overflow-y: auto; }
 }
 @media (max-width: 1100px) and (min-width: 901px) {
   .icon-label { display: none !important; }
-  .hdr-sticky header { padding: 5px 20px; column-gap: 18px; grid-template-columns: 1fr minmax(200px, 340px) 1fr; }
+  .hdr-sticky header { padding: 12px 20px; column-gap: 18px; grid-template-columns: 1fr minmax(200px, 340px) 1fr; }
+  .hdr-sticky.is-stuck header { padding: 5px 20px; }
   .hdr-icons { gap: 18px !important; }
   .main-nav-bar > div { padding: 3px 20px !important; gap: 8px 16px !important; }
   .main-nav-bar > div > nav a { font-size: 12px !important; padding: 0 12px !important; height: 28px !important; gap: 7px !important; white-space: nowrap !important; }
@@ -147,9 +158,12 @@ body[data-mnav-open] .mnav-drawer { transform: translateX(0); visibility: visibl
   /* Phones: only the hamburger/logo/cart row sticks. The wrapper and <header> become
      display:contents so .hdr-row's sticky containing block is the page, not the header. */
   .hdr-sticky, .hdr-sticky header { display: contents; }
-  .hdr-row { position: sticky; top: 0; z-index: 150; background: #ffffff; box-shadow: 0 6px 18px rgba(0, 0, 0, .08); }
+  /* The wrapper is display:contents here, so its margin is inert: the row itself carries
+     the compensation. 10px to 8px padding on both sides is the 4px. */
+  .hdr-row { position: sticky; top: 0; z-index: 150; background: #ffffff; transition: padding .22s ease, margin-bottom .22s ease; }
+  .hdr-sticky.is-stuck .hdr-row { box-shadow: 0 6px 18px rgba(0, 0, 0, .08); padding: 8px 16px !important; margin-bottom: 4px !important; }
   .hdr-search-row { padding: 2px 16px 10px; background: #ffffff; }
-  .hdr-row { flex-wrap: wrap; gap: 12px 14px !important; padding: 8px 16px !important; }
+  .hdr-row { flex-wrap: wrap; gap: 12px 14px !important; padding: 10px 16px !important; }
   .hdr-mobile-left { display: flex !important; order: 1; flex: 1 1 0 !important; }
   .hdr-logo { order: 2; flex: 0 0 auto !important; }
   .hdr-logo img { width: 160px !important; }

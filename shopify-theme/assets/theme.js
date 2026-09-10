@@ -25,6 +25,21 @@
   const escapeHtml = (t) => String(t == null ? '' : t).replace(/[&<>"']/g,
     (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+  // ---- Sticky header: full size at rest, compact once stuck. The sentinel sits just
+  // above the sticky wrapper, so it leaves the viewport exactly when the wrapper sticks.
+  // No class is set at load, so the header renders at rest with no shift on init.
+  {
+    const sentinel = document.querySelector('[data-hdr-sentinel]');
+    const wrap = document.querySelector('.hdr-sticky');
+    if (sentinel && wrap && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => {
+        wrap.classList.toggle('is-stuck', !e.isIntersecting);
+        // the nav bar scrolls away, so an open mega panel would slide under the bar with its trigger gone
+        if (!e.isIntersecting) document.dispatchEvent(new Event('hdr:stuck'));
+      }, { rootMargin: '-1px 0px 0px 0px', threshold: 0 }).observe(sentinel);
+    }
+  }
+
   // ---- Mega menu: data-mega-trigger="key" links, data-mega-panel="key" panels,
   // data-mega-root wrapper. Opens on hover/keyboard focus; tap-to-open on touch
   // (second tap follows the link); 250ms close grace on mouseleave; Esc closes;
@@ -54,6 +69,7 @@
       }
     };
     const scheduleClose = () => { clearTimeout(closeTimer); closeTimer = setTimeout(closeAll, 250); };
+    document.addEventListener('hdr:stuck', closeAll);
 
     const canHover = () => matchMedia('(hover: hover)').matches;
     triggers.forEach(t => {
