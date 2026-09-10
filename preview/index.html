@@ -949,12 +949,12 @@
 </section>
 
 <style>
-/* Desktop: message and button read as one centred cluster instead of
-   opposite ends of an empty bar, and the bar sits 60px in from each edge of
-   the rail so it is narrower than the hero and pills above it. Height, radius
+/* Desktop: the bar is only as wide as the message and button, centred, so
+   the tint marks the notice rather than ruling an empty row across the page.
+   It grows with longer copy up to the rail width, then wraps. Height, radius
    and type are the bar's original. Below 901px it stays full width. */
 @media (min-width: 901px) {
-  .promo-strip-bar { justify-content: center !important; gap: 16px 34px !important; width: calc(100% - 120px) !important; margin: 0 auto !important; }
+  .promo-strip-bar { width: fit-content !important; max-width: calc(100% - 120px); margin: 0 auto !important; justify-content: center !important; gap: 16px 34px !important; padding: 12px 18px 12px 26px !important; }
 }
 </style>
 
