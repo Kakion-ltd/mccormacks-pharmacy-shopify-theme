@@ -35,6 +35,17 @@ a:hover { color:var(--c-primary-text); }
 img { max-width: 100%; }
 button { font-family: inherit; }
 input, select, textarea { font-family: inherit; }
+/* Native selects, closed state only. Form selects take the same box as the text
+   input beside them and one theme chevron in place of the OS one; the two sort
+   selects sit in the green sort box with the same chevron. The open list stays the
+   browser's on purpose: keyboard, type-ahead and the phone pickers come free. */
+select.contact-input, select.svc-input, select.careers-input, select.rx-input, select.acct-input, .sortby-box select {
+  appearance: none; -webkit-appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233F6B4F' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-size: 16px 16px;
+}
+select.contact-input, select.svc-input, select.careers-input, select.rx-input, select.acct-input { padding: 0 42px 0 14px; background-color: #ffffff; background-position: right 14px center; }
+.sortby-box select { border: none; outline: none; padding: 0 24px 0 0; background-color: transparent; background-position: right center; font-family: inherit; font-weight: 600; font-size: 15px; color: var(--c-primary-text); }
 
 h1 { font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px, 3.2vw, 42px); }
 h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 2.2vw, 28px); }

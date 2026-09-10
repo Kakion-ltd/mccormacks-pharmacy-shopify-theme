@@ -123,7 +123,7 @@
               </label>
               <label style="display:flex; flex-direction:column; gap:7px;">
                 <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Preferred store</span>
-                <select class="svc-input" style="padding:0 12px; background:#ffffff;">{{ store_options }}</select>
+                <select class="svc-input">{{ store_options }}</select>
               </label>
             </div>
             <div style="margin-top:18px;"><button type="button" class="svc-link-btn btn btn-fill" data-view-btn="svc-book" style="gap:9px; width:100%">Request appointment</button></div>
@@ -185,7 +185,7 @@
           </label>
           <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
             <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Service</span>
-            <select class="svc-input" name="contact[service]" style="padding:0 12px; background:#ffffff;">
+            <select class="svc-input" name="contact[service]">
               {%- for block in section.blocks -%}
                 <option>{{ block.settings.title }}</option>
               {%- endfor -%}
@@ -193,7 +193,7 @@
           </label>
           <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
             <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Preferred store</span>
-            <select class="svc-input" name="contact[preferred_store]" style="padding:0 12px; background:#ffffff;">{{ store_options }}</select>
+            <select class="svc-input" name="contact[preferred_store]">{{ store_options }}</select>
           </label>
           <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
             <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Preferred day</span>
@@ -201,7 +201,7 @@
           </label>
           <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
             <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Preferred time</span>
-            <select class="svc-input" name="contact[preferred_time]" style="padding:0 12px; background:#ffffff;">
+            <select class="svc-input" name="contact[preferred_time]">
               <option>Morning</option><option>Afternoon</option><option>Either</option>
             </select>
           </label>

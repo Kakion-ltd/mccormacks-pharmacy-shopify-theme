@@ -517,7 +517,10 @@ const globals = {
   // Shopify only fills search.terms on the search template; everywhere else the
   // header input must render empty. The populated object is swapped in per
   // template by renderTemplate.
-  search: { performed: false, terms: '', results: [], results_count: 0, results_url: '/search' },
+  // sort_options so the results page's sort control renders with a value, as on Shopify
+  search: { performed: false, terms: '', results: [], results_count: 0, results_url: '/search',
+    sort_options: [{ name: 'Relevance', value: 'relevance' }, { name: 'Price, low to high', value: 'price-ascending' }, { name: 'Price, high to low', value: 'price-descending' }],
+    sort_by: 'relevance', default_sort_by: 'relevance' },
   customer: null, gift_card: { balance: 5000, initial_value: 5000, code: 'XXXX-XXXX', expired: false, enabled: true, currency: 'EUR', qr_identifier: '', pass_url: null, url: '#' },
   page: { title: 'Page', handle: 'page', content: '<p>Page content.</p>' },
   order: { name: '#1001', created_at: '2026-05-01', line_items: [], financial_status: 'paid', fulfillment_status: 'fulfilled', shipping_address: {}, billing_address: {}, subtotal_price: 4990, total_price: 4990, shipping_methods: [{ title: 'Standard delivery', price: 550 }], tax_lines: [], cancelled: false },
