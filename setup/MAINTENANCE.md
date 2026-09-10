@@ -617,15 +617,19 @@ Work, render (`npm run render`) and test (`npm test`) inside that worktree,
 commit there, then land it:
 
 ```sh
-git push . HEAD:main          # refuses unless main fast-forwards; if it refuses:
-git rebase main && npm run render && npm test && git push . HEAD:main
+cd <main checkout> && git merge --ff-only <session>/<topic>   # refuses unless main fast-forwards
 git push origin main
 ```
 
-Never `git checkout main` in a worktree (it is checked out in the main tree),
-never `git reset`, `git stash` or `git add -A` in the main tree while another
-session is active, and never commit a file by whole path that another session
-might have edits in. When done: `git worktree remove ../mccormacks-<session>`.
+If the merge refuses, main has moved: back in the worktree run
+`git rebase main && npm run render && npm test`, then merge again. Do not
+`git push . HEAD:main` from the worktree; git refuses to update a branch that
+is checked out elsewhere, which main always is.
+
+The main checkout is only ever a clean copy of `main` that receives merges.
+Never edit, `git reset`, `git stash` or `git add -A` there while another
+session is active, and never `git checkout main` inside a worktree. When done:
+`git worktree remove ../mccormacks-<session>` and `git branch -d` the branch.
 
 Each session also runs its own preview server on its own port
 (`python3 setup/serve_preview.py 8736`, not the default 8734) and stops it by
