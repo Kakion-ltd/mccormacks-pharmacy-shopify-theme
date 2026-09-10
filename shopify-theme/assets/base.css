@@ -106,6 +106,16 @@ h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 
 /* Mega menu open state (JS toggles data-open on the nav wrapper).
    The open wrapper is taken out of the nav's flex flow — as an in-flow flex item
    it pushed the In-Store Services / Store Locator buttons left on open. */
+/* Mega panel groups: one flow the browser balances into the panel's own column
+   count (set inline per panel by setup/gen_mega.py). A group heading binds to its
+   own links - 3px under it, 24px to the next group - so the boundaries read; the
+   links carry their spacing as leading rather than as a 7px gap, which raises the
+   hit box from 15px to 19px and still leaves every panel shorter than it was. */
+.mega-cols { column-gap: 24px; }
+.mega-cols > .mega-group { break-inside: avoid; margin: 0 0 24px; }
+.mega-group > a { font-size: 14px; margin-bottom: 3px; }
+.mega-group > div > a { display: block; line-height: 1.6; }
+
 .mega-panel { display: none; }
 .mega-panel[data-open="true"] {
   display: block;

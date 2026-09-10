@@ -67,6 +67,14 @@
         const max = root.clientWidth - inner.offsetWidth - 30;
         inner.style.left = Math.max(30, Math.min(t.offsetLeft, max)) + 'px';
       }
+      // Cap the panel to the room actually below it. The nav bar is sticky, so any
+      // part of the panel past the viewport bottom can never be scrolled to; the vh
+      // cap in the markup cannot know the panel's top, which moves when the nav
+      // wraps to two rows (147px at 1440, 211px at 1024).
+      if (inner) {
+        const top = inner.getBoundingClientRect().top;
+        inner.style.maxHeight = Math.max(280, Math.round(innerHeight - top - 16)) + 'px';
+      }
     };
     const scheduleClose = () => { clearTimeout(closeTimer); closeTimer = setTimeout(closeAll, 250); };
     document.addEventListener('hdr:stuck', closeAll);

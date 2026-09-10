@@ -28,11 +28,62 @@ HOVER_MAP = [
     ('color:#3f6b4f;', 'hov-dark-green'),
 ]
 
+# The design markup hand-splits each panel into fixed column divs, which is why the
+# columns ended at wildly different heights and why the six-column panel overflowed
+# sideways at 1024 (six 155px minimums do not fit an 904px panel). This lifts the
+# groups out of those column divs into one flow and lets the browser balance them:
+# an order-preserving split computed by hand lands within 30px of what the browser
+# does, and the browser redoes it at every width. Panels with no groups (Vitamins is
+# a flat list) keep their grid, so their reading order is untouched.
 JS = """([keys, txt]) => {
   const doc = new DOMParser().parseFromString(txt, 'text/html');
+  const strip = (el, ...res) => {
+    let s = el.getAttribute('style') || '';
+    for (const re of res) s = s.replace(re, '');
+    el.setAttribute('style', s.trim());
+  };
+  const prep = holder => {
+    const box = holder.querySelector('div[style*="max-height:78vh"]');
+    if (box) box.setAttribute('style', box.getAttribute('style').replace('max-height:78vh', 'max-height:84vh'));
+    const grid = holder.querySelector('div[style*="grid-template-columns"]');
+    if (!grid) return;
+    // Only panels built from group headings; Vitamins is a flat list of links in
+    // hand-split columns and keeps its grid, gaps and reading order untouched.
+    if (!grid.querySelector('a[style*="font-weight:800"]')) return;
+    const cols = [...grid.children].filter(c => /flex-direction:column/.test(c.getAttribute('style') || ''));
+    if (!cols.length) return;
+    const groups = [...grid.querySelectorAll('a[style*="font-weight:800"]')].map(a => a.parentElement);
+    for (const g of groups) {
+      g.setAttribute('class', ((g.getAttribute('class') || '') + ' mega-group').trim());
+      strip(g.querySelector(':scope > a'), /font-size:13\.5px;\s*/, /margin-bottom:8px;\s*/);
+      const stack = g.querySelector(':scope > div');
+      if (stack) strip(stack, /gap:\d+px;\s*/);
+    }
+    // A hand split is fine while a person can eyeball it. Past about ten groups it
+    // cannot be, which is how Medicines & Health ended up 242px ragged across six
+    // columns; that one becomes a single flow the browser balances. The smaller
+    // panels keep their columns, because a flowed group carries a trailing margin
+    // at the foot of every column and that costs more than their raggedness does.
+    if (groups.length <= 10) {
+      for (const col of cols) {
+        const s = col.getAttribute('style') || '';
+        col.setAttribute('style', s.replace(/gap:\d+px;/, 'gap:24px;'));
+      }
+      return;
+    }
+    const n = (grid.getAttribute('style').match(/repeat\((\d+),/) || [])[1] || '6';
+    strip(grid, /display:grid;\s*/, /grid-template-columns:[^;]+;\s*/, /gap:\d+px;\s*/);
+    grid.setAttribute('class', 'mega-cols');
+    grid.setAttribute('style', grid.getAttribute('style') + ' column-count:' + n + ';');
+    for (const col of cols) {
+      while (col.firstElementChild) grid.insertBefore(col.firstElementChild, col);
+      col.remove();
+    }
+  };
   const out = {};
   for (const key of keys) {
     const holder = [...doc.querySelectorAll('sc-if')].find(n => (n.getAttribute('value')||'').includes(key));
+    if (holder) prep(holder);
     out[key] = holder ? holder.innerHTML : null;
   }
   return out;

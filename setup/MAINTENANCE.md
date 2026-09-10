@@ -550,6 +550,29 @@ products tagged with the restricted tag or typed under "Pharmacy > ...".
 The Product section's "Show the pharmacist lines on every product" checkbox
 turns it on everywhere; default off.
 
+## The mega panel scrolled sideways at 1024 for as long as it existed
+
+Found by measuring, September 2026. The Medicines & Health panel asked for six
+columns with a 155px minimum each: 6 x 155 plus five 20px gaps is 1030px of
+content inside a panel that is 904px wide at a 1024px viewport, so the panel
+scrolled horizontally by 128px and the sixth column sat off the right edge.
+Nothing reported it, because a panel that scrolls sideways looks like a panel
+that ends where the scroll starts, and `verify/sweep.py` only checks document
+overflow on pages whose panels are closed.
+
+The fix removed the fixed column split entirely: the groups are one flow and
+the browser balances them into the panel's own column count, so the columns
+narrow instead of overflowing. If a panel is ever given a fixed
+`grid-template-columns` again, check the arithmetic against the panel width at
+1024, not just at 1440.
+
+The panel's height cap has the same shape of problem. `max-height` in `vh`
+cannot know the panel's top, which moves from 147px to 211px when the nav wraps
+to two rows at 1024, so a cap generous enough at 1440 put the bottom of the
+panel below the viewport at 1024, where the sticky nav means it can never be
+scrolled to. `theme.js` now sets the cap from the panel's measured top when it
+opens; the `84vh` in the markup is the no-JS fallback.
+
 ## Seasonal rotation is manual — nothing in this theme is date-scheduled
 
 **There is no date scheduling anywhere in the theme. Not the hero slides, not
