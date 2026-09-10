@@ -86,25 +86,25 @@
                   {%- comment -%} Written by hand, as the hero slider does. image_tag's preload argument
                       emitted nothing on the dev store, and a link carrying imagesrcset was dropped
                       from the served page; two media-scoped links, the pattern the slider already
-                      uses, do render. 600 covers 85vw on phones at 2x, 1000 covers 52vw on desktop at 1x. {%- endcomment -%}
+                      uses, do render. 600 covers 85vw on phones at 2x, 1000 covers 43vw on desktop at 1x. {%- endcomment -%}
                   <link rel="preload" as="image" href="{{ media.preview_image | image_url: width: 1000 }}" media="(min-width: 901px)" fetchpriority="high">
                   <link rel="preload" as="image" href="{{ media.preview_image | image_url: width: 600 }}" media="(max-width: 900px)" fetchpriority="high">
                   {{ media.preview_image | image_url: width: 1200 | image_tag:
                        widths: '400,600,800,1000,1200',
-                       sizes: '(max-width: 900px) 85vw, 52vw',
+                       sizes: '(max-width: 900px) 85vw, 43vw',
                        alt: main_alt,
                        loading: 'eager',
                        fetchpriority: 'high',
                        data-pdp-img: forloop.index0,
-                       style: 'width:85%; height:auto; display:block;' }}
+                       style: 'width:70%; height:auto; display:block;' }}
                 {%- else -%}
                   {{ media.preview_image | image_url: width: 1200 | image_tag:
                        widths: '400,600,800,1000,1200',
-                       sizes: '(max-width: 900px) 85vw, 52vw',
+                       sizes: '(max-width: 900px) 85vw, 43vw',
                        alt: main_alt,
                        loading: 'lazy',
                        data-pdp-img: forloop.index0,
-                       style: 'width:85%; height:auto; display:block; display:none;' }}
+                       style: 'width:70%; height:auto; display:block; display:none;' }}
                 {%- endif -%}
               {%- endfor -%}
             {%- else -%}
@@ -133,13 +133,48 @@
           {%- endif -%}
         </div>
 
+        {%- if rel != blank and rel.size > 0 -%}
+        <!-- You may also like: under the description, not beside Add To Bag -->
+        <div class="pdp-recs" style="margin-top:34px;">
+        <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:24px; margin:0 0 20px;">You May Also Like</h2>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          {%- assign shown = 0 -%}
+          {%- for p in rel -%}
+            {%- if p.id == product.id or shown >= 3 -%}{%- continue -%}{%- endif -%}
+            {%- assign shown = shown | plus: 1 -%}
+            <div style="display:flex; align-items:center; gap:16px; padding:14px 0; border-bottom:1px solid #eceee9;">
+              <a href="{{ p.url }}" style="flex:0 0 92px; height:92px; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+                {%- if p.featured_image -%}
+                  {%- capture rel_alt %}{% render 'image-alt', image: p.featured_image, product: p %}{% endcapture -%}
+                  {{ p.featured_image | image_url: width: 184 | image_tag: alt: rel_alt, style: 'max-width:84%; max-height:84%; object-fit:contain; display:block;', loading: 'lazy' }}
+                {%- else -%}
+                  <div style="width:80%; height:80%; border-radius:7px; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px);"></div>
+                {%- endif -%}
+              </a>
+              <div style="flex:1; min-width:0;">
+                <h3 style="font-weight:700; font-size:15px; line-height:1.3; margin:0 0 6px;"><a href="{{ p.url }}" class="hov-green" style="color:#2A2B2A;">{{ p.title }}</a></h3>
+                <div style="margin-bottom:6px;">{% render 'product-rating', product: p, size: 13, count_label: 'long' %}</div>
+                <div style="color:var(--c-primary-text); font-weight:800; font-size:17px;">{{ p.price | money }}</div>
+              </div>
+              {%- capture restricted -%}{%- render 'product-restricted', product: p -%}{%- endcapture -%}
+              {%- if p.available and p.has_only_default_variant and restricted != 'true' -%}
+                <button type="button" data-add-id="{{ p.first_available_variant.id }}" class="btn-sm btn-fill" style="flex:0 0 auto; align-self:center">Add</button>
+              {%- else -%}
+                <a href="{{ p.url }}" class="btn-sm btn-fill" style="flex:0 0 auto; align-self:center">View</a>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+        </div>
+        {%- endif -%}
+
         {%- comment -%} Renders nothing at all until the FAQ metafield holds content.
             Below the tabs rather than inside them: the answers have to stay in the
             DOM to be eligible for the rich result. {%- endcomment -%}
         {% render 'product-faq', product: product %}
       </div>
 
-      <!-- RIGHT: info + you may also like -->
+      <!-- RIGHT: info -->
       <div class="pdp-right" style="flex:0 0 400px; width:400px;">
         {%- if on_sale -%}
           <div style="display:inline-flex; align-items:center; gap:8px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:13.5px; padding:9px 20px; border-radius:8px; margin-bottom:18px;">
@@ -215,38 +250,6 @@
           {% render 'buy-assurance', variant: current_variant, product: product, all_products: section.settings.show_pharmacy_lines %}
         </div>
 
-        {%- if rel != blank and rel.size > 0 -%}
-        <!-- You may also like -->
-        <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:24px; margin:0 0 20px;">You May Also Like</h2>
-        <div style="display:flex; flex-direction:column; gap:6px;">
-          {%- assign shown = 0 -%}
-          {%- for p in rel -%}
-            {%- if p.id == product.id or shown >= 3 -%}{%- continue -%}{%- endif -%}
-            {%- assign shown = shown | plus: 1 -%}
-            <div style="display:flex; align-items:center; gap:16px; padding:14px 0; border-bottom:1px solid #eceee9;">
-              <a href="{{ p.url }}" style="flex:0 0 92px; height:92px; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-                {%- if p.featured_image -%}
-                  {%- capture rel_alt %}{% render 'image-alt', image: p.featured_image, product: p %}{% endcapture -%}
-                  {{ p.featured_image | image_url: width: 184 | image_tag: alt: rel_alt, style: 'max-width:84%; max-height:84%; object-fit:contain; display:block;', loading: 'lazy' }}
-                {%- else -%}
-                  <div style="width:80%; height:80%; border-radius:7px; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px);"></div>
-                {%- endif -%}
-              </a>
-              <div style="flex:1; min-width:0;">
-                <h3 style="font-weight:700; font-size:15px; line-height:1.3; margin:0 0 6px;"><a href="{{ p.url }}" class="hov-green" style="color:#2A2B2A;">{{ p.title }}</a></h3>
-                <div style="margin-bottom:6px;">{% render 'product-rating', product: p, size: 13, count_label: 'long' %}</div>
-                <div style="color:var(--c-primary-text); font-weight:800; font-size:17px;">{{ p.price | money }}</div>
-              </div>
-              {%- capture restricted -%}{%- render 'product-restricted', product: p -%}{%- endcapture -%}
-              {%- if p.available and p.has_only_default_variant and restricted != 'true' -%}
-                <button type="button" data-add-id="{{ p.first_available_variant.id }}" class="btn-sm btn-fill" style="flex:0 0 auto; align-self:center">Add</button>
-              {%- else -%}
-                <a href="{{ p.url }}" class="btn-sm btn-fill" style="flex:0 0 auto; align-self:center">View</a>
-              {%- endif -%}
-            </div>
-          {%- endfor -%}
-        </div>
-        {%- endif -%}
       </div>
     </div>
   </section>
@@ -334,10 +337,11 @@
     .pdp-right { flex: 1 1 auto !important; width: 100% !important; order: 2 !important; }
     .gallery-flex { order: 1 !important; width: 100% !important; }
     .pdp-accordions { order: 3 !important; width: 100% !important; }
-    /* The FAQ lives in .pdp-left too; display:contents releases it into the
-       flex order, and without its own order it sorted to 0 - above the
-       gallery. Order 4 keeps it last, matching the desktop flow. */
-    .pfaq { order: 4 !important; width: 100% !important; }
+    /* The recs and FAQ live in .pdp-left too; display:contents releases them
+       into the flex order, and without their own order they sort to 0 - above
+       the gallery. 4 and 5 keep them after the description, matching desktop. */
+    .pdp-recs { order: 4 !important; width: 100% !important; }
+    .pfaq { order: 5 !important; width: 100% !important; }
   }
   @media (max-width: 900px) {
     .mobile-buybar { display: flex !important; }

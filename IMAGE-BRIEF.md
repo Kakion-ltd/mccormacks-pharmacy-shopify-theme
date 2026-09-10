@@ -246,7 +246,9 @@ image stopped floating inside the card and started bleeding to its edge.
   site, was 100% square at that size). Shopify never upscales, so the gallery's 1000 and
   1200 srcset candidates all resolve to the 600 file and the desktop gallery upscales it.
   Either the 1200 × 1200 spec above is aspirational or the images need re-supplying at
-  1200; the theme has not been changed either way.
+  1200. The desktop gallery shows the image at 70% of its box (2026-09-10), chosen partly
+  because at 85% a 600px file was being upscaled to ~750px at 1440. If the client ever
+  supplies 1200px images that 70% is worth revisiting.
 
 ## Not needed
 
