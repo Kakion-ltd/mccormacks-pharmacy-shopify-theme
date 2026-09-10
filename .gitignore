@@ -5,7 +5,7 @@
 dist/
 
 # Node
-node_modules/
+node_modules
 
 # Never commit store credentials. provision.mjs reads SHOP / ADMIN_TOKEN
 # from the environment; keep them there.
