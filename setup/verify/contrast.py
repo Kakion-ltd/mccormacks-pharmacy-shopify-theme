@@ -22,7 +22,7 @@ from playwright.sync_api import sync_playwright
 
 BASE = "http://localhost:8734"
 PAGES = ["/", "/collections/medicines-health", "/products/cetrine-allergy-10mg-30-tablets",
-         "/cart", "/pages/wishlist", "/pages/store-locator"]
+         "/cart", "/pages/wishlist", "/pages/store-locator", "/pages/brands"]
 AA = 4.5          # WCAG 2.1 AA, normal text
 AA_LARGE = 3.0    # >=24px, or >=18.66px bold
 

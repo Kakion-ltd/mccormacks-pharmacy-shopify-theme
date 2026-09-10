@@ -463,7 +463,7 @@ body[data-cd-open] { overflow: hidden; }
 .mnav-link-accent { color:var(--c-primary-text); }
 .mnav-more { flex: 0 0 auto; width: 56px; border: none; border-left: 1px solid #f1f2ef; background: transparent; color: var(--c-muted-2); cursor: pointer; /* an interactive control: 3:1 applies */ display: flex; align-items: center; justify-content: center; }
 .mnav-more:active { background: #f4f5f2; color:var(--c-primary-text); }
-.mnav-more:focus-visible, .mnav-link:focus-visible, .mnav-back:focus-visible, .mnav-all:focus-visible { outline: 2px solid var(--c-accent); outline-offset: -2px; }
+.mnav-more:focus-visible, .mnav-link:focus-visible, .mnav-back:focus-visible, .mnav-all:focus-visible { outline: 2px solid var(--c-primary-text); outline-offset: -2px; }
 
 .mnav-back { display: flex; align-items: center; gap: 8px; width: 100%; padding: 14px 18px; border: none; border-bottom: 1px solid #eceee9; background: #f7f8f5; color: var(--c-dark); font-family: inherit; font-weight: 800; font-size: 15px; cursor: pointer; text-align: left; }
 .mnav-back:active { background: #eef2e8; }
@@ -481,7 +481,7 @@ body[data-mnav-open] { overflow: hidden; }
 /* Heart on a product card. Top-right, clear of the SALE badge at top-left. */
 .wish-btn { position: absolute; z-index: 3; top: 10px; right: 10px; width: 38px; height: 38px; border-radius: 999px; border: 1px solid var(--c-border-2); background: rgba(255,255,255,.94); color: #666b60; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; transition: color .15s ease, border-color .15s ease, transform .15s ease; }
 .wish-btn:hover { color:var(--c-primary-text); border-color: var(--c-accent); }
-.wish-btn:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+.wish-btn:focus-visible { outline: 2px solid var(--c-primary-text); outline-offset: 2px; }
 .wish-btn.is-saved { color: #c0392b; border-color: #e6b9b3; }
 .wish-btn.is-saved .wish-ico { fill: #c0392b; }
 .wish-btn.is-saved:hover { transform: scale(1.06); }
@@ -534,7 +534,7 @@ body[data-mnav-open] { overflow: hidden; }
 .pfaq-q { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 18px; font-size: 15.5px; font-weight: 800; color: var(--c-text); cursor: pointer; list-style: none; }
 .pfaq-q::-webkit-details-marker { display: none; }
 .pfaq-q:hover { color: var(--c-primary-text); }
-.pfaq-q:focus-visible { outline: 3px solid var(--c-accent); outline-offset: -3px; }
+.pfaq-q:focus-visible { outline: 3px solid var(--c-primary-text); outline-offset: -3px; }
 .pfaq-chev { flex: 0 0 auto; color: var(--c-primary-text); transition: transform .2s ease; }
 .pfaq-item[open] .pfaq-chev { transform: rotate(180deg); }
 .pfaq-a { padding: 0 18px 18px; font-size: 15px; line-height: 1.7; color: var(--c-muted); }
@@ -545,7 +545,7 @@ body[data-mnav-open] { overflow: hidden; }
 
 /* Skip link: offscreen until keyboard focus, then a visible pill over the header. */
 .skip-link { position: absolute; left: -9999px; top: 0; z-index: 500; background: var(--c-dark); color: var(--c-on-dark); font-weight: 700; font-size: 14px; padding: 12px 20px; border-radius: 0 0 9px 0; }
-.skip-link:focus { left: 0; outline: 2px solid var(--c-accent); outline-offset: -2px; }
+.skip-link:focus { left: 0; outline: 2px solid var(--c-primary-text); outline-offset: -2px; }
 
 /* iOS Safari zooms the page when a focused text control is under 16px. The
    inline styles ship 13.5-15.5px, so this floor must win over them. Checkboxes,
@@ -579,7 +579,7 @@ input:not([type=checkbox]):not([type=radio]):not([type=range]), select, textarea
 .pcard:hover .qv-btn, .pcard:focus-within .qv-btn, .srch-card:hover .qv-btn, .srch-card:focus-within .qv-btn, .qv-btn:focus-visible { opacity: 1; transform: none; }
 .srch-card .qv-btn { top: 12px; right: 12px; }  /* no heart over the image here */
 .qv-btn:hover { color: var(--c-primary-text); border-color: var(--c-accent); }
-.qv-btn:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+.qv-btn:focus-visible { outline: 2px solid var(--c-primary-text); outline-offset: 2px; }
 
 .qv-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,.45); opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility 0s .25s; }
 .qv-modal { position: fixed; z-index: 301; top: 50%; left: 50%; width: min(880px, calc(100% - 40px)); max-height: calc(100vh - 40px); overflow: auto; background: #ffffff; border-radius: 16px; box-shadow: 0 24px 60px rgba(0,0,0,.22); opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(.98); transition: opacity .2s ease, transform .2s ease, visibility 0s .2s; }
