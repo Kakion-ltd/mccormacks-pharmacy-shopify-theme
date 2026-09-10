@@ -5,18 +5,24 @@
       {%- assign coll = collections[section.settings.collection] -%}
       {%- if coll.products_count > 0 -%}
         {%- for product in coll.products limit: section.settings.limit -%}
-          <div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
-            <a href="{{ product.url }}" style="height:200px; border-radius:9px; background:#ffffff; display:flex; align-items:center; justify-content:center; margin-bottom:16px; overflow:hidden;">
+          {%- capture restricted -%}{%- render 'product-restricted', product: product -%}{%- endcapture -%}
+          {%- assign restricted = restricted | strip -%}
+          <div class="pcard" style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
+            {%- comment -%} position:relative so the quick-view eye can sit at the
+                bottom right of the image ground. {%- endcomment -%}
+            <div style="position:relative; margin-bottom:16px;">
+            <a href="{{ product.url }}" style="height:200px; border-radius:9px; background:#ffffff; display:flex; align-items:center; justify-content:center; overflow:hidden;">
               {%- if product.featured_image -%}
                 {{ product.featured_image | image_url: width: 460 | image_tag: style: 'max-width:100%; max-height:100%; object-fit:contain; display:block;', alt: product.title }}
               {%- else -%}
                 <div style="width:100%; height:100%; border-radius:9px; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:var(--c-primary-text); font-weight:700;">image</span></div>
               {%- endif -%}
             </a>
+            {% render 'quick-view-button', product: product, restricted: restricted %}
+            </div>
             <h3 style="font-weight:700; font-size:14px; margin:0 0 8px; min-height:42px;"><a href="{{ product.url }}" style="color:inherit;">{{ product.title }}</a></h3>
             <div style="display:flex; justify-content:center; margin-bottom:8px;">{% render 'product-rating', product: product, size: 14 %}</div>
             <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:16px;">{{ product.price | money }}</div>
-            {%- capture restricted -%}{%- render 'product-restricted', product: product -%}{%- endcapture -%}
             {%- if product.available and product.has_only_default_variant and restricted != 'true' -%}
               <button data-add-id="{{ product.selected_or_first_available_variant.id }}" class="btn-sm btn-fill" style="margin-top:auto">Add To Bag</button>
             {%- else -%}

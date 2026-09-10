@@ -27,9 +27,9 @@ with sync_playwright() as pw:
     b = pw.chromium.launch()
     p = b.new_context(viewport={"width": 1440, "height": 900}).new_page()
     p.goto(BASE + GRID, wait_until="networkidle"); p.evaluate("document.querySelector('[data-cc-banner]')?.setAttribute('hidden','')")
-    cards = p.locator(".pcard")
-    restricted_here = p.locator(".pcard").filter(has_text="Nurofen Plus").count()
-    ck("every card in the grid has an eye, except the restricted one", p.locator(".pcard .qv-btn").count(), cards.count() - restricted_here)
+    cards = p.locator(".pgrid .pcard")
+    restricted_here = cards.filter(has_text="Nurofen Plus").count()
+    ck("every card in the grid has an eye, except the restricted one", p.locator(".pgrid .pcard .qv-btn").count(), cards.count() - restricted_here)
     eye = cards.first.locator(".qv-btn")
     ck("eye is hidden until hover", eye.evaluate("e=>getComputedStyle(e).opacity"), "0")
 
@@ -38,8 +38,14 @@ with sync_playwright() as pw:
     p.on("request", lambda r: reqs.append(r.url) if "/products/" in r.url and r.url.endswith(".js") else None)
     cards.first.hover(); p.wait_for_timeout(700)
     ck("eye shows on card hover", eye.evaluate("e=>getComputedStyle(e).opacity"), "1")
-    heart = cards.first.locator(".wish-btn").bounding_box(); eb = eye.bounding_box()
-    ck("eye is 38px and sits under the heart with a gap", (round(eb["height"]), round(eb["y"] - (heart["y"] + heart["height"]))), (38, 8))
+    heart = cards.first.locator(".wish-btn").bounding_box()
+    ground = cards.first.locator(".pcard-img").bounding_box(); eb = eye.bounding_box()
+    # the ground is an aspect-ratio square, so its bottom edge lands on a fraction
+    ck("eye is 38px, bottom right of the image ground", (round(eb["height"]), round(eb["width"]),
+        abs(ground["y"] + ground["height"] - (eb["y"] + eb["height"]) - 10) < 1.5,
+        abs(ground["x"] + ground["width"] - (eb["x"] + eb["width"]) - 10) < 1.5), (38, 38, True, True))
+    ck("eye lines up under the heart, not beside it", (round(eb["x"] + eb["width"]) == round(heart["x"] + heart["width"]),
+        eb["y"] > heart["y"] + heart["height"]), (True, True))
     ck("a hover that settles prefetches exactly one", len(reqs), 1)
     n = min(cards.count(), 8)
     for i in range(1, n):
@@ -89,13 +95,32 @@ with sync_playwright() as pw:
 
     # gate
     p.goto(BASE + RESTRICTED, wait_until="networkidle")
-    r = p.locator(".pcard").filter(has_text="Nurofen Plus").first
+    r = p.locator(".pgrid .pcard").filter(has_text="Nurofen Plus").first
     ck("restricted product card has no eye", r.locator(".qv-btn").count(), 0)
-    ck("but other cards on the same page do", p.locator(".pcard .qv-btn").count() > 0)
+    ck("but other cards on the same page do", p.locator(".pgrid .pcard .qv-btn").count() > 0)
 
     # search results
     p.goto(BASE + "/search?q=vitamin", wait_until="networkidle")
     ck("search result cards carry the eye", p.locator(".srch-card .qv-btn").count() > 0)
+
+    # every other surface that renders a product card
+    p.goto(BASE + "/", wait_until="networkidle")
+    sale = p.locator("[id^=sale-] .pcard")
+    ck("the homepage sale rail carries the eye on every card", p.locator("[id^=sale-] .qv-btn").count(), sale.count())
+    p.goto(BASE + GRID, wait_until="networkidle")
+    also = p.locator("[id^=also-track] .pcard")
+    ck("the collection you-may-also-like rail carries the eye", p.locator("[id^=also-track] .qv-btn").count(), also.count())
+    p.goto(BASE + "/products/vitamin-d3-1000iu-60-capsules", wait_until="networkidle")
+    rail = p.locator(".checked-card")
+    ck("the related products rail carries the eye", p.locator(".checked-card .qv-btn").count(), rail.count())
+    rail.first.hover(); p.wait_for_timeout(600)
+    reb = rail.first.locator(".qv-btn").bounding_box()
+    rg = rail.first.locator(".pcard-img").bounding_box()
+    ck("and puts it bottom right of the image there too",
+       abs(rg["y"] + rg["height"] - (reb["y"] + reb["height"]) - 10) < 1.5)
+    ck("opening from the related rail works", (rail.first.locator(".qv-btn").click(), p.wait_for_selector("[data-qv] .qv-title"), True)[2])
+    ck("the modal is not the page it opened from",
+       p.locator("[data-qv] .qv-link").get_attribute("href") != "/products/vitamin-d3-1000iu-60-capsules")
 
     # phone: no hover, no eye
     m = b.new_context(viewport={"width": 390, "height": 844}, has_touch=True, is_mobile=True).new_page()

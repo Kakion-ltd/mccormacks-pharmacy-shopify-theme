@@ -277,8 +277,13 @@
         {%- for p in rel -%}
           {%- if p.id == product.id or railshown >= 8 -%}{%- continue -%}{%- endif -%}
           {%- assign railshown = railshown | plus: 1 -%}
+          {%- capture restricted -%}{%- render 'product-restricted', product: p -%}{%- endcapture -%}
+          {%- assign restricted = restricted | strip -%}
           <div class="checked-card pcard" style="flex:0 0 300px; display:flex; flex-direction:column;">
-            <a href="{{ p.url }}" class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:12px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:16px;">
+            {%- comment -%} A div, not the link itself: the quick-view eye is a button and
+                cannot be nested inside an anchor, so the ground holds both. {%- endcomment -%}
+            <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:12px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:16px;">
+            <a href="{{ p.url }}" style="display:flex; width:100%; height:100%; align-items:center; justify-content:center;">
               {%- if p.featured_image -%}
                 {%- capture rel_alt %}{% render 'image-alt', image: p.featured_image, product: p %}{% endcapture -%}
                   {{ p.featured_image | image_url: width: 600 | image_tag: alt: rel_alt, style: 'max-width:82%; max-height:82%; object-fit:contain; display:block;', loading: 'lazy' }}
@@ -286,10 +291,11 @@
                 <div style="width:70%; height:70%; border-radius:9px; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); display:flex; align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:var(--c-primary-text); font-weight:700;">image</span></div>
               {%- endif -%}
             </a>
+            {% render 'quick-view-button', product: p, restricted: restricted %}
+            </div>
             <h3 style="font-weight:600; font-size:16px; line-height:1.35; margin:0 0 12px; min-height:44px;"><a href="{{ p.url }}" class="hov-green" style="color:#2A2B2A;">{{ p.title }}</a></h3>
             <div style="margin-bottom:14px; min-height:18px;">{% render 'product-rating', product: p, size: 14, count_label: 'long' %}</div>
             <div style="color:var(--c-primary-text); font-weight:800; font-size:22px; margin-bottom:16px;">{{ p.price | money }}</div>
-            {%- capture restricted -%}{%- render 'product-restricted', product: p -%}{%- endcapture -%}
               {%- if p.available and p.has_only_default_variant and restricted != 'true' -%}
               <button type="button" data-add-id="{{ p.first_available_variant.id }}" class="btn-sm btn-fill" style="margin-top:auto">Add To Bag</button>
             {%- else -%}

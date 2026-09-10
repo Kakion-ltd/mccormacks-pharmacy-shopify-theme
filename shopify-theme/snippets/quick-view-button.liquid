@@ -1,8 +1,13 @@
 {% comment %}
-  The eye that opens quick view, for product cards. Sits under the wishlist heart at
-  top right of the image; hidden until the card is hovered or focused, and only on
+  The eye that opens quick view, for product cards. Sits at the bottom right of the
+  image, clear of the heart at top right; hidden until the card is hovered or focused, and only on
   hover-capable fine-pointer devices, so phones never see it. Nothing is rendered for
   a restricted product: the card already sends those shoppers to the product page.
+
+  The eye positions itself against the nearest positioned ancestor, so the caller
+  must wrap the image ground in a position:relative element and give the card
+  itself the .pcard (or .srch-card) class, which is what reveals the eye on hover
+  and what theme.js watches to prefetch the product JSON.
 
   Usage: {% render 'quick-view-button', product: product, restricted: restricted %}
   Accepts: product (required), restricted (the string 'true' from product-restricted)
