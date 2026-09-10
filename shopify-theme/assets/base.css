@@ -217,7 +217,7 @@ body[data-mnav-open] .mnav-drawer { transform: translateX(0); visibility: visibl
   .cat-scroll-btn svg { width: 18px !important; height: 18px !important; }
   .cat-tile-row { gap: 8px !important; }
   .cat-tile-row > div { gap: 10px !important; }
-  .cat-tile-row a { flex: 1 0 120px !important; min-width: 120px !important; }
+  .cat-tile-row a { flex: 0 0 auto !important; }
   .ftr-newsletter { display: none !important; }
   .ftr-cols { text-align: left; padding: 0 !important; gap: 0 !important; grid-template-columns: 1fr !important; }
   .ftr-cols > div:first-child { align-items: flex-start; display: flex; flex-direction: column; padding: 24px 20px; }
