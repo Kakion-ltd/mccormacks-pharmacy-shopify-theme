@@ -45,6 +45,11 @@ for (const file of liquidFiles(root)) {
             console.log(`ERROR  ${rel}  ShopifyBlankDefault  setting "${d.id}"${where} has default "": Shopify rejects the schema; drop the default key`);
             uploadErrors++;
           }
+          // A color setting's default must be a literal colour; a var() or token name is rejected at upload.
+          if (d.type === 'color' && d.default !== undefined && !/^#[0-9a-fA-F]{6}$/.test(String(d.default))) {
+            console.log(`ERROR  ${rel}  ShopifyColorDefault  color setting "${d.id}"${where} has default ${JSON.stringify(d.default)}: must be a hex literal`);
+            uploadErrors++;
+          }
         }
       };
       walk(j.settings, '');
