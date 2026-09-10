@@ -52,8 +52,8 @@
         <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin:0 0 6px;">Have a question about this?</div>
         <div style="font-size:15px; line-height:1.7; color:#3a3d39; margin:0 0 16px;">Our pharmacists are happy to talk it through &mdash; in store, by phone or by email. No appointment needed.</div>
         <div style="display:flex; flex-wrap:wrap; gap:10px;">
-          <a href="tel:{{ section.settings.help_phone | remove: ' ' }}" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; gap:9px; height:46px; padding:0 22px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px;">Call {{ section.settings.help_phone }}</a>
-          <a href="/pages/contact-us" class="hov-border-accent" style="display:inline-flex; align-items:center; gap:9px; height:46px; padding:0 22px; border-radius:9px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:14.5px;">Ask a pharmacist</a>
+          <a href="tel:{{ section.settings.help_phone | remove: ' ' }}" class="btn btn-fill" style="gap:9px">Call {{ section.settings.help_phone }}</a>
+          <a href="/pages/contact-us" class="btn btn-outline" style="gap:9px">Ask a pharmacist</a>
         </div>
       </div>
     </div>

@@ -54,8 +54,8 @@
             "label": "Always white"
           }
         ],
-        "default": "white",
-        "info": "Automatic picks white or near-black from the primary colour's brightness so buttons always meet WCAG AA. Always white matches the original design, but on the shipped lime #82C914 white measures 2.04:1 against a 4.5:1 requirement."
+        "default": "auto",
+        "info": "Automatic picks white or near-black from the primary colour's brightness so text on it meets WCAG AA. Action buttons fill the dark green with white text (6.13:1) and are not affected by this setting; it governs badges, chips and other surfaces that use the primary colour. Always white fails on the shipped lime #82C914 at 2.04:1 against a 4.5:1 requirement, so only choose it with a primary colour dark enough to carry white."
       },
       {
         "type": "text",

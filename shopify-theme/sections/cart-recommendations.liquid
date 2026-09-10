@@ -46,9 +46,9 @@
           <a href="{{ product.url }}" class="crec-title">{{ product.title }}</a>
           <div class="crec-price">{{ product.price | money }}</div>
           {%- if product.variants.size == 1 and product.selling_plan_groups.size == 0 -%}
-            <button type="button" data-add-id="{{ variant.id }}" class="crec-add hov-bg-green">Add</button>
+            <button type="button" data-add-id="{{ variant.id }}" class="crec-add btn-sm btn-fill">Add</button>
           {%- else -%}
-            <a href="{{ product.url }}" class="crec-add crec-add-link hov-bg-green">Choose</a>
+            <a href="{{ product.url }}" class="crec-add crec-add-link btn-sm btn-fill">Choose</a>
           {%- endif -%}
         </div>
       {%- endunless -%}

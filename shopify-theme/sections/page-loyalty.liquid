@@ -19,9 +19,9 @@
   <div style="background:#eef2e8; border-radius:16px; padding:26px 28px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;">
     <p style="margin:0; font-weight:700; color:var(--c-dark); max-width:420px;">{{ section.settings.cta_text }}</p>
     {% if customer %}
-      <a href="/pages/store-locator" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px; border-radius:999px; padding:12px 26px;">Find your store</a>
+      <a href="/pages/store-locator" class="btn btn-fill">Find your store</a>
     {% else %}
-      <a href="{{ routes.account_register_url }}" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px; border-radius:999px; padding:12px 26px;">Create an account</a>
+      <a href="{{ routes.account_register_url }}" class="btn btn-fill">Create an account</a>
     {% endif %}
   </div>
   </div>

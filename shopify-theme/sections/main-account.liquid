@@ -94,7 +94,7 @@
               <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#666b60; margin-bottom:8px;">Default delivery address</div>
               <div class="acct-addr" style="font-size:14.5px; line-height:1.7; color:#3a3d39;">{{ customer.default_address | format_address }}</div>
             </div>
-            <a href="{{ routes.account_addresses_url }}" class="hov-border-only" style="flex:0 0 auto; display:inline-flex; align-items:center; height:48px; padding:0 22px; border-radius:9px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:14.5px;">Manage addresses</a>
+            <a href="{{ routes.account_addresses_url }}" class="btn btn-outline" style="flex:0 0 auto">Manage addresses</a>
           </div>
         </div>
       {% endif %}
@@ -105,7 +105,7 @@
             <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin-bottom:5px;">Need a repeat prescription?</div>
             <div style="font-size:14.5px; line-height:1.65; color:#3a3d39;">Submit a request and our dispensary team will confirm when it is ready to collect or dispatch.</div>
           </div>
-          <a href="/pages/prescriptions" class="hov-bg-green-dk" style="flex:0 0 auto; display:inline-flex; align-items:center; height:48px; padding:0 22px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px;">Manage prescriptions</a>
+          <a href="/pages/prescriptions" class="btn btn-fill" style="flex:0 0 auto">Manage prescriptions</a>
         </div>
       </div>
     </div>

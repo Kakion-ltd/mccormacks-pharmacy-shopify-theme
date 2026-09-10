@@ -109,9 +109,9 @@
 
       <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:22px;">
         {% if order.order_status_url %}
-          <a href="{{ order.order_status_url }}" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px;">Track parcel</a>
+          <a href="{{ order.order_status_url }}" class="btn btn-fill" style="gap:9px">Track parcel</a>
         {% endif %}
-        <a href="{{ routes.account_url }}#orders" class="hov-border-only" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:15px;">Back to orders</a>
+        <a href="{{ routes.account_url }}#orders" class="btn btn-outline" style="gap:9px">Back to orders</a>
       </div>
     </div>
   </div>

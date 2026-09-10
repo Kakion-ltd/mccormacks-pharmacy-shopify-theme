@@ -13,7 +13,7 @@
     <div class="rte-body" style="font-size:16px; line-height:1.75; color:#3a3d39; max-width:64ch;{% if section.settings.centered %} margin:0 auto;{% endif %}">{{ section.settings.body }}</div>
     {%- endif -%}
     {%- if section.settings.cta != blank and section.settings.link != blank -%}
-    <a href="{{ section.settings.link }}" class="slide-cta hov-bg-green-dk" style="background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:14px; padding:11px 26px; border-radius:9px; display:inline-flex; align-items:center; gap:9px; margin-top:20px;">{{ section.settings.cta }}<svg class="cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
+    <a href="{{ section.settings.link }}" class="slide-cta btn btn-fill" style="gap:9px; margin-top:20px">{{ section.settings.cta }}<svg class="cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
     {%- endif -%}
   </div>
 </section>

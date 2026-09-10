@@ -10,10 +10,7 @@
   }
   .feat-flex:hover { box-shadow: 0 18px 40px rgba(0,0,0,.1); }
   .art-card:hover { box-shadow: 0 14px 30px rgba(0,0,0,.09); transform: translateY(-3px); }
-  .blog-chip { flex: 0 0 auto; display: inline-flex; align-items: center; height: 38px; padding: 0 18px; border-radius: 999px; font-size: 14px; font-weight: 700; background: #f2f3f1; color: #3a3d39; }
-  .blog-chip:hover { background: #e6e9e2; color: var(--c-dark); }
-  .blog-chip--active { background: var(--c-primary); color:var(--c-on-primary); }
-  .blog-chip--active:hover { background: var(--c-primary-hover); color:var(--c-on-primary); }
+  .blog-chip { flex: 0 0 auto; }
 {% endstyle %}
 
 <section style="max-width:1440px; margin:0 auto; padding:34px 30px 6px;">
@@ -24,9 +21,9 @@
 
 <section style="max-width:1440px; margin:0 auto; padding:26px 30px 0;">
   <div class="blog-chips" style="display:flex; gap:10px; padding-bottom:6px;">
-    <a href="{{ blog.url }}" class="blog-chip{% unless current_tags %} blog-chip--active{% endunless %}">All articles</a>
+    <a href="{{ blog.url }}" class="blog-chip{% unless current_tags %} chip-active{% endunless %} chip">All articles</a>
     {%- for tag in blog.all_tags -%}
-      <a href="{{ blog.url }}/tagged/{{ tag | handleize }}" class="blog-chip{% if current_tags contains tag %} blog-chip--active{% endif %}">{{ tag }}</a>
+      <a href="{{ blog.url }}/tagged/{{ tag | handleize }}" class="blog-chip{% if current_tags contains tag %} chip-active{% endif %} chip">{{ tag }}</a>
     {%- endfor -%}
   </div>
 </section>
@@ -83,11 +80,11 @@
     {%- if paginate.pages > 1 -%}
       <nav style="display:flex; justify-content:center; align-items:center; gap:10px; margin:36px 0 0;">
         {%- if paginate.previous -%}
-          <a href="{{ paginate.previous.url }}" class="blog-chip">&larr; Newer</a>
+          <a href="{{ paginate.previous.url }}" class="blog-chip chip">&larr; Newer</a>
         {%- endif -%}
         <span style="font-size:14px; font-weight:700; color:#666b60;">Page {{ paginate.current_page }} of {{ paginate.pages }}</span>
         {%- if paginate.next -%}
-          <a href="{{ paginate.next.url }}" class="blog-chip">Older &rarr;</a>
+          <a href="{{ paginate.next.url }}" class="blog-chip chip">Older &rarr;</a>
         {%- endif -%}
       </nav>
     {%- endif -%}

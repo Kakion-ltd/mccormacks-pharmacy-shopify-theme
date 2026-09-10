@@ -59,6 +59,27 @@ h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 
 .hov-bg-tint:hover { background: #F6F8F1 !important; }
 .hov-border-accent:hover { border-color: var(--c-accent) !important; color:var(--c-primary-text) !important; }
 .hov-slide:hover { color:var(--c-primary-text) !important; transform: translateX(4px); }
+
+/* ---- Buttons: two sizes and a chip, two radii plus the pill. Actions fill deep
+   green with white ink (6.13:1); the lime is 2:1 under white, so it stays a fill only
+   behind dark ink (.btn-lime, .chip-lime), a hover, and a badge. Inline styles on the
+   elements carry layout only (flex, width, margin, position); everything visual is here. */
+.btn, .btn-sm, .chip { display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box; font-family: inherit; font-weight: 700; line-height: 1.2; text-align: center; text-decoration: none; white-space: nowrap; cursor: pointer; border: 1.5px solid transparent; transition: background .15s ease, border-color .15s ease, color .15s ease; }
+.btn    { min-height: 44px; padding: 0 20px; font-size: 15px;   border-radius: 9px; }
+.btn-sm { min-height: 36px; padding: 0 14px; font-size: 13.5px; border-radius: 8px; }
+.chip   { min-height: 36px; padding: 0 14px; font-size: 13.5px; border-radius: 999px; background: #f2f3f1; color: #3a3d39; }
+.btn-fill { background: var(--c-dark); color: var(--c-on-dark); border-color: var(--c-dark); }
+.btn-fill:hover { background: var(--c-dark-hover); border-color: var(--c-dark-hover); }
+.btn-lime { background: var(--c-accent); color: var(--c-on-accent); border-color: var(--c-accent); }
+.btn-lime:hover { background: var(--c-primary-hover); border-color: var(--c-primary-hover); }
+.btn-outline { background: #ffffff; color: var(--c-dark); border-color: #cdd3c5; }
+.btn-outline:hover { border-color: var(--c-dark); }
+.chip:hover { background: #e6e9e2; color: var(--c-dark); }
+.chip-lime { background: var(--c-accent); color: var(--c-on-accent); }
+.chip-lime:hover { background: var(--c-primary-hover); color: var(--c-on-accent); }
+.chip-active, .chip-active:hover { background: var(--c-dark); color: var(--c-on-dark); }
+.btn:disabled, .btn-sm:disabled { opacity: .55; cursor: not-allowed; }
+.btn:focus-visible, .btn-sm:focus-visible, .chip:focus-visible { outline: 2px solid var(--c-dark); outline-offset: 2px; }
 .slide-cta:hover .cta-arrow { transform: translate(3px, -3px); }
 
 .hdr-search-form:focus-within { background: #ffffff !important; border-color: var(--c-accent) !important; box-shadow: 0 0 0 4px rgba(146, 200, 63, .15); }
@@ -171,7 +192,7 @@ body[data-mnav-open] .mnav-drawer { transform: translateX(0); visibility: visibl
   .cat-scroll-btn svg { width: 18px !important; height: 18px !important; }
   .cat-tile-row { gap: 8px !important; }
   .cat-tile-row > div { gap: 10px !important; }
-  .cat-tile-row a { flex: 1 0 120px !important; min-width: 120px !important; font-size: 13px !important; height: 44px !important; }
+  .cat-tile-row a { flex: 1 0 120px !important; min-width: 120px !important; }
   .ftr-newsletter { display: none !important; }
   .ftr-cols { text-align: left; padding: 0 !important; gap: 0 !important; grid-template-columns: 1fr !important; }
   .ftr-cols > div:first-child { align-items: flex-start; display: flex; flex-direction: column; padding: 24px 20px; }
@@ -256,7 +277,7 @@ body[data-cd-open] { overflow: hidden; }
 .cd-sub span:first-child { font-size: 15px; color: var(--c-muted); }
 .cd-sub span:last-child { font-family: var(--font-heading); font-weight: 800; font-size: 21px; color: var(--c-text); font-variant-numeric: tabular-nums; }
 .cd-vat { margin: 0 0 14px; font-size: 12.5px; color: var(--c-muted-2); }
-.cd-checkout { width: 100%; height: 52px; border: none; border-radius: 10px; background: var(--c-primary); color:var(--c-on-primary); font-family: inherit; font-weight: 800; font-size: 15.5px; cursor: pointer; }
+.cd-checkout { width: 100%; }
 .cd-express { display: grid; gap: 10px; margin-top: 10px; }
 .cd-express:empty { display: none; }
 .cd-secondary { display: block; text-align: center; margin-top: 12px; font-size: 14.5px; font-weight: 700; color: var(--c-dark); }
@@ -312,7 +333,7 @@ body[data-cd-open] { overflow: hidden; }
 .crec-title { font-size: 13px; font-weight: 600; line-height: 1.35; color: var(--c-text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 35px; }
 .crec-title:hover { color:var(--c-primary-text); }
 .crec-price { font-weight: 800; font-size: 14.5px; color:var(--c-primary-text); font-variant-numeric: tabular-nums; }
-.crec-add { margin-top: auto; display: flex; align-items: center; justify-content: center; height: 36px; border: none; border-radius: 8px; background: var(--c-accent); color:var(--c-on-accent); font-family: inherit; font-weight: 700; font-size: 13.5px; cursor: pointer; }
+.crec-add { margin-top: auto; width: 100%; }
 .crec-add-link { text-decoration: none; }
 
 /* ---- Cookie consent (snippets/consent-banner.liquid) ---- */
@@ -329,10 +350,6 @@ body[data-cd-open] { overflow: hidden; }
    Irish ePrivacy requires rejecting to be as easy as accepting, and a quieter
    reject button is the usual way that requirement gets quietly broken. */
 .cc-actions { flex: 0 0 auto; display: flex; flex-wrap: wrap; gap: 10px; }
-.cc-btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border-radius: 9px; border: 1.5px solid var(--c-primary); background: var(--c-primary); color:var(--c-on-primary); font-family: inherit; font-weight: 700; font-size: 14.5px; cursor: pointer; }
-.cc-btn:hover { background: var(--c-primary-hover); border-color:var(--c-primary-text); }
-.cc-btn-quiet { background: #fff; color: var(--c-dark); border-color: var(--c-border-2); }
-.cc-btn-quiet:hover { background: #f1f5ec; border-color: var(--c-accent); color: var(--c-dark); }
 
 .cc-options { flex: 1 1 100%; border-top: 1px solid var(--c-border); padding-top: 16px; }
 .cc-cats { list-style: none; margin: 0 0 16px; padding: 0; display: grid; gap: 4px; }
@@ -350,7 +367,7 @@ body[data-cd-open] { overflow: hidden; }
      than stacking, which is what made the banner overwhelming on a small phone.
      flex-basis 0 with min-width 0 keeps them identical down to 320px. */
   .cc-actions { width: 100%; display: flex; flex-wrap: nowrap; gap: 8px; }
-  .cc-actions .cc-btn { flex: 1 1 0; min-width: 0; height: 42px; padding: 0 8px; font-size: 14px; }
+  .cc-actions .cc-btn { flex: 1 1 0; min-width: 0; padding: 0 8px; }
   .cc-banner { max-height: 85vh; overflow-y: auto; }
 }
 
@@ -406,8 +423,8 @@ body[data-mnav-open] { overflow: hidden; }
 .wish-btn.is-saved:hover { transform: scale(1.06); }
 
 /* The product page uses a labelled version in the normal flow, not an overlay. */
-.wish-btn-text { position: static; width: auto; height: 46px; padding: 0 18px; gap: 9px; border-radius: 10px; background: #fff; font-family: inherit; font-weight: 700; font-size: 14.5px; color: var(--c-dark); margin-bottom: 18px; }
-.wish-btn-text:hover { border-color: var(--c-accent); color: var(--c-dark); }
+.wish-btn-text { position: static; width: auto; height: 36px; padding: 0 14px; gap: 8px; border-radius: 8px; border: 1.5px solid #cdd3c5; background: #fff; font-family: inherit; font-weight: 700; font-size: 13.5px; color: var(--c-dark); margin-bottom: 18px; }
+.wish-btn-text:hover { border-color: var(--c-dark); color: var(--c-dark); }
 .wish-btn-text.is-saved { color: #c0392b; }
 
 .wish-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 26px 22px; }
@@ -418,14 +435,14 @@ body[data-mnav-open] { overflow: hidden; }
 .wish-card-title { font-weight: 600; font-size: 15px; line-height: 1.35; color: var(--c-text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 41px; }
 .wish-card-title:hover { color:var(--c-primary-text); }
 .wish-card-price { color:var(--c-primary-text); font-weight: 800; font-size: 19px; font-variant-numeric: tabular-nums; }
-.wish-add { display: flex; align-items: center; justify-content: center; height: 44px; border: none; border-radius: 8px; background: var(--c-accent); color:var(--c-on-accent); font-family: inherit; font-weight: 700; font-size: 14.5px; cursor: pointer; }
+.wish-add { display: flex; align-items: center; justify-content: center; height: 44px; border: none; border-radius: 9px; background: var(--c-dark); color: var(--c-on-dark); font-family: inherit; font-weight: 700; font-size: 15px; cursor: pointer; }
 .wish-add-link { text-decoration: none; }
 .wish-remove { border: none; background: transparent; padding: 2px 0; font-family: inherit; font-size: 13px; color: var(--c-muted-2); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .wish-remove:hover { color: #c0392b; }
 
 @media (max-width: 640px) {
   .wish-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px 14px; }
-  .wish-btn { width: 34px; height: 34px; top: 8px; right: 8px; }
+  .wish-btn:not(.wish-btn-text) { width: 34px; height: 34px; top: 8px; right: 8px; }
 }
 
 /* Back-in-stock capture — only rendered when a variant is sold out. */
@@ -435,8 +452,7 @@ body[data-mnav-open] { overflow: hidden; }
 .bis-row { display: flex; gap: 10px; flex-wrap: wrap; }
 .bis-input { flex: 1 1 220px; min-width: 0; height: 48px; padding: 0 14px; font-family: inherit; font-size: 15px; color: var(--c-text); border: 1.5px solid var(--c-border-2); border-radius: 10px; background: #fff; outline: none; }
 .bis-input:focus { border-color: var(--c-accent); box-shadow: 0 0 0 3px rgba(146, 200, 63, .22); }
-.bis-btn { flex: 0 0 auto; height: 48px; padding: 0 24px; border: none; border-radius: 10px; background: var(--c-primary); color: var(--c-on-primary); font-family: inherit; font-weight: 800; font-size: 15px; cursor: pointer; }
-.bis-btn:hover { background: var(--c-primary-hover); }
+.bis-btn { flex: 0 0 auto; }
 .bis-note { margin: 10px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--c-muted-2); }
 .bis-note a { color: var(--c-primary-text); text-decoration: underline; text-underline-offset: 2px; }
 .bis-err { margin: 0 0 12px; padding: 10px 12px; border-radius: 8px; background: var(--c-error-bg); color: var(--c-error); font-size: 13.5px; }
@@ -488,7 +504,6 @@ input:not([type=checkbox]):not([type=radio]):not([type=range]), select, textarea
    4%. Shared by the collection product cards (.pcard is a div holding the link)
    and the homepage category tiles (.pcard IS the link, hence :focus-visible). */
 .pcard .pcard-view { box-shadow: 0 2px 8px rgba(0, 0, 0, .12); }
-.pcard-hovbtn:hover { background: var(--c-accent) !important; color: var(--c-on-accent) !important; border-color: var(--c-accent) !important; }
 .pcard:hover .pcard-view, .pcard:focus-visible .pcard-view { opacity: 1 !important; transform: translateY(0) !important; }
 .pcard:hover .pcard-img img, .pcard:focus-visible .pcard-img img { transform: scale(1.04); }
 

@@ -104,7 +104,7 @@
         {%- for line in chip_lines -%}
           {%- assign parts = line | strip | split: '|' -%}
           {%- if parts.size >= 2 -%}
-            <a href="{{ parts[1] | strip }}" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:170px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:14.5px; text-align:center; height:50px; padding:0 18px; border-radius:9px; display:flex; align-items:center; justify-content:center;">{{ parts[0] | strip }}</a>
+            <a href="{{ parts[1] | strip }}" class="chip chip-lime" style="flex:0 0 auto">{{ parts[0] | strip }}</a>
           {%- endif -%}
         {%- endfor -%}
       {%- else -%}
@@ -134,7 +134,7 @@
       </select>
     </div>
     <span class="prod-count" style="margin-left:auto; font-size:14px; color:#666b60;">{{ collection.products_count }} products</span>
-    <button class="refine-mobile" data-filter-toggle aria-controls="filters-{{ section.id }}" aria-expanded="false" style="display:none; align-items:center; justify-content:space-between; gap:9px; width:100%; background:transparent; border:1.5px solid var(--c-primary); border-radius:9px; padding:14px 18px; cursor:pointer; font-family:inherit; font-weight:700; font-size:16px; color:#2A2B2A;">
+    <button class="refine-mobile btn btn-outline" data-filter-toggle aria-controls="filters-{{ section.id }}" aria-expanded="false" style="display:none; justify-content:space-between; gap:9px; width:100%">
       Refine By
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"></line><circle cx="9" cy="7" r="2.4" fill="#fff"></circle><line x1="4" y1="17" x2="20" y2="17"></line><circle cx="15" cy="17" r="2.4" fill="#fff"></circle></svg>
     </button>
@@ -194,7 +194,7 @@
                 <span style="color:#666b60;">&ndash;</span>
                 <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#666b60;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.max_value.param_name }}" type="number" min="0" step="0.01" placeholder="{{ filter.range_max | money_without_currency | remove: ',' }}" value="{% if filter.max_value.value %}{{ filter.max_value.value | money_without_currency | remove: ',' }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
               </div>
-              <button data-price-apply class="hov-bg-green-dk" style="width:100%; border:none; border-radius:8px; background:var(--c-primary); color:var(--c-on-primary); font-family:inherit; font-weight:700; font-size:14.5px; padding:11px 8px; cursor:pointer;">Apply</button>
+              <button data-price-apply class="btn-sm btn-fill" style="width:100%">Apply</button>
             </div>
         {%- endcase -%}
       {%- endfor -%}
@@ -245,9 +245,9 @@
               </a>
               {% render 'wishlist-button', product: product %}
               {%- if quick_add -%}
-                <button data-add-id="{{ variant.id }}" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button>
+                <button data-add-id="{{ variant.id }}" class="pcard-view btn-sm btn-outline" style="position:absolute; left:14px; right:14px; bottom:14px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease">Add To Bag</button>
               {%- else -%}
-                <a href="{{ product.url }}" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease;">View Product</a>
+                <a href="{{ product.url }}" class="pcard-view btn-sm btn-outline" style="position:absolute; left:14px; right:14px; bottom:14px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease">View Product</a>
               {%- endif -%}
             </div>
             <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">{{ product.vendor }}</div>
@@ -260,9 +260,9 @@
               {%- endif -%}
             </div>
             {%- if quick_add -%}
-              <button data-add-id="{{ variant.id }}" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button>
+              <button data-add-id="{{ variant.id }}" class="pcard-mobile-btn btn-sm btn-fill" style="display:none; margin-top:12px; width:100%">Add To Bag</button>
             {%- else -%}
-              <a href="{{ product.url }}" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px;">View Product</a>
+              <a href="{{ product.url }}" class="pcard-mobile-btn btn-sm btn-fill" style="display:none; margin-top:12px">View Product</a>
             {%- endif -%}
           </div>
         {%- endfor -%}
@@ -273,15 +273,15 @@
         <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin:44px 0 8px;">
           {%- for part in paginate.parts -%}
             {%- if part.is_link -%}
-              <a href="{{ part.url }}" class="hov-border-accent" style="min-width:40px; height:40px; padding:0 6px; border-radius:8px; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; display:flex; align-items:center; justify-content:center;">{{ part.title }}</a>
+              <a href="{{ part.url }}" class="btn-sm btn-outline" style="min-width:40px">{{ part.title }}</a>
             {%- elsif part.title contains 'hellip' or part.title == '…' -%}
               <span style="min-width:40px; height:40px; padding:0 6px; border-radius:8px; color:#666b60; font-weight:700; display:flex; align-items:center; justify-content:center;">{{ part.title }}</span>
             {%- else -%}
-              <span style="min-width:40px; height:40px; padding:0 6px; border-radius:8px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; display:flex; align-items:center; justify-content:center;">{{ part.title }}</span>
+              <span class="btn-sm btn-fill" style="min-width:40px">{{ part.title }}</span>
             {%- endif -%}
           {%- endfor -%}
           {%- if paginate.next -%}
-            <a href="{{ paginate.next.url }}" class="hov-border-accent" style="min-width:40px; height:40px; padding:0 12px; border-radius:8px; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; display:flex; align-items:center; justify-content:center; gap:6px;">Next<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></a>
+            <a href="{{ paginate.next.url }}" class="btn-sm btn-outline" style="min-width:40px; gap:6px">Next<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></a>
           {%- endif -%}
         </div>
       {%- endif -%}
@@ -296,9 +296,9 @@
           {%- if has_active -%}Try removing a filter, or clear them all to see the full range.{%- else -%}Products added to this collection will appear here. In the meantime, browse the rest of the shop.{%- endif -%}
         </p>
         {%- if has_active -%}
-          <a href="{{ collection.url }}" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; height:48px; padding:0 26px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15px;">Clear all filters</a>
+          <a href="{{ collection.url }}" class="btn btn-fill">Clear all filters</a>
         {%- else -%}
-          <a href="{{ routes.all_products_collection_url }}" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; height:48px; padding:0 26px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15px;">Continue shopping</a>
+          <a href="{{ routes.all_products_collection_url }}" class="btn btn-fill">Continue shopping</a>
         {%- endif -%}
       </div>
       {%- endif -%}
@@ -365,7 +365,7 @@
           <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="{{ product.url }}" class="hov-green" style="color:#2A2B2A;">{{ product.title }}</a></h3>
           <div style="margin-bottom:12px;">{% render 'product-rating', product: product, size: 14 %}</div>
           <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">{% if product.price_varies %}From {% endif %}{{ product.price | money }}</div>
-          <a href="{{ product.url }}" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+          <a href="{{ product.url }}" class="btn-sm btn-fill" style="margin-top:auto">View Product</a>
         </div>
       {%- endfor -%}
     </div>
@@ -438,7 +438,7 @@
     .prod-count { display: none !important; }
     .refine-mobile { display: flex !important; }
     .pcard-view { display: none !important; }
-    .pcard-mobile-btn { display: block !important; }
+    .pcard-mobile-btn { display: inline-flex !important; width: 100%; }
   }
 {% endstyle %}
 

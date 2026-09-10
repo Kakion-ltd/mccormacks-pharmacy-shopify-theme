@@ -18,6 +18,7 @@
       --c-primary: #82C914;
       --c-primary-hover: #6BA30F;
       --c-dark: #3F6B4F;
+      --c-dark-hover: #30513C;
       --c-accent: #92C83F;
       --c-on-primary: #2A2B2A;
       --c-on-accent: #2A2B2A;
@@ -249,20 +250,20 @@
 
   <div style="padding:18px 20px; margin-top:auto; display:flex; flex-direction:column; gap:12px;">
     <div style="display:flex; gap:12px;">
-      <a href="/pages/in-store-services" class="hov-bg-dark" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:14px; height:46px; border-radius:9px;">
+      <a href="/pages/in-store-services" class="btn btn-fill" style="flex:1; gap:8px">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
         Services
       </a>
-      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14px; height:46px; border-radius:9px;">
+      <a href="/pages/store-locator" class="btn btn-lime" style="flex:1; gap:8px">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.5"></circle></svg>
         Store Locator
       </a>
     </div>
     <div style="display:flex; gap:12px;">
-      <a href="/account" class="hov-border-accent" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:14px; height:44px; border-radius:9px;">
+      <a href="/account" class="btn btn-outline" style="flex:1; gap:8px">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Account
       </a>
-      <a href="/pages/wishlist" class="hov-border-accent" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:14px; height:44px; border-radius:9px;">
+      <a href="/pages/wishlist" class="btn btn-outline" style="flex:1; gap:8px">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path></svg>Wishlist<span data-wish-count style="min-width:19px; height:19px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-size:11.5px; font-weight:800; display:none; align-items:center; justify-content:center; padding:0 5px;">0</span>
       </a>
     </div>
@@ -285,11 +286,11 @@
       <a href="/pages/brands" class="hov-green" data-mega-close style="color:#2A2B2A; font-size:13.5px;" >Brands</a>
     </nav>
     <div style="display:flex; align-items:center; gap:9px;">
-      <a href="/pages/in-store-services" class="hov-bg-green-dk" style="display:flex; align-items:center; gap:9px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
+      <a href="/pages/in-store-services" class="chip chip-active" style="gap:9px">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
         <span>In-Store Services</span>
       </a>
-      <a href="/pages/store-locator" class="hov-bg-accent-dk" style="display:flex; align-items:center; gap:9px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:13px; padding:0 16px; height:30px; border-radius:9px;">
+      <a href="/pages/store-locator" class="chip chip-lime" style="gap:9px">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.4"></circle></svg>
         <span>Store Locator</span>
       </a>
@@ -749,7 +750,7 @@
     </div>
     <p class="cd-vat">Shipping and VAT calculated at checkout</p>
     <form action="/cart" method="post">
-      <button type="submit" name="checkout" class="cd-checkout hov-bg-green-dk">Checkout securely</button><div class="cd-express"><div data-mock-express style="height:48px;border-radius:10px;background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px);display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#697262;">Express checkout buttons &middot; live store only</div></div></form>
+      <button type="submit" name="checkout" class="cd-checkout btn btn-fill">Checkout securely</button><div class="cd-express"><div data-mock-express style="height:48px;border-radius:10px;background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px);display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#697262;">Express checkout buttons &middot; live store only</div></div></form>
     <a href="/cart" class="cd-secondary">View full bag</a>
   </footer>
 </aside>
@@ -765,16 +766,16 @@
 <section style="max-width:1440px; margin:0 auto; padding:22px 30px 8px;">
   <div class="cat-tile-row" style="display:flex; align-items:center; gap:16px;">
     <button class="chip-arrow hov-chip-arrow" aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="chips-track" data-rail-by="-372" style="flex:0 0 auto; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
-    <div id="chips-track" style="flex:1; display:flex; gap:16px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px;"><a href="/collections/athletes-foot" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Athletes Foot</a>
-<a href="/collections/verucca" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Verucca</a>
-<a href="/collections/fungal-nail-infection" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Fungal Nail Infection</a>
-<a href="/collections/cracked-heels-dry-skin" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Cracked Heels &amp; Dry Skin</a>
-<a href="/collections/blisters-bunion-care" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Blisters &amp; Bunion Care</a>
-<a href="/collections/corn-callous-care" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Corn &amp; Callous Care</a>
-<a href="/collections/chiropody-felt-padding" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Chiropody Felt &amp; Padding</a>
-<a href="/collections/insoles" aria-current="page" style="flex:0 0 auto; min-width:210px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Insoles</a>
-<a href="/collections/toe-nail-care" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Toe Nail Care</a>
-<a href="/collections/foot-soak-odour-control" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">Foot Soak &amp; Odour Control</a></div>
+    <div id="chips-track" style="flex:1; display:flex; gap:16px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px;"><a href="/collections/athletes-foot" class="chip chip-lime" style="flex:0 0 auto;">Athletes Foot</a>
+<a href="/collections/verucca" class="chip chip-lime" style="flex:0 0 auto;">Verucca</a>
+<a href="/collections/fungal-nail-infection" class="chip chip-lime" style="flex:0 0 auto;">Fungal Nail Infection</a>
+<a href="/collections/cracked-heels-dry-skin" class="chip chip-lime" style="flex:0 0 auto;">Cracked Heels &amp; Dry Skin</a>
+<a href="/collections/blisters-bunion-care" class="chip chip-lime" style="flex:0 0 auto;">Blisters &amp; Bunion Care</a>
+<a href="/collections/corn-callous-care" class="chip chip-lime" style="flex:0 0 auto;">Corn &amp; Callous Care</a>
+<a href="/collections/chiropody-felt-padding" class="chip chip-lime" style="flex:0 0 auto;">Chiropody Felt &amp; Padding</a>
+<a href="/collections/insoles" aria-current="page" class="chip chip-active" style="flex:0 0 auto;">Insoles</a>
+<a href="/collections/toe-nail-care" class="chip chip-lime" style="flex:0 0 auto;">Toe Nail Care</a>
+<a href="/collections/foot-soak-odour-control" class="chip chip-lime" style="flex:0 0 auto;">Foot Soak &amp; Odour Control</a></div>
     <button class="chip-arrow hov-chip-arrow" aria-label="Scroll for more" data-rail-btn data-rail-target="chips-track" data-rail-by="372" style="flex:0 0 auto; width:48px; height:48px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
   </div>
   <div class="chip-progress" style="display:none; margin-top:16px; height:4px; border-radius:999px; background:#e2e4df; overflow:hidden;"><div style="height:100%; border-radius:999px; background:var(--c-accent); width:12%; transition:width .15s ease;"></div></div>
@@ -790,7 +791,7 @@
       <select data-sort-select aria-label="Sort by" style="border:none; background:transparent; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:var(--c-primary-text); cursor:pointer;"><option value="best-selling" selected>Best selling</option><option value="price-ascending" >Price, low to high</option></select>
     </div>
     <span class="prod-count" style="margin-left:auto; font-size:14px; color:#666b60;">10 products</span>
-    <button class="refine-mobile" data-filter-toggle aria-controls="filters-sec-main-collection" aria-expanded="false" style="display:none; align-items:center; justify-content:space-between; gap:9px; width:100%; background:transparent; border:1.5px solid var(--c-primary); border-radius:9px; padding:14px 18px; cursor:pointer; font-family:inherit; font-weight:700; font-size:16px; color:#2A2B2A;">
+    <button class="refine-mobile btn btn-outline" data-filter-toggle aria-controls="filters-sec-main-collection" aria-expanded="false" style="display:none; justify-content:space-between; gap:9px; width:100%">
       Refine By
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"></line><circle cx="9" cy="7" r="2.4" fill="#fff"></circle><line x1="4" y1="17" x2="20" y2="17"></line><circle cx="15" cy="17" r="2.4" fill="#fff"></circle></svg>
     </button>
@@ -824,7 +825,7 @@
                 <span style="color:#666b60;">&ndash;</span>
                 <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#666b60;">€</span><input data-price-input name="filter.v.price.lte" type="number" min="0" step="0.01" placeholder="100.00" value="" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
               </div>
-              <button data-price-apply class="hov-bg-green-dk" style="width:100%; border:none; border-radius:8px; background:var(--c-primary); color:var(--c-on-primary); font-family:inherit; font-weight:700; font-size:14.5px; padding:11px 8px; cursor:pointer;">Apply</button>
+              <button data-price-apply class="btn-sm btn-fill" style="width:100%">Apply</button>
             </div></aside>
 
     <!-- Product grid -->
@@ -837,12 +838,12 @@
         aria-label="Save fabÜ Skin Hair Nails Glow 60 Capsules to your wishlist"><svg class="wish-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
-<button data-add-id="40000000" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
+<button data-add-id="40000000" class="pcard-view btn-sm btn-outline" style="position:absolute; left:14px; right:14px; bottom:14px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease">Add To Bag</button></div>
             <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">fabÜ</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/fab-skin-hair-nails-glow-60-capsules" class="hov-green" style="color:#2A2B2A;">fabÜ Skin Hair Nails Glow 60 Capsules</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€19.95</span><span style="color:#666b60; font-weight:600; font-size:15px; text-decoration:line-through;">€24.95</span></div><button data-add-id="40000000" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€19.95</span><span style="color:#666b60; font-weight:600; font-size:15px; text-decoration:line-through;">€24.95</span></div><button data-add-id="40000000" class="pcard-mobile-btn btn-sm btn-fill" style="display:none; margin-top:12px; width:100%">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/cetrine-allergy-10mg-30-tablets" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-cetrine.jpg?width=600&height=600" alt="Cetrine Allergy 10mg 30 Tablets" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
               <button type="button"
         class="wish-btn"
@@ -851,12 +852,12 @@
         aria-label="Save Cetrine Allergy 10mg 30 Tablets to your wishlist"><svg class="wish-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
-<button data-add-id="40000001" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
+<button data-add-id="40000001" class="pcard-view btn-sm btn-outline" style="position:absolute; left:14px; right:14px; bottom:14px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease">Add To Bag</button></div>
             <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Cetrine</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/cetrine-allergy-10mg-30-tablets" class="hov-green" style="color:#2A2B2A;">Cetrine Allergy 10mg 30 Tablets</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€7.99</span></div><button data-add-id="40000001" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€7.99</span></div><button data-add-id="40000001" class="pcard-mobile-btn btn-sm btn-fill" style="display:none; margin-top:12px; width:100%">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><span style="position:absolute; top:12px; left:12px; z-index:2; background:#c0392b; color:#fff; font-weight:800; font-size:12px; letter-spacing:.04em; padding:5px 10px; border-radius:6px;">SALE</span><a href="/products/revive-active-30-sachets" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-revive.jpg?width=600&height=600" alt="Revive Active 30 Sachets" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
               <button type="button"
         class="wish-btn"
@@ -865,12 +866,12 @@
         aria-label="Save Revive Active 30 Sachets to your wishlist"><svg class="wish-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
-<button data-add-id="40000002" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
+<button data-add-id="40000002" class="pcard-view btn-sm btn-outline" style="position:absolute; left:14px; right:14px; bottom:14px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease">Add To Bag</button></div>
             <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Revive Active</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/revive-active-30-sachets" class="hov-green" style="color:#2A2B2A;">Revive Active 30 Sachets</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€64.99</span><span style="color:#666b60; font-weight:600; font-size:15px; text-decoration:line-through;">€69.99</span></div><button data-add-id="40000002" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€64.99</span><span style="color:#666b60; font-weight:600; font-size:15px; text-decoration:line-through;">€69.99</span></div><button data-add-id="40000002" class="pcard-mobile-btn btn-sm btn-fill" style="display:none; margin-top:12px; width:100%">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/optibac-every-day-max-30-capsules" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-optibac-max.jpg?width=600&height=600" alt="Optibac Every Day MAX 30 Capsules" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
               <button type="button"
         class="wish-btn"
@@ -879,12 +880,12 @@
         aria-label="Save Optibac Every Day MAX 30 Capsules to your wishlist"><svg class="wish-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
-<button data-add-id="40000003" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
+<button data-add-id="40000003" class="pcard-view btn-sm btn-outline" style="position:absolute; left:14px; right:14px; bottom:14px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease">Add To Bag</button></div>
             <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Optibac</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/optibac-every-day-max-30-capsules" class="hov-green" style="color:#2A2B2A;">Optibac Every Day MAX 30 Capsules</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€27.99</span></div><button data-add-id="40000003" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€27.99</span></div><button data-add-id="40000003" class="pcard-mobile-btn btn-sm btn-fill" style="display:none; margin-top:12px; width:100%">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/nurofen-200mg-ibuprofen-24-tablets" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-nurofen.jpg?width=600&height=600" alt="Nurofen 200mg Ibuprofen 24 Tablets" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
               <button type="button"
         class="wish-btn"
@@ -893,12 +894,12 @@
         aria-label="Save Nurofen 200mg Ibuprofen 24 Tablets to your wishlist"><svg class="wish-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
-<button data-add-id="40000004" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
+<button data-add-id="40000004" class="pcard-view btn-sm btn-outline" style="position:absolute; left:14px; right:14px; bottom:14px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease">Add To Bag</button></div>
             <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Nurofen</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/nurofen-200mg-ibuprofen-24-tablets" class="hov-green" style="color:#2A2B2A;">Nurofen 200mg Ibuprofen 24 Tablets</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€6.49</span></div><button data-add-id="40000004" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€6.49</span></div><button data-add-id="40000004" class="pcard-mobile-btn btn-sm btn-fill" style="display:none; margin-top:12px; width:100%">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/cerave-hydrating-cleanser-236ml" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-cerave-cleanser.jpg?width=600&height=600" alt="CeraVe Hydrating Cleanser 236ml" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
               <button type="button"
         class="wish-btn"
@@ -907,12 +908,12 @@
         aria-label="Save CeraVe Hydrating Cleanser 236ml to your wishlist"><svg class="wish-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
-<button data-add-id="40000005" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
+<button data-add-id="40000005" class="pcard-view btn-sm btn-outline" style="position:absolute; left:14px; right:14px; bottom:14px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease">Add To Bag</button></div>
             <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">CeraVe</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/cerave-hydrating-cleanser-236ml" class="hov-green" style="color:#2A2B2A;">CeraVe Hydrating Cleanser 236ml</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€13.50</span></div><button data-add-id="40000005" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€13.50</span></div><button data-add-id="40000005" class="pcard-mobile-btn btn-sm btn-fill" style="display:none; margin-top:12px; width:100%">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><span style="position:absolute; top:12px; left:12px; z-index:2; background:#c0392b; color:#fff; font-weight:800; font-size:12px; letter-spacing:.04em; padding:5px 10px; border-radius:6px;">SALE</span><a href="/products/sudocrem-antiseptic-healing-cream-125g" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-sudocrem.jpg?width=600&height=600" alt="Sudocrem Antiseptic Healing Cream 125g" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
               <button type="button"
         class="wish-btn"
@@ -921,12 +922,12 @@
         aria-label="Save Sudocrem Antiseptic Healing Cream 125g to your wishlist"><svg class="wish-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
-<button data-add-id="40000006" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease; cursor:pointer;">Add To Bag</button></div>
+<button data-add-id="40000006" class="pcard-view btn-sm btn-outline" style="position:absolute; left:14px; right:14px; bottom:14px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease">Add To Bag</button></div>
             <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Sudocrem</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/sudocrem-antiseptic-healing-cream-125g" class="hov-green" style="color:#2A2B2A;">Sudocrem Antiseptic Healing Cream 125g</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€7.99</span><span style="color:#666b60; font-weight:600; font-size:15px; text-decoration:line-through;">€8.99</span></div><button data-add-id="40000006" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px; border:none; width:100%; cursor:pointer; font-family:inherit;">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€7.99</span><span style="color:#666b60; font-weight:600; font-size:15px; text-decoration:line-through;">€8.99</span></div><button data-add-id="40000006" class="pcard-mobile-btn btn-sm btn-fill" style="display:none; margin-top:12px; width:100%">Add To Bag</button></div><div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/vitamin-d3-1000iu-60-capsules" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-vitd.jpg?width=600&height=600" alt="Vitamin D3 1000IU 60 Capsules" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
               <button type="button"
         class="wish-btn"
@@ -935,12 +936,12 @@
         aria-label="Save Vitamin D3 1000IU 60 Capsules to your wishlist"><svg class="wish-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
-<a href="/products/vitamin-d3-1000iu-60-capsules" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease;">View Product</a></div>
+<a href="/products/vitamin-d3-1000iu-60-capsules" class="pcard-view btn-sm btn-outline" style="position:absolute; left:14px; right:14px; bottom:14px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease">View Product</a></div>
             <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">McCormack’s</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/vitamin-d3-1000iu-60-capsules" class="hov-green" style="color:#2A2B2A;">Vitamin D3 1000IU 60 Capsules</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€9.99</span></div><a href="/products/vitamin-d3-1000iu-60-capsules" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px;">View Product</a></div><div class="pcard" style="display:flex; flex-direction:column;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€9.99</span></div><a href="/products/vitamin-d3-1000iu-60-capsules" class="pcard-mobile-btn btn-sm btn-fill" style="display:none; margin-top:12px">View Product</a></div><div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-nurofen.jpg?width=600&height=600" alt="Nurofen Plus 200mg/12.8mg 24 Tablets" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
               <button type="button"
         class="wish-btn"
@@ -949,12 +950,12 @@
         aria-label="Save Nurofen Plus 200mg/12.8mg 24 Tablets to your wishlist"><svg class="wish-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
-<a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease;">View Product</a></div>
+<a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" class="pcard-view btn-sm btn-outline" style="position:absolute; left:14px; right:14px; bottom:14px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease">View Product</a></div>
             <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Nurofen</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" class="hov-green" style="color:#2A2B2A;">Nurofen Plus 200mg/12.8mg 24 Tablets</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€10.99</span></div><a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px;">View Product</a></div><div class="pcard" style="display:flex; flex-direction:column;">
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€10.99</span></div><a href="/products/nurofen-plus-200mg-12-8mg-24-tablets" class="pcard-mobile-btn btn-sm btn-fill" style="display:none; margin-top:12px">View Product</a></div><div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><a href="/products/difflam-sore-throat-spray-30ml" style="display:block; width:100%; height:100%;"><img src="/shopify-theme/assets/prod-cetrine.jpg?width=600&height=600" alt="Difflam Sore Throat Spray 30ml" width="600" height="600" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;"></a>
               <button type="button"
         class="wish-btn"
@@ -963,12 +964,12 @@
         aria-label="Save Difflam Sore Throat Spray 30ml to your wishlist"><svg class="wish-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"></path>
   </svg></button>
-<a href="/products/difflam-sore-throat-spray-30ml" class="pcard-view pcard-hovbtn" style="position:absolute; left:14px; right:14px; bottom:14px; background:#fff; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:13px; text-align:center; padding:6px 8px; border-radius:7px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease;">View Product</a></div>
+<a href="/products/difflam-sore-throat-spray-30ml" class="pcard-view btn-sm btn-outline" style="position:absolute; left:14px; right:14px; bottom:14px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease">View Product</a></div>
             <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Difflam</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/difflam-sore-throat-spray-30ml" class="hov-green" style="color:#2A2B2A;">Difflam Sore Throat Spray 30ml</a></h3>
             <div style="margin-bottom:14px; min-height:18px;"></div>
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€12.99</span></div><a href="/products/difflam-sore-throat-spray-30ml" class="pcard-mobile-btn hov-bg-green" style="display:none; margin-top:12px; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 8px; border-radius:8px;">View Product</a></div></div>
+              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">€12.99</span></div><a href="/products/difflam-sore-throat-spray-30ml" class="pcard-mobile-btn btn-sm btn-fill" style="display:none; margin-top:12px">View Product</a></div></div>
 
       <!-- Pagination --></div>
   </div>
@@ -1013,42 +1014,42 @@
           <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/fab-skin-hair-nails-glow-60-capsules" class="hov-green" style="color:#2A2B2A;">fabÜ Skin Hair Nails Glow 60 Capsules</a></h3>
           <div style="margin-bottom:12px;"></div>
           <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€19.95</div>
-          <a href="/products/fab-skin-hair-nails-glow-60-capsules" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+          <a href="/products/fab-skin-hair-nails-glow-60-capsules" class="btn-sm btn-fill" style="margin-top:auto">View Product</a>
         </div><div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
           <a href="/products/cetrine-allergy-10mg-30-tablets" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"><img src="/shopify-theme/assets/prod-cetrine.jpg?width=480&height=480" alt="Cetrine Allergy 10mg 30 Tablets" width="480" height="480" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block;"></a>
           <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Cetrine</div>
           <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/cetrine-allergy-10mg-30-tablets" class="hov-green" style="color:#2A2B2A;">Cetrine Allergy 10mg 30 Tablets</a></h3>
           <div style="margin-bottom:12px;"></div>
           <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€7.99</div>
-          <a href="/products/cetrine-allergy-10mg-30-tablets" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+          <a href="/products/cetrine-allergy-10mg-30-tablets" class="btn-sm btn-fill" style="margin-top:auto">View Product</a>
         </div><div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
           <a href="/products/revive-active-30-sachets" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"><img src="/shopify-theme/assets/prod-revive.jpg?width=480&height=480" alt="Revive Active 30 Sachets" width="480" height="480" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block;"></a>
           <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Revive Active</div>
           <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/revive-active-30-sachets" class="hov-green" style="color:#2A2B2A;">Revive Active 30 Sachets</a></h3>
           <div style="margin-bottom:12px;"></div>
           <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€64.99</div>
-          <a href="/products/revive-active-30-sachets" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+          <a href="/products/revive-active-30-sachets" class="btn-sm btn-fill" style="margin-top:auto">View Product</a>
         </div><div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
           <a href="/products/optibac-every-day-max-30-capsules" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"><img src="/shopify-theme/assets/prod-optibac-max.jpg?width=480&height=480" alt="Optibac Every Day MAX 30 Capsules" width="480" height="480" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block;"></a>
           <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Optibac</div>
           <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/optibac-every-day-max-30-capsules" class="hov-green" style="color:#2A2B2A;">Optibac Every Day MAX 30 Capsules</a></h3>
           <div style="margin-bottom:12px;"></div>
           <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€27.99</div>
-          <a href="/products/optibac-every-day-max-30-capsules" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+          <a href="/products/optibac-every-day-max-30-capsules" class="btn-sm btn-fill" style="margin-top:auto">View Product</a>
         </div><div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
           <a href="/products/nurofen-200mg-ibuprofen-24-tablets" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"><img src="/shopify-theme/assets/prod-nurofen.jpg?width=480&height=480" alt="Nurofen 200mg Ibuprofen 24 Tablets" width="480" height="480" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block;"></a>
           <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">Nurofen</div>
           <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/nurofen-200mg-ibuprofen-24-tablets" class="hov-green" style="color:#2A2B2A;">Nurofen 200mg Ibuprofen 24 Tablets</a></h3>
           <div style="margin-bottom:12px;"></div>
           <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€6.49</div>
-          <a href="/products/nurofen-200mg-ibuprofen-24-tablets" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+          <a href="/products/nurofen-200mg-ibuprofen-24-tablets" class="btn-sm btn-fill" style="margin-top:auto">View Product</a>
         </div><div style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
           <a href="/products/cerave-hydrating-cleanser-236ml" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"><img src="/shopify-theme/assets/prod-cerave-cleanser.jpg?width=480&height=480" alt="CeraVe Hydrating Cleanser 236ml" width="480" height="480" loading="lazy" style="width:100%; height:100%; object-fit:contain; display:block;"></a>
           <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">CeraVe</div>
           <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="/products/cerave-hydrating-cleanser-236ml" class="hov-green" style="color:#2A2B2A;">CeraVe Hydrating Cleanser 236ml</a></h3>
           <div style="margin-bottom:12px;"></div>
           <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:14px;">€13.50</div>
-          <a href="/products/cerave-hydrating-cleanser-236ml" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:12px 16px; border-radius:8px;">View Product</a>
+          <a href="/products/cerave-hydrating-cleanser-236ml" class="btn-sm btn-fill" style="margin-top:auto">View Product</a>
         </div></div>
     <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="also-track-sec-main-collection" data-rail-by="-540" class="hov-chip-arrow" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
     <button aria-label="Scroll forward" data-rail-btn data-rail-target="also-track-sec-main-collection" data-rail-by="540" class="hov-chip-arrow" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
@@ -1116,7 +1117,7 @@
     .prod-count { display: none !important; }
     .refine-mobile { display: flex !important; }
     .pcard-view { display: none !important; }
-    .pcard-mobile-btn { display: block !important; }
+    .pcard-mobile-btn { display: inline-flex !important; width: 100%; }
   }
 </style>
 
@@ -1191,7 +1192,7 @@
         
           <input type="hidden" name="contact[tags]" value="newsletter">
           <input type="email" name="contact[email]" required aria-label="Email address" autocomplete="email" placeholder="Enter your email address" style="flex:1; min-width:0; border:none; outline:none; padding:10px 14px; font-family:inherit; font-size:13.5px; color:#2A2B2A; background:transparent;">
-          <button type="submit" class="hov-bg-accent-dk" style="flex:0 0 auto; border:none; border-radius:7px; background:var(--c-accent); color:var(--c-on-accent); font-family:inherit; font-weight:700; font-size:13.5px; letter-spacing:.02em; padding:0 20px; cursor:pointer;">Subscribe</button>
+          <button type="submit" class="btn-sm btn-fill" style="flex:0 0 auto">Subscribe</button>
         
       </form>
       </div>
@@ -1355,9 +1356,9 @@
         <a href="/pages/cookie-policy" class="cc-link">Read our cookie policy</a>
       </p>
     </div><div class="cc-actions">
-      <button type="button" class="cc-btn" data-cc-accept>Accept all</button>
-      <button type="button" class="cc-btn" data-cc-reject>Reject all</button>
-      <button type="button" class="cc-btn cc-btn-quiet" data-cc-manage aria-expanded="false" aria-controls="cc-options">Choose</button>
+      <button type="button" class="cc-btn btn btn-fill" data-cc-accept>Accept all</button>
+      <button type="button" class="cc-btn btn btn-fill" data-cc-reject>Reject all</button>
+      <button type="button" class="cc-btn btn btn-outline" data-cc-manage aria-expanded="false" aria-controls="cc-options">Choose</button>
     </div>
 
     <div class="cc-options" id="cc-options" data-cc-options hidden><ul class="cc-cats">
@@ -1390,7 +1391,7 @@
           <input type="checkbox" id="cc-marketing" data-cc-toggle="marketing" class="cc-switch">
         </li>
       </ul>
-      <button type="button" class="cc-btn" data-cc-save>Save my choices</button>
+      <button type="button" class="cc-btn btn btn-fill" data-cc-save>Save my choices</button>
     </div>
   </div>
 </div>

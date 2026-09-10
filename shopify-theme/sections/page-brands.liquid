@@ -26,8 +26,8 @@
   <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
   <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
   <form action="{{ routes.search_url }}" method="get" style="display:flex; flex-wrap:wrap; gap:10px; max-width:460px; margin:0 0 32px;">
-    <input type="search" name="q" placeholder="Search brands" class="brand-search" style="flex:1 1 240px; height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 16px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none; min-width:0;">
-    <button type="submit" class="hov-bg-green-dk" style="flex:0 0 auto; height:52px; padding:0 22px; border:none; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-family:inherit; font-weight:800; font-size:15px; cursor:pointer;">Search</button>
+    <input type="search" name="q" placeholder="Search brands" class="brand-search" style="flex:1 1 240px; height:44px; border:1px solid #dfe1dc; border-radius:10px; padding:0 16px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none; min-width:0;">
+    <button type="submit" class="btn btn-fill" style="flex:0 0 auto">Search</button>
   </form>
 
   {%- comment -%} A heading over an empty grid is worse than no section, so the whole

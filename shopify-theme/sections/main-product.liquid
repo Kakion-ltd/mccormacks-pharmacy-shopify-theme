@@ -204,7 +204,7 @@
               <input type="text" name="quantity" value="1" inputmode="numeric" data-pdp-qty aria-label="Quantity" style="width:44px; border:none; text-align:center; font-weight:700; font-size:16px; color:var(--c-primary-text); outline:none; background:#fff;">
               <button type="button" data-qty-step="1" aria-label="Increase quantity" style="width:46px; height:100%; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">+</button>
             </div>
-            <button type="submit" data-pdp-submit class="hov-bg-accent-dk" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; display:flex; align-items:center; justify-content:center; gap:11px; background:var(--c-accent); color:var(--c-on-accent); border:none; cursor:pointer; font-family:inherit; font-weight:800; letter-spacing:.06em; font-size:16px; height:60px; border-radius:12px; {% unless current_variant.available %}opacity:.55; cursor:default;{% endunless %}">
+            <button type="submit" data-pdp-submit class="btn btn-fill" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:11px; letter-spacing:.06em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
               {%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}
             </button>
           </div>
@@ -259,9 +259,9 @@
               </div>
               {%- capture restricted -%}{%- render 'product-restricted', product: p -%}{%- endcapture -%}
               {%- if p.available and p.has_only_default_variant and restricted != 'true' -%}
-                <button type="button" data-add-id="{{ p.first_available_variant.id }}" class="hov-bg-green" style="flex:0 0 auto; align-self:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14px; padding:10px 20px; border-radius:8px; border:none; font-family:inherit; cursor:pointer;">Add</button>
+                <button type="button" data-add-id="{{ p.first_available_variant.id }}" class="btn-sm btn-fill" style="flex:0 0 auto; align-self:center">Add</button>
               {%- else -%}
-                <a href="{{ p.url }}" class="hov-bg-green" style="flex:0 0 auto; align-self:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:14px; padding:10px 20px; border-radius:8px;">View</a>
+                <a href="{{ p.url }}" class="btn-sm btn-fill" style="flex:0 0 auto; align-self:center">View</a>
               {%- endif -%}
             </div>
           {%- endfor -%}
@@ -308,9 +308,9 @@
             <div style="color:var(--c-primary-text); font-weight:800; font-size:22px; margin-bottom:16px;">{{ p.price | money }}</div>
             {%- capture restricted -%}{%- render 'product-restricted', product: p -%}{%- endcapture -%}
               {%- if p.available and p.has_only_default_variant and restricted != 'true' -%}
-              <button type="button" data-add-id="{{ p.first_available_variant.id }}" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:14px 16px; border-radius:9px; border:none; font-family:inherit; cursor:pointer;">Add To Bag</button>
+              <button type="button" data-add-id="{{ p.first_available_variant.id }}" class="btn-sm btn-fill" style="margin-top:auto">Add To Bag</button>
             {%- else -%}
-              <a href="{{ p.url }}" class="hov-bg-green" style="margin-top:auto; text-align:center; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:15px; padding:14px 16px; border-radius:9px;">View</a>
+              <a href="{{ p.url }}" class="btn-sm btn-fill" style="margin-top:auto">View</a>
             {%- endif -%}
           </div>
         {%- endfor -%}
@@ -328,7 +328,7 @@
       <span data-buybar-qty style="min-width:34px; text-align:center; font-weight:700; font-size:16px; color:var(--c-primary-text);">1</span>
       <button type="button" data-qty-step="1" aria-label="Increase quantity" style="width:46px; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">+</button>
     </div>
-    <button type="button" data-add-id="{{ current_variant.id }}" data-add-qty="1" data-buybar-add class="hov-bg-accent-dk" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; display:flex; align-items:center; justify-content:center; gap:10px; background:var(--c-accent); color:var(--c-on-accent); font-weight:800; letter-spacing:.05em; font-size:15px; border-radius:11px; border:none; font-family:inherit; cursor:pointer; {% unless current_variant.available %}opacity:.55;{% endunless %}">
+    <button type="button" data-add-id="{{ current_variant.id }}" data-add-qty="1" data-buybar-add class="btn btn-fill" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:10px; letter-spacing:.05em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
       {%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}
     </button>

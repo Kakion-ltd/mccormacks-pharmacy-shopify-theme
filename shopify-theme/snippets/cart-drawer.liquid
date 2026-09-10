@@ -57,7 +57,7 @@
     </div>
     <p class="cd-vat">Shipping and VAT calculated at checkout</p>
     <form action="{{ routes.cart_url }}" method="post">
-      <button type="submit" name="checkout" class="cd-checkout hov-bg-green-dk">Checkout securely</button>
+      <button type="submit" name="checkout" class="cd-checkout btn btn-fill">Checkout securely</button>
       {%- comment -%} Same express buttons as the cart page, one step earlier.
           Guarded: with no accelerated methods enabled, Shopify renders nothing and
           the wrapper would otherwise leave a gap. {%- endcomment -%}

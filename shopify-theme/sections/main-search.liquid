@@ -38,7 +38,7 @@
                   <span style="color:#666b60;">&ndash;</span>
                   <div style="flex:1; display:flex; align-items:center; gap:5px; border:1.5px solid #dfe1dc; border-radius:8px; padding:8px 10px;"><span style="color:#666b60;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.max_value.param_name }}" type="number" min="0" step="0.01" placeholder="{{ filter.range_max | money_without_currency | remove: ',' }}" value="{% if filter.max_value.value %}{{ filter.max_value.value | money_without_currency | remove: ',' }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:14.5px; color:#2A2B2A; padding:0;"></div>
                 </div>
-                <button data-price-apply class="hov-bg-green-dk" style="width:100%; border:none; border-radius:8px; background:var(--c-primary); color:var(--c-on-primary); font-family:inherit; font-weight:700; font-size:14px; padding:10px 8px; cursor:pointer;">Apply</button>
+                <button data-price-apply class="btn-sm btn-fill" style="width:100%">Apply</button>
               </div>
           {%- endcase -%}
         {%- endfor -%}
@@ -111,9 +111,9 @@
                 </div>
                 {% render 'wishlist-button', product: product %}
                 {%- if quick_add -%}
-                  <button data-add-id="{{ variant.id }}" class="hov-bg-green-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px; margin-top:2px; border:none; cursor:pointer; font-family:inherit; width:100%;">Add To Bag</button>
+                  <button data-add-id="{{ variant.id }}" class="btn-sm btn-fill" style="margin-top:2px; width:100%">Add To Bag</button>
                 {%- else -%}
-                  <a href="{{ product.url }}" class="hov-bg-green-dk" style="display:flex; align-items:center; justify-content:center; height:46px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px; margin-top:2px;">View Product</a>
+                  <a href="{{ product.url }}" class="btn-sm btn-fill" style="margin-top:2px">View Product</a>
                 {%- endif -%}
               </div>
             </div>
@@ -139,7 +139,7 @@
             {%- endif -%}
           {%- endfor -%}
           {%- if paginate.next -%}
-            <a href="{{ paginate.next.url }}" class="srch-pg" style="display:inline-flex; align-items:center; justify-content:center; height:42px; padding:0 18px; border-radius:9px; border:1px solid #dfe1dc; color:#3a3d39; font-weight:700; font-size:14.5px;">Next</a>
+            <a href="{{ paginate.next.url }}" class="btn-sm btn-outline">Next</a>
           {%- endif -%}
         </div>
       {%- endif -%}
@@ -162,8 +162,8 @@
       <p style="margin:0 0 22px; font-size:16.5px; line-height:1.7; color:#4a4d47;">Search thousands of pharmacy, health and beauty products, all dispatched from our registered Irish pharmacy.</p>
     {%- endif -%}
     <form action="{{ routes.search_url }}" method="get" role="search" style="display:flex; gap:10px; max-width:460px;">
-      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search again" class="srch-again" style="flex:1 1 auto; height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 16px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none; min-width:0;">
-      <button type="submit" class="hov-bg-green-dk" style="flex:0 0 auto; height:52px; padding:0 22px; border:none; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-family:inherit; font-weight:800; font-size:15px; cursor:pointer;">Search</button>
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search again" class="srch-again" style="flex:1 1 auto; height:44px; border:1px solid #dfe1dc; border-radius:10px; padding:0 16px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none; min-width:0;">
+      <button type="submit" class="btn btn-fill" style="flex:0 0 auto">Search</button>
     </form>
     {%- if section.settings.popular_terms != blank -%}
       <div style="display:flex; flex-wrap:wrap; gap:9px; margin:22px 0 0;">
@@ -171,7 +171,7 @@
         {%- assign terms = section.settings.popular_terms | split: ',' -%}
         {%- for term in terms -%}
           {%- assign t = term | strip -%}
-          <a href="{{ routes.search_url }}?q={{ t | url_encode }}" class="hov-pill" style="display:inline-flex; align-items:center; height:32px; padding:0 14px; border-radius:999px; background:#f2f3f1; color:#3a3d39; font-size:13.5px; font-weight:700;">{{ t }}</a>
+          <a href="{{ routes.search_url }}?q={{ t | url_encode }}" class="chip">{{ t }}</a>
         {%- endfor -%}
       </div>
     {%- endif -%}
@@ -183,8 +183,8 @@
       <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:6px;">Looking for something specific?</div>
       <div style="font-size:15px; line-height:1.7; color:#3a3d39; margin-bottom:16px;">If you cannot find a product on the website, contact us and we will check whether we can order it in for you.</div>
       <div style="display:flex; flex-wrap:wrap; gap:10px;">
-        <a href="tel:{{ settings.phone | remove: ' ' }}" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:15.5px;">Call {{ settings.phone }}</a>
-        <a href="/pages/contact-us" class="hov-border-accent" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:15px;">Ask a pharmacist</a>
+        <a href="tel:{{ settings.phone | remove: ' ' }}" class="btn btn-fill" style="gap:9px">Call {{ settings.phone }}</a>
+        <a href="/pages/contact-us" class="btn btn-outline" style="gap:9px">Ask a pharmacist</a>
       </div>
     </div>
   </div>
@@ -202,7 +202,7 @@
       {%- for line in popular_lines -%}
         {%- assign parts = line | strip | split: '|' -%}
         {%- if parts.size >= 2 -%}
-          <a href="{{ parts[1] | strip }}" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; height:44px; padding:0 20px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:14.5px; white-space:nowrap;">{{ parts[0] | strip | escape }}</a>
+          <a href="{{ parts[1] | strip }}" class="chip chip-lime">{{ parts[0] | strip | escape }}</a>
         {%- endif -%}
       {%- endfor -%}
     </div>
@@ -215,7 +215,6 @@
   .srch-card:hover { box-shadow: 0 12px 26px rgba(0,0,0,.08); }
   .srch-pg:hover { border-color: var(--c-accent) !important; color: var(--c-dark) !important; }
   .srch-again:focus { border-color:var(--c-primary-text) !important; }
-  .hov-pill:hover { background: #eef2e8 !important; color: var(--c-dark) !important; }
   @media (max-width: 1000px) {
     .srch-wrap { align-items: stretch !important; flex-direction: column !important; gap: 26px !important; }
     .srch-side { flex: 1 1 auto !important; width: 100% !important; }

@@ -36,11 +36,11 @@
         </div>
         <p style="margin:0; font-size:14.5px; line-height:1.7; color:#5a6153;">{{ section.settings.body }}</p>
         <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:6px;">
-          <a href="/collections/medicines-health" class="hov-bg-green-dk" style="display:inline-flex; align-items:center; justify-content:center; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px; border-radius:999px; padding:12px 26px;">Start shopping</a>
+          <a href="/collections/medicines-health" class="btn btn-fill">Start shopping</a>
           {% if customer %}
-            <a href="{{ routes.account_url }}" class="hov-border-accent" style="display:inline-flex; align-items:center; justify-content:center; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:14.5px; border-radius:999px; padding:12px 26px;">My account</a>
+            <a href="{{ routes.account_url }}" class="btn btn-outline">My account</a>
           {% else %}
-            <a href="{{ routes.account_register_url }}" class="hov-border-accent" style="display:inline-flex; align-items:center; justify-content:center; border:1.5px solid #dfe1dc; color:#2A2B2A; font-weight:700; font-size:14.5px; border-radius:999px; padding:12px 26px;">Create an account</a>
+            <a href="{{ routes.account_register_url }}" class="btn btn-outline">Create an account</a>
           {% endif %}
         </div>
       </div>
