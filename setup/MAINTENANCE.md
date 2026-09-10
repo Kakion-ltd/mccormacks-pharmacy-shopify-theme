@@ -643,6 +643,40 @@ drop the `.pdp-recs` flex order from the mobile rules; do not cap the
 gallery height instead, which shrinks the photo to fit whatever the buy
 column happens to be for that product.
 
+## Generated snippets — edit the generator, never the output (three times now)
+
+Nine snippets are written by three scripts in `setup/`: `gen_brands.py` owns
+`brand-az.liquid`, `gen_mega.py` owns `mega-menu.liquid`, and
+`gen_category_nav.py` owns the breadcrumb, chips, chip, level, rank and
+mobile-nav snippets. The list is the `GENERATORS` map in
+`setup/verify/generators.py`. A hand edit to any of these holds only until
+the next regeneration, when the generator puts the old markup back.
+
+It has happened three times, each a sitewide sweep that fixed the generated
+file and forgot the script:
+
+1. **26 Aug 2026, the colour-token sweep (d34e944).** `brand-az` and
+   `mega-menu` were tokenised; `gen_brands.py` still emitted `#92C83F` and
+   `gen_mega.py` still emitted `#82C914`. Found the next day by regenerating
+   against a clean tree (7e546e7), which is when `generators.py` was written.
+2. **10 Sep 2026, the muted-grey merge (2e4997d).** The breadcrumb and
+   mega-menu snippets moved to `#666b60`; the two generators carried the old
+   value. Caught by the check before the commit and fixed inside it.
+3. **10 Sep 2026, the button system (0cde784).** `category-chip.liquid` was
+   rewritten onto the `.chip` classes by hand; `gen_category_nav.py` kept the
+   old inline-styled anchors. The check went red at 10:34 and 25
+   commits landed over it before a562623 mirrored the change at 13:36.
+
+The third is the instructive one. The check existed and was first in
+`npm run verify`, but the landing recipe below says `npm test`, and nobody
+runs the full chain for a CSS change. So `generators.py` now runs in
+`npm test` as well: it needs no server, takes seconds, and a drifted
+generator invalidates everything rendered after it.
+
+When a sweep touches one of the nine files, change the generator and run it;
+the snippet follows. The snippet's `git diff` should then be exactly what you
+meant, and `npm test` green before the branch lands.
+
 ## Parallel sessions — one worktree each, merged fast-forward only
 
 Several Claude sessions work this repo at the same time, on different tasks.
