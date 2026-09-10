@@ -2,7 +2,7 @@
 
 You are porting high-fidelity HTML design references into a Shopify Online Store 2.0 theme.
 
-**Design sources:** `archive/design/pages/*.dc.html` (the homepage, which `gen_mega.py` still reads, is `setup/McCormacks Homepage.dc.html`). **Theme root:** `shopify-theme/`.
+**Design sources:** `archive/design/pages/*.dc.html` (the homepage is `setup/McCormacks Homepage.dc.html`, served by the preview at `/design`; no build step reads it). **Theme root:** `shopify-theme/`.
 
 ## Reading the design files
 

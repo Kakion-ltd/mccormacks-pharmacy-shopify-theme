@@ -573,6 +573,28 @@ panel below the viewport at 1024, where the sticky nav means it can never be
 scrolled to. `theme.js` now sets the cap from the panel's measured top when it
 opens; the `84vh` in the markup is the no-JS fallback.
 
+## The mega menu comes from taxonomy.json, like everything else in the nav
+
+Until September 2026 the four multi-column panels were scraped out of the
+design handoff HTML with a headless browser and rewritten on the way through:
+hover styles mapped to classes, hrefs re-derived by handleizing the anchor
+text, brand hexes swapped for tokens. The mobile drawer, the breadcrumbs and
+the category chips all came from `taxonomy.json`, so the desktop nav was the
+one surface that could disagree with it and nothing would notice.
+
+`gen_mega.py` reads the taxonomy now. The switch produced identical content —
+same departments, groups, leaves and order in all eight panels — because the
+design markup had not in fact drifted; the risk was that it could, silently.
+All the design ever supplied that the taxonomy cannot is panel chrome (width,
+the no-JS fallback offset, padding, column count), which is a table at the top
+of the generator. Column splits are computed rather than drawn: the split that
+minimises the tallest column while keeping taxonomy order reproduces exactly
+the splits the designer had chosen by hand.
+
+`setup/verify/mega-taxonomy.py` asserts the result against the taxonomy and
+also asserts the generator has not gone back to reading the design file or
+importing a browser. A build no longer needs either.
+
 ## Seasonal rotation is manual — nothing in this theme is date-scheduled
 
 **There is no date scheduling anywhere in the theme. Not the hero slides, not

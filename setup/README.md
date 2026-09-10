@@ -8,7 +8,7 @@ Everything needed to provision a Shopify dev store to match the theme in `shopif
 - `brands.json` — the 88 brands behind the A–Z index on the Brands page (source for `gen_brands.py` and the brand collections).
 - `provision.mjs` — creates collections, nav menus, pages, the Health Hub blog, and the product metafield definitions the product page reads, via the Admin GraphQL API. Idempotent; runnable a step at a time (`collections|menus|pages|blog|metafields|all`).
 - `CONVERSION_GUIDE.md` — the design→Liquid conversion rules used to build the theme.
-- `McCormacks Homepage.dc.html` — the design handoff homepage. Kept here because `gen_mega.py` reads its mega-menu markup; the rest of the handoff is in `archive/design/`.
+- `McCormacks Homepage.dc.html` — the design handoff homepage. Nothing in the build reads it any more; it is kept here because `serve_preview.py` serves it at `/design` for side-by-side comparison. The rest of the handoff is in `archive/design/`.
 - `extract_taxonomy.py`, `build_manifest.py`, `gen_mega.py`, `gen_category_nav.py`, `gen_brands.py` — regeneration scripts. **The mega menu, category chips, breadcrumbs and brand A–Z are generated** — edit the JSON and re-run, don't hand-edit the snippets.
 
 ## Order of operations

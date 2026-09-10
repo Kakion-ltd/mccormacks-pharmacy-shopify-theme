@@ -1,198 +1,193 @@
-"""Transform the homepage's 8 mega-dropdown blocks into snippets/mega-menu.liquid.
-Keeps the design markup verbatim; swaps template-hole attrs for data attributes,
-style-hover for utility classes, and .dc.html hrefs for /collections/<handle> URLs."""
-import json, os, re
-from playwright.sync_api import sync_playwright
+"""Generate snippets/mega-menu.liquid from taxonomy.json.
+
+Every desktop dropdown now comes from the same file as the mobile drawer, the
+breadcrumbs and the category chips. It used to be scraped out of the design
+handoff HTML with a headless browser, which made the desktop nav the one
+surface that could drift from the taxonomy with nothing to catch it, and made
+a build depend on Playwright and on an archived design file. All the design
+ever supplied that the taxonomy cannot is the panel chrome - width, the no-JS
+fallback offset, padding and column count - and that is the table below.
+
+Three shapes, chosen by the data rather than by hand:
+
+  groups   a department with groups. Past ten of them the groups are one flow
+           the browser balances (Medicines & Health); below that they are
+           split into fixed columns, because a flowed group carries a trailing
+           margin at the foot of every column and that costs more than the
+           raggedness does at five or seven groups. The split minimises the
+           tallest column while keeping taxonomy order, which reproduces the
+           splits the designer had drawn by hand.
+  flat     a department with no groups, as a wide multi-column list (Vitamins).
+  list     the four narrow single-column panels.
+
+Run from setup/: python3 gen_mega.py
+"""
+import functools
+import json
+import os
+import re
+import sys
+import unicodedata
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+THEME = os.path.join(HERE, '..', 'shopify-theme')
 
-MENUS = [  # sc-if key -> (panel key, menu label)
-    ('oPharm', 'medicines-health'), ('oSupp', 'vitamins'), ('oSkin', 'skincare'),
-    ('oBeauty', 'beauty'), ('oToil', 'toiletries'), ('oBaby', 'mother-baby'),
-    ('oFrag', 'fragrance'), ('oGifts', 'gifting'),
-]
-
-import unicodedata
 
 def handleize(s):
     s = unicodedata.normalize('NFKD', s).encode('ascii', 'ignore').decode()
     s = s.lower().replace('&', ' ').replace("'", '')
     return re.sub(r'-{2,}', '-', re.sub(r'[^a-z0-9]+', '-', s)).strip('-')
 
+
+# Only the ampersand needs escaping; apostrophes stay literal, as they were in
+# the design markup and as the rest of the generated nav writes them.
+amp = lambda s: s.replace('&', '&amp;')
+
+taxonomy = {handleize(m['menu']): m for m in json.load(open(os.path.join(HERE, 'taxonomy.json')))}
 handles = {c['handle'] for c in json.load(open(os.path.join(HERE, 'collections.json')))}
 
-HOVER_MAP = [
-    ('color:#82c914; transform:translateX(4px);', 'hov-slide'),
-    ('color:#82c914;', 'hov-green'),
-    ('color:#6ba30f;', 'hov-green-dk'),
-    ('color:#3f6b4f;', 'hov-dark-green'),
+# Panel chrome, in nav order. `left` is the no-JS fallback position of a narrow panel; theme.js
+# re-aligns those under their trigger at runtime. Wide panels start at the
+# container edge. `floor` is the column minimum for a split grid.
+PANELS = [
+    ('medicines-health', dict(width=1380, pad='30px 30px', cols=6)),
+    ('vitamins',         dict(width=1000, pad='34px 32px', cols=4, floor=150, gap=26)),
+    ('beauty',           dict(width=1240, pad='30px', cols=4, floor=160)),
+    ('skincare',         dict(width=1100, pad='30px', cols=3, floor=180)),
+    ('toiletries',       dict(left=379)),
+    ('mother-baby',      dict(left=454)),
+    ('fragrance',        dict(left=566)),
+    ('gifting',          dict(left=648)),
 ]
+FLOW_ABOVE = 10          # groups; above this the panel is one balanced flow
 
-# The design markup hand-splits each panel into fixed column divs, which is why the
-# columns ended at wildly different heights and why the six-column panel overflowed
-# sideways at 1024 (six 155px minimums do not fit an 904px panel). This lifts the
-# groups out of those column divs into one flow and lets the browser balance them:
-# an order-preserving split computed by hand lands within 30px of what the browser
-# does, and the browser redoes it at every width. Panels with no groups (Vitamins is
-# a flat list) keep their grid, so their reading order is untouched.
-JS = """([keys, txt]) => {
-  const doc = new DOMParser().parseFromString(txt, 'text/html');
-  const strip = (el, ...res) => {
-    let s = el.getAttribute('style') || '';
-    for (const re of res) s = s.replace(re, '');
-    el.setAttribute('style', s.trim());
-  };
-  const prep = holder => {
-    const box = holder.querySelector('div[style*="max-height:78vh"]');
-    if (box) box.setAttribute('style', box.getAttribute('style').replace('max-height:78vh', 'max-height:84vh'));
-    const grid = holder.querySelector('div[style*="grid-template-columns"]');
-    if (!grid) return;
-    // Only panels built from group headings; Vitamins is a flat list of links in
-    // hand-split columns and keeps its grid, gaps and reading order untouched.
-    if (!grid.querySelector('a[style*="font-weight:800"]')) return;
-    const cols = [...grid.children].filter(c => /flex-direction:column/.test(c.getAttribute('style') || ''));
-    if (!cols.length) return;
-    const groups = [...grid.querySelectorAll('a[style*="font-weight:800"]')].map(a => a.parentElement);
-    for (const g of groups) {
-      g.setAttribute('class', ((g.getAttribute('class') || '') + ' mega-group').trim());
-      strip(g.querySelector(':scope > a'), /font-size:13\.5px;\s*/, /margin-bottom:8px;\s*/);
-      const stack = g.querySelector(':scope > div');
-      if (stack) strip(stack, /gap:\d+px;\s*/);
-    }
-    // A hand split is fine while a person can eyeball it. Past about ten groups it
-    // cannot be, which is how Medicines & Health ended up 242px ragged across six
-    // columns; that one becomes a single flow the browser balances. The smaller
-    // panels keep their columns, because a flowed group carries a trailing margin
-    // at the foot of every column and that costs more than their raggedness does.
-    if (groups.length <= 10) {
-      for (const col of cols) {
-        const s = col.getAttribute('style') || '';
-        col.setAttribute('style', s.replace(/gap:\d+px;/, 'gap:24px;'));
-      }
-      return;
-    }
-    const n = (grid.getAttribute('style').match(/repeat\((\d+),/) || [])[1] || '6';
-    strip(grid, /display:grid;\s*/, /grid-template-columns:[^;]+;\s*/, /gap:\d+px;\s*/);
-    grid.setAttribute('class', 'mega-cols');
-    grid.setAttribute('style', grid.getAttribute('style') + ' column-count:' + n + ';');
-    for (const col of cols) {
-      while (col.firstElementChild) grid.insertBefore(col.firstElementChild, col);
-      col.remove();
-    }
-  };
-  const out = {};
-  for (const key of keys) {
-    const holder = [...doc.querySelectorAll('sc-if')].find(n => (n.getAttribute('value')||'').includes(key));
-    if (holder) prep(holder);
-    out[key] = holder ? holder.innerHTML : null;
-  }
-  return out;
-}"""
+WIDE_BOX = ('position:absolute; left:30px; width:{width}px; max-width:calc(100vw - 60px); top:100%; '
+            'z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); '
+            'border-radius:0 0 16px 16px; max-height:84vh; overflow:auto; animation:megaIn .16s ease-out;')
+LIST_BOX = ('position:absolute; left:{left}px; width:240px; top:100%; z-index:50; background:#ffffff; '
+            'border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; '
+            'max-height:74vh; overflow-y:auto; animation:megaIn .16s ease-out;')
+HEAD_STYLE = 'display:block; color:var(--c-primary-text); font-weight:800;'
+STACK_STYLE = 'display:flex; flex-direction:column; font-size:12px;'
+SLIDE_STYLE = ('color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; '
+               'transition:color .14s ease, transform .14s ease;')
 
-with sync_playwright() as p:
-    b = p.chromium.launch(headless=True)
-    pg = b.new_page()
-    src = open(os.path.join(HERE, 'McCormacks Homepage.dc.html'),
-                encoding='utf-8').read()
-    blocks = pg.evaluate(JS, [[k for k, _ in MENUS], src])
-    b.close()
-
-def link_for(text, panel=None):
-    text = re.sub(r'\s+', ' ', text.strip())
-    text = re.sub(r'^image\s+', '', text)  # promo tiles: placeholder token before label
-    h = handleize(text)
-    if h in handles:
-        return f'/collections/{h}'
-    return f'/collections/{panel}' if panel else None
-
-unmapped = []
-
-# The design markup carries literal brand hexes. The theme drives colour from CSS
-# custom properties, so emit those instead — otherwise regenerating this file
-# silently reverts the tokens and the contrast work along with them. Same mapping
-# the rest of the theme uses: the lime is a background, never an ink.
-COLOUR_MAP = [
-    ('color:#82c914', 'color:var(--c-primary-text)'),
-    ('color:#82C914', 'color:var(--c-primary-text)'),
-    ('background:#82c914', 'background:var(--c-primary)'),
-    ('background:#82C914', 'background:var(--c-primary)'),
-    ('#92C83F', 'var(--c-accent)'),
-    ('#92c83f', 'var(--c-accent)'),
-    ('#3F6B4F', 'var(--c-dark)'),
-    ('#3f6b4f', 'var(--c-dark)'),
-    ('#8b9182', '#666b60'),
-]
+missing = []
 
 
-def tokenise_colours(html):
-    for old_c, new_c in COLOUR_MAP:
-        html = html.replace(old_c, new_c)
-    return html
+def url(title):
+    h = handleize(title)
+    if h not in handles:
+        missing.append(title)
+    return '/collections/' + h
 
 
-def transform(html, panel_key):
-    # strip template-hole event attrs
-    html = re.sub(r'\s*on[A-Za-z]+="\{\{[^}]*\}\}"', '', html)
-    # style-hover -> classes
-    def hover_repl(m):
-        val = m.group(1).strip()
-        for style, cls in HOVER_MAP:
-            if val == style.rstrip(';') or val == style:
-                return f'data-addclass="{cls}"'
-        return f'data-addclass-unknown="{val}"'
-    html = re.sub(r'style-hover="([^"]*)"', hover_repl, html)
-    # merge data-addclass into class attr (anchors here have no class attr in design)
-    html = re.sub(r'data-addclass="([^"]*)"', r'class="\1"', html)
-    # rewrite hrefs based on anchor text
-    def href_repl(m):
-        attrs, inner = m.group(1), m.group(2)
-        text = re.sub(r'<[^>]+>', ' ', inner)
-        text = re.sub(r'\s+', ' ', text).replace('&amp;', '&').strip()
-        h = handleize(re.sub(r'^image\s+', '', text))
-        if h not in handles:
-            unmapped.append((panel_key, text))
-        url = link_for(text, panel_key)
-        new_attrs = re.sub(r'href="[^"]*"', f'href="{url}"', attrs)
-        return f'<a {new_attrs}>{inner}</a>'
-    html = re.sub(r'<a ([^>]*)>(.*?)</a>', href_repl, html, flags=re.S)
-    # Last, so HOVER_MAP still sees the literal hexes it matches on.
-    return tokenise_colours(html)
+def balance(costs, k):
+    """Split a list into k contiguous runs, minimising the largest run."""
+    n = len(costs)
 
-# Panels overridden to a simple single-column list, no promo images (client request).
-# left offsets = measured trigger positions at 1440; theme.js re-aligns at runtime,
-# these are the no-JS fallback.
-SINGLE_COLUMN = {'toiletries': 379, 'mother-baby': 454, 'fragrance': 566, 'gifting': 648}
+    @functools.lru_cache(None)
+    def best(i, k):
+        if k == 1:
+            return sum(costs[i:]), (n,)
+        out = None
+        for j in range(i + 1, n - k + 2):
+            here = sum(costs[i:j])
+            rest, cuts = best(j, k - 1)
+            worst = max(here, rest)
+            if out is None or worst < out[0]:
+                out = (worst, (j,) + cuts)
+        return out
 
-def single_column_panel(panel):
-    taxonomy = json.load(open(os.path.join(HERE, 'taxonomy.json')))
-    menu = next(m for m in taxonomy if handleize(m['menu']) == panel)
-    items = m_items = menu.get('flat') or [g['title'] for g in menu.get('groups', [])]
-    links = '\n'.join(
-        f'<a href="{link_for(i, panel)}" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; '
-        f'width:fit-content; transition:color .14s ease, transform .14s ease;">{i.replace("&", "&amp;")}</a>'
-        for i in items)
-    left = SINGLE_COLUMN[panel]
-    return (f'<div style="position:absolute; left:{left}px; width:240px; top:100%; z-index:50; background:#ffffff; '
-            f'border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; '
-            f'max-height:74vh; overflow-y:auto; animation:megaIn .16s ease-out;">\n'
-            f'<div style="padding:26px 28px; display:flex; flex-direction:column; gap:11px; font-size:14px;">\n'
-            f'{links}\n</div>\n</div>')
+    cuts = best(0, k)[1]
+    runs, prev = [], 0
+    for c in cuts:
+        runs.append(list(range(prev, c)))
+        prev = c
+    return runs
 
-parts = ["{% comment %} Generated from design handoff mega-menu markup. Regenerate with setup/gen_mega.py {% endcomment %}"]
-for key, panel in MENUS:
-    if panel in SINGLE_COLUMN:
-        parts.append(f'<div class="mega-panel" data-mega-panel="{panel}">\n{single_column_panel(panel)}\n</div>')
-        continue
-    inner = blocks[key]
-    assert inner, f'missing dropdown {key}'
-    parts.append(f'<div class="mega-panel" data-mega-panel="{panel}">\n{transform(inner, panel)}\n</div>')
 
-out = '\n'.join(parts)
-path = os.path.join(HERE, '..', 'shopify-theme', 'snippets', 'mega-menu.liquid')
-import os
-os.makedirs(os.path.dirname(path), exist_ok=True)
-open(path, 'w').write(out)
-print('wrote', len(out), 'chars')
-print('unknown hover styles:', len(re.findall('data-addclass-unknown', out)))
-print('unmapped links:', len(unmapped))
-for u in sorted(set(unmapped)): print('  ', u)
+def group_html(g, indent):
+    pad = ' ' * indent
+    out = [f'{pad}<div class="mega-group">',
+           f'{pad}  <a href="{url(g["title"])}" style="{HEAD_STYLE}" class="hov-dark-green">{amp(g["title"])}</a>']
+    if g['items']:
+        out.append(f'{pad}  <div style="{STACK_STYLE}">')
+        out += [f'{pad}    <a href="{url(i)}" style="color:#2A2B2A;" class="hov-green">{amp(i)}</a>' for i in g['items']]
+        out.append(f'{pad}  </div>')
+    out.append(f'{pad}</div>')
+    return out
+
+
+def grouped_panel(key, cfg):
+    groups = taxonomy[key]['groups']
+    body = [f'  <div style="{WIDE_BOX.format(**cfg)}">',
+            '    <div style="display:flex; align-items:stretch;">']
+    if len(groups) > FLOW_ABOVE:
+        body.append(f'      <div style="flex:1; padding:{cfg["pad"]}; column-count:{cfg["cols"]};" class="mega-cols">')
+        for g in groups:
+            body += group_html(g, 8)
+        body.append('      </div>')
+    else:
+        body.append(f'      <div style="flex:1; padding:{cfg["pad"]}; display:grid; '
+                    f'grid-template-columns:repeat({cfg["cols"]},minmax({cfg["floor"]}px,1fr)); gap:24px;">')
+        for run in balance(tuple(1 + len(g['items']) for g in groups), cfg['cols']):
+            body.append('        <div style="display:flex; flex-direction:column; gap:24px;">')
+            for i in run:
+                body += group_html(groups[i], 10)
+            body.append('        </div>')
+        body.append('      </div>')
+    body += ['    </div>', '  </div>']
+    return body
+
+
+def flat_panel(key, cfg):
+    items = taxonomy[key]['flat']
+    n, k = len(items), cfg['cols']
+    size, extra = divmod(n, k)
+    body = [f'  <div style="{WIDE_BOX.format(**cfg)}">',
+            '    <div style="display:flex; align-items:stretch;">',
+            f'      <div style="flex:1; padding:{cfg["pad"]}; display:grid; '
+            f'grid-template-columns:repeat({k},minmax({cfg["floor"]}px,1fr)); gap:{cfg["gap"]}px;">']
+    at = 0
+    for c in range(k):
+        take = size + (1 if c < extra else 0)
+        body.append('        <div style="display:flex; flex-direction:column; gap:11px; font-size:14px;">')
+        body += [f'          <a href="{url(i)}" style="{SLIDE_STYLE}" class="hov-slide">{amp(i)}</a>'
+                 for i in items[at:at + take]]
+        body.append('        </div>')
+        at += take
+    body += ['      </div>', '    </div>', '  </div>']
+    return body
+
+
+def list_panel(key, cfg):
+    menu = taxonomy[key]
+    items = menu.get('flat') or [g['title'] for g in menu.get('groups', [])]
+    body = [f'  <div style="{LIST_BOX.format(**cfg)}">',
+            '    <div style="padding:26px 28px; display:flex; flex-direction:column; gap:11px; font-size:14px;">']
+    body += [f'      <a href="{url(i)}" class="hov-slide" style="{SLIDE_STYLE}">{amp(i)}</a>' for i in items]
+    body += ['    </div>', '  </div>']
+    return body
+
+
+parts = ['{% comment %} Generated by setup/gen_mega.py from taxonomy.json — do not edit by hand. '
+         'One panel per department; the mobile drawer and the category chips come from the same file. {% endcomment %}']
+for key, cfg in PANELS:
+    if key not in taxonomy:
+        sys.exit(f'mega menu: unknown department {key}')
+    parts.append(f'<div class="mega-panel" data-mega-panel="{key}">')
+    if 'left' in cfg:
+        parts += list_panel(key, cfg)
+    elif taxonomy[key].get('groups'):
+        parts += grouped_panel(key, cfg)
+    else:
+        parts += flat_panel(key, cfg)
+    parts.append('</div>')
+
+out = '\n'.join(parts) + '\n'
+open(os.path.join(THEME, 'snippets', 'mega-menu.liquid'), 'w').write(out)
+n_links = out.count('<a href=')
+print(f'mega-menu: {len(PANELS)} panels, {n_links} links, {len(out)} bytes')
+if missing:
+    sys.exit('links with no collection: ' + ', '.join(sorted(set(missing))))
