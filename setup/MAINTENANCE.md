@@ -635,6 +635,45 @@ renders in no preview is covered by no check, however many checks there are.
 
 ---
 
+### The sub-class the harness cannot reach: markup Shopify injects (11 Sep 2026)
+
+The eight defects above are all findings a browser could reach locally. Two more found
+on 11 Sep 2026 are a different animal: **they are caused by DOM the preview never emits,
+so no local check can fail, however the harness is written.** Rendering the theme
+locally is not rendering it on Shopify.
+
+**1. The sticky header never pinned on a real store.** `{% sections 'header-group' %}`
+wraps each section in `<div class="shopify-section shopify-section-group-header-group">`.
+That wrapper is exactly as tall as the header inside it - 122px against 122px - and a
+sticky element cannot travel past its parent's box, so it scrolled away like static
+content and took the departments and the search with it. Locally the header renders
+straight into body flow, whose box is the whole page, so it pins perfectly. Fixed in
+aea18dc by making the wrapper the sticky box.
+
+**2. Two consent banners, and Shopify's covers ours.** Shopify's own privacy banner
+(`shopify-pc__banner`, z-index **2,000,000**) renders alongside our `.cc-banner`
+(z-index 400). `elementFromPoint` at the centre of our Accept button returns
+`DIV.shopify-pc__banner__btns`: our Accept and Reject are unclickable. This is the
+z-index-90-under-the-buy-bar incident again, from an element that does not exist in the
+preview at all - so `verify/consent.py`, which was written precisely to catch that class
+of failure by hit-testing the button's centre pixel, passes 80/80 locally and would
+never have seen it.
+
+**What this changes.** "Passing locally" now has a documented ceiling. For anything
+positional, sticky, layered or z-index dependent, the check has to run against a real
+store before it means anything. Two specific traps that will recur:
+
+- **Every section in a group carries the group class.** The announcement bar is also a
+  `shopify-section-group-header-group`, so styling the class pins the announcement bar
+  on top of everything. Scope to the section you mean - `:has(> .hdr-sticky)`.
+- **A sticky wrapper keeps its box when its contents translate away.** After the header
+  hid, an invisible 122px band swallowed every click beneath it; `elementFromPoint`
+  returned `DIV.shopify-section` instead of the page. `pointer-events: none` on the
+  wrapper with `auto` on the header. Test hit-testing, not just position.
+
+Both were found by driving the live store with the preview theme, which is the only
+place they exist. There is no harness change that would have caught either.
+
 ## The PSI logo in the footer is a regulatory requirement
 
 PSI *Guidance on Internet Supply of Non-Prescription Medicines* (v1, 2015),
