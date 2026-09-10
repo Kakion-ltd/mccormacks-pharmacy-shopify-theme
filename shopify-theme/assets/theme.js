@@ -36,6 +36,22 @@
       // A direction change only counts after this much travel. Below it the shopper is
       // wobbling rather than scrolling, and the bar would pump at the boundary.
       const STEP = 10;
+      // Only a gesture may hide the bar. An anchor jump, the browser scrolling a focused
+      // control into view, scroll restoration on a back-navigation - none of those are the
+      // shopper asking for the header to go away, and hiding on them leaves the reserved
+      // scroll-padding empty above the thing they jumped to. Enter is deliberately not a
+      // scroll key: activating the skip link must not count as scrolling.
+      const SCROLL_KEYS = new Set([' ', 'Spacebar', 'PageDown', 'PageUp', 'End', 'Home',
+                                   'ArrowDown', 'ArrowUp']);
+      // Momentum outlives the gesture - iOS fires no touchmove once the finger lifts - so
+      // the window is refreshed by scrolling itself, but only while it is already open.
+      const GRACE = 500;
+      let userUntil = 0;
+      const gesture = () => { userUntil = performance.now() + GRACE; };
+      addEventListener('wheel', gesture, { passive: true });
+      addEventListener('touchmove', gesture, { passive: true });
+      addEventListener('keydown', (e) => { if (SCROLL_KEYS.has(e.key)) gesture(); }, { passive: true });
+
       let anchor = window.scrollY;
       let hidden = false;
       let pinned = false;
@@ -58,9 +74,11 @@
         const busy = wrap.contains(document.activeElement)
           || document.body.hasAttribute('data-mnav-open')
           || document.body.hasAttribute('data-cd-open');
+        const user = performance.now() < userUntil;
+        if (user) gesture();
         // Not over the first screenful: up there the bar is still partly in flow and
         // hiding it only flickers.
-        const next = down && !busy && y > wrap.offsetHeight;
+        const next = down && user && !busy && y > wrap.offsetHeight;
         if (next === hidden) return;
         hidden = next;
         wrap.classList.toggle('is-hidden', hidden);
