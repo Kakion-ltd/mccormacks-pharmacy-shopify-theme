@@ -4,10 +4,11 @@ The sold-out PDP used to be a dead end: a disabled button and nothing else. Thes
 assert the capture is present, is a real submittable form, carries the product so
 the email is actionable, and does not claim an automatic alert the theme cannot send.
 """
+import os
 import sys
 from playwright.sync_api import sync_playwright
 
-BASE = "http://localhost:8734"
+BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
 OOS = "/products/difflam-sore-throat-spray-30ml"
 IN_STOCK = "/products/cetrine-allergy-10mg-30-tablets"
 

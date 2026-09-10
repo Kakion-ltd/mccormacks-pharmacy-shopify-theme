@@ -9,10 +9,11 @@ horizontal padding on the animated row made every step overshoot by that amount.
 second message sat 40px left of centre and the third 80px, on every phone. It looked
 like a design choice rather than a fault, which is exactly why it survived.
 """
+import os
 import sys
 from playwright.sync_api import sync_playwright
 
-BASE = "http://localhost:8734"
+BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
 CAROUSEL = (320, 390, 430, 768, 1024, 1150)   # widths that rotate
 COLUMNS = (1151, 1280, 1440)                  # widths that show all three at once
 

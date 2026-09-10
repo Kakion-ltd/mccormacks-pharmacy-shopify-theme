@@ -1,6 +1,7 @@
+import os
 import sys
 from playwright.sync_api import sync_playwright
-BASE = "http://localhost:8734"
+BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
 PAGES = ["/", "/collections/medicines-health", "/collections/skincare", "/products/nurofen-200mg-ibuprofen-24-tablets",
          "/cart", "/search?q=vitamins", "/pages/shipping", "/pages/contact-us",
          "/pages/store-locator", "/blogs/health-hub", "/pages/in-store-services",

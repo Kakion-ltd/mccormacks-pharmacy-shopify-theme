@@ -1,7 +1,8 @@
+import os
 import sys
 from playwright.sync_api import sync_playwright
 
-BASE = "http://localhost:8734"
+BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
 RESTRICTED = "Nurofen Plus"
 res = []
 def ck(name, got, want=True): res.append((got == want, name, got))

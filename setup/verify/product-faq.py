@@ -6,12 +6,13 @@ The harness fixture deliberately includes a half-filled entry and an answer full
 of quotes, because those are the two ways this breaks in production: a question
 rendered with no answer, and a JSON-LD block made invalid by punctuation.
 """
+import os
 import json
 import re
 import sys
 import urllib.request
 
-BASE = "http://localhost:8734"
+BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
 WITH_FAQ = "/products/fab-skin-hair-nails-glow-60-capsules"   # harness fixture
 WITHOUT_FAQ = "/products/difflam-sore-throat-spray-30ml"       # no faq metafield
 

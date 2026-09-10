@@ -8,10 +8,11 @@ Synthetic TouchEvents rather than Playwright's touchscreen helper, which only ta
 The point of these checks is the discrimination — a swipe must move the slider, and
 a vertical drag or a short flick must not — so the gesture has to be driven by hand.
 """
+import os
 import sys
 from playwright.sync_api import sync_playwright
 
-BASE = "http://localhost:8734"
+BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
 # The expected slide count comes from the template: a slide hidden with "disabled"
 # in the editor drops out of the running order and must not fail these checks.
 import json, os

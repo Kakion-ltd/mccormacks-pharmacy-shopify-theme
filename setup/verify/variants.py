@@ -8,13 +8,14 @@ that cannot come back quietly.
 Everything here is driven through the browser rather than read out of the HTML,
 because the bug was in execution order, not markup — the markup looked correct.
 """
+import os
 import json
 import re
 import sys
 import urllib.request
 from playwright.sync_api import sync_playwright
 
-BASE = "http://localhost:8734"
+BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
 MULTI = "/products/vitamin-d3-1000iu-60-capsules"      # 3 pack sizes, largest sold out
 SINGLE = "/products/cetrine-allergy-10mg-30-tablets"   # one variant
 

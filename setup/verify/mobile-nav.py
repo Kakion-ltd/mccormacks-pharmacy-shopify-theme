@@ -1,12 +1,14 @@
+import os
 import sys
 from playwright.sync_api import sync_playwright
+BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
 res=[]
 def ck(n,g,w=True): res.append((g==w,n,g))
 with sync_playwright() as p:
     b=p.chromium.launch(headless=True)
     pg=b.new_page(viewport={"width":390,"height":844})
     errs=[]; pg.on("pageerror", lambda e: errs.append(str(e)))
-    pg.goto("http://localhost:8734/", wait_until="networkidle")
+    pg.goto(BASE + "/", wait_until="networkidle")
 
     ck("page does not scroll behind a closed drawer",
        pg.evaluate("getComputedStyle(document.body).overflow"), "visible")

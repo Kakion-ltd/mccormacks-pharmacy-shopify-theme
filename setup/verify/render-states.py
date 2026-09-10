@@ -9,12 +9,13 @@ Collection states are served on real handles so a browser can visit them; the
 signed-in and expired-card variants are alternate renders of the same URL, so they
 are read from disk.
 """
+import os
 import pathlib
 import re
 import sys
 import urllib.request
 
-BASE = "http://localhost:8734"
+BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
 PREVIEW = pathlib.Path(__file__).resolve().parents[2] / "preview"
 
 res = []

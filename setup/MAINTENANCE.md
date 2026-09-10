@@ -845,6 +845,23 @@ Each session also runs its own preview server on its own port
 (`python3 setup/serve_preview.py 8736`, not the default 8734) and stops it by
 PID, never with `pkill -f serve_preview`, which kills every session's server.
 
+**Point the checks at that port with `PORT`:** `PORT=8736 npm run verify`, or
+`PORT=8736 python3 setup/verify/sweep.py` for one of them. Until 10 Sep 2026 this
+paragraph was advice the suite could not honour — fourteen of the fifteen scripts
+that open a socket hardcoded `localhost:8734`, so a session that followed the
+instruction above had to run against the shared server anyway, or patch copies of
+the checks. They all read `os.environ.get("PORT", "8734")` now. The default is
+unchanged, so every existing invocation still hits 8734 and nothing in
+`package.json` moved.
+
+Worth knowing why that took a second pass to find: twelve of the fourteen were the
+identical line `BASE = "http://localhost:8734"`, which makes the whole thing look
+like one find-and-replace. It is not. `fonts.py` wrote it without spaces around the
+`=`, and `mobile-nav.py` had no `BASE` constant at all — the URL sat inline in its
+`pg.goto()`. Replacing the obvious line would have migrated thirteen scripts and
+left `mobile-nav.py` silently on 8734, which only shows up when someone runs the
+suite on a private port, which is exactly what this paragraph tells them to do.
+
 ### preview/ is untracked and per tree (10 Sep 2026)
 
 `preview/` came out of git the same day. Every section change re-rendered

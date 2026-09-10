@@ -13,11 +13,12 @@ that being answered on the dev store.
 What they cannot do is tell you what Shopify puts in rel=canonical. The harness mocks
 canonical_url, and it is asserted here only as present, never as correct.
 """
+import os
 import re
 import sys
 import urllib.request
 
-BASE = "http://localhost:8734"
+BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
 PAGED = "/collections/paginated-fixture"     # 30 products, 24 per page
 SMALL = "/collections/vitamins"              # under one page
 

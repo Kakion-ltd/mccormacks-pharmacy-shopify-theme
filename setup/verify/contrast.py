@@ -16,11 +16,12 @@ resolves to transparent is walked up to its painted ancestor, because that is wh
 a reader actually sees behind the glyphs. A gradient ancestor is measured at every
 colour stop and the worst ratio is reported; a url() image is skipped.
 """
+import os
 import re
 import sys
 from playwright.sync_api import sync_playwright
 
-BASE = "http://localhost:8734"
+BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
 PAGES = ["/", "/collections/medicines-health", "/products/cetrine-allergy-10mg-30-tablets",
          "/cart", "/pages/wishlist", "/pages/store-locator", "/pages/brands",
          "/pages/gift-vouchers", "/pages/prescriptions"]
