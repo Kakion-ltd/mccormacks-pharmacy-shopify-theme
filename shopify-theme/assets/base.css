@@ -161,6 +161,22 @@ body[data-mnav-open] .mnav-ico-close { display: block; }
   transform: translateY(0); transition: transform .3s ease, box-shadow .3s ease;
 }
 .hdr-sticky.is-hidden { transform: translateY(-100%); }
+
+/* On a real store, `{% sections 'header-group' %}` wraps each section in its own
+   <div class="shopify-section shopify-section-group-header-group">, and that wrapper is
+   exactly as tall as the header inside it. A sticky child cannot travel beyond its
+   parent's box, so .hdr-sticky never pinned on the store at all - it scrolled away like
+   static content and took the departments and the search with it. The preview harness
+   emits no such wrapper, which is why nothing local could show this.
+   Scoped with :has() because the announcement bar carries the same class: pinning every
+   member of the group parks the announcement bar on top of the header.
+   pointer-events because the wrapper keeps its box at the top of the viewport after the
+   header translates away, and an invisible 122px band would otherwise swallow every
+   click on the page beneath it. */
+.shopify-section-group-header-group:has(> .hdr-sticky) {
+  position: sticky; top: 0; z-index: 150; pointer-events: none;
+}
+.hdr-sticky { pointer-events: auto; }
 /* Pinned, not stuck: the shadow marks the bar sitting over the page, and it now
    cross-fades rather than snapping on, because box-shadow is in the transition. */
 .hdr-sticky.is-pinned { box-shadow: 0 6px 18px rgba(0, 0, 0, .08); }
