@@ -12,8 +12,8 @@
 {% endstyle %}
 
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
-    <a href="{{ routes.root_url }}" class="hov-green" style="color:#717769;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Contact Us</span>
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
+    <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Contact Us</span>
   </nav>
   <div class="co-wrap" style="display:flex; gap:44px; align-items:flex-start;">
     <div style="flex:1 1 auto; min-width:0; max-width:760px;">
@@ -23,7 +23,7 @@
         <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin:0 0 18px;">Send us a message</div>
         {%- form 'contact' -%}
           {%- if form.posted_successfully? -%}
-            <div style="display:flex; gap:12px; align-items:flex-start; background:#EEF6E4; border:1px solid #d8e9c2; border-radius:12px; padding:16px 18px; margin:0 0 18px; color:#58821D; font-size:14.5px; line-height:1.65; font-weight:700;">
+            <div style="display:flex; gap:12px; align-items:flex-start; background:#EEF6E4; border:1px solid #d8e9c2; border-radius:12px; padding:16px 18px; margin:0 0 18px; color:var(--c-success); font-size:14.5px; line-height:1.65; font-weight:700;">
               Thanks — your message has been sent. Our customer care team will reply within one working day.
             </div>
           {%- endif -%}
@@ -103,16 +103,16 @@
         <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin:0 0 16px;">Other ways to reach us</div>
         <div style="display:flex; flex-direction:column; gap:16px;">
           <div>
-            <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#717769; margin-bottom:4px;">Phone</div>
+            <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#666b60; margin-bottom:4px;">Phone</div>
             <a href="tel:{{ settings.phone | remove: ' ' }}" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark);">{{ settings.phone }}</a>
-            <div style="font-size:13.5px; color:#6b7065; margin-top:3px;">Mon&ndash;Fri 9am&ndash;6pm, Sat 9.30am&ndash;5.30pm</div>
+            <div style="font-size:13.5px; color:#666b60; margin-top:3px;">Mon&ndash;Fri 9am&ndash;6pm, Sat 9.30am&ndash;5.30pm</div>
           </div>
           <div style="padding-top:14px; border-top:1px solid #eceee9;">
-            <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#717769; margin-bottom:4px;">Email</div>
+            <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#666b60; margin-bottom:4px;">Email</div>
             <a href="mailto:{{ settings.email }}" class="hov-green-dk" style="font-weight:700; font-size:14.5px; word-break:break-word;">{{ settings.email }}</a>
           </div>
           <div style="padding-top:14px; border-top:1px solid #eceee9;">
-            <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#717769; margin-bottom:4px;">In person</div>
+            <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#666b60; margin-bottom:4px;">In person</div>
             <div style="font-size:14.5px; line-height:1.7; color:#3a3d39;">Drop into any of our seven stores &mdash; <a href="/pages/store-locator" class="hov-green-dk" style="font-weight:700;">find your nearest</a>.</div>
           </div>
         </div></div>

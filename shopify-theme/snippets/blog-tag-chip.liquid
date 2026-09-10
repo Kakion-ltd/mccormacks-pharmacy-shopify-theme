@@ -1,7 +1,7 @@
 {%- comment -%} Tag chip with the design's per-topic colors. Accepts: tag (string), bg_override (optional). {%- endcomment -%}
 {%- liquid
   assign chip_bg = '#eef2e8'
-  assign chip_color = '#3f6a17'
+  assign chip_color = 'var(--c-primary-text)'
   assign tag_down = tag | downcase
   case tag_down
     when 'allergy'

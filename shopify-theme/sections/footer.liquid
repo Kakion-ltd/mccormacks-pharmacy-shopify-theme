@@ -11,7 +11,7 @@
       <div style="flex:1 1 340px; max-width:400px; border-radius:9px; background:#ffffff; padding:3px;">
       {% form 'customer', style: 'display:flex; gap:0;' %}
         {% if form.posted_successfully? %}
-          <p style="margin:0; padding:10px 14px; color:#58821D; font-weight:700; font-size:13.5px;">Thanks — you're subscribed!</p>
+          <p style="margin:0; padding:10px 14px; color:var(--c-success); font-weight:700; font-size:13.5px;">Thanks — you're subscribed!</p>
         {% else %}
           <input type="hidden" name="contact[tags]" value="newsletter">
           <input type="email" name="contact[email]" required aria-label="Email address" autocomplete="email" placeholder="Enter your email address" style="flex:1; min-width:0; border:none; outline:none; padding:10px 14px; font-family:inherit; font-size:13.5px; color:#2A2B2A; background:transparent;">
@@ -81,21 +81,21 @@
   </div>
 
   <div style="border-top:1px solid #e6e7e4;">
-    <div class="ftr-bottom" style="max-width:1440px; margin:0 auto; padding:18px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px; font-size:13px; color:#717769;">
+    <div class="ftr-bottom" style="max-width:1440px; margin:0 auto; padding:18px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px; font-size:13px; color:#666b60;">
       <div class="ftr-copyright">Copyright © {{ 'now' | date: '%Y' }} {{ shop.name }}</div>
       {%- comment -%} Permanent way back to the consent choice. Required: changing a
           choice has to be as easy as making it, so this is a plain link in the
           footer of every page, not buried in the policy text. {%- endcomment -%}
-      <button type="button" data-cc-reopen class="ftr-cookie-btn" style="border:none; background:transparent; padding:0; font-family:inherit; font-size:inherit; color:#717769; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">Cookie settings</button>
+      <button type="button" data-cc-reopen class="ftr-cookie-btn" style="border:none; background:transparent; padding:0; font-family:inherit; font-size:inherit; color:#666b60; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">Cookie settings</button>
       <div class="ftr-payments" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
-        <span style="font-size:12.5px; color:#717769; margin-right:2px;">We accept</span>
+        <span style="font-size:12.5px; color:#666b60; margin-right:2px;">We accept</span>
         {%- for type in shop.enabled_payment_types -%}
           <span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;">{{ type | payment_type_svg_tag: style: 'height:20px; width:auto;' }}</span>
         {%- endfor -%}
       </div>
-      <a href="/pages/terms-and-conditions" class="ftr-terms" style="display:none; color:#717769;">Terms &amp; Conditions</a>
+      <a href="/pages/terms-and-conditions" class="ftr-terms" style="display:none; color:#666b60;">Terms &amp; Conditions</a>
       <div class="ftr-builtby" style="display:flex; align-items:center; gap:22px; flex-wrap:wrap;">
-        <a href="https://kakion.com" style="display:flex; align-items:center; gap:1px; color:#717769;">
+        <a href="https://kakion.com" style="display:flex; align-items:center; gap:1px; color:#666b60;">
           <span style="font-size:12px;">Built by</span>
           <img src="{{ 'kakion-logo-black.png' | asset_url }}" alt="Kakion" width="80" height="22" style="height:21.6px; width:auto; display:block;">
         </a>

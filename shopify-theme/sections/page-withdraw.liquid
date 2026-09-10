@@ -28,8 +28,8 @@
 
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 60px;">
   <div style="max-width:760px; margin:0 auto;">
-  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
-    <a href="{{ routes.root_url }}" class="hov-green" style="color:#717769;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Withdraw From Contract</span>
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
+    <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Withdraw From Contract</span>
   </nav>
 
   <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,38px); line-height:1.1; margin:0 0 14px;">Withdraw From Contract</h1>
@@ -68,8 +68,8 @@
         <div id="wfc-alert" role="alert" style="background:#FBEAE9; border:1.5px solid #B3261E; color:#B3261E; border-radius:8px; padding:14px 16px; font-weight:700; font-size:14.5px; margin-bottom:18px;">Please check the form &mdash; some information is missing or incomplete.</div>
         {% render 'form-errors', form: form %}
         {%- if form.posted_successfully? -%}
-          <div role="status" style="background:#EEF6E4; border:1.5px solid #58821D; color:#345818; border-radius:8px; padding:18px 20px; margin-bottom:18px;">
-            <h3 style="margin:0 0 8px; color:#345818; font-size:17px;">Your withdrawal request has been received</h3>
+          <div role="status" style="background:#EEF6E4; border:1.5px solid var(--c-success); color:var(--c-dark); border-radius:8px; padding:18px 20px; margin-bottom:18px;">
+            <h3 style="margin:0 0 8px; color:var(--c-dark); font-size:17px;">Your withdrawal request has been received</h3>
             <p style="margin:0 0 8px; font-size:14.5px; line-height:1.6;">Thank you &mdash; your request has been submitted. You will receive an email acknowledgement shortly, timestamped <strong id="wfc-success-time" style="font-family:ui-monospace,monospace;"></strong>, with your reference number <strong id="wfc-success-ref" style="font-family:ui-monospace,monospace;"></strong>.</p>
             <p style="margin:0; font-size:14.5px;">Please keep this reference for any follow-up correspondence.</p>
           </div>
@@ -91,7 +91,7 @@
           <span data-wfc-err="email">&#9888; Please enter a valid email address.</span>
         </div>
         <div>
-          <label for="wfc-phone" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Phone number <span style="font-weight:400; color:#717769;">(optional)</span></label>
+          <label for="wfc-phone" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Phone number <span style="font-weight:400; color:#666b60;">(optional)</span></label>
           <input type="tel" id="wfc-phone" name="contact[phone]" autocomplete="tel" class="wfc-field">
         </div>
       </fieldset>
@@ -119,12 +119,12 @@
         <legend style="font-weight:800; font-size:16px; padding:0 0 14px; color:#2A2B2A; font-family:'Arial Rounded MT Bold', Arial, sans-serif;">Withdrawal details</legend>
         <div style="margin-bottom:16px;">
           <label for="wfc-items" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:4px;">Items being withdrawn</label>
-          <p style="margin:0 0 6px; font-size:13px; color:#717769;">List each product and quantity you wish to withdraw from.</p>
+          <p style="margin:0 0 6px; font-size:13px; color:#666b60;">List each product and quantity you wish to withdraw from.</p>
           <textarea id="wfc-items" name="contact[items]" rows="4" class="wfc-field" data-wfc="items" style="resize:vertical;"></textarea>
           <span data-wfc-err="items">&#9888; Please list the items you wish to withdraw.</span>
         </div>
         <div style="margin-bottom:16px;">
-          <label for="wfc-reason" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Reason <span style="font-weight:400; color:#717769;">(optional)</span></label>
+          <label for="wfc-reason" style="display:block; font-weight:700; font-size:13.5px; margin-bottom:6px;">Reason <span style="font-weight:400; color:#666b60;">(optional)</span></label>
           <textarea id="wfc-reason" name="contact[reason]" rows="3" class="wfc-field" style="resize:vertical;"></textarea>
         </div>
         <div>

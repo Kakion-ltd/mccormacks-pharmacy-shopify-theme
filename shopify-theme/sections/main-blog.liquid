@@ -48,7 +48,7 @@
           {%- if featured.image -%}
             {{ featured.image | image_url: width: 1200 | image_tag: style: 'width:100%; height:100%; object-fit:cover; display:block;', alt: featured.title | escape }}
           {%- else -%}
-            <div style="width:100%; height:100%; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); display:flex; align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></div>
+            <div style="width:100%; height:100%; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); display:flex; align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:var(--c-primary-text); font-weight:700;">image</span></div>
           {%- endif -%}
         </div>
         <div class="feat-body" style="flex:1 1 46%; padding:44px 44px 46px; display:flex; flex-direction:column; justify-content:center; gap:16px;">
@@ -60,7 +60,7 @@
           </div>
           <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(24px,2.6vw,34px); line-height:1.15; color:var(--c-dark);">{{ featured.title }}</div>
           <div style="font-size:16px; line-height:1.7; color:#4a4d47;">{{ featured.excerpt_or_content | strip_html | truncate: 160 }}</div>
-          <div class="art-meta" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px 20px; font-size:13.5px; color:#6b7065;">
+          <div class="art-meta" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px 20px; font-size:13.5px; color:#666b60;">
             <span>{{ featured.published_at | date: '%-d %B %Y' }}</span>
           </div>
           <span style="display:inline-flex; align-items:center; gap:9px; margin-top:6px; font-weight:800; font-size:15px; color:var(--c-primary-text);">Read article
@@ -85,7 +85,7 @@
         {%- if paginate.previous -%}
           <a href="{{ paginate.previous.url }}" class="blog-chip">&larr; Newer</a>
         {%- endif -%}
-        <span style="font-size:14px; font-weight:700; color:#6b7065;">Page {{ paginate.current_page }} of {{ paginate.pages }}</span>
+        <span style="font-size:14px; font-weight:700; color:#666b60;">Page {{ paginate.current_page }} of {{ paginate.pages }}</span>
         {%- if paginate.next -%}
           <a href="{{ paginate.next.url }}" class="blog-chip">Older &rarr;</a>
         {%- endif -%}

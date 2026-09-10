@@ -16,12 +16,12 @@
   --c-tint: #E6F2D5;
   --c-text: #2A2B2A;
   --c-muted: #5A6153;
-  --c-muted-2: #717769;
+  --c-muted-2: #666b60; /* 4.62:1 on white was too close; this holds AA on the pale tints too */
   --c-border: #E6E7E4;
   --c-border-2: #DFE1DC;
   --c-error: #B3261E;
   --c-error-bg: #FBEAE9;
-  --c-success: #58821D;
+  --c-success: var(--c-primary-text); /* follows the editor; the lime darkened to AA */
   --c-success-bg: #EEF6E4;
   --font-heading: 'Arial Rounded MT Bold', Arial, sans-serif;
   --font-body: 'Mulish', system-ui, sans-serif;
@@ -54,7 +54,7 @@ h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 
 .hov-bg-green:hover { background: var(--c-primary) !important; }
 .hov-bg-green-dk:hover { background: var(--c-primary-hover) !important; }
 .hov-bg-accent:hover { background: var(--c-accent) !important; }
-.hov-bg-accent-dk:hover { background: #7FB52F !important; }
+.hov-bg-accent-dk:hover { background: var(--c-primary-hover) !important; }
 .hov-bg-dark:hover { background: #153531 !important; }
 .hov-bg-tint:hover { background: #F6F8F1 !important; }
 .hov-border-accent:hover { border-color: var(--c-accent) !important; color:var(--c-primary-text) !important; }
@@ -380,7 +380,7 @@ body[data-cd-open] { overflow: hidden; }
 .mnav-link { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; padding: 15px 20px; font-weight: 700; font-size: 15.5px; color: var(--c-text); }
 .mnav-link:active { background: #f4f5f2; }
 .mnav-link-accent { color:var(--c-primary-text); }
-.mnav-more { flex: 0 0 auto; width: 56px; border: none; border-left: 1px solid #f1f2ef; background: transparent; color: #c2c6bd; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.mnav-more { flex: 0 0 auto; width: 56px; border: none; border-left: 1px solid #f1f2ef; background: transparent; color: var(--c-muted-2); cursor: pointer; /* an interactive control: 3:1 applies */ display: flex; align-items: center; justify-content: center; }
 .mnav-more:active { background: #f4f5f2; color:var(--c-primary-text); }
 .mnav-more:focus-visible, .mnav-link:focus-visible, .mnav-back:focus-visible, .mnav-all:focus-visible { outline: 2px solid var(--c-accent); outline-offset: -2px; }
 
@@ -398,7 +398,7 @@ body[data-mnav-open] { overflow: hidden; }
 .wish-grid[hidden], .wish-empty[hidden] { display: none !important; }
 
 /* Heart on a product card. Top-right, clear of the SALE badge at top-left. */
-.wish-btn { position: absolute; z-index: 3; top: 10px; right: 10px; width: 38px; height: 38px; border-radius: 999px; border: 1px solid var(--c-border-2); background: rgba(255,255,255,.94); color: #717769; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; transition: color .15s ease, border-color .15s ease, transform .15s ease; }
+.wish-btn { position: absolute; z-index: 3; top: 10px; right: 10px; width: 38px; height: 38px; border-radius: 999px; border: 1px solid var(--c-border-2); background: rgba(255,255,255,.94); color: #666b60; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; transition: color .15s ease, border-color .15s ease, transform .15s ease; }
 .wish-btn:hover { color:var(--c-primary-text); border-color: var(--c-accent); }
 .wish-btn:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
 .wish-btn.is-saved { color: #c0392b; border-color: #e6b9b3; }

@@ -21,20 +21,20 @@
 
 <aside class="legal-side" style="flex:0 0 274px; width:274px; position:sticky; top:20px;">
   <div style="border:1px solid #e6e7e4; border-radius:16px; padding:20px 14px; background:#ffffff;">
-    <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:#717769; padding:0 14px; margin:0 0 10px;">Shipping &amp; Delivery</div>
+    <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:#666b60; padding:0 14px; margin:0 0 10px;">Shipping &amp; Delivery</div>
     <nav style="display:flex; flex-direction:column; gap:3px; margin:0 0 22px;">
       <a href="/pages/shipping" class="legal-nav-a" style="{% if active == 'shipping' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Shipping &amp; Free Delivery</a>
       <a href="/pages/returns" class="legal-nav-a" style="{% if active == 'returns' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Returns &amp; Refunds</a>
       <a href="/pages/click-and-collect" class="legal-nav-a" style="{% if active == 'click-and-collect' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Click &amp; Collect</a>
     </nav>
-    <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:#717769; padding:0 14px; margin:0 0 10px;">Policies</div>
+    <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:#666b60; padding:0 14px; margin:0 0 10px;">Policies</div>
     <nav style="display:flex; flex-direction:column; gap:3px;">
       <a href="/pages/terms-and-conditions" class="legal-nav-a" style="{% if active == 'terms' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Terms &amp; Conditions</a>
       <a href="/pages/privacy-policy" class="legal-nav-a" style="{% if active == 'privacy' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Privacy Policy</a>
       <a href="/pages/cookie-policy" class="legal-nav-a" style="{% if active == 'cookie' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Cookie Policy</a>
       <a href="/pages/internet-supply-pharmacy" class="legal-nav-a" style="{% if active == 'isp' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Registered Internet Supply Pharmacy</a>
     </nav>
-    <div style="margin:20px 14px 0; padding-top:16px; border-top:1px solid #eceee9; font-size:12.5px; line-height:1.6; color:#717769;">Last reviewed {{ updated_date }}</div>
+    <div style="margin:20px 14px 0; padding-top:16px; border-top:1px solid #eceee9; font-size:12.5px; line-height:1.6; color:#666b60;">Last reviewed {{ updated_date }}</div>
   </div>
 
   {%- if show_help -%}

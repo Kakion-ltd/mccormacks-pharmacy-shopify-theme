@@ -4,11 +4,11 @@
 {%- if search.performed and search.results_count > 0 -%}
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
 
-  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
-    <a href="{{ routes.root_url }}" class="hov-green" style="color:#717769;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Search</span>
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
+    <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Search</span>
   </nav>
   <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,36px); line-height:1.1; margin:0 0 8px;">Results for &ldquo;{{ search.terms | escape }}&rdquo;</h1>
-  <p style="margin:0 0 8px; font-size:15.5px; color:#6b7065;">{{ search.results_count }} result{% if search.results_count != 1 %}s{% endif %} found</p>
+  <p style="margin:0 0 8px; font-size:15.5px; color:#666b60;">{{ search.results_count }} result{% if search.results_count != 1 %}s{% endif %} found</p>
 
   <div class="srch-wrap" style="display:flex; gap:40px; align-items:flex-start; margin-top:26px;">
     {%- if search.filters.size > 0 -%}
@@ -25,7 +25,7 @@
                     <a href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}" style="display:flex; align-items:center; gap:10px; font-size:14.5px; color:#3a3d39; {% if value.count == 0 and value.active == false %}opacity:.45; pointer-events:none;{% endif %}">
                       <span style="flex:0 0 auto; width:17px; height:17px; border-radius:4px; border:1.5px solid {% if value.active %}var(--c-primary){% else %}#c2c6bd{% endif %}; background:{% if value.active %}var(--c-primary){% else %}#ffffff{% endif %}; display:flex; align-items:center; justify-content:center;">{% if value.active %}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>{% endif %}</span>
                       <span style="flex:1 1 auto;">{{ value.label }}</span>
-                      <span style="font-size:12.5px; color:#717769;">{{ value.count }}</span>
+                      <span style="font-size:12.5px; color:#666b60;">{{ value.count }}</span>
                     </a>
                   {%- endfor -%}
                 </div>
@@ -34,9 +34,9 @@
               <div style="padding:18px 0; border-bottom:1px solid #e6e7e4;">
                 <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15px; color:#2A2B2A; margin:0 0 12px;">{{ filter.label }}</div>
                 <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
-                  <div style="flex:1; display:flex; align-items:center; gap:5px; border:1.5px solid #dfe1dc; border-radius:8px; padding:8px 10px;"><span style="color:#717769;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.min_value.param_name }}" type="number" min="0" step="0.01" placeholder="0" value="{% if filter.min_value.value %}{{ filter.min_value.value | money_without_currency | remove: ',' }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:14.5px; color:#2A2B2A; padding:0;"></div>
-                  <span style="color:#717769;">&ndash;</span>
-                  <div style="flex:1; display:flex; align-items:center; gap:5px; border:1.5px solid #dfe1dc; border-radius:8px; padding:8px 10px;"><span style="color:#717769;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.max_value.param_name }}" type="number" min="0" step="0.01" placeholder="{{ filter.range_max | money_without_currency | remove: ',' }}" value="{% if filter.max_value.value %}{{ filter.max_value.value | money_without_currency | remove: ',' }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:14.5px; color:#2A2B2A; padding:0;"></div>
+                  <div style="flex:1; display:flex; align-items:center; gap:5px; border:1.5px solid #dfe1dc; border-radius:8px; padding:8px 10px;"><span style="color:#666b60;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.min_value.param_name }}" type="number" min="0" step="0.01" placeholder="0" value="{% if filter.min_value.value %}{{ filter.min_value.value | money_without_currency | remove: ',' }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:14.5px; color:#2A2B2A; padding:0;"></div>
+                  <span style="color:#666b60;">&ndash;</span>
+                  <div style="flex:1; display:flex; align-items:center; gap:5px; border:1.5px solid #dfe1dc; border-radius:8px; padding:8px 10px;"><span style="color:#666b60;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.max_value.param_name }}" type="number" min="0" step="0.01" placeholder="{{ filter.range_max | money_without_currency | remove: ',' }}" value="{% if filter.max_value.value %}{{ filter.max_value.value | money_without_currency | remove: ',' }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:14.5px; color:#2A2B2A; padding:0;"></div>
                 </div>
                 <button data-price-apply class="hov-bg-green-dk" style="width:100%; border:none; border-radius:8px; background:var(--c-primary); color:var(--c-on-primary); font-family:inherit; font-weight:700; font-size:14px; padding:10px 8px; cursor:pointer;">Apply</button>
               </div>
@@ -48,7 +48,7 @@
 
     <div class="facet-main" style="flex:1 1 auto; min-width:0;">
       <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding:0 0 18px;">
-        <span style="font-size:14.5px; color:#6b7065;">Showing {{ paginate.current_offset | plus: 1 }}&ndash;{{ paginate.current_offset | plus: search.results.size }} of {{ search.results_count }}</span>
+        <span style="font-size:14.5px; color:#666b60;">Showing {{ paginate.current_offset | plus: 1 }}&ndash;{{ paginate.current_offset | plus: search.results.size }} of {{ search.results_count }}</span>
         <label style="display:flex; align-items:center; gap:10px;">
           <span style="font-size:14px; font-weight:700; color:#2A2B2A;">Sort</span>
           <select data-sort-select style="height:44px; border:1px solid #dfe1dc; border-radius:9px; padding:0 12px; font-family:inherit; font-size:14.5px; color:#2A2B2A; background:#ffffff; outline:none;">
@@ -95,7 +95,7 @@
                     {%- capture card_alt %}{% render 'image-alt', image: product.featured_image, product: product %}{% endcapture -%}
                     {{ product.featured_image | image_url: width: 600 | image_tag: alt: card_alt, loading: 'lazy', style: 'width:100%; height:100%; object-fit:contain; display:block;' }}
                   {%- else -%}
-                    <span style="display:flex; width:100%; height:100%; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:#5a7a2e; font-weight:700;">image</span></span>
+                    <span style="display:flex; width:100%; height:100%; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:var(--c-primary-text); font-weight:700;">image</span></span>
                   {%- endif -%}
                 </span>
               </a>
@@ -106,7 +106,7 @@
                 <div style="display:flex; align-items:baseline; gap:9px;">
                   <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:#2A2B2A;">{% if product.price_varies %}From {% endif %}{{ product.price | money }}</span>
                   {%- if on_sale -%}
-                    <span style="font-size:13.5px; color:#717769; text-decoration:line-through;">{{ product.compare_at_price | money }}</span>
+                    <span style="font-size:13.5px; color:#666b60; text-decoration:line-through;">{{ product.compare_at_price | money }}</span>
                   {%- endif -%}
                 </div>
                 {% render 'wishlist-button', product: product %}
@@ -121,7 +121,7 @@
             <div class="srch-card" style="display:flex; flex-direction:column; gap:9px; border:1px solid #e6e7e4; border-radius:14px; background:#ffffff; padding:18px; transition:box-shadow .18s;">
               <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">{% if item.object_type == 'article' %}Article{% else %}Page{% endif %}</div>
               <a href="{{ item.url }}" class="hov-green" style="font-weight:700; font-size:16px; line-height:1.45; color:#2A2B2A;">{{ item.title }}</a>
-              <p style="margin:0; font-size:14px; line-height:1.6; color:#6b7065; flex:1;">{{ item.content | strip_html | truncate: 120 }}</p>
+              <p style="margin:0; font-size:14px; line-height:1.6; color:#666b60; flex:1;">{{ item.content | strip_html | truncate: 120 }}</p>
               <a href="{{ item.url }}" class="hov-green-dk" style="font-weight:700; font-size:14px; color:var(--c-primary-text);">Read more &rarr;</a>
             </div>
           {%- endif -%}
@@ -133,7 +133,7 @@
             {%- if part.is_link -%}
               <a href="{{ part.url }}" class="srch-pg" style="display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:9px; border:1px solid #dfe1dc; color:#3a3d39; font-weight:700; font-size:14.5px;">{{ part.title }}</a>
             {%- elsif part.title contains 'hellip' or part.title == '…' -%}
-              <span style="display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:9px; color:#717769; font-weight:700; font-size:14.5px;">{{ part.title }}</span>
+              <span style="display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:9px; color:#666b60; font-weight:700; font-size:14.5px;">{{ part.title }}</span>
             {%- else -%}
               <span style="display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px;">{{ part.title }}</span>
             {%- endif -%}
@@ -150,8 +150,8 @@
 {%- else -%}
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
 
-  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
-    <a href="{{ routes.root_url }}" class="hov-green" style="color:#717769;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Search</span>
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
+    <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Search</span>
   </nav>
   <div style="max-width:640px; margin:0 0 44px;">
     {%- if search.performed -%}
@@ -167,7 +167,7 @@
     </form>
     {%- if section.settings.popular_terms != blank -%}
       <div style="display:flex; flex-wrap:wrap; gap:9px; margin:22px 0 0;">
-        <span style="font-size:13.5px; font-weight:700; color:#6b7065; align-self:center;">Popular searches</span>
+        <span style="font-size:13.5px; font-weight:700; color:#666b60; align-self:center;">Popular searches</span>
         {%- assign terms = section.settings.popular_terms | split: ',' -%}
         {%- for term in terms -%}
           {%- assign t = term | strip -%}

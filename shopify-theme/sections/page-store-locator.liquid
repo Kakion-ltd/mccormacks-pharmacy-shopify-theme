@@ -20,8 +20,8 @@
 
 <div data-view="locator">
   <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
-      <a href="{{ routes.root_url }}" class="hov-green" style="color:#717769;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Store Locator</span>
+    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
+      <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Store Locator</span>
     </nav>
     <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
     <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
@@ -55,7 +55,7 @@
                 <div style="display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:7px;">
                   <button type="button" class="loc-store-link" data-view-btn="store-{{ forloop.index }}">{{ block.settings.name }}</button>
                   {%- if block.settings.badge != blank -%}
-                    <span style="display:inline-flex; align-items:center; height:24px; padding:0 9px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:11.5px; font-weight:800;">{{ block.settings.badge }}</span>
+                    <span style="display:inline-flex; align-items:center; height:24px; padding:0 9px; border-radius:6px; background:#eef2e8; color:var(--c-primary-text); font-size:11.5px; font-weight:800;">{{ block.settings.badge }}</span>
                   {%- endif -%}
                 </div>
                 <div style="font-size:14.5px; line-height:1.65; color:#3a3d39; margin-bottom:8px;">{{ full_address }}</div>
@@ -66,7 +66,7 @@
                 {%- assign hour_lines = hour_rows | strip | split: '|' -%}
                 {%- for line in hour_lines -%}
                   {%- assign parts = line | split: '~' -%}
-                  <div style="display:flex; justify-content:space-between; gap:12px;"><span style="color:#6b7065;">{{ parts[0] }}</span><span style="font-weight:700;">{{ parts[1] }}</span></div>
+                  <div style="display:flex; justify-content:space-between; gap:12px;"><span style="color:#666b60;">{{ parts[0] }}</span><span style="font-weight:700;">{{ parts[1] }}</span></div>
                 {%- endfor -%}
               </div>
               <div style="flex:0 0 auto; display:flex; flex-direction:column; gap:9px;">
@@ -75,7 +75,7 @@
               </div>
             </div>
           {%- endfor -%}
-          <p data-loc-empty hidden style="padding:26px 0; font-size:15px; color:#6b7065;">No stores match that search. Try a town name or Eircode, or <button type="button" data-loc-clear style="border:none; background:none; padding:0; font:inherit; color:var(--c-primary-text); font-weight:700; cursor:pointer; text-decoration:underline;">show all stores</button>.</p>
+          <p data-loc-empty hidden style="padding:26px 0; font-size:15px; color:#666b60;">No stores match that search. Try a town name or Eircode, or <button type="button" data-loc-clear style="border:none; background:none; padding:0; font:inherit; color:var(--c-primary-text); font-weight:700; cursor:pointer; text-decoration:underline;">show all stores</button>.</p>
         </div>
       </div>
       <aside class="loc-side" style="flex:0 0 400px; width:400px; position:sticky; top:20px;">
@@ -93,13 +93,13 @@
   {%- capture full_address -%}{{ block.settings.address }}{%- if block.settings.eircode != blank -%}, {{ block.settings.eircode }}{%- endif -%}{%- endcapture -%}
   <div data-view="store-{{ forloop.index }}" style="display:none">
     <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
-        <a href="{{ routes.root_url }}" class="hov-green" style="color:#717769;">Home</a><span>/</span><button type="button" data-view-btn="locator" class="hov-green" style="background:none; border:none; padding:0; font-family:inherit; font-size:13px; color:#717769; cursor:pointer;">Store Locator</button><span>/</span><span style="color:#3a3d39; font-weight:700;">{{ block.settings.name }}</span>
+      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
+        <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><button type="button" data-view-btn="locator" class="hov-green" style="background:none; border:none; padding:0; font-family:inherit; font-size:13px; color:#666b60; cursor:pointer;">Store Locator</button><span>/</span><span style="color:#3a3d39; font-weight:700;">{{ block.settings.name }}</span>
       </nav>
       <div class="loc-wrap" style="display:flex; gap:44px; align-items:flex-start;">
         <div style="flex:1 1 auto; min-width:0; max-width:760px;">
           {%- if block.settings.badge != blank -%}
-            <span style="display:inline-flex; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:#eef2e8; color:#3f6a17; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:14px;">{{ block.settings.badge }}</span>
+            <span style="display:inline-flex; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:#eef2e8; color:var(--c-primary-text); font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:14px;">{{ block.settings.badge }}</span>
           {%- endif -%}
           <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ block.settings.name }}</h2>
           <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ full_address }}</p>
@@ -129,7 +129,7 @@
               <div style="display:flex; justify-content:space-between; gap:16px; padding:14px 0; border-bottom:1px solid #eceee9; font-size:15.5px;"><span style="color:#3a3d39;">{{ parts[0] }}</span><span style="font-weight:700; color:#2A2B2A;">{{ parts[1] }}</span></div>
             {%- endfor -%}
           </div>
-          <div style="font-size:13.5px; color:#6b7065; margin-top:12px;">Bank holidays follow Sunday hours. Christmas and New Year hours vary &mdash; please phone ahead.</div>
+          <div style="font-size:13.5px; color:#666b60; margin-top:12px;">Bank holidays follow Sunday hours. Christmas and New Year hours vary &mdash; please phone ahead.</div>
           {%- if block.settings.services != blank -%}
             <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">Services at this store</h2>
             <div style="display:flex; flex-wrap:wrap; gap:10px;">

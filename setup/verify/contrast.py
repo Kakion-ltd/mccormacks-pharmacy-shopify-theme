@@ -44,6 +44,9 @@ PROBE = """() => {
     const m = img.match(/linear-gradient\((.*)\)$/s);
     if (!m) return null;
     const cols = [...m[1].matchAll(/rgba?\(([^)]+)\)/g)].map((x) => parse(x[1]));
+    // A translucent stop shows whatever is painted beneath; that composite is not
+    // measured here, so the gradient is treated like an image and skipped.
+    if (cols.some((c) => c[3] !== undefined && c[3] < 0.95)) return null;
     return cols.length >= 2 ? cols : null;
   };
   const painted = (el) => {

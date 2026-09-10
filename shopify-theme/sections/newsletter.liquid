@@ -18,7 +18,7 @@
     <div style="flex:1 1 340px; max-width:400px; border-radius:9px; background:#ffffff; padding:3px; position:relative;">
     {% form 'customer', style: 'display:flex; gap:0;' %}
       {% if form.posted_successfully? %}
-        <p style="margin:0; padding:10px 14px; color:#58821D; font-weight:700; font-size:13.5px;">Thanks — you're subscribed!</p>
+        <p style="margin:0; padding:10px 14px; color:var(--c-success); font-weight:700; font-size:13.5px;">Thanks — you're subscribed!</p>
       {% else %}
         <input type="hidden" name="contact[tags]" value="newsletter">
         <input type="email" name="contact[email]" required aria-label="Email address" autocomplete="email" placeholder="Enter your email address" style="flex:1; min-width:0; border:none; outline:none; padding:10px 14px; font-family:inherit; font-size:13.5px; color:#2A2B2A; background:transparent;">

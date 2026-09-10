@@ -18,16 +18,16 @@
 {% endstyle %}
 
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 0;">
-  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 18px;">
-    <a href="{{ routes.root_url }}" class="hov-green" style="color:#717769;">Home</a><span>/</span><a href="{{ blog.url }}" class="hov-green" style="color:#717769;">{{ blog.title }}</a><span>/</span><span style="color:#3a3d39; font-weight:700;">{{ article.tags.first | default: article.title }}</span>
+  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 18px;">
+    <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><a href="{{ blog.url }}" class="hov-green" style="color:#666b60;">{{ blog.title }}</a><span>/</span><span style="color:#3a3d39; font-weight:700;">{{ article.tags.first | default: article.title }}</span>
   </nav>
   {%- if article.tags.first -%}
     <div style="margin:0 0 14px;">{% render 'blog-tag-chip', tag: article.tags.first %}</div>
   {%- endif -%}
   <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(30px,3.6vw,44px); line-height:1.08; margin:0 0 18px;">{{ article.title }}</h1>
   <div class="art-meta" style="display:flex; flex-wrap:wrap; align-items:center; gap:14px 22px; padding-bottom:22px; border-bottom:1px solid #e6e7e4;">
-    <span style="font-size:13.5px; color:#6b7065;">{{ article.published_at | date: '%-d %B %Y' }}</span>
-    <span style="font-size:13.5px; color:#6b7065;">By {{ article.author }}</span>
+    <span style="font-size:13.5px; color:#666b60;">{{ article.published_at | date: '%-d %B %Y' }}</span>
+    <span style="font-size:13.5px; color:#666b60;">By {{ article.author }}</span>
   </div>
 </section>
 
@@ -65,7 +65,7 @@
       All articles
     </a>
     <div style="display:flex; align-items:center; gap:12px;">
-      <span style="font-size:13.5px; font-weight:700; color:#6b7065;">Share</span>
+      <span style="font-size:13.5px; font-weight:700; color:#666b60;">Share</span>
       <a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url | append: article.url | url_encode }}" target="_blank" rel="noopener" aria-label="Share on Facebook" class="art-share"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.3-1.5 1.6-1.5h1.6V4.6c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.3H7.6V14h2.7v8h3.2Z"></path></svg></a>
       <a href="mailto:?subject={{ article.title | url_encode }}&amp;body={{ shop.url | append: article.url | url_encode }}" aria-label="Share by email" class="art-share"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><polyline points="3 7 12 13 21 7"></polyline></svg></a>
       <button type="button" data-copy-link aria-label="Copy link" class="art-share"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"></path><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"></path></svg></button>

@@ -31,8 +31,8 @@
 
 <div data-view="rx-submit">
   <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
-      <a href="{{ routes.root_url }}" class="hov-green" style="color:#717769;">Home</a><span>/</span><a href="/pages/prescriptions" class="hov-green" style="color:#717769;">Prescriptions</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Submit a prescription</span>
+    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
+      <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><a href="/pages/prescriptions" class="hov-green" style="color:#666b60;">Prescriptions</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Submit a prescription</span>
     </nav>
     <div class="rx-wrap" style="display:flex; gap:44px; align-items:flex-start;">
       <div style="flex:1 1 auto; min-width:0; max-width:760px;">
@@ -50,7 +50,7 @@
           {%- form 'contact', id: 'rx-submit-form' -%}
             <input type="hidden" name="contact[form_type]" value="submit-prescription">
             {%- if form.posted_successfully? -%}
-              <div style="background:#EEF6E4; border:1px solid #d8e9c2; border-radius:12px; padding:16px 18px; margin:0 0 18px; color:#58821D; font-size:14.5px; line-height:1.65; font-weight:700;">Thanks — we have received your details. Our dispensary team will contact you to confirm.</div>
+              <div style="background:#EEF6E4; border:1px solid #d8e9c2; border-radius:12px; padding:16px 18px; margin:0 0 18px; color:var(--c-success); font-size:14.5px; line-height:1.65; font-weight:700;">Thanks — we have received your details. Our dispensary team will contact you to confirm.</div>
             {%- endif -%}
             {%- if form.errors -%}
               <div style="background:#FBEAE9; border:1px solid #ecc8c5; border-radius:12px; padding:16px 18px; margin:0 0 18px; color:#B3261E; font-size:14.5px; line-height:1.65;">
@@ -64,9 +64,9 @@
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"></path><polyline points="7 9 12 4 17 9"></polyline><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path></svg>
               </div>
               <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; color:var(--c-dark); margin-bottom:6px;">Upload a photo or scan</div>
-              <div style="font-size:14px; line-height:1.65; color:#6b7065; max-width:44ch; margin:0 auto 16px;">Make sure the whole prescription is visible, including the prescriber&rsquo;s details and the date. JPG, PNG or PDF, up to 10MB.</div>
+              <div style="font-size:14px; line-height:1.65; color:#666b60; max-width:44ch; margin:0 auto 16px;">Make sure the whole prescription is visible, including the prescriber&rsquo;s details and the date. JPG, PNG or PDF, up to 10MB.</div>
               <button type="button" disabled style="display:inline-flex; align-items:center; height:46px; padding:0 22px; border:none; border-radius:9px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:14.5px; opacity:.55; cursor:not-allowed;">Choose a file</button>
-              <div style="font-size:11.5px; color:#717769; margin-top:8px;">Uploads coming soon — we will confirm details by phone or email after you submit.</div>
+              <div style="font-size:11.5px; color:#666b60; margin-top:8px;">Uploads coming soon — we will confirm details by phone or email after you submit.</div>
             </div>
             <div style="display:flex; flex-wrap:wrap; gap:16px;">
               <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
@@ -153,8 +153,8 @@
 
 <div data-view="rx-repeat" style="display:none">
   <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#717769; margin:0 0 16px;">
-      <a href="{{ routes.root_url }}" class="hov-green" style="color:#717769;">Home</a><span>/</span><a href="/pages/prescriptions" class="hov-green" style="color:#717769;">Prescriptions</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Repeat prescriptions</span>
+    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
+      <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><a href="/pages/prescriptions" class="hov-green" style="color:#666b60;">Prescriptions</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Repeat prescriptions</span>
     </nav>
     <div class="rx-wrap" style="display:flex; gap:44px; align-items:flex-start;">
       <div style="flex:1 1 auto; min-width:0; max-width:760px;">
@@ -169,11 +169,11 @@
         </div>
         <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
           <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin:0 0 6px;">Order a repeat</div>
-          <div style="font-size:14.5px; line-height:1.65; color:#6b7065; margin:0 0 20px;">Already registered with us? <a href="{{ routes.account_login_url }}" class="hov-green-dk" style="font-weight:700;">Sign in</a> to see your repeat items and order in one click.</div>
+          <div style="font-size:14.5px; line-height:1.65; color:#666b60; margin:0 0 20px;">Already registered with us? <a href="{{ routes.account_login_url }}" class="hov-green-dk" style="font-weight:700;">Sign in</a> to see your repeat items and order in one click.</div>
           {%- form 'contact', id: 'rx-repeat-form' -%}
             <input type="hidden" name="contact[form_type]" value="repeat-prescription">
             {%- if form.posted_successfully? -%}
-              <div style="background:#EEF6E4; border:1px solid #d8e9c2; border-radius:12px; padding:16px 18px; margin:0 0 18px; color:#58821D; font-size:14.5px; line-height:1.65; font-weight:700;">Thanks — your repeat request has been received. We will let you know as soon as it is ready.</div>
+              <div style="background:#EEF6E4; border:1px solid #d8e9c2; border-radius:12px; padding:16px 18px; margin:0 0 18px; color:var(--c-success); font-size:14.5px; line-height:1.65; font-weight:700;">Thanks — your repeat request has been received. We will let you know as soon as it is ready.</div>
             {%- endif -%}
             {%- if form.errors -%}
               <div style="background:#FBEAE9; border:1px solid #ecc8c5; border-radius:12px; padding:16px 18px; margin:0 0 18px; color:#B3261E; font-size:14.5px; line-height:1.65;">
