@@ -142,12 +142,18 @@ body[data-mnav-open] .mnav-ico-close { display: block; }
    z-index sits above page content and below the drawers (200+); no overflow, or the
    suggestions panel would be clipped. ---- */
 .hdr-sticky { position: sticky; top: 0; z-index: 150; background: #ffffff; }
+/* Anything the browser scrolls to - the skip link, an in-page anchor, a focused control
+   below the fold - must clear the pinned bar. On the scroller rather than on #main so it
+   covers every target, not just the one the skip link names. --hdr-pinned is the pinned
+   height per breakpoint; +8 so the target does not sit flush against the bar. */
+html { scroll-padding-top: calc(var(--hdr-pinned, 46px) + 8px); }
 .hdr-sticky.is-stuck { box-shadow: 0 6px 18px rgba(0, 0, 0, .08); }
 /* Compression is a transition, and the wrapper's flow height must not change while it
    runs: everything below would move up by the difference, which Chrome scores as a
    layout shift even mid-scroll. The bottom margin grows by the same amount, on the same
    curve, so header box plus margin is constant at every frame. --hdr-delta is the
    at-rest height minus the stuck height per breakpoint. */
+:root { --hdr-pinned: 46px; }
 .hdr-sticky { --hdr-delta: 32px; margin-bottom: 0; transition: margin-bottom .22s ease; } /* 78 at rest, 46 stuck */
 @media (min-width: 901px) { .hdr-sticky.is-stuck { margin-bottom: var(--hdr-delta); } }
 .hdr-sticky header, .hdr-row, .hdr-logo img, .hdr-search-form input { transition: padding .22s ease, width .22s ease; }
@@ -169,6 +175,9 @@ body[data-mnav-open] .mnav-ico-close { display: block; }
 }
 @media (max-width: 1100px) and (min-width: 901px) {
   .icon-label { display: none !important; }
+  /* 70.4 at rest, 44 stuck: this band compresses 26.4px, not the 32 of the wide layout. */
+  .hdr-sticky { --hdr-delta: 26.4px; }
+  :root { --hdr-pinned: 44px; }
   .hdr-sticky header { padding: 12px 20px; column-gap: 18px; grid-template-columns: 1fr minmax(200px, 340px) 1fr; }
   .hdr-sticky.is-stuck header { padding: 5px 20px; }
   .hdr-icons { gap: 18px !important; }
@@ -179,6 +188,7 @@ body[data-mnav-open] .mnav-ico-close { display: block; }
 @media (max-width: 900px) {
   /* Phones: only the hamburger/logo/cart row sticks. The wrapper and <header> become
      display:contents so .hdr-row's sticky containing block is the page, not the header. */
+  :root { --hdr-pinned: 56px; }
   .hdr-sticky, .hdr-sticky header { display: contents; }
   /* The wrapper is display:contents here, so its margin is inert: the row itself carries
      the compensation. 10px to 8px padding on both sides is the 4px. */
