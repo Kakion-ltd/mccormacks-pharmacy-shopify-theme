@@ -6,14 +6,26 @@ PAGES = ["/", "/collections/medicines-health", "/collections/skincare", "/produc
          "/pages/store-locator", "/blogs/health-hub", "/pages/in-store-services",
          "/pages/prescriptions", "/account/login"]
 bad = []
+loads = 0
 with sync_playwright() as pw:
     b = pw.chromium.launch(headless=True)
-    for label, vp in (("1440", {"width":1440,"height":900}), ("390", {"width":390,"height":844})):
+    # Four widths, not two. Three of the eight defects recorded in MAINTENANCE.md
+    # ("Correct code, wrong behaviour") lived between 1440 and 390 and were invisible at
+    # both: a mega panel asking 1030px of columns inside a 904px panel at 1024, a vh
+    # height cap that could not know its own top once the nav wrapped to two rows there,
+    # and a compression band from 901 to 1100 whose compensation was never written. The
+    # heights are the real ones that ship with those widths - a short viewport is what
+    # exposes a cap measured in vh.
+    for label, vp in (("1440", {"width":1440,"height":900}),
+                      ("1280", {"width":1280,"height":800}),
+                      ("1024", {"width":1024,"height":768}),
+                      ("390",  {"width":390, "height":844})):
         pg = b.new_page(viewport=vp)
         errs = []
         pg.on("pageerror", lambda e: errs.append(str(e)))
         for path in PAGES:
             errs.clear()
+            loads += 1
             pg.goto(BASE + path, wait_until="networkidle")
             pg.wait_for_timeout(150)
             ow = pg.evaluate("document.documentElement.scrollWidth - document.documentElement.clientWidth")
@@ -34,5 +46,7 @@ with sync_playwright() as pw:
                 bad.append(f"{label} {path}: JS {e}")
         pg.close()
     b.close()
-print("\n".join(bad) if bad else "26 page-loads clean: no overflow, no broken images, no JS errors, search input present on every page, empty off the results page")
+print("\n".join(bad) if bad else
+      f"{loads} page-loads clean: no overflow, no broken images, no JS errors, "
+      "search input present on every page, empty off the results page")
 sys.exit(1 if bad else 0)
