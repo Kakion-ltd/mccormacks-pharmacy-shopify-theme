@@ -524,6 +524,117 @@ topmost layer on the site.
 
 ---
 
+## The sticky header's three constants are measured, not taste (10 Sep 2026)
+
+`assets/theme.js` carries three magic numbers in the sticky-header block. All three
+look arbitrary, all three were arrived at by measuring the thing misbehaving, and
+removing any of them reintroduces a specific defect. They are recorded here because
+the obvious maintenance instinct — "why 6? why not 0?" — is exactly wrong.
+
+**`STEP = 10` — a direction change needs 10px of travel before it counts.**
+Without it every pixel of movement is a direction, so a shopper resting a finger on
+a trackpad flips the bar between hidden and revealed continuously. 10px is small
+enough that a deliberate flick still registers instantly and large enough that hand
+tremor does not.
+
+**The 6px dead band on `is-pinned`.** The header sits below a 26px announcement bar
+on desktop and 24px on mobile, so it pins at roughly `scrollY` 25–27. The obvious
+test is `wrap.getBoundingClientRect().top <= 0`, and that is what it was first
+written as. Measured: **oscillating 4px across that boundary flipped the class 15
+times.** Each flip cross-fades the shadow over 300ms, so the shadow pumps for as
+long as the shopper sits there — and the boundary is easy to sit on, because it is
+where iOS rubber-banding parks you. Pinning now latches at `top <= 0` and only
+releases above `top > 6`. **Same 4px shake, measured again: 1 flip.**
+
+That 15-to-1 is the whole justification for the number. If you remove the band the
+suite still passes, the page still looks right in a screenshot, and the defect only
+appears when a human wobbles near the top of the page.
+
+**`GRACE = 500` — the gesture window.** Only a `wheel`, a `touchmove` or a scrolling
+key may hide the bar, and only within 500ms. This exists because hiding on *any*
+downward scroll meant the skip link hid the very header its `scroll-padding-top` had
+just reserved 130px for, leaving the shopper looking at empty space above their
+target. Two details are load-bearing:
+
+- **`Enter` is not in `SCROLL_KEYS`.** Activating the skip link is a keydown; if it
+  counted as a scroll gesture the fix would undo itself.
+- **The window is refreshed by scrolling while already open.** iOS fires no
+  `touchmove` once the finger lifts, but momentum keeps scrolling. A fixed 500ms
+  from the last touch would stop hiding halfway through a flick, which reads worse
+  than never hiding.
+
+Revealing is deliberately *not* gated — a programmatic scroll that brings the header
+back is never the wrong way to be wrong.
+
+**If you change any of these**, re-measure rather than reason about it: drive a
+browser, oscillate across the boundary, and count `class` mutations on `.hdr-sticky`
+with a `MutationObserver`. That is how all three numbers were set.
+
+**Related:** the header's height is now constant at every breakpoint (122.4px
+desktop, 112.1px mobile) and `--hdr-pinned` in `base.css` must track it — it is what
+`scroll-padding-top` uses to keep anchors clear of the bar. If you change the
+header's height, change that token in the same edit.
+
+---
+
+## Correct code, wrong behaviour — the defects only a browser finds (10 Sep 2026)
+
+**Eight** defects in this theme have now shipped through code review and a passing
+test suite, and every one was found the same way: by driving a real browser and
+measuring what it did, rather than by reading the source. Two of them have their own
+section below ("The mega panel scrolled sideways at 1024"); this is the tally and
+the pattern they share.
+
+| # | Defect | Why reading it did not help |
+|---|---|---|
+| 1 | Variant picker: JSON emitted after the IIFE that reads it | Both halves correct in isolation; only the order was wrong |
+| 2 | Consent banner at `z-index: 90` under a buy bar at `150` | Both numbers sensible; the defect lives between two files |
+| 3 | `.crec-add`/`.wish-add` taking ink from `--c-on-primary` on an `--c-accent` surface | Passed while both tokens happened to resolve alike |
+| 4 | Mega panel asking 1030px of columns inside a 904px panel at 1024 | The arithmetic is only wrong at one viewport nobody rendered |
+| 5 | Mega panel `max-height` in `vh`, which cannot know the panel's own top | Correct unit, correct number, wrong thing to measure from |
+| 6 | `--hdr-delta` declared once at 32px for a band that compresses 26.4px | The comment promised "per breakpoint"; the override was simply never written |
+| 7 | Skip link landing with 46px of `main` behind the pinned header | Nothing in the source is wrong — the missing thing is a declaration that was never there |
+| 8 | Mobile predictive search scrolling out of view while still focused | Every component correct; the composition was not |
+
+The last three were found in one measuring pass on 10 Sep 2026. None is a typo, a
+broken selector, or a thing a linter can see. `theme-check` reports 0 errors, 59/59
+liquid checks pass and 49/49 templates render clean with all eight present.
+
+**The shape they share.** Each is a *relationship* between two things that are
+individually correct — a declaration and the element it was meant to cover, a token
+and the surface it sits on, a value and the breakpoint it was never written for.
+Source review reads one thing at a time, so it structurally cannot see this class of
+defect. Only the composed, rendered, scrolled result can.
+
+**What it costs when it slips through.** Not evenly. #1 was dispensing-adjacent —
+wrong strength or quantity of a medicine. #2 was a compliance failure before it was
+an analytics one. #7 is an accessibility defect aimed precisely at the person who
+most depends on the control. #8 put a shopper on the highest-intent control on a
+pharmacy site, typing into a field that had scrolled off screen. "Looks fine" is not
+evidence about any of these.
+
+**They cluster at viewports nobody looks at.** #4, #5 and #6 are all defects of the
+in-between widths — 904px of panel at a 1024px viewport, a nav that wraps to two
+rows at 1024, a compression band from 901 to 1100. Work gets checked at 1440 and at
+390 and the laptop widths between them go unrendered. When measuring, include 1024.
+
+A ninth belongs beside them for a different reason: the PDP's Add to bag had never
+actually been exercised, because the harness dropped the `data-ajax-add` attribute
+and every check clicked a collection tile instead. The button was fine. **The check
+was lying**, which is the failure mode above applied to the safeguards themselves.
+
+**The rule.** For anything positional, layered, scroll-linked, focus-linked or
+breakpoint-dependent, a passing suite is not evidence. Put a browser at the real
+viewport, do the thing a shopper would do, and measure the result — heights,
+`getBoundingClientRect`, `elementFromPoint`, class mutations, CLS. Write the check
+against *observed behaviour* rather than against the declaration you just made:
+`verify/consent.py` asserts what is topmost at the button's centre pixel, not that
+`z-index` is 400, precisely so it catches causes nobody has thought of yet. And see
+"Why fixture coverage matters" above for the other half of this — a branch that
+renders in no preview is covered by no check, however many checks there are.
+
+---
+
 ## The PSI logo in the footer is a regulatory requirement
 
 PSI *Guidance on Internet Supply of Non-Prescription Medicines* (v1, 2015),
