@@ -1,13 +1,15 @@
-{%- comment -%} .hdr-sticky is the part of the header that stays on screen: the logo, the
-    search and the wishlist/account/cart controls. The nav bar below it scrolls away with
-    the page; a department mid-page means scrolling back to the top. Phones: base.css turns
-    this wrapper and <header> into display:contents so only .hdr-row sticks and the search
-    row scrolls away. Full size at rest; the sentinel below leaves the viewport the moment
-    the wrapper sticks, and the observer in theme.js adds .is-stuck, which base.css
-    compresses. No class at load, so nothing shifts on init.
+{%- comment -%} .hdr-sticky is the whole header: the logo/search/icons row, the search
+    row, and the department nav bar. It is one sticky unit at every breakpoint and its
+    height never changes - nothing compresses - so the flow below it never moves and no
+    compensating margin is needed. theme.js translates the whole bar out of view on scroll
+    down and brings it back on the first scroll up, departments included, so a shopper
+    mid-collection can change department without returning to the top of the page.
+    Phones keep the search row for the same reason: a bar that costs nothing while
+    scrolling down has no reason to drop its most-used control.
     Rules: z-index above page content, no overflow, or the search suggestions cannot
-    escape it. {%- endcomment -%}
-<div data-hdr-sentinel aria-hidden="true" style="height:1px; margin-bottom:-1px;"></div>
+    escape it. Nothing position:fixed may live in here - the transform makes this element
+    the containing block - which is why the mobile nav drawer sits outside it below.
+{%- endcomment -%}
 <div class="hdr-sticky">
 <header style="width:100%; background:#ffffff;">
   <div class="hdr-row" style="max-width:1440px; margin:0 auto; padding:16px 30px; display:flex; flex-wrap:wrap; align-items:center; gap:12px 30px;">
@@ -64,6 +66,40 @@
     </div>
   </div>
 </header>
+
+{% # Main navigation with mega-menus %}
+<div class="main-nav-bar" style="width:100%; background:#f2f3f1; border-top:1px solid #e6e7e4; border-bottom:1px solid #e6e7e4;">
+  <div data-mega-root style="max-width:1440px; margin:0 auto; padding:5px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px 30px; position:relative;">
+    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:8px 18px; font-weight:600; font-size:14px;">
+      {%- comment -%} The eight departments come from snippets/departments.liquid,
+          generated from taxonomy.json in nav order - the same list the homepage
+          pill row and the mobile drawer use, so the three cannot disagree. {%- endcomment -%}
+      {%- capture depts -%}{%- render 'departments' -%}{%- endcapture -%}
+      {%- assign depts = depts | strip | split: '|' -%}
+      {%- for dept in depts -%}
+      {%- assign d = dept | split: '~' %}
+      <a href="/collections/{{ d[1] }}" class="hov-green" data-mega-trigger="{{ d[1] }}" style="color:#2A2B2A; font-size:13.5px;">{{ d[0] | escape }}</a>
+      {%- endfor %}
+      {%- comment -%} Merchant promo links (max 4); see archive/docs/SPEC-header-promo-links.md {%- endcomment -%}
+      {%- for block in section.blocks -%}
+      {%- if block.type == 'promo_link' and block.settings.label != blank %}
+      <a href="{{ block.settings.link }}" class="{% if block.settings.highlight %}hov-dark-green{% else %}hov-green{% endif %}" data-mega-close style="{% if block.settings.highlight %}color:var(--c-primary-text); font-weight:700; {% else %}color:#2A2B2A; {% endif %}font-size:13.5px;" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+      {%- endif -%}
+      {%- endfor %}
+    </nav>
+    <div style="display:flex; align-items:center; gap:9px;">
+      <a href="/pages/in-store-services" class="chip chip-active" style="gap:9px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
+        <span>In-Store Services</span>
+      </a>
+      <a href="/pages/store-locator" class="chip chip-lime" style="gap:9px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.4"></circle></svg>
+        <span>Store Locator</span>
+      </a>
+    </div>
+    {% render 'mega-menu' %}
+  </div>
+</div>
 </div>
 
 {%- comment -%} Mobile nav: a disclosure, not a modal. It hangs from the bottom of the
@@ -101,40 +137,6 @@
     </div>
   </div>
 </aside>
-
-{% # Main navigation with mega-menus %}
-<div class="main-nav-bar" style="width:100%; background:#f2f3f1; border-top:1px solid #e6e7e4; border-bottom:1px solid #e6e7e4;">
-  <div data-mega-root style="max-width:1440px; margin:0 auto; padding:5px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px 30px; position:relative;">
-    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:8px 18px; font-weight:600; font-size:14px;">
-      {%- comment -%} The eight departments come from snippets/departments.liquid,
-          generated from taxonomy.json in nav order - the same list the homepage
-          pill row and the mobile drawer use, so the three cannot disagree. {%- endcomment -%}
-      {%- capture depts -%}{%- render 'departments' -%}{%- endcapture -%}
-      {%- assign depts = depts | strip | split: '|' -%}
-      {%- for dept in depts -%}
-      {%- assign d = dept | split: '~' %}
-      <a href="/collections/{{ d[1] }}" class="hov-green" data-mega-trigger="{{ d[1] }}" style="color:#2A2B2A; font-size:13.5px;">{{ d[0] | escape }}</a>
-      {%- endfor %}
-      {%- comment -%} Merchant promo links (max 4); see archive/docs/SPEC-header-promo-links.md {%- endcomment -%}
-      {%- for block in section.blocks -%}
-      {%- if block.type == 'promo_link' and block.settings.label != blank %}
-      <a href="{{ block.settings.link }}" class="{% if block.settings.highlight %}hov-dark-green{% else %}hov-green{% endif %}" data-mega-close style="{% if block.settings.highlight %}color:var(--c-primary-text); font-weight:700; {% else %}color:#2A2B2A; {% endif %}font-size:13.5px;" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
-      {%- endif -%}
-      {%- endfor %}
-    </nav>
-    <div style="display:flex; align-items:center; gap:9px;">
-      <a href="/pages/in-store-services" class="chip chip-active" style="gap:9px">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"></path><path d="M3 21h18"></path><path d="M9 21v-6h6v6"></path></svg>
-        <span>In-Store Services</span>
-      </a>
-      <a href="/pages/store-locator" class="chip chip-lime" style="gap:9px">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.8-7-10a7 7 0 0 1 14 0c0 5.2-7 10-7 10z"></path><circle cx="12" cy="11" r="2.4"></circle></svg>
-        <span>Store Locator</span>
-      </a>
-    </div>
-    {% render 'mega-menu' %}
-  </div>
-</div>
 
 {%- comment -%} Cart drawer lives in the header so it is present on every page,
     which is what lets add-to-cart from a collection or the PDP open it. {%- endcomment -%}

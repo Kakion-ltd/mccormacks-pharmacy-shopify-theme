@@ -25,18 +25,60 @@
   const escapeHtml = (t) => String(t == null ? '' : t).replace(/[&<>"']/g,
     (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  // ---- Sticky header: full size at rest, compact once stuck. The sentinel sits just
-  // above the sticky wrapper, so it leaves the viewport exactly when the wrapper sticks.
-  // No class is set at load, so the header renders at rest with no shift on init.
+  // ---- Sticky header. Constant height, so nothing below it ever moves: instead of
+  // compressing, the whole bar - logo, search, icons and the department nav - translates
+  // out of view on scroll down and comes back on the first scroll up, departments
+  // included. The wrapper's own rect says whether it is pinned, so there is no sentinel
+  // and no second observer to keep in step with this one.
   {
-    const sentinel = document.querySelector('[data-hdr-sentinel]');
     const wrap = document.querySelector('.hdr-sticky');
-    if (sentinel && wrap && 'IntersectionObserver' in window) {
-      new IntersectionObserver(([e]) => {
-        wrap.classList.toggle('is-stuck', !e.isIntersecting);
-        // the nav bar scrolls away, so an open mega panel would slide under the bar with its trigger gone
-        if (!e.isIntersecting) document.dispatchEvent(new Event('hdr:stuck'));
-      }, { rootMargin: '-1px 0px 0px 0px', threshold: 0 }).observe(sentinel);
+    if (wrap) {
+      // A direction change only counts after this much travel. Below it the shopper is
+      // wobbling rather than scrolling, and the bar would pump at the boundary.
+      const STEP = 10;
+      let anchor = window.scrollY;
+      let hidden = false;
+      let pinned = false;
+      let ticking = false;
+
+      const update = () => {
+        ticking = false;
+        const y = Math.max(0, window.scrollY);
+        // Pinned gets its own dead band. A bare `top <= 0` flips on every pixel of
+        // wobble at the boundary, which pumped the shadow 15 times over a 4px shake.
+        const top = wrap.getBoundingClientRect().top;
+        if (top <= 0) pinned = true; else if (top > 6) pinned = false;
+        wrap.classList.toggle('is-pinned', pinned);
+        if (Math.abs(y - anchor) < STEP) return;
+        const down = y > anchor;
+        anchor = y;
+        // Never hide the field someone is typing into, or the bar behind an open drawer.
+        // This is what keeps predictive search usable on a phone: focus is inside the
+        // header while the suggestions are open, so the bar stays put.
+        const busy = wrap.contains(document.activeElement)
+          || document.body.hasAttribute('data-mnav-open')
+          || document.body.hasAttribute('data-cd-open');
+        // Not over the first screenful: up there the bar is still partly in flow and
+        // hiding it only flickers.
+        const next = down && !busy && y > wrap.offsetHeight;
+        if (next === hidden) return;
+        hidden = next;
+        wrap.classList.toggle('is-hidden', hidden);
+        // an open mega panel rides up with the bar, so close it rather than fly it away
+        if (hidden) document.dispatchEvent(new Event('hdr:hidden'));
+      };
+
+      addEventListener('scroll', () => {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+      }, { passive: true });
+      update();
+
+      // The drawer hangs off the bottom of the header, so the header has to be there.
+      document.addEventListener('hdr:reveal', () => {
+        hidden = false;
+        anchor = window.scrollY;
+        wrap.classList.remove('is-hidden');
+      });
     }
   }
 
@@ -77,7 +119,7 @@
       }
     };
     const scheduleClose = () => { clearTimeout(closeTimer); closeTimer = setTimeout(closeAll, 250); };
-    document.addEventListener('hdr:stuck', closeAll);
+    document.addEventListener('hdr:hidden', closeAll);
 
     const canHover = () => matchMedia('(hover: hover)').matches;
     triggers.forEach(t => {
@@ -148,6 +190,7 @@
     // document position: the sticky compensation keeps that constant even while the
     // header row is still transitioning back to its at-rest height.
     window.scrollTo({ top: 0, behavior: 'instant' });
+    document.dispatchEvent(new Event('hdr:reveal'));
     const main = document.querySelector('main');
     if (mnav && main) mnav.style.setProperty('--mnav-top', Math.round(main.getBoundingClientRect().top + window.scrollY) + 'px');
     document.body.setAttribute('data-mnav-open', '');
