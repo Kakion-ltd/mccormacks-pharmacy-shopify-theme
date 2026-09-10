@@ -93,12 +93,16 @@
           choice has to be as easy as making it, so this is a plain link in the
           footer of every page, not buried in the policy text. {%- endcomment -%}
       <button type="button" data-cc-reopen class="ftr-cookie-btn" style="border:none; background:transparent; padding:0; font-family:inherit; font-size:inherit; color:#666b60; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">Cookie settings</button>
+      {%- comment -%} Nothing to accept until a payment provider is enabled on the store,
+          so the row is absent rather than a label beside empty boxes. {%- endcomment -%}
+      {%- if shop.enabled_payment_types.size > 0 -%}
       <div class="ftr-payments" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
         <span style="font-size:12.5px; color:#666b60; margin-right:2px;">We accept</span>
         {%- for type in shop.enabled_payment_types -%}
           <span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;">{{ type | payment_type_svg_tag: style: 'height:20px; width:auto;' }}</span>
         {%- endfor -%}
       </div>
+      {%- endif -%}
       <a href="/pages/terms-and-conditions" class="ftr-terms" style="display:none; color:#666b60;">Terms &amp; Conditions</a>
       <div class="ftr-builtby" style="display:flex; align-items:center; gap:22px; flex-wrap:wrap;">
         <a href="https://kakion.com" style="display:flex; align-items:center; gap:1px; color:#666b60;">

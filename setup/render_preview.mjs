@@ -103,7 +103,9 @@ engine.registerFilter('json', (v) => JSON.stringify(v));
 engine.registerFilter('t', (v) => String(v));
 engine.registerFilter('stylesheet_tag', (v) => `<link rel="stylesheet" href="${v}">`);
 engine.registerFilter('script_tag', (v) => `<script src="${v}"></script>`);
-engine.registerFilter('payment_type_svg_tag', () => '<svg width="38" height="24"></svg>');
+// Shopify draws the real card marks; the harness names the type so the footer
+// row reads as a row of marks rather than six empty boxes.
+engine.registerFilter('payment_type_svg_tag', (type) => `<svg width="38" height="24" viewBox="0 0 38 24" role="img" aria-label="${type}"><text x="19" y="15" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" font-weight="700" fill="#697262">${String(type).replace('_',' ').toUpperCase().slice(0,8)}</text></svg>`);
 engine.registerFilter('placeholder_svg_tag', () => '<svg class="placeholder"></svg>');
 engine.registerFilter('within', (v) => v);
 engine.registerFilter('link_to', (v, u) => `<a href="${u}">${v}</a>`);
