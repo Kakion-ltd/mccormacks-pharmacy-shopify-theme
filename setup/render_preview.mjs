@@ -614,6 +614,9 @@ async function renderTemplate(name, extraGlobals = {}) {
     ...extraGlobals,
     request: { ...globals.request, page_type: pageTypeOf(name) },
     template: { name: pageTypeOf(name), suffix: null, directory: null },
+    // Shopify exposes `product` on product templates only. Snippets that branch
+    // on it (buy-assurance) must see nothing elsewhere, as on the store.
+    ...(pageTypeOf(name) === 'product' ? {} : { product: null }),
   };
   // page.url/handle are real on Shopify and used in canonical + structured data.
   if (name.startsWith('page.')) {
@@ -874,6 +877,24 @@ console.log(`${ok}/${ok + fail} templates render clean`);
     try {
       writeFileSync(join(outDir, 'product.variants.html'), await renderTemplate('product'));
       console.log(`multi-variant product page: ${multi.handle} (${multi.variants.length} variants)`);
+    } finally {
+      Object.assign(globals, saved);
+    }
+  }
+}
+
+{
+  // The pharmacy lines beside the buy box are gated on the product being a
+  // medicine. product.html is a vitamin, so without this page the preview
+  // could never show them on.
+  const restricted = products.find((p) => (p.tags || []).includes('pharmacist-review'));
+  if (restricted) {
+    const saved = { product: globals.product, request: globals.request };
+    globals.product = restricted;
+    globals.request = { ...globals.request, page_type: 'product' };
+    try {
+      writeFileSync(join(outDir, 'product.restricted.html'), await renderTemplate('product'));
+      console.log(`restricted product page: ${restricted.handle}`);
     } finally {
       Object.assign(globals, saved);
     }

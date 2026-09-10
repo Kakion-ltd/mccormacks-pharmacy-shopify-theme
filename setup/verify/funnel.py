@@ -124,12 +124,21 @@ with sync_playwright() as pw:
         check(f"[{label}] drawer free-delivery msg: {ship!r}", "delivery" in ship)
 
         # ---- D2. Buy-box assurance (3.3 / 3.4) ----
+        # The pharmacy lines show on a medicine (here the pharmacist-review fixture)
+        # and not on a vitamin, which is what product.html renders.
+        page.goto(BASE + "/products/nurofen-plus-200mg-12-8mg-24-tablets", wait_until="networkidle")
+        body = page.locator("body").inner_text()
+        check(f"[{label}] PSI registration shown beside the buy box on a medicine",
+              page.locator("[data-buy-assurance] a[href='/pages/internet-supply-pharmacy']").count() >= 1)
+        check(f"[{label}] pharmacist route shown beside the buy box on a medicine",
+              "Ask a pharmacist" in body)
+        page.goto(BASE + "/products/fab-skin-hair-nails-glow-60-capsules", wait_until="networkidle")
+        check(f"[{label}] no pharmacist lines beside the buy box on a vitamin",
+              page.locator("[data-buy-assurance]").inner_text().count("pharmacist"), 0)
+        check(f"[{label}] footer PSI logo still on the vitamin page",
+              page.locator(".ftr-psi img").count(), 1)
         page.goto(BASE + "/products/nurofen-200mg-ibuprofen-24-tablets", wait_until="networkidle")
         body = page.locator("body").inner_text()
-        check(f"[{label}] PSI registration shown beside the buy box",
-              page.locator("[data-buy-assurance] a[href='/pages/internet-supply-pharmacy']").count() >= 1)
-        check(f"[{label}] pharmacist route shown beside the buy box",
-              "Ask a pharmacist" in body)
         # Both of these are gated on data that does not exist yet. Rendering
         # either one today would be a claim the store cannot honour.
         check(f"[{label}] no dispatch cutoff until one is configured",

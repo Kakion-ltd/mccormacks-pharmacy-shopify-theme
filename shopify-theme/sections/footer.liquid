@@ -73,8 +73,14 @@
   </div>
 
   <div>
+    {%- comment -%} The EU common logo. PSI guidance 2.1: displayed on every page that
+        relates to the sale of medicines online, linking to the Internet Supply List on
+        the PSI website. The footer is on every page, so this instance is the
+        regulatory one - do not remove it or point it back at our own page. The
+        search parameter lands on our entry (registration 10001884) without leaving
+        the list. {%- endcomment -%}
     <div class="ftr-psi" style="max-width:1440px; margin:0 auto; padding:8px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end;">
-      <a href="/pages/internet-supply-pharmacy" aria-label="PSI — verify this pharmacy is operating legally" style="display:flex; align-items:center; margin-right:15px; margin-top:-40px;">
+      <a href="https://registrations.thepsi.ie/search-isl/?search=10001884" rel="noopener" aria-label="PSI — verify this pharmacy is operating legally" style="display:flex; align-items:center; margin-right:15px; margin-top:-40px;">
         <img src="{{ 'psi-logo.avif' | asset_url }}" alt="PSI internet supply registration" width="93" height="78" style="height:78px; width:auto; display:block; border-radius:4px;">
       </a>
     </div>

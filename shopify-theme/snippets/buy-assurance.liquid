@@ -20,9 +20,20 @@
     cannot promise collection the store has not switched on, and the store
     count is Shopify's, not ours.
 
+  The pharmacy lines (PSI-registered, Ask a pharmacist, and the PSI logo) show
+  when the product is a medicine — tagged with the restricted tag, or its type
+  starts with "Pharmacy", which is how the client's catalogue types every
+  Medicines & Health product — or when the Product section's checkbox turns
+  them on for everything. On a vitamin they are noise; on a pharmacy-only
+  medicine they are the point. The footer's PSI logo is the regulatory one and
+  stays on every page regardless; this copy is reassurance, not compliance.
+  With no product passed (the cart) the lines always show: a bag is mixed.
+
   Accepts:
-    variant  — optional; pickup lines need it, so pass it on a product page
-    compact  — true for the cart's smaller type
+    variant       — optional; pickup lines need it, so pass it on a product page
+    product       — optional; gates the pharmacy lines as above
+    all_products  — true to show the pharmacy lines on every product
+    compact       — true for the cart's smaller type
 {% endcomment %}
 
 {%- liquid
@@ -31,6 +42,18 @@
   if compact
     assign type_size = '13.5px'
     assign line_gap = '11px'
+  endif
+
+  assign pharmacy = true
+  if product and all_products != true
+    assign pharmacy = false
+    capture restricted
+      render 'product-restricted', product: product
+    endcapture
+    assign type_prefix = product.type | downcase | slice: 0, 8
+    if restricted == 'true' or type_prefix == 'pharmacy'
+      assign pharmacy = true
+    endif
   endif
 
   assign pickup_locations = ''
@@ -59,6 +82,7 @@
     </div>
   {%- endif -%}
 
+  {%- if pharmacy -%}
   <div style="display:flex; gap:10px; align-items:flex-start; font-size:{{ type_size }}; line-height:1.6; color:{% if compact %}#666b60{% else %}#3a3d39{% endif %};">
     <span style="color:var(--c-accent); font-weight:800;">&check;</span>
     <span>Dispatched from our <a href="/pages/internet-supply-pharmacy" class="hov-green-dk" style="color:var(--c-dark); font-weight:700; text-decoration:underline; text-underline-offset:3px;">PSI-registered</a> Irish pharmacy</span>
@@ -73,10 +97,11 @@
     {%- comment -%} The PSI mark carries more weight than the words beside it, so the
         product page shows it. The cart already has the shopper's commitment and
         does not need the extra weight. {%- endcomment -%}
-    <a href="/pages/internet-supply-pharmacy" style="display:inline-flex; align-items:center; gap:10px; margin-top:2px; width:fit-content;">
+    <a href="https://registrations.thepsi.ie/search-isl/?search=10001884" rel="noopener" style="display:inline-flex; align-items:center; gap:10px; margin-top:2px; width:fit-content;">
       <img src="{{ 'psi-logo.avif' | asset_url }}" alt="PSI registered internet supply pharmacy" width="86" height="72" loading="lazy" style="height:72px; width:auto; display:block; border-radius:4px;">
       <span style="font-size:12.5px; line-height:1.45; color:#666b60; max-width:22ch;">Verify this pharmacy on the PSI register</span>
     </a>
   {%- endunless -%}
+  {%- endif -%}
 
 </div>

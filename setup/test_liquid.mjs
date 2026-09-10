@@ -20,8 +20,10 @@ const THEME = join(dirname(dirname(fileURLToPath(import.meta.url))), 'shopify-th
 const engine = new Liquid({ root: join(THEME, 'snippets'), extname: '.liquid' });
 
 const SHOP = { name: "McCormack's Pharmacy", secure_url: 'https://mccormacks.ie', url: 'https://mccormacks.ie' };
+// settings is a global object on Shopify, visible inside nested renders; liquidjs
+// only passes engine globals down, so hand the scope's settings in as globals.
 const render = (snippet, scope) =>
-  engine.renderFileSync(snippet, { shop: SHOP, ...scope }).trim();
+  engine.renderFileSync(snippet, { shop: SHOP, ...scope }, { globals: { settings: scope?.settings || {} } }).trim();
 
 let passed = 0;
 const check = (name, actual, expected) => {
@@ -151,11 +153,31 @@ check('unavailable pickup locations are excluded from the count',
     { available: false, location: { name: 'Belmullet' } },
   ] } }).includes('Click &amp; Collect</strong> from\n        Clonmel'), true);
 
-check('PSI registration is always shown',
+check('PSI registration is shown when no product is passed (the cart)',
   assurance({}).includes('/pages/internet-supply-pharmacy'), true);
 check('the PSI mark is on the product page but not the cart',
   [assurance({}).includes('psi-logo'), assurance({ compact: true }).includes('psi-logo')].join(),
   'true,false');
+
+// The pharmacy lines are gated on the product being a medicine: tagged with the
+// restricted tag, or typed under the client's "Pharmacy > ..." tree. The
+// checkbox on the Product section overrides the gate for everything else.
+const gated = (product, extra = {}) => assurance({
+  settings: { restricted_tag: 'pharmacist-review' }, product, ...extra,
+}).includes('Ask a pharmacist');
+check('a vitamin gets no pharmacy lines',
+  gated({ type: 'Supplements > Vitamins', tags: [] }), false);
+check('a tagged product gets the pharmacy lines',
+  gated({ type: 'Supplements > Vitamins', tags: ['Pharmacist-Review'] }), true);
+check('a Pharmacy-typed product gets the pharmacy lines',
+  gated({ type: 'Pharmacy > Pain Relief', tags: [] }), true);
+check('the type test is a prefix, not a substring',
+  gated({ type: 'Beauty > Pharmacy Brands', tags: [] }), false);
+check('the section checkbox shows the lines on everything',
+  gated({ type: 'Supplements > Vitamins', tags: [] }, { all_products: true }), true);
+check('the PSI mark follows the same gate',
+  assurance({ settings: { restricted_tag: 'pharmacist-review' }, product: { type: 'Skincare', tags: [] } })
+    .includes('psi-logo'), false);
 
 /* ---------- structured-data: ItemList and SearchAction ----------
    Both must stay silent when there is nothing real to describe. The preview

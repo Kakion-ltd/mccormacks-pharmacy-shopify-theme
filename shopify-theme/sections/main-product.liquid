@@ -232,7 +232,7 @@
         {%- comment -%} Dispatch, collection and pharmacist reassurance, where the
             decision is actually being made. Was footer-only. {%- endcomment -%}
         <div style="margin:-22px 0 32px;">
-          {% render 'buy-assurance', variant: current_variant %}
+          {% render 'buy-assurance', variant: current_variant, product: product, all_products: section.settings.show_pharmacy_lines %}
         </div>
 
         {%- if rel != blank and rel.size > 0 -%}
@@ -482,6 +482,13 @@
       "label": "Show accelerated checkout button (Shop Pay, Apple Pay…)",
       "info": "Lets a shopper buy this item without going through the bag.",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pharmacy_lines",
+      "label": "Show the pharmacist lines on every product",
+      "default": false,
+      "info": "Off: the PSI-registered line, Ask a pharmacist and the PSI logo show only on medicines (tagged with the restricted tag, or type starting with Pharmacy). On: every product. The footer's PSI logo is unaffected."
     }
   ]
 }

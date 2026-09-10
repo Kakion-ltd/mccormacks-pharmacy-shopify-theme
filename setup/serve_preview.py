@@ -25,6 +25,8 @@ def product_page(handle):
         return first_existing("preview/product.oos.html", "preview/product.html")
     if handle == "vitamin-d3-1000iu-60-capsules":
         return first_existing("preview/product.variants.html", "preview/product.html")
+    if handle == "nurofen-plus-200mg-12-8mg-24-tablets":
+        return first_existing("preview/product.restricted.html", "preview/product.html")
     # Unknown handles 404, as on Shopify. Serving the generic page for any handle
     # hid dead product links and let verify scripts pass against URLs that do not exist.
     if handle not in HANDLES:

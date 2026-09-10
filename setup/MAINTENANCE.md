@@ -524,6 +524,25 @@ topmost layer on the site.
 
 ---
 
+## The PSI logo in the footer is a regulatory requirement
+
+PSI *Guidance on Internet Supply of Non-Prescription Medicines* (v1, 2015),
+section 2.1: the EU common logo must be "clearly displayed on every page of
+the website which relates to the sale of medicines online, which links to
+the Internet Supply List on the PSI website". Collection pages, search and
+the cart all offer medicines, so the footer instance is the one that meets
+this; it links to the list filtered to our entry (registration 10001884).
+Do not remove it, hide it per template, or point it at our own page. The
+same section also requires the PSI's contact details, a link to psi.ie and
+a two-year transaction-record statement, which live on the Internet Supply
+Pharmacy page.
+
+The copy beside the product buy box (PSI-registered line, Ask a pharmacist,
+a second logo) is reassurance, not compliance. It shows on medicines only:
+products tagged with the restricted tag or typed under "Pharmacy > ...".
+The Product section's "Show the pharmacist lines on every product" checkbox
+turns it on everywhere; default off.
+
 ## Seasonal rotation is manual — nothing in this theme is date-scheduled
 
 **There is no date scheduling anywhere in the theme. Not the hero slides, not
