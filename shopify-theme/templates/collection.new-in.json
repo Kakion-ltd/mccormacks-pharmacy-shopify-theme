@@ -1,5 +1,8 @@
 {
   "sections": {
+    "trust": {
+      "type": "trust-bar"
+    },
     "main": {
       "type": "main-collection",
       "blocks": {
@@ -46,13 +49,14 @@
         "show_chips": true,
         "chip_links": "Pharmacy | /collections/medicines-health\nVitamins & Supplements | /collections/vitamins\nSkincare | /collections/skincare\nBeauty | /collections/beauty\nMother & Baby | /collections/mother-baby\nToiletries | /collections/toiletries\nFragrance & Gift | /collections/fragrance\nClearance | /collections/sale",
         "seo_heading": "New arrivals at McCormack's Pharmacy",
-        "seo_text": "<p>We add new lines every week, so this page is the fastest way to see what has just landed. You will find new-format medicines and health products, the latest supplement launches from Irish brands like Revive Active and fab\u00dc, new skincare and SPF, beauty drops from BPerfect, Sculpted by Aimee and SOSU, plus seasonal baby and gifting ranges. Sort by newest to see the most recent additions first, or filter by department to jump straight to the part of the shop you care about.</p>",
+        "seo_text": "<p>We add new lines every week, so this page is the fastest way to see what has just landed. You will find new-format medicines and health products, the latest supplement launches from Irish brands like Revive Active and fabÜ, new skincare and SPF, beauty drops from BPerfect, Sculpted by Aimee and SOSU, plus seasonal baby and gifting ranges. Sort by newest to see the most recent additions first, or filter by department to jump straight to the part of the shop you care about.</p>",
         "show_also": true,
         "also_heading": "You may also like"
       }
     }
   },
   "order": [
+    "trust",
     "main"
   ]
 }

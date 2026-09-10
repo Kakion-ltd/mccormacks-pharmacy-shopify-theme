@@ -1,5 +1,8 @@
 {
   "sections": {
+    "trust": {
+      "type": "trust-bar"
+    },
     "main": {
       "type": "main-collection",
       "blocks": {
@@ -51,6 +54,7 @@
     }
   },
   "order": [
+    "trust",
     "main"
   ]
 }

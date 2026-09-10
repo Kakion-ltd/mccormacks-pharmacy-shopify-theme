@@ -1,5 +1,8 @@
 {
   "sections": {
+    "trust": {
+      "type": "trust-bar"
+    },
     "main": {
       "type": "main-list-collections",
       "settings": {
@@ -7,5 +10,8 @@
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "trust",
+    "main"
+  ]
 }

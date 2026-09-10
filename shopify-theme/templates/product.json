@@ -1,8 +1,14 @@
 {
   "sections": {
+    "trust": {
+      "type": "trust-bar"
+    },
     "main": {
       "type": "main-product"
     }
   },
-  "order": ["main"]
+  "order": [
+    "trust",
+    "main"
+  ]
 }

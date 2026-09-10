@@ -1,5 +1,8 @@
 {
   "sections": {
+    "trust": {
+      "type": "trust-bar"
+    },
     "main": {
       "type": "main-search",
       "settings": {
@@ -8,5 +11,8 @@
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "trust",
+    "main"
+  ]
 }

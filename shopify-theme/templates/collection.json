@@ -1,5 +1,8 @@
 {
   "sections": {
+    "trust": {
+      "type": "trust-bar"
+    },
     "main": {
       "type": "main-collection",
       "blocks": {
@@ -32,7 +35,12 @@
           }
         }
       },
-      "block_order": ["faq1", "faq2", "faq3", "faq4"],
+      "block_order": [
+        "faq1",
+        "faq2",
+        "faq3",
+        "faq4"
+      ],
       "settings": {
         "banner_style": "standard",
         "show_chips": true,
@@ -41,5 +49,8 @@
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "trust",
+    "main"
+  ]
 }
