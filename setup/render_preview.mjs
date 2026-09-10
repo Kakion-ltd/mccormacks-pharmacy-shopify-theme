@@ -430,6 +430,10 @@ const products = CATALOGUE.map((c, i) => {
 
   const prices = variants.map((v) => v.price);
   return {
+    // search.results mixes products, articles and pages; the theme branches on this.
+    // Without it every fixture result rendered as a page card, so the product card
+    // on the search page had no preview coverage at all.
+    object_type: 'product',
     id: 30000000 + i, title: c.t, handle: handleOf(c.t), vendor: c.v, type: c.ty,
     url: `/products/${handleOf(c.t)}`,
     price: firstAvailable.price, price_min: Math.min(...prices), price_max: Math.max(...prices),

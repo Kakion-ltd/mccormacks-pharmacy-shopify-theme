@@ -1,0 +1,14 @@
+{% comment %}
+  The eye that opens quick view, for product cards. Sits under the wishlist heart at
+  top right of the image; hidden until the card is hovered or focused, and only on
+  hover-capable fine-pointer devices, so phones never see it. Nothing is rendered for
+  a restricted product: the card already sends those shoppers to the product page.
+
+  Usage: {% render 'quick-view-button', product: product, restricted: restricted %}
+  Accepts: product (required), restricted (the string 'true' from product-restricted)
+{% endcomment %}
+{%- unless restricted == 'true' -%}
+<button type="button" class="qv-btn" data-qv-open="{{ product.handle }}" aria-label="Quick view: {{ product.title | escape }}">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+</button>
+{%- endunless -%}

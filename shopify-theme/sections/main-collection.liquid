@@ -244,6 +244,7 @@
                 {%- endif -%}
               </a>
               {% render 'wishlist-button', product: product %}
+              {% render 'quick-view-button', product: product, restricted: restricted %}
             </div>
             <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">{{ product.vendor }}</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="{{ product.url }}" class="hov-green" style="color:#2A2B2A;">{{ product.title }}</a></h3>

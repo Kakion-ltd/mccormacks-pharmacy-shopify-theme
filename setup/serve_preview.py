@@ -153,26 +153,56 @@ def handleize(title):
 HANDLES = {handleize(t[0]) for t in CATALOGUE}
 
 
+def _variants(i):
+    """Variants in the shape /products/<handle>.js gives, with the ids render_preview.mjs
+    puts on the page: 40000000+i for a single variant, 40000000+i*100+k per pack."""
+    c = _CAT[i]
+    packs = c.get("packs") or []
+    if len(packs) > 1:
+        return [{"id": 40000000 + i * 100 + k, "title": pk["o"], "option1": pk["o"], "options": [pk["o"]],
+                 "price": pk["p"], "compare_at_price": pk.get("was"), "available": pk.get("oos") is not True,
+                 "featured_image": None} for k, pk in enumerate(packs)], [c.get("optName", "Pack size")]
+    return [{"id": 40000000 + i, "title": "Default Title", "option1": "Default Title", "options": ["Default Title"],
+             "price": c["p"], "compare_at_price": c.get("was"), "available": c["t"] not in SOLD_OUT,
+             "featured_image": None}], ["Title"]
+
+
 def product_json(i):
     title, vendor, price, img, tags = CATALOGUE[i]
+    variants, options = _variants(i)
     return {
         "id": 30000000 + i, "title": title, "handle": handleize(title), "vendor": vendor,
-        "price": price, "available": title not in SOLD_OUT, "tags": tags,
-        "featured_image": f"/shopify-theme/assets/{img}",
-        "variants": [{"id": 40000000 + i, "title": "Default", "price": price, "available": title not in SOLD_OUT}],
+        "url": f"/products/{handleize(title)}",
+        "price": min(v["price"] for v in variants), "available": any(v["available"] for v in variants), "tags": tags,
+        "featured_image": f"/shopify-theme/assets/{img}", "images": [f"/shopify-theme/assets/{img}"],
+        "options": options, "variants": variants,
     }
+
+
+def _variant_index(variant_id):
+    """Catalogue index and variant for either id scheme, or (None, None)."""
+    n = int(variant_id) - 40000000
+    if n < 0:
+        return None, None
+    i, k = (n // 100, n % 100) if n >= 100 else (n, 0)
+    if not 0 <= i < len(CATALOGUE):
+        return None, None
+    variants, _ = _variants(i)
+    return (i, variants[k]) if k < len(variants) else (None, None)
 
 
 def line_for(variant_id):
     """Line item fields the theme's drawer reads."""
-    i = int(variant_id) - 40000000
-    if not 0 <= i < len(CATALOGUE):
+    i, v = _variant_index(variant_id)
+    if i is None:
         return None
-    title, vendor, price, img, _ = CATALOGUE[i]
+    title, vendor, _, img, _ = CATALOGUE[i]
+    price = v["price"]
+    vtitle = None if v["title"] == "Default Title" else v["title"]
     return {
         "id": int(variant_id), "variant_id": int(variant_id), "product_id": 30000000 + i,
-        "key": f"{variant_id}:0", "title": title, "product_title": title, "vendor": vendor,
-        "variant_title": None, "quantity": 0, "price": price, "final_price": price,
+        "key": f"{variant_id}:0", "title": title if not vtitle else f"{title} - {vtitle}", "product_title": title, "vendor": vendor,
+        "variant_title": vtitle, "quantity": 0, "price": price, "final_price": price,
         "original_price": price, "line_price": price, "final_line_price": price,
         "original_line_price": price, "url": f"/products/{handleize(title)}",
         "image": f"/shopify-theme/assets/{img}",

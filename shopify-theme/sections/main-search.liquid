@@ -85,7 +85,7 @@
                 assign quick_add = false
               endif
             -%}
-            <div class="srch-card" style="display:flex; flex-direction:column; border:1px solid #e6e7e4; border-radius:14px; overflow:hidden; background:#ffffff; transition:box-shadow .18s;">
+            <div class="srch-card" style="position:relative; display:flex; flex-direction:column; border:1px solid #e6e7e4; border-radius:14px; overflow:hidden; background:#ffffff; transition:box-shadow .18s;">
               <a href="{{ product.url }}" style="display:block; position:relative; padding:18px; background:#ffffff;">
                 {%- if on_sale -%}
                   <span style="position:absolute; top:12px; left:12px; z-index:2; display:inline-flex; align-items:center; height:24px; padding:0 9px; border-radius:6px; background:#c0392b; color:#ffffff; font-size:11.5px; font-weight:800;">SALE</span>
@@ -99,6 +99,7 @@
                   {%- endif -%}
                 </span>
               </a>
+              {% render 'quick-view-button', product: product, restricted: restricted %}
               <div style="padding:0 18px 18px; display:flex; flex-direction:column; gap:9px; flex:1;">
                 <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">{{ product.vendor }}</div>
                 <a href="{{ product.url }}" class="hov-green" style="font-weight:700; font-size:15px; line-height:1.45; color:#2A2B2A; flex:1;">{{ product.title }}</a>

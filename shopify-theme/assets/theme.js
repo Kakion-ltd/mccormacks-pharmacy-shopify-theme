@@ -415,6 +415,9 @@
     try {
       const cart = await addToCart(parseInt(btn.dataset.addId, 10), parseInt(btn.dataset.addQty || '1', 10));
       btn.textContent = 'Added ✓';
+      // Quick view listens for this and closes first, so the drawer's remembered
+      // focus is the card's eye rather than a button inside a closed modal.
+      document.dispatchEvent(new CustomEvent('mcc:cart-added', { detail: cart }));
       if (window.mccCartDrawer) { window.mccCartDrawer.render(cart); window.mccCartDrawer.open(); }
     } catch {
       btn.textContent = 'Sold out';
@@ -765,6 +768,123 @@
     document.addEventListener('focusin', e => {
       if (!psPanel.hidden && !psPanel.contains(e.target) && e.target !== psInput) { psDismissed = true; psClose(); }
     });
+  }
+
+  // ---- Quick view: a card's eye ([data-qv-open=handle]) opens a modal built from
+  // /products/<handle>.js — title, price, image, one select per option, Add To Bag.
+  // Shell in snippets/quick-view.liquid; focus handling mirrors the cart drawer, plus
+  // the rest of the page is made inert while it is open, which is the real focus trap.
+  const qv = document.querySelector('[data-qv]');
+  if (qv) {
+    const qvOverlay = document.querySelector('[data-qv-overlay]');
+    const qvBody = qv.querySelector('[data-qv-body]');
+    const gate = (qv.dataset.qvRestrictedTag || '').toLowerCase();
+    const esc = escapeHtml, fmt = formatMoney;
+    const productUrl = (h) => '/products/' + encodeURIComponent(h);
+
+    // One request per handle per page. A failed fetch is forgotten so a retry can work.
+    const cache = new Map();
+    const fetchProduct = (h) => {
+      if (!cache.has(h)) {
+        cache.set(h, fetch(productUrl(h) + '.js').then((r) => { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
+          .catch((err) => { cache.delete(h); throw err; }));
+      }
+      return cache.get(h);
+    };
+
+    // Prefetch on a hover that SETTLES: the timer starts when the pointer enters a card
+    // and is cancelled when it leaves, so a cursor swept across a row fires nothing.
+    // Only a card the pointer rests on for 300ms costs a request, and only once.
+    let pending = null, hoverTimer = null;
+    const cancelPrefetch = () => { clearTimeout(hoverTimer); hoverTimer = null; pending = null; };
+    document.addEventListener('pointerover', (e) => {
+      const card = e.target.closest && e.target.closest('.pcard, .srch-card');
+      const eye = card && card.querySelector('[data-qv-open]');
+      const h = eye ? eye.dataset.qvOpen : null;
+      if (!h) { if (pending) cancelPrefetch(); return; }
+      if (h === pending || cache.has(h)) return;
+      cancelPrefetch();
+      pending = h;
+      hoverTimer = setTimeout(() => { pending = null; hoverTimer = null; fetchProduct(h).catch(() => {}); }, 300);
+    });
+    document.addEventListener('pointerout', (e) => {
+      const card = e.target.closest && e.target.closest('.pcard, .srch-card');
+      if (card && pending && !card.contains(e.relatedTarget)) cancelPrefetch();
+    });
+
+    const setInert = (v) => {
+      [...document.body.children].forEach((el) => {
+        if (el === qv || el === qvOverlay || el.tagName === 'SCRIPT') return;
+        el.inert = v;
+      });
+    };
+    let lastFocus = null, openHandle = null;
+    const close = () => {
+      if (!document.body.hasAttribute('data-qv-open')) return;
+      document.body.removeAttribute('data-qv-open');
+      setInert(false);
+      openHandle = null;
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    };
+    const optionOf = (v, i) => (v.options ? v.options[i] : v['option' + (i + 1)]);
+    const imgSrc = (img) => (img ? (typeof img === 'string' ? img : img.src) : '');
+    const render = (p) => {
+      const restricted = !!gate && (p.tags || []).some((t) => String(t).toLowerCase() === gate);
+      const url = p.url || productUrl(p.handle);
+      const variants = p.variants || [];
+      const single = variants.length === 1 && /^default(\s+title)?$/i.test(variants[0].title || '');
+      const names = (p.options || []).map((o) => (typeof o === 'string' ? o : o.name));
+      const values = names.map((_, i) => [...new Set(variants.map((v) => optionOf(v, i)))]);
+      const first = variants.find((v) => v.available) || variants[0] || {};
+      const selects = single ? '' : names.map((n, i) =>
+        '<div class="qv-opt"><label for="qv-opt-' + i + '">' + esc(n) + '</label><select id="qv-opt-' + i + '" data-qv-opt="' + i + '">'
+        + values[i].map((val) => '<option value="' + esc(val) + '"' + (optionOf(first, i) === val ? ' selected' : '') + '>' + esc(val) + '</option>').join('')
+        + '</select></div>').join('');
+      const action = restricted
+        ? '<a class="btn btn-fill" href="' + esc(url) + '">View product</a>'
+        : '<button type="button" class="btn btn-fill" data-qv-add data-add-id="' + first.id + '"' + (first.available ? '' : ' disabled') + '>' + (first.available ? 'Add To Bag' : 'Out of stock') + '</button>';
+      const onSale = first.compare_at_price && first.compare_at_price > first.price;
+      qvBody.innerHTML =
+        '<div class="qv-media">' + (imgSrc(p.featured_image) ? '<img src="' + esc(imgSrc(p.featured_image)) + '" alt="">' : '') + '</div>'
+        + '<div class="qv-info">'
+        + (p.vendor ? '<div class="qv-vendor">' + esc(p.vendor) + '</div>' : '')
+        + '<h2 class="qv-title" id="qv-title">' + esc(p.title) + '</h2>'
+        + '<div class="qv-price"><span data-qv-price>' + fmt(first.price) + '</span><span class="qv-compare" data-qv-compare' + (onSale ? '' : ' hidden') + '>' + (onSale ? fmt(first.compare_at_price) : '') + '</span></div>'
+        + selects
+        + '<div class="qv-actions">' + action + '<a class="qv-link" href="' + esc(url) + '">View full product details</a></div>'
+        + '</div>';
+      const sels = [...qvBody.querySelectorAll('[data-qv-opt]')];
+      sels.forEach((sel) => sel.addEventListener('change', () => {
+        const chosen = sels.map((s) => s.value);
+        const v = variants.find((cand) => chosen.every((c, i) => optionOf(cand, i) === c));
+        const btn = qvBody.querySelector('[data-qv-add]');
+        const priceEl = qvBody.querySelector('[data-qv-price]');
+        const cmp = qvBody.querySelector('[data-qv-compare]');
+        if (!v) { if (btn) { btn.disabled = true; btn.textContent = 'Unavailable'; } return; }
+        if (btn) { btn.dataset.addId = v.id; btn.disabled = !v.available; btn.textContent = v.available ? 'Add To Bag' : 'Out of stock'; }
+        priceEl.textContent = fmt(v.price);
+        const sale = v.compare_at_price && v.compare_at_price > v.price;
+        cmp.hidden = !sale; if (sale) cmp.textContent = fmt(v.compare_at_price);
+        const im = qvBody.querySelector('.qv-media img');
+        if (im && imgSrc(v.featured_image)) im.src = imgSrc(v.featured_image);
+      }));
+    };
+    const open = async (h, opener) => {
+      lastFocus = opener || document.activeElement;
+      openHandle = h;
+      qvBody.innerHTML = '<div class="qv-loading">Loading…</div>';
+      document.body.setAttribute('data-qv-open', '');
+      setInert(true);
+      focusSoon(qv.querySelector('[data-qv-close]'));
+      try { const p = await fetchProduct(h); if (openHandle === h) render(p); }
+      catch { qvBody.innerHTML = '<div class="qv-loading">Could not load this product. <a href="' + esc(productUrl(h)) + '">Open the product page</a>.</div>'; }
+    };
+    on(document, 'click', '[data-qv-open]', (e, btn) => { e.preventDefault(); open(btn.dataset.qvOpen, btn); });
+    on(document, 'click', '[data-qv-close]', (e) => { e.preventDefault(); close(); });
+    qvOverlay && qvOverlay.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.hasAttribute('data-qv-open')) close(); });
+    // Adding closes the modal before the cart drawer opens; see the add handler.
+    document.addEventListener('mcc:cart-added', close);
   }
 
   // ---- Generic tab views: [data-view-btn=key] shows [data-view=key], hides siblings

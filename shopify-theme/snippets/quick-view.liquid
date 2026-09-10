@@ -1,0 +1,22 @@
+{% comment %}
+  Quick view — the modal shell. Rendered once from layout/theme.liquid, beside the
+  cart drawer, and filled client-side by theme.js from /products/<handle>.js when a
+  card's eye button ([data-qv-open=handle]) is clicked.
+
+  Shell mirrors the cart drawer: a body attribute (data-qv-open) drives visibility,
+  the opener is remembered and refocused on close, Escape and the overlay close it,
+  and the rest of the page is made inert while it is open.
+
+  The pharmacy gate is applied twice. The card omits the eye on a restricted product
+  in Liquid (see snippets/product-restricted.liquid); the modal also checks the tag
+  from the product JSON, exposed here as data-qv-restricted-tag, and shows a link to
+  the product page instead of Add To Bag if it is ever handed a restricted handle.
+{% endcomment %}
+<div class="qv-overlay" data-qv-overlay hidden></div>
+<div class="qv-modal" data-qv role="dialog" aria-modal="true" aria-labelledby="qv-title"
+     data-qv-restricted-tag="{{ settings.restricted_tag | strip | downcase | escape }}" hidden>
+  <button type="button" class="cd-x qv-x" data-qv-close aria-label="Close quick view">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
+  </button>
+  <div class="qv-body" data-qv-body></div>
+</div>
