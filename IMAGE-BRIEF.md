@@ -115,7 +115,7 @@ few lines.
 | Slot | Source px | Ratio | Notes |
 |---|---|---|---|
 | Hero slide | 1600 × 1000 | 1.6:1 | Transparent PNG/WebP cut-out on no ground, shown whole on the theme's own ground at every width; no mobile file. See the house rule below |
-| Hero slide, photographic alternative | 1760 × 920 + 1100 × 850 | 1.91:1 / 1.30:1 | Only if a slide is a photograph rather than a cut-out; the safe-area rule is in the same house rule |
+| Hero slide, photographic alternative | 1760 × 920 + 1100 × 1100 | 1.91:1 / 1:1 | Only if a slide is a photograph rather than a cut-out; the safe-area rule is in the same house rule |
 | Category / sale banner | 1300 × 600 | 2.17:1 | Subject right |
 | Feature tile | 1360 × 765 | 16:9 | Subject right and upper; bottom-left 55% × 55% is background only; theme darkens the bottom 60%; no text or badges; both tiles in a section share one image language. See the house rule below |
 | Feature tile (mobile) | 800 × 800 | 1:1 | Optional. Same rule applied to its own bottom-left corner |
@@ -180,15 +180,19 @@ already has before they composite it.
    brand lockup. The slide's Badge setting carries the offer as live text,
    blank by default, editable in the theme editor and read by screen
    readers.
-4. **Composition.** The cluster is shown whole at 460px tall on desktop and
-   260px on a phone, so keep the silhouette compact: a wide, low cluster
-   reads small on a phone. Roughly 3:2 suits both.
+4. **Composition.** The cluster is shown whole in a 1.6:1 frame at 460px
+   tall on desktop and in a square frame, 358px at 390 wide, on a phone. Keep
+   the silhouette compact and near 4:3: a wide, low cluster reads small on a
+   phone, and a tall one reads small on desktop.
 5. **Until proper cut-outs arrive** the theme shows whatever it is given
    whole, so today's 1300 × 600 composites appear as green rectangles
    floating on the pale ground. That is expected and is the reason to
    re-supply. Leave every slide's Badge setting blank until then: the
    vitamins file still carries its starburst, and a live badge beside it
-   would say the same thing twice.
+   would say the same thing twice. **The vitamins slide in particular** is a
+   1100 × 850 landscape composite, so in the square phone frame it shows with
+   pale bands above and below it. That is the frame doing its job, not a bug;
+   it goes away when the slide is re-supplied to this rule.
 6. **An empty slot stays visible.** A slide with no image (Mother & Baby,
    Gifts) shows the quiet striped placeholder on the same pale ground as
    the copy, which reads as an empty slot and not as a broken page. Keep
@@ -196,7 +200,7 @@ already has before they composite it.
    its own when the artwork is set.
 
 **Photographic alternative.** If a slide is ever a photograph rather than a
-cut-out, supply 1760 × 920 JPEG plus a 1100 × 850 mobile crop and the
+cut-out, supply 1760 × 920 JPEG plus a 1100 × 1100 square mobile crop and the
 theme's contain treatment still shows it whole; the copy sits beside it, not
 on it. Should a future layout overlay the copy on the photograph, the rule is
 the feature-tile one with the safe area moved: the left 45% of the desktop

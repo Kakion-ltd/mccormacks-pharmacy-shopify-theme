@@ -12,7 +12,10 @@
 <header style="width:100%; background:#ffffff;">
   <div class="hdr-row" style="max-width:1440px; margin:0 auto; padding:16px 30px; display:flex; flex-wrap:wrap; align-items:center; gap:12px 30px;">
     <div class="hdr-mobile-left" style="display:none; align-items:center; gap:16px; order:1;">
-      <button aria-label="Menu" data-mnav-open-btn style="border:none; background:transparent; padding:10px; margin:-10px; color:#2A2B2A; cursor:pointer; display:flex;"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+      <button aria-label="Menu" aria-expanded="false" aria-controls="mnav-drawer" data-mnav-open-btn style="border:none; background:transparent; padding:10px; margin:-10px; color:#2A2B2A; cursor:pointer; display:flex;">
+        <svg class="mnav-ico-open" width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        <svg class="mnav-ico-close" width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
+      </button>
       <a href="{{ routes.account_url }}" aria-label="My Account" class="hov-green" style="color:#2A2B2A; display:flex; padding:10px; margin:-10px;"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg></a>
     </div>
     <a href="{{ routes.root_url }}" class="hdr-logo" style="display:block; flex:0 0 auto;">
@@ -63,17 +66,12 @@
 </header>
 </div>
 
-{% # Mobile nav drawer %}
-<div class="mnav-overlay" data-mnav-close></div>
-<aside class="mnav-drawer" role="dialog" aria-modal="true" aria-label="Menu">
-  <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-bottom:1px solid #eceee9;">
-    <a href="{{ routes.root_url }}" aria-label="{{ shop.name }} — home" style="display:block;">
-      {% # theme-check-disable RemoteAsset -%}
-      <img src="{% render 'logo-src', width: 300 %}" alt="{{ shop.name }}" width="150" height="48" style="width:150px; height:auto; display:block;">
-      {%- # theme-check-enable RemoteAsset %}
-    </a>
-    <button aria-label="Close menu" data-mnav-close style="border:none; background:#f4f5f2; width:38px; height:38px; border-radius:999px; color:#2A2B2A; cursor:pointer; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
-  </div>
+{%- comment -%} Mobile nav: a disclosure, not a modal. It hangs from the bottom of the
+    header at rest (theme.js scrolls to the top on open and sets --mnav-top), full width to
+    the foot of the viewport, so the logo, the search and the cart stay visible and usable
+    above it. The hamburger becomes an X in place and closes it; main and footer are inert
+    while it is open. No overlay: the drawer covers everything below the header. {%- endcomment -%}
+<aside id="mnav-drawer" class="mnav-drawer" aria-label="Menu">
   {%- comment -%} Drill-down panels generated from taxonomy.json by
       setup/gen_category_nav.py, so the mobile nav, the desktop mega menu and the
       breadcrumbs all describe the same tree. Services is reached from the button

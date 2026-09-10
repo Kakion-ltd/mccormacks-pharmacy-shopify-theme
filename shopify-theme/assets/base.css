@@ -115,7 +115,6 @@ h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 
 [data-mega-trigger][data-open="true"] { color:var(--c-primary-text) !important; }
 
 /* Mobile drawer */
-.mnav-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.45); opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility 0s .25s; }
 /* visibility:hidden (not just the off-screen transform) so the closed drawer's
    links leave the tab order and the accessibility tree.
 
@@ -124,9 +123,13 @@ h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 
    slide-out has finished. A transitioned visibility does not become visible
    until the animation is under way, which made focus() on open a silent no-op
    in this drawer and in the cart drawer. */
-.mnav-drawer { position: fixed; top: 0; left: 0; bottom: 0; z-index: 201; width: 340px; max-width: 86vw; background: #ffffff; box-shadow: 0 0 40px rgba(0,0,0,.2); transform: translateX(-100%); visibility: hidden; transition: transform .28s cubic-bezier(.4,0,.2,1), visibility 0s .28s; display: flex; flex-direction: column; overflow-y: auto; }
-body[data-mnav-open] .mnav-overlay { opacity: 1; visibility: visible; transition: opacity .25s ease, visibility 0s; }
-body[data-mnav-open] .mnav-drawer { transform: translateX(0); visibility: visible; transition: transform .28s cubic-bezier(.4,0,.2,1), visibility 0s; }
+/* Below the sticky row (150) so it comes out from under the header; above page content. */
+.mnav-drawer { position: fixed; top: var(--mnav-top, 0); left: 0; right: 0; bottom: 0; z-index: 140; background: #ffffff; border-top: 1px solid #eceee9; transform: translateY(-10px); opacity: 0; visibility: hidden; transition: transform .22s ease, opacity .22s ease, visibility 0s .22s; display: flex; flex-direction: column; overflow-y: auto; overscroll-behavior: contain; }
+body[data-mnav-open] .mnav-drawer { transform: none; opacity: 1; visibility: visible; transition: transform .22s ease, opacity .22s ease, visibility 0s; }
+/* The hamburger becomes an X in place; theme.js swaps the label and aria-expanded. */
+.mnav-ico-close { display: none; }
+body[data-mnav-open] .mnav-ico-open { display: none; }
+body[data-mnav-open] .mnav-ico-close { display: block; }
 
 /* Responsive shell (ported verbatim from the design pages) */
 /* ---- Sticky header. Desktop: .hdr-sticky (logo, search, icons) sticks; the nav bar
@@ -191,7 +194,8 @@ body[data-mnav-open] .mnav-drawer { transform: translateX(0); visibility: visibl
   .hero-flex { flex-direction: column !important; border-radius: 16px !important; }
   .hero-copy { order: 2; flex: 1 1 auto !important; min-height: auto !important; height: auto !important; text-align: center; align-items: center !important; padding: 6px 22px 28px !important; }
   .hero-copy .slide-cta, .hero-copy .hero-badge, .hero-copy .hero-dots { align-self: center !important; }
-  .hero-art { order: 1; flex: 1 1 auto !important; width: 100%; min-height: 260px !important; height: 260px !important; }
+  /* Square art frame on phones, copy beneath it. The cut-out is shown whole (contain). */
+  .hero-art { order: 1; flex: 1 1 auto !important; width: 100%; aspect-ratio: 1 / 1; min-height: 0 !important; height: auto !important; }
   .hero-art .hero-glow { right: 50% !important; width: 70% !important; transform: translate(50%, -50%) !important; }
   .hero-art .hero-img-el { padding: 18px 16px !important; }
   .annc-row { justify-content: space-between !important; gap: 8px 14px !important; font-size: 11px !important; padding: 5px 16px !important; }
@@ -441,8 +445,8 @@ body[data-cd-open] { overflow: hidden; }
   .mnav-panel.is-entering, .mnav-panel.is-entering-back { animation: none; }
   /* Keep the visibility delay on close, or the drawer vanishes before it has
      finished being dismissed and focus lands nowhere. */
-  .mnav-overlay, .mnav-drawer { transition: visibility 0s .01s; }
-  body[data-mnav-open] .mnav-overlay, body[data-mnav-open] .mnav-drawer { transition: visibility 0s; }
+  .mnav-drawer { transition: visibility 0s .01s; }
+  body[data-mnav-open] .mnav-drawer { transition: visibility 0s; }
   .btn-fill:hover:not(:disabled) { transform: none; }
 }
 

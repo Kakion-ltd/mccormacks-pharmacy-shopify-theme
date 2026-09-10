@@ -131,20 +131,33 @@
     focusSoon(next.querySelector('[data-mnav-back], .mnav-link'));
   };
 
+  const mnavBtn = document.querySelector('[data-mnav-open-btn]');
+  const mnavInert = (on) => document.querySelectorAll('main, footer').forEach((el) => { el.inert = on; });
   const mnavOpen = () => {
     mnavLastFocus = document.activeElement;
+    // To the top first, so the drawer always hangs from the header at rest with the
+    // search row above it, wherever the shopper was on the page. Its top is main's
+    // document position: the sticky compensation keeps that constant even while the
+    // header row is still transitioning back to its at-rest height.
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    const main = document.querySelector('main');
+    if (mnav && main) mnav.style.setProperty('--mnav-top', Math.round(main.getBoundingClientRect().top + window.scrollY) + 'px');
     document.body.setAttribute('data-mnav-open', '');
-    focusSoon(mnav && mnav.querySelector('[data-mnav-close]'));
+    mnavInert(true);
+    if (mnavBtn) { mnavBtn.setAttribute('aria-expanded', 'true'); mnavBtn.setAttribute('aria-label', 'Close menu'); }
+    focusSoon(mnav && mnav.querySelector('[data-mnav-panel]:not([hidden]) .mnav-link'));
   };
   const mnavClose = () => {
     document.body.removeAttribute('data-mnav-open');
+    mnavInert(false);
+    if (mnavBtn) { mnavBtn.setAttribute('aria-expanded', 'false'); mnavBtn.setAttribute('aria-label', 'Menu'); }
     // Reset to the root so reopening does not drop the shopper back into
     // whatever branch they last looked at.
     if (mnavStack) mnavGoTo('root', false);
     if (mnavLastFocus && mnavLastFocus.focus) mnavLastFocus.focus();
   };
 
-  on(document, 'click', '[data-mnav-open-btn]', mnavOpen);
+  on(document, 'click', '[data-mnav-open-btn]', () => (document.body.hasAttribute('data-mnav-open') ? mnavClose() : mnavOpen()));
   on(document, 'click', '[data-mnav-close]', mnavClose);
   on(document, 'click', '[data-mnav-into]', (e, btn) => {
     e.preventDefault();

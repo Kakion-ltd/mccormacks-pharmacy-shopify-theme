@@ -53,7 +53,7 @@ with sync_playwright() as p:
     pg.locator("[data-mnav-open-btn]").click(); pg.wait_for_timeout(300)
     pg.locator('.mnav-row', has_text="Skincare").first.locator("[data-mnav-into]").click()
     pg.wait_for_timeout(250)
-    pg.locator("button[data-mnav-close]").click(); pg.wait_for_timeout(350)
+    pg.locator("[data-mnav-open-btn]").click(); pg.wait_for_timeout(350)   # the hamburger is the X now
     pg.locator("[data-mnav-open-btn]").click(); pg.wait_for_timeout(300)
     ck("reopening starts at the root again", pg.locator('[data-mnav-panel="root"]').is_visible())
 
@@ -70,11 +70,28 @@ with sync_playwright() as p:
     sale = pg.locator('.mnav-row', has_text="Sale").first
     ck("Sale has no chevron promising a submenu", sale.locator("[data-mnav-into]").count(), 0)
 
-    # Tapping the overlay strip beside the drawer closes it. (The drawer is
-    # still open here, so no reopen is needed — and the hamburger is behind it.)
-    pg.locator(".mnav-overlay").click(position={"x": 370, "y": 400}); pg.wait_for_timeout(350)
-    ck("overlay tap closes the drawer", pg.locator(".mnav-drawer").is_visible(), False)
-    pg.locator("[data-mnav-open-btn]").click(); pg.wait_for_timeout(300)
+    # Disclosure, not a modal: the drawer hangs under the header, which stays usable.
+    btn = pg.locator("[data-mnav-open-btn]")
+    ck("hamburger reads as the close control while open", btn.get_attribute("aria-expanded"), "true")
+    ck("hamburger label switched", btn.get_attribute("aria-label"), "Close menu")
+    ck("X icon shown, bars hidden", pg.evaluate("[document.querySelector('.mnav-ico-close').getBoundingClientRect().height > 0, document.querySelector('.mnav-ico-open').getBoundingClientRect().height]"), [True, 0])
+    ck("page scrolled to the top on open", pg.evaluate("window.scrollY"), 0)
+    ck("drawer top meets the header bottom",
+       pg.evaluate("Math.round(document.querySelector('.mnav-drawer').getBoundingClientRect().top) >= Math.round(document.querySelector('.hdr-search-row').getBoundingClientRect().bottom)"))
+    ck("search input still visible and on top",
+       pg.evaluate("(() => { const i = document.querySelector('.hdr-search-form input'); const r = i.getBoundingClientRect(); return r.height > 0 && document.elementFromPoint(r.left + 40, r.top + r.height / 2) === i; })()"))
+    ck("main and footer inert while open", pg.evaluate("document.querySelector('main').inert && document.querySelector('footer').inert"))
+    btn.click(); pg.wait_for_timeout(350)
+    ck("hamburger tap closes the drawer", pg.locator(".mnav-drawer").is_visible(), False)
+    ck("main released", pg.evaluate("document.querySelector('main').inert"), False)
+    ck("label back to Menu", btn.get_attribute("aria-label"), "Menu")
+    # Open from mid-page: the drawer still sits under the header at rest
+    pg.evaluate("window.scrollTo(0, 600)"); pg.wait_for_timeout(400)
+    btn.click(); pg.wait_for_timeout(400)
+    ck("opening mid-page scrolls to the top", pg.evaluate("window.scrollY"), 0)
+    ck("drawer top consistent after a mid-page open",
+       pg.evaluate("Math.round(document.querySelector('.mnav-drawer').getBoundingClientRect().top)"),
+       pg.evaluate("Math.round(document.querySelector('main').getBoundingClientRect().top)"))
 
     # A real navigation still works
     pg.locator('.mnav-row', has_text="Brands").first.locator("a.mnav-link").click()
