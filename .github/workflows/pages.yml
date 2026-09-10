@@ -1,9 +1,11 @@
 # Publishes the theme preview to GitHub Pages.
 #
-# preview/ is written for a real store — absolute /collections/... links and
-# assets at /shopify-theme/assets — which a project site served from /<repo>/
-# cannot serve. setup/build_static_preview.py restructures it into real
-# directories and prefixes the base path; see that file for the details.
+# The preview is rendered from the theme here (npm run render), not read from
+# git: preview/ is untracked so two sessions cannot sweep each other's renders
+# into a commit. The render is written for a real store — absolute
+# /collections/... links and assets at /shopify-theme/assets — which a project
+# site served from /<repo>/ cannot serve. setup/build_static_preview.py
+# restructures it into real directories and prefixes the base path.
 
 name: Deploy preview to Pages
 
@@ -11,9 +13,10 @@ on:
   push:
     branches: [main]
     paths:
-      - 'preview/**'
-      - 'shopify-theme/assets/**'
-      - 'setup/build_static_preview.py'
+      - 'shopify-theme/**'
+      - 'setup/**'
+      - 'package.json'
+      - 'package-lock.json'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -37,6 +40,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
         id: pages
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --include=dev
+      - name: Render preview from the theme
+        run: npm run render
       - name: Build static preview
         # base_path is "/mccormacks-pharmacy-shopify-theme" for a project site,
         # and "" if this ever moves to a user/org site or a custom domain.

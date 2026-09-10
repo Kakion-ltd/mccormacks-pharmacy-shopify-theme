@@ -994,4 +994,24 @@ if (process.argv.includes('--categories')) {
     } catch (e) { cfail++; if (cfail < 4) console.log(`  CAT FAIL ${c.handle}: ${String(e.message).slice(0, 120)}`); }
   }
   console.log(`categories: ${cok} ok, ${cfail} failed of ${collectionsList.length}`);
+
+  // A-Z index of every category preview, served at /collections/ by the static
+  // build. Generated here so it tracks collections.json; the original was a
+  // hand-made page that listed the count as of the first commit.
+  const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const groups = [['menu', 'Departments'], ['group', 'Category groups'], ['leaf', 'Categories'], ['brand', 'Brands']];
+  const chip = 'background:#eef2e8;color:#3f6b4f;font-weight:700;font-size:13.5px;border-radius:999px;padding:7px 14px;text-decoration:none;';
+  const h = "font-family:'Arial Rounded MT Bold',Arial,sans-serif;color:#3f6b4f;";
+  const sections = groups.map(([level, label]) => {
+    const items = collectionsList.filter((c) => c.level === level).sort((a, b) => a.title.localeCompare(b.title));
+    return `<h2 style="${h}margin:34px 0 12px;">${label} (${items.length})</h2>\n    <div style="display:flex;flex-wrap:wrap;gap:8px;">`
+      + items.map((c) => `<a href="${c.handle}.html" style="${chip}">${esc(c.title)}</a>`).join('') + '</div>';
+  }).join('\n');
+  writeFileSync(join(catDir, 'index.html'),
+    `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">\n`
+    + `<title>Category previews — McCormack's</title>\n`
+    + `<body style="font-family:Mulish,system-ui,sans-serif;max-width:1100px;margin:0 auto;padding:40px 24px;color:#2A2B2A;">\n`
+    + `<h1 style="${h}">Every category page (${collectionsList.length})</h1>\n`
+    + `<p style="color:#5a6153;">Mock-rendered previews — one per collection, using its real template, chips, breadcrumb and description.</p>\n`
+    + sections + '\n</body>\n');
 }

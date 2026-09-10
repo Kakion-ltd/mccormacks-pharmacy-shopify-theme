@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "echo 'no dependencies'",
-  "buildCommand": "python3 setup/build_static_preview.py --base '' --out _site",
+  "installCommand": "npm ci --include=dev",
+  "buildCommand": "npm run render && python3 setup/build_static_preview.py --base '' --out _site",
   "outputDirectory": "_site",
   "cleanUrls": true,
   "trailingSlash": false

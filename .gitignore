@@ -14,3 +14,9 @@ node_modules
 
 # Static Pages build output
 _site/
+
+# Rendered preview — regenerate with `npm run render`. Untracked since 10 Sep 2026
+# so parallel sessions cannot sweep each other's renders into a commit; Vercel
+# and Pages render it themselves at build time.
+preview/
+.render-new/

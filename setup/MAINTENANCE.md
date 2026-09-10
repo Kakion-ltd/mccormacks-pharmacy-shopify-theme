@@ -635,6 +635,25 @@ Each session also runs its own preview server on its own port
 (`python3 setup/serve_preview.py 8736`, not the default 8734) and stops it by
 PID, never with `pkill -f serve_preview`, which kills every session's server.
 
+### preview/ is untracked and per tree (10 Sep 2026)
+
+`preview/` came out of git the same day. Every section change re-rendered
+300-odd files, and any `git add preview` or `git add -A` swept up whatever
+the other session had rendered; two commits landed with the wrong preview
+contents that way. Vercel and the Pages workflow now run `npm run render`
+themselves, so nothing rendered is tracked and there is nothing to sweep.
+
+What remains is a disk race, not a git one. Sessions sharing a single tree
+render into the same `preview/`, so the dev server serves whichever render
+ran last, and a verify run can be checking the other session's theme. With a
+worktree per session each tree has its own `preview/`, and the race is gone.
+`npm run verify` re-renders first, so it always checks the tree it runs in.
+
+The render-identity check (render, then an empty `git diff`) went with the
+tracked folder. `npm run render:diff` is the replacement: it renders to a
+temp folder and lists which pages differ from the last render, before
+`npm run render` overwrites it.
+
 ### Why — the two collisions of 10 Sep 2026
 
 Both happened in the two hours when two sessions shared one tree, and both
