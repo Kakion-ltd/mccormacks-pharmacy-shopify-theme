@@ -537,6 +537,13 @@ same section also requires the PSI's contact details, a link to psi.ie and
 a two-year transaction-record statement, which live on the Internet Supply
 Pharmacy page.
 
+**Source relied on, checked 10 September 2026:** PSI *Guidance on Internet
+Supply of Non-Prescription Medicines*, Version 1, dated June 2015 (July 2015
+in its page headers), the version published on psi.ie on that date, plus the
+Internet Supply pages on psi.ie. Whether the PSI has issued anything since,
+or has corresponded with the client about their listing, is unconfirmed;
+re-check both before relying on this section again.
+
 The copy beside the product buy box (PSI-registered line, Ask a pharmacist,
 a second logo) is reassurance, not compliance. It shows on medicines only:
 products tagged with the restricted tag or typed under "Pharmacy > ...".
