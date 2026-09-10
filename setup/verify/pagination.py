@@ -29,7 +29,15 @@ def fetch(path):
         return r.read().decode("utf-8", "replace")
 
 def cards(html):
-    return len(re.findall(r'class="pcard"', html))
+    """Product cards in the results grid, not every .pcard on the page.
+
+    .pcard is shared by every product card in the theme (0a39de0 gave it to the
+    rails as well, for the quick-view hover reveal), so a document-wide count
+    adds the "You may also like" rail's six to every page of results. The grid
+    is <div class="pgrid"> in main-collection.liquid, the rail #also-track-<section id> after it.
+    """
+    grid = html.split('class="pgrid"', 1)[-1].split('id="also-track', 1)[0]
+    return len(re.findall(r'class="pcard"', grid))
 
 def page_links(html):
     return re.findall(r'<a href="(/collections/paginated-fixture[^"]*)"[^>]*>([^<]{1,12})<', html)

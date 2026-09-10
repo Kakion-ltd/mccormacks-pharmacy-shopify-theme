@@ -28,6 +28,17 @@ def read(name):
     p = PREVIEW / name
     return p.read_text(encoding="utf-8", errors="replace") if p.exists() else None
 
+def grid_cards(html):
+    """Product cards in the results grid, not every .pcard on the page.
+
+    .pcard is shared by every product card in the theme (0a39de0 gave it to the
+    rails too, for the quick-view hover reveal), so a document-wide count also
+    picks up the "You may also like" rail under the grid. Same trap as
+    pagination.py: the class means "product card", not "product in these results".
+    """
+    grid = html.split('class="pgrid"', 1)[-1].split('id="also-track', 1)[0]
+    return len(re.findall(r'class="pcard"', grid))
+
 # --- D. Empty and filtered collections ---------------------------------------
 filtered = fetch("/collections/filtered-fixture")
 fempty = fetch("/collections/filtered-empty-fixture")
@@ -37,8 +48,7 @@ empty = fetch("/collections/empty-fixture")
 ck("a filtered collection shows removable filter chips",
    len(re.findall(r'<a href="/collections/filtered-fixture".*?&times;.*?</a>', filtered, re.S)) >= 1)
 ck("a filtered collection offers Clear all", "Clear all" in filtered)
-ck("a filtered collection still lists its products",
-   len(re.findall(r'class="pcard"', filtered)), 3)
+ck("a filtered collection still lists its products", grid_cards(filtered), 3)
 
 # The distinction that matters: filtered-to-nothing must not read as an empty
 # collection, or the shopper clears their basket-filling instead of their filters.
@@ -54,10 +64,10 @@ ck("an empty collection does not blame filters",
 # The button is only useful if it lands somewhere. It pointed at /collections/all,
 # which the preview did not serve until this state started rendering.
 ck("Continue shopping resolves rather than 404ing",
-   fetch("/collections/all").count("class=\"pcard\"") > 0)
+   grid_cards(fetch("/collections/all")) > 0)
 
 ck("neither empty state lists products",
-   len(re.findall(r'class="pcard"', fempty)) + len(re.findall(r'class="pcard"', empty)), 0)
+   grid_cards(fempty) + grid_cards(empty), 0)
 
 # --- F. Signed-in customer ----------------------------------------------------
 for stem, signed_out_text, signed_in_text in (
