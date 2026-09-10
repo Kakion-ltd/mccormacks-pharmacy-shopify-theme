@@ -17,7 +17,7 @@ drawn in them:
 | Token | Hex | Where it lands on imagery |
 |---|---|---|
 | Primary green | `#82C914` | Buttons and chips over banners |
-| Deep green | `#3F6B4F` | The hero's left-hand copy panel |
+| Deep green | `#3F6B4F` | Hero headline and buttons |
 | Ink | `#2A2B2A` | All body text, incl. text set on primary green |
 | Tint | `#E6F2D5` | Panel behind category banner copy |
 
@@ -114,8 +114,8 @@ few lines.
 
 | Slot | Source px | Ratio | Notes |
 |---|---|---|---|
-| Hero slide (desktop) | 1760 × 920 | 1.91:1 | Left ~500px sits under the green copy panel |
-| Hero slide (mobile) | 1100 × 850 | 1.30:1 | Optional but recommended — the desktop crop loses the subject on a phone |
+| Hero slide | 1600 × 1000 | 1.6:1 | Transparent PNG/WebP cut-out on no ground, shown whole on the theme's own ground at every width; no mobile file. See the house rule below |
+| Hero slide, photographic alternative | 1760 × 920 + 1100 × 850 | 1.91:1 / 1.30:1 | Only if a slide is a photograph rather than a cut-out; the safe-area rule is in the same house rule |
 | Category / sale banner | 1300 × 600 | 2.17:1 | Subject right |
 | Feature tile | 1360 × 765 | 16:9 | Subject right and upper; bottom-left 55% × 55% is background only; theme darkens the bottom 60%; no text or badges; both tiles in a section share one image language. See the house rule below |
 | Feature tile (mobile) | 800 × 800 | 1:1 | Optional. Same rule applied to its own bottom-left corner |
@@ -160,6 +160,49 @@ treatment, so they only read as a pair if the artwork follows the same rule.
 
 `tile-vitamins.jpg` fails rules 2, 5 and 6 and needs a re-cut; there is no
 master for it in `artwork/`, so ask the supplier for one with this rule.
+
+## House rule: homepage hero slides
+
+The hero changed in September 2026. It was a fixed green copy panel beside a
+cropped image, so the supplier composited product cut-outs onto a green
+gradient with a "Big Savings" starburst, and the two greens met in a hard
+seam. Now the whole hero sits on one pale ground; the theme draws the lime
+glow, the soft shadow and the offer badge, and shows the artwork whole rather
+than cropping it. The artwork is therefore the cut-out layer the supplier
+already has before they composite it.
+
+1. **Frame.** 1600 × 1000, transparent PNG, or WebP with alpha if they can
+   (under 150 KB; PNG under 500 KB). One file per slide; no mobile file.
+2. **Content.** The product cluster only, filling the frame with about 5%
+   clear on every edge. No ground, no gradient, no drop shadow, no
+   reflection. The theme adds the shadow.
+3. **No text in the image.** No starburst, price flash, "special offer" or
+   brand lockup. The slide's Badge setting carries the offer as live text,
+   blank by default, editable in the theme editor and read by screen
+   readers.
+4. **Composition.** The cluster is shown whole at 460px tall on desktop and
+   260px on a phone, so keep the silhouette compact: a wide, low cluster
+   reads small on a phone. Roughly 3:2 suits both.
+5. **Until proper cut-outs arrive** the theme shows whatever it is given
+   whole, so today's 1300 × 600 composites appear as green rectangles
+   floating on the pale ground. That is expected and is the reason to
+   re-supply. Leave every slide's Badge setting blank until then: the
+   vitamins file still carries its starburst, and a live badge beside it
+   would say the same thing twice.
+6. **An empty slot stays visible.** A slide with no image (Mother & Baby,
+   Gifts) shows the quiet striped placeholder on the same pale ground as
+   the copy, which reads as an empty slot and not as a broken page. Keep
+   the slide enabled rather than hiding it; the placeholder disappears on
+   its own when the artwork is set.
+
+**Photographic alternative.** If a slide is ever a photograph rather than a
+cut-out, supply 1760 × 920 JPEG plus a 1100 × 850 mobile crop and the
+theme's contain treatment still shows it whole; the copy sits beside it, not
+on it. Should a future layout overlay the copy on the photograph, the rule is
+the feature-tile one with the safe area moved: the left 45% of the desktop
+frame and the bottom 50% of the mobile frame are background only, mid to
+dark in tone because a scrim darkens them, with the subject right and upper
+and 8% clear on every edge. No text, true tone.
 
 ## House rule: hot-offer images
 

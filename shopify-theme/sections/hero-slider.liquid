@@ -17,24 +17,30 @@
 {%- endif -%}
 
 <section style="max-width:1440px; margin:0 auto; padding:12px 30px 8px;">
-  <div id="hero-{{ section.id }}" data-slider {% if section.settings.autoplay_seconds > 0 %}data-slider-auto="{{ section.settings.autoplay_seconds | times: 1000 }}"{% endif %} class="hero-flex" style="position:relative; display:flex; flex-wrap:wrap; border-radius:18px; overflow:hidden; box-shadow:0 20px 50px rgba(32,69,65,.16);">
+  <div id="hero-{{ section.id }}" data-slider {% if section.settings.autoplay_seconds > 0 %}data-slider-auto="{{ section.settings.autoplay_seconds | times: 1000 }}"{% endif %} class="hero-flex" style="position:relative; display:flex; flex-wrap:wrap; border-radius:18px; overflow:hidden; background:linear-gradient(120deg,#F6F8F1 0%,var(--c-tint) 100%); box-shadow:0 20px 50px rgba(32,69,65,.12);">
     {%- for block in section.blocks -%}
       {%- assign p = forloop.index0 -%}
       <div data-slide {{ block.shopify_attributes }}{% unless forloop.first %} style="display:none;"{% endunless %}>
-        <div class="hero-green" style="flex:0 0 500px; background:linear-gradient(160deg,var(--c-primary) 0%,var(--c-primary-hover) 100%); display:flex; flex-direction:column; justify-content:center; padding:clamp(32px,4.5vw,64px); min-height:460px; height:460px; position:relative; z-index:2;">
-          {% if forloop.first %}<h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-on-primary); font-size:clamp(32px,4.2vw,54px); line-height:1.02; margin:0 0 16px; letter-spacing:-.01em;">{{ block.settings.title }}</h1>{% else %}<h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-on-primary); font-size:clamp(32px,4.2vw,54px); line-height:1.02; margin:0 0 16px; letter-spacing:-.01em;">{{ block.settings.title }}</h2>{% endif %}
-          <p style="color:var(--c-on-primary); font-size:clamp(15px,1.3vw,18px); font-weight:600; line-height:1.5; margin:0 0 clamp(24px,3vw,34px); max-width:420px; opacity:.96;">{{ block.settings.subtext }}</p>
-          <a href="{{ block.settings.link }}" class="slide-cta hero-cta btn" style="align-self:flex-start; letter-spacing:.03em; gap:10px; box-shadow:0 10px 24px rgba(0,0,0,.15); background:#ffffff; color:var(--c-dark)">{{ block.settings.cta }}<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
-          <div style="display:flex; gap:10px; margin-top:clamp(20px,2.6vw,30px); justify-content:flex-start;">
+        <div class="hero-copy" style="flex:0 0 560px; display:flex; flex-direction:column; justify-content:center; padding:clamp(32px,4.5vw,64px); min-height:460px; height:460px; position:relative; z-index:2;">
+          {%- if block.settings.badge != blank -%}
+          <span class="hero-badge" style="align-self:flex-start; background:var(--c-accent); color:var(--c-on-accent); font-weight:800; font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; padding:6px 11px; border-radius:999px; margin-bottom:14px;">{{ block.settings.badge }}</span>
+          {%- endif -%}
+          {% if forloop.first %}<h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(32px,4.2vw,54px); line-height:1.02; margin:0 0 16px; letter-spacing:-.01em;">{{ block.settings.title }}</h1>{% else %}<h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(32px,4.2vw,54px); line-height:1.02; margin:0 0 16px; letter-spacing:-.01em;">{{ block.settings.title }}</h2>{% endif %}
+          <p style="color:#3a3d39; font-size:clamp(15px,1.3vw,18px); font-weight:600; line-height:1.5; margin:0 0 clamp(24px,3vw,34px); max-width:420px;">{{ block.settings.subtext }}</p>
+          <a href="{{ block.settings.link }}" class="slide-cta hero-cta btn btn-fill" style="align-self:flex-start; letter-spacing:.03em; gap:10px">{{ block.settings.cta }}<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
+          <div class="hero-dots" style="display:flex; gap:10px; margin-top:clamp(20px,2.6vw,30px); justify-content:flex-start;">
             {%- for b in section.blocks -%}
               {%- assign j = forloop.index0 -%}
-              <button aria-label="Go to slide {{ forloop.index }}" data-dot-proxy="{{ j }}" style="width:{% if j == p %}22{% else %}8{% endif %}px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:var(--c-on-primary); opacity:{% if j == p %}1{% else %}.45{% endif %}; transition:width .2s ease;"></button>
+              <button aria-label="Go to slide {{ forloop.index }}" data-dot-proxy="{{ j }}" style="width:{% if j == p %}22{% else %}8{% endif %}px; height:8px; border-radius:999px; border:none; cursor:pointer; padding:0; background:var(--c-dark); opacity:{% if j == p %}1{% else %}.45{% endif %}; transition:width .2s ease;"></button>
             {%- endfor -%}
           </div>
         </div>
-        <div class="hero-img" style="position:relative; flex:1 1 320px; min-height:460px; height:460px; background:linear-gradient(135deg,var(--c-accent) 0%,var(--c-primary-hover) 44%,var(--c-primary) 100%);">
-          <div style="position:absolute; top:-28%; left:6%; width:46%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.10);"></div>
-          <div style="position:absolute; bottom:-32%; right:-8%; width:54%; aspect-ratio:1; border-radius:999px; background:rgba(255,255,255,.07);"></div>
+        {%- comment -%} One quiet ground for the whole hero. The cut-out cluster is shown
+            whole (object-fit contain), never cropped, so one file serves every width
+            and nothing baked into it is needed: the theme supplies the ground, the
+            lime glow, the shadow and the badge. See IMAGE-BRIEF, hero house rule. {%- endcomment -%}
+        <div class="hero-art" style="position:relative; flex:1 1 320px; min-height:460px; height:460px;">
+          <div class="hero-glow" aria-hidden="true" style="position:absolute; right:6%; top:50%; width:62%; aspect-ratio:1; transform:translateY(-50%); border-radius:999px; background:radial-gradient(circle, color-mix(in srgb, var(--c-accent) 55%, transparent) 0%, color-mix(in srgb, var(--c-accent) 28%, transparent) 45%, transparent 70%);"></div>
           {%- comment -%} Slide 1 is the LCP element on the homepage: load it eagerly at
               high priority. Every later slide is off-screen behind the slider, so it
               stays lazy — making them all eager would compete with the LCP for bandwidth. {%- endcomment -%}
@@ -48,7 +54,7 @@
               assign slide_priority = 'auto'
             endif
           -%}
-          {%- assign hero_style = 'position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;' -%}
+          {%- assign hero_style = 'position:absolute; inset:0; width:100%; height:100%; object-fit:contain; display:block; padding:28px 24px; box-sizing:border-box; filter:drop-shadow(0 18px 28px rgba(32,69,65,.22));' -%}
           {%- if block.settings.image or block.settings.image_mobile -%}
             {%- comment -%} Separate mobile art where supplied: the desktop frame is
                 1.91:1 but the mobile frame is 1.30:1, which crops a landscape
@@ -83,7 +89,7 @@
                    class="hero-img-el" style="{{ hero_style }}">
             </picture>
           {%- else -%}
-            {%- render 'image-placeholder', w: 1760, h: 920, label: 'Hero slide', note: 'Landscape — the left 500px sits under the green panel.' -%}
+            {%- render 'image-placeholder', w: 1600, h: 1000, label: 'Hero slide', note: 'Transparent cut-out on no ground, shown whole at every width.' -%}
           {%- endif -%}
         </div>
       </div>
@@ -100,7 +106,6 @@
 #hero-{{ section.id }} [data-slide] { display: contents; }
 /* Vertical panning stays with the browser; horizontal is ours to interpret. */
 #hero-{{ section.id }} { touch-action: pan-y; }
-.hero-cta:hover { background: var(--c-dark) !important; color:var(--c-on-dark) !important; }
 {% endstyle %}
 
 <script>
@@ -174,21 +179,74 @@
 {
   "name": "Hero slider",
   "settings": [
-    { "type": "range", "id": "autoplay_seconds", "label": "Auto-rotate slides every (seconds, 0 = off)", "min": 0, "max": 12, "step": 1, "default": 6 }
+    {
+      "type": "range",
+      "id": "autoplay_seconds",
+      "label": "Auto-rotate slides every (seconds, 0 = off)",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    }
   ],
   "blocks": [
     {
       "type": "slide",
       "name": "Slide",
       "settings": [
-        { "type": "text", "id": "title", "label": "Title", "default": "Slide heading" },
-        { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "One line on what this slide is for." },
-        { "type": "text", "id": "cta", "label": "Button label", "default": "SHOP NOW" },
-        { "type": "url", "id": "link", "label": "Button link" },
-        { "type": "image_picker", "id": "image", "label": "Image" },
-        { "type": "image_picker", "id": "image_mobile", "label": "Mobile image", "info": "Optional. Desktop frame is 1.91:1, mobile is 1.30:1 — supply a taller crop here rather than letting the landscape image be cut." },
-        { "type": "text", "id": "image_asset", "label": "Fallback theme asset (onboarding only)", "info": "Filename of a theme asset used until an image is picked." },
-        { "type": "text", "id": "image_mobile_asset", "label": "Fallback mobile theme asset (onboarding only)", "info": "Filename of a theme asset used below 900px. Supply a 1.30:1 crop, 1100x850." }
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge",
+          "info": "Live text above the title, e.g. Special offer. Blank by default. Never bake a starburst or price flash into the artwork."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Slide heading"
+        },
+        {
+          "type": "textarea",
+          "id": "subtext",
+          "label": "Subtext",
+          "default": "One line on what this slide is for."
+        },
+        {
+          "type": "text",
+          "id": "cta",
+          "label": "Button label",
+          "default": "SHOP NOW"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Transparent PNG or WebP cut-out, 1600 x 1000, no ground, no shadow, no text. Shown whole at every width, never cropped."
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile image",
+          "info": "Optional and normally unnecessary: the cut-out is shown whole on a phone too. Only for a photographic slide with its own portrait crop."
+        },
+        {
+          "type": "text",
+          "id": "image_asset",
+          "label": "Fallback theme asset (onboarding only)",
+          "info": "Filename of a theme asset used until an image is picked."
+        },
+        {
+          "type": "text",
+          "id": "image_mobile_asset",
+          "label": "Fallback mobile theme asset (onboarding only)",
+          "info": "Filename of a theme asset used below 900px. Only for a photographic slide; a cut-out needs none."
+        }
       ]
     }
   ],

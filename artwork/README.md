@@ -6,7 +6,7 @@ tree. One folder per slot, sized per `IMAGE-BRIEF.md`.
 
 | Folder | Slot | Supply at |
 |---|---|---|
-| `hero-slides/` | Homepage hero slider, desktop and `-mobile` | 1760 × 920, 1100 × 850 |
+| `hero-slides/` | Homepage hero slider | 1600 × 1000 transparent PNG cut-out; photographic slides 1760 × 920 + 1100 × 850 `-mobile` |
 | `category-banners/` | Department collection banners | 1300 × 600 |
 | `feature-tiles/` | Homepage feature tiles | 1360 × 765 |
 | `hot-offers/` | Homepage hot-offer tiles | 1032 × 774 |

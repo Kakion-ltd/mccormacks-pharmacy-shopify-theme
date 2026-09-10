@@ -573,7 +573,8 @@ these places:
   nav department or a header promo link.
 - **Hero slides**: add/remove/reorder the slide blocks in the editor. The
   "Summer Travel Shop" slide is one of these; retitle or remove it when the
-  season turns.
+  season turns. An offer flash is the slide's Badge setting, live text and
+  blank by default; never a starburst baked into the artwork.
 - **Homepage promo strip**: the strip's text, button and link are section
   settings (theme editor → homepage → Promo strip). September 2026 it still
   reads "Pollen levels are rising"; that is hayfever copy from spring.
