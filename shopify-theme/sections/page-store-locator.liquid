@@ -114,7 +114,7 @@
             <a href="https://www.google.com/maps/search/?api=1&amp;query={{ full_address | url_encode }}" target="_blank" rel="noopener" class="loc-btn-outline" style="display:inline-flex; align-items:center; justify-content:center; gap:9px; height:52px; padding:0 26px; border-radius:10px; border:1.5px solid #cdd3c5; color:var(--c-dark); font-weight:700; font-size:15px;">Get directions</a>
           </div>
           {%- if block.settings.image != blank -%}
-            <div style="width:100%; height:300px; border-radius:16px; overflow:hidden; background:#f4f5f2; border:1px solid #e6e7e4;">
+            <div style="width:100%; height:300px; border-radius:16px; overflow:hidden; background:#ffffff; border:1px solid #eceee9;">
               {{ block.settings.image | image_url: width: 1520 | image_tag: style: 'width:100%; height:100%; object-fit:cover; display:block;', alt: block.settings.name | escape }}
             </div>
           {%- else -%}

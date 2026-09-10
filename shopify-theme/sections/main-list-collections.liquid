@@ -11,7 +11,7 @@
   <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:18px;">
     {%- for collection in collections -%}
       <a href="{{ collection.url }}" class="colcard" style="display:block; border-radius:14px; overflow:hidden; border:1px solid #e6e7e4; background:#ffffff;">
-        <span style="display:block; width:100%; aspect-ratio:4/3; overflow:hidden; background:#f4f5f2;">
+        <span style="display:block; width:100%; aspect-ratio:4/3; overflow:hidden; background:#ffffff;">
           {%- if collection.featured_image -%}
             {%- capture col_alt %}{% render 'image-alt', image: collection.featured_image, collection: collection %}{% endcapture -%}
             {{ collection.featured_image | image_url: width: 600 | image_tag: alt: col_alt, loading: 'lazy', style: 'width:100%; height:100%; object-fit:cover; display:block;' }}

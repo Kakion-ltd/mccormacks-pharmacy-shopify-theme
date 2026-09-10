@@ -1,6 +1,6 @@
 {%- comment -%} Blog article card. Accepts: article. {%- endcomment -%}
 <a href="{{ article.url }}" class="art-card" style="display:flex; flex-direction:column; border:1px solid #e6e7e4; border-radius:16px; overflow:hidden; background:#ffffff; color:#2A2B2A; transition:box-shadow .18s, transform .18s;">
-  <div style="width:100%; aspect-ratio:4/3; overflow:hidden; background:#f4f5f2;">
+  <div style="width:100%; aspect-ratio:4/3; overflow:hidden; background:#ffffff;">
     {%- if article.image -%}
       {{ article.image | image_url: width: 800 | image_tag: style: 'width:100%; height:100%; object-fit:cover; display:block;', alt: article.title | escape }}
     {%- else -%}
