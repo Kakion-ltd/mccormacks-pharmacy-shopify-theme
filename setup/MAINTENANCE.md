@@ -635,6 +635,43 @@ renders in no preview is covered by no check, however many checks there are.
 
 ---
 
+### The consent banner is ours to maintain, including when the law moves (11 Sep 2026)
+
+Shopify's own privacy banner was disabled in Settings -> Customer privacy, because
+running it alongside ours put its z-index 2,000,000 over our 400 and made our Accept
+and Reject unclickable. Ours was kept: it drives Shopify's Customer Privacy API
+directly (`setTrackingConsent`), honours the shop's region rules
+(`shouldShowBanner`), offers granular preferences/analytics/marketing, fails closed if
+the API errors, and carries 80 assertions plus a recorded contrast decision. Shopify's
+banner duplicated that rather than adding to it.
+
+**Global Privacy Control was checked before disabling theirs, and is not lost.** GPC is
+handled by the Customer Privacy API, not by the banner UI. Measured on the live store
+with `Sec-GPC: 1` and `navigator.globalPrivacyControl = true`, with Shopify's
+`storefront-banner.js` blocked at the network layer so its banner never entered the DOM:
+
+    sale_of_data       ""  ->  "no"
+    saleOfDataAllowed  true -> false
+    getCCPAConsent()   "no_interaction" -> "no"
+
+Identical with the banner script allowed and blocked, and set before any banner is
+touched. So the signal is processed by the API we already load ourselves. For Irish
+traffic it is not load-bearing anyway - region resolves IE, regulation GDPR,
+`saleOfDataRegion` false, `shouldShowCCPABanner` false - but it works for US visitors
+where GPC has legal force under CCPA/CPRA.
+
+**The standing obligation this creates.** Shopify maintains their banner against
+regulatory change; nobody maintains ours but us. If consent law changes - new
+categories, new wording, new default behaviour, a new signal like GPC - our banner does
+not follow automatically and someone has to update `snippets/consent-banner.liquid`,
+the handlers in `theme.js`, and `verify/consent.py`. That is a live obligation for a
+pharmacy, which sits in a higher-scrutiny sector than most retail. Whoever takes this on
+at handover needs to know it is theirs.
+
+If that maintenance is ever unwanted, the reversal is cheap and asymmetric: re-enable
+Shopify's banner in Settings -> Customer privacy (one toggle) and remove ours. Keeping
+both is the one option that is never correct - it is where this started.
+
 ### The sub-class the harness cannot reach: markup Shopify injects (11 Sep 2026)
 
 The eight defects above are all findings a browser could reach locally. Two more found
