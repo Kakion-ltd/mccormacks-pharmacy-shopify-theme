@@ -139,6 +139,10 @@ body[data-mnav-open] .mnav-drawer { transform: translateX(0); visibility: visibl
   .hdr-sticky.is-stuck header { padding: 6px 30px; }
   .hdr-sticky.is-stuck .hdr-logo img { width: 130px !important; }
   .hdr-sticky.is-stuck .hdr-search-form input { padding: 6px 0 !important; }
+  /* The two nav-row pills sit next to plain text links, so they are slimmer than the
+     40px .chip elsewhere. The row is 44px: 32 pill, 5px padding each side, 1px borders. */
+  .main-nav-bar > div > div > a { min-height: 32px; padding: 0 14px; font-size: 13.5px; }
+  .main-nav-bar > div > div > a svg { width: 16px; height: 16px; }
   /* !important: .hdr-row carries display:flex inline for the phone layout. */
   .hdr-row, .hdr-search-row { display: contents !important; }
   .hdr-logo { grid-column: 1; grid-row: 1; justify-self: start; }
@@ -150,7 +154,7 @@ body[data-mnav-open] .mnav-drawer { transform: translateX(0); visibility: visibl
   .hdr-sticky header { padding: 12px 20px; column-gap: 18px; grid-template-columns: 1fr minmax(200px, 340px) 1fr; }
   .hdr-sticky.is-stuck header { padding: 5px 20px; }
   .hdr-icons { gap: 18px !important; }
-  .main-nav-bar > div { padding: 3px 20px !important; gap: 8px 16px !important; }
+  .main-nav-bar > div { padding: 5px 20px !important; gap: 8px 16px !important; }
   .main-nav-bar > div > nav a { font-size: 12px !important; padding: 0 12px !important; height: 28px !important; gap: 7px !important; white-space: nowrap !important; }
   section { padding-left: 20px !important; padding-right: 20px !important; }
 }
