@@ -106,25 +106,25 @@
                   {%- comment -%} Written by hand, as the hero slider does. image_tag's preload argument
                       emitted nothing on the dev store, and a link carrying imagesrcset was dropped
                       from the served page; two media-scoped links, the pattern the slider already
-                      uses, do render. 600 covers 78vw on phones at 2x, 1000 covers 40vw on desktop. {%- endcomment -%}
+                      uses, do render. 600 covers 85vw on phones at 2x, 1000 covers 52vw on desktop at 1x. {%- endcomment -%}
                   <link rel="preload" as="image" href="{{ media.preview_image | image_url: width: 1000 }}" media="(min-width: 901px)" fetchpriority="high">
                   <link rel="preload" as="image" href="{{ media.preview_image | image_url: width: 600 }}" media="(max-width: 900px)" fetchpriority="high">
                   {{ media.preview_image | image_url: width: 1200 | image_tag:
                        widths: '400,600,800,1000,1200',
-                       sizes: '(max-width: 900px) 78vw, 40vw',
+                       sizes: '(max-width: 900px) 85vw, 52vw',
                        alt: main_alt,
                        loading: 'eager',
                        fetchpriority: 'high',
                        data-pdp-img: forloop.index0,
-                       style: 'max-width:78%; max-height:90%; object-fit:contain; display:block;' }}
+                       style: 'width:85%; height:auto; display:block;' }}
                 {%- else -%}
                   {{ media.preview_image | image_url: width: 1200 | image_tag:
                        widths: '400,600,800,1000,1200',
-                       sizes: '(max-width: 900px) 78vw, 40vw',
+                       sizes: '(max-width: 900px) 85vw, 52vw',
                        alt: main_alt,
                        loading: 'lazy',
                        data-pdp-img: forloop.index0,
-                       style: 'max-width:78%; max-height:90%; object-fit:contain; display:block; display:none;' }}
+                       style: 'width:85%; height:auto; display:block; display:none;' }}
                 {%- endif -%}
               {%- endfor -%}
             {%- else -%}

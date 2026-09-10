@@ -194,6 +194,12 @@ image stopped floating inside the card and started bleeding to its edge.
   subject touch an edge.
 - Product photography is loaded from Shopify's product records, not the theme —
   it comes with the catalogue rather than from this brief.
+- **Open question for the client (2026-09-10):** the catalogue's 2,474 product images
+  are all 600 × 600 (a 284-image sample of the store's files, plus 300 from the current
+  site, was 100% square at that size). Shopify never upscales, so the gallery's 1000 and
+  1200 srcset candidates all resolve to the 600 file and the desktop gallery upscales it.
+  Either the 1200 × 1200 spec above is aspirational or the images need re-supplying at
+  1200; the theme has not been changed either way.
 
 ## Not needed
 
