@@ -244,11 +244,6 @@
                 {%- endif -%}
               </a>
               {% render 'wishlist-button', product: product %}
-              {%- if quick_add -%}
-                <button data-add-id="{{ variant.id }}" class="pcard-view btn-sm btn-outline" style="position:absolute; left:14px; right:14px; bottom:14px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease">Add To Bag</button>
-              {%- else -%}
-                <a href="{{ product.url }}" class="pcard-view btn-sm btn-outline" style="position:absolute; left:14px; right:14px; bottom:14px; opacity:0; transform:translateY(8px); transition:opacity .2s ease, transform .2s ease">View Product</a>
-              {%- endif -%}
             </div>
             <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">{{ product.vendor }}</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="{{ product.url }}" class="hov-green" style="color:#2A2B2A;">{{ product.title }}</a></h3>
@@ -259,10 +254,14 @@
                 <span style="color:#666b60; font-weight:600; font-size:15px; text-decoration:line-through;">{{ product.compare_at_price | money }}</span>
               {%- endif -%}
             </div>
+            {%- comment -%} One treatment at every width, as the design handoff has it: a
+                filled button under the price. The desktop hover-reveal pill over the
+                image was a conversion-era addition that gave the same action a second
+                look and no hover. {%- endcomment -%}
             {%- if quick_add -%}
-              <button data-add-id="{{ variant.id }}" class="pcard-mobile-btn btn-sm btn-fill" style="display:none; margin-top:12px; width:100%">Add To Bag</button>
+              <button data-add-id="{{ variant.id }}" class="btn-sm btn-fill" style="margin-top:12px; width:100%">Add To Bag</button>
             {%- else -%}
-              <a href="{{ product.url }}" class="pcard-mobile-btn btn-sm btn-fill" style="display:none; margin-top:12px">View Product</a>
+              <a href="{{ product.url }}" class="btn-sm btn-fill" style="margin-top:12px; width:100%">View Product</a>
             {%- endif -%}
           </div>
         {%- endfor -%}
@@ -437,8 +436,6 @@
     .sortby-box select { flex: 1; text-align: right; }
     .prod-count { display: none !important; }
     .refine-mobile { display: flex !important; }
-    .pcard-view { display: none !important; }
-    .pcard-mobile-btn { display: inline-flex !important; width: 100%; }
   }
 {% endstyle %}
 
