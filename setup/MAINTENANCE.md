@@ -600,6 +600,26 @@ not).
 **Agreed line (Sep 2026):** if seasonal slots become a pattern across pills,
 hero and hot offers together, build one shared JS mechanism then. Not before.
 
+## Product page: "You May Also Like" is under the description on purpose (10 Sep 2026)
+
+The recommendations list used to sit in the buy column, under the delivery
+lines. It was moved to the left column, after the description tabs and before
+the FAQ, capped at 600px wide. Two reasons, and one cost.
+
+1. Beside the gallery it competed with Add To Bag for the same column.
+2. The gallery image went from 85% to 70% of its box the same day (the
+   catalogue is 600px square, so 85% was upscaling at 1440; see
+   IMAGE-BRIEF.md). With the list gone the buy column ends at 531px beside a
+   673px gallery, a balance that needs no height cap on the gallery.
+
+The cost: the page is 325px taller at 1440 than before, because the list no
+longer fills space that the taller gallery gave for free. The columns
+balancing was judged worth the scroll. If that ever flips, the reversal is
+to move the list back into `.pdp-right` after the buy-assurance block, and
+drop the `.pdp-recs` flex order from the mobile rules; do not cap the
+gallery height instead, which shrinks the photo to fit whatever the buy
+column happens to be for that product.
+
 ## Parallel sessions — one worktree each, merged fast-forward only
 
 Several Claude sessions work this repo at the same time, on different tasks.
