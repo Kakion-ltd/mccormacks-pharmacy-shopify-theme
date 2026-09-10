@@ -598,3 +598,62 @@ not).
 
 **Agreed line (Sep 2026):** if seasonal slots become a pattern across pills,
 hero and hot offers together, build one shared JS mechanism then. Not before.
+
+## Parallel sessions — one worktree each, merged fast-forward only
+
+Several Claude sessions work this repo at the same time, on different tasks.
+They must not share a working tree or an index. Give each session its own
+worktree on its own branch, and land work on `main` only as a fast-forward.
+
+Two commands to set a session up, from the main checkout:
+
+```sh
+git worktree add ../mccormacks-<session> -b <session>/<topic> main
+ln -s "$PWD/node_modules" ../mccormacks-<session>/node_modules   # render + tests need it; ignored since 9ef74a6
+```
+
+Work, render (`npm run render`) and test (`npm test`) inside that worktree,
+commit there, then land it:
+
+```sh
+git push . HEAD:main          # refuses unless main fast-forwards; if it refuses:
+git rebase main && npm run render && npm test && git push . HEAD:main
+git push origin main
+```
+
+Never `git checkout main` in a worktree (it is checked out in the main tree),
+never `git reset`, `git stash` or `git add -A` in the main tree while another
+session is active, and never commit a file by whole path that another session
+might have edits in. When done: `git worktree remove ../mccormacks-<session>`.
+
+Each session also runs its own preview server on its own port
+(`python3 setup/serve_preview.py 8736`, not the default 8734) and stops it by
+PID, never with `pkill -f serve_preview`, which kills every session's server.
+
+### Why — the two collisions of 10 Sep 2026
+
+Both happened in the two hours when two sessions shared one tree, and both
+are the kind of thing that turns up months later as "when did this change?"
+
+**1. A hunk rode into the wrong commit.** Session A changed the chip rule in
+`base.css` to 40px and left it uncommitted while rendering screenshots for
+approval. Session B, working on the button hover in the same file, committed
+`base.css` by whole path (553851f, "Filled buttons hover lime with dark ink").
+The 40px chip rule went in with it. The code was right and the commit message
+was about something else, so the history now says the hover commit changed
+the chips. Nobody did anything wrong by their own lights; the tree was shared.
+
+**2. A commit step reset the shared index.** To avoid the first problem,
+session A committed only its own hunks by building a filtered patch, applying
+it in a temporary worktree, and moving `main` there with `update-ref`. That
+left the main tree's index stale, so it ran `git reset` (mixed) to catch up.
+A mixed reset unstages everything in the index, including anything session B
+had staged and not yet committed. Nothing was lost, because staged files stay
+on disk, but B's staging silently vanished. The same sequence also failed once
+midway (`git rm --cached node_modules` after B had already fixed the ignore
+rule), which killed the chain before the commit and left the temp worktree to
+be cleaned up by hand.
+
+Both vanish with a worktree per session: each index is private, each commit
+is by whole file with nothing foreign in it, and `push . HEAD:main` cannot
+overwrite anyone because it only fast-forwards.
