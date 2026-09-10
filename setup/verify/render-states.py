@@ -76,7 +76,7 @@ for stem, signed_out_text, signed_in_text in (
 se = read("search.empty.html")
 ck("an empty-search render exists", se is not None)
 if se:
-    pills = re.findall(r'<a href="(/collections/[^"]+)"[^>]*border-radius:999px[^>]*>([^<]+)</a>', se)
+    pills = re.findall(r'<a href="(/collections/[^"]+)" class="chip chip-lime">([^<]+)</a>', se)
     ck("empty search renders the popular pills from popular_links", len(pills), 7)
     ck("popular pills carry the taxonomy label, not the short one",
        ("/collections/vitamins", "Vitamins &amp; Supplements") in pills)
