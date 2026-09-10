@@ -54,6 +54,22 @@ for (const file of liquidFiles(root)) {
       };
       walk(j.settings, '');
       for (const b of j.blocks || []) walk(b.settings, ` in block ${b.type}`);
+      // Preset values are validated the same way: a color setting set to var() in a preset fails upload too.
+      const colorIds = new Set();
+      for (const d of j.settings || []) if (d.type === 'color') colorIds.add(d.id);
+      for (const b of j.blocks || []) for (const d of b.settings || []) if (d.type === 'color') colorIds.add(d.id);
+      for (const p of j.presets || []) {
+        const check = (settings, where) => {
+          for (const [k, v] of Object.entries(settings || {})) {
+            if (colorIds.has(k) && !/^#[0-9a-fA-F]{6}$/.test(String(v))) {
+              console.log(`ERROR  ${rel}  ShopifyColorDefault  preset "${p.name}"${where} sets color "${k}" to ${JSON.stringify(v)}: must be a hex literal`);
+              uploadErrors++;
+            }
+          }
+        };
+        check(p.settings, '');
+        for (const b of p.blocks || []) check(b.settings, ` block ${b.type}`);
+      }
     } catch { /* theme-check reports invalid JSON */ }
   }
 }
