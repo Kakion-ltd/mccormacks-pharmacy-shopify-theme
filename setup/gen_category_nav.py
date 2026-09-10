@@ -259,9 +259,9 @@ open(os.path.join(THEME, 'snippets', 'category-chips.liquid'), 'w').write('\n'.j
 # ---------------------------------------------------------------- chip atom
 CHIP = """{% comment %} One category chip. Args: h (handle), l (label), cur (current collection handle). {% endcomment %}
 {%- if h == cur -%}
-<a href="/collections/{{ h }}" aria-current="page" style="flex:0 0 auto; min-width:210px; background:var(--c-dark); color:var(--c-on-dark); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">{{ l }}</a>
+<a href="/collections/{{ h }}" aria-current="page" class="chip chip-active" style="flex:0 0 auto;">{{ l }}</a>
 {%- else -%}
-<a href="/collections/{{ h }}" class="hov-bg-green-dk" style="flex:0 0 auto; min-width:210px; background:var(--c-primary); color:var(--c-on-primary); font-weight:700; font-size:16px; text-align:center; padding:20px 26px; border-radius:9px; display:flex; align-items:center; justify-content:center;">{{ l }}</a>
+<a href="/collections/{{ h }}" class="chip chip-lime" style="flex:0 0 auto;">{{ l }}</a>
 {%- endif -%}
 """
 open(os.path.join(THEME, 'snippets', 'category-chip.liquid'), 'w').write(CHIP)
