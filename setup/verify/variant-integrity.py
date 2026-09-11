@@ -21,6 +21,16 @@ import urllib.request
 from playwright.sync_api import sync_playwright
 
 BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
+
+# The preview server holds ONE process-global cart. It outlives every script and is
+# shared by every browser context and every other process on this port, so a check
+# that does not start from empty inherits whatever the last run left behind — and
+# variant-integrity deliberately drives a line up to its stock ceiling, after which
+# every later add of that product is refused. Start from empty. Set PORT to avoid
+# sharing the cart with a parallel session (see 3e442ac).
+urllib.request.urlopen(urllib.request.Request(
+    BASE + "/cart/clear.js", data=b"{}", method="POST")).read()
+
 TWO = "/products/cerave-moisturising-cream"          # Format x Size, 3 of 4 combinations
 ONE = "/products/vitamin-d3-1000iu-60-capsules"      # Pack size, first variant in stock
 STOCKED = "/products/cetrine-allergy-10mg-30-tablets"  # single variant, 12 in stock

@@ -10,9 +10,20 @@ row of cards does not fire a request per card.
     PORT=8736 python3 setup/verify/quick-view.py
 """
 import os, sys
+import urllib.request
 from playwright.sync_api import sync_playwright
 
 BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
+
+# The preview server holds ONE process-global cart. It outlives every script and is
+# shared by every browser context and every other process on this port, so a check
+# that does not start from empty inherits whatever the last run left behind — and
+# variant-integrity deliberately drives a line up to its stock ceiling, after which
+# every later add of that product is refused. Start from empty. Set PORT to avoid
+# sharing the cart with a parallel session (see 3e442ac).
+urllib.request.urlopen(urllib.request.Request(
+    BASE + "/cart/clear.js", data=b"{}", method="POST")).read()
+
 GRID = "/collections/skincare"                 # normal cards, one on sale
 VARIANTS = "/collections/everyday-multivitamins"  # Vitamin D3 has pack sizes
 RESTRICTED = "/collections/pain-relief"        # Nurofen Plus carries the gate tag

@@ -337,6 +337,14 @@ class Handler(SimpleHTTPRequestHandler):
                 self._json(cart)
             elif p == "/cart/change.js":
                 self._json(cart_change(data.get("line"), int(data.get("quantity") or 0)))
+            elif p == "/cart/clear.js":
+                # Shopify's own endpoint, and the only way a check can start from a
+                # known cart. CART is process-global and outlives every script, so
+                # without this each one inherits whatever the last one left — see
+                # the clear at the top of variants.py and variant-integrity.py.
+                with CART_LOCK:
+                    CART["items"] = []
+                self._json(cart_json())
             else:
                 self.send_error(404)
         except CartError as e:
