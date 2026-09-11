@@ -41,6 +41,11 @@ with sync_playwright() as pw:
            "Difflam" in (bis.locator("input[name='contact[product]']").get_attribute("value") or ""))
         ck(f"[{label}] carries a link back to the product",
            "/products/" in (bis.locator("input[name='contact[product_url]']").get_attribute("value") or ""))
+        # Shopify may render only email and body into the notification, so the body has
+        # to stand alone. A body-less contact post may also be dropped outright.
+        body = bis.locator("input[name='contact[body]']").get_attribute("value") or ""
+        ck(f"[{label}] sends a message body",
+           all(w in body for w in ("Difflam", "SKU:", "/products/")))
 
         # The theme does not watch inventory. Copy must not imply that it does.
         txt = bis.inner_text().lower()

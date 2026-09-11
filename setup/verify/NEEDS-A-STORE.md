@@ -65,6 +65,56 @@ and the ones marked **decision** need a merchant answer before they can be check
   reCAPTCHA challenge page, `contact[tags]`, and the exact `form.errors` shape.
 - The no-JavaScript submit of the product form to `/cart/add`.
 
+### The one live submission that settles the contact forms (untested)
+
+Seven `form 'contact'` posts ship in this theme — back-in-stock, contact page,
+withdraw-from-contract, services booking, careers, and both prescription forms —
+and **not one has ever been submitted on a store.** `setup/verify/back-in-stock.py`
+passes against `render_preview.mjs`, whose `form` tag emits a bare
+`<form method="post">` with no action and no `form_type`: it proves the markup, and
+can prove nothing about transport. Nobody knows the mail arrives, where it lands, or
+what it looks like.
+
+One submission answers all of it. Do it on back-in-stock, because that form carries
+the most hidden fields and so exercises the most of what is unknown.
+
+**1. Record the expected recipient first, so the test can fail.** Read it before
+submitting, or an email that never arrives is indistinguishable from one that went
+somewhere unwatched:
+
+```
+SHOP=mccormackpharmacy.myshopify.com ADMIN_TOKEN=shpat_xxx   # needs read_shop
+curl -s -H "X-Shopify-Access-Token: $ADMIN_TOKEN" \
+  "https://$SHOP/admin/api/2025-01/shop.json" \
+  | python3 -c 'import sys,json; s=json.load(sys.stdin)["shop"]; print(s["email"], s["customer_email"])'
+```
+
+Without a token: **Settings → Notifications**, and note whether the address there is
+the pharmacy's or a Shopify-default that nobody reads.
+
+**2. Submit.** Any sold-out product on the store shows the capture — 659 of the 2,474
+hold 0 units, so no fixture is needed. Use an address you can read, with a plus-tag
+(`you+bis1@…`) so the test is identifiable in the mailbox afterwards.
+
+**3. Then answer these four, and write the answers back into this file.**
+
+| Question | What to look for |
+| --- | --- |
+| Does it deliver at all? | An email arrives. If none does, check spam, then whether Shopify's reCAPTCHA challenge page appeared instead of the redirect. |
+| Who receives it? | Compare against the address recorded in step 1. If they differ, the theme is fine and the store setting is wrong. |
+| Does the body survive? | `contact[body]` was added 11 Sep 2026 and is the field most likely to be rendered. It should carry product, SKU and link on its own lines. |
+| Do the extra fields survive? | Whether `contact[form_type]`, `contact[product]`, `contact[sku]` and `contact[product_url]` appear in the email at all. **If they do not, every filtering plan in `MAINTENANCE.md` depends on the body text instead** — say so there. |
+
+Also confirm the redirect returns to the product page with `?contact_posted=true` and
+the success panel renders, rather than dumping the shopper on `/contact`.
+
+Two known risks this is testing for. Until 11 Sep 2026 the form sent no
+`contact[body]` at all, alone among the seven — a body-less contact post may be
+dropped silently, which would have meant every request since launch vanished with no
+error shown to the shopper. And `contact[tags]` does **not** apply here: tags belong
+to `form 'customer'`, so nothing marks these server-side and filtering is a mail rule
+on the body text or nothing.
+
 ## Markets, locales, currency — **decision**
 
 - Whether the store enables markets or locales that add a path prefix. The

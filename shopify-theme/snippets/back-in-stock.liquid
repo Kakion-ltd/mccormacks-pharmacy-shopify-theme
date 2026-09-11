@@ -7,11 +7,12 @@
 
   WHAT THIS DOES AND DOES NOT DO — read before changing the copy.
 
-  It captures interest. It does NOT send a notification. Submissions arrive as
-  contact-form emails in the Shopify admin inbox, and a person has to act on
-  them. Nothing in this theme watches inventory or emails anyone when stock
-  returns. That is why the wording is "tell us you want this" and never "we will
-  email you when it is back" — the second is a promise the theme cannot keep.
+  It captures interest. It does NOT send a notification. A submission becomes one
+  email to the store's contact address and nothing else — Shopify stores no record
+  of a contact-form post, so deleting that email loses the request. Nothing in this
+  theme watches inventory or emails anyone when stock returns. That is why the
+  wording is "tell us you want this" and never "we will email you when it is back"
+  — the second is a promise the theme cannot keep.
 
   If the client wants real automated alerts, that needs an app (Back in Stock,
   Klaviyo) and this snippet comes out. See setup/MAINTENANCE.md.
@@ -29,7 +30,22 @@
   if variant_label == 'Default Title'
     assign variant_label = ''
   endif
+  assign bis_product = product.title
+  if variant_label != blank
+    assign bis_product = bis_product | append: ' — ' | append: variant_label
+  endif
+  assign bis_url = shop.url | append: product.url | append: '?variant=' | append: variant.id
 -%}
+
+{%- comment -%} Shopify may render only email and body into the notification, so the
+    body repeats everything the contact[*] fields carry rather than referring to them.
+    It is the one part of the payload the email is guaranteed to show. {%- endcomment -%}
+{%- capture bis_body -%}
+Back-in-stock request from the website.
+Product: {{ bis_product }}
+SKU: {{ variant.sku | default: '—' }}
+Link: {{ bis_url }}
+{%- endcapture -%}
 
 <div class="bis" data-back-in-stock>
   {%- form 'contact', id: form_id -%}
@@ -54,9 +70,10 @@
       {% render 'form-errors', form: form %}
 
       <input type="hidden" name="contact[form_type]" value="back-in-stock">
-      <input type="hidden" name="contact[product]" value="{{ product.title | escape }}{% if variant_label != blank %} — {{ variant_label | escape }}{% endif %}">
+      <input type="hidden" name="contact[body]" value="{{ bis_body | escape }}">
+      <input type="hidden" name="contact[product]" value="{{ bis_product | escape }}">
       <input type="hidden" name="contact[sku]" value="{{ variant.sku | escape }}">
-      <input type="hidden" name="contact[product_url]" value="{{ shop.url }}{{ product.url }}?variant={{ variant.id }}">
+      <input type="hidden" name="contact[product_url]" value="{{ bis_url | escape }}">
 
       <div class="bis-row">
         <label class="visually-hidden" for="{{ form_id }}-email">Your email address</label>
