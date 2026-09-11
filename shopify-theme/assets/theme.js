@@ -386,6 +386,10 @@
       }
       $('[data-cd-subtotal]').textContent = fmt(cart.total_price);
 
+      // Any standing failure message belongs to the state the drawer just replaced.
+      const errEl = $('[data-cd-error]');
+      if (errEl) { errEl.hidden = true; errEl.textContent = ''; }
+
       $('[data-cd-items]').innerHTML = cart.items.map((it, i) => {
         const img = it.image
           ? '<img src="' + esc(it.image) + '" alt="" loading="lazy">'
@@ -433,13 +437,28 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ line, quantity: to }),
         });
+        // A refused change used to land in the catch below and be discarded: the
+        // number did not move, the buttons came back enabled, and nothing anywhere
+        // said the shopper had hit the stock ceiling. Re-read the cart so the drawer
+        // shows what is really in it, then say why it did not change.
+        if (!res.ok) {
+          const err = await cartError(res);
+          render(await fetch(cartUrl).then((r) => r.json()));
+          showCartMessage(err.message);
+          return;
+        }
         const cart = await res.json();
         render(cart);
         document.querySelectorAll('[data-cart-count]').forEach((el) => {
           el.textContent = cart.item_count;
           el.style.display = cart.item_count > 0 ? 'flex' : 'none';
         });
-      } catch { /* leave the drawer as-is; the cart page is the source of truth */ }
+      } catch {
+        // Network-level failure, not a refusal: re-enable the controls we disabled
+        // so the drawer is not left dead, and say so rather than silently freezing.
+        cd.drawer.querySelectorAll('[data-cd-qty]').forEach((b) => { b.disabled = false; });
+        showCartMessage('Sorry — we could not update your bag. Please try again.');
+      }
     });
 
     window.mccCartDrawer = { open, close, render };
@@ -478,13 +497,35 @@
   const cartAddUrl = (routes.cart_add_url || '/cart/add') + '.js';
   const cartUrl = (routes.cart_url || '/cart') + '.js';
 
+  // Shopify answers a rejected cart write with 422 and its own sentence in
+  // `description` — "You can only add 12 of that item to your cart." That sentence is
+  // the only thing that tells a shopper what to do next, so it is what gets shown,
+  // verbatim. Everything used to collapse into the button label "Sold out", which is
+  // a different fact and usually a false one: the item is in stock, just not twelve
+  // deep. A quantity problem and an availability problem need different answers.
+  const cartError = async (res) => {
+    let body = null;
+    try { body = await res.json(); } catch { /* not JSON; fall through to the generic */ }
+    return new Error((body && (body.description || body.message)) || 'Sorry — we could not update your bag.');
+  };
+
+  // Cart failures surface in the bag itself, which is the thing that did not change
+  // and the one place with room for a sentence. Cleared by the next successful render.
+  const showCartMessage = (msg) => {
+    const el = document.querySelector('[data-cd-error]');
+    if (!el) return;
+    el.textContent = msg;
+    el.hidden = false;
+    if (window.mccCartDrawer) window.mccCartDrawer.open();
+  };
+
   async function addToCart(id, qty) {
     const res = await fetch(cartAddUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id, quantity: qty || 1 }),
     });
-    if (!res.ok) throw new Error('add failed');
+    if (!res.ok) throw await cartError(res);
     const cart = await fetch(cartUrl).then(r => r.json());
     document.querySelectorAll('[data-cart-count]').forEach(el => {
       el.textContent = cart.item_count;
@@ -503,8 +544,11 @@
       // focus is the card's eye rather than a button inside a closed modal.
       document.dispatchEvent(new CustomEvent('mcc:cart-added', { detail: cart }));
       if (window.mccCartDrawer) { window.mccCartDrawer.render(cart); window.mccCartDrawer.open(); }
-    } catch {
-      btn.textContent = 'Sold out';
+    } catch (err) {
+      // Not "Sold out": that names a cause this handler does not know. The reason
+      // goes to the bag, where there is room to state it.
+      btn.textContent = 'Not added';
+      showCartMessage(err.message);
     }
     setTimeout(() => { btn.textContent = label; btn.disabled = false; }, 1600);
   });
@@ -519,7 +563,10 @@
       if (btn) btn.textContent = 'Added to bag ✓';
       if (window.mccCartDrawer) { window.mccCartDrawer.render(cart); window.mccCartDrawer.open(); }
     }
-    catch { if (btn) btn.textContent = 'Unavailable'; }
+    catch (err) {
+      if (btn) btn.textContent = 'Not added';
+      showCartMessage(err.message);
+    }
     if (btn) setTimeout(() => { btn.disabled = false; btn.textContent = 'Add To Bag'; }, 1600);
   });
 

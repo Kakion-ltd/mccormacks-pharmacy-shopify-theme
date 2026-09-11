@@ -176,6 +176,7 @@ def _variants(i):
             v = {"id": 40000000 + i * 100 + k, "title": " / ".join(vals), "options": vals,
                  "price": pk["p"], "compare_at_price": pk.get("was"),
                  "available": pk.get("oos") is not True,
+                 "inventory_quantity": 0 if pk.get("oos") else 12,
                  "featured_image": {"src": f"/shopify-theme/assets/{pk.get('img', c['img'])}"}}
             for n, val in enumerate(vals):
                 v[f"option{n + 1}"] = val
@@ -183,6 +184,7 @@ def _variants(i):
         return out, _aslist(c.get("optName", "Pack size"))
     return [{"id": 40000000 + i, "title": "Default Title", "option1": "Default Title", "options": ["Default Title"],
              "price": c["p"], "compare_at_price": c.get("was"), "available": c["t"] not in SOLD_OUT,
+             "inventory_quantity": 0 if c["t"] in SOLD_OUT else 12,
              "featured_image": None}], ["Title"]
 
 
@@ -247,8 +249,28 @@ def cart_json():
     }
 
 
+class CartError(Exception):
+    """A rejected cart write, in the shape Shopify answers with: status, message and
+    a `description` written for the shopper. The description is the only part that
+    says what to do next, so the theme shows it verbatim."""
+
+    def __init__(self, description):
+        super().__init__(description)
+        self.payload = {"status": 422, "message": "Cart Error", "description": description}
+
+
+def _stock(variant_id):
+    i, v = _variant_index(variant_id)
+    return 0 if v is None else v.get("inventory_quantity", 0)
+
+
 def cart_add(variant_id, qty):
     with CART_LOCK:
+        held = next((it["quantity"] for it in CART["items"] if it["id"] == int(variant_id)), 0)
+        limit = _stock(variant_id)
+        if held + qty > limit:
+            # Shopify's own wording, which is what a shopper reads on the live store.
+            raise CartError(f"You can only add {limit} of that item to your cart.")
         for it in CART["items"]:
             if it["id"] == int(variant_id):
                 it["quantity"] += qty
@@ -268,6 +290,9 @@ def cart_change(line_no, quantity):
             if quantity <= 0:
                 CART["items"].pop(idx)
             else:
+                limit = _stock(CART["items"][idx]["id"])
+                if quantity > limit:
+                    raise CartError(f"You can only add {limit} of that item to your cart.")
                 CART["items"][idx]["quantity"] = quantity
         return cart_json()
 
@@ -302,16 +327,20 @@ class Handler(SimpleHTTPRequestHandler):
             data = json.loads(self.rfile.read(length) or b"{}")
         except ValueError:
             data = {}
-        if p == "/cart/add.js":
-            cart = cart_add(data.get("id"), int(data.get("quantity") or 1))
-            if cart is None:
-                self._json({"description": "Unknown variant in the preview catalogue"}, 422)
-                return
-            self._json(cart)
-        elif p == "/cart/change.js":
-            self._json(cart_change(data.get("line"), int(data.get("quantity") or 0)))
-        else:
-            self.send_error(404)
+        try:
+            if p == "/cart/add.js":
+                cart = cart_add(data.get("id"), int(data.get("quantity") or 1))
+                if cart is None:
+                    self._json({"status": 422, "message": "Cart Error",
+                                "description": "Unknown variant in the preview catalogue"}, 422)
+                    return
+                self._json(cart)
+            elif p == "/cart/change.js":
+                self._json(cart_change(data.get("line"), int(data.get("quantity") or 0)))
+            else:
+                self.send_error(404)
+        except CartError as e:
+            self._json(e.payload, 422)
 
     def send_head(self):
         p = urllib.parse.unquote(self.path.split("?")[0]).rstrip("/")

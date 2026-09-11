@@ -396,6 +396,7 @@ body[data-cd-open] { overflow: hidden; }
 .cd-line-title { font-size: 14.5px; line-height: 1.35; color: var(--c-text); font-weight: 600; }
 .cd-line-title a { color: inherit; }
 .cd-line-variant { font-size: 13px; color: var(--c-muted-2); }
+.cd-err { margin: 0 18px 12px; padding: 10px 12px; border-radius: 8px; background: var(--c-error-bg); color: var(--c-error); font-size: 13.5px; line-height: 1.5; }
 .cd-line-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 2px; }
 .cd-qty { display: inline-flex; align-items: center; border: 1.5px solid var(--c-border-2); border-radius: 8px; overflow: hidden; }
 .cd-qty button { width: 30px; height: 30px; border: none; background: #fff; color: var(--c-text); font-size: 16px; cursor: pointer; line-height: 1; }
