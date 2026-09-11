@@ -65,8 +65,16 @@
             {%- liquid
               assign product = item
               assign variant = product.selected_or_first_available_variant
+              comment
+                Blank unless the variant behind the displayed price is genuinely
+                reduced — see snippets/product-compare-at.liquid.
+              endcomment
+              capture was
+                render 'product-compare-at', product: product
+              endcapture
+              assign was = was | strip
               assign on_sale = false
-              if product.compare_at_price > product.price
+              if was != blank
                 assign on_sale = true
               endif
               assign quick_add = false
@@ -109,7 +117,7 @@
                 <div style="display:flex; align-items:baseline; gap:9px;">
                   <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:#2A2B2A;">{% if product.price_varies %}From {% endif %}{{ product.price | money }}</span>
                   {%- if on_sale -%}
-                    <span style="font-size:13.5px; color:#666b60; text-decoration:line-through;">{{ product.compare_at_price | money }}</span>
+                    <span style="font-size:13.5px; color:#666b60; text-decoration:line-through;">{{ was }}</span>
                   {%- endif -%}
                 </div>
                 {% render 'wishlist-button', product: product %}

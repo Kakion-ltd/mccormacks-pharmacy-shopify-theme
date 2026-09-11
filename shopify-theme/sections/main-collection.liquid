@@ -215,10 +215,6 @@
         {%- for product in collection.products -%}
           {%- liquid
             assign variant = product.selected_or_first_available_variant
-            assign on_sale = false
-            if product.compare_at_price > product.price
-              assign on_sale = true
-            endif
             assign quick_add = false
             if product.available and product.variants.size == 1 and product.selling_plan_groups.size == 0
               assign quick_add = true
@@ -235,6 +231,14 @@
               assign quick_add = false
             endif
           -%}
+          {%- comment -%} The strikethrough and the SALE badge both hang off this: it is
+              blank unless the variant behind the displayed price is genuinely reduced.
+              See snippets/product-compare-at.liquid for why the product-level fields
+              cannot be compared directly. {%- endcomment -%}
+          {%- capture was -%}{%- render 'product-compare-at', product: product -%}{%- endcapture -%}
+          {%- assign was = was | strip -%}
+          {%- assign on_sale = false -%}
+          {%- if was != blank -%}{%- assign on_sale = true -%}{%- endif -%}
           <div class="pcard" style="display:flex; flex-direction:column;">
             <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;">
               {%- if on_sale -%}
@@ -257,7 +261,7 @@
             <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
               <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">{% if product.price_varies %}From {% endif %}{{ product.price | money }}</span>
               {%- if on_sale -%}
-                <span style="color:#666b60; font-weight:600; font-size:15px; text-decoration:line-through;">{{ product.compare_at_price | money }}</span>
+                <span style="color:#666b60; font-weight:600; font-size:15px; text-decoration:line-through;">{{ was }}</span>
               {%- endif -%}
             </div>
             {%- comment -%} One treatment at every width, as the design handoff has it: a

@@ -1,0 +1,41 @@
+{%- comment -%}
+  The compare-at price a card may honestly strike through, money-formatted, or
+  nothing at all. Callers capture it and treat blank as "not on sale":
+
+    {%- capture was -%}{%- render 'product-compare-at', product: product -%}{%- endcapture -%}
+    {%- assign was = was | strip -%}
+    {%- if was != blank -%} ... SALE badge, and <s>{{ was }}</s> beside the price ... {%- endif -%}
+
+  Why this is not just `product.compare_at_price > product.price`.
+
+  A price with another price struck through beside it claims one thing: THIS price is
+  reduced from THAT one. On a single-variant product that is always true. Across
+  variants it is only true when both numbers come from the same variant, and the two
+  product-level fields do not promise that — product.price is the minimum across
+  variants and product.compare_at_price is the minimum compare-at, which can belong to
+  a different variant entirely.
+
+  The two-option fixture renders the failure exactly: a card reading
+  "From €14.50" struck through with "€26.00" and badged SALE, where €14.50 is a
+  variant with no discount that is also sold out, and €26.00 is a second variant's
+  compare-at. It advertises an €11.50 saving that no shopper can buy. That is a false
+  price claim, not a display oddity, and it is the kind a pharmacy gets asked about.
+
+  So the compare-at is taken from the variant the DISPLAYED price belongs to — the one
+  whose price equals product.price — and from nowhere else. A product whose cheapest
+  variant is not discounted shows no strikethrough and no badge, even when a dearer
+  variant is reduced. That understates the offer, which is the safe direction to be
+  wrong in; the product page shows the real per-variant saving.
+
+  Accepts: product (required)
+{%- endcomment -%}
+{%- liquid
+  for v in product.variants
+    if v.price == product.price
+      if v.compare_at_price > v.price
+        echo v.compare_at_price | money
+      endif
+      break
+    endif
+  endfor
+-%}
