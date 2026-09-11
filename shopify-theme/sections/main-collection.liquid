@@ -206,7 +206,12 @@
     <!-- Product grid -->
     <div style="flex:1; min-width:0;">
       {%- if collection.products.size > 0 -%}
-      <div class="pgrid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:26px 22px;">
+      {%- comment -%} 240px floor, not 210. The filter sidebar hides at 960 and hands the
+          grid back 260px, which a 210px floor spent on a fourth column: cards dropped to
+          214px at 960, narrower than the 254px they get at 1440, so the range ran
+          4-3-2-4-3-2 columns. At 240 the recovered width widens the existing columns
+          instead of adding a too-narrow one. {%- endcomment -%}
+      <div class="pgrid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:26px 22px;">
         {%- for product in collection.products -%}
           {%- liquid
             assign variant = product.selected_or_first_available_variant

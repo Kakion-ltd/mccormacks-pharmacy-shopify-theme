@@ -176,7 +176,13 @@ body[data-mnav-open] .mnav-ico-close { display: block; }
 .shopify-section-group-header-group:has(> .hdr-sticky) {
   position: sticky; top: 0; z-index: 150; pointer-events: none;
 }
-.hdr-sticky { pointer-events: auto; }
+/* Every child, not just .hdr-sticky. header.liquid also renders the mobile nav drawer,
+   the cart drawer and its overlay, and on a store those are siblings of .hdr-sticky
+   inside this wrapper, so restoring only the header left all three inheriting
+   pointer-events:none - they opened and nothing in them could be tapped. The wrapper
+   itself keeps none, which is the whole point: its box stays at the top of the viewport
+   after the header translates away, and must not swallow clicks on the page beneath. */
+.shopify-section-group-header-group:has(> .hdr-sticky) > * { pointer-events: auto; }
 /* Pinned, not stuck: the shadow marks the bar sitting over the page, and it now
    cross-fades rather than snapping on, because box-shadow is in the transition. */
 .hdr-sticky.is-pinned { box-shadow: 0 6px 18px rgba(0, 0, 0, .08); }
@@ -201,13 +207,42 @@ html { scroll-padding-top: calc(var(--hdr-pinned) + 8px); }
   .hdr-search { grid-column: 2; grid-row: 1; margin: 0 !important; }
   .hdr-icons { grid-column: 3; grid-row: 1; justify-self: end; }
 }
+/* The nav row, from 1271 down to the phone breakpoint.
+
+   The ten department links plus the two pills need 1273px at full size, so the row
+   wrapped at 1272 - but the only rule that compressed anything started at 1100. That
+   left 1101-1271 with no compression at all: the pills dropped to their own row and the
+   header grew 27px, at widths the old four-width sweep never sampled. The band starts at
+   1280 rather than 1272 for slack against font metrics; clamp is still at its ceiling
+   there, so beginning early costs nothing visible.
+
+   Compression is continuous here rather than a third stepped band. clamp() interpolates
+   across the whole range, so there is no width at which the row is one pixel too wide for
+   the step it happens to be in - which is how the old 1100 step failed twice over. Below
+   ~1101 the pills take their own row by design; the links stay on one line. */
+@media (max-width: 1280px) and (min-width: 901px) {
+  .main-nav-bar > div { padding: 5px 20px !important; gap: 8px clamp(16px, 2.3vw, 30px) !important; }
+  .main-nav-bar > div > nav { gap: 8px clamp(9px, 1.2vw, 18px) !important; }
+  /* No padding on these: they are plain text links, and the 12px the old rule gave them
+     cost 240px across the ten - which is what wrapped "Brands" to a second line at 1068,
+     inside the very band that was meant to be preventing the wrap. */
+  .main-nav-bar > div > nav a { font-size: clamp(12px, 1.05vw, 13.5px) !important; white-space: nowrap !important; }
+  .main-nav-bar > div > div > a { padding: 0 clamp(10px, 1.1vw, 14px) !important; font-size: clamp(12px, 1.05vw, 13.5px) !important; }
+  .main-nav-bar > div > div > a svg { width: 15px !important; height: 15px !important; }
+}
 @media (max-width: 1100px) and (min-width: 901px) {
-  :root { --hdr-pinned: 114px; }
+  /* --hdr-pinned is set from the bar's measured height by theme.js, which is the only
+     thing that can be right at every width. This is the no-JS fallback: the band spans
+     114px (one row, to ~1093) and 137px (pills on their own row, below that), so it takes
+     the taller - too much scroll-padding leaves a gap, too little hides the target. */
+  :root { --hdr-pinned: 137px; }
   .icon-label { display: none !important; }
-  .hdr-sticky header { padding: 12px 20px; column-gap: 18px; grid-template-columns: 1fr minmax(200px, 340px) 1fr; }
+  /* 380, not 340: the placeholder needs 290px and the 46px button and 16px inset take the
+     rest, so a 340px column left a 276px input and cut it mid-word. The icon labels are
+     already gone in this band, so the room is there - at 901, the tightest width here,
+     the three columns still come to 661px of the 841px available. */
+  .hdr-sticky header { padding: 12px 20px; column-gap: 18px; grid-template-columns: 1fr minmax(200px, 380px) 1fr; }
   .hdr-icons { gap: 18px !important; }
-  .main-nav-bar > div { padding: 5px 20px !important; gap: 8px 16px !important; }
-  .main-nav-bar > div > nav a { font-size: 12px !important; padding: 0 12px !important; height: 28px !important; gap: 7px !important; white-space: nowrap !important; }
   section { padding-left: 20px !important; padding-right: 20px !important; }
 }
 @media (max-width: 900px) {
@@ -274,8 +309,14 @@ html { scroll-padding-top: calc(var(--hdr-pinned) + 8px); }
 
 .svc-slider::-webkit-scrollbar { height: 4px; }
 .svc-slider::-webkit-scrollbar-thumb { background: var(--c-border-2); border-radius: 999px; }
+/* .hot-grid until now, which no template has ever rendered - the section markup calls it
+   .hot-stack - so this matched zero elements and the spotlight stayed two-up all the way
+   to 900, its copy column squeezed from 321px to 204px with the subtext at four lines.
+   One column here, the spotlight keeping its side-by-side copy and art: at these widths
+   that reads better than the phone treatment, whose 2:1 image band would run 500px tall.
+   sections/hot-offers.liquid takes over the full restack at 900. */
 @media (max-width: 1024px) {
-  .hot-grid { grid-template-columns: 1fr !important; }
+  .hot-stack { grid-template-columns: minmax(0, 1fr) !important; grid-auto-rows: auto !important; }
 }
 @media (max-width: 700px) {
   .promo-media { max-width: 36% !important; height: 112% !important; right: -8px !important; }

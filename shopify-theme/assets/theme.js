@@ -33,6 +33,14 @@
   {
     const wrap = document.querySelector('.hdr-sticky');
     if (wrap) {
+      // --hdr-pinned feeds scroll-padding-top, so it has to equal the bar's real height
+      // or anything the browser scrolls to lands underneath it. The height depends on how
+      // many rows the nav occupies, which three hardcoded media-query values could not
+      // track: between 901 and 1272 they were short by up to 72px, putting the skip link
+      // and every focused control below the fold under the bar. Measure the bar instead.
+      // ResizeObserver fires once on observe, so this also sets the initial value.
+      new ResizeObserver(() => document.documentElement.style.setProperty(
+        '--hdr-pinned', Math.round(wrap.getBoundingClientRect().height) + 'px')).observe(wrap);
       // A direction change only counts after this much travel. Below it the shopper is
       // wobbling rather than scrolling, and the bar would pump at the boundary.
       const STEP = 10;

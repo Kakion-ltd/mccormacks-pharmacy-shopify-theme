@@ -133,7 +133,18 @@
           {%- endif -%}
         </div>
 
-        {%- if rel != blank and rel.size > 0 -%}
+        {%- comment -%} Count what will actually render, not what is in the list. The loop
+            skips the current product and caps at three, so a collection holding only this
+            product passes `rel.size > 0` and then draws the heading over nothing - the
+            same defect the brands page had. {%- endcomment -%}
+        {%- assign rel_count = 0 -%}
+        {%- if rel != blank -%}
+          {%- for p in rel -%}
+            {%- unless p.id == product.id -%}{%- assign rel_count = rel_count | plus: 1 -%}{%- endunless -%}
+            {%- if rel_count >= 3 -%}{%- break -%}{%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+        {%- if rel_count > 0 -%}
         <!-- You may also like: under the description, not beside Add To Bag -->
         <div class="pdp-recs" style="margin-top:34px; max-width:600px;">
         <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:24px; margin:0 0 20px;">You May Also Like</h2>
