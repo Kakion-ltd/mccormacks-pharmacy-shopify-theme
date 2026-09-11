@@ -108,11 +108,78 @@ and the ones marked **decision** need a merchant answer before they can be check
 - Metafield definitions and the shape review apps write to
   `reviews.rating` and `reviews.rating_count`; `custom.faq`,
   `custom.ingredients`, `custom.how_to_use`.
-- Collection images, product images per variant, video and 3D media.
+- Collection images, video and 3D media. Product images per variant are now
+  modelled locally (the CeraVe fixture gives each variant its own photo and the
+  gallery follows the selection), but no store has been seen doing it.
+- **`option.selected_value` when the first variant is sold out — open.** The
+  theme no longer depends on the answer: the picker marks its selection from
+  `current_variant.options[i]`, which agrees with the submitted id under every
+  reading. But whether the OLD behaviour was live on Shopify is unconfirmed, and
+  it decides whether this was a production defect or only a harness one.
+
+  What the harness shows, with the two-option fixture: the picker displayed
+  `Tub / 177ml` (sold out, €14.50) while the price read €22.50, the stock line
+  read "In stock" and the form carried the id of `Tub / 454ml`. Pressing Add
+  bought the 454ml.
+
+  Shopify's docs do not say what `selected_value` returns with no `?variant=`
+  param and a sold-out first variant. Two of the three plausible readings produce
+  the defect: if it falls back to the first variant, the picker names a sold-out
+  combination; if it returns nil, nothing is marked selected and the browser
+  defaults to the first `<option>`, which is the same value. Only a fallback to
+  the first AVAILABLE variant avoids it.
+
+  To settle it, the store needs a product whose FIRST variant is sold out. The
+  seeded `vitamin-d3-1000iu-60-capsules` does not qualify — its first variant is
+  in stock, which is why this never showed up on the store either. Two ways:
+
+      # a) seed the two-option fixture, which has exactly that shape
+      SHOP=mccormackpharmacy.myshopify.com ADMIN_TOKEN=… node setup/provision.mjs
+      # b) or zero the 60-capsule variant's inventory in admin, temporarily
+
+  Then push the theme, open the product with NO query string, and compare the
+  selects against `input[name=id]`. Revert the fix's `selected` line to
+  `option.selected_value` to see the old behaviour; they will disagree if it was
+  live. Needs an Admin API token, which is not in the working environment.
 - Real product handles. Fixture handles are invented from titles.
 - Gift card page: `{% layout none %}`, QR code, wallet pass. The harness
   wraps it in the theme layout.
 - The password page and blog comments.
+
+## States that exist nowhere — not a missing check, a missing state
+
+A third category, distinct from the two above. Some defects are invisible not
+because no check looks for them and not because the harness models something
+wrongly, but because **the condition that triggers them has never existed in any
+data the theme has ever rendered** — locally or on the store. No check can fail
+on a state that never occurs, so the surface looks verified from both sides while
+being entirely untested.
+
+The worked example, found 11 September 2026. The product page displayed one
+variant's option values while its price, stock line and submitted id belonged to
+a different one, so pressing Add To Bag bought a variant the page was not showing.
+It needs one condition: a product whose FIRST variant is unavailable. That
+condition had never existed anywhere.
+
+- Every product on the store has a single variant, bar one.
+- The one seeded multi-variant product, `vitamin-d3-1000iu-60-capsules`, has its
+  first variant in stock. Its sold-out variant is the third.
+- The one local multi-variant fixture was the same product, with the same shape.
+
+So the store could not show it, the harness could not show it, and no amount of
+checking either would have found it. It surfaced only when a fixture was built
+specifically to hold the state: a second multi-variant product with its cheapest
+variant sold out and first in the list. Four more defects fell out of the same
+fixture at the same time, for the same reason — its other novelties (two options,
+a combination no variant covers, genuinely different images per variant) were also
+states nothing had ever rendered.
+
+The lesson for anything added here: ask what state a surface needs in order to go
+wrong, then ask whether that state exists in any fixture or on the store. If the
+answer is no, the surface is untested however green the suite is, and the fix is a
+fixture rather than a check. Known gaps of this shape, still unrendered anywhere:
+a product with video or 3D media, a variant with no SKU, a product with more than
+two options, and a cart line whose variant has a quantity rule.
 
 ## Harness blind spots found on the store
 
