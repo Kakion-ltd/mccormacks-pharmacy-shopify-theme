@@ -397,6 +397,12 @@
           '<div class="cd-line-body">' +
             (it.product_type || it.vendor ? '<span class="cd-line-vendor">' + esc(it.vendor) + '</span>' : '') +
             '<span class="cd-line-title"><a href="' + esc(it.url) + '">' + esc(it.product_title) + '</a></span>' +
+            // Without this, two pack sizes of one product are two lines with the same
+            // vendor, title and link, told apart only by price - and their quantity
+            // steppers act on different lines with nothing saying which. Shopify sends
+            // null for a product that has only the default variant, so nothing is drawn
+            // on a single-variant line. The cart page has always shown this.
+            (it.variant_title ? '<span class="cd-line-variant">' + esc(it.variant_title) + '</span>' : '') +
             '<div class="cd-line-foot">' +
               '<span class="cd-qty">' +
                 '<button type="button" data-cd-qty="' + (i + 1) + '" data-cd-to="' + (it.quantity - 1) + '" aria-label="Decrease quantity">&minus;</button>' +
@@ -471,6 +477,7 @@
   const routes = window.mccRoutes || {};
   const cartAddUrl = (routes.cart_add_url || '/cart/add') + '.js';
   const cartUrl = (routes.cart_url || '/cart') + '.js';
+
   async function addToCart(id, qty) {
     const res = await fetch(cartAddUrl, {
       method: 'POST',
