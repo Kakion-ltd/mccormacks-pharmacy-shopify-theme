@@ -46,6 +46,25 @@ def page_links(html):
 def titles(html):
     return re.findall(r'<h3[^>]*><a href="/products/([^"]+)"', html)
 
+# The out-of-range noindex guard in layout/theme.liquid hardcodes the page sizes,
+# because Liquid cannot read query params and the head renders before any {% paginate %}
+# tag has run. If a section's page size changes and the layout's copy does not, the guard
+# computes the wrong last page and either stops protecting real pages or noindexes them.
+import pathlib
+ROOT = pathlib.Path(__file__).resolve().parents[2]
+def _paginate_size(section, resource):
+    src = (ROOT / "shopify-theme/sections" / section).read_text()
+    m = re.search(r"paginate\s+" + re.escape(resource) + r"\s+by\s+(\d+)", src)
+    return int(m.group(1)) if m else None
+def _layout_size(template):
+    src = (ROOT / "shopify-theme/layout/theme.liquid").read_text()
+    m = re.search(r"when '" + template + r"'\s*\n\s*assign per = (\d+)", src)
+    return int(m.group(1)) if m else None
+for template, section, resource in (("collection", "main-collection.liquid", "collection.products"),
+                                    ("search", "main-search.liquid", "search.results"),
+                                    ("blog", "main-blog.liquid", "blog.articles")):
+    ck(f"layout page size matches {section}", _layout_size(template), _paginate_size(section, resource))
+
 p1 = fetch(PAGED)
 p2 = fetch(PAGED + "?page=2")
 

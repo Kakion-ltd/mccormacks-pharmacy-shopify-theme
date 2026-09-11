@@ -11,6 +11,51 @@
     <meta name="description" content="{{ page_description | escape }}">
   {%- endif -%}
   <link rel="canonical" href="{{ canonical_url }}">
+  {%- comment -%} Out-of-range pagination. Shopify answers ?page=N beyond the last page
+      with a 200 and canonicalises it to itself, so every collection, search and blog
+      offers an unbounded supply of empty, indexable, self-canonical URLs. Measured on
+      the store: /collections/pharmacy?page=9999 returns 200, canonical to itself, zero
+      products and the "no products" copy. With 293 collections that is a lot of thin
+      pages competing with the real ones.
+      Liquid cannot read query params, so the page number is parsed out of canonical_url,
+      which Shopify builds with page preserved (and filters and sort dropped, which is why
+      those need no guard of their own - they already canonicalise to the bare collection).
+      The list-collections page needs no guard either: Shopify drops page from its
+      canonical entirely, so /collections?page=99 already points at /collections.
+      follow, not nofollow: the links on the page are still worth crawling.
+      The page sizes mirror the {% raw %}{% paginate %}{% endraw %} tags in the sections;
+      verify/pagination.py asserts the two stay in step. {%- endcomment -%}
+  {%- liquid
+    assign oor = false
+    assign per = 0
+    assign total = 0
+    case template.name
+      when 'collection'
+        assign per = 24
+        assign total = collection.products_count
+      when 'search'
+        assign per = 24
+        assign total = search.results_count
+      when 'blog'
+        assign per = 12
+        assign total = blog.articles_count
+    endcase
+    if per > 0 and canonical_url contains 'page='
+      assign cur = canonical_url | split: 'page=' | last | split: '&' | first | plus: 0
+      assign last_page = total | divided_by: per
+      assign rem = total | modulo: per
+      if rem > 0
+        assign last_page = last_page | plus: 1
+      endif
+      if last_page < 1
+        assign last_page = 1
+      endif
+      if cur > last_page
+        assign oor = true
+      endif
+    endif
+  -%}
+  {%- if oor %}<meta name="robots" content="noindex, follow">{% endif -%}
   {%- comment -%} Mulish, self-hosted. Replaces three render-blocking requests to a
       third party (two preconnects plus the stylesheet, which itself then fetched the
       font). One variable woff2, latin subset, covering every weight 400-900 — Google

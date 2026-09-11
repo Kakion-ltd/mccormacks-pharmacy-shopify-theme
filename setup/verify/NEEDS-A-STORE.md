@@ -130,8 +130,12 @@ and the ones marked **decision** need a merchant answer before they can be check
   the first AVAILABLE variant avoids it.
 
   To settle it, the store needs a product whose FIRST variant is sold out. The
-  seeded `vitamin-d3-1000iu-60-capsules` does not qualify — its first variant is
-  in stock, which is why this never showed up on the store either. Two ways:
+  `vitamin-d3-1000iu-60-capsules` does not qualify on two counts. Its first variant
+  is in stock, and — checked against the Admin API on 11 Sep 2026 — **it is not on the
+  store at all.** It is a local fixture only; no design product has ever been seeded,
+  because `provision.mjs all` deliberately skips the `products` step and the client
+  catalogue of 2,474 real products arrived before that step was ever wanted. So there
+  is currently NO multi-variant product on the store to test against. Two ways:
 
       # a) seed the two-option fixture, which has exactly that shape
       SHOP=mccormackpharmacy.myshopify.com ADMIN_TOKEN=… node setup/provision.mjs
@@ -145,6 +149,37 @@ and the ones marked **decision** need a merchant answer before they can be check
 - Gift card page: `{% layout none %}`, QR code, wallet pass. The harness
   wraps it in the theme layout.
 - The password page and blog comments.
+
+### Getting a multi-variant product onto the store
+
+Nothing on the store exercises the variant picker, so the `option.selected_value`
+question above cannot be settled there as things stand. Three ways, cheapest first.
+None of them requires seeding design fixtures into the client catalogue, which is the
+thing to avoid: `provision.mjs all` skips `products` deliberately, and the ten design
+products would be indistinguishable from real stock once in.
+
+1. **One disposable test product, clearly named.** Create a single product by hand or
+   by API — title prefixed `ZZ TEST` so it sorts last and reads as scaffolding, status
+   `draft` or unpublished from the Online Store channel so no shopper can reach it, with
+   two options and the first variant's inventory at zero. A draft product still renders
+   on a preview link, which is all the check needs. Delete it afterwards. This is the
+   only option that produces the exact shape the defect needs without touching client
+   data, and it is reversible by deletion.
+
+2. **Temporarily zero one real variant's inventory.** Cheapest in effort, but there is
+   no real product with two variants to do it to — see above — so this only becomes an
+   option after (1) or (3). Noted because it is the obvious instinct and it does not
+   work here.
+
+3. **Add a second variant to one real product.** Smallest footprint on paper, worst in
+   practice: it edits client catalogue data, the change is not cleanly reversible (the
+   variant carries its own inventory and can be ordered), and if the client re-imports
+   the catalogue the edit either vanishes or conflicts. Only worth it if the client
+   confirms a product genuinely has variants that the import flattened.
+
+Recommended: (1). Whichever is used, the product must have **two options** and its
+**first variant unavailable**, because that is the state the defect needs, and it should
+be deleted once the question is answered rather than left as permanent scaffolding.
 
 ## States that exist nowhere — not a missing check, a missing state
 
@@ -161,9 +196,12 @@ a different one, so pressing Add To Bag bought a variant the page was not showin
 It needs one condition: a product whose FIRST variant is unavailable. That
 condition had never existed anywhere.
 
-- Every product on the store has a single variant, bar one.
-- The one seeded multi-variant product, `vitamin-d3-1000iu-60-capsules`, has its
-  first variant in stock. Its sold-out variant is the third.
+- Every product on the store has a single variant. Checked 11 Sep 2026 by walking all
+  2,474 products through the Admin API: **zero** have more than one. There is no
+  exception, so no product page on the store has ever rendered a variant picker at all.
+- The one multi-variant product in the fixtures, `vitamin-d3-1000iu-60-capsules`, has
+  its first variant in stock; its sold-out variant is the third. It exists locally only
+  — it is not on the store, so nothing on the store has ever rendered this shape.
 - The one local multi-variant fixture was the same product, with the same shape.
 
 So the store could not show it, the harness could not show it, and no amount of
