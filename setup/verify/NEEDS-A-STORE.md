@@ -111,44 +111,73 @@ and the ones marked **decision** need a merchant answer before they can be check
 - Collection images, video and 3D media. Product images per variant are now
   modelled locally (the CeraVe fixture gives each variant its own photo and the
   gallery follows the selection), but no store has been seen doing it.
-- **`option.selected_value` when the first variant is sold out — open.** The
-  theme no longer depends on the answer: the picker marks its selection from
-  `current_variant.options[i]`, which agrees with the submitted id under every
-  reading. But whether the OLD behaviour was live on Shopify is unconfirmed, and
-  it decides whether this was a production defect or only a harness one.
+- **`option.selected_value` when the first variant is sold out — ANSWERED 11 Sep 2026,
+  on the store. It was a harness defect, not a production one.**
 
-  What the harness shows, with the two-option fixture: the picker displayed
-  `Tub / 177ml` (sold out, €14.50) while the price read €22.50, the stock line
-  read "In stock" and the form carried the id of `Tub / 454ml`. Pressing Add
-  bought the 454ml.
+  Settled by creating a disposable `ZZ TEST` product with two options and its first
+  variant (Tub / 177ml, EUR 14.50) deliberately unavailable, then loading it with no
+  query string. Both the shipped code and the pre-fix code were pushed and measured.
 
-  Shopify's docs do not say what `selected_value` returns with no `?variant=`
-  param and a sold-out first variant. Two of the three plausible readings produce
-  the defect: if it falls back to the first variant, the picker names a sold-out
-  combination; if it returns nil, nothing is marked selected and the browser
-  defaults to the first `<option>`, which is the same value. Only a fallback to
-  the first AVAILABLE variant avoids it.
+      shipped (current_variant.options[opt_i])  picker: Tub / 454ml   form id: ...913227 (Tub / 454ml)
+      pre-fix (option.selected_value)           picker: Tub / 454ml   form id: ...913227 (Tub / 454ml)
 
-  To settle it, the store needs a product whose FIRST variant is sold out. The
-  `vitamin-d3-1000iu-60-capsules` does not qualify on two counts. Its first variant
-  is in stock, and — checked against the Admin API on 11 Sep 2026 — **it is not on the
-  store at all.** It is a local fixture only; no design product has ever been seeded,
-  because `provision.mjs all` deliberately skips the `products` step and the client
-  catalogue of 2,474 real products arrived before that step was ever wanted. So there
-  is currently NO multi-variant product on the store to test against. Two ways:
+  Identical. So on real Shopify `option.selected_value` falls back to the first
+  AVAILABLE variant - the third of the three readings sketched in the old note, and the
+  only one that does not produce the defect. The picker never named the sold-out
+  combination, and the no-JS select rendered it `disabled` and unselected.
 
-      # a) seed the two-option fixture, which has exactly that shape
-      SHOP=mccormackpharmacy.myshopify.com ADMIN_TOKEN=… node setup/provision.mjs
-      # b) or zero the 60-capsule variant's inventory in admin, temporarily
+  What this means: the theme was never wrong on Shopify about this, and the fix in the
+  picker is belt-and-braces rather than a repair. **The harness was the thing lying** -
+  it modelled `selected_value` as falling back to the first variant, which Shopify does
+  not do. Worth keeping the fix regardless, because it depends on nothing undocumented.
 
-  Then push the theme, open the product with NO query string, and compare the
-  selects against `input[name=id]`. Revert the fix's `selected` line to
-  `option.selected_value` to see the old behaviour; they will disagree if it was
-  live. Needs an Admin API token, which is not in the working environment.
+  The test product was deleted afterwards; the catalogue is back to 2,474.
+
 - Real product handles. Fixture handles are invented from titles.
 - Gift card page: `{% layout none %}`, QR code, wallet pass. The harness
   wraps it in the theme layout.
 - The password page and blog comments.
+
+### The catalogue has no variants because the import flattened them (11 Sep 2026)
+
+Checked against the Admin API: all 2,474 products have exactly one variant, so no
+product page on the store has ever rendered a variant picker. That is not because the
+client sells no ranges. It is because sizes arrived as **separate products**.
+
+    Revive Active Original 7Pk                            EUR  17.99
+    Revive Active Original 30Pk                           EUR  59.95
+    Revive Active 3 Month Supply - 90 Sachets              EUR 127.99
+    Revive Active 6 Month Supply -180 Sachets              EUR 249.99
+    Revive Active Original 210 Sachets 7 Months Supply     EUR 299.99
+    Revive Original 1 Year Supply 360 Sachets              EUR 479.99
+
+Six sizes of one product, six handles, six PDPs. The same shape repeats across
+Nicorette (strength x pack size), Dulcolax (4 pack sizes), Optibac S.Boulardii (16 and
+40), Chanel No5 (35/50/100ml) and the rest of the Revive range.
+
+A conservative grouping - strip trailing size and pack tokens, then look for collisions
+- finds **115 families and 138 products that are sizes of another product, 5.6% of the
+catalogue**. Treat that as a floor, not a count. The titles are not systematic: the same
+range appears as "Revive Active Original 30Pk", "Revive Active 3 Month Supply" and
+"Revive Original 1 Year Supply", with the brand prefix drifting between "Revive Active"
+and "Revive". Nothing automated can regroup those reliably, which is itself the finding.
+
+**This is a catalogue question for the client, not a theme one.** It changes what the
+variant work is protecting against:
+
+- The variant picker, its sold-out states and the `selected_value` question above are
+  all currently theoretical on this store. Nothing exercises them.
+- The real cost is on the storefront: six near-identical PDPs compete with each other in
+  search and in collection grids, none carries a "choose your size" control, and a
+  shopper comparing 30Pk against 90 sachets has to navigate between pages to do it.
+- Re-grouping is a merchandising decision with SEO consequences (five of every six URLs
+  would become variants rather than pages, so redirects matter), and it cannot be done
+  from the theme.
+
+Also worth putting to the client: **inventory is placeholder.** Of 2,474 products, 1,815
+hold exactly 1 unit and 659 hold 0. Nothing holds more than one. So "in stock" on this
+store means "someone set it to 1", and any check that depends on stock levels - the
+sold-out fixture, back-in-stock, low-stock messaging - is reading scaffolding.
 
 ### Getting a multi-variant product onto the store
 
