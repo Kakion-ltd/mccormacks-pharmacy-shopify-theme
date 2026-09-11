@@ -73,9 +73,13 @@
           {%- endif -%}
           <!-- Main image -->
           <div class="gallery-main" style="flex:1; min-width:0; position:relative; background:#ffffff; border:1px solid #eceee9; border-radius:14px; display:flex; align-items:center; justify-content:center; padding:28px; min-height:clamp(340px,42vw,560px);">
-            {%- if on_sale -%}
-              <span data-pdp-badge style="position:absolute; top:20px; right:20px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:12.5px; letter-spacing:.06em; padding:8px 14px; border-radius:6px;">SPECIAL OFFER</span>
-            {%- endif -%}
+            {%- comment -%} Rendered whatever the first variant costs, hidden rather than
+                omitted, so selecting a discounted variant can reveal it. It used to be
+                emitted only when the first variant was on sale and never touched again:
+                the strikethrough price followed the selection and this did not, so the
+                page could show a SPECIAL OFFER flash over a variant with no offer, or
+                hide one from a variant that had. {%- endcomment -%}
+            <span data-pdp-badge style="position:absolute; top:20px; right:20px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:12.5px; letter-spacing:.06em; padding:8px 14px; border-radius:6px; {% unless on_sale %}display:none;{% endunless %}">SPECIAL OFFER</span>
             {%- if product.media.size > 0 -%}
               {%- for media in product.media -%}
                 {%- capture main_alt %}{% render 'image-alt', image: media.preview_image, product: product %}{% endcapture -%}
@@ -187,12 +191,12 @@
 
       <!-- RIGHT: info -->
       <div class="pdp-right" style="flex:0 0 400px; width:400px;">
-        {%- if on_sale -%}
-          <div style="display:inline-flex; align-items:center; gap:8px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:13.5px; padding:9px 20px; border-radius:8px; margin-bottom:18px;">
+        {%- comment -%} Same as the gallery badge: present but hidden, so it can follow
+            the selected variant instead of freezing on the first one. {%- endcomment -%}
+        <div data-pdp-offer style="display:{% if on_sale %}inline-flex{% else %}none{% endif %}; align-items:center; gap:8px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:13.5px; padding:9px 20px; border-radius:8px; margin-bottom:18px;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><rect x="2" y="7" width="20" height="5" rx="1"></rect><path d="M12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
-            Special Offer
-          </div>
-        {%- endif -%}
+          Special Offer
+        </div>
         {%- if product.vendor != blank -%}
           <div style="font-size:14px; font-weight:700; color:var(--c-primary-text); margin-bottom:8px;"><a href="{{ product.vendor | url_for_vendor }}" class="hov-green-dk" style="color:var(--c-primary-text);">{{ product.vendor }}</a></div>
         {%- endif -%}
@@ -420,6 +424,21 @@
     rendered in any preview until the fixture was added. {%- endcomment -%}
 {%- unless product.has_only_default_variant -%}
   <script type="application/json" id="pdp-variants-{{ section.id }}">{{ product.variants | json }}</script>
+  {%- comment -%} Which gallery frame belongs to which variant, as "id:index,id:index".
+      featured_media.position is 1-based over product.media and the frames above are
+      stamped with forloop.index0, so the frame index is position - 1. A flat string
+      rather than JSON because a variant without its own media contributes no pair,
+      and building valid JSON around the gaps costs more Liquid than parsing this
+      costs JavaScript. Variants with no media of their own are simply absent, and
+      the gallery then stays where it is. {%- endcomment -%}
+  {%- assign variant_media = '' -%}
+  {%- for v in product.variants -%}
+    {%- if v.featured_media -%}
+      {%- assign frame = v.featured_media.position | minus: 1 -%}
+      {%- assign variant_media = variant_media | append: v.id | append: ':' | append: frame | append: ',' -%}
+    {%- endif -%}
+  {%- endfor -%}
+  <span data-pdp-variant-media="{{ variant_media }}" hidden></span>
 {%- endunless -%}
 <script>
   (() => {
@@ -486,6 +505,31 @@
       if (buybarLabel) buybarLabel.textContent = label;
     };
 
+    // Variant -> gallery frame, from the map Liquid wrote above.
+    const mediaMap = {};
+    const mapEl = document.querySelector('[data-pdp-variant-media]');
+    (mapEl ? mapEl.dataset.pdpVariantMedia : '').split(',').forEach(pair => {
+      const [id, frame] = pair.split(':');
+      if (id && frame !== undefined) mediaMap[id] = Number(frame);
+    });
+
+    // The same agreement on first paint as on every change: the gallery opens on the
+    // frame belonging to the variant the buy box is built from, not always frame 0.
+    // Matters most on a ?variant= link, where the shopper arrived asking for one.
+    if (idInput && mediaMap[idInput.value] !== undefined) showImg(mediaMap[idInput.value]);
+
+    const badge = root.querySelector('[data-pdp-badge]');
+    const offer = root.querySelector('[data-pdp-offer]');
+    const cmpEl = root.querySelector('[data-pdp-compare]');
+    // The strikethrough, the gallery flash and the pill are three faces of one fact.
+    // Only the first used to move, so the page could contradict itself.
+    const setOffer = (v) => {
+      const onSale = !!(v.compare_at_price && v.compare_at_price > v.price);
+      if (cmpEl) { cmpEl.style.display = onSale ? '' : 'none'; if (onSale) cmpEl.textContent = fmt(v.compare_at_price); }
+      if (badge) badge.style.display = onSale ? '' : 'none';
+      if (offer) offer.style.display = onSale ? 'inline-flex' : 'none';
+    };
+
     sels.forEach(sel => sel.addEventListener('change', () => {
       const opts = sels.map(s => s.value);
       const v = variants.find(v => opts.every((o, i) => v.options[i] === o));
@@ -493,12 +537,7 @@
       if (!v) return;
       const priceEl = root.querySelector('[data-pdp-price]');
       if (priceEl) priceEl.textContent = fmt(v.price);
-      const cmpEl = root.querySelector('[data-pdp-compare]');
-      if (cmpEl) {
-        const onSale = v.compare_at_price && v.compare_at_price > v.price;
-        cmpEl.style.display = onSale ? '' : 'none';
-        if (onSale) cmpEl.textContent = fmt(v.compare_at_price);
-      }
+      setOffer(v);
       const skuEl = root.querySelector('[data-pdp-sku]');
       if (skuEl && v.sku) skuEl.textContent = 'SKU ' + v.sku;
       const stockEl = root.querySelector('[data-pdp-stock]');
@@ -506,6 +545,9 @@
         stockEl.style.color = v.available ? 'var(--c-success)' : '#B3261E';
         stockEl.lastChild.textContent = v.available ? 'In stock — ready to ship' : 'Out of stock';
       }
+      // A variant with no media of its own leaves the gallery alone rather than
+      // jumping to frame 0, which would hide whatever the shopper was looking at.
+      if (mediaMap[v.id] !== undefined) showImg(mediaMap[v.id]);
     }));
   })();
 </script>
