@@ -270,19 +270,36 @@ async function createProducts() {
     if (existing.products.nodes.length) { skipped++; continue; }
     const tags = [...(c.cols || []).map((h) => byHandle[h]).filter(Boolean), ...(c.tg || [])];
     const packs = Array.isArray(c.packs) && c.packs.length > 1 ? c.packs : null;
+    // optName and a pack's `o` are a string for one option, an array for several.
+    const optNames = [].concat(c.optName || 'Pack size');
+    const packValues = (pk) => [].concat(pk.o);
     const variants = (packs || [{ o: 'Default Title', p: c.p, was: c.was, oos: c.oos }]).map((pk) => ({
-      optionValues: packs ? [{ optionName: c.optName, name: pk.o }] : [{ optionName: 'Title', name: 'Default Title' }],
+      optionValues: packs
+        ? packValues(pk).map((name, oi) => ({ optionName: optNames[oi], name }))
+        : [{ optionName: 'Title', name: 'Default Title' }],
       price: money(pk.p), compareAtPrice: pk.was ? money(pk.was) : null,
       inventoryPolicy: 'DENY',
       inventoryItem: { tracked: true },
       inventoryQuantities: [{ locationId, name: 'available', quantity: pk.oos ? 0 : 12 }],
+      // Per-pack art where the fixture gives it, so the store carries genuinely
+      // different photos per variant rather than one shot repeated. Without this the
+      // store could not show a gallery following a variant selection either.
+      ...(packs && pk.img ? { file: { originalSource: `${IMAGE_BASE}/${pk.img}`, contentType: 'IMAGE', alt: `${c.t} — ${packValues(pk).join(' / ')}` } } : {}),
     }));
+    // Every distinct image the product needs: the shared shot first, then each pack's.
+    const files = [...new Set([c.img, ...(packs || []).map((pk) => pk.img).filter(Boolean)])]
+      .map((name) => ({ originalSource: `${IMAGE_BASE}/${name}`, contentType: 'IMAGE', alt: c.t }));
     const input = {
       title: c.t, handle, vendor: c.v, productType: c.ty, status: 'ACTIVE', tags,
       descriptionHtml: `<p>${c.t} from ${c.v}.</p>`,
-      productOptions: [{ name: packs ? c.optName : 'Title', values: (packs ? c.packs.map((p) => p.o) : ['Default Title']).map((n) => ({ name: n })) }],
+      productOptions: packs
+        ? optNames.map((name, oi) => ({
+            name,
+            values: [...new Set(packs.map((pk) => packValues(pk)[oi]))].map((n) => ({ name: n })),
+          }))
+        : [{ name: 'Title', values: [{ name: 'Default Title' }] }],
       variants,
-      files: [{ originalSource: `${IMAGE_BASE}/${c.img}`, contentType: 'IMAGE', alt: c.t }],
+      files,
     };
     const data = await gql(
       `mutation($input: ProductSetInput!) {

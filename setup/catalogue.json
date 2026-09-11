@@ -133,5 +133,50 @@
     "was": null,
     "ty": "Sore Throat",
     "oos": true
+  },
+  {
+    "t": "CeraVe Moisturising Cream",
+    "cols": [
+      "cerave",
+      "skincare",
+      "facial-moisturisers"
+    ],
+    "v": "CeraVe",
+    "img": "prod-cerave-cleanser.jpg",
+    "p": 1450,
+    "was": null,
+    "ty": "Skincare",
+    "optName": [
+      "Format",
+      "Size"
+    ],
+    "packs": [
+      {
+        "o": [
+          "Tub",
+          "177ml"
+        ],
+        "p": 1450,
+        "oos": true,
+        "img": "prod-cerave-cleanser.jpg"
+      },
+      {
+        "o": [
+          "Tub",
+          "454ml"
+        ],
+        "p": 2250,
+        "was": 2600,
+        "img": "prod-sudocrem.jpg"
+      },
+      {
+        "o": [
+          "Pump",
+          "177ml"
+        ],
+        "p": 1650,
+        "img": "prod-optibac-max.jpg"
+      }
+    ]
   }
 ]

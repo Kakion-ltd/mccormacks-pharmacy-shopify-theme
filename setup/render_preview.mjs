@@ -397,18 +397,28 @@ const mockVariant = (i) => ({
 //
 // Images are attached to variants so the variant half of snippets/image-alt.liquid
 // has something to resolve. attached_to_variant? appeared nowhere before this.
+//
+// `optName` and a pack's `o` are each either a string (one option) or an array (N
+// options), so the one-option fixture keeps its shape and a two-option one needs no
+// second code path. Shopify joins a variant title with ' / '.
+const optNames = (c) => [].concat(c.optName || 'Pack size');
+const packValues = (pk) => [].concat(pk.o);
+
 const buildVariants = (c, i) => c.packs.map((pk, k) => ({
   id: 40000000 + i * 100 + k,
-  title: pk.o,
+  title: packValues(pk).join(' / '),
   price: pk.p,
   compare_at_price: pk.was || null,
   available: pk.oos !== true,
   sku: `SKU-${i}-${k}`,
   inventory_quantity: pk.oos ? 0 : 12,
-  featured_image: mockImage(c.img, 700, 700),
+  // A per-pack `img` is what makes a variant image swap observable: without it every
+  // variant of the one-option fixture carried the same photo, so nothing could tell
+  // a gallery that follows the selection from one that ignores it.
+  featured_image: mockImage(pk.img || c.img, 700, 700),
   store_availabilities: [],
   requires_shipping: true,
-  options: [pk.o],
+  options: packValues(pk),
   selected: k === 0,
 }));
 
@@ -417,16 +427,27 @@ const products = CATALOGUE.map((c, i) => {
   const variants = multi ? buildVariants(c, i) : [mockVariant(i)];
   const firstAvailable = variants.find((v) => v.available) || variants[0];
 
-  // One image per variant, each claiming its variant, plus the shared shot.
+  // One image per variant, each claiming its variant, plus the shared shot. The
+  // per-variant photo comes from the variant, so a fixture that gives its packs
+  // different `img` values renders a gallery whose frames actually differ.
   const media = multi
-    ? [{ media_type: 'image', preview_image: mockImage(c.img, 700, 700), id: `${i}-0`, alt: '' }].concat(
+    ? [{ media_type: 'image', preview_image: mockImage(c.img, 700, 700), id: `${i}-0`, alt: '', position: 1 }].concat(
         variants.map((v, k) => ({
-          media_type: 'image', id: `${i}-${k + 1}`, alt: '',
-          preview_image: Object.assign(mockImage(c.img, 700, 700), {
+          media_type: 'image', id: `${i}-${k + 1}`, alt: '', position: k + 2,
+          preview_image: Object.assign(mockImage(c.packs[k].img || c.img, 700, 700), {
             attached_to_variant: true, 'attached_to_variant?': true, variants: [v],
           }),
         })))
-    : [{ media_type: 'image', preview_image: mockImage(c.img, 700, 700), id: i, alt: '' }];
+    : [{ media_type: 'image', preview_image: mockImage(c.img, 700, 700), id: i, alt: '', position: 1 }];
+
+  // variant.featured_media is what a gallery following the selection reads, and its
+  // `position` is 1-based over product.media. The shared shot is position 1, so each
+  // variant's own frame is position k + 2. Absent from the mock until now, which is
+  // why nothing could tell a gallery that follows a variant from one that ignores it.
+  // Only id and position, not the media object itself: that object's preview_image
+  // already points back at this variant, and product.variants | json cannot serialise
+  // a cycle. The theme reads nothing else off it.
+  if (multi) variants.forEach((v, k) => { v.featured_media = { id: media[k + 1].id, position: k + 2 }; });
 
   const prices = variants.map((v) => v.price);
   return {
@@ -436,9 +457,14 @@ const products = CATALOGUE.map((c, i) => {
     object_type: 'product',
     id: 30000000 + i, title: c.t, handle: handleOf(c.t), vendor: c.v, type: c.ty,
     url: `/products/${handleOf(c.t)}`,
-    price: firstAvailable.price, price_min: Math.min(...prices), price_max: Math.max(...prices),
+    // product.price is price_min on Shopify, not the first available variant's price.
+    // Identical for every single-variant fixture; they differ the moment the cheapest
+    // variant is the sold-out one, which is exactly when a "From" price is read.
+    price: Math.min(...prices), price_min: Math.min(...prices), price_max: Math.max(...prices),
+    price_varies: Math.min(...prices) !== Math.max(...prices),
     compare_at_price: firstAvailable.compare_at_price,
     compare_at_price_max: firstAvailable.compare_at_price,
+    compare_at_price_varies: new Set(variants.map((v) => v.compare_at_price)).size > 1,
     available: variants.some((v) => v.available),
     featured_image: mockImage(c.img, 700, 700), images: [mockImage(c.img, 700, 700)],
     media,
@@ -446,10 +472,18 @@ const products = CATALOGUE.map((c, i) => {
     first_available_variant: firstAvailable,
     selected_or_first_available_variant: firstAvailable,
     has_only_default_variant: !multi,
-    options: multi ? [c.optName] : [],
+    options: multi ? optNames(c) : [],
+    // selected_value is modelled off variant ONE, not the first available one, while
+    // the hidden input takes selected_or_first_available_variant. Shopify's own
+    // behaviour here is undocumented for a page with no ?variant= param and a sold-out
+    // first variant; this is the pessimistic reading, and a picker that marks its
+    // selection from current_variant.options[i] instead is correct under either.
     options_with_values: multi
-      ? [{ name: c.optName, position: 1, selected_value: firstAvailable.title,
-           values: variants.map((v) => v.title) }]
+      ? optNames(c).map((name, oi) => ({
+          name, position: oi + 1,
+          selected_value: variants[0].options[oi],
+          values: [...new Set(variants.map((v) => v.options[oi]))],
+        }))
       : [],
     tags: c.tg || [], selling_plan_groups: [],
     description: '<p>Product description.</p>',
@@ -881,14 +915,20 @@ console.log(`${ok}/${ok + fail} templates render clean`);
 }
 
 {
-  const multi = products.find((p) => p.has_only_default_variant === false);
-  if (multi) {
+  // One page per multi-variant fixture, named by option count: product.variants.html
+  // is the one-option pack-size product, product.variants2.html the two-option one.
+  // Two options is where the option matrix stops being a list — a combination that
+  // no variant covers becomes reachable, and the picker has to say so.
+  const multis = products.filter((p) => p.has_only_default_variant === false);
+  for (const multi of multis) {
+    const opts = multi.options_with_values.length;
+    const file = `product.variants${opts > 1 ? opts : ''}.html`;
     const saved = { product: globals.product, request: globals.request };
     globals.product = multi;
     globals.request = { ...globals.request, page_type: 'product' };
     try {
-      writeFileSync(join(outDir, 'product.variants.html'), await renderTemplate('product'));
-      console.log(`multi-variant product page: ${multi.handle} (${multi.variants.length} variants)`);
+      writeFileSync(join(outDir, file), await renderTemplate('product'));
+      console.log(`multi-variant product page: ${multi.handle} (${opts} option${opts > 1 ? 's' : ''}, ${multi.variants.length} variants) -> ${file}`);
     } finally {
       Object.assign(globals, saved);
     }

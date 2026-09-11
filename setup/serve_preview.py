@@ -25,6 +25,8 @@ def product_page(handle):
         return first_existing("preview/product.oos.html", "preview/product.html")
     if handle == "vitamin-d3-1000iu-60-capsules":
         return first_existing("preview/product.variants.html", "preview/product.html")
+    if handle == "cerave-moisturising-cream":
+        return first_existing("preview/product.variants2.html", "preview/product.html")
     if handle == "nurofen-plus-200mg-12-8mg-24-tablets":
         return first_existing("preview/product.restricted.html", "preview/product.html")
     # Unknown handles 404, as on Shopify. Serving the generic page for any handle
@@ -153,15 +155,32 @@ def handleize(title):
 HANDLES = {handleize(t[0]) for t in CATALOGUE}
 
 
+def _aslist(v):
+    """A catalogue optName / pack `o` is a string for one option, a list for several."""
+    return list(v) if isinstance(v, list) else [v]
+
+
 def _variants(i):
     """Variants in the shape /products/<handle>.js gives, with the ids render_preview.mjs
-    puts on the page: 40000000+i for a single variant, 40000000+i*100+k per pack."""
+    puts on the page: 40000000+i for a single variant, 40000000+i*100+k per pack.
+
+    featured_image carries the pack's own photo where the fixture gives one — quick
+    view swaps the modal image from this field, and with every variant sharing one
+    photo there was no way to see whether it had."""
     c = _CAT[i]
     packs = c.get("packs") or []
     if len(packs) > 1:
-        return [{"id": 40000000 + i * 100 + k, "title": pk["o"], "option1": pk["o"], "options": [pk["o"]],
-                 "price": pk["p"], "compare_at_price": pk.get("was"), "available": pk.get("oos") is not True,
-                 "featured_image": None} for k, pk in enumerate(packs)], [c.get("optName", "Pack size")]
+        out = []
+        for k, pk in enumerate(packs):
+            vals = _aslist(pk["o"])
+            v = {"id": 40000000 + i * 100 + k, "title": " / ".join(vals), "options": vals,
+                 "price": pk["p"], "compare_at_price": pk.get("was"),
+                 "available": pk.get("oos") is not True,
+                 "featured_image": {"src": f"/shopify-theme/assets/{pk.get('img', c['img'])}"}}
+            for n, val in enumerate(vals):
+                v[f"option{n + 1}"] = val
+            out.append(v)
+        return out, _aslist(c.get("optName", "Pack size"))
     return [{"id": 40000000 + i, "title": "Default Title", "option1": "Default Title", "options": ["Default Title"],
              "price": c["p"], "compare_at_price": c.get("was"), "available": c["t"] not in SOLD_OUT,
              "featured_image": None}], ["Title"]
@@ -205,7 +224,11 @@ def line_for(variant_id):
         "variant_title": vtitle, "quantity": 0, "price": price, "final_price": price,
         "original_price": price, "line_price": price, "final_line_price": price,
         "original_line_price": price, "url": f"/products/{handleize(title)}",
-        "image": f"/shopify-theme/assets/{img}",
+        # Shopify sends the variant's own photo where it has one, falling back to the
+        # product's. Two pack sizes of one product therefore differ by image on a real
+        # store, which is precisely why a drawer line that omits variant_title is not
+        # obviously wrong until a fixture gives the variants the same picture.
+        "image": (v.get("featured_image") or {}).get("src") or f"/shopify-theme/assets/{img}",
     }
 
 
