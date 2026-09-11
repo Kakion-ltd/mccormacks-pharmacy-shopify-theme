@@ -2,7 +2,9 @@
   Hub -> detail -> booking behavior reproduced with theme.js data-view tabs
   (hub visible by default; service details and the booking form are hidden panels).
   The booking form posts as a Shopify contact form with a hidden
-  contact[form_type] = "appointment-request" tag field.
+  contact[form_type] = "appointment-request" field. That is not a Shopify tag and
+  tags nothing — it is a plain field that shows up in the notification email body,
+  so the one inbox holding every contact form can be filtered by mail rules.
 {% endcomment %}
 
 {% style %}
@@ -66,7 +68,7 @@
         <div style="font-size:15px; line-height:1.65; color:#d6e2cd;">Call us and describe what is going on. We will tell you what we can help with in store, and when you are better off seeing your GP.</div>
       </div>
       <div style="flex:0 0 auto; display:flex; flex-wrap:wrap; gap:12px;">
-        <a href="tel:{{ settings.phone | remove: ' ' }}" class="btn btn-lime">{{ settings.phone }}</a>
+        <a href="tel:{{ settings.phone | remove: ' ' }}" class="btn btn-fill">{{ settings.phone }}</a>
         <button type="button" class="svc-link-btn svc-band-outline btn" data-view-btn="svc-book" style="border-color:rgba(255,255,255,.28); color:#ffffff">Request an appointment</button>
       </div>
     </div>

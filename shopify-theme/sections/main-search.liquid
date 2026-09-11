@@ -97,7 +97,7 @@
               <div style="position:relative;">
               <a href="{{ product.url }}" style="display:block; position:relative; padding:18px; background:#ffffff;">
                 {%- if on_sale -%}
-                  <span style="position:absolute; top:12px; left:12px; z-index:2; display:inline-flex; align-items:center; height:24px; padding:0 9px; border-radius:6px; background:#c0392b; color:#ffffff; font-size:11.5px; font-weight:800;">SALE</span>
+                  <span style="position:absolute; top:12px; left:12px; z-index:2; display:inline-flex; align-items:center; height:24px; padding:0 9px; border-radius:6px; background:var(--c-sale); color:#ffffff; font-size:11.5px; font-weight:800;">SALE</span>
                 {%- endif -%}
                 <span style="display:block; width:100%; aspect-ratio:1/1; overflow:hidden;">
                   {%- if product.featured_image -%}

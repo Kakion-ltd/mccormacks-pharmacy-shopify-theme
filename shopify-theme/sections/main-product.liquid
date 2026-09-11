@@ -79,7 +79,7 @@
                 the strikethrough price followed the selection and this did not, so the
                 page could show a SPECIAL OFFER flash over a variant with no offer, or
                 hide one from a variant that had. {%- endcomment -%}
-            <span data-pdp-badge style="position:absolute; top:20px; right:20px; background:var(--c-primary); color:var(--c-on-primary); font-weight:800; font-size:12.5px; letter-spacing:.06em; padding:8px 14px; border-radius:6px; {% unless on_sale %}display:none;{% endunless %}">SPECIAL OFFER</span>
+            <span data-pdp-badge style="position:absolute; top:20px; right:20px; background:var(--c-sale); color:#ffffff; font-weight:800; font-size:12.5px; letter-spacing:.06em; padding:8px 14px; border-radius:6px; {% unless on_sale %}display:none;{% endunless %}">SPECIAL OFFER</span>
             {%- if product.media.size > 0 -%}
               {%- for media in product.media -%}
                 {%- capture main_alt %}{% render 'image-alt', image: media.preview_image, product: product %}{% endcapture -%}
@@ -193,7 +193,7 @@
       <div class="pdp-right" style="flex:0 0 400px; width:400px;">
         {%- comment -%} Same as the gallery badge: present but hidden, so it can follow
             the selected variant instead of freezing on the first one. {%- endcomment -%}
-        <div data-pdp-offer style="display:{% if on_sale %}inline-flex{% else %}none{% endif %}; align-items:center; gap:8px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:13.5px; padding:9px 20px; border-radius:8px; margin-bottom:18px;">
+        <div data-pdp-offer style="display:{% if on_sale %}inline-flex{% else %}none{% endif %}; align-items:center; gap:8px; background:var(--c-tint); color:var(--c-text); font-weight:700; font-size:13.5px; padding:9px 20px; border-radius:8px; margin-bottom:18px;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><rect x="2" y="7" width="20" height="5" rx="1"></rect><path d="M12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
           Special Offer
         </div>

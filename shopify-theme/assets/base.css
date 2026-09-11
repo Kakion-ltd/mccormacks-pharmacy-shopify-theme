@@ -19,6 +19,11 @@
   --c-muted-2: #666b60; /* 4.62:1 on white was too close; this holds AA on the pale tints too */
   --c-border: #E6E7E4;
   --c-border-2: #DFE1DC;
+  /* Sale red. Not a brand green and not editor-driven, so it lives here rather than in
+     theme.liquid — but it IS one decision, and it was three hardcoded copies until the
+     product page drifted off it. Near --c-error on purpose and not the same: a reduced
+     price is not a failure. */
+  --c-sale: #c0392b;
   --c-error: #B3261E;
   --c-error-bg: #FBEAE9;
   --c-success: var(--c-primary-text); /* follows the editor; the lime darkened to AA */
@@ -72,10 +77,10 @@ h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 
 .hov-slide:hover { color:var(--c-primary-text) !important; transform: translateX(4px); }
 
 /* ---- Buttons: two sizes and a chip. Chips are navigation, 40px so they read as places
-   to go rather than filter tags, and they share the 9px radius. Actions fill deep
-   green with white ink (6.13:1); the lime is 2:1 under white, so it stays a fill only
-   behind dark ink (.btn-lime, .chip-lime), a hover, and a badge. Inline styles on the
-   elements carry layout only (flex, width, margin, position); everything visual is here. */
+   to go rather than filter tags, and they share the 9px radius. Actions fill lime and
+   darken to deep green on hover. The lime is 2.04:1 under white ink, so it is only ever
+   a fill behind dark ink; the deep green takes white. Inline styles on the elements
+   carry layout only (flex, width, margin, position); everything visual is here. */
 .btn, .btn-sm, .chip { display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box; font-family: inherit; font-weight: 700; line-height: 1.2; text-align: center; text-decoration: none; white-space: nowrap; cursor: pointer; border: 1.5px solid transparent; transition: background .15s ease, border-color .15s ease, color .15s ease, transform .15s ease, box-shadow .15s ease; }
 .btn    { min-height: 44px; padding: 0 20px; font-size: 15px;   border-radius: 9px; }
 .btn-sm { min-height: 36px; padding: 0 14px; font-size: 13.5px; border-radius: 8px; }
@@ -84,13 +89,25 @@ h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 
    variable and nothing else, so the row can only ever differ from the collection
    chips by height; setup/verify/chips-taxonomy.py asserts that. */
 .chip-row-compact { --chip-h: 38px; }
-.btn-fill { background: var(--c-dark); color: var(--c-on-dark); border-color: var(--c-dark); }
-/* Hover goes lime and the ink flips to dark in the same transition (7.14:1), never
-   white on lime (1.99:1). A 1px lift with a soft shadow; the transform is dropped
-   under reduced motion below, the colour still animates. */
-.btn-fill:hover:not(:disabled) { background: var(--c-accent); border-color: var(--c-accent); color: var(--c-on-accent); transform: translateY(-1px); box-shadow: 0 6px 14px rgba(42,43,42,.16); }
-.btn-lime { background: var(--c-accent); color: var(--c-on-accent); border-color: var(--c-accent); }
-.btn-lime:hover { background: var(--c-primary-hover); border-color: var(--c-primary-hover); }
+.btn-fill { background: var(--c-accent); color: var(--c-on-accent); border-color: var(--c-accent); }
+/* Resting is the lime under dark ink (7.14:1); hover goes deep green and the ink flips
+   to white in the same transition (6.13:1). Never white on lime, which is 2.04:1.
+   The 1px lift survived the inversion, the shadow did not: a drop shadow reads as depth
+   by its contrast against the page, and the tuned rgba(42,43,42,.16) is a 1.26:1 halo
+   whichever colour casts it. Beside the lime's 1.99:1 edge that was a quarter of the
+   step it sat against; beside deep green's 6.13:1 edge it is a twentieth, and reads as
+   fringing. Tinted with the button's own hue and carried to .38 it is back to a tenth,
+   which is the most a shadow can be worth against an edge that strong. The transform is
+   dropped under reduced motion below, the colour and the shadow still animate. */
+.btn-fill:hover:not(:disabled) { background: var(--c-dark); border-color: var(--c-dark); color: var(--c-on-dark); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(63,107,79,.38); }
+/* The same button the other way up, for the one ground the lime cannot hold: a light
+   one of its own hue. On the promo strip's #E6F2D5 the lime separates at 1.71:1 and
+   reads as another category chip; the deep green is 5.26:1 there. Its hover is the
+   lime, so it carries the ORIGINAL neutral shadow — that shadow was measured against
+   a lime edge and is worth 26% of it. The shadow follows whichever colour is on top
+   during hover, not the class; that is why the two variants do not share one value. */
+.btn-deep { background: var(--c-dark); color: var(--c-on-dark); border-color: var(--c-dark); }
+.btn-deep:hover:not(:disabled) { background: var(--c-accent); border-color: var(--c-accent); color: var(--c-on-accent); transform: translateY(-1px); box-shadow: 0 6px 14px rgba(42,43,42,.16); }
 .btn-outline { background: #ffffff; color: var(--c-dark); border-color: #cdd3c5; }
 .btn-outline:hover { border-color: var(--c-dark); }
 .chip:hover { background: #e6e9e2; color: var(--c-dark); }
@@ -525,7 +542,7 @@ body[data-cd-open] { overflow: hidden; }
      finished being dismissed and focus lands nowhere. */
   .mnav-drawer { transition: visibility 0s .01s; }
   body[data-mnav-open] .mnav-drawer { transition: visibility 0s; }
-  .btn-fill:hover:not(:disabled) { transform: none; }
+  .btn-fill:hover:not(:disabled), .btn-deep:hover:not(:disabled) { transform: none; }
 }
 
 .mnav-list { list-style: none; margin: 0; padding: 6px 0; }

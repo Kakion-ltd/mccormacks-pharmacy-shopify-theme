@@ -327,17 +327,41 @@ were darkened along the same hue to `#717769`, `#727969` and `#58821D`.
 unavailable. Before it, a sold-out product was a dead end: a disabled button and no
 way to recover the session.
 
-**Nothing in this theme watches inventory.** Submissions arrive as `back-in-stock`
-contact-form emails in the Shopify admin inbox, carrying the product title, SKU and a
-link back to the page. **A person has to work that inbox.** If nobody does, the
-customer is never contacted and the copy becomes a lie.
+**Nothing in this theme watches inventory.** A submission posts to Shopify's contact
+endpoint and becomes one email, carrying the product title, SKU and a link back to the
+page in both the `contact[*]` fields and the message body. **A person has to work that
+mailbox.** If nobody does, the customer is never contacted and the copy becomes a lie.
+
+### The email is the only record
+
+There is no Shopify admin inbox for contact-form submissions. **Shopify stores nothing
+when this form is posted** — no customer, no admin entry, no list to export, nothing to
+search later. Delete the email and the request is gone with no way to recover it and no
+way to know it existed. Anyone told to "work through the requests when stock arrives" is
+working through a mailbox, and that is the entire system.
+
+Two consequences worth planning for before launch:
+
+- Whoever owns that mailbox should not delete these until the customer is contacted.
+  Archive or label instead. A mail rule on `form_type: back-in-stock` in the body gives
+  them a folder; there is no Shopify-side filter available, because contact forms create
+  no record to filter on.
+- Seven contact forms in this theme land in the same mailbox — back-in-stock, contact,
+  withdraw-from-contract, services booking, careers, and both prescription forms. Six
+  set a `contact[form_type]` to tell them apart; withdraw-from-contract sets none.
+
+`contact[tags]` does **not** mark a stock request. Tags only apply to `form 'customer'`
+(the newsletter forms in `footer.liquid` and `newsletter.liquid`), where they tag a real
+customer record. A contact form has no record to tag.
 
 The wording says so explicitly — "not an automatic alert — a person from the pharmacy
 gets in touch". Do not soften that to "we'll email you when it's back" unless the
 client has installed a real alerting app (Back in Stock, Klaviyo), at which point
 this snippet should be removed rather than left alongside it.
 
-Confirm with the client who owns that inbox before launch.
+Confirm with the client who owns that mailbox before launch, and see
+`setup/verify/NEEDS-A-STORE.md` for the one live submission that proves it delivers —
+**untested as of 2026-09-11.**
 
 ---
 
@@ -984,3 +1008,113 @@ be cleaned up by hand.
 Both vanish with a worktree per session: each index is private, each commit
 is by whole file with nothing foreign in it, and `push . HEAD:main` cannot
 overwrite anyone because it only fast-forwards.
+
+## The buttons were inverted, and the hover shadow is now load-bearing (11 Sep 2026)
+
+Primary actions used to rest deep green and go lime on hover. They now rest **lime
+with dark ink** and go **deep green with white ink** on hover. Both pairings pass AA
+— lime/dark is 7.14:1, deep green/white is 6.13:1 — and the contrast suite reports
+1890/1890 either way, so nothing here is an accessibility fix. It is a brand choice.
+
+**Do not remove the `box-shadow` on `.btn-fill:hover`.** It looks like decoration
+and it is not. This is the whole reason this section exists.
+
+### Why the lift needs help now
+
+The hover carries a 1px `translateY(-1px)`. Under the old scheme that lift agreed
+with the colour: the button went from dark to light as it rose, and a surface that
+rises catches more light. Inverted, the button goes from light to **dark** as it
+rises. Darkening while rising is what a receding surface does, so the colour and the
+motion now pull in opposite directions. The shadow is the only cue left that says
+which way the button moved.
+
+### Why it had to be retuned rather than kept
+
+A drop shadow reads as depth by its contrast **against the page**, not against the
+button. `rgba(42,43,42,.16)` over white is a 1.26:1 halo whoever casts it — that
+number does not change. What changed is the edge it sits beside:
+
+| Hover state | Button edge vs page | Halo vs page | Halo as a share of the edge |
+|---|---|---|---|
+| Old: lime hover | 1.99:1 | 1.26:1 | **26%** |
+| Inverted, shadow untouched | 6.13:1 | 1.26:1 | **5%** |
+| Inverted, shadow retuned | 6.13:1 | 1.52:1 | **10%** |
+
+At 5% it is not a shadow, it is fringing — indistinguishable from no shadow at all
+in a side-by-side render. Tinting it with the button's own hue and carrying it to
+`rgba(63,107,79,.38)` buys back half. Ten percent is roughly the ceiling: nothing
+soft competes with a 6:1 edge, which is exactly why the original value was fine
+under lime and is not fine under deep green.
+
+So the two variants deliberately **do not share a shadow value**:
+
+| Class | Rests | Hovers to | Shadow, tuned for the hover colour |
+|---|---|---|---|
+| `.btn-fill` | lime | deep green | `0 6px 16px rgba(63,107,79,.38)` |
+| `.btn-deep` | deep green | lime | `0 6px 14px rgba(42,43,42,.16)` |
+
+The shadow follows whichever colour is **on top during hover**, not the class. If you
+ever unify them to one value, one of the two stops working and it will be the one you
+are not looking at.
+
+### `.btn-deep` — the inverse variant, and when to reach for it
+
+The lime is a light colour, so a primary action on a light ground of the same hue
+stops separating. On the promo strip's `#E6F2D5` the lime measures **1.71:1** against
+its own bar and reads as one more category chip; the deep green is 5.26:1 there.
+`.btn-deep` is that case and only that case — a solid button, the old treatment,
+kept because an outline would go soft on an already-light strip.
+
+Everything else stays `.btn-fill`. Buttons on plain white sit at 1.99:1, which is low
+as a number but carries on hue and on the dark ink; do not go reclassifying them.
+
+**`.btn-lime` was deleted.** Once resting went lime it was a byte-for-byte duplicate
+of `.btn-fill` with a different hover, which is how two identical buttons end up
+behaving differently. Its two uses became `.btn-fill`, and the mobile drawer pair
+that had been deep green + lime is now `.btn-deep` + `.btn-fill` — same design, one
+class fewer.
+
+### One thing the inversion fixed by accident
+
+`.btn-fill` on a `--c-dark` panel used to be deep green on deep green: **1.00:1**, the
+button shape completely invisible, only its white label showing. "See open roles" on
+the About page and the phone number on Prescriptions had both been plain bold text
+pretending to be buttons. They are 3.08:1 now. Worth knowing, because a future revert
+to a deep green resting state brings both back.
+
+### The PDP stopped using lime for two different things
+
+Once resting went lime, the product page had the primary action and a promotional
+badge in the same colour — `--c-accent` on ADD TO BAG and `--c-primary` on the
+gallery badge measure **1.02:1 against each other**, which is to say they are the
+same colour. "Sixteen RGB points apart" is not a separation; luminance is.
+
+That was not a new decision to make. The site already had a sale colour — the
+collection card's red — and the product page was the only surface not using it. So:
+
+| Element | Was | Now |
+|---|---|---|
+| PDP gallery badge | `--c-primary` lime | `--c-sale` red, matching the card — 5.44:1 on white, 2.73:1 against the button lime |
+| PDP buy-column pill | `--c-accent` lime | `--c-tint` with `--c-text` ink, 12.20:1 — supporting information, not a second CTA |
+
+The pill is an inline reassurance row with an icon, not a corner flag, so it did not
+want the red; stacked directly above ADD TO BAG it only needed to stop looking like
+a button.
+
+**`--c-sale` is now a token.** The red had been hardcoded in four places and the
+product page had already drifted off it, which is the entire defect above. It is in
+`base.css` rather than `theme.liquid` because it is not editor-driven, and it is
+deliberately *not* `--c-error`: a reduced price is not a failure.
+
+> **Do not put `--c-primary-text` on `--c-tint`.** It measures **3.95:1** and fails
+> AA. It is a tempting pairing — the brand ink on the brand tint — and it is the
+> obvious thing to reach for when styling a quiet green chip. Use `--c-text` on the
+> tint, which is 12.20:1. `--c-primary-text` is darkened to clear AA **on white**
+> (4.60:1) and that margin does not survive a tinted ground.
+
+### Checking it after a change
+
+`setup/verify/contrast.py` will **not** catch any of this. It measures text on its
+background and both pairings pass, so it stays green through every mistake described
+above. The shadow, the lift and the button-against-its-ground separation are all
+invisible to it. Look at a hover in a browser.
