@@ -21,10 +21,15 @@
     count is Shopify's, not ours.
 
   The pharmacy lines (PSI-registered, Ask a pharmacist, and the PSI logo) show
-  when the product is a medicine — tagged with the restricted tag, or its type
-  starts with "Pharmacy", which is how the client's catalogue types every
-  Medicines & Health product — or when the Product section's checkbox turns
-  them on for everything. On a vitamin they are noise; on a pharmacy-only
+  when the product is tagged with the restricted tag, or its type's department —
+  everything before the first ">" — is exactly "Pharmacy", which is how the
+  client's catalogue types every Medicines & Health product — or when the Product
+  section's checkbox turns them on for everything.
+
+  Both of those are department membership, NOT a clinical fact, so a non-medicine
+  the client filed under Pharmacy gets these lines and should not. See
+  setup/verify/NEEDS-A-STORE.md; the fix is a tag the client applies per product,
+  which is theirs to decide, not a condition this snippet can tighten its way out of. On a vitamin they are noise; on a pharmacy-only
   medicine they are the point. The footer's PSI logo is the regulatory one and
   stays on every page regardless; this copy is reassurance, not compliance.
   With no product passed (the cart) the lines always show: a bag is mixed.
@@ -50,8 +55,17 @@
     capture restricted
       render 'product-restricted', product: product
     endcapture
-    assign type_prefix = product.type | downcase | slice: 0, 8
-    if restricted == 'true' or type_prefix == 'pharmacy'
+    comment
+      The department, matched whole. This was `slice: 0, 8`, a bare prefix with no
+      boundary: any type whose first eight characters spelled "pharmacy" passed, so
+      a "Pharmacy Brands" department would have been read as the pharmacy one.
+      product-restricted.liquid is careful to match a tag exactly for the same
+      reason, and these two gates should not disagree about strictness.
+      The client types every product "Department > Category", so the department is
+      everything before the first ">"; a type with no ">" is its own department.
+    endcomment
+    assign type_dept = product.type | downcase | split: '>' | first | strip
+    if restricted == 'true' or type_dept == 'pharmacy'
       assign pharmacy = true
     endif
   endif

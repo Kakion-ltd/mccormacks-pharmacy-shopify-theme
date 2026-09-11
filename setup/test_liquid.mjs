@@ -173,6 +173,19 @@ check('a Pharmacy-typed product gets the pharmacy lines',
   gated({ type: 'Pharmacy > Pain Relief', tags: [] }), true);
 check('the type test is a prefix, not a substring',
   gated({ type: 'Beauty > Pharmacy Brands', tags: [] }), false);
+// The department is matched whole. `slice: 0, 8` passed anything whose first eight
+// characters spelled "pharmacy", so a department merely BEGINNING with the word read
+// as the pharmacy one. product-restricted.liquid matches a tag exactly; so does this.
+check('a department that merely starts with the word is not the Pharmacy department',
+  gated({ type: 'Pharmacy Brands > Skincare', tags: [] }), false);
+check('a department with no ">" at all is still matched whole',
+  [gated({ type: 'Pharmacy', tags: [] }), gated({ type: 'Pharmacyx', tags: [] })].join(),
+  'true,false');
+check('spacing around the delimiter does not change the department',
+  [gated({ type: 'Pharmacy>Pain Relief', tags: [] }),
+   gated({ type: '  Pharmacy  >  Pain Relief', tags: [] })].join(), 'true,true');
+check('a product with no type is not in the Pharmacy department',
+  gated({ type: '', tags: [] }), false);
 check('the section checkbox shows the lines on everything',
   gated({ type: 'Supplements > Vitamins', tags: [] }, { all_products: true }), true);
 check('the PSI mark follows the same gate',

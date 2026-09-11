@@ -332,6 +332,51 @@ store. They are the reason a green `npm run verify` is not a release signal.
 
 ## Confirm with the client
 
+### Nothing in the theme knows what a medicine is — **decision** (11 Sep 2026)
+
+Two separate features claim to act on medicines. Neither can tell what one is,
+and both are wrong in the same direction on the same products.
+
+| Feature | Where | What it actually tests |
+|---|---|---|
+| Pharmacist lines in the buy box (PSI-registered, Ask a pharmacist, the PSI mark) | `snippets/buy-assurance.liquid` | `restricted_tag` on the product, **or** its type's department is `Pharmacy` |
+| One-click add suppression on listings, search and rails | `snippets/product-restricted.liquid` | `restricted_tag` on the product |
+
+Both resolve, on this catalogue, to the same question: **did the client file this
+product under the Pharmacy department?** That is a merchandising fact, not a
+clinical one, and the two are not the same set.
+
+`restricted_tag` is set to `pharmacist-review`, which the client applies to all 521
+Pharmacy-department products — so the tag arm and the type arm select nearly the
+same products, and tightening either one alone changes nothing. Voduz Sun Savers
+Mini Travel Set is the worked example: a suncare travel set, typed under
+`Pharmacy > Travel Sickness`, showing "Ask a pharmacist before you buy" and the PSI
+registration mark next to its Add to bag.
+
+**This is the same gap as the questionnaire gating list.** The collection FAQ's
+screening claim was pulled in `0af9da9` because the theme cannot honour it, and it
+returns only when the client's pharmacist specifies which products need it. That
+list — which products are actually medicines — is the same list both features
+above are missing, and it is the client's to supply. It cannot be derived from the
+catalogue: the department tree was built to merchandise a shop, and it puts a
+suncare set and a pharmacy-only medicine on the same branch.
+
+**What is needed:** a tag the client applies per product on clinical grounds,
+distinct from `pharmacist-review`, which today means "sold in the pharmacy
+department". Until then both features are over-inclusive by design, and no
+condition either snippet can express will fix it — the signal is not in the data.
+
+**Not yet counted:** how many of the 521 are non-medicines like the Voduz set. That
+needs an Admin API token with `read_products`; the storefront is password-protected
+and `/products.json` redirects. Ask for the count before quoting a number.
+
+*Note on the prefix fix.* `buy-assurance.liquid` matched the department with
+`slice: 0, 8`, a bare prefix, so a department merely beginning with the word — a
+`Pharmacy Brands` — read as the pharmacy one. That is corrected to an exact
+whole-segment match, agreeing with `product-restricted.liquid`, and covered in
+`setup/test_liquid.mjs`. It is a real inconsistency and it is **not** what causes
+the problem above; do not mistake it for a fix.
+
 - Free delivery threshold. The theme setting `free_shipping_threshold` is
   €65. Checked 9 September 2026 against three sources that disagreed: the live
   site said €65, the theme said €65, the client's own About copy said €60.
