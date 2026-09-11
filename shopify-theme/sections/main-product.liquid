@@ -189,7 +189,7 @@
       <div class="pdp-right" style="flex:0 0 400px; width:400px;">
         {%- if on_sale -%}
           <div style="display:inline-flex; align-items:center; gap:8px; background:var(--c-accent); color:var(--c-on-accent); font-weight:700; font-size:13.5px; padding:9px 20px; border-radius:8px; margin-bottom:18px;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><rect x="2" y="7" width="20" height="5" rx="1"></rect><path d="M12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><rect x="2" y="7" width="20" height="5" rx="1"></rect><path d="M12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
             Special Offer
           </div>
         {%- endif -%}
@@ -211,18 +211,48 @@
         </div>
 
         {% form 'product', product, data-ajax-add: 'true' %}
-          <input type="hidden" name="id" value="{{ current_variant.id }}">
+          {%- comment -%} On a multi-variant product this input starts disabled, so it is
+              not submitted, and the script below enables it. Two reasons. The option
+              selects cannot name a variant on their own — Shopify's /cart/add resolves
+              an `id`, never a set of option values — so with no JavaScript the noscript
+              select underneath is the only control that can, and a disabled input keeps
+              the two from both submitting `id`. And if the script never runs at all, the
+              form submits no id and fails loudly rather than adding whichever variant
+              the page happened to be built with. On a pharmacy, shipping the wrong pack
+              size silently is the worse outcome. {%- endcomment -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}"{% unless product.has_only_default_variant %} disabled data-pdp-id{% endunless %}>
           {%- unless product.has_only_default_variant -%}
             {%- for option in product.options_with_values -%}
+              {%- assign opt_i = forloop.index0 -%}
               <div style="margin-bottom:16px;">
-                <label for="Opt-{{ section.id }}-{{ forloop.index0 }}" style="display:block; font-size:13.5px; font-weight:700; color:#2A2B2A; margin-bottom:8px;">{{ option.name }}</label>
-                <select id="Opt-{{ section.id }}-{{ forloop.index0 }}" data-opt-index="{{ forloop.index0 }}" style="width:100%; height:52px; border:1.5px solid #dfe1dc; border-radius:11px; padding:0 14px; font-family:inherit; font-size:15px; color:#2A2B2A; background:#fff; cursor:pointer;">
+                <label for="Opt-{{ section.id }}-{{ opt_i }}" style="display:block; font-size:13.5px; font-weight:700; color:#2A2B2A; margin-bottom:8px;">{{ option.name }}</label>
+                <select id="Opt-{{ section.id }}-{{ opt_i }}" data-opt-index="{{ opt_i }}" style="width:100%; height:52px; border:1.5px solid #dfe1dc; border-radius:11px; padding:0 14px; font-family:inherit; font-size:15px; color:#2A2B2A; background:#fff; cursor:pointer;">
+                  {%- comment -%} Selected comes from the variant the rest of the buy box is
+                      built from, not from option.selected_value. The two disagree whenever
+                      the first variant is unavailable: selected_value can still name the
+                      first variant's values while every other field here — price, stock,
+                      the submitted id — follows selected_or_first_available_variant. The
+                      page then offers a sold-out combination at another variant's price
+                      and adds a third. Reading current_variant is right either way. {%- endcomment -%}
                   {%- for value in option.values -%}
-                    <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+                    <option value="{{ value | escape }}" {% if current_variant.options[opt_i] == value %}selected{% endif %}>{{ value }}</option>
                   {%- endfor -%}
                 </select>
               </div>
             {%- endfor -%}
+            {%- comment -%} The no-JavaScript buy path: one control that names a variant
+                outright. Browsers do not put noscript content in the DOM when scripting
+                is on, so this never competes with the selects above. {%- endcomment -%}
+            <noscript>
+              <div style="margin-bottom:16px;">
+                <label for="NoJsVariant-{{ section.id }}" style="display:block; font-size:13.5px; font-weight:700; color:#2A2B2A; margin-bottom:8px;">Choose an option</label>
+                <select id="NoJsVariant-{{ section.id }}" name="id" style="width:100%; height:52px; border:1.5px solid #dfe1dc; border-radius:11px; padding:0 14px; font-family:inherit; font-size:15px; color:#2A2B2A; background:#fff;">
+                  {%- for variant in product.variants -%}
+                    <option value="{{ variant.id }}"{% if variant.id == current_variant.id %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} (out of stock){% endunless %}</option>
+                  {%- endfor -%}
+                </select>
+              </div>
+            </noscript>
           {%- endunless -%}
           <div class="pdp-addbag" style="display:flex; gap:12px; align-items:stretch; margin-bottom:18px;">
             <div style="flex:0 0 auto; display:flex; align-items:center; border:1.5px solid #dfe1dc; border-radius:12px; overflow:hidden;">
@@ -330,7 +360,7 @@
     </div>
     <button type="button" data-add-id="{{ current_variant.id }}" data-add-qty="1" data-buybar-add class="btn btn-fill" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:10px; letter-spacing:.05em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-      {%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}
+      <span data-buybar-label>{%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}</span>
     </button>
   </div>
 
@@ -429,15 +459,38 @@
     // Variant selects -> hidden id + price/sku/stock
     const sels = [...root.querySelectorAll('[data-opt-index]')];
     if (!sels.length) return;
+    const idInput = root.querySelector('input[name="id"]');
+    // Enabled only now: the markup ships it disabled so a page whose script never
+    // runs submits no id at all instead of the wrong one. See the comment there.
+    if (idInput) idInput.disabled = false;
     const variants = JSON.parse(document.getElementById('pdp-variants-{{ section.id }}').textContent);
     const sym = {{ cart.currency.symbol | json }};
     const fmt = c => sym + (c / 100).toFixed(2);
+    const submit = root.querySelector('[data-pdp-submit]');
+    const buybarLabel = document.querySelector('[data-buybar-label]');
+
+    // Both add controls move together. A combination no variant covers is its own
+    // state, not a flavour of sold out, and it used to leave the sticky mobile bar
+    // untouched: the handler returned early, so the bar kept the last valid variant
+    // id, stayed enabled and added a different product without saying anything.
+    const setBuy = (v) => {
+      const live = !!v && v.available;
+      const label = !v ? 'UNAVAILABLE' : v.available ? 'ADD TO BAG' : 'OUT OF STOCK';
+      if (idInput) { idInput.disabled = !v; if (v) idInput.value = v.id; }
+      if (submit) { submit.disabled = !live; submit.style.opacity = live ? '' : '.55'; submit.textContent = label; }
+      if (buybarAdd) {
+        buybarAdd.disabled = !live;
+        buybarAdd.style.opacity = live ? '' : '.55';
+        if (v) buybarAdd.dataset.addId = v.id; else buybarAdd.removeAttribute('data-add-id');
+      }
+      if (buybarLabel) buybarLabel.textContent = label;
+    };
+
     sels.forEach(sel => sel.addEventListener('change', () => {
       const opts = sels.map(s => s.value);
       const v = variants.find(v => opts.every((o, i) => v.options[i] === o));
-      const submit = root.querySelector('[data-pdp-submit]');
-      if (!v) { if (submit) { submit.disabled = true; submit.textContent = 'UNAVAILABLE'; } return; }
-      root.querySelector('input[name="id"]').value = v.id;
+      setBuy(v);
+      if (!v) return;
       const priceEl = root.querySelector('[data-pdp-price]');
       if (priceEl) priceEl.textContent = fmt(v.price);
       const cmpEl = root.querySelector('[data-pdp-compare]');
@@ -448,12 +501,6 @@
       }
       const skuEl = root.querySelector('[data-pdp-sku]');
       if (skuEl && v.sku) skuEl.textContent = 'SKU ' + v.sku;
-      if (submit) { submit.disabled = !v.available; submit.style.opacity = v.available ? '' : '.55'; submit.textContent = v.available ? 'ADD TO BAG' : 'OUT OF STOCK'; }
-      if (buybarAdd) {
-        buybarAdd.dataset.addId = v.id;
-        buybarAdd.disabled = !v.available;
-        buybarAdd.style.opacity = v.available ? '' : '.55';
-      }
       const stockEl = root.querySelector('[data-pdp-stock]');
       if (stockEl) {
         stockEl.style.color = v.available ? 'var(--c-success)' : '#B3261E';
