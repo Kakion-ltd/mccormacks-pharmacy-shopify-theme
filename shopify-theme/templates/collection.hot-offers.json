@@ -43,7 +43,7 @@
       ],
       "settings": {
         "banner_style": "standard",
-        "banner_heading": "Hot Offers",
+        "banner_heading": "Special Offers",
         "banner_text": "<p>This month's biggest savings across pharmacy, vitamins, skincare and toiletries. New offers added monthly — while stocks last.</p>",
         "banner_image_asset": "mitchum-hot-offers.jpg",
         "show_chips": true,
