@@ -91,9 +91,9 @@
     "promo": {
       "type": "promo-strip",
       "settings": {
-        "text": "Pollen levels are rising — stock up on your <strong style=\"font-weight:800;\">Hayfever</strong> essentials today.",
+        "text": "Cold and flu season is here - stock up on what you need",
         "cta": "Shop Now",
-        "link": "/collections/hayfever-allergy"
+        "link": "/collections/cough-cold-flu"
       }
     },
     "sale": {
