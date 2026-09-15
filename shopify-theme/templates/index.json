@@ -466,7 +466,7 @@
           "type": "service",
           "settings": {
             "title": "Common Conditions",
-            "link": "/collections/medicines-health",
+            "link": "/pages/common-conditions",
             "cta": "Find Out More →",
             "image_asset": "common-conditions.jpg"
           }
