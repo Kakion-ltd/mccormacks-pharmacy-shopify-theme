@@ -24,17 +24,14 @@
         {%- comment -%} picked image, then the collection's OWN image, then the theme asset, then
             the placeholder. Not featured_image: on a collection with no image that returns the
             first product's photo, which beat the artwork on every tile the store had no image for. {%- endcomment -%}
-        {%- if block.settings.image != blank -%}
-          {%- assign tile_image = block.settings.image -%}
-        {%- else -%}
-          {%- assign tile_image = linked.image -%}
-        {%- endif -%}
         <a href="{{ url }}" class="pcard hov-green" style="flex:0 0 180px; text-align:center; color:var(--c-dark);" {{ block.shopify_attributes }}>
           <div class="pcard-img" style="position:relative; aspect-ratio:1; border-radius:14px; overflow:hidden; margin-bottom:12px;">
-            {%- if tile_image != blank -%}
-              {{ tile_image | image_url: width: 400 | image_tag: widths: '180,360,540', alt: label, loading: 'lazy', style: 'width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s ease;' }}
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 400 | image_tag: widths: '180,360,540', alt: label, loading: 'lazy', style: 'width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s ease;' }}
             {%- elsif block.settings.image_asset != blank -%}
               <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ label | escape }}" loading="lazy" width="600" height="600" style="width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s ease;">
+            {%- elsif linked.image != blank -%}
+              {{ linked.image | image_url: width: 400 | image_tag: widths: '180,360,540', alt: label, loading: 'lazy', style: 'width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s ease;' }}
             {%- else -%}
               <div style="width:100%; height:100%; background:repeating-linear-gradient(135deg,#f4f5f2,#f4f5f2 10px,#eef0eb 10px,#eef0eb 20px); display:flex; align-items:center; justify-content:center;"><span title="Upload 600 &times; 600 px" style="font-size:11px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:#697262;">Image</span></div>
             {%- endif -%}
