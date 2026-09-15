@@ -78,9 +78,7 @@
             <a href="{{ block.settings.link }}" class="slide-cta hero-cta btn btn-fill" style="align-self:flex-start; letter-spacing:.03em; gap:10px; border-radius:8px; border:1px solid rgba(0,0,0,0.1);">{{ block.settings.cta }}<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
             
             <div class="hero-controls" style="display:flex; align-items:center; gap:22px; margin-top:clamp(30px,4vw,48px);">
-              <div style="color:rgba(0,0,0,0.8); font-weight:700; font-size:14px; letter-spacing:0.04em; font-variant-numeric:tabular-nums;">
-                0{{ forloop.index }} <span style="opacity:0.4; margin:0 2px;">/</span> 0{{ section.blocks.size }}
-              </div>
+
               <div class="hero-dots" style="display:flex; gap:8px;">
                 {%- for b in section.blocks -%}
                   {%- assign j = forloop.index0 -%}
