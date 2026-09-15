@@ -11,7 +11,7 @@
           "type": "slide",
           "settings": {
             "title": "Back To School",
-            "subtext": "Support focus, immunity, and daily wellness for the new school term.",
+            "subtext": "Support focus, immunity and daily wellness for the new school term.",
             "cta": "SHOP BACK TO SCHOOL",
             "link": "/collections/medicines-health",
             "badge": "Seasonal Essential",
@@ -23,7 +23,7 @@
           "type": "slide",
           "settings": {
             "title": "Cold & Flu",
-            "subtext": "Decongestants, soothing remedies, and trusted clinical relief for the whole family.",
+            "subtext": "Decongestants, soothing remedies and trusted clinical relief for the whole family.",
             "cta": "SHOP COLD & FLU",
             "link": "/collections/medicines-health",
             "badge": "Fast Relief",
@@ -35,11 +35,11 @@
           "type": "slide",
           "settings": {
             "title": "Vitamins & Supplements",
-            "subtext": "Premium vitamins, minerals, and Irish health brands to boost everyday energy and immunity.",
+            "subtext": "Premium vitamins, minerals and Irish health brands to boost everyday energy and immunity.",
             "cta": "SHOP VITAMINS",
             "link": "/collections/vitamins",
             "badge": "Daily Wellness",
-            "image_asset": "vitamins-banner.jpg",
+            "image_asset": "vitamins--desktop-banner.jpg",
             "image_mobile_asset": "hero-vitamins-supplements-mobile.jpg"
           }
         },
@@ -47,7 +47,7 @@
           "type": "slide",
           "settings": {
             "title": "Special Offers",
-            "subtext": "Explore our latest promotional savings, value bundles, and special pharmacy deals.",
+            "subtext": "Explore our latest promotional savings, value bundles and special pharmacy deals.",
             "cta": "SHOP SPECIAL OFFERS",
             "link": "/collections/sale",
             "badge": "Limited Time",
@@ -303,7 +303,7 @@
           "settings": {
             "name": "Ray Keogh",
             "source": "Google Review",
-            "text": "Brilliant staff, so helpful with everything in store. The male pharmacist is also excellent — always makes time for me and my family, and we've been coming for over 7 years as a result."
+            "text": "Brilliant staff, so helpful with everything in store. The male pharmacist is also excellent — always makes time for me and my family and we've been coming for over 7 years as a result."
           }
         },
         "rev-5": {
