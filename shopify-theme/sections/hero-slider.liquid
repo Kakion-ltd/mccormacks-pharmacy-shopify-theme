@@ -69,18 +69,16 @@
 
         {%- comment -%} The Content Overlay Layer {%- endcomment -%}
         <div class="hero-copy-wrapper" style="position:relative; z-index:2; width:100%; height:100%; display:flex; align-items:center;">
-          <div class="hero-scrim" style="position:absolute; inset:0; background:linear-gradient(90deg, rgba(63,107,79,0.95) 0%, rgba(63,107,79,0.85) 20%, rgba(63,107,79,0) 40%); pointer-events:none;"></div>
-          
           <div class="hero-copy" style="position:relative; flex:0 0 auto; max-width:580px; display:flex; flex-direction:column; justify-content:center; padding:clamp(32px,4.5vw,64px);">
             {%- if block.settings.badge != blank -%}
             <span class="hero-badge" style="align-self:flex-start; background:var(--c-accent); color:var(--c-on-accent); font-weight:800; font-size:11px; letter-spacing:.08em; text-transform:uppercase; padding:6px 12px; border-radius:6px; margin-bottom:16px;">{{ block.settings.badge }}</span>
             {%- endif -%}
-            {% if forloop.first %}<h1 style="font-family:var(--font-body); font-weight:800; color:#fff; font-size:clamp(34px,4.2vw,56px); line-height:1.05; margin:0 0 16px; letter-spacing:-.02em;">{{ block.settings.title }}</h1>{% else %}<h2 style="font-family:var(--font-body); font-weight:800; color:#fff; font-size:clamp(34px,4.2vw,56px); line-height:1.05; margin:0 0 16px; letter-spacing:-.02em;">{{ block.settings.title }}</h2>{% endif %}
-            <p style="color:#eef0eb; font-size:clamp(16px,1.4vw,19px); font-weight:500; line-height:1.5; margin:0 0 clamp(22px,3vw,34px); max-width:460px;">{{ block.settings.subtext }}</p>
-            <a href="{{ block.settings.link }}" class="slide-cta hero-cta btn btn-fill" style="align-self:flex-start; letter-spacing:.03em; gap:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.2);">{{ block.settings.cta }}<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
+            {% if forloop.first %}<h1 style="font-family:var(--font-body); font-weight:800; color:#1a1a1a; font-size:clamp(26px,6vw,56px); line-height:1.05; margin:0 0 16px; letter-spacing:-.02em;">{{ block.settings.title }}</h1>{% else %}<h2 style="font-family:var(--font-body); font-weight:800; color:#1a1a1a; font-size:clamp(26px,6vw,56px); line-height:1.05; margin:0 0 16px; letter-spacing:-.02em;">{{ block.settings.title }}</h2>{% endif %}
+            <p style="color:#4a4a4a; font-size:clamp(14px,3.5vw,19px); font-weight:500; line-height:1.5; margin:0 0 clamp(22px,3vw,34px); max-width:460px;">{{ block.settings.subtext }}</p>
+            <a href="{{ block.settings.link }}" class="slide-cta hero-cta btn btn-fill" style="align-self:flex-start; letter-spacing:.03em; gap:10px; border-radius:8px; border:1px solid rgba(0,0,0,0.1);">{{ block.settings.cta }}<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
             
             <div class="hero-controls" style="display:flex; align-items:center; gap:22px; margin-top:clamp(30px,4vw,48px);">
-              <div style="color:rgba(255,255,255,0.9); font-weight:700; font-size:14px; letter-spacing:0.04em; font-variant-numeric:tabular-nums;">
+              <div style="color:rgba(0,0,0,0.8); font-weight:700; font-size:14px; letter-spacing:0.04em; font-variant-numeric:tabular-nums;">
                 0{{ forloop.index }} <span style="opacity:0.4; margin:0 2px;">/</span> 0{{ section.blocks.size }}
               </div>
               <div class="hero-dots" style="display:flex; gap:8px;">
@@ -106,9 +104,6 @@
 /* Vertical panning stays with the browser; horizontal is ours to interpret. */
 #hero-{{ section.id }} { touch-action: pan-y; }
 @media (max-width: 900px) {
-  #hero-{{ section.id }} .hero-scrim {
-    background: linear-gradient(0deg, rgba(63,107,79,0.95) 0%, rgba(63,107,79,0.85) 30%, rgba(63,107,79,0) 55%) !important;
-  }
   #hero-{{ section.id }} .hero-copy-wrapper {
     align-items: flex-end !important;
   }
