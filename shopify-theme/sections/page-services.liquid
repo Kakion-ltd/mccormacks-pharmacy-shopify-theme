@@ -45,7 +45,7 @@
             {%- if block.settings.image != blank -%}
               {{ block.settings.image | image_url: width: 800 | image_tag: style: 'width:100%; height:100%; object-fit:cover; display:block;', alt: block.settings.title | escape }}
             {%- else -%}
-              <div role="img" aria-label="{{ block.settings.title | escape }}" style="width:100%; height:100%; display:flex; align-items:flex-end; padding:20px 22px; background:linear-gradient(150deg,#eef2e8 0%,#e2ebd6 100%); border-bottom:3px solid var(--c-accent);"><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; line-height:1.25; color:var(--c-dark); opacity:.55;">{{ block.settings.title }}</span></div>
+              {%- render 'image-placeholder', w: 800, h: 500, label: block.settings.title -%}
             {%- endif -%}
           </button>
           <div style="padding:20px 22px 24px; display:flex; flex-direction:column; gap:11px; flex:1;">
