@@ -20,7 +20,7 @@
   <div id="hero-{{ section.id }}" data-slider {% if section.settings.autoplay_seconds > 0 %}data-slider-auto="{{ section.settings.autoplay_seconds | times: 1000 }}"{% endif %} class="hero-flex" style="position:relative; display:flex; flex-wrap:nowrap; border-radius:12px; overflow:hidden; box-shadow:0 12px 30px rgba(32,69,65,.08); background:#E6F2D5; min-height:460px;">
     {%- for block in section.blocks -%}
       {%- assign p = forloop.index0 -%}
-      <div data-slide {{ block.shopify_attributes }} style="position:absolute; inset:0; width:100%; height:100%; {% unless forloop.first %}display:none;{% endunless %}">
+      <div data-slide class="{% if block.settings.title contains 'Vitamins' %}slide--vitamins{% endif %}" {{ block.shopify_attributes }} style="position:absolute; inset:0; width:100%; height:100%; {% unless forloop.first %}display:none;{% endunless %}">
         
         {%- comment -%} The Canva Visual Layer {%- endcomment -%}
         <div class="hero-art" style="position:absolute; inset:0; width:100%; height:100%; z-index:1;">
@@ -120,19 +120,22 @@
   }
   #hero-{{ section.id }} .hero-subtext {
     font-size: 15px !important;
-    margin-bottom: 24px !important;
+    margin-bottom: 12px !important;
   }
   #hero-{{ section.id }} .hero-controls {
-    margin-top: 24px !important;
+    margin-top: 16px !important;
   }
   #hero-{{ section.id }} .hero-copy {
-    padding: 24px 22px !important;
+    padding: 16px 20px 24px !important;
   }
   #hero-{{ section.id }} .hero-title--vitamins {
     color: #1a1a1a !important;
   }
   #hero-{{ section.id }} .hero-subtext--vitamins {
     color: #4a4a4a !important;
+  }
+  #hero-{{ section.id }} .slide--vitamins .hero-img-el {
+    object-position: center top !important;
   }
 }
 #hero-{{ section.id }} .hero-title {
