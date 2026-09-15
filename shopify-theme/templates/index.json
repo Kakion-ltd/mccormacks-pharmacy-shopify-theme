@@ -57,9 +57,9 @@
         }
       },
       "block_order": [
+        "slide-vitamins",
         "slide-back-to-school",
         "slide-cold-flu",
-        "slide-vitamins",
         "slide-special-offers"
       ],
       "settings": {}
