@@ -141,7 +141,7 @@
           "settings": {
             "collection": "medicines-health",
             "label": "Medicines & Health",
-            "image_asset": "cat-medicines.jpg"
+            "image_asset": "cat-medicines.png"
           }
         },
         "supplements": {
@@ -149,7 +149,7 @@
           "settings": {
             "collection": "vitamins",
             "label": "Vitamins & Supplements",
-            "image_asset": "cat-supplements.jpg"
+            "image_asset": "cat-supplements.png"
           }
         },
         "beauty": {
@@ -157,7 +157,7 @@
           "settings": {
             "collection": "beauty",
             "label": "Beauty",
-            "image_asset": "cat-beauty.jpg"
+            "image_asset": "cat-beauty.png"
           }
         },
         "skincare": {
@@ -165,14 +165,14 @@
           "settings": {
             "collection": "skincare",
             "label": "Skincare",
-            "image_asset": "cat-skincare.jpg"
+            "image_asset": "cat-skincare.png"
           }
         },
         "toiletries": {
           "type": "category",
           "settings": {
             "collection": "toiletries",
-            "image_asset": "cat-toiletries.jpg",
+            "image_asset": "cat-toiletries.png",
             "label": "Toiletries"
           }
         },
@@ -180,7 +180,7 @@
           "type": "category",
           "settings": {
             "collection": "mother-baby",
-            "image_asset": "cat-mother-baby.jpg",
+            "image_asset": "cat-mother-baby.png",
             "label": "Mother & Baby"
           }
         },
@@ -188,7 +188,7 @@
           "type": "category",
           "settings": {
             "collection": "fragrance",
-            "image_asset": "cat-fragrance.jpg",
+            "image_asset": "cat-fragrance.png",
             "label": "Fragrance"
           }
         },
@@ -197,7 +197,7 @@
           "settings": {
             "collection": "gifting",
             "label": "Gifting",
-            "image_asset": "cat-gifting.jpg"
+            "image_asset": "cat-gifting.png"
           }
         },
         "sale": {
@@ -205,7 +205,7 @@
           "settings": {
             "collection": "sale",
             "label": "Sale",
-            "image_asset": "cat-sale.jpg"
+            "image_asset": "cat-sale.png"
           }
         }
       },
