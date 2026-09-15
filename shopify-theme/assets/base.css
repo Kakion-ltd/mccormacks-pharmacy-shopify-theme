@@ -278,13 +278,7 @@ html { scroll-padding-top: calc(var(--hdr-pinned) + 8px); }
   .cart-mobile { display: flex !important; }
   .icon-label { display: none !important; }
   .main-nav-bar { display: none !important; }
-  .hero-flex { flex-direction: column !important; border-radius: 16px !important; }
-  .hero-copy { order: 2; flex: 1 1 auto !important; min-height: auto !important; height: auto !important; text-align: center; align-items: center !important; padding: 6px 22px 28px !important; }
-  .hero-copy .slide-cta, .hero-copy .hero-badge, .hero-copy .hero-dots { align-self: center !important; }
   /* Square art frame on phones, copy beneath it. The cut-out is shown whole (contain). */
-  .hero-art { order: 1; flex: 1 1 auto !important; width: 100%; aspect-ratio: 1 / 1; min-height: 0 !important; height: auto !important; }
-  .hero-art .hero-glow { right: 50% !important; width: 70% !important; transform: translate(50%, -50%) !important; }
-  .hero-art .hero-img-el { padding: 18px 16px !important; }
   .annc-row { justify-content: space-between !important; gap: 8px 14px !important; font-size: 11px !important; padding: 5px 16px !important; }
   .annc-hide { display: none !important; }
   .sec-pad, section { padding-left: 16px !important; padding-right: 16px !important; }

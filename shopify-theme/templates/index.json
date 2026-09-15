@@ -7,66 +7,60 @@
     "hero": {
       "type": "hero-slider",
       "blocks": {
-        "slide-travel": {
+        "slide-back-to-school": {
           "type": "slide",
-          "disabled": true,
           "settings": {
-            "title": "Summer Travel Shop",
-            "subtext": "Travel essentials made easy. Everything you need for your next trip, all in one place.",
-            "cta": "SHOP TRAVEL",
+            "title": "Back To School",
+            "subtext": "Support focus, immunity, and daily wellness for the new school term.",
+            "cta": "SHOP BACK TO SCHOOL",
             "link": "/collections/medicines-health",
-            "image_asset": "hero-summer-travel.jpg"
+            "badge": "Seasonal Essential",
+            "image_asset": "hero-back-to-school.jpg",
+            "image_mobile_asset": "hero-back-to-school-mobile.jpg"
+          }
+        },
+        "slide-cold-flu": {
+          "type": "slide",
+          "settings": {
+            "title": "Cold & Flu",
+            "subtext": "Decongestants, soothing remedies, and trusted clinical relief for the whole family.",
+            "cta": "SHOP COLD & FLU",
+            "link": "/collections/medicines-health",
+            "badge": "Fast Relief",
+            "image_asset": "hero-cold-flu.jpg",
+            "image_mobile_asset": "hero-cold-flu-mobile.jpg"
           }
         },
         "slide-vitamins": {
           "type": "slide",
           "settings": {
-            "title": "Feel Your Best",
-            "subtext": "Top vitamins & supplements to support your everyday health and energy.",
+            "title": "Vitamins & Supplements",
+            "subtext": "Premium vitamins, minerals, and Irish health brands to boost everyday energy and immunity.",
             "cta": "SHOP VITAMINS",
             "link": "/collections/vitamins",
-            "image_asset": "banner-vitamins.jpg",
-            "image_mobile_asset": "banner-vitamins-mobile.jpg"
+            "badge": "Daily Wellness",
+            "image_asset": "hero-vitamins.jpg",
+            "image_mobile_asset": "hero-vitamins-mobile.jpg"
           }
         },
-        "slide-skincare": {
+        "slide-special-offers": {
           "type": "slide",
           "settings": {
-            "title": "Skincare",
-            "subtext": "Dermatologist-loved brands to keep your skin glowing all year round.",
-            "cta": "SHOP SKINCARE",
-            "link": "/collections/skincare",
-            "image_asset": "hero-skincare.jpg",
-            "image_mobile_asset": "hero-skincare-mobile.jpg"
-          }
-        },
-        "slide-baby": {
-          "type": "slide",
-          "settings": {
-            "title": "Mother & Baby",
-            "subtext": "Trusted essentials for every stage \u2014 from bump to little one.",
-            "cta": "SHOP BABY",
-            "link": "/collections/mother-baby",
-            "image_asset": ""
-          }
-        },
-        "slide-gifts": {
-          "type": "slide",
-          "settings": {
-            "title": "Gifts & Fragrance",
-            "subtext": "Find the perfect present with our edit of fragrance and beauty gifting.",
-            "cta": "SHOP GIFTS",
-            "link": "/collections/gifting",
-            "image_asset": ""
+            "title": "Special Offers",
+            "subtext": "Explore our latest promotional savings, value bundles, and special pharmacy deals.",
+            "cta": "SHOP SPECIAL OFFERS",
+            "link": "/collections/sale",
+            "badge": "Limited Time",
+            "image_asset": "hero-special-offers.jpg",
+            "image_mobile_asset": "hero-special-offers-mobile.jpg"
           }
         }
       },
       "block_order": [
+        "slide-back-to-school",
+        "slide-cold-flu",
         "slide-vitamins",
-        "slide-travel",
-        "slide-skincare",
-        "slide-baby",
-        "slide-gifts"
+        "slide-special-offers"
       ],
       "settings": {}
     },
@@ -97,7 +91,7 @@
     "promo": {
       "type": "promo-strip",
       "settings": {
-        "text": "Pollen levels are rising \u2014 stock up on your <strong style=\"font-weight:800;\">Hayfever</strong> essentials today.",
+        "text": "Pollen levels are rising — stock up on your <strong style=\"font-weight:800;\">Hayfever</strong> essentials today.",
         "cta": "Shop Now",
         "link": "/collections/hayfever-allergy"
       }
@@ -235,7 +229,7 @@
           "type": "offer",
           "settings": {
             "title": "Vitamins & Supplements",
-            "subtext": "Support your daily health & wellbeing \u2014 20% off multivitamins & supplements this month.",
+            "subtext": "Support your daily health & wellbeing — 20% off multivitamins & supplements this month.",
             "cta": "Shop Now",
             "link": "/collections/vitamins",
             "image_asset": "",
@@ -261,7 +255,7 @@
           "type": "offer",
           "settings": {
             "title": "Menopause Support",
-            "subtext": "Everyday menopause support, including CanesMeno \u2014 all month long.",
+            "subtext": "Everyday menopause support, including CanesMeno — all month long.",
             "cta": "Shop Now",
             "link": "/collections/menopause",
             "image_asset": "",
@@ -301,7 +295,7 @@
           "settings": {
             "name": "Stephen Donohoe",
             "source": "Google Review",
-            "text": "The staff here are fantastic and very helpful. Very impressed with the range of products available \u2014 they're also extra helpful in ordering in anything you need, usually there the next morning!"
+            "text": "The staff here are fantastic and very helpful. Very impressed with the range of products available — they're also extra helpful in ordering in anything you need, usually there the next morning!"
           }
         },
         "rev-4": {
@@ -309,7 +303,7 @@
           "settings": {
             "name": "Ray Keogh",
             "source": "Google Review",
-            "text": "Brilliant staff, so helpful with everything in store. The male pharmacist is also excellent \u2014 always makes time for me and my family, and we've been coming for over 7 years as a result."
+            "text": "Brilliant staff, so helpful with everything in store. The male pharmacist is also excellent — always makes time for me and my family, and we've been coming for over 7 years as a result."
           }
         },
         "rev-5": {
@@ -317,7 +311,7 @@
           "settings": {
             "name": "Eimear Murphy",
             "source": "Google Review",
-            "text": "An absolutely brilliant pharmacy, would recommend to anybody. Quick service and nothing is a problem \u2014 so very helpful, a great service."
+            "text": "An absolutely brilliant pharmacy, would recommend to anybody. Quick service and nothing is a problem — so very helpful, a great service."
           }
         }
       },
@@ -337,7 +331,7 @@
         "loreal": {
           "type": "brand",
           "settings": {
-            "name": "L\u2019Or\u00e9al Paris",
+            "name": "L’Oréal Paris",
             "collection": "loreal-paris",
             "logo_asset": "brand-loreal.png"
           }
@@ -455,7 +449,7 @@
           "settings": {
             "title": "Contact Us",
             "link": "/pages/contact-us",
-            "cta": "Find Out More \u2192",
+            "cta": "Find Out More →",
             "image_asset": "contact-us.png"
           }
         },
@@ -464,7 +458,7 @@
           "settings": {
             "title": "Our Stores",
             "link": "/pages/store-locator",
-            "cta": "Find Out More \u2192",
+            "cta": "Find Out More →",
             "image_asset": "our-stores-square.jpg"
           }
         },
@@ -473,7 +467,7 @@
           "settings": {
             "title": "Common Conditions",
             "link": "/collections/medicines-health",
-            "cta": "Find Out More \u2192",
+            "cta": "Find Out More →",
             "image_asset": "common-conditions.jpg"
           }
         },
@@ -482,7 +476,7 @@
           "settings": {
             "title": "In-Store Services",
             "link": "/pages/in-store-services",
-            "cta": "Find Out More \u2192",
+            "cta": "Find Out More →",
             "image_asset": "instore-services.png"
           }
         }
