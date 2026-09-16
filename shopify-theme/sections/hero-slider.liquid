@@ -73,9 +73,9 @@
             {%- if block.settings.badge != blank -%}
             <span class="hero-badge" style="align-self:flex-start; background:var(--c-dark); color:#ffffff; font-weight:800; font-size:11px; letter-spacing:.08em; text-transform:uppercase; padding:6px 12px; border-radius:6px; margin-bottom:16px;">{{ block.settings.badge }}</span>
             {%- endif -%}
-            {% if forloop.first %}<h1 class="hero-title {% if block.settings.title contains 'Vitamins' %}hero-title--vitamins{% endif %}">{{ block.settings.title }}</h1>{% else %}<h2 class="hero-title {% if block.settings.title contains 'Vitamins' %}hero-title--vitamins{% endif %}">{{ block.settings.title }}</h2>{% endif %}
-            <p class="hero-subtext {% if block.settings.title contains 'Vitamins' %}hero-subtext--vitamins{% endif %}">{{ block.settings.subtext }}</p>
-            <a href="{{ block.settings.link }}" class="slide-cta hero-cta btn btn-fill {% if block.settings.title contains 'Vitamins' %}hero-cta--vitamins{% endif %}" style="align-self:flex-start; letter-spacing:.03em; gap:10px; border-radius:8px; border:1px solid rgba(0,0,0,0.1);">{{ block.settings.cta }}<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
+            {% if forloop.first %}<h1 class="hero-title {% if block.settings.title contains 'Vitamins' or block.settings.title contains 'Cold & Flu' %}hero-title--vitamins{% endif %}">{{ block.settings.title }}</h1>{% else %}<h2 class="hero-title {% if block.settings.title contains 'Vitamins' or block.settings.title contains 'Cold & Flu' %}hero-title--vitamins{% endif %}">{{ block.settings.title }}</h2>{% endif %}
+            <p class="hero-subtext {% if block.settings.title contains 'Vitamins' or block.settings.title contains 'Cold & Flu' %}hero-subtext--vitamins{% endif %}">{{ block.settings.subtext }}</p>
+            <a href="{{ block.settings.link }}" class="slide-cta hero-cta btn btn-fill {% if block.settings.title contains 'Vitamins' or block.settings.title contains 'Cold & Flu' %}hero-cta--vitamins{% endif %}" style="align-self:flex-start; letter-spacing:.03em; gap:10px; border-radius:8px; border:1px solid rgba(0,0,0,0.1);">{{ block.settings.cta }}<svg class="cta-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s ease;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
             
             <div class="hero-controls" style="display:flex; align-items:center; gap:22px; margin-top:clamp(30px,4vw,48px);">
 
@@ -340,8 +340,8 @@
             "cta": "SHOP COLD & FLU",
             "link": "/collections/medicines-health",
             "badge": "Fast Relief",
-            "image_asset": "hero-cold-flu.jpg",
-            "image_mobile_asset": "hero-cold-flu-mobile.jpg"
+            "image_asset": "cold-flu-desktop-banner-slide.jpg",
+            "image_mobile_asset": "cold-flu-mobile-banner.jpg"
           }
         },
         {
