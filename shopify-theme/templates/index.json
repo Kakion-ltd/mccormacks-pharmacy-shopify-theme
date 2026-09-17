@@ -58,8 +58,8 @@
       },
       "block_order": [
         "slide-vitamins",
-        "slide-back-to-school",
         "slide-cold-flu",
+        "slide-back-to-school",
         "slide-special-offers"
       ],
       "settings": {}
