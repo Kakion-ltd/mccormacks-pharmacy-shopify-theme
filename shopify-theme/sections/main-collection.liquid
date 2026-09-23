@@ -53,18 +53,20 @@
   </nav>
 
   {%- if section.settings.banner_style == 'sale' -%}
-    <div class="banner-flex" style="display:flex; flex-wrap:wrap; border-radius:20px; overflow:hidden; background:#f7eeee; min-height:clamp(180px,19vw,252px);">
+    <div class="banner-flex" style="display:flex; flex-wrap:wrap; border-radius:20px; overflow:hidden; background:var(--c-sale); min-height:clamp(180px,19vw,252px);">
       <div class="banner-body" style="flex:1 1 380px; padding:clamp(22px,2.6vw,34px) clamp(22px,3vw,40px); display:flex; flex-direction:column; justify-content:center; gap:10px;">
         {%- if section.settings.banner_badge != blank -%}
-          <span style="display:inline-flex; align-items:center; width:fit-content; height:28px; padding:0 12px; border-radius:6px; background:var(--c-sale); color:#ffffff; font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase;">{{ section.settings.banner_badge }}</span>
+          <span style="display:inline-flex; align-items:center; width:fit-content; height:28px; padding:0 12px; border-radius:6px; background:#ffffff; color:var(--c-sale); font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase;">{{ section.settings.banner_badge }}</span>
         {%- endif -%}
-        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#8f2c20; font-size:clamp(27px,3vw,40px); line-height:1.08; margin:0;">{{ banner_heading }}</h1>
-        <div style="font-size:16.5px; line-height:1.65; color:#5c3a35; max-width:46ch;">
+        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#ffffff; font-size:clamp(27px,3vw,40px); line-height:1.08; margin:0;">{{ banner_heading }}</h1>
+        <div style="font-size:16.5px; line-height:1.65; color:#ffffff; max-width:46ch;">
           {{ banner_copy }}
         </div>
       </div>
-      <div class="banner-img" style="position:relative; flex:1 1 320px; min-height:clamp(150px,17vw,252px); overflow:hidden; background-color:#e9ede3;">
-        {%- render 'banner-image', image: banner_object, asset: banner_asset, alt: banner_heading, label: 'Sale banner', note: 'Landscape — keep the subject centred, edges get cropped.' -%}
+      {%- comment -%} No ground of its own: the art is a transparent cut-out on the panel's red,
+          and contain keeps every product in frame at both the desktop and 16:9 phone slot. {%- endcomment -%}
+      <div class="banner-img" style="position:relative; flex:1 1 320px; min-height:clamp(150px,17vw,252px); overflow:hidden;">
+        {%- render 'banner-image', image: banner_object, asset: banner_asset, fit: 'contain', alt: banner_heading, label: 'Sale banner', note: 'Transparent PNG cut-out, 1320×504. No badge or offer text in the art.' -%}
       </div>
     </div>
   {%- elsif cat_level == 'group' or cat_level == 'leaf' or cat_level == 'brand' or banner_object == blank and banner_asset == blank -%}

@@ -47,8 +47,8 @@
             {% for order in customer.orders %}
               {% liquid
                 if order.cancelled
-                  assign badge_bg = '#f7eeee'
-                  assign badge_fg = '#a35151'
+                  assign badge_bg = 'var(--c-error-bg)'
+                  assign badge_fg = 'var(--c-error)'
                   assign badge_label = 'Cancelled'
                 elsif order.fulfillment_status == 'fulfilled'
                   assign badge_bg = '#f2f3f1'
