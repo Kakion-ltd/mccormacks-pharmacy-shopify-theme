@@ -618,7 +618,12 @@ const defaultsFrom = (defs = []) => Object.fromEntries((defs).filter((s) => s.id
 async function renderSection(type, settings, blocksSpec, extraGlobals = {}) {
   const src = sectionSource(type);
   const schema = schemaOf(src);
-  const merged = { ...defaultsFrom(schema.settings), ...settings };
+  // Lets a specific fixture render force a setting past the template JSON, without
+  // changing what every other page of that template gets. Used for the sold-out
+  // product fixture: the back-in-stock capture is off by default on the store, but
+  // the fixture that exercises it still needs to render it on.
+  const override = extraGlobals.__sectionSettingsOverride?.[type] || {};
+  const merged = { ...defaultsFrom(schema.settings), ...settings, ...override };
 
   let blocks = [];
   const blockDefs = schema.blocks || [];
@@ -756,6 +761,12 @@ console.log(`${ok}/${ok + fail} templates render clean`);
 // was hardcoded false and form.errors null, so across six contact forms, the newsletter
 // signup and back-in-stock, no confirmation and no error box existed in any preview.
 // These are the two screens where a customer needs to see their data landed.
+//
+// The back-in-stock capture is off by default on the store (show_back_in_stock)
+// until the client confirms who owns the contact inbox. These product.oos.*
+// fixtures force it on so setup/verify/back-in-stock.py and form-states.py still
+// exercise the real submission path, ready for whenever it is switched back on.
+const BIS_ON = { __sectionSettingsOverride: { 'main-product': { show_back_in_stock: true } } };
 {
   const FORM_PAGES = [
     'page.contact-us', 'page.prescriptions', 'page.careers',
@@ -783,7 +794,7 @@ console.log(`${ok}/${ok + fail} templates render clean`);
         globals.product = oosProduct;
         globals.request = { ...globals.request, page_type: 'product' };
         try {
-          writeFileSync(join(outDir, `product.oos.${suffix}.html`), await renderTemplate('product'));
+          writeFileSync(join(outDir, `product.oos.${suffix}.html`), await renderTemplate('product', BIS_ON));
         } finally { Object.assign(globals, s2); }
       }
     }
@@ -960,7 +971,13 @@ console.log(`${ok}/${ok + fail} templates render clean`);
     globals.product = oos;
     globals.request = { ...globals.request, page_type: 'product' };
     try {
-      writeFileSync(join(outDir, 'product.oos.html'), await renderTemplate('product'));
+      // product.oos.html is what serve_preview.py routes live requests to, so it is
+      // what setup/verify/back-in-stock.py exercises the capture against — forced on,
+      // per BIS_ON above. product.oos.default.html is the real store default (off):
+      // a second, unrouted fixture asserting the sold-out state reads correctly
+      // without the capture at all.
+      writeFileSync(join(outDir, 'product.oos.html'), await renderTemplate('product', BIS_ON));
+      writeFileSync(join(outDir, 'product.oos.default.html'), await renderTemplate('product'));
       console.log(`sold-out product page: ${oos.handle}`);
     } finally {
       Object.assign(globals, saved);
