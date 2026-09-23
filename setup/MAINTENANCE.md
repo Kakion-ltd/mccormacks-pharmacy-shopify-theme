@@ -5,6 +5,122 @@ that used to live in more than one place, and the note says where it lives now.
 
 ---
 
+## Read this first: parallel sessions — one worktree each, merged fast-forward only
+
+Several Claude sessions work this repo at the same time, on different tasks.
+They must not share a working tree or an index. Give each session its own
+worktree on its own branch, and land work on `main` only as a fast-forward.
+Do this **before** touching any file — not after something goes wrong. Three
+sessions have now broken this rule, each one discovering it only once a commit
+went in under the wrong message or an uncommitted edit vanished.
+
+Two commands to set a session up, from the main checkout:
+
+```sh
+git worktree add ../mccormacks-<session> -b <session>/<topic> main
+ln -s "$PWD/node_modules" ../mccormacks-<session>/node_modules   # render + tests need it; ignored since 9ef74a6
+```
+
+Work, render (`npm run render`) and test (`npm test`) inside that worktree,
+commit there, then land it:
+
+```sh
+cd <main checkout> && git merge --ff-only <session>/<topic>   # refuses unless main fast-forwards
+git push origin main
+```
+
+If the merge refuses, main has moved: back in the worktree run
+`git rebase main && npm run render && npm test`, then merge again. Do not
+`git push . HEAD:main` from the worktree; git refuses to update a branch that
+is checked out elsewhere, which main always is.
+
+The main checkout is only ever a clean copy of `main` that receives merges.
+Never edit, `git reset`, `git stash` or `git add -A` there while another
+session is active, and never `git checkout main` inside a worktree. When done:
+`git worktree remove ../mccormacks-<session>` and `git branch -d` the branch.
+
+Each session also runs its own preview server on its own port
+(`python3 setup/serve_preview.py 8736`, not the default 8734) and stops it by
+PID, never with `pkill -f serve_preview`, which kills every session's server.
+
+**Point the checks at that port with `PORT`:** `PORT=8736 npm run verify`, or
+`PORT=8736 python3 setup/verify/sweep.py` for one of them. Until 10 Sep 2026 this
+paragraph was advice the suite could not honour — fourteen of the fifteen scripts
+that open a socket hardcoded `localhost:8734`, so a session that followed the
+instruction above had to run against the shared server anyway, or patch copies of
+the checks. They all read `os.environ.get("PORT", "8734")` now. The default is
+unchanged, so every existing invocation still hits 8734 and nothing in
+`package.json` moved.
+
+Worth knowing why that took a second pass to find: twelve of the fourteen were the
+identical line `BASE = "http://localhost:8734"`, which makes the whole thing look
+like one find-and-replace. It is not. `fonts.py` wrote it without spaces around the
+`=`, and `mobile-nav.py` had no `BASE` constant at all — the URL sat inline in its
+`pg.goto()`. Replacing the obvious line would have migrated thirteen scripts and
+left `mobile-nav.py` silently on 8734, which only shows up when someone runs the
+suite on a private port, which is exactly what this paragraph tells them to do.
+
+### preview/ is untracked and per tree (10 Sep 2026)
+
+`preview/` came out of git the same day. Every section change re-rendered
+300-odd files, and any `git add preview` or `git add -A` swept up whatever
+the other session had rendered; two commits landed with the wrong preview
+contents that way. Vercel and the Pages workflow now run `npm run render`
+themselves, so nothing rendered is tracked and there is nothing to sweep.
+
+What remains is a disk race, not a git one. Sessions sharing a single tree
+render into the same `preview/`, so the dev server serves whichever render
+ran last, and a verify run can be checking the other session's theme. With a
+worktree per session each tree has its own `preview/`, and the race is gone.
+`npm run verify` re-renders first, so it always checks the tree it runs in.
+
+The render-identity check (render, then an empty `git diff`) went with the
+tracked folder. `npm run render:diff` is the replacement: it renders to a
+temp folder and lists which pages differ from the last render, before
+`npm run render` overwrites it.
+
+### Why — three collisions so far
+
+Each happened in a window when two sessions shared one tree, and each is the
+kind of thing that turns up months later as "when did this change?"
+
+**1. A hunk rode into the wrong commit (10 Sep 2026).** Session A changed the
+chip rule in `base.css` to 40px and left it uncommitted while rendering
+screenshots for approval. Session B, working on the button hover in the same
+file, committed `base.css` by whole path (553851f, "Filled buttons hover lime
+with dark ink"). The 40px chip rule went in with it. The code was right and
+the commit message was about something else, so the history now says the
+hover commit changed the chips. Nobody did anything wrong by their own
+lights; the tree was shared.
+
+**2. A commit step reset the shared index (10 Sep 2026).** To avoid the first
+problem, session A committed only its own hunks by building a filtered patch,
+applying it in a temporary worktree, and moving `main` there with
+`update-ref`. That left the main tree's index stale, so it ran `git reset`
+(mixed) to catch up. A mixed reset unstages everything in the index,
+including anything session B had staged and not yet committed. Nothing was
+lost, because staged files stay on disk, but B's staging silently vanished.
+The same sequence also failed once midway (`git rm --cached node_modules`
+after B had already fixed the ignore rule), which killed the chain before the
+commit and left the temp worktree to be cleaned up by hand.
+
+**3. An uncommitted edit was reset out from under a session (23 Sep 2026).**
+A session (Sonnet 5) was mid-edit on `main-product.liquid` in the shared main
+checkout — never committed, never even staged. A second session (Opus 5.5),
+also working directly in the same shared checkout rather than its own
+worktree, committed unrelated work to `main` around the same time. The
+`main-product.liquid` edit vanished with no trace in that commit's file list
+and no error on either side — consistent with the second session running some
+form of `git checkout`/`git restore` in the shared tree as routine cleanup
+before its own edit, which silently snaps any other file back to HEAD. The
+edit was redone and verified landed before continuing.
+
+All three vanish with a worktree per session: each index is private, each
+commit is by whole file with nothing foreign in it, and `push . HEAD:main`
+cannot overwrite anyone because it only fast-forwards.
+
+---
+
 ## Free delivery threshold — one setting, 62 former hardcodes
 
 **Change it in one place: Theme settings → Brand → Free delivery threshold.**
@@ -909,105 +1025,6 @@ generator invalidates everything rendered after it.
 When a sweep touches one of the nine files, change the generator and run it;
 the snippet follows. The snippet's `git diff` should then be exactly what you
 meant, and `npm test` green before the branch lands.
-
-## Parallel sessions — one worktree each, merged fast-forward only
-
-Several Claude sessions work this repo at the same time, on different tasks.
-They must not share a working tree or an index. Give each session its own
-worktree on its own branch, and land work on `main` only as a fast-forward.
-
-Two commands to set a session up, from the main checkout:
-
-```sh
-git worktree add ../mccormacks-<session> -b <session>/<topic> main
-ln -s "$PWD/node_modules" ../mccormacks-<session>/node_modules   # render + tests need it; ignored since 9ef74a6
-```
-
-Work, render (`npm run render`) and test (`npm test`) inside that worktree,
-commit there, then land it:
-
-```sh
-cd <main checkout> && git merge --ff-only <session>/<topic>   # refuses unless main fast-forwards
-git push origin main
-```
-
-If the merge refuses, main has moved: back in the worktree run
-`git rebase main && npm run render && npm test`, then merge again. Do not
-`git push . HEAD:main` from the worktree; git refuses to update a branch that
-is checked out elsewhere, which main always is.
-
-The main checkout is only ever a clean copy of `main` that receives merges.
-Never edit, `git reset`, `git stash` or `git add -A` there while another
-session is active, and never `git checkout main` inside a worktree. When done:
-`git worktree remove ../mccormacks-<session>` and `git branch -d` the branch.
-
-Each session also runs its own preview server on its own port
-(`python3 setup/serve_preview.py 8736`, not the default 8734) and stops it by
-PID, never with `pkill -f serve_preview`, which kills every session's server.
-
-**Point the checks at that port with `PORT`:** `PORT=8736 npm run verify`, or
-`PORT=8736 python3 setup/verify/sweep.py` for one of them. Until 10 Sep 2026 this
-paragraph was advice the suite could not honour — fourteen of the fifteen scripts
-that open a socket hardcoded `localhost:8734`, so a session that followed the
-instruction above had to run against the shared server anyway, or patch copies of
-the checks. They all read `os.environ.get("PORT", "8734")` now. The default is
-unchanged, so every existing invocation still hits 8734 and nothing in
-`package.json` moved.
-
-Worth knowing why that took a second pass to find: twelve of the fourteen were the
-identical line `BASE = "http://localhost:8734"`, which makes the whole thing look
-like one find-and-replace. It is not. `fonts.py` wrote it without spaces around the
-`=`, and `mobile-nav.py` had no `BASE` constant at all — the URL sat inline in its
-`pg.goto()`. Replacing the obvious line would have migrated thirteen scripts and
-left `mobile-nav.py` silently on 8734, which only shows up when someone runs the
-suite on a private port, which is exactly what this paragraph tells them to do.
-
-### preview/ is untracked and per tree (10 Sep 2026)
-
-`preview/` came out of git the same day. Every section change re-rendered
-300-odd files, and any `git add preview` or `git add -A` swept up whatever
-the other session had rendered; two commits landed with the wrong preview
-contents that way. Vercel and the Pages workflow now run `npm run render`
-themselves, so nothing rendered is tracked and there is nothing to sweep.
-
-What remains is a disk race, not a git one. Sessions sharing a single tree
-render into the same `preview/`, so the dev server serves whichever render
-ran last, and a verify run can be checking the other session's theme. With a
-worktree per session each tree has its own `preview/`, and the race is gone.
-`npm run verify` re-renders first, so it always checks the tree it runs in.
-
-The render-identity check (render, then an empty `git diff`) went with the
-tracked folder. `npm run render:diff` is the replacement: it renders to a
-temp folder and lists which pages differ from the last render, before
-`npm run render` overwrites it.
-
-### Why — the two collisions of 10 Sep 2026
-
-Both happened in the two hours when two sessions shared one tree, and both
-are the kind of thing that turns up months later as "when did this change?"
-
-**1. A hunk rode into the wrong commit.** Session A changed the chip rule in
-`base.css` to 40px and left it uncommitted while rendering screenshots for
-approval. Session B, working on the button hover in the same file, committed
-`base.css` by whole path (553851f, "Filled buttons hover lime with dark ink").
-The 40px chip rule went in with it. The code was right and the commit message
-was about something else, so the history now says the hover commit changed
-the chips. Nobody did anything wrong by their own lights; the tree was shared.
-
-**2. A commit step reset the shared index.** To avoid the first problem,
-session A committed only its own hunks by building a filtered patch, applying
-it in a temporary worktree, and moving `main` there with `update-ref`. That
-left the main tree's index stale, so it ran `git reset` (mixed) to catch up.
-A mixed reset unstages everything in the index, including anything session B
-had staged and not yet committed. Nothing was lost, because staged files stay
-on disk, but B's staging silently vanished. The same sequence also failed once
-midway (`git rm --cached node_modules` after B had already fixed the ignore
-rule), which killed the chain before the commit and left the temp worktree to
-be cleaned up by hand.
-
-Both vanish with a worktree per session: each index is private, each commit
-is by whole file with nothing foreign in it, and `push . HEAD:main` cannot
-overwrite anyone because it only fast-forwards.
 
 ## The buttons were inverted, and the hover shadow is now load-bearing (11 Sep 2026)
 
