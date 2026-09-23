@@ -121,6 +121,71 @@ cannot overwrite anyone because it only fast-forwards.
 
 ---
 
+## The recurring defect: one thing in two places, saying two things
+
+This is the most common defect on this site. It isn't a bug in code: it's one
+thing (a policy, a page, a link list, a value, some copy) that exists in two
+places. Each copy was maintained by someone who didn't know about the other,
+until the two disagreed. By 23 Sep 2026 it had come up nine times in one week.
+Most sections of this file are one instance of it: the free delivery threshold
+(62 copies), the prescription FAQ answer (11), and the generated snippets (a
+file and the script that writes it).
+
+Neither copy looks wrong on its own. Each one reads fine, renders fine and
+passes every check. You can only see the defect by putting the two copies side
+by side, and nobody does that unless they know a second copy exists.
+
+### Where the second copy hides on this site
+
+- **Admin versus theme.** Shopify's policies (Settings → Policies, served at
+  `/policies/*`) versus our page templates (`/pages/*`). Admin navigation
+  menus versus the hardcoded fallback link list in `footer.liquid`. A
+  metafield value versus a schema default.
+- **A schema default versus the saved template JSON.** Changing a section's
+  default does nothing to a block already saved in `templates/*.json`.
+- **Two admin pages with different handles.** For example, `/pages/internet-supply`
+  and `/pages/internet-supply-pharmacy`, both live, with different text.
+- **A hardcoded link next to a menu link.** They start out pointing at the same
+  place and drift apart when one of them changes.
+- **Other themes on the store.** `Policies Preview` (#205141082443) is the
+  previous developer's Dawn build. Don't take content from it and don't push to
+  it. Our theme is #207567454539.
+
+### Before changing anything that looks like content
+
+1. Find every copy. Grep the theme for the URL, the handle and a distinctive
+   phrase from the text. Then check the admin: Pages, Settings → Policies,
+   Navigation, and metafields. Check the live store, not the preview: the
+   preview has no admin pages, no `/policies/*` and no real menus.
+2. Decide which copy is the source, and record here where it lives.
+3. Every other place should link to or render from the source, not keep its
+   own text.
+4. If the copies differ and the text belongs to the client (legal, clinical or
+   pricing), don't pick one. List the differences and ask the client, as with
+   the legal pages below.
+
+### Open case: the legal pages (23 Sep 2026)
+
+Privacy, terms, returns and shipping each exist twice: as a Shopify policy and
+as a theme page. Only the privacy pair has the same text; the other three
+differ in substance. **The source is `/policies/`**, because checkout, order
+emails and Shopify's own consent banner always link there and a theme can't
+change that. **Don't delete or redirect the `/pages/` versions yet.** The
+client and their solicitor still have to confirm which text is correct.
+
+Links in the theme that still point at the `/pages/` versions are in
+`main-register.liquid`, `back-in-stock.liquid`, `page-prescriptions.liquid`,
+`page-services.liquid`, `page-cookie-policy.liquid`, `legal-sidebar.liquid`,
+`product-faq.liquid`, and the phone-only bottom-bar link at the foot of
+`footer.liquid`. The footer's link columns come from admin menus and point at
+a mix of both.
+
+The `/policies/*` pages are styled by the block headed "Shopify policy pages"
+in `base.css`. Shopify writes that markup itself; the theme only gets the class
+names.
+
+---
+
 ## Free delivery threshold — one setting, 62 former hardcodes
 
 **Change it in one place: Theme settings → Brand → Free delivery threshold.**
