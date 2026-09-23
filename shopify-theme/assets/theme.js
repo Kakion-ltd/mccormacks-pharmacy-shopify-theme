@@ -22,6 +22,15 @@
     } catch { return '\u20ac' + (cents / 100).toFixed(2); }
   };
 
+  // The price a card may strike through, in cents, or 0. The client-side half of
+  // snippets/product-compare-at.liquid: the compare-at of the variant whose price is
+  // on show, and only when it is higher. Quick view passes the variant it displays;
+  // a product card passes shownVariant(p), the one behind the product-level price.
+  const saleWas = (v) => (v && v.compare_at_price > v.price ? v.compare_at_price : 0);
+  const shownVariant = (p) => (p.variants || []).find((v) => v.price === p.price);
+  // The product page's variant picker is an inline script in main-product.liquid.
+  window.mccSaleWas = saleWas;
+
   const escapeHtml = (t) => String(t == null ? '' : t).replace(/[&<>"']/g,
     (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -635,6 +644,7 @@
 
     const card = (p) => {
       const restricted = gateTag && (p.tags || []).some((t) => String(t).toLowerCase() === gateTag);
+      const was = saleWas(shownVariant(p));
       const quickAdd = !restricted && p.available && p.variants && p.variants.length === 1;
       const img = p.featured_image
         ? '<img src="' + escapeHtml(p.featured_image) + '" alt="" loading="lazy" class="wish-card-img">'
@@ -647,9 +657,9 @@
           + (restricted ? 'View product' : (p.available ? 'Choose options' : 'Out of stock')) + '</a>';
       }
       return '<div class="wish-card">'
-        + '<a class="wish-card-thumb" href="/products/' + encodeURIComponent(p.handle) + '">' + img + '</a>'
+        + '<a class="wish-card-thumb" href="/products/' + encodeURIComponent(p.handle) + '">' + (was ? '<span class="sale-badge">SALE</span>' : '') + img + '</a>'
         + '<a class="wish-card-title" href="/products/' + encodeURIComponent(p.handle) + '">' + escapeHtml(p.title) + '</a>'
-        + '<div class="wish-card-price">' + formatMoney(p.price) + '</div>'
+        + '<div class="wish-card-price"><span>' + formatMoney(p.price) + '</span>' + (was ? '<span class="price-was">' + formatMoney(was) + '</span>' : '') + '</div>'
         + action
         + '<button type="button" class="wish-remove" data-wish-toggle="' + escapeHtml(p.handle) + '">Remove</button>'
         + '</div>';
@@ -974,13 +984,13 @@
       const action = restricted
         ? '<a class="btn btn-fill" href="' + esc(url) + '">View product</a>'
         : '<button type="button" class="btn btn-fill" data-qv-add data-add-id="' + first.id + '"' + (first.available ? '' : ' disabled') + '>' + (first.available ? 'Add To Bag' : 'Out of stock') + '</button>';
-      const onSale = first.compare_at_price && first.compare_at_price > first.price;
+      const was = saleWas(first);
       qvBody.innerHTML =
         '<div class="qv-media">' + (imgSrc(p.featured_image) ? '<img src="' + esc(imgSrc(p.featured_image)) + '" alt="">' : '') + '</div>'
         + '<div class="qv-info">'
         + (p.vendor ? '<div class="qv-vendor">' + esc(p.vendor) + '</div>' : '')
         + '<h2 class="qv-title" id="qv-title">' + esc(p.title) + '</h2>'
-        + '<div class="qv-price"><span data-qv-price>' + fmt(first.price) + '</span><span class="qv-compare" data-qv-compare' + (onSale ? '' : ' hidden') + '>' + (onSale ? fmt(first.compare_at_price) : '') + '</span></div>'
+        + '<div class="qv-price"><span data-qv-price>' + fmt(first.price) + '</span><span class="qv-compare" data-qv-compare' + (was ? '' : ' hidden') + '>' + (was ? fmt(was) : '') + '</span></div>'
         + selects
         + '<div class="qv-actions">' + action + '<a class="qv-link" href="' + esc(url) + '">View full product details</a></div>'
         + '</div>';
@@ -994,8 +1004,8 @@
         if (!v) { if (btn) { btn.disabled = true; btn.textContent = 'Unavailable'; } return; }
         if (btn) { btn.dataset.addId = v.id; btn.disabled = !v.available; btn.textContent = v.available ? 'Add To Bag' : 'Out of stock'; }
         priceEl.textContent = fmt(v.price);
-        const sale = v.compare_at_price && v.compare_at_price > v.price;
-        cmp.hidden = !sale; if (sale) cmp.textContent = fmt(v.compare_at_price);
+        const vWas = saleWas(v);
+        cmp.hidden = !vWas; if (vWas) cmp.textContent = fmt(vWas);
         const im = qvBody.querySelector('.qv-media img');
         if (im && imgSrc(v.featured_image)) im.src = imgSrc(v.featured_image);
       }));

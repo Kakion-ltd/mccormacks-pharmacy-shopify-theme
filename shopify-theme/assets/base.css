@@ -491,6 +491,7 @@ body[data-cd-open] { overflow: hidden; }
 .ps-meta { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
 .ps-title { font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .ps-price { font-weight: 800; font-size: 14px; color:var(--c-primary-text); font-variant-numeric: tabular-nums; }
+.ps-price .price-was { font-size: 12px; margin-left: 6px; }
 .ps-oos { font-weight: 700; font-size: 13px; color: var(--c-muted-2); }
 /* Restricted lines show why there is no price-and-add shortcut, not a bare price */
 .ps-flag { font-weight: 700; font-size: 12.5px; color: #8a6210; }
@@ -513,7 +514,8 @@ body[data-cd-open] { overflow: hidden; }
 .crec-img { max-width: 92%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
 .crec-title { font-size: 13px; font-weight: 600; line-height: 1.35; color: var(--c-text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 35px; }
 .crec-title:hover { color:var(--c-primary-text); }
-.crec-price { font-weight: 800; font-size: 14.5px; color:var(--c-primary-text); font-variant-numeric: tabular-nums; }
+.crec-price { font-weight: 800; font-size: 14.5px; color:var(--c-primary-text); font-variant-numeric: tabular-nums; display: flex; align-items: baseline; gap: 6px; }
+.crec-price .price-was { font-size: 12px; }
 .crec-add { margin-top: auto; width: 100%; }
 .crec-add-link { text-decoration: none; }
 
@@ -616,7 +618,8 @@ body[data-mnav-open] { overflow: hidden; }
 .wish-card-ph { display: block; width: 100%; height: 100%; background: repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); }
 .wish-card-title { font-weight: 600; font-size: 15px; line-height: 1.35; color: var(--c-text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 41px; }
 .wish-card-title:hover { color:var(--c-primary-text); }
-.wish-card-price { color:var(--c-primary-text); font-weight: 800; font-size: 19px; font-variant-numeric: tabular-nums; }
+.wish-card-price { color:var(--c-primary-text); font-weight: 800; font-size: 19px; font-variant-numeric: tabular-nums; display: flex; align-items: baseline; gap: 9px; }
+.wish-card-thumb { position: relative; }
 .wish-add { display: flex; align-items: center; justify-content: center; height: 44px; border: none; border-radius: 9px; background: var(--c-dark); color: var(--c-on-dark); font-family: inherit; font-weight: 700; font-size: 15px; cursor: pointer; }
 .wish-add-link { text-decoration: none; }
 .wish-remove { border: none; background: transparent; padding: 2px 0; font-family: inherit; font-size: 13px; color: var(--c-muted-2); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
@@ -685,6 +688,11 @@ input:not([type=checkbox]):not([type=radio]):not([type=range]), select, textarea
 /* Card hover: the View button fades up over the image, the image eases in
    4%. Shared by the collection product cards (.pcard is a div holding the link)
    and the homepage category tiles (.pcard IS the link, hence :focus-visible). */
+/* Sale marking for every product card. Whether to show it is decided in one place:
+   snippets/product-compare-at.liquid, and saleWas() in theme.js for the cards built
+   client-side. check.mjs (PriceWithoutCompareAt) fails any price that skips both. */
+.sale-badge { position: absolute; top: 12px; left: 12px; z-index: 2; background: var(--c-sale); color: #ffffff; font-weight: 800; font-size: 12px; letter-spacing: .04em; padding: 5px 10px; border-radius: 6px; }
+.price-was { color: #666b60; font-weight: 600; font-size: 15px; text-decoration: line-through; font-variant-numeric: tabular-nums; }
 .pcard .pcard-view { box-shadow: 0 2px 8px rgba(0, 0, 0, .12); }
 .pcard:hover .pcard-view, .pcard:focus-visible .pcard-view { opacity: 1 !important; transform: translateY(0) !important; }
 .pcard:hover .pcard-img img, .pcard:focus-visible .pcard-img img { transform: scale(1.04); }

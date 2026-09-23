@@ -37,6 +37,9 @@
       {%- unless restricted == 'true' or product.available == false or cart_handles contains handle_key -%}
         {%- assign shown = shown | plus: 1 -%}
         {%- assign variant = product.selected_or_first_available_variant -%}
+        {%- comment -%} Blank unless the price shown is genuinely reduced — see snippets/product-compare-at.liquid. {%- endcomment -%}
+        {%- capture was -%}{%- render 'product-compare-at', product: product -%}{%- endcapture -%}
+        {%- assign was = was | strip -%}
         <div class="crec-card">
           <a href="{{ product.url }}" class="crec-thumb" tabindex="-1" aria-hidden="true">
             {%- if product.featured_image -%}
@@ -44,7 +47,7 @@
             {%- endif -%}
           </a>
           <a href="{{ product.url }}" class="crec-title">{{ product.title }}</a>
-          <div class="crec-price">{{ product.price | money }}</div>
+          <div class="crec-price">{{ product.price | money }}{%- if was != blank -%}<span class="price-was">{{ was }}</span>{%- endif -%}</div>
           {%- if product.variants.size == 1 and product.selling_plan_groups.size == 0 -%}
             <button type="button" data-add-id="{{ variant.id }}" class="crec-add btn-sm btn-fill">Add</button>
           {%- else -%}

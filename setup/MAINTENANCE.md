@@ -110,10 +110,14 @@ checkout — never committed, never even staged. A second session (Opus 5.5),
 also working directly in the same shared checkout rather than its own
 worktree, committed unrelated work to `main` around the same time. The
 `main-product.liquid` edit vanished with no trace in that commit's file list
-and no error on either side — consistent with the second session running some
-form of `git checkout`/`git restore` in the shared tree as routine cleanup
-before its own edit, which silently snaps any other file back to HEAD. The
-edit was redone and verified landed before continuing.
+and no error on either side. Confirmed cause: the second session had applied a
+measurement patch to the same file, saved it with `git diff`, then ran
+`git checkout -- shopify-theme/sections/main-product.liquid` to revert it. The
+saved patch showed the other session's edit had already been in the file, so the
+checkout snapped both back to HEAD. The edit was redone and verified landed
+before continuing. Two lessons: `git checkout -- <file>` in a shared tree
+discards everyone's work in that file, not just yours; and a patch taken with
+`git diff` contains every uncommitted hunk in the file, whoever wrote it.
 
 All three vanish with a worktree per session: each index is private, each
 commit is by whole file with nothing foreign in it, and `push . HEAD:main`
@@ -128,8 +132,8 @@ thing (a policy, a page, a link list, a value, some copy) that exists in two
 places. Each copy was maintained by someone who didn't know about the other,
 until the two disagreed. By 23 Sep 2026 it had come up nine times in one week.
 Most sections of this file are one instance of it: the free delivery threshold
-(62 copies), the prescription FAQ answer (11), and the generated snippets (a
-file and the script that writes it).
+(62 copies), the prescription FAQ answer (11), the generated snippets (a
+file and the script that writes it), and the product card (7 copies, below).
 
 Neither copy looks wrong on its own. Each one reads fine, renders fine and
 passes every check. You can only see the defect by putting the two copies side
@@ -147,6 +151,9 @@ by side, and nobody does that unless they know a second copy exists.
   and `/pages/internet-supply-pharmacy`, both live, with different text.
 - **A hardcoded link next to a menu link.** They start out pointing at the same
   place and drift apart when one of them changes.
+- **A pasted component versus the one it was pasted from.** A product card, a
+  trust strip, a price row copied into a new section instead of rendered from a
+  shared snippet. See the next subsection.
 - **Other themes on the store.** `Policies Preview` (#205141082443) is the
   previous developer's Dawn build. Don't take content from it and don't push to
   it. Our theme is #207567454539.
@@ -163,6 +170,60 @@ by side, and nobody does that unless they know a second copy exists.
 4. If the copies differ and the text belongs to the client (legal, clinical or
    pricing), don't pick one. List the differences and ask the client, as with
    the legal pages below.
+
+### Components get pasted, not shared (23 Sep 2026)
+
+The same shape at component scale. By 23 Sep 2026 the product card existed as
+**seven hand-copied versions**: the collection grid, the product page's
+"Have You Checked" rail, the collection pages' "You might also like" rail, the
+homepage Sale rail, the gift vouchers rail, the cart drawer suggestions and the
+wishlist, plus the compact rows in the search dropdown and the product page's
+side list. The rule for showing a reduced price existed **three times**: the Liquid
+snippet `product-compare-at`, and two copies in JavaScript. **Six of the seven
+cards were wrong in the same way, and so were both compact rows.** Only the
+collection grid (and the search results page, a separate layout) used the
+snippet. The rest showed the current price with no strikethrough and no SALE
+badge, so a reduced product read as full price. The worst was the
+homepage section titled "On Sale This Month". The trust strip's inline copies
+and the free delivery threshold (62 copies, above) are the same pattern:
+something that should be rendered from one place gets pasted instead, each
+paste is right on the day, and the copies drift.
+
+Review doesn't catch this, because each copy looks fine on its own. What
+catches it is a check that knows the shared path exists and fails when a new
+surface skips it. Where it lives now:
+
+- **Liquid:** `snippets/product-compare-at.liquid` decides whether a price may be
+  struck through, and returns the old price or nothing. Every card captures it
+  as `was`.
+- **JavaScript:** `saleWas()` in `assets/theme.js` is the same rule for cards
+  built in the browser (wishlist, quick view). The product page's variant picker
+  reaches it as `window.mccSaleWas`.
+- **Markup:** `.sale-badge` and `.price-was` in `base.css`.
+- **The check:** `PriceWithoutCompareAt` in `check.mjs`, which runs in `npm test`.
+  In Liquid, `X.price | money` fails unless the same loop renders
+  `product-compare-at` for `X`. In JavaScript, `fmt(X.price)` or
+  `formatMoney(X.price)` fails unless `saleWas(X)`, `saleWas(shownVariant(X))`
+  or `mccSaleWas(X)` appears within 30 lines. Prices that aren't a product card
+  are listed in `PRICE_EXEMPT` with a reason. An exemption that no longer matches
+  anything fails too, so the list can't go stale.
+
+**A green check is not a guarantee.** The JavaScript side only looks at the 30
+lines around each price, so a sale check far away from the price it belongs
+to will fool it: a helper function, a value computed at the top of a long
+render function, or a price formatted in one module and a `saleWas` call in
+another. It also only recognises the call patterns above. A price written
+another way, such as `Intl.NumberFormat` directly, a template literal, or a
+variable not named after the product, isn't seen at all. The Liquid side is
+stricter, but it only knows `.price | money`. A new money filter or a price
+passed through a snippet would get past it. When you add a surface that shows
+a product price, check the sale marking in the browser with a reduced
+product; don't rely on the check alone.
+
+The general rule: before writing a card, row or strip that already exists
+somewhere else on the site, render the existing one or move it into a snippet.
+If a component genuinely has to be copied, add a check for the part that must
+not drift.
 
 ### Open case: the legal pages (23 Sep 2026)
 

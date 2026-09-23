@@ -39,6 +39,9 @@
       <ul class="ps-list" role="list">
         {%- for product in products -%}
           {%- capture restricted -%}{%- render 'product-restricted', product: product -%}{%- endcapture -%}
+          {%- comment -%} Blank unless the price shown is genuinely reduced — see snippets/product-compare-at.liquid. {%- endcomment -%}
+          {%- capture was -%}{%- render 'product-compare-at', product: product -%}{%- endcapture -%}
+          {%- assign was = was | strip -%}
           <li>
             <a class="ps-item ps-product" href="{{ product.url }}">
               <span class="ps-thumb">
@@ -54,7 +57,7 @@
                   {%- elsif product.available == false -%}
                     <span class="ps-oos">Out of stock</span>
                   {%- else -%}
-                    {{ product.price | money }}
+                    {{ product.price | money }}{%- if was != blank -%}<span class="price-was">{{ was }}</span>{%- endif -%}
                   {%- endif -%}
                 </span>
               </span>

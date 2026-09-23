@@ -73,6 +73,52 @@ for (const file of liquidFiles(root)) {
     } catch { /* theme-check reports invalid JSON */ }
   }
 }
+// A product price must go through the shared compare-at path, so a reduced product is
+// never shown at an apparent full price. Seven hand-copied cards drifted apart on exactly
+// this, and six of them lost the strikethrough. Liquid: `X.price | money` needs
+// `render 'product-compare-at', product: X` earlier in the same loop over X. JavaScript:
+// `fmt(X.price)` / `formatMoney(X.price)` needs saleWas(X), saleWas(shownVariant(X)) or
+// mccSaleWas(X) within 30 lines. Exemptions are prices that are not a product's own
+// headline price; each must still match something, so a stale entry fails too.
+const PRICE_EXEMPT = {
+  'sections/main-product.liquid|current_variant': 'buy box: shows the selected variant\'s own compare-at, updated by mccSaleWas on change',
+  'sections/main-product.liquid|variant': 'no-JS variant <select>: option text, not a card',
+  'sections/main-order.liquid|shipping_method': 'shipping cost, not a product',
+};
+const exemptSeen = new Set();
+const lineAt = (src, i) => src.slice(0, i).split('\n').length;
+const jsFiles = readdirSync(join(root, 'assets')).filter((f) => f.endsWith('.js')).map((f) => join(root, 'assets', f));
+for (const file of [...liquidFiles(root), ...jsFiles]) {
+  const src = readFileSync(file, 'utf8');
+  const rel = file.replace(root, '');
+  for (const m of src.matchAll(/\b(\w+)\.price\s*\|\s*money\w*/g)) {
+    const v = m[1];
+    const key = `${rel}|${v}`;
+    if (PRICE_EXEMPT[key]) { exemptSeen.add(key); continue; }
+    const before = src.slice(0, m.index);
+    const loopAt = Math.max(...[...before.matchAll(new RegExp(`\\{%-?\\s*for\\s+${v}\\s+in\\b`, 'g'))].map((f) => f.index), 0);
+    const scope = before.slice(loopAt);
+    if (!new RegExp(`render\\s+'product-compare-at',\\s*product:\\s*${v}\\b`).test(scope)) {
+      console.log(`ERROR  ${rel}:${lineAt(src, m.index)}  PriceWithoutCompareAt  ${v}.price is shown without render 'product-compare-at', product: ${v} in the same loop: a reduced product would show at full price`);
+      uploadErrors++;
+    }
+  }
+  for (const m of src.matchAll(/\b(?:fmt|formatMoney)\(\s*(\w+)\.price\s*\)/g)) {
+    const v = m[1];
+    const line = lineAt(src, m.index);
+    const near = src.split('\n').slice(Math.max(0, line - 31), line + 30).join('\n');
+    if (!new RegExp(`\\b(?:mccSaleWas|saleWas)\\(\\s*(?:shownVariant\\(\\s*)?${v}\\s*\\)`).test(near)) {
+      console.log(`ERROR  ${rel}:${line}  PriceWithoutCompareAt  ${v}.price is shown without saleWas(${v}) nearby: a reduced product would show at full price`);
+      uploadErrors++;
+    }
+  }
+}
+for (const key of Object.keys(PRICE_EXEMPT)) {
+  if (!exemptSeen.has(key)) {
+    console.log(`ERROR  ${key.split('|')[0]}  PriceWithoutCompareAt  stale exemption for "${key.split('|')[1]}": nothing matches it any more, remove it`);
+    uploadErrors++;
+  }
+}
 counts.ERROR += uploadErrors;
 console.log(`\n${counts.ERROR} errors, ${counts.WARNING} warnings, ${counts.INFO} info`);
 process.exit(counts.ERROR > 0 ? 1 : 0);
