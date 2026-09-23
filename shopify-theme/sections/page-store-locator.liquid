@@ -77,7 +77,8 @@
         </div>
       </div>
       <aside class="loc-side" style="flex:0 0 400px; width:400px; position:sticky; top:20px;">
-        {% render 'map-placeholder', height: 440 %}
+        {%- capture map_stores -%}[{%- for block in section.blocks -%}{"name":{{ block.settings.name | json }},"lat":{{ block.settings.latitude | json }},"lng":{{ block.settings.longitude | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]{%- endcapture -%}
+        {% render 'map-placeholder', height: 440, stores: map_stores %}
         <div style="margin-top:16px; padding:20px 22px; border-radius:16px; background:#eef2e8;">
           <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:7px;">Bank holiday hours</div>
           <div style="font-size:14px; line-height:1.7; color:#3a3d39;">On bank holidays every store keeps its Sunday hours &mdash; Newbridge and Haggardstown open 11.00am &ndash; 5.00pm, the rest are closed. Christmas and New Year hours vary, so please phone your store before travelling.</div>
@@ -116,7 +117,8 @@
               {{ block.settings.image | image_url: width: 1520 | image_tag: style: 'width:100%; height:100%; object-fit:cover; display:block;', alt: block.settings.name | escape }}
             </div>
           {%- else -%}
-            {% render 'map-placeholder', height: 300 %}
+            {%- capture map_stores -%}[{"name":{{ block.settings.name | json }},"lat":{{ block.settings.latitude | json }},"lng":{{ block.settings.longitude | json }}}]{%- endcapture -%}
+            {% render 'map-placeholder', height: 300, stores: map_stores %}
           {%- endif -%}
           <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">Opening hours</h2>
           <div style="border-top:1px solid #e6e7e4; max-width:460px;">
@@ -294,7 +296,7 @@
         { "type": "text", "id": "services", "label": "Services (comma separated)", "default": "Blood pressure screening, Ask our pharmacist, Prescription collection" },
         { "type": "image_picker", "id": "image", "label": "Store image (replaces map placeholder)" },
         { "type": "text", "id": "eircode", "label": "Eircode", "info": "Also used to match searches." },
-        { "type": "text", "id": "latitude", "label": "Latitude", "info": "Optional. Fill in latitude and longitude on every store to enable the 'Use my location' button." },
+        { "type": "text", "id": "latitude", "label": "Latitude", "info": "Decimal degrees, e.g. 52.3548. Places the store on the map and in 'Use my location' sorting. In Google Maps, right-click the building and click the numbers to copy them." },
         { "type": "text", "id": "longitude", "label": "Longitude" }
       ]
     }

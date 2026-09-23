@@ -228,6 +228,16 @@
       {
         "type": "paragraph",
         "content": "Click & Collect needs no setting. It appears on a product automatically wherever Shopify local pickup is enabled for that product's location, and stays hidden otherwise, so the page cannot offer collection the store has not switched on."
+      },
+      {
+        "type": "header",
+        "content": "Store map"
+      },
+      {
+        "type": "text",
+        "id": "google_maps_key",
+        "label": "Google Maps API key",
+        "info": "A browser key with the Maps JavaScript API enabled, restricted to this shop's domain. Blank shows the map placeholder instead. Store coordinates are set per store on the Store Locator page."
       }
     ]
   },

@@ -1038,4 +1038,33 @@
     document.querySelectorAll('[data-view-btn]').forEach(b =>
       b.setAttribute('data-active', String(b.dataset.viewBtn === key)));
   });
+
+  // ---- Store map: [data-map-load] swaps its [data-map] placeholder for a Google map.
+  // Google is only contacted on that click; see snippets/map-placeholder.liquid.
+  let mapsApi;
+  on(document, 'click', '[data-map-load]', (e, btn) => {
+    const box = btn.closest('[data-map]');
+    btn.disabled = true;
+    mapsApi ||= new Promise((ok, fail) => {
+      window.mccMapsReady = ok;
+      const s = document.createElement('script');
+      s.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(btn.dataset.mapKey)}&loading=async&callback=mccMapsReady`;
+      s.onerror = () => { mapsApi = null; fail(); };
+      document.head.append(s);
+    });
+    mapsApi.then(() => {
+      const stores = JSON.parse(box.dataset.map).filter(s => s.lat && s.lng);
+      box.replaceChildren();
+      const map = new google.maps.Map(box, { streetViewControl: false, mapTypeControl: false });
+      const bounds = new google.maps.LatLngBounds();
+      stores.forEach(s => {
+        const position = { lat: +s.lat, lng: +s.lng };
+        // ponytail: classic Marker is deprecated but supported; AdvancedMarkerElement needs a Map ID from Cloud Console
+        new google.maps.Marker({ map, position, title: s.name });
+        bounds.extend(position);
+      });
+      if (stores.length > 1) map.fitBounds(bounds);
+      else { map.setCenter(bounds.getCenter()); map.setZoom(16); }
+    }, () => { btn.disabled = false; });
+  });
 })();
