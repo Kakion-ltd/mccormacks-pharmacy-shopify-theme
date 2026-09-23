@@ -72,6 +72,13 @@ for stem in ("page.contact-us", "product.oos"):
     ck(f"{stem}: neither state on a fresh page load",
        "There was a problem" in plain, False)
 
+# The services appointment request is off by default (show_booking_form). The real
+# page must collect nothing and send every entry point to the store locator instead.
+svc = (PREVIEW / "page.in-store-services.html").read_text(encoding="utf-8", errors="replace")
+ck("page.in-store-services: no booking form by default", "svc-book-form" in svc, False)
+ck("page.in-store-services: no appointment view to open by default", 'data-view-btn="svc-book"' in svc, False)
+ck("page.in-store-services: entry points lead to the store locator", "Find your nearest store" in svc)
+
 for ok, name, got in res:
     if not ok:
         print(f"FAIL  {name}   (got {got!r})")

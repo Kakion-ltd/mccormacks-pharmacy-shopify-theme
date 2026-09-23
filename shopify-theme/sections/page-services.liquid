@@ -1,7 +1,13 @@
 {% comment %}
   Hub -> detail -> booking behavior reproduced with theme.js data-view tabs
   (hub visible by default; service details and the booking form are hidden panels).
-  The booking form posts as a Shopify contact form with a hidden
+  The booking form is off by default (show_booking_form). It emails a named person,
+  their chosen service, store and a free-text note to the shared contact inbox with
+  no record or retention, and on a page of vaccinations and screening that note is
+  health information. Until it has a proper destination every entry point becomes
+  "Find your nearest store" beside the Call button. The form and its checks stay in
+  place: render_preview.mjs forces it on for the form-state fixtures.
+  When on, it posts as a Shopify contact form with a hidden
   contact[form_type] = "appointment-request" field. That is not a Shopify tag and
   tags nothing — it is a plain field that shows up in the notification email body,
   so the one inbox holding every contact form can be filtered by mail rules.
@@ -71,7 +77,11 @@
       </div>
       <div style="flex:0 0 auto; display:flex; flex-wrap:wrap; gap:12px;">
         <a href="tel:{{ settings.phone | remove: ' ' }}" class="btn btn-fill">{{ settings.phone }}</a>
-        <button type="button" class="svc-link-btn svc-band-outline btn" data-view-btn="svc-book" style="border-color:rgba(255,255,255,.28); color:#ffffff">Request an appointment</button>
+        {%- if section.settings.show_booking_form -%}
+          <button type="button" class="svc-link-btn svc-band-outline btn" data-view-btn="svc-book" style="border-color:rgba(255,255,255,.28); color:#ffffff">Request an appointment</button>
+        {%- else -%}
+          <a href="/pages/store-locator" class="svc-band-outline btn" style="border-color:rgba(255,255,255,.28); color:#ffffff">Find your nearest store</a>
+        {%- endif -%}
       </div>
     </div>
   </section>
@@ -102,7 +112,11 @@
             </div>
           {%- endif -%}
           <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:28px;">
-            <button type="button" class="svc-link-btn btn btn-fill" data-view-btn="svc-book" style="gap:9px">Request an appointment</button>
+            {%- if section.settings.show_booking_form -%}
+              <button type="button" class="svc-link-btn btn btn-fill" data-view-btn="svc-book" style="gap:9px">Request an appointment</button>
+            {%- else -%}
+              <a href="/pages/store-locator" class="btn btn-fill" style="gap:9px">Find your nearest store</a>
+            {%- endif -%}
             <a href="tel:{{ settings.phone | remove: ' ' }}" class="btn btn-outline" style="gap:9px">Call {{ settings.phone }}</a>
           </div>
           <div style="margin-top:28px; padding-top:22px; border-top:1px solid #e6e7e4;">
@@ -116,6 +130,7 @@
           <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
             <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin:0 0 4px;">{{ block.settings.price_note }}</div>
             <div style="font-size:13.5px; color:#666b60; margin:0 0 18px;">{{ block.settings.tag }}</div>
+            {%- if section.settings.show_booking_form -%}
             <div style="display:flex; flex-direction:column; gap:14px;">
               <label style="display:flex; flex-direction:column; gap:7px; min-width:0;">
                 <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Your name</span>
@@ -131,7 +146,11 @@
               </label>
             </div>
             <div style="margin-top:18px;"><button type="button" class="svc-link-btn btn btn-fill" data-view-btn="svc-book" style="gap:9px; width:100%">Request appointment</button></div>
-            <div style="font-size:12.5px; line-height:1.6; color:#666b60; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div></div>
+            <div style="font-size:12.5px; line-height:1.6; color:#666b60; margin-top:12px;">We will call you back to confirm a time. Requesting an appointment does not guarantee a slot.</div>
+            {%- else -%}
+              <a href="/pages/store-locator" class="btn btn-fill" style="gap:9px; width:100%">Find your nearest store</a>
+              <div style="font-size:12.5px; line-height:1.6; color:#666b60; margin-top:12px;">Call your local pharmacy to book. Every store's number is on the store locator.</div>
+            {%- endif -%}</div>
           <div style="margin-top:16px; padding:20px 22px; border-radius:16px; background:#eef2e8;">
             <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:7px;">Other services</div>
             <div style="display:flex; flex-direction:column; gap:9px;">
@@ -150,6 +169,7 @@
   </div>
 {%- endfor -%}
 
+{%- if section.settings.show_booking_form -%}
 <div data-view="svc-book" style="display:none">
   <section style="max-width:820px; margin:0 auto; padding:34px 30px 20px;">
     <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
@@ -229,6 +249,7 @@
     </div>
   </section>
 </div>
+{%- endif -%}
 
 <script>
   /* Scroll to top when switching service views (matches the design's view-change behavior). */
@@ -242,6 +263,7 @@
   "name": "In-Store Services",
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "In-store services" },
+    { "type": "checkbox", "id": "show_booking_form", "label": "Show the appointment request form", "default": false, "info": "Off until the requests have somewhere to go other than the shared contact inbox: the form collects a name, the service and a free-text note, which can be health information." },
     { "type": "textarea", "id": "intro", "label": "Intro", "default": "More than a shop counter. Our pharmacists offer vaccination clinics, health screening, fitting consultations and everyday practical services across our stores — most without a GP referral." }
   ],
   "blocks": [

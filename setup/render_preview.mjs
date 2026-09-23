@@ -767,6 +767,9 @@ console.log(`${ok}/${ok + fail} templates render clean`);
 // fixtures force it on so setup/verify/back-in-stock.py and form-states.py still
 // exercise the real submission path, ready for whenever it is switched back on.
 const BIS_ON = { __sectionSettingsOverride: { 'main-product': { show_back_in_stock: true } } };
+// Same for the In-Store Services appointment request: off on the store (show_booking_form)
+// for the same inbox reason, forced on for its form-state fixtures only.
+const FORM_ON = { 'page.in-store-services': { __sectionSettingsOverride: { 'page-services': { show_booking_form: true } } } };
 {
   const FORM_PAGES = [
     'page.contact-us', 'page.prescriptions', 'page.careers',
@@ -785,7 +788,7 @@ const BIS_ON = { __sectionSettingsOverride: { 'main-product': { show_back_in_sto
                                        ['errors', { errors: ERRORS }]]) {
       globals.__form = formState;
       for (const name of FORM_PAGES) {
-        writeFileSync(join(outDir, `${name}.${suffix}.html`), await renderTemplate(name));
+        writeFileSync(join(outDir, `${name}.${suffix}.html`), await renderTemplate(name, FORM_ON[name]));
       }
       // The product page carries back-in-stock, which is a form too.
       const oosProduct = products.find((p) => p.available === false);
