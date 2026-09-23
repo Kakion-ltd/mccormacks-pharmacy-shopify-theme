@@ -1,0 +1,563 @@
+{% comment %}
+  McCormack's Pharmacy — Common Conditions Service page + multi-step booking form.
+  Rendered from sections/main-page.liquid when page.handle is common-conditions(-service).
+  The booking form uses Shopify's {% form 'contact' %} so submissions email the store
+  contact address. Each field named contact[...] appears in the notification email.
+  NOTE: Shopify cannot route to a different recipient per submission — the chosen
+  pharmacy is captured as "Preferred pharmacy" for routing/forwarding downstream.
+{% endcomment %}
+
+<link rel="stylesheet" href="{{ 'component-accordion.css' | asset_url }}" media="print" onload="this.media='all'">
+
+{%- style -%}
+  .mc-ccs {
+    --ccs-green: #5e8a1f;
+    --ccs-deep: #2c5e1a;
+    --ccs-bright: #92c83f;
+    --ccs-ink: #2a2b2a;
+    --ccs-muted: #6c7268;
+    --ccs-line: #e2e5dd;
+    --ccs-bg: #f4f5f2;
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 0 30px 64px;
+    color: var(--ccs-ink);
+    font-family: var(--font-body-family), sans-serif;
+  }
+
+  .mc-ccs *,
+  .mc-ccs *::before,
+  .mc-ccs *::after { box-sizing: border-box; }
+
+  .mc-ccs h1, .mc-ccs h2, .mc-ccs h3 {
+    font-family: 'Baloo 2', var(--font-heading-family), sans-serif;
+    color: var(--ccs-deep);
+    letter-spacing: 0;
+    line-height: 1.08;
+    margin: 0;
+  }
+
+  /* Hero */
+  .mc-ccs__hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+    background: var(--ccs-bg);
+    border-radius: 18px;
+    padding: clamp(28px, 4vw, 56px);
+    margin-top: 24px;
+  }
+  .mc-ccs__eyebrow {
+    display: inline-block;
+    margin-bottom: 14px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: #e6f2d5;
+    color: var(--ccs-deep);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+  }
+  .mc-ccs__hero h1 { font-size: clamp(30px, 4vw, 50px); font-weight: 800; }
+  .mc-ccs__hero p { margin: 18px 0 0; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.6; color: #3a3d39; }
+  .mc-ccs__hero-cta { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 14px; }
+  .mc-ccs__facts { display: grid; gap: 14px; }
+  .mc-ccs__fact {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: #fff; border: 1px solid var(--ccs-line); border-radius: 14px; padding: 18px 20px;
+  }
+  .mc-ccs__fact svg { flex: 0 0 26px; width: 26px; height: 26px; color: var(--ccs-green); }
+  .mc-ccs__fact strong { display: block; font-size: 16px; color: var(--ccs-deep); font-family: 'Baloo 2', sans-serif; }
+  .mc-ccs__fact span { font-size: 14.5px; color: var(--ccs-muted); line-height: 1.5; }
+
+  /* Buttons */
+  .mc-ccs__btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    padding: 14px 30px; border-radius: 10px; border: 0; cursor: pointer;
+    font-family: 'Baloo 2', sans-serif; font-size: 16px; font-weight: 700; text-decoration: none;
+    transition: background .15s ease, transform .1s ease;
+  }
+  .mc-ccs__btn--primary { background: var(--ccs-green); color: #fff !important; }
+  .mc-ccs__btn--primary:hover { background: var(--ccs-deep); }
+  .mc-ccs__btn--ghost { background: #fff; color: var(--ccs-deep) !important; border: 1.5px solid var(--ccs-green); }
+  .mc-ccs__btn--ghost:hover { background: #f0f6e6; }
+  .mc-ccs__btn[disabled] { opacity: .5; cursor: not-allowed; }
+
+  /* Section headings */
+  .mc-ccs__section { margin-top: 60px; }
+  .mc-ccs__section > h2 { font-size: clamp(26px, 3vw, 38px); font-weight: 800; text-align: center; }
+  .mc-ccs__section > .mc-ccs__lead { max-width: 720px; margin: 14px auto 0; text-align: center; color: var(--ccs-muted); font-size: 16px; line-height: 1.6; }
+
+  /* How it works */
+  .mc-ccs__steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 36px; }
+  .mc-ccs__step { background: #fff; border: 1px solid var(--ccs-line); border-radius: 16px; padding: 30px 26px; }
+  .mc-ccs__step-num {
+    display: flex; align-items: center; justify-content: center;
+    width: 46px; height: 46px; border-radius: 12px; margin-bottom: 18px;
+    background: #e6f2d5; color: var(--ccs-deep); font-family: 'Baloo 2', sans-serif; font-size: 22px; font-weight: 800;
+  }
+  .mc-ccs__step h3 { font-size: 20px; margin-bottom: 10px; }
+  .mc-ccs__step p { margin: 0; color: var(--ccs-muted); font-size: 15px; line-height: 1.6; }
+
+  /* Conditions */
+  .mc-ccs__conditions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 36px; }
+  .mc-ccs__condition { background: #fff; border: 1px solid var(--ccs-line); border-radius: 14px; padding: 20px; }
+  .mc-ccs__condition strong { display: block; font-family: 'Baloo 2', sans-serif; color: var(--ccs-deep); font-size: 17px; margin-bottom: 6px; }
+  .mc-ccs__condition span { font-size: 13.5px; color: var(--ccs-muted); }
+
+  /* Booking form */
+  .mc-ccs__book { margin-top: 60px; background: var(--ccs-bg); border-radius: 20px; padding: clamp(24px, 3.4vw, 48px); }
+  .mc-ccs__book-head { text-align: center; margin-bottom: 30px; }
+  .mc-ccs__book-head h2 { font-size: clamp(24px, 2.8vw, 34px); font-weight: 800; }
+  .mc-ccs__book-head p { margin: 12px 0 0; color: var(--ccs-muted); font-size: 15.5px; }
+
+  .mc-ccs__progress { display: flex; gap: 8px; max-width: 640px; margin: 0 auto 30px; }
+  .mc-ccs__progress-item { flex: 1; text-align: center; }
+  .mc-ccs__progress-bar { height: 6px; border-radius: 999px; background: #dfe4d8; transition: background .2s ease; }
+  .mc-ccs__progress-item.is-active .mc-ccs__progress-bar,
+  .mc-ccs__progress-item.is-done .mc-ccs__progress-bar { background: var(--ccs-green); }
+  .mc-ccs__progress-label { display: block; margin-top: 8px; font-size: 12px; font-weight: 700; color: var(--ccs-muted); }
+  .mc-ccs__progress-item.is-active .mc-ccs__progress-label { color: var(--ccs-deep); }
+
+  .mc-ccs__form { max-width: 760px; margin: 0 auto; background: #fff; border: 1px solid var(--ccs-line); border-radius: 16px; padding: clamp(22px, 3vw, 38px); }
+  .mc-ccs__step-panel { display: none; }
+  .mc-ccs__step-panel.is-active { display: block; animation: ccsFade .25s ease; }
+  @keyframes ccsFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .mc-ccs__step-title { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+  .mc-ccs__step-hint { color: var(--ccs-muted); font-size: 14.5px; margin: 0 0 22px; }
+
+  .mc-ccs__choices { display: grid; gap: 12px; }
+  .mc-ccs__choices--2 { grid-template-columns: repeat(2, 1fr); }
+  .mc-ccs__choice { position: relative; display: block; cursor: pointer; }
+  .mc-ccs__choice input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .mc-ccs__choice-box {
+    display: block; border: 1.5px solid var(--ccs-line); border-radius: 12px; padding: 16px 18px; transition: border-color .12s ease, background .12s ease;
+  }
+  .mc-ccs__choice-box strong { display: block; font-family: 'Baloo 2', sans-serif; color: var(--ccs-ink); font-size: 16px; }
+  .mc-ccs__choice-box small { display: block; margin-top: 4px; color: var(--ccs-muted); font-size: 13px; }
+  .mc-ccs__choice input:checked + .mc-ccs__choice-box { border-color: var(--ccs-green); background: #f2f8ea; box-shadow: inset 0 0 0 1px var(--ccs-green); }
+  .mc-ccs__choice input:focus-visible + .mc-ccs__choice-box { outline: 2px solid var(--ccs-bright); outline-offset: 2px; }
+
+  .mc-ccs__field { margin-bottom: 18px; }
+  .mc-ccs__field label { display: block; font-weight: 700; font-size: 14.5px; margin-bottom: 7px; color: var(--ccs-ink); }
+  .mc-ccs__field .mc-ccs__req { color: #c0392b; }
+  .mc-ccs__input, .mc-ccs__select, .mc-ccs__textarea {
+    width: 100%; border: 1.5px solid var(--ccs-line); border-radius: 10px; padding: 12px 14px;
+    font-family: inherit; font-size: 15px; color: var(--ccs-ink); background: #fff;
+  }
+  .mc-ccs__input:focus, .mc-ccs__select:focus, .mc-ccs__textarea:focus { outline: none; border-color: var(--ccs-green); }
+  .mc-ccs__textarea { min-height: 96px; resize: vertical; }
+  .mc-ccs__grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .mc-ccs__check { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; }
+  .mc-ccs__check input { margin-top: 3px; width: 18px; height: 18px; flex: 0 0 18px; accent-color: var(--ccs-green); }
+  .mc-ccs__check label { font-size: 14px; color: #3a3d39; line-height: 1.5; }
+
+  .mc-ccs__error { display: none; margin-top: 8px; color: #c0392b; font-size: 13.5px; font-weight: 600; }
+  .mc-ccs__step-panel.has-error .mc-ccs__error { display: block; }
+
+  .mc-ccs__review { display: grid; gap: 10px; margin-bottom: 22px; }
+  .mc-ccs__review-row { display: flex; justify-content: space-between; gap: 16px; padding: 12px 16px; background: var(--ccs-bg); border-radius: 10px; }
+  .mc-ccs__review-row dt { font-weight: 700; color: var(--ccs-muted); font-size: 13.5px; }
+  .mc-ccs__review-row dd { margin: 0; text-align: right; font-size: 14.5px; color: var(--ccs-ink); font-weight: 600; }
+
+  .mc-ccs__nav { display: flex; justify-content: space-between; gap: 14px; margin-top: 28px; }
+  .mc-ccs__nav .mc-ccs__btn { flex: 0 0 auto; }
+  .mc-ccs__nav--end { justify-content: flex-end; }
+
+  .mc-ccs__note { margin-top: 18px; font-size: 12.5px; color: var(--ccs-muted); text-align: center; line-height: 1.5; }
+
+  .mc-ccs__success {
+    max-width: 640px; margin: 0 auto; text-align: center; background: #fff; border: 1px solid var(--ccs-line); border-radius: 16px; padding: 44px 32px;
+  }
+  .mc-ccs__success svg { width: 58px; height: 58px; color: var(--ccs-green); }
+  .mc-ccs__success h3 { font-size: 26px; margin: 16px 0 10px; }
+  .mc-ccs__success p { color: var(--ccs-muted); font-size: 15.5px; line-height: 1.6; margin: 0; }
+
+  /* FAQ */
+  .mc-ccs__faq { max-width: 820px; margin: 36px auto 0; }
+  .mc-ccs__faq details { border-bottom: 1px solid var(--ccs-line); }
+  .mc-ccs__faq summary { list-style: none; cursor: pointer; padding: 20px 4px; font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; color: var(--ccs-deep); display: flex; justify-content: space-between; gap: 16px; align-items: center; }
+  .mc-ccs__faq summary::-webkit-details-marker { display: none; }
+  .mc-ccs__faq summary::after { content: '+'; font-size: 24px; color: var(--ccs-green); font-weight: 700; }
+  .mc-ccs__faq details[open] summary::after { content: '\2013'; }
+  .mc-ccs__faq p { margin: 0 4px 22px; color: #3a3d39; font-size: 15px; line-height: 1.65; }
+
+  @media screen and (max-width: 990px) {
+    .mc-ccs__hero { grid-template-columns: 1fr; }
+    .mc-ccs__steps { grid-template-columns: 1fr; }
+    .mc-ccs__conditions { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media screen and (max-width: 749px) {
+    .mc-ccs { padding: 0 16px 48px; }
+    .mc-ccs__choices--2, .mc-ccs__grid2 { grid-template-columns: 1fr; }
+    .mc-ccs__conditions { grid-template-columns: 1fr; }
+    .mc-ccs__progress-label { display: none; }
+  }
+{%- endstyle -%}
+
+<div class="mc-ccs" id="ccs">
+  {%- assign booked = false -%}
+
+  <!-- HERO -->
+  <section class="mc-ccs__hero">
+    <div>
+      <span class="mc-ccs__eyebrow">Common Conditions Service</span>
+      <h1>Fast, expert care for everyday conditions — no GP appointment needed</h1>
+      <p>Our pharmacists can assess and, where appropriate, prescribe treatment for a range of common conditions during a private in-store consultation. Book online in a couple of minutes.</p>
+      <div class="mc-ccs__hero-cta">
+        <a href="#ccs-book" class="mc-ccs__btn mc-ccs__btn--primary">Book an appointment</a>
+        <a href="#ccs-conditions" class="mc-ccs__btn mc-ccs__btn--ghost">See conditions covered</a>
+      </div>
+    </div>
+    <div class="mc-ccs__facts">
+      <div class="mc-ccs__fact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+        <div><strong>Same-day appointments</strong><span>Skip the wait for a GP — most patients are seen the same day.</span></div>
+      </div>
+      <div class="mc-ccs__fact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg>
+        <div><strong>Private &amp; confidential</strong><span>Seen by a registered pharmacist in a private consultation room.</span></div>
+      </div>
+      <div class="mc-ccs__fact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <div><strong>&euro;20 consultation</strong><span>Flat consultation fee. Any medicine prescribed is charged separately.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="mc-ccs__section">
+    <h2>How it works</h2>
+    <p class="mc-ccs__lead">Three simple steps from booking to treatment.</p>
+    <div class="mc-ccs__steps">
+      <div class="mc-ccs__step">
+        <div class="mc-ccs__step-num">1</div>
+        <h3>Book an appointment</h3>
+        <p>Choose your condition, pharmacy and a time that suits you, then answer a few short questions. It only takes a couple of minutes and speeds things up in store.</p>
+      </div>
+      <div class="mc-ccs__step">
+        <div class="mc-ccs__step-num">2</div>
+        <h3>Private consultation</h3>
+        <p>Sit down with our pharmacist in a private, confidential room. They&rsquo;ll ask about your symptoms, your health and any medicines you take.</p>
+      </div>
+      <div class="mc-ccs__step">
+        <div class="mc-ccs__step-num">3</div>
+        <h3>Treatment &amp; advice</h3>
+        <p>You&rsquo;ll get expert clinical advice. Where appropriate, the pharmacist can prescribe and dispense the right treatment for your condition on the spot.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONDITIONS -->
+  <section class="mc-ccs__section" id="ccs-conditions">
+    <h2>Conditions we can treat</h2>
+    <p class="mc-ccs__lead">Our pharmacists can help with the following common conditions. If we can&rsquo;t treat your condition, we&rsquo;ll point you in the right direction.</p>
+    <div class="mc-ccs__conditions">
+      <div class="mc-ccs__condition"><strong>Urinary tract infection</strong><span>Uncomplicated UTIs (cystitis) &mdash; women aged 16&ndash;64</span></div>
+      <div class="mc-ccs__condition"><strong>Shingles</strong><span>Adults aged 18 and over</span></div>
+      <div class="mc-ccs__condition"><strong>Conjunctivitis</strong><span>Infective and allergic</span></div>
+      <div class="mc-ccs__condition"><strong>Hay fever</strong><span>Allergic rhinitis</span></div>
+      <div class="mc-ccs__condition"><strong>Cold sores</strong><span>Herpes simplex on the lip</span></div>
+      <div class="mc-ccs__condition"><strong>Impetigo</strong><span>Localised, non-bullous</span></div>
+      <div class="mc-ccs__condition"><strong>Oral thrush</strong><span>Mouth and throat</span></div>
+      <div class="mc-ccs__condition"><strong>Vaginal thrush</strong><span>Vulvovaginal candidiasis</span></div>
+    </div>
+  </section>
+
+  <!-- BOOKING FORM -->
+  <section class="mc-ccs__book" id="ccs-book">
+    {%- form 'contact', id: 'CcsForm' -%}
+      {%- if form.posted_successfully? -%}
+        <div class="mc-ccs__success">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
+          <h3>Request received</h3>
+          <p>Thank you &mdash; your appointment request has been sent to your chosen pharmacy. Our team will be in touch shortly to confirm your time. If your request is urgent, please call the pharmacy directly.</p>
+        </div>
+      {%- else -%}
+        <div class="mc-ccs__book-head">
+          <h2>Book your appointment</h2>
+          <p>Request a consultation in a few quick steps. Payment (&euro;20) is taken in store.</p>
+        </div>
+
+        {%- if form.errors -%}
+          <p class="mc-ccs__note" style="color:#c0392b;font-weight:700;">There was a problem submitting your request. Please check your details and try again.</p>
+        {%- endif -%}
+
+        <div class="mc-ccs__progress" aria-hidden="true">
+          <div class="mc-ccs__progress-item is-active" data-step-indicator="1"><div class="mc-ccs__progress-bar"></div><span class="mc-ccs__progress-label">Condition</span></div>
+          <div class="mc-ccs__progress-item" data-step-indicator="2"><div class="mc-ccs__progress-bar"></div><span class="mc-ccs__progress-label">Pharmacy</span></div>
+          <div class="mc-ccs__progress-item" data-step-indicator="3"><div class="mc-ccs__progress-bar"></div><span class="mc-ccs__progress-label">Time</span></div>
+          <div class="mc-ccs__progress-item" data-step-indicator="4"><div class="mc-ccs__progress-bar"></div><span class="mc-ccs__progress-label">Details</span></div>
+          <div class="mc-ccs__progress-item" data-step-indicator="5"><div class="mc-ccs__progress-bar"></div><span class="mc-ccs__progress-label">Confirm</span></div>
+        </div>
+
+        <div class="mc-ccs__form">
+          <!-- STEP 1: CONDITION -->
+          <div class="mc-ccs__step-panel is-active" data-step="1">
+            <h3 class="mc-ccs__step-title">What can we help with?</h3>
+            <p class="mc-ccs__step-hint">Select the condition you&rsquo;d like to be seen for.</p>
+            <div class="mc-ccs__choices">
+              {%- assign conditions = "Urinary tract infection (UTI / cystitis)|Shingles|Conjunctivitis|Hay fever (allergic rhinitis)|Cold sores|Impetigo|Oral thrush|Vaginal thrush|Not sure / other" | split: "|" -%}
+              {%- for c in conditions -%}
+                <label class="mc-ccs__choice">
+                  <input type="radio" name="contact[Condition]" value="{{ c | escape }}" data-required>
+                  <span class="mc-ccs__choice-box"><strong>{{ c }}</strong></span>
+                </label>
+              {%- endfor -%}
+            </div>
+            <p class="mc-ccs__error">Please choose a condition to continue.</p>
+            <div class="mc-ccs__nav mc-ccs__nav--end">
+              <button type="button" class="mc-ccs__btn mc-ccs__btn--primary" data-next>Continue</button>
+            </div>
+          </div>
+
+          <!-- STEP 2: PHARMACY -->
+          <div class="mc-ccs__step-panel" data-step="2">
+            <h3 class="mc-ccs__step-title">Choose your pharmacy</h3>
+            <p class="mc-ccs__step-hint">Pick the branch where you&rsquo;d like your consultation.</p>
+            <div class="mc-ccs__choices mc-ccs__choices--2">
+              {%- assign stores = "Clonmel &ndash; Gladstone Street=052 6199329|Clonmel &ndash; Poppyfield Retail Park=052 6180000|Cahir &ndash; Castle Street=052 7441234|Cashel &ndash; Main Street=062 61234|Tipperary Town &ndash; Bridge Street=062 51234|Carrick-on-Suir &ndash; Main Street=051 640123|Fethard &ndash; Main Street=052 6131234" | split: "|" -%}
+              {%- for s in stores -%}
+                {%- assign parts = s | split: "=" -%}
+                <label class="mc-ccs__choice">
+                  <input type="radio" name="contact[Preferred pharmacy]" value="{{ parts[0] | strip_html | escape }}" data-required>
+                  <span class="mc-ccs__choice-box"><strong>{{ parts[0] }}</strong><small>Tel: {{ parts[1] }}</small></span>
+                </label>
+              {%- endfor -%}
+            </div>
+            <p class="mc-ccs__error">Please choose a pharmacy to continue.</p>
+            <div class="mc-ccs__nav">
+              <button type="button" class="mc-ccs__btn mc-ccs__btn--ghost" data-back>Back</button>
+              <button type="button" class="mc-ccs__btn mc-ccs__btn--primary" data-next>Continue</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: TIME -->
+          <div class="mc-ccs__step-panel" data-step="3">
+            <h3 class="mc-ccs__step-title">When suits you?</h3>
+            <p class="mc-ccs__step-hint">Choose a preferred date and time. We&rsquo;ll confirm the exact slot with you.</p>
+            <div class="mc-ccs__grid2">
+              <div class="mc-ccs__field">
+                <label for="ccs-date">Preferred date <span class="mc-ccs__req">*</span></label>
+                <input class="mc-ccs__input" type="date" id="ccs-date" name="contact[Preferred date]" data-required>
+              </div>
+              <div class="mc-ccs__field">
+                <label for="ccs-time">Preferred time <span class="mc-ccs__req">*</span></label>
+                <select class="mc-ccs__select" id="ccs-time" name="contact[Preferred time]" data-required>
+                  <option value="">Select a time</option>
+                  <option value="Morning (9am&ndash;12pm)">Morning (9am&ndash;12pm)</option>
+                  <option value="Afternoon (12pm&ndash;3pm)">Afternoon (12pm&ndash;3pm)</option>
+                  <option value="Late afternoon (3pm&ndash;5:30pm)">Late afternoon (3pm&ndash;5:30pm)</option>
+                  <option value="No preference">No preference</option>
+                </select>
+              </div>
+            </div>
+            <p class="mc-ccs__error">Please choose a date and time to continue.</p>
+            <div class="mc-ccs__nav">
+              <button type="button" class="mc-ccs__btn mc-ccs__btn--ghost" data-back>Back</button>
+              <button type="button" class="mc-ccs__btn mc-ccs__btn--primary" data-next>Continue</button>
+            </div>
+          </div>
+
+          <!-- STEP 4: DETAILS -->
+          <div class="mc-ccs__step-panel" data-step="4">
+            <h3 class="mc-ccs__step-title">Your details</h3>
+            <p class="mc-ccs__step-hint">So we can confirm your appointment.</p>
+            <div class="mc-ccs__grid2">
+              <div class="mc-ccs__field">
+                <label for="ccs-fn">First name <span class="mc-ccs__req">*</span></label>
+                <input class="mc-ccs__input" type="text" id="ccs-fn" name="contact[First name]" autocomplete="given-name" data-required>
+              </div>
+              <div class="mc-ccs__field">
+                <label for="ccs-ln">Last name <span class="mc-ccs__req">*</span></label>
+                <input class="mc-ccs__input" type="text" id="ccs-ln" name="contact[Last name]" autocomplete="family-name" data-required>
+              </div>
+            </div>
+            <div class="mc-ccs__grid2">
+              <div class="mc-ccs__field">
+                <label for="ccs-dob">Date of birth <span class="mc-ccs__req">*</span></label>
+                <input class="mc-ccs__input" type="date" id="ccs-dob" name="contact[Date of birth]" data-required>
+              </div>
+              <div class="mc-ccs__field">
+                <label for="ccs-phone">Phone <span class="mc-ccs__req">*</span></label>
+                <input class="mc-ccs__input" type="tel" id="ccs-phone" name="contact[Phone]" autocomplete="tel" data-required>
+              </div>
+            </div>
+            <div class="mc-ccs__field">
+              <label for="ccs-email">Email <span class="mc-ccs__req">*</span></label>
+              <input class="mc-ccs__input" type="email" id="ccs-email" name="contact[email]" autocomplete="email" data-required data-email>
+            </div>
+            <p class="mc-ccs__error">Please complete all fields with a valid email to continue.</p>
+            <div class="mc-ccs__nav">
+              <button type="button" class="mc-ccs__btn mc-ccs__btn--ghost" data-back>Back</button>
+              <button type="button" class="mc-ccs__btn mc-ccs__btn--primary" data-next>Continue</button>
+            </div>
+          </div>
+
+          <!-- STEP 5: CONFIRM -->
+          <div class="mc-ccs__step-panel" data-step="5">
+            <h3 class="mc-ccs__step-title">Almost done</h3>
+            <p class="mc-ccs__step-hint">Please review your request and confirm.</p>
+            <dl class="mc-ccs__review" data-review></dl>
+            <div class="mc-ccs__field">
+              <label for="ccs-notes">Anything else we should know? (optional)</label>
+              <textarea class="mc-ccs__textarea" id="ccs-notes" name="contact[Notes]" placeholder="Symptoms, how long you&rsquo;ve had them, current medicines, etc."></textarea>
+            </div>
+            <div class="mc-ccs__check">
+              <input type="checkbox" id="ccs-consent" name="contact[Consent]" value="Yes — consents to be contacted about this request" data-required>
+              <label for="ccs-consent">I&rsquo;m happy for McCormack&rsquo;s Pharmacy to contact me about this appointment request. <span class="mc-ccs__req">*</span></label>
+            </div>
+            <div class="mc-ccs__check">
+              <input type="checkbox" id="ccs-eligible" name="contact[Eligibility confirmed]" value="Yes — confirms information is accurate" data-required>
+              <label for="ccs-eligible">I confirm the information provided is accurate to the best of my knowledge. <span class="mc-ccs__req">*</span></label>
+            </div>
+            <p class="mc-ccs__error">Please tick both boxes to submit your request.</p>
+            <div class="mc-ccs__nav">
+              <button type="button" class="mc-ccs__btn mc-ccs__btn--ghost" data-back>Back</button>
+              <button type="submit" class="mc-ccs__btn mc-ccs__btn--primary">Submit request</button>
+            </div>
+            <p class="mc-ccs__note">This is a request only &mdash; your appointment is confirmed once our team contacts you. The &euro;20 consultation fee is paid in store.</p>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endform -%}
+  </section>
+
+  <!-- FAQ -->
+  <section class="mc-ccs__section">
+    <h2>Frequently asked questions</h2>
+    <div class="mc-ccs__faq">
+      <details>
+        <summary>How much does it cost?</summary>
+        <p>The consultation fee is &euro;20. This is a private charge that applies to everyone. If the pharmacist prescribes a medicine, that&rsquo;s charged separately &mdash; and may be covered under the Medical Card or Drugs Payment Scheme.</p>
+      </details>
+      <details>
+        <summary>Do I need a GP appointment or referral?</summary>
+        <p>No. For the conditions listed above, our pharmacist can assess you and, where appropriate, prescribe treatment without a GP visit or referral.</p>
+      </details>
+      <details>
+        <summary>Do I have to book in advance?</summary>
+        <p>Booking is recommended so we can have a private consultation room ready and keep your wait to a minimum. We do accept walk-ins subject to how busy the pharmacy is.</p>
+      </details>
+      <details>
+        <summary>Which branches offer the service?</summary>
+        <p>The Common Conditions Service is available at our Clonmel (Gladstone Street &amp; Poppyfield), Cahir, Cashel, Tipperary Town, Carrick-on-Suir and Fethard pharmacies.</p>
+      </details>
+      <details>
+        <summary>What if my condition can&rsquo;t be treated here?</summary>
+        <p>If your condition falls outside the service or needs further care, our pharmacist will give you clear advice and, where needed, refer you to your GP or another service.</p>
+      </details>
+    </div>
+  </section>
+</div>
+
+<script>
+  (function () {
+    var form = document.getElementById('CcsForm');
+    if (!form) return;
+    var panels = Array.prototype.slice.call(form.querySelectorAll('.mc-ccs__step-panel'));
+    if (!panels.length) return;
+    var indicators = Array.prototype.slice.call(form.querySelectorAll('[data-step-indicator]'));
+    var current = 0;
+
+    // Prevent past dates on date pickers
+    var today = new Date();
+    var yyyy = today.getFullYear();
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var dd = String(today.getDate()).padStart(2, '0');
+    var dateInput = form.querySelector('#ccs-date');
+    if (dateInput) dateInput.setAttribute('min', yyyy + '-' + mm + '-' + dd);
+    var dob = form.querySelector('#ccs-dob');
+    if (dob) dob.setAttribute('max', yyyy + '-' + mm + '-' + dd);
+
+    function showStep(i) {
+      panels.forEach(function (p, idx) { p.classList.toggle('is-active', idx === i); p.classList.remove('has-error'); });
+      indicators.forEach(function (ind, idx) {
+        ind.classList.toggle('is-active', idx === i);
+        ind.classList.toggle('is-done', idx < i);
+      });
+      current = i;
+      var head = form.querySelector('.mc-ccs__book-head') || form;
+      var top = head.getBoundingClientRect().top + window.pageYOffset - 90;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+
+    function validate(panel) {
+      var ok = true;
+      var radios = {};
+      var fields = Array.prototype.slice.call(panel.querySelectorAll('[data-required]'));
+      fields.forEach(function (el) {
+        if (el.type === 'radio') {
+          radios[el.name] = radios[el.name] || false;
+          if (el.checked) radios[el.name] = true;
+        } else if (el.type === 'checkbox') {
+          if (!el.checked) ok = false;
+        } else if (el.hasAttribute('data-email')) {
+          if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value.trim())) ok = false;
+        } else if (!el.value.trim()) {
+          ok = false;
+        }
+      });
+      Object.keys(radios).forEach(function (name) { if (!radios[name]) ok = false; });
+      panel.classList.toggle('has-error', !ok);
+      return ok;
+    }
+
+    function buildReview() {
+      var review = form.querySelector('[data-review]');
+      if (!review) return;
+      var map = [
+        ['Condition', form.querySelector('input[name="contact[Condition]"]:checked')],
+        ['Pharmacy', form.querySelector('input[name="contact[Preferred pharmacy]"]:checked')],
+        ['Date', form.querySelector('#ccs-date')],
+        ['Time', form.querySelector('#ccs-time')],
+        ['Name', null],
+        ['Phone', form.querySelector('#ccs-phone')],
+        ['Email', form.querySelector('#ccs-email')]
+      ];
+      var fn = (form.querySelector('#ccs-fn') || {}).value || '';
+      var ln = (form.querySelector('#ccs-ln') || {}).value || '';
+      review.innerHTML = '';
+      map.forEach(function (row) {
+        var label = row[0];
+        var val = '';
+        if (label === 'Name') { val = (fn + ' ' + ln).trim(); }
+        else if (row[1]) { val = row[1].value || ''; }
+        if (!val) return;
+        var wrap = document.createElement('div');
+        wrap.className = 'mc-ccs__review-row';
+        var dt = document.createElement('dt'); dt.textContent = label;
+        var dd = document.createElement('dd'); dd.textContent = val;
+        wrap.appendChild(dt); wrap.appendChild(dd);
+        review.appendChild(wrap);
+      });
+    }
+
+    form.addEventListener('click', function (e) {
+      var next = e.target.closest('[data-next]');
+      var back = e.target.closest('[data-back]');
+      if (next) {
+        e.preventDefault();
+        if (validate(panels[current]) && current < panels.length - 1) {
+          if (current + 1 === panels.length - 1) buildReview();
+          showStep(current + 1);
+        }
+      } else if (back) {
+        e.preventDefault();
+        if (current > 0) showStep(current - 1);
+      }
+    });
+
+    // Clear error styling as the user fixes inputs
+    form.addEventListener('input', function () { panels[current].classList.remove('has-error'); });
+    form.addEventListener('change', function () { panels[current].classList.remove('has-error'); });
+
+    // Final safety: validate last step before native submit
+    form.addEventListener('submit', function (e) {
+      if (!validate(panels[current])) { e.preventDefault(); }
+    });
+  })();
+</script>
