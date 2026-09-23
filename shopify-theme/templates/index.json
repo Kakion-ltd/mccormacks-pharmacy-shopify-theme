@@ -11,7 +11,7 @@
           "type": "slide",
           "settings": {
             "title": "Back To School",
-            "subtext": "Support focus, immunity and daily wellness for the new school term.",
+            "subtext": "Support focus, immunity and daily wellness <br class=\"hero-break\">for the new school term.",
             "cta": "SHOP BACK TO SCHOOL",
             "link": "/collections/medicines-health",
             "badge": "Seasonal Essential",
@@ -23,9 +23,9 @@
           "type": "slide",
           "settings": {
             "title": "Cold & Flu",
-            "subtext": "Decongestants, soothing remedies and trusted clinical relief for the whole family.",
+            "subtext": "Decongestants, soothing remedies <br class=\"hero-break\">and trusted clinical relief for the whole family.",
             "cta": "SHOP COLD & FLU",
-            "link": "/collections/medicines-health",
+            "link": "/collections/cold-flu-allergy",
             "badge": "Fast Relief",
             "image_asset": "cold-flu-desktop-banner-slide.jpg",
             "image_mobile_asset": "cold-flu-mobile-banner.jpg"
@@ -93,7 +93,7 @@
       "settings": {
         "text": "Cold and flu season is here - stock up on what you need",
         "cta": "Shop Now",
-        "link": "/collections/cough-cold-flu"
+        "link": "/collections/cold-flu-allergy"
       }
     },
     "sale": {

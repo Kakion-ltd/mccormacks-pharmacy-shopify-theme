@@ -182,7 +182,7 @@
         {%- assign terms = section.settings.popular_terms | split: ',' -%}
         {%- for term in terms -%}
           {%- assign t = term | strip -%}
-          <a href="{{ routes.search_url }}?q={{ t | url_encode }}" class="chip">{{ t }}</a>
+          <a href="{{ routes.search_url }}?q={{ t | url_encode }}" class="chip chip-tag">{{ t }}</a>
         {%- endfor -%}
       </div>
     {%- endif -%}

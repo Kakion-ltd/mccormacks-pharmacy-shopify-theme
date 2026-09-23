@@ -55,6 +55,29 @@ select.contact-input, select.svc-input, select.careers-input, select.rx-input, s
 h1 { font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px, 3.2vw, 42px); }
 h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 2.2vw, 28px); }
 
+/* Shopify policy pages, /policies/*. There is no policy template: Shopify writes this
+   markup itself from the admin policy fields (container > title h1, body > .rte) and
+   ships its own narrow, centred default. The class names are all a theme gets, so
+   everything here is scoped under main to outrank that default without !important,
+   which would beat the section padding breakpoints further down.
+   All four policies open with their own h2 title (checked 2026-09-23), which usually
+   says the same as Shopify's h1, so that h1 is hidden visually and kept for screen
+   readers and the outline, and the h2 takes the page-heading style. Only an opening h2:
+   a policy rewritten to start with a paragraph keeps body type rather than going h1. */
+main .shopify-policy__container { max-width: 1440px; margin: 0 auto; padding: 30px 30px 56px; text-align: left; }
+main .shopify-policy__title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+main .shopify-policy__body { max-width: 780px; font-size: 15.5px; line-height: 1.75; color: #3a3d39; text-wrap: pretty; overflow-wrap: anywhere; }
+/* One level down from our pages, because the policy's h2 is its title: h3 is the
+   section heading, h4 and below the subheading. */
+main .shopify-policy__body :is(h1, h2, h3) { font-family: var(--font-heading); font-weight: 800; color: var(--c-dark); font-size: clamp(21px, 2.2vw, 27px); line-height: 1.2; margin: 36px 0 12px; }
+main .shopify-policy__body :is(h4, h5, h6) { font-weight: 800; font-size: 16.5px; line-height: 1.4; color: var(--c-text); margin: 24px 0 8px; }
+main .shopify-policy__body .rte > h2:first-child { font-family: var(--font-heading); font-weight: 800; color: var(--c-dark); font-size: clamp(30px, 3.4vw, 42px); line-height: 1.08; margin: 0 0 24px; }
+main .shopify-policy__body :is(p, ul, ol) { margin: 0 0 14px; }
+main .shopify-policy__body :is(ul, ol) { padding-left: 22px; }
+main .shopify-policy__body li { margin-bottom: 6px; }
+main .shopify-policy__body li::marker { color: var(--c-accent); }
+main .shopify-policy__body a { text-decoration: underline; text-underline-offset: 2px; }
+
 @keyframes megaIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes trustSlide {
   0%, 28% { transform: translateX(0); }
@@ -85,10 +108,20 @@ h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 
 .btn    { min-height: 44px; padding: 0 20px; font-size: 15px;   border-radius: 9px; }
 .btn-sm { min-height: 36px; padding: 0 14px; font-size: 13.5px; border-radius: 8px; }
 .chip   { min-height: var(--chip-h, 40px); padding: 0 18px; font-size: 14.5px; border-radius: 9px; background: #f2f3f1; color: #3a3d39; }
-/* The homepage category row runs its chips at 38px. The modifier sets the height
-   variable and nothing else, so the row can only ever differ from the collection
-   chips by height; setup/verify/chips-taxonomy.py asserts that. */
-.chip-row-compact { --chip-h: 38px; }
+/* Below 900px the homepage category row runs its chips at 38px; the modifier sets
+   the height variable and nothing else, so the row can only ever differ from the
+   collection chips by height. Above 900px both rows are 44px (next rule), so the
+   modifier only has a value to set on mobile - setup/verify/chips-taxonomy.py
+   asserts it stays scoped there. */
+@media (max-width: 900px) {
+  .chip-row-compact { --chip-h: 38px; }
+}
+@media (min-width: 901px) {
+  .chip { min-height: 44px; }
+  /* Search's "Popular searches" terms are the one filter-tag use of .chip; kept at
+     the mobile size so they do not blow up next to their 13.5px label. */
+  .chip-tag { min-height: 40px; }
+}
 .btn-fill { background: var(--c-accent); color: var(--c-on-accent); border-color: var(--c-accent); }
 /* Resting is the lime under dark ink (7.14:1); hover goes deep green and the ink flips
    to white in the same transition (6.13:1). Never white on lime, which is 2.04:1.
@@ -260,7 +293,7 @@ html { scroll-padding-top: calc(var(--hdr-pinned) + 8px); }
      the three columns still come to 661px of the 841px available. */
   .hdr-sticky header { padding: 12px 20px; column-gap: 18px; grid-template-columns: 1fr minmax(200px, 380px) 1fr; }
   .hdr-icons { gap: 18px !important; }
-  section { padding-left: 20px !important; padding-right: 20px !important; }
+  section, main .shopify-policy__container { padding-left: 20px !important; padding-right: 20px !important; }
 }
 @media (max-width: 900px) {
   /* Phones: the whole wrapper sticks, search row included. It is the search field a
@@ -281,7 +314,7 @@ html { scroll-padding-top: calc(var(--hdr-pinned) + 8px); }
   /* Square art frame on phones, copy beneath it. The cut-out is shown whole (contain). */
   .annc-row { justify-content: space-between !important; gap: 8px 14px !important; font-size: 11px !important; padding: 5px 16px !important; }
   .annc-hide { display: none !important; }
-  .sec-pad, section { padding-left: 16px !important; padding-right: 16px !important; }
+  .sec-pad, section, main .shopify-policy__container { padding-left: 16px !important; padding-right: 16px !important; }
   .hdr-mobile-left { gap: 14px !important; }
   .hdr-icons { gap: 16px !important; }
   .svc-slider { display: flex !important; gap: 14px !important; overflow-x: auto !important; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 12px !important; margin-right: -16px !important; padding-right: 16px !important; }
