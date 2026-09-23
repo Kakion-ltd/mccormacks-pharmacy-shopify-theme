@@ -119,6 +119,22 @@ for (const key of Object.keys(PRICE_EXEMPT)) {
     uploadErrors++;
   }
 }
+// The Common Conditions page lists every store with its phone for "call to book". Liquid
+// cannot read another template's blocks, so that list is a copy of the store locator's.
+// It must name the same stores with the same address and phone, or a patient rings a
+// number the locator has since corrected.
+{
+  const blocksOf = (t) => {
+    const j = JSON.parse(readFileSync(join(root, 'templates', t), 'utf8').replace(/^\s*\/\*[\s\S]*?\*\//, ''));
+    return Object.values(j.sections).flatMap((s) => (s.block_order || []).map((k) => s.blocks[k]))
+      .filter((b) => b.type === 'store').map((b) => b.settings);
+  };
+  const key = (s) => `${s.name} | ${s.address} | ${s.phone}`;
+  const loc = new Set(blocksOf('page.store-locator.json').map(key));
+  const ccs = new Set(blocksOf('page.common-conditions.json').map(key));
+  for (const s of loc) if (!ccs.has(s)) { console.log(`ERROR  templates/page.common-conditions.json  StoreDrift  store locator has "${s}", the Common Conditions page does not`); uploadErrors++; }
+  for (const s of ccs) if (!loc.has(s)) { console.log(`ERROR  templates/page.common-conditions.json  StoreDrift  Common Conditions page has "${s}", the store locator does not`); uploadErrors++; }
+}
 counts.ERROR += uploadErrors;
 console.log(`\n${counts.ERROR} errors, ${counts.WARNING} warnings, ${counts.INFO} info`);
 process.exit(counts.ERROR > 0 ? 1 : 0);

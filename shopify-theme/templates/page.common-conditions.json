@@ -1,6 +1,249 @@
 {
   "sections": {
-    "main": { "type": "main-page", "settings": {} }
+    "main": {
+      "type": "page-common-conditions",
+      "settings": {
+        "eyebrow": "Common Conditions Service",
+        "heading": "Fast, expert care for everyday conditions — no GP appointment needed",
+        "intro": "Our pharmacists can assess and, where appropriate, prescribe treatment for a range of common conditions during a private in-store consultation. Call your local pharmacy to book, or walk in.",
+        "conditions_intro": "Our pharmacists can help with the following common conditions. If we can’t treat your condition, we’ll point you in the right direction.",
+        "stores_intro": "The service runs in all seven of our pharmacies. Call the one nearest you and we will book you in."
+      },
+      "blocks": {
+        "fact-same-day": {
+          "type": "fact",
+          "settings": {
+            "title": "Same-day appointments",
+            "text": "Skip the wait for a GP. Most patients are seen the same day."
+          }
+        },
+        "fact-walk-in": {
+          "type": "fact",
+          "settings": {
+            "title": "Walk-ins welcome",
+            "text": "Booking is recommended, but walk-ins are accepted, subject to how busy the pharmacy is."
+          }
+        },
+        "fact-no-gp": {
+          "type": "fact",
+          "settings": {
+            "title": "No GP referral needed",
+            "text": "For the conditions below, our pharmacist can assess you and, where appropriate, prescribe treatment without a GP visit or referral."
+          }
+        },
+        "fact-fee": {
+          "type": "fact",
+          "settings": {
+            "title": "€20 consultation",
+            "text": "Flat consultation fee, paid in store. Any medicine prescribed is charged separately, and may be covered under the Medical Card or Drugs Payment Scheme."
+          }
+        },
+        "step-book": {
+          "type": "step",
+          "settings": {
+            "title": "Call to book, or walk in",
+            "text": "Phone your local pharmacy and we will find you a time, usually the same day. You can also call in without an appointment."
+          }
+        },
+        "step-consult": {
+          "type": "step",
+          "settings": {
+            "title": "Private consultation",
+            "text": "Sit down with our pharmacist in a private, confidential room. They will ask about your symptoms, your health and any medicines you take."
+          }
+        },
+        "step-treat": {
+          "type": "step",
+          "settings": {
+            "title": "Treatment and advice",
+            "text": "You will get expert clinical advice. Where appropriate, the pharmacist can prescribe and dispense the right treatment for your condition on the spot."
+          }
+        },
+        "cond-uti": {
+          "type": "condition",
+          "settings": {
+            "name": "Urinary tract infection",
+            "detail": "Uncomplicated UTIs (cystitis), women aged 16–64"
+          }
+        },
+        "cond-shingles": {
+          "type": "condition",
+          "settings": {
+            "name": "Shingles",
+            "detail": "Adults aged 18 and over"
+          }
+        },
+        "cond-conjunctivitis": {
+          "type": "condition",
+          "settings": {
+            "name": "Conjunctivitis",
+            "detail": "Infective and allergic"
+          }
+        },
+        "cond-hay-fever": {
+          "type": "condition",
+          "settings": {
+            "name": "Hay fever",
+            "detail": "Allergic rhinitis"
+          }
+        },
+        "cond-cold-sores": {
+          "type": "condition",
+          "settings": {
+            "name": "Cold sores",
+            "detail": "Herpes simplex on the lip"
+          }
+        },
+        "cond-impetigo": {
+          "type": "condition",
+          "settings": {
+            "name": "Impetigo",
+            "detail": "Localised, non-bullous"
+          }
+        },
+        "cond-oral-thrush": {
+          "type": "condition",
+          "settings": {
+            "name": "Oral thrush",
+            "detail": "Mouth and throat"
+          }
+        },
+        "cond-vaginal-thrush": {
+          "type": "condition",
+          "settings": {
+            "name": "Vaginal thrush",
+            "detail": "Vulvovaginal candidiasis"
+          }
+        },
+        "store-clonmel": {
+          "type": "store",
+          "settings": {
+            "name": "Clonmel",
+            "address": "23 Bolton Street, Clonmel, Co. Tipperary",
+            "phone": "052 6199329"
+          }
+        },
+        "store-ballylanders": {
+          "type": "store",
+          "settings": {
+            "name": "Ballylanders",
+            "address": "Main Street, Ballylanders, Co. Limerick",
+            "phone": "062 46620"
+          }
+        },
+        "store-newbridge": {
+          "type": "store",
+          "settings": {
+            "name": "Newbridge",
+            "address": "Newbridge Retail Park, Kilbelin, Newbridge, Co. Kildare",
+            "phone": "045 444944"
+          }
+        },
+        "store-tullamore": {
+          "type": "store",
+          "settings": {
+            "name": "Tullamore",
+            "address": "Kilbeggan Bridge, Arden Road, Tullamore, Co. Offaly",
+            "phone": "057 9326675"
+          }
+        },
+        "store-haggardstown": {
+          "type": "store",
+          "settings": {
+            "name": "Haggardstown, Dundalk",
+            "address": "Fairways Shopping Centre, Dublin Road, Haggardstown, Dundalk, Co. Louth",
+            "phone": "042 9322677"
+          }
+        },
+        "store-carrickrd": {
+          "type": "store",
+          "settings": {
+            "name": "Carrick Road, Dundalk",
+            "address": "Carrick Road Medical Centre, Carrick Road, Lis Na Dara, Dundalk, Co. Louth",
+            "phone": "042 9354495"
+          }
+        },
+        "store-belmullet": {
+          "type": "store",
+          "settings": {
+            "name": "Erris Pharmacy",
+            "address": "Church Road, Belmullet, Co. Mayo",
+            "phone": "097 20540"
+          }
+        },
+        "faq-cost": {
+          "type": "faq",
+          "settings": {
+            "question": "How much does it cost?",
+            "answer": "<p>The consultation fee is €20. This is a private charge that applies to everyone. If the pharmacist prescribes a medicine, that is charged separately, and it may be covered under the Medical Card or Drugs Payment Scheme.</p>",
+            "list_stores": false
+          }
+        },
+        "faq-gp": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need a GP appointment or referral?",
+            "answer": "<p>No. For the conditions listed above, our pharmacist can assess you and, where appropriate, prescribe treatment without a GP visit or referral.</p>",
+            "list_stores": false
+          }
+        },
+        "faq-book": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I have to book in advance?",
+            "answer": "<p>Booking is recommended so we can have a private consultation room ready and keep your wait to a minimum. Call your local pharmacy to book. We also accept walk-ins, subject to how busy the pharmacy is.</p>",
+            "list_stores": false
+          }
+        },
+        "faq-where": {
+          "type": "faq",
+          "settings": {
+            "question": "Which pharmacies offer the service?",
+            "answer": "<p>The Common Conditions Service is available at all of our pharmacies:</p>",
+            "list_stores": true
+          }
+        },
+        "faq-refer": {
+          "type": "faq",
+          "settings": {
+            "question": "What if my condition can’t be treated here?",
+            "answer": "<p>If your condition falls outside the service or needs further care, our pharmacist will give you clear advice and, where needed, refer you to your GP or another service.</p>",
+            "list_stores": false
+          }
+        }
+      },
+      "block_order": [
+        "fact-same-day",
+        "fact-walk-in",
+        "fact-no-gp",
+        "fact-fee",
+        "step-book",
+        "step-consult",
+        "step-treat",
+        "cond-uti",
+        "cond-shingles",
+        "cond-conjunctivitis",
+        "cond-hay-fever",
+        "cond-cold-sores",
+        "cond-impetigo",
+        "cond-oral-thrush",
+        "cond-vaginal-thrush",
+        "store-clonmel",
+        "store-ballylanders",
+        "store-newbridge",
+        "store-tullamore",
+        "store-haggardstown",
+        "store-carrickrd",
+        "store-belmullet",
+        "faq-cost",
+        "faq-gp",
+        "faq-book",
+        "faq-where",
+        "faq-refer"
+      ]
+    }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
