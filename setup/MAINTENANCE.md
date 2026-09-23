@@ -669,9 +669,12 @@ whether an answer is *correct*.
 
 ## White text on the brand green — a recorded decision, not a defect
 
-`button_text_white` is set to **"Always white"** in the theme editor. That was asked
+`button_text_white` was set to **"Always white"** in the theme editor. That was asked
 for, after the trade-off was laid out, and it is the original design handoff's
-appearance.
+appearance. **As of 23 Sep 2026 it is back on "Automatic"** on both the live theme
+(#207567454539) and the repo's `settings_data.json`, so nothing is currently accepted
+under it and the buttons use dark ink. What follows applies whenever it is switched
+back on.
 
 What it costs, measured: **63 text elements sit at 2.04:1 against a WCAG AA
 requirement of 4.5:1** — every primary button, the consent banner's Accept and
@@ -703,6 +706,33 @@ passed for as long as both tokens happened to resolve to the same ink, and broke
 moment one changed. Both now use `--c-on-accent`. **When adding a rule, take the ink
 from the same family as the surface** — an on-token that does not match its
 background is a latent failure waiting for an unrelated setting to move.
+
+---
+
+## The gift voucher card is white on lime — a client decision (23 Sep 2026)
+
+The voucher card in the gift vouchers hero (`page-gift-vouchers.liquid`) shows the
+real logo and all its text in **white** on its lime-to-green gradient. That was chosen
+after the options were laid out: dark ink on the lime (7.14:1), white on a dark-green
+card (6.13:1), or white on the lime. White on the lime is **1.99:1** at the card's
+lime corner and 3.06:1 at the green end, against 4.5:1 for the labels and 3:1 for the
+amount and the logo.
+
+`setup/verify/contrast.py` **fails** on it: the amount and three labels, at 1440 and
+390, eight failures. That is deliberate. It is not carved out the way
+`button_text_white` is, because no one has approved weakening the check for it. If
+the decision stands, the carve-out belongs in `contrast.py` next to the button one,
+scoped to this card, with its count printed on every run.
+
+**To reverse it:** on the card's wrapper, change `color:#ffffff` back to
+`color:var(--c-on-accent)`, and on the logo `<img>` change the filter from
+`brightness(0) invert(1)` to `brightness(0)`. Using the full-colour logo instead
+doesn't work: its lime and grey vanish on the lime card (1.02:1 and 1.40:1).
+
+How the logo gets there: it is the header's own logo URL (`snippets/logo-src.liquid`),
+turned white by the CSS filter, not a second white file. A logo uploaded under
+Theme settings → Brand must stay a **transparent PNG**, or the filter turns the
+whole rectangle white.
 
 ---
 

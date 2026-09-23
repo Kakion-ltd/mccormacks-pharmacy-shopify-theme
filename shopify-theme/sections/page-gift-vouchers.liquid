@@ -51,13 +51,23 @@
       <p style="margin:0; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:#d6e2cd; max-width:560px;">Send it by email in minutes, or have a printed voucher posted free anywhere in Ireland.</p>
     </div>
     <div class="banner-img" style="flex:1 1 380px; background:var(--c-dark); min-height:clamp(240px,26vw,400px); display:flex; align-items:center; justify-content:center; padding:clamp(24px,3vw,44px);">
-      <div style="width:100%; max-width:340px; aspect-ratio:8/5; border-radius:14px; background:linear-gradient(140deg,var(--c-accent) 0%,var(--c-primary-hover) 100%); box-shadow:0 20px 44px rgba(0,0,0,.28); padding:clamp(18px,2.4vw,26px); display:flex; flex-direction:column; justify-content:space-between; color:var(--c-on-accent);">
+      <div style="width:100%; max-width:340px; aspect-ratio:8/5; border-radius:14px; background:linear-gradient(140deg,var(--c-accent) 0%,var(--c-primary-hover) 100%); box-shadow:0 20px 44px rgba(0,0,0,.28); padding:clamp(18px,2.4vw,26px); display:flex; flex-direction:column; justify-content:space-between; color:#ffffff;">
         <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
-          <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15px; line-height:1.15; letter-spacing:.02em;">McCORMACK&rsquo;S<br>PHARMACY</span>
-          <span style="font-size:10.5px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; opacity:.85; padding-top:3px;">Gift Voucher</span>
+          {%- comment -%} The real logo, turned white by the filter: brightness(0) blackens every
+              opaque pixel and invert(1) makes it white, so the transparent PNG keeps its shape
+              and no second white file exists to drift from the original. Same URL as the
+              header logo, so it is already cached. 150px wide, 450px requested for 3x screens;
+              shrinks with the card below 375px (118px at 320). A logo uploaded in theme
+              settings must stay a transparent PNG, or this renders as a white block.
+              White on this card is a client decision (23 Sep 2026) that costs contrast:
+              see setup/MAINTENANCE.md, "The gift voucher card is white on lime". {%- endcomment -%}
+          {% # theme-check-disable RemoteAsset -%}
+          <img src="{% render 'logo-src', width: 450 %}" alt="{{ shop.name | escape }}" width="150" height="38" style="flex:0 1 150px; min-width:0; width:150px; height:auto; display:block; filter:brightness(0) invert(1);">
+          {%- # theme-check-enable RemoteAsset %}
+          <span style="font-size:10.5px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; padding-top:3px;">Gift Voucher</span>
         </div>
         <div data-gv-amount style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(34px,4.6vw,46px); line-height:1;">&euro;{{ gv_default }}</div>
-        <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:12px; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; opacity:.9;">
+        <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:12px; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;">
           <span>Valid 5 years</span>
           <span>Online &amp; in store</span>
         </div>
