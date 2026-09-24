@@ -47,9 +47,23 @@
 
 
 <!-- Breadcrumb + category banner -->
-<section style="max-width:1440px; margin:0 auto; padding:24px 30px 6px;">
-  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
-    {%- render 'category-breadcrumb', collection: collection -%}
+{%- comment -%} The parent is the last Title~handle pair in the trail data; a
+    department or brand has none, so it keeps its short trail on mobile too. {%- endcomment -%}
+{%- capture crumb_data -%}{%- render 'category-breadcrumb-data', collection: collection -%}{%- endcapture -%}
+{%- assign crumb_data = crumb_data | strip -%}
+{%- assign crumb_parent = '' | split: '' -%}
+{%- if crumb_data != blank -%}
+  {%- assign crumb_parent = crumb_data | split: '|' | last | split: '~' -%}
+  {%- assign crumb_parent_url = crumb_parent[1] | prepend: '/collections/' -%}
+{%- endif -%}
+<section style="max-width:1440px; margin:0 auto; padding:12px 30px 6px;">
+  <nav aria-label="Breadcrumb" style="margin:0 0 16px;">
+    <div class="crumb-trail{% if crumb_parent.size == 2 %} has-back{% endif %}" style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60;">
+      {%- render 'category-breadcrumb', collection: collection -%}
+    </div>
+    {%- if crumb_parent.size == 2 -%}
+      {%- render 'crumb-back', url: crumb_parent_url, title: crumb_parent[0] -%}
+    {%- endif -%}
   </nav>
 
   {%- if section.settings.banner_style == 'sale' -%}

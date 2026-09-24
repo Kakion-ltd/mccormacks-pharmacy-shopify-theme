@@ -99,6 +99,15 @@ main .shopify-policy__body a { text-decoration: underline; text-underline-offset
 .hov-border-accent:hover { border-color: var(--c-accent) !important; color:var(--c-primary-text) !important; }
 .hov-slide:hover { color:var(--c-primary-text) !important; transform: translateX(4px); }
 
+/* Breadcrumb. Desktop shows the full trail; below 900px a page with a parent shows
+   only the back link (snippets/crumb-back.liquid). The trail's display is inline, so
+   hiding it needs !important. Pages with no parent keep the trail at every width. */
+.crumb-back { display: none; align-items: center; gap: 6px; min-height: 24px; font-size: 13px; font-weight: 700; color: #3a3d39; }
+@media (max-width: 900px) {
+  .crumb-trail.has-back { display: none !important; }
+  .crumb-back { display: inline-flex; }
+}
+
 /* ---- Buttons: two sizes and a chip. Chips are navigation, 40px so they read as places
    to go rather than filter tags, and they share the 9px radius. Actions fill lime and
    darken to deep green on hover. The lime is 2.04:1 under white ink, so it is only ever

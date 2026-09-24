@@ -5,7 +5,7 @@
 
     layout/theme.liquid   {% render 'structured-data' %}
         Emits Product + Offer (+ AggregateRating where real reviews exist) on a
-        product page, and BreadcrumbList on a collection page.
+        product page, and BreadcrumbList on product and collection pages.
 
     sections/footer.liquid  {% render 'structured-data', scope: 'organization', ... %}
         Emits Organization sitewide. It lives at the footer call site because
@@ -158,43 +158,20 @@
       apart — both read the same metafield through the same validation. {%- endcomment -%}
   {% render 'product-faq', product: product, scope: 'schema' %}
 
+{%- comment -%} BreadcrumbList under the same primary collection the visible PDP
+      breadcrumb uses. On mobile the page shows only a back link, so this is
+      the one full trail Google can read. {%- endcomment -%}
+  {%- capture primary_handle -%}{%- render 'product-primary-collection', product: product -%}{%- endcapture -%}
+  {%- assign primary_handle = primary_handle | strip -%}
+  {%- assign primary_collection = blank -%}
+  {%- for c in product.collections -%}
+    {%- if c.handle == primary_handle -%}{%- assign primary_collection = c -%}{%- break -%}{%- endif -%}
+  {%- endfor -%}
+  {% render 'breadcrumb-schema', collection: primary_collection, product: product, shop_url: shop_url %}
+
 {%- elsif request.page_type == 'collection' -%}
 
-  {%- comment -%} Trail as data, from the same generator as the visible breadcrumb. {%- endcomment -%}
-  {%- capture crumb_data -%}{%- render 'category-breadcrumb-data', collection: collection -%}{%- endcapture -%}
-  {%- assign crumb_data = crumb_data | strip -%}
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": {{ shop_url | json }} }
-      {%- assign position = 1 -%}
-      {%- if crumb_data != blank -%}
-        {%- assign crumbs = crumb_data | split: '|' -%}
-        {%- for crumb in crumbs -%}
-          {%- assign parts = crumb | split: '~' -%}
-          {%- if parts.size == 2 -%}
-            {%- assign position = position | plus: 1 -%},
-      {
-        "@type": "ListItem",
-        "position": {{ position }},
-        "name": {{ parts[0] | json }},
-        "item": {{ shop_url | append: '/collections/' | append: parts[1] | json }}
-      }
-          {%- endif -%}
-        {%- endfor -%}
-      {%- endif -%}
-      {%- assign position = position | plus: 1 -%},
-      {
-        "@type": "ListItem",
-        "position": {{ position }},
-        "name": {{ collection.title | json }},
-        "item": {{ shop_url | append: collection.url | json }}
-      }
-    ]
-  }
-  </script>
+  {% render 'breadcrumb-schema', collection: collection, shop_url: shop_url %}
 
   {%- comment -%} ItemList: what this collection actually lists, in the order a
       visitor sees it. Emitted only when the page has products — an empty

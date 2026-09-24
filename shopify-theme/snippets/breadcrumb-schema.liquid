@@ -1,0 +1,55 @@
+{%- comment -%}
+  BreadcrumbList JSON-LD. The trail comes from category-breadcrumb-data, the same
+  generator as the visible breadcrumb, so the schema and the page cannot disagree.
+
+    {% render 'breadcrumb-schema', collection: collection, shop_url: shop_url %}
+        Home / ancestors / collection
+    {% render 'breadcrumb-schema', collection: primary_collection, product: product, shop_url: shop_url %}
+        Home / ancestors / primary collection / product. collection may be blank
+        (a product in no collection): the trail is then Home / product.
+{%- endcomment -%}
+{%- capture crumb_data -%}{%- if collection != blank -%}{%- render 'category-breadcrumb-data', collection: collection -%}{%- endif -%}{%- endcapture -%}
+{%- assign crumb_data = crumb_data | strip -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": {{ shop_url | json }} }
+    {%- assign position = 1 -%}
+    {%- if crumb_data != blank -%}
+      {%- assign crumbs = crumb_data | split: '|' -%}
+      {%- for crumb in crumbs -%}
+        {%- assign parts = crumb | split: '~' -%}
+        {%- if parts.size == 2 -%}
+          {%- assign position = position | plus: 1 -%},
+    {
+      "@type": "ListItem",
+      "position": {{ position }},
+      "name": {{ parts[0] | json }},
+      "item": {{ shop_url | append: '/collections/' | append: parts[1] | json }}
+    }
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+    {%- if collection != blank -%}
+      {%- assign position = position | plus: 1 -%},
+    {
+      "@type": "ListItem",
+      "position": {{ position }},
+      "name": {{ collection.title | json }},
+      "item": {{ shop_url | append: collection.url | json }}
+    }
+    {%- endif -%}
+    {%- if product != blank -%}
+      {%- assign position = position | plus: 1 -%},
+    {
+      "@type": "ListItem",
+      "position": {{ position }},
+      "name": {{ product.title | json }},
+      "item": {{ shop_url | append: product.url | json }}
+    }
+    {%- endif -%}
+  ]
+}
+</script>

@@ -2,9 +2,9 @@
 
 {% paginate search.results by 24 %}
 {%- if search.performed and search.results_count > 0 -%}
-<section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
+<section style="max-width:1440px; margin:0 auto; padding:12px 30px 20px;">
 
-  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
+  <nav aria-label="Breadcrumb" style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
     <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Search</span>
   </nav>
   <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,36px); line-height:1.1; margin:0 0 8px;">Results for &ldquo;{{ search.terms | escape }}&rdquo;</h1>
@@ -163,9 +163,9 @@
 </section>
 
 {%- else -%}
-<section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
+<section style="max-width:1440px; margin:0 auto; padding:12px 30px 20px;">
 
-  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
+  <nav aria-label="Breadcrumb" style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
     <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Search</span>
   </nav>
   <div style="max-width:640px; margin:0 0 44px;">
