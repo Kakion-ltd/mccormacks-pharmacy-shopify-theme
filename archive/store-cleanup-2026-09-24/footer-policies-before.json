@@ -1,0 +1,45 @@
+{
+ "before": {
+  "id": "gid://shopify/Menu/332913836363",
+  "handle": "footer-policies",
+  "title": "Policies",
+  "items": [
+   {
+    "id": "gid://shopify/MenuItem/866478293323",
+    "title": "Terms & Conditions",
+    "url": "/policies/terms-of-service",
+    "type": "HTTP",
+    "resourceId": null,
+    "tags": [],
+    "items": []
+   },
+   {
+    "id": "gid://shopify/MenuItem/866478326091",
+    "title": "Privacy Policy",
+    "url": "/policies/privacy-policy",
+    "type": "HTTP",
+    "resourceId": null,
+    "tags": [],
+    "items": []
+   },
+   {
+    "id": "gid://shopify/MenuItem/866478358859",
+    "title": "Refund Policy",
+    "url": "/policies/refund-policy",
+    "type": "HTTP",
+    "resourceId": null,
+    "tags": [],
+    "items": []
+   },
+   {
+    "id": "gid://shopify/MenuItem/866478391627",
+    "title": "Registered Internet Supply Pharmacy",
+    "url": "/pages/internet-supply",
+    "type": "HTTP",
+    "resourceId": null,
+    "tags": [],
+    "items": []
+   }
+  ]
+ }
+}
