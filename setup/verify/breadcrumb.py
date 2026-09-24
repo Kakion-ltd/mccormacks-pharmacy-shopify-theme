@@ -20,13 +20,28 @@ PAGES = [
      ["Home", "Vitamins", "Everyday Multivitamins"]),
     ("/collections/vitamins", None, ["Home", "Vitamins"]),
     ("/search?q=cream", None, None),
+    # pages on snippets/breadcrumb.liquid: a linked parent gets the back link,
+    # an unlinked one (Policies) and Prescriptions' link to itself do not
+    ("/blogs/health-hub/x", "Back to Health Hub", None),
+    ("/account/addresses", "Back to My account", None),
+    ("/pages/privacy-policy", None, None),
+    ("/pages/prescriptions", None, None),
+    ("/pages/about-us", None, None),
+]
+# Parents that are another view of the same page: the back link is a view button.
+# (page, button opening a child view, expected back text, view the back link returns to)
+VIEWS = [
+    ("/pages/in-store-services", '[data-view-btn="svc-1"]', "Back to In-Store Services", "svc-hub"),
+    # the booking view renders only with show_booking_form on, as in this fixture
+    ("/preview/page.in-store-services.errors.html", '[data-view-btn="svc-book"]', "Back to In-Store Services", "svc-hub"),
+    ("/pages/store-locator", '[data-view-btn="store-1"]', "Back to Store Locator", "locator"),
 ]
 
 STATE = """() => {
   const vis = (e) => !!e && e.getClientRects().length > 0;
-  const trail = document.querySelector('.crumb-trail') ||
-    [...document.querySelectorAll('nav[aria-label="Breadcrumb"]')].pop();
-  const back = document.querySelector('.crumb-back');
+  const shown = (sel) => [...document.querySelectorAll(sel)].find(vis);
+  const trail = shown('.crumb-trail');
+  const back = shown('.crumb-back');
   const lists = [...document.querySelectorAll('script[type="application/ld+json"]')]
     .map(s => JSON.parse(s.textContent)).filter(d => d['@type'] === 'BreadcrumbList');
   return { trail: vis(trail), back: vis(back) ? back.textContent.trim() : null,
@@ -49,6 +64,15 @@ with sync_playwright() as pw:
             ck(f"[{w}] {path} back link", s["back"], back if mobile else None)
             ck(f"[{w}] {path} BreadcrumbList", s["schema"], [schema] if schema else [])
             ck(f"[{w}] {path} no sideways scroll", s["overflow"], False)
+        if w == 390:
+            for path, opener, back, hub in VIEWS:
+                pg.goto(BASE + path, wait_until="networkidle")
+                pg.locator(opener + ':visible').first.click()
+                s = pg.evaluate(STATE)
+                ck(f"[390] {path} {opener} back link", s["back"], back)
+                pg.locator(".crumb-back:visible").first.click()
+                ck(f"[390] {path} {opener} back returns to {hub}",
+                   pg.evaluate(f"() => getComputedStyle(document.querySelector('[data-view=\"{hub}\"]')).display"), "block")
         pg.close()
     b.close()
 

@@ -1,8 +1,6 @@
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
 
-  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
-    <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><a href="{{ routes.account_url }}" class="hov-green" style="color:#666b60;">My account</a><span>/</span><span style="color:#3a3d39; font-weight:700;">{{ order.name }}</span>
-  </nav>
+  {%- render 'breadcrumb', current: order.name, parent_title: 'My account', parent_url: routes.account_url -%}
   <div class="acct-wrap" style="display:flex; gap:40px; align-items:flex-start;">
 
     {% render 'account-sidebar', active: 'orders' %}

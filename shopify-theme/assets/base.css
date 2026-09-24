@@ -103,6 +103,7 @@ main .shopify-policy__body a { text-decoration: underline; text-underline-offset
    only the back link (snippets/crumb-back.liquid). The trail's display is inline, so
    hiding it needs !important. Pages with no parent keep the trail at every width. */
 .crumb-back { display: none; align-items: center; gap: 6px; min-height: 24px; font-size: 13px; font-weight: 700; color: #3a3d39; }
+button.crumb-back { background: none; border: 0; padding: 0; font-family: inherit; cursor: pointer; }
 @media (max-width: 900px) {
   .crumb-trail.has-back { display: none !important; }
   .crumb-back { display: inline-flex; }

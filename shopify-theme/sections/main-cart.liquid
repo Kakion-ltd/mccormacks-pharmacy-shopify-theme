@@ -12,9 +12,7 @@
 
   <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
 
-    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
-      <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Shopping bag</span>
-    </nav>
+    {%- render 'breadcrumb', current: 'Shopping bag' -%}
     <div style="display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:12px 24px; margin:0 0 22px;">
       <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,40px); line-height:1.08; margin:0;">Your shopping bag</h1>
       {%- if cart.item_count > 0 -%}

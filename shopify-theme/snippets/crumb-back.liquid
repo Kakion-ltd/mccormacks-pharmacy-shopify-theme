@@ -1,4 +1,11 @@
 {%- comment -%} The mobile breadcrumb: one link up to the parent. Below 900px it
     replaces the full trail marked .crumb-trail.has-back; desktop keeps the trail.
+    view: a theme.js [data-view-btn] key, for a parent that is another view of the
+    same page; it renders a button instead of a link.
     Render with: {% render 'crumb-back', url: parent_url, title: parent_title %} {%- endcomment -%}
-<a href="{{ url }}" class="crumb-back hov-green"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>Back to {{ title | escape }}</a>
+{%- capture arrow -%}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>{%- endcapture -%}
+{%- if view != blank -%}
+<button type="button" data-view-btn="{{ view }}" class="crumb-back hov-green">{{ arrow }}Back to {{ title | escape }}</button>
+{%- else -%}
+<a href="{{ url }}" class="crumb-back hov-green">{{ arrow }}Back to {{ title | escape }}</a>
+{%- endif -%}

@@ -15,9 +15,7 @@
   wrong panel on a slow connection.
 {%- endcomment -%}
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 60px;">
-  <nav aria-label="Breadcrumb" style="display:flex; gap:8px; font-size:13px; color:#666b60; margin-bottom:18px;">
-    <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Wishlist</span>
-  </nav>
+  {%- render 'breadcrumb', current: 'Wishlist', margin: '0 0 18px' -%}
 
   <h1 style="margin:0 0 14px; color:var(--c-dark);">{{ section.settings.heading }}</h1>
   <p style="font-size:16px; line-height:1.7; color:#5a6153; margin:0 0 26px; max-width:70ch;">{{ section.settings.intro }}</p>

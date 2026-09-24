@@ -39,9 +39,7 @@
 
 <div data-view="svc-hub">
   <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
-      <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">In-Store Services</span>
-    </nav>
+    {%- render 'breadcrumb', current: 'In-Store Services' -%}
     <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
     <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px;">
@@ -90,9 +88,7 @@
 {%- for block in section.blocks -%}
   <div data-view="svc-{{ forloop.index }}" style="display:none">
     <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
-        <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#666b60;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">{{ block.settings.title }}</span>
-      </nav>
+      {%- render 'breadcrumb', current: block.settings.title, parent_title: 'In-Store Services', parent_view: 'svc-hub' -%}
       <div class="svc-wrap" style="display:flex; gap:44px; align-items:flex-start;">
         <div style="flex:1 1 auto; min-width:0; max-width:780px;">
           <span style="display:inline-flex; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:#eef2e8; color:var(--c-primary-text); font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:14px;">{{ block.settings.tag }}</span>
@@ -172,9 +168,7 @@
 {%- if section.settings.show_booking_form -%}
 <div data-view="svc-book" style="display:none">
   <section style="max-width:820px; margin:0 auto; padding:34px 30px 20px;">
-    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
-      <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><button type="button" data-view-btn="svc-hub" class="svc-link-btn hov-green" style="font-size:13px; color:#666b60;">In-Store Services</button><span>/</span><span style="color:#3a3d39; font-weight:700;">Request an appointment</span>
-    </nav>
+    {%- render 'breadcrumb', current: 'Request an appointment', parent_title: 'In-Store Services', parent_view: 'svc-hub' -%}
     <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Request an appointment</h2>
     <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">Tell us what you need and we will call you back to confirm a time. For urgent matters please phone the store directly.</p>
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">

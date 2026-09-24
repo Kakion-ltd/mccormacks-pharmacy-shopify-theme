@@ -1,0 +1,35 @@
+{%- comment -%}
+  The one-level breadcrumb every page but product and collection uses:
+  Home / [parent /] current. Desktop shows the trail; below 900px a page whose
+  parent can be navigated to shows "Back to <parent>" instead (crumb-back).
+
+    current       required; plain text, escaped here
+    parent_title  optional middle crumb; on its own it is plain text (Policies)
+    parent_url    makes the parent a link, and gives mobile a back link
+    parent_view   instead of parent_url: a theme.js [data-view-btn] key, for pages
+                  whose parent is another view of the same page (Services, Store Locator)
+    back          false keeps the trail on mobile even with a parent (Prescriptions,
+                  whose parent link is the page you are already on)
+    margin        the nav's margin; each page keeps its own. Default 0 0 16px.
+
+  {% render 'breadcrumb', current: 'Addresses', parent_title: 'My account', parent_url: routes.account_url %}
+{%- endcomment -%}
+{%- assign has_back = false -%}
+{%- if parent_url != blank or parent_view != blank -%}{%- assign has_back = true -%}{%- endif -%}
+{%- if back == false -%}{%- assign has_back = false -%}{%- endif -%}
+<nav aria-label="Breadcrumb" style="margin:{{ margin | default: '0 0 16px' }};">
+  <div class="crumb-trail{% if has_back %} has-back{% endif %}" style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60;">
+    <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span>
+    {%- if parent_view != blank -%}
+      <button type="button" data-view-btn="{{ parent_view }}" class="hov-green" style="background:none; border:none; padding:0; font-family:inherit; font-size:13px; color:#666b60; cursor:pointer;">{{ parent_title | escape }}</button><span>/</span>
+    {%- elsif parent_url != blank -%}
+      <a href="{{ parent_url }}" class="hov-green" style="color:#666b60;">{{ parent_title | escape }}</a><span>/</span>
+    {%- elsif parent_title != blank -%}
+      <span>{{ parent_title | escape }}</span><span>/</span>
+    {%- endif -%}
+    <span style="color:#3a3d39; font-weight:700;">{{ current | escape }}</span>
+  </div>
+  {%- if has_back -%}
+    {%- render 'crumb-back', url: parent_url, view: parent_view, title: parent_title -%}
+  {%- endif -%}
+</nav>

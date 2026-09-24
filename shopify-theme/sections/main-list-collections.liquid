@@ -2,9 +2,7 @@
     borrowed from Search Results "Popular categories"). {%- endcomment -%}
 
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
-    <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">{{ section.settings.heading }}</span>
-  </nav>
+  {%- render 'breadcrumb', current: section.settings.heading -%}
   <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,36px); line-height:1.1; margin:0 0 26px;">{{ section.settings.heading }}</h1>
 
   {% paginate collections by 24 %}

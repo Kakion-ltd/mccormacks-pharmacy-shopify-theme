@@ -18,9 +18,7 @@
 
 <div data-view="locator">
   <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-    <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
-      <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Store Locator</span>
-    </nav>
+    {%- render 'breadcrumb', current: 'Store Locator' -%}
     <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
     <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
     <div style="display:flex; flex-wrap:wrap; gap:10px; max-width:560px; margin:0 0 28px;">
@@ -92,9 +90,7 @@
   {%- capture full_address -%}{{ block.settings.address }}{%- if block.settings.eircode != blank -%}, {{ block.settings.eircode }}{%- endif -%}{%- endcapture -%}
   <div data-view="store-{{ forloop.index }}" style="display:none">
     <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-      <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
-        <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><button type="button" data-view-btn="locator" class="hov-green" style="background:none; border:none; padding:0; font-family:inherit; font-size:13px; color:#666b60; cursor:pointer;">Store Locator</button><span>/</span><span style="color:#3a3d39; font-weight:700;">{{ block.settings.name }}</span>
-      </nav>
+      {%- render 'breadcrumb', current: block.settings.name, parent_title: 'Store Locator', parent_view: 'locator' -%}
       <div class="loc-wrap" style="display:flex; gap:44px; align-items:flex-start;">
         <div style="flex:1 1 auto; min-width:0; max-width:760px;">
           {%- if block.settings.badge != blank -%}

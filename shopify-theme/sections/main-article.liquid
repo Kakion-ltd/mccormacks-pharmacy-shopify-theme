@@ -16,9 +16,8 @@
 {% endstyle %}
 
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 0;">
-  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 18px;">
-    <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><a href="{{ blog.url }}" class="hov-green" style="color:#666b60;">{{ blog.title }}</a><span>/</span><span style="color:#3a3d39; font-weight:700;">{{ article.tags.first | default: article.title }}</span>
-  </nav>
+  {%- assign crumb_current = article.tags.first | default: article.title -%}
+  {%- render 'breadcrumb', current: crumb_current, parent_title: blog.title, parent_url: blog.url, margin: '0 0 18px' -%}
   {%- if article.tags.first -%}
     <div style="margin:0 0 14px;">{% render 'blog-tag-chip', tag: article.tags.first %}</div>
   {%- endif -%}

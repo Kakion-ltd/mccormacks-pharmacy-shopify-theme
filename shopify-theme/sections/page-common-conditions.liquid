@@ -19,9 +19,7 @@
 {%- assign h_font = "font-family:var(--font-heading); font-weight:800; color:var(--c-dark);" -%}
 
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
-  <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
-    <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">{{ section.settings.eyebrow }}</span>
-  </nav>
+  {%- render 'breadcrumb', current: section.settings.eyebrow -%}
 
   <div style="display:flex; flex-wrap:wrap; gap:28px 48px; align-items:center; background:#f4f5f2; border-radius:18px; padding:clamp(24px,4vw,52px);">
     <div style="flex:1 1 420px; min-width:0;">
