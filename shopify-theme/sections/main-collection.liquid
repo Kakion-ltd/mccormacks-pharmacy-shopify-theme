@@ -476,6 +476,13 @@
     /* Sticky pins the sidebar, so a long list (Brand can run to dozens of
        values) would extend past the viewport with no way to reach the bottom. */
     .filter-side { max-height: calc(100vh - 32px); overflow-y: auto; }
+    /* Thin, not hidden: the bar is the only cue that there are more filters below,
+       and a mouse user needs a thumb to drag. #8f9588 holds 3:1 on white.
+       Chrome 121+, Edge and Firefox read the standard pair; Safari only the
+       -webkit- rules (Chrome ignores those once the standard pair is set). */
+    .filter-side { scrollbar-width: thin; scrollbar-color: #8f9588 transparent; }
+    .filter-side::-webkit-scrollbar { width: 8px; }
+    .filter-side::-webkit-scrollbar-thumb { background: #8f9588; border-radius: 999px; }
   }
   @media (max-width: 960px) {
     .col-wrap { align-items: stretch !important; flex-direction: column !important; }
