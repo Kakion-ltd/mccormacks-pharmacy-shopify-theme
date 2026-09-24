@@ -61,9 +61,9 @@ def describe(c):
     if c['level'] == 'brand':
         return f"<p>Shop the full {t} range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
     if c['level'] == 'menu':
-        return f"<p>Explore our full {t} range — pharmacist-approved essentials with free delivery over €65 and Click &amp; Collect from all seven McCormack's stores.</p>"
+        return f"<p>Explore our full {t} range — pharmacist-approved essentials with free delivery over [threshold] and Click &amp; Collect from all seven McCormack's stores.</p>"
     if c['level'] == 'group':
-        return f"<p>Shop {t} at McCormack's Pharmacy, part of our {menu} range. Advice from our pharmacists on every order and free delivery over €65.</p>"
+        return f"<p>Shop {t} at McCormack's Pharmacy, part of our {menu} range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
     return f"<p>Browse {t} — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our {menu} range.</p>"
 
 for c in collections.values():
