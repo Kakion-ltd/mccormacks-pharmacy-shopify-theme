@@ -7,6 +7,7 @@
   "phone": "052 6199329",
   "free_shipping_threshold": 65,
   "restricted_tag": "pharmacist-review",
-  "button_text_white": "auto"
+  "button_text_white": "auto",
+  "google_maps_key": "AIzaSyAZU7msIVA9SwXHWhEf7RTfgdux3zJVd74"
  }
 }

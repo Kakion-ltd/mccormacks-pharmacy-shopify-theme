@@ -2,7 +2,10 @@
   "sections": {
     "main": {
       "type": "page-gift-vouchers",
-      "settings": {},
+      "settings": {
+        "heading": "Gift Vouchers",
+        "also_collection": "sale"
+      },
       "blocks": {
         "amt1": {
           "type": "amount",
