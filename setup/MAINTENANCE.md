@@ -491,12 +491,15 @@ What is actually granted on `mccormackpharmacy.myshopify.com`, as of that date:
 
 - **App:** "Shopify CLI Connector App" (`shopify-cli-connector-app`), installed
   by `npx shopify store auth`.
-- **Scopes:** `read_products`, `write_products`, `read_publications` and
-  `write_publications`, nothing else. The first two cover products and
-  collections (rules, vendors, types). The publications pair, added later on
-  24 Sep, lets a new collection be published to the Online Store. None of them
-  reach orders, customers, themes or settings. This is the agreed scope for
-  catalogue work.
+- **Scopes:** `read_products`, `write_products`, `read_publications`,
+  `write_publications`, `read_online_store_pages`, `write_online_store_pages`
+  and `write_online_store_navigation` (which also grants
+  `read_online_store_navigation`), nothing else. The first two cover products
+  and collections (rules, vendors, types). The publications pair, added later on
+  24 Sep, lets a new collection be published to the Online Store. The pages and
+  navigation scopes, added the same evening for the footer and page cleanup
+  (`archive/store-cleanup-2026-09-24/`), cover pages and menus. None of them
+  reach orders, customers, themes or settings.
 - **Sales channel:** Online Store is `gid://shopify/Publication/341524873547`.
 - **User:** matthew@kakion.com (not the account owner).
 - **Token:** `~/Library/Preferences/shopify-cli-store-nodejs/config.json` on
