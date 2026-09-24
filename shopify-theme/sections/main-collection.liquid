@@ -69,7 +69,7 @@
         {%- render 'banner-image', image: banner_object, asset: banner_asset, fit: 'contain', alt: banner_heading, label: 'Sale banner', note: 'Transparent PNG cut-out, 1320×504. No badge or offer text in the art.' -%}
       </div>
     </div>
-  {%- elsif cat_level == 'group' or cat_level == 'leaf' or cat_level == 'brand' or banner_object == blank and banner_asset == blank -%}
+  {%- elsif section.settings.banner_style == 'text' or cat_level == 'group' or cat_level == 'leaf' or cat_level == 'brand' or banner_object == blank and banner_asset == blank -%}
     {%- comment -%} Also the path for a department with no landscape image and no asset: a
         text hero reads as designed, a striped placeholder reads as broken. {%- endcomment -%}
     {%- comment -%} Text-only hero: heading and copy sit side by side and use the
@@ -527,7 +527,8 @@
       "label": "Banner style",
       "options": [
         { "value": "standard", "label": "Standard (green)" },
-        { "value": "sale", "label": "Sale (red)" }
+        { "value": "sale", "label": "Sale (red)" },
+        { "value": "text", "label": "Text only (no image)" }
       ],
       "default": "standard"
     },

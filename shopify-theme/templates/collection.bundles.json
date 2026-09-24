@@ -42,7 +42,7 @@
         "faq4"
       ],
       "settings": {
-        "banner_style": "standard",
+        "banner_style": "text",
         "banner_heading": "Bundles",
         "banner_text": "<p>Products that work well together, priced better bought as a set. Our pharmacists and beauty advisors build these bundles around the routines customers ask about most — a full skincare regime, a daily supplement stack, a family first-aid kit.</p><p>Every bundle shows the saving against buying the items separately. No code needed — the price you see is the price you pay.</p>",
         "show_chips": true,
