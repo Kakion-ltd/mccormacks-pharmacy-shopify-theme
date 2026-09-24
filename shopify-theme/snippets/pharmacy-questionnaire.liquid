@@ -77,6 +77,11 @@
       </div>
 
       <input type="hidden" data-pq-version value="{{ questionnaire.version.value }}">
+      {%- comment -%} Pre-payment disclosure. The pharmacist review happens AFTER payment,
+          so the customer must know before they pay that the order can be refused and
+          refunded. Kept next to the submit button, not buried. Wording is subject to
+          pharmacist/client sign-off (see MAINTENANCE.md, "Pharmacist questionnaire"). {%- endcomment -%}
+      <p class="pq-consent-note">You pay when you place your order. A registered pharmacist then reviews your answers before we dispense. If this medicine isn’t suitable for you, we won’t dispense it and you’ll be refunded in full.</p>
       <button type="submit" class="btn btn-fill pq-submit" data-pq-submit>Submit &amp; add to bag</button>
       <p class="pq-status" data-pq-status hidden></p>
     </form>
@@ -263,6 +268,7 @@
   .pq-error { color: #B3261E; font-size: 13px; margin: 8px 0 0; font-weight: 600; }
   .pq-has-error .pq-q-label { color: #B3261E; }
   .pq-blocked { background: #fbeceb; color: #8a1f18; border-radius: 12px; padding: 14px 16px; font-size: 14px; line-height: 1.55; font-weight: 600; margin: 4px 0 20px; }
+  .pq-consent-note { font-size: 13px; line-height: 1.55; color: #4a4d47; background: #f4f5f2; border-radius: 10px; padding: 12px 14px; margin: 4px 0 14px; }
   .pq-submit { width: 100%; }
   .pq-status { color: #B3261E; font-size: 14px; font-weight: 600; margin: 12px 0 0; text-align: center; }
 {% endstyle %}

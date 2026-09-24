@@ -364,11 +364,49 @@ Two rules for anyone adding a new product grid or rail:
    test — it is the only thing standing between a saved pharmacist-only
    medicine and a one-click add.
 
-**This is suppression, not a suitability check.** The product page's own Add to
-bag is ungated. The collection FAQ used to claim customers are screened with
-questions before adding restricted medicines to the basket; that claim was
-removed in `0af9da9` because the theme cannot honour it. It goes back only when
-a real questionnaire is built to the client's pharmacist specification.
+**This is suppression, not a suitability check.** The restricted tag only hides the
+one-click add on grids; it does not ask the customer anything, and on its own it
+leaves the product page's Add to bag ungated. The *suitability* gate is a separate
+mechanism — the pharmacist questionnaire below — driven by a metafield, not the tag.
+A pharmacy medicine usually wants both: the tag to keep it off quick-add surfaces,
+and the questionnaire metafield to gate its own product page.
+
+---
+
+## Pharmacist questionnaire — the suitability gate
+
+**Theme:** `sections/main-product.liquid` + `snippets/pharmacy-questionnaire.liquid`.
+A product is gated when it carries the `pharmacy.questionnaire` metafield (a
+reference to a `pharmacy_questionnaire` metaobject the pharmacist edits). No
+metafield, ordinary buy box. See `setup/provision.mjs` for the metaobject/metafield
+definitions and `setup/verify/questionnaire.py` for the guarantees below.
+
+Three things that are load-bearing and easy to break:
+
+1. **The no-JS gate is the absence of a form.** A gated product renders **no**
+   `{% form 'product' %}` and no accelerated-checkout button — with JavaScript off
+   there is nothing to POST, so the medicine cannot be added at all. Do not
+   "simplify" the gated branch back into the normal product form; that reopens the
+   exact hole (Inish's own gate leaves it open). Answers post via `/cart/add.js` as
+   line-item properties.
+
+2. **It fails closed.** Gating keys off the metafield's *presence* (`pharma_mf`), not
+   its resolved value, so a deleted questionnaire or one with zero questions shows a
+   "not available" notice rather than dropping back to a buy box. Keep that
+   distinction if you touch the branch logic.
+
+3. **The gate holds the order AFTER payment, not before checkout.** There is no
+   Shopify-native way to block checkout from the theme; the model is: customer pays,
+   a pharmacist reviews the answers on the order, and dispatch is held (via Shopify
+   Flow matching the hidden `_pharmacist_review` line-item property) until they
+   approve — or the order is refused and refunded. This is the same model Inish use
+   and it is the right one, **but it means the customer pays before the decision is
+   made.** So whoever writes customer-facing copy must make that sequence clear
+   *before* payment: you pay now, a pharmacist reviews, an unsuitable order is
+   cancelled and refunded. That disclosure currently lives next to the Submit button
+   in `snippets/pharmacy-questionnaire.liquid` (`.pq-consent-note`). If the flow or
+   the copy changes, keep the two in step, and get the wording pharmacist/client
+   signed off like any other medical copy.
 
 ---
 

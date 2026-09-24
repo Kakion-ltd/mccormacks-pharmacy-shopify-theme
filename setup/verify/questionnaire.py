@@ -56,6 +56,13 @@ with sync_playwright() as pw:
     pg.locator("[data-gated-buybox] [data-open-questionnaire]").click()
     check("modal opens on click", pg.locator("[data-pq-modal]").is_visible())
 
+    # Pre-payment disclosure: the customer must be told BEFORE paying that a pharmacist
+    # reviews after payment and an unsuitable order is refunded. Its absence is a defect.
+    note = pg.locator(".pq-consent-note").inner_text().lower() if pg.locator(".pq-consent-note").count() else ""
+    check("pre-payment disclosure is shown", pg.locator(".pq-consent-note").is_visible())
+    check("disclosure says payment is taken up front", "pay when you place" in note or "pay now" in note)
+    check("disclosure says an unsuitable order is refunded", "refund" in note)
+
     # 3. Submitting with nothing answered must not post.
     pg.locator("[data-pq-submit]").click()
     pg.wait_for_timeout(150)
