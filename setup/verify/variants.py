@@ -61,7 +61,7 @@ with sync_playwright() as pw:
         pg.wait_for_timeout(300)
         ck(f"[{label}] price follows the selected variant", price.inner_text() != first_price)
         ck(f"[{label}] the submitted variant id follows the selection", idf.input_value() != first_id)
-        ck(f"[{label}] price is the second variant's", price.inner_text().strip(), "€16.99")
+        ck(f"[{label}] price is the second variant's", price.inner_text().strip(), "€16,99")
 
         sel.select_option(label="240 capsules")
         pg.wait_for_timeout(300)

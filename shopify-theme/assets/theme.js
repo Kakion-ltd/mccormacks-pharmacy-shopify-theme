@@ -13,14 +13,30 @@
   // later the style has been recomputed and it takes.
   const focusSoon = (el) => { if (el) requestAnimationFrame(() => el.focus()); };
 
-  // Mirror the shop's money format loosely; exact rendering stays server-side
-  // wherever Liquid can do it. Intl keeps decimals and grouping correct per locale.
+  // The shop's own money format (Settings > Store details), handed over on <html> by
+  // theme.liquid, so a price written here matches the one Liquid printed beside it.
+  // The store is set to \u20ac{{amount_with_comma_separator}}; Intl and toFixed both gave
+  // "\u20ac15.95" next to Liquid's "\u20ac15,95". Placeholders as Shopify defines them.
+  const moneyFormat = document.documentElement.dataset.moneyFormat || '\u20ac{{amount}}';
   const formatMoney = (cents) => {
-    try {
-      return new Intl.NumberFormat(document.documentElement.lang || 'en-IE',
-        { style: 'currency', currency: 'EUR' }).format(cents / 100);
-    } catch { return '\u20ac' + (cents / 100).toFixed(2); }
+    const num = (decimals, thousands, point) => {
+      const [whole, frac] = (cents / 100).toFixed(decimals).split('.');
+      return whole.replace(/\B(?=(\d{3})+(?!\d))/g, thousands) + (frac ? point + frac : '');
+    };
+    const amounts = {
+      amount: () => num(2, ',', '.'),
+      amount_no_decimals: () => num(0, ',', '.'),
+      amount_with_comma_separator: () => num(2, '.', ','),
+      amount_no_decimals_with_comma_separator: () => num(0, '.', ','),
+      amount_with_space_separator: () => num(2, ' ', ','),
+      amount_no_decimals_with_space_separator: () => num(0, ' ', ','),
+      amount_with_apostrophe_separator: () => num(2, "'", '.'),
+      amount_with_period_and_space_separator: () => num(2, ' ', '.'),
+    };
+    return moneyFormat.replace(/\{\{\s*(\w+)\s*\}\}/, (_, key) => (amounts[key] || amounts.amount)());
   };
+  // The product page's variant picker formats its prices with this too.
+  window.mccFormatMoney = formatMoney;
 
   // The price a card may strike through, in cents, or 0. The client-side half of
   // snippets/product-compare-at.liquid: the compare-at of the variant whose price is

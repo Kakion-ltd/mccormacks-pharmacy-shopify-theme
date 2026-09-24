@@ -27,7 +27,12 @@ const engine = new Liquid({
 });
 
 /* ---------- Shopify filters ---------- */
-const money = (v) => (v == null || isNaN(v) ? v : `€${(v / 100).toFixed(2)}`);
+// The live store's format (Settings > Store details, read 24 Sep 2026). The preview
+// printed "€15.95" while the store prints "€15,95", which hid theme.js and the variant
+// picker disagreeing with Liquid on every price they rewrote.
+const MONEY_FORMAT = '€{{amount_with_comma_separator}}';
+const amount = (v) => (v / 100).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+const money = (v) => (v == null || isNaN(v) ? v : `€${amount(v)}`);
 const imgSrc = (img) => (typeof img === 'string' ? img : img && (img.src || img.url)) || '';
 
 engine.registerFilter('asset_url', (v) => `${ASSETS}/${v}`);
@@ -94,7 +99,7 @@ engine.registerFilter('color_darken', (v, pct) => {
 engine.registerFilter('money', money);
 engine.registerFilter('money_with_currency', (v) => `${money(v)} EUR`);
 // Shopify drops only a .00 fraction; €49.99 stays €49.99. Rounding here hid that.
-engine.registerFilter('money_without_trailing_zeros', (v) => (v == null || isNaN(v) ? v : `€${(v / 100).toFixed(2).replace(/\.00$/, '')}`));
+engine.registerFilter('money_without_trailing_zeros', (v) => (v == null || isNaN(v) ? v : `€${amount(v).replace(/,00$/, '')}`));
 engine.registerFilter('money_without_currency', (v) => (v == null || isNaN(v) ? v : (v / 100).toFixed(2)));
 engine.registerFilter('handleize', (v) => String(v ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
 engine.registerFilter('handle', (v) => String(v ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
@@ -526,7 +531,7 @@ const globals = {
     name: "McCormack's Pharmacy", email: 'info@example.com', url: 'https://mock.myshopify.com',
     secure_url: 'https://mock.myshopify.com', domain: 'mock.myshopify.com',
     enabled_payment_types: ['visa', 'master', 'american_express', 'paypal', 'apple_pay', 'google_pay'],
-    money_format: '€{{amount}}', privacy_policy: { url: '/pages/privacy-policy' },
+    money_format: MONEY_FORMAT, privacy_policy: { url: '/pages/privacy-policy' },
   },
   cart: {
     item_count: 2, total_price: 4990, items_subtotal_price: 4990, original_total_price: 5490, total_discount: 500,

@@ -86,7 +86,7 @@ with sync_playwright() as pw:
         ck(f"[{label}] on load the picker matches the variant that would be added",
            idf.input_value(), "40001001")
         ck(f"[{label}] on load the price belongs to the selected combination",
-           pg.locator("[data-pdp-price]").first.inner_text().strip(), "€22.50")
+           pg.locator("[data-pdp-price]").first.inner_text().strip(), "€22,50")
         ck(f"[{label}] on load the stock line agrees with the selection",
            "In stock" in pg.locator("[data-pdp-stock]").first.inner_text())
 
@@ -140,7 +140,7 @@ with sync_playwright() as pw:
         ck(f"[{label}] the offer badge returns for a discounted variant", visible(pg, "[data-pdp-badge]"))
         ck(f"[{label}] the offer pill returns for a discounted variant", visible(pg, "[data-pdp-offer]"))
         ck(f"[{label}] the strikethrough is that variant's compare-at",
-           pg.locator("[data-pdp-compare]").first.inner_text().strip(), "€26.00")
+           pg.locator("[data-pdp-compare]").first.inner_text().strip(), "€26,00")
 
         # ---- two variants of one product are two tellable-apart lines in the drawer.
         # A single-variant product goes in first so the "names no variant" case is
@@ -260,14 +260,14 @@ with urllib.request.urlopen(BASE + "/collections/skincare", timeout=30) as r:
     grid = r.read().decode("utf-8", "replace")
 i = grid.find("CeraVe Moisturising Cream")
 card = grid[max(grid.rfind('<div class="pcard"', 0, i), 0):i + 2200]
-ck("the two-option card shows a From price", "From €14.50" in card)
+ck("the two-option card shows a From price", "From €14,50" in card)
 ck("the two-option card claims no saving on an undiscounted cheapest variant",
    "SALE</span>" in card, False)
 ck("the two-option card strikes through nothing", "line-through" in card, False)
 j = grid.find("Sudocrem Antiseptic Healing Cream")
 sud = grid[max(grid.rfind('<div class="pcard"', 0, j), 0):j + 2200]
 ck("a genuinely discounted product still badges SALE", "SALE</span>" in sud)
-ck("and still strikes through its own compare-at", "€8.99" in sud)
+ck("and still strikes through its own compare-at", "€8,99" in sud)
 
 for ok, name, got in res:
     if not ok:

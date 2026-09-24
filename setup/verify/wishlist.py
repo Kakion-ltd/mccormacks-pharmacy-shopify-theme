@@ -70,7 +70,7 @@ with sync_playwright() as pw:
         titles = pg.locator(".wish-card-title").all_text_contents()
         ck(f"[{label}] both saved products listed ({len(titles)})", len(titles) == 2)
         ck(f"[{label}] price rendered live from product JSON",
-           any("7.99" in t for t in pg.locator(".wish-card-price").all_text_contents()))
+           any("7,99" in t for t in pg.locator(".wish-card-price").all_text_contents()))
 
         # THE GATE. Cards here are built in JS, so this is the one surface where
         # the Liquid check cannot run.

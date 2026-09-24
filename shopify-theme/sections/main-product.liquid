@@ -501,8 +501,9 @@
     // runs submits no id at all instead of the wrong one. See the comment there.
     if (idInput) idInput.disabled = false;
     const variants = JSON.parse(document.getElementById('pdp-variants-{{ section.id }}').textContent);
-    const sym = {{ cart.currency.symbol | json }};
-    const fmt = c => sym + (c / 100).toFixed(2);
+    // The store's money format, from theme.js. Called only on a variant change, after the
+    // deferred theme.js has run.
+    const fmt = c => window.mccFormatMoney(c);
     const submit = root.querySelector('[data-pdp-submit]');
     const buybarLabel = document.querySelector('[data-buybar-label]');
 

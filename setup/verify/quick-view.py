@@ -77,6 +77,10 @@ with sync_playwright() as pw:
     ck("dialog is labelled by the title", p.locator("[data-qv]").get_attribute("aria-labelledby"), "qv-title")
     ck("page behind the modal is inert", p.evaluate("document.querySelector('main').inert"))
     ck("price is shown", p.locator("[data-qv-price]").inner_text().startswith("€"))
+    # theme.js formats this one; Liquid printed the card's. Both must follow the store's
+    # money format (€15,95 on the live store), not whatever the browser's locale says.
+    ck("price is written the way Liquid wrote the card's", p.locator("[data-qv-price]").inner_text(),
+       cards.first.locator("div[style*='border-top'] > span").first.inner_text().replace("From ", ""))
     ck("link to the full product page", p.locator("[data-qv] .qv-link").get_attribute("href").startswith("/products/"))
     p.keyboard.press("Escape"); p.wait_for_timeout(250)
     ck("Escape closes", p.evaluate("document.body.hasAttribute('data-qv-open')"), False)
