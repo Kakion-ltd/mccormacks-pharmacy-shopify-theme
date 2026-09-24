@@ -50,6 +50,16 @@ ck("a filtered collection shows removable filter chips",
    len(re.findall(r'<a href="/collections/filtered-fixture".*?&times;.*?</a>', filtered, re.S)) >= 1)
 ck("a filtered collection offers Clear all", "Clear all" in filtered)
 ck("a filtered collection still lists its products", grid_cards(filtered), 3)
+# The price boxes hold the applied range in the store's money format, and Apply sends
+# them back as they are. They used to strip the comma to fit a number input, so
+# €15,95 came back as 1595 and the next Apply filtered on a hundred times the price.
+price_boxes = re.findall(r'<input data-price-input[^>]*>', filtered)
+ck("the price filter has a from and a to box", len(price_boxes), 2)
+ck("the from box holds the applied minimum as the store prints it", 'value="15,95"' in "".join(price_boxes[:1]))
+ck("the to box holds the applied maximum as the store prints it", 'value="49,99"' in "".join(price_boxes[1:]))
+ck("the to box hint keeps its thousands separator", 'placeholder="1.234,56"' in "".join(price_boxes[1:]))
+ck("no price box is a number input, which cannot hold 15,95",
+   any('type="number"' in b for b in price_boxes), False)
 
 # The distinction that matters: filtered-to-nothing must not read as an empty
 # collection, or the shopper clears their basket-filling instead of their filters.

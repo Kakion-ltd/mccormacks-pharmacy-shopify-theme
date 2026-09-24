@@ -189,12 +189,16 @@
               </div>
             </div>
           {%- when 'price_range' -%}
+            {%- comment -%} Text, not number: the boxes hold the price in the store's own money
+                format (15,95 here), which is also what Shopify reads back from filter.v.price.
+                A number input cannot hold 15,95, and stripping the comma to fit one made it
+                1595 — a hundred times the price. Same approach as Dawn's price facet. {%- endcomment -%}
             <div style="{% unless forloop.first %}border-top:1px solid #e6e7e4; padding-top:24px;{% endunless %}">
               <h3 style="font-family:var(--font-heading); font-weight:700; color:var(--c-primary-text); font-size:20px; margin:0 0 18px;">{{ filter.label }}</h3>
               <div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;">
-                <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#666b60;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.min_value.param_name }}" type="number" min="0" step="0.01" placeholder="0" value="{% if filter.min_value.value %}{{ filter.min_value.value | money_without_currency | remove: ',' }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
+                <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#666b60;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.min_value.param_name }}" type="text" inputmode="decimal" placeholder="0" value="{% if filter.min_value.value %}{{ filter.min_value.value | money_without_currency }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
                 <span style="color:#666b60;">&ndash;</span>
-                <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#666b60;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.max_value.param_name }}" type="number" min="0" step="0.01" placeholder="{{ filter.range_max | money_without_currency | remove: ',' }}" value="{% if filter.max_value.value %}{{ filter.max_value.value | money_without_currency | remove: ',' }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
+                <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#666b60;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.max_value.param_name }}" type="text" inputmode="decimal" placeholder="{{ filter.range_max | money_without_currency }}" value="{% if filter.max_value.value %}{{ filter.max_value.value | money_without_currency }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
               </div>
               <button data-price-apply class="btn-sm btn-fill" style="width:100%">Apply</button>
             </div>

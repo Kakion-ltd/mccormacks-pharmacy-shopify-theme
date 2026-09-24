@@ -100,7 +100,8 @@ engine.registerFilter('money', money);
 engine.registerFilter('money_with_currency', (v) => `${money(v)} EUR`);
 // Shopify drops only a .00 fraction; €49.99 stays €49.99. Rounding here hid that.
 engine.registerFilter('money_without_trailing_zeros', (v) => (v == null || isNaN(v) ? v : `€${amount(v).replace(/,00$/, '')}`));
-engine.registerFilter('money_without_currency', (v) => (v == null || isNaN(v) ? v : (v / 100).toFixed(2)));
+// Same store format as money, without the €: the live filter prints 15,95, not 15.95.
+engine.registerFilter('money_without_currency', (v) => (v == null || isNaN(v) ? v : amount(v)));
 engine.registerFilter('handleize', (v) => String(v ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
 engine.registerFilter('handle', (v) => String(v ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
 engine.registerFilter('url_encode', (v) => encodeURIComponent(String(v ?? '')));
@@ -905,7 +906,13 @@ const FORM_ON = { 'page.in-store-services': { __sectionSettingsOverride: { 'page
     ...base,
     handle: 'filtered-fixture', url: '/collections/filtered-fixture',
     products: products.slice(0, 3), products_count: 3, all_products_count: 3,
-    filters: (base.filters || []).map((f, i) => (i !== 0 ? f : {
+    filters: (base.filters || []).map((f, i) => (f.type === 'price_range' ? {
+      // A price range applied too, with a four-figure ceiling, so the price boxes
+      // render a live value and a thousands separator in the store's format.
+      ...f, range_max: 123456,
+      min_value: { ...f.min_value, value: 1595 }, max_value: { ...f.max_value, value: 4999 },
+      url_to_remove: '/collections/filtered-fixture',
+    } : i !== 0 ? f : {
       ...f,
       active_values: [{ ...(f.values || [])[0], active: true,
                         url_to_remove: '/collections/filtered-fixture' }],
