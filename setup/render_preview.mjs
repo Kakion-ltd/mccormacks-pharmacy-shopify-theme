@@ -1041,6 +1041,27 @@ const FORM_ON = { 'page.in-store-services': { __sectionSettingsOverride: { 'page
     } finally {
       Object.assign(globals, saved);
     }
+
+    // Fail-closed fixtures: the metafield is set but the questionnaire is unusable. Both
+    // must render the "not available" notice, never a plain buy box.
+    //   deleted -> the reference resolves to nil (metaobject deleted in admin)
+    //   empty   -> the questionnaire exists but carries no questions
+    const failClosed = {
+      deleted: { ...base, title: gated.title, handle: 'gated-deleted', url: '/products/gated-deleted',
+        tags: gated.tags, metafields: { ...base.metafields, pharmacy: { questionnaire: { value: null } } } },
+      empty: { ...base, title: gated.title, handle: 'gated-empty', url: '/products/gated-empty',
+        tags: gated.tags, metafields: { ...base.metafields, pharmacy: { questionnaire: { value: {
+          title: { value: 'Questions from our pharmacist' }, version: { value: 'empty' }, questions: { value: [] } } } } } },
+    };
+    for (const [name, prod] of Object.entries(failClosed)) {
+      const s2 = { product: globals.product, request: globals.request };
+      globals.product = prod;
+      globals.request = { ...globals.request, page_type: 'product' };
+      try {
+        writeFileSync(join(outDir, `product.gated-${name}.html`), await renderTemplate('product'));
+        console.log(`gated fail-closed page: ${name}`);
+      } finally { Object.assign(globals, s2); }
+    }
   }
 }
 

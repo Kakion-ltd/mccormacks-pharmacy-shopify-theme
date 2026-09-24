@@ -103,6 +103,24 @@ with sync_playwright() as pw:
     check("modal closes after a successful add", pg.locator("[data-pq-modal]").is_hidden())
 
     check("no page errors", errs == [])
+
+    # 6. Fail closed: a gated product whose questionnaire is deleted or empty must show
+    # the "not available" notice and offer NO way to add — not drop back to a buy box.
+    for handle in ("gated-deleted", "gated-empty"):
+        p2 = ctx.new_page()
+        p2.goto(BASE + "/products/" + handle, wait_until="networkidle")
+        check(f"[{handle}] shows the unavailable notice",
+              p2.locator("[data-gated-unavailable]").count() > 0)
+        check(f"[{handle}] renders no gated buy box",
+              p2.locator("[data-gated-buybox]").count() == 0)
+        # This product's own add paths must be gone. ([data-add-id] on the page is the
+        # cross-sell rail — other products — and is left out of the check on purpose.)
+        check(f"[{handle}] no product form, opener or modal", p2.evaluate(
+            "!document.querySelector('form[action*=\"/cart/add\"], form[data-ajax-add], [data-open-questionnaire], [data-pq-modal]')"))
+        check(f"[{handle}] mobile buybar add is disabled",
+              p2.evaluate("[...document.querySelectorAll('.mobile-buybar button')].every(b => b.disabled || b.dataset.qtyStep !== undefined)"))
+        p2.close()
+
     b.close()
 
 bad = [r for r in results if not r[0]]

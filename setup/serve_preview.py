@@ -33,6 +33,12 @@ def product_page(handle):
         # The gated pharmacy fixture: its own render so the questionnaire modal and the
         # form-less (no-JS-safe) buy box are reachable. Not in CATALOGUE, so routed here.
         return first_existing("preview/product.gated.html", "preview/product.html")
+    if handle == "gated-deleted":
+        # Metafield set, questionnaire reference deleted -> must fail closed.
+        return first_existing("preview/product.gated-deleted.html", "preview/product.html")
+    if handle == "gated-empty":
+        # Metafield set, questionnaire has no questions -> must fail closed.
+        return first_existing("preview/product.gated-empty.html", "preview/product.html")
     # Unknown handles 404, as on Shopify. Serving the generic page for any handle
     # hid dead product links and let verify scripts pass against URLs that do not exist.
     if handle not in HANDLES:
