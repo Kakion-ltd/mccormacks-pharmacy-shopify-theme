@@ -550,8 +550,8 @@ const mockCollection = {
   filters: [
     { label: 'Brand', type: 'list', param_name: 'filter.p.vendor', active_values: [],
       values: [
-        { label: 'fabÜ', value: 'fab', count: 4, active: false, url_to_add: '?filter.p.vendor=fab', url_to_remove: '?' },
-        { label: 'Nurofen', value: 'nur', count: 2, active: true, url_to_add: '?filter.p.vendor=nur', url_to_remove: '?' },
+        { label: 'fabÜ', param_name: 'filter.p.vendor', value: 'fab', count: 4, active: false, url_to_add: '?filter.p.vendor=fab', url_to_remove: '?' },
+        { label: 'Nurofen', param_name: 'filter.p.vendor', value: 'nur', count: 2, active: true, url_to_add: '?filter.p.vendor=nur', url_to_remove: '?' },
       ] },
     { label: 'Price', type: 'price_range', param_name: 'filter.v.price', active_values: [], values: [],
       range_max: 10000, min_value: { value: null, param_name: 'filter.v.price.gte' },

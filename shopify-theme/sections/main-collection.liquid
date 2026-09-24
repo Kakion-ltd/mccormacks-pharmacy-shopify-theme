@@ -140,9 +140,9 @@
       Filter
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"></line><circle cx="9" cy="7" r="2.4" fill="#fff"></circle><line x1="4" y1="17" x2="20" y2="17"></line><circle cx="15" cy="17" r="2.4" fill="#fff"></circle></svg>
     </button>
-    <div class="sortby-box" style="display:flex; align-items:center; gap:10px; border:1.5px solid var(--c-primary); border-radius:9px; padding:12px 16px;">
-      <span style="font-weight:700; font-size:15px; color:#2A2B2A;">Sort by:</span>
-      <select data-sort-select aria-label="Sort by">
+    <div class="sortby-box">
+      <label for="sort-{{ section.id }}">Sort by:</label>
+      <select id="sort-{{ section.id }}" data-sort-select>
         {%- assign current_sort = collection.sort_by | default: collection.default_sort_by -%}
         {%- for option in collection.sort_options -%}
           <option value="{{ option.value }}" {% if option.value == current_sort %}selected{% endif %}>{{ option.name }}</option>
@@ -183,45 +183,73 @@
 <section style="max-width:1440px; margin:0 auto; padding:24px 30px 8px;">
   <div class="col-wrap" style="display:flex; gap:40px; align-items:flex-start;">
 
-    <!-- Filter sidebar -->
-    <aside class="filter-side" id="filters-{{ section.id }}" style="flex:0 0 260px; width:260px; position:sticky; top:16px;">
+    <!-- Filter sidebar. On desktop a plain sidebar (displayed by CSS, never opened);
+         at 960px and below the same element opens with showModal() as a drawer in the
+         bag drawer's shell, so the backdrop, Escape, focus return and the inert page
+         behind all come from the browser. One form at every width: desktop submits on
+         each tick, the drawer holds ticks until Apply, so any number of choices costs
+         one reload. -->
+    <dialog class="filter-side" id="filters-{{ section.id }}" aria-labelledby="filters-title-{{ section.id }}">
+      <form action="{{ collection.url }}" data-filter-form class="fd-form">
+        {%- if collection.sort_by != blank -%}<input type="hidden" name="sort_by" value="{{ collection.sort_by }}">{%- endif -%}
+        <header class="cd-head fd-head">
+          <h2 id="filters-title-{{ section.id }}">Filter</h2>
+          <button type="button" class="cd-x" data-filter-close aria-label="Close filters"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
+        </header>
+        <div class="fd-body" tabindex="-1">
       {%- for filter in collection.filters -%}
+        {%- comment -%} A group starts open if it is first or has something ticked, so the
+            drawer opens on what matters instead of a 40-brand wall. Desktop opens them
+            all on load (script below). {%- endcomment -%}
+        {%- liquid
+          assign group_open = forloop.first
+          if filter.active_values.size > 0 or filter.min_value.value != blank or filter.max_value.value != blank
+            assign group_open = true
+          endif
+        -%}
         {%- case filter.type -%}
           {%- when 'list', 'boolean' -%}
-            <div style="margin-bottom:30px; {% unless forloop.first %}border-top:1px solid #e6e7e4; padding-top:24px;{% endunless %}">
-              <h3 style="font-family:var(--font-heading); font-weight:700; color:var(--c-primary-text); font-size:20px; margin:0 0 18px;">{{ filter.label }}</h3>
-              <div style="display:flex; flex-direction:column; gap:14px;">
+            <details class="fgroup" {% if group_open %}open{% endif %}>
+              <summary><h3>{{ filter.label }}</h3>{% render 'filter-chevron' %}</summary>
+              <div class="fv-list">
                 {%- for value in filter.values -%}
-                  <a href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}" style="display:flex; align-items:center; gap:12px; font-size:15px; color:#2A2B2A; {% if value.count == 0 and value.active == false %}opacity:.45; pointer-events:none;{% endif %}">
-                    <span style="flex:0 0 auto; width:22px; height:22px; border-radius:5px; border:2px solid {% if value.active %}var(--c-success){% else %}#c2c6bd{% endif %}; background:{% if value.active %}var(--c-success){% else %}#ffffff{% endif %}; display:flex; align-items:center; justify-content:center;">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="opacity:{% if value.active %}1{% else %}0{% endif %};"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    </span>
+                  {%- assign dead = false -%}
+                  {%- if value.count == 0 and value.active == false -%}{%- assign dead = true -%}{%- endif -%}
+                  <label class="fv">
+                    <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}" {% if value.active %}checked{% endif %} {% if dead %}disabled{% endif %}>
+                    <span class="fv-box" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
                     <span style="flex:1;">{{ value.label }}</span>
                     <span style="color:#666b60; font-size:14px;">({{ value.count }})</span>
-                  </a>
+                  </label>
                 {%- endfor -%}
               </div>
-            </div>
+            </details>
           {%- when 'price_range' -%}
             {%- comment -%} Text, not number: the boxes hold the price in the store's own money
                 format (15,95 here), which is also what Shopify reads back from filter.v.price.
                 A number input cannot hold 15,95, and stripping the comma to fit one made it
                 1595 — a hundred times the price. Same approach as Dawn's price facet. {%- endcomment -%}
-            <div style="{% unless forloop.first %}border-top:1px solid #e6e7e4; padding-top:24px;{% endunless %}">
-              <h3 style="font-family:var(--font-heading); font-weight:700; color:var(--c-primary-text); font-size:20px; margin:0 0 18px;">{{ filter.label }}</h3>
+            <details class="fgroup" {% if group_open %}open{% endif %}>
+              <summary><h3>{{ filter.label }}</h3>{% render 'filter-chevron' %}</summary>
               <div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;">
-                <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#666b60;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.min_value.param_name }}" type="text" inputmode="decimal" placeholder="0" value="{% if filter.min_value.value %}{{ filter.min_value.value | money_without_currency }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
+                <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#666b60;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.min_value.param_name }}" type="text" inputmode="decimal" placeholder="0" aria-label="Minimum price" value="{% if filter.min_value.value %}{{ filter.min_value.value | money_without_currency }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
                 <span style="color:#666b60;">&ndash;</span>
-                <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#666b60;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.max_value.param_name }}" type="text" inputmode="decimal" placeholder="{{ filter.range_max | money_without_currency }}" value="{% if filter.max_value.value %}{{ filter.max_value.value | money_without_currency }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
+                <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#666b60;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.max_value.param_name }}" type="text" inputmode="decimal" placeholder="{{ filter.range_max | money_without_currency }}" aria-label="Maximum price" value="{% if filter.max_value.value %}{{ filter.max_value.value | money_without_currency }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
               </div>
-              <button data-price-apply class="btn-sm btn-fill" style="width:100%">Apply</button>
-            </div>
+              <button type="submit" class="btn-sm btn-fill fd-price-apply" style="width:100%">Apply</button>
+            </details>
         {%- endcase -%}
       {%- endfor -%}
       {%- if collection.filters.size == 0 -%}
         <p style="margin:0; font-size:14px; color:#666b60; line-height:1.6;">No filters are available for this collection yet. Filters can be configured in the Shopify admin under Online Store &rsaquo; Navigation &rsaquo; Collection and search filters.</p>
       {%- endif -%}
-    </aside>
+        </div>
+        <footer class="cd-foot fd-foot">
+          <a href="{{ collection.url }}" class="btn btn-outline">Clear all</a>
+          <button type="submit" class="btn btn-fill">Apply</button>
+        </footer>
+      </form>
+    </dialog>
 
     <!-- Product grid -->
     <div style="flex:1; min-width:0;">
@@ -418,15 +446,32 @@
   .banner-copy p:last-child, .seo-copy p:last-child { margin-bottom: 0; }
   .hov-chip-arrow:hover { border-color: var(--c-accent) !important; background: #f2f8e9 !important; }
   .faq-content[data-open="false"] { display: none; }
-  .filter-side input[type=number]::-webkit-outer-spin-button,
-  .filter-side input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-  .filter-side input[type=number] { -moz-appearance: textfield; appearance: textfield; }
-  /* Filter sidebar visibility. The toggle sets BOTH classes at once; each
-     breakpoint reads the one that applies, so the button works everywhere:
-     wide screens open by default and collapse on click, narrow screens are
-     closed by default and open on click. The mobile rules come later in the
-     sheet, so .is-open wins there at equal specificity. */
+  /* Filter sidebar. It is a <dialog> that is never opened on desktop: display:block
+     beats the UA's dialog:not([open]) rule, and the resets clear the UA's dialog box.
+     The desktop Filter button collapses it with .is-collapsed. */
+  .filter-side { display: block; flex: 0 0 260px; width: 260px; position: sticky; top: 16px; inset: auto; margin: 0; padding: 0; border: 0; background: transparent; color: inherit; height: auto; max-width: none; }
   .filter-side.is-collapsed { display: none; }
+  .fd-head, .fd-foot { display: none; }
+  .fgroup { margin-bottom: 30px; }
+  .fgroup + .fgroup { border-top: 1px solid #e6e7e4; padding-top: 24px; }
+  .fgroup summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 18px; cursor: pointer; list-style: none; }
+  .fgroup summary::-webkit-details-marker { display: none; }
+  .fgroup:not([open]) summary { margin-bottom: 0; }
+  .fgroup summary h3 { font-family: var(--font-heading); font-weight: 700; color: var(--c-primary-text); font-size: 20px; margin: 0; }
+  .fgroup summary:focus-visible { outline: 2px solid var(--c-dark); outline-offset: 4px; border-radius: 4px; }
+  .fgroup-chev { flex: 0 0 auto; transition: transform .2s ease; }
+  .fgroup[open] .fgroup-chev { transform: rotate(180deg); }
+  .fv-list { display: flex; flex-direction: column; gap: 14px; }
+  /* Real checkboxes, visually replaced by .fv-box; the input stays focusable. */
+  .fv { position: relative; display: flex; align-items: center; gap: 12px; font-size: 15px; color: #2A2B2A; cursor: pointer; }
+  .fv input { position: absolute; opacity: 0; width: 22px; height: 22px; margin: 0; cursor: inherit; }
+  .fv-box { flex: 0 0 auto; width: 22px; height: 22px; border-radius: 5px; border: 2px solid #c2c6bd; background: #ffffff; display: flex; align-items: center; justify-content: center; box-sizing: border-box; transition: background .12s ease, border-color .12s ease; }
+  .fv-box svg { opacity: 0; }
+  .fv:hover .fv-box { border-color: var(--c-success); }
+  .fv input:checked + .fv-box { border-color: var(--c-success); background: var(--c-success); }
+  .fv input:checked + .fv-box svg { opacity: 1; }
+  .fv input:focus-visible + .fv-box { outline: 2px solid var(--c-dark); outline-offset: 2px; }
+  .fv:has(input:disabled) { opacity: .45; cursor: default; }
   @media (min-width: 961px) {
     /* Sticky pins the sidebar, so a long list (Brand can run to dozens of
        values) would extend past the viewport with no way to reach the bottom. */
@@ -434,9 +479,31 @@
   }
   @media (max-width: 960px) {
     .col-wrap { align-items: stretch !important; flex-direction: column !important; }
-    .filter-side { flex: 1 1 auto !important; width: 100% !important; position: static !important; }
-    .filter-side { display: none; }
-    .filter-side.is-open { display: block; }
+    /* Drawer: the bag drawer's shell (.cd-head, .cd-x, .cd-foot, same width, easing
+       and backdrop). Closed = not modal; .is-collapsed is desktop-only. */
+    .filter-side:not(:modal), .filter-side.is-collapsed:not(:modal) { display: none; }
+    .filter-side:modal {
+      display: flex; position: fixed; inset: 0 0 0 auto; width: 420px; max-width: 92vw; height: 100%; max-height: none;
+      background: #ffffff; box-shadow: 0 0 40px rgba(0,0,0,.2); overflow: hidden;
+      transition: transform .28s cubic-bezier(.4,0,.2,1);
+    }
+    .filter-side::backdrop { background: rgba(0,0,0,.45); transition: opacity .25s ease; }
+    @starting-style {
+      .filter-side:modal { transform: translateX(100%); }
+      .filter-side:modal::backdrop { opacity: 0; }
+    }
+    .fd-form { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+    .fd-head, .fd-foot { display: flex; }
+    .fd-body { flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain; padding: 20px; outline: none; }
+    .fd-foot { gap: 12px; }
+    .fd-foot > * { flex: 1; }
+    .fd-price-apply { display: none !important; }
+    .fgroup { margin-bottom: 20px; }
+    .fgroup + .fgroup { padding-top: 20px; }
+    .fgroup summary h3 { font-size: 18px; }
+    /* 44px rows: a thumb target, not a 22px box. */
+    .fv-list { gap: 0; }
+    .fv { min-height: 44px; }
     .filter-toggle { display: inline-flex !important; }
   }
   @media (max-width: 900px) {
@@ -472,31 +539,53 @@
     .fs-bar { flex-direction: column !important; align-items: stretch !important; gap: 12px !important; }
     .filter-toggle { display: none !important; }
     .sortby-box { width: 100% !important; justify-content: space-between !important; }
-    .sortby-box select { flex: 1; text-align: right; }
+    .sortby-box select { text-align: right; text-align-last: right; }
     .prod-count { display: none !important; }
     .refine-mobile { display: flex !important; }
+  }
+  @media (max-width: 480px) {
+    .filter-side:modal { width: 100%; max-width: 100%; }
+  }
+  body:has(.filter-side:modal) { overflow: hidden; }
+  @media (prefers-reduced-motion: reduce) {
+    .filter-side:modal, .filter-side::backdrop, .fgroup-chev { transition: none; }
   }
 {% endstyle %}
 
 <script>
   (() => {
-    // Mobile "Refine By" / desktop "Filter" toggle (design's filterOpen state).
-    // aria-expanded is read back off the computed style rather than tracked in
-    // JS, because the default differs by breakpoint and can change on resize.
+    // Filters. Desktop: the Filter button collapses the sidebar, and every tick
+    // submits at once. 960px and below: both buttons open the drawer as a modal,
+    // and ticks wait for Apply. Empty price boxes are dropped from the URL.
     const side = document.querySelector('.filter-side');
-    const fbtns = document.querySelectorAll('[data-filter-toggle]');
-    if (side && fbtns.length) {
-      const syncAria = () => {
-        const open = getComputedStyle(side).display !== 'none';
-        fbtns.forEach(b => b.setAttribute('aria-expanded', String(open)));
-      };
+    const form = document.querySelector('[data-filter-form]');
+    const narrow = matchMedia('(max-width: 960px)');
+    if (side && form) {
+      const fbtns = document.querySelectorAll('[data-filter-toggle]');
+      const syncAria = () => fbtns.forEach(b => b.setAttribute('aria-expanded',
+        String(narrow.matches ? side.open : !side.classList.contains('is-collapsed'))));
       fbtns.forEach(btn => btn.addEventListener('click', () => {
-        side.classList.toggle('is-collapsed');
-        side.classList.toggle('is-open');
+        // Focus the list, not the first control: showModal() would land on the close
+        // button, and Safari rings it even after a tap.
+        if (narrow.matches) { side.showModal(); side.querySelector('.fd-body').focus({ preventScroll: true }); }
+        else side.classList.toggle('is-collapsed');
         syncAria();
       }));
-      window.addEventListener('resize', syncAria);
+      side.addEventListener('close', syncAria);
+      side.querySelector('[data-filter-close]').addEventListener('click', () => side.close());
+      // A click on the backdrop lands on the dialog itself; the form fills the rest.
+      side.addEventListener('click', e => { if (e.target === side) side.close(); });
+      narrow.addEventListener('change', () => { if (side.open) side.close(); syncAria(); });
       syncAria();
+      if (!narrow.matches) side.querySelectorAll('details').forEach(d => { d.open = true; });
+
+      const go = () => {
+        const u = new URL(form.action, location.href);
+        for (const [k, v] of new FormData(form)) if (v) u.searchParams.append(k, v);
+        location.href = u.href;
+      };
+      form.addEventListener('submit', e => { e.preventDefault(); go(); });
+      form.addEventListener('change', e => { if (!narrow.matches && e.target.type === 'checkbox') go(); });
     }
 
     // Sort select -> sort_by URL param
@@ -504,18 +593,6 @@
     if (sel) sel.addEventListener('change', () => {
       const u = new URL(location.href);
       u.searchParams.set('sort_by', sel.value);
-      u.searchParams.delete('page');
-      location.href = u.href;
-    });
-
-    // Price range apply -> filter.v.price params
-    const apply = document.querySelector('[data-price-apply]');
-    if (apply) apply.addEventListener('click', () => {
-      const u = new URL(location.href);
-      document.querySelectorAll('[data-price-input]').forEach(inp => {
-        u.searchParams.delete(inp.name);
-        if (inp.value) u.searchParams.set(inp.name, inp.value);
-      });
       u.searchParams.delete('page');
       location.href = u.href;
     });

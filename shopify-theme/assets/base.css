@@ -50,7 +50,32 @@ select.contact-input, select.svc-input, select.careers-input, select.rx-input, s
   background-repeat: no-repeat; background-size: 16px 16px;
 }
 select.contact-input, select.svc-input, select.careers-input, select.rx-input, select.acct-input { padding: 0 42px 0 14px; background-color: #ffffff; background-position: right 14px center; }
-.sortby-box select { border: none; outline: none; padding: 0 24px 0 0; background-color: transparent; background-position: right center; font-family: inherit; font-weight: 600; font-size: 15px; color: var(--c-primary-text); }
+/* Sort box: the select IS the box, so a click anywhere on it opens the picker. The
+   "Sort by:" label sits over the select's left padding with pointer-events off, so a
+   click on the words lands on the select too. 88px clears the label at 15px Mulish. */
+.sortby-box { position: relative; display: flex; }
+.sortby-box label { position: absolute; left: 17.5px; top: 50%; transform: translateY(-50%); pointer-events: none; font-weight: 700; font-size: 15px; color: var(--c-text); }
+.sortby-box select { flex: 1; min-height: 46px; margin: 0; border: 1.5px solid var(--c-primary); border-radius: 9px; padding: 0 42px 0 88px; background-color: #ffffff; background-position: right 16px center; font-weight: 600; color: var(--c-primary-text); outline: none; transition: border-color .15s ease, box-shadow .15s ease; }
+.sortby-box select:hover { border-color: var(--c-primary-hover); }
+.sortby-box select:focus { box-shadow: 0 0 0 4px rgba(146, 200, 63, .15); }
+.sortby-box select:focus-visible { outline: 2px solid var(--c-dark); outline-offset: 2px; }
+/* The open list, themed where the browser can style it (Chrome and Edge 135+).
+   Mouse screens only: phones keep the native picker, because iOS's wheel and
+   Android's sheet beat anything custom for a thumb and a screen reader. Every
+   other browser falls back to the plain native list; keyboard and type-ahead
+   come from the select either way. */
+@media (hover: hover) and (pointer: fine) {
+  @supports (appearance: base-select) {
+    .sortby-box select, .sortby-box select::picker(select) { appearance: base-select; }
+    .sortby-box select { align-items: center; }
+    .sortby-box select::picker-icon { display: none; }
+    .sortby-box select::picker(select) { margin-top: 6px; padding: 6px; border: 1.5px solid var(--c-border-2); border-radius: 12px; background: #ffffff; box-shadow: 0 12px 32px rgba(42, 43, 42, .14); }
+    .sortby-box option { gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 15px; font-weight: 600; color: var(--c-text); }
+    .sortby-box option:hover, .sortby-box option:focus-visible { background: var(--c-success-bg); outline: none; }
+    .sortby-box option:checked { color: var(--c-primary-text); font-weight: 700; }
+    .sortby-box option::checkmark { color: var(--c-primary-text); }
+  }
+}
 
 h1 { font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px, 3.2vw, 42px); }
 h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 2.2vw, 28px); }
@@ -697,8 +722,6 @@ input:not([type=checkbox]):not([type=radio]):not([type=range]), select, textarea
 .annc-phone:hover { color: var(--c-accent) !important; }
 .ftr-cookie-btn:hover { color: var(--c-primary-text) !important; }
 .filter-toggle:hover { color: var(--c-primary-text) !important; }
-.sortby-box:hover { border-color: var(--c-primary-hover) !important; }
-.sortby-box:focus-within { box-shadow: 0 0 0 4px rgba(146, 200, 63, .15); }
 
 /* Card hover: the View button fades up over the image, the image eases in
    4%. Shared by the collection product cards (.pcard is a div holding the link)
