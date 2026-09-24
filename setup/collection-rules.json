@@ -1150,17 +1150,6 @@
   ],
   "appliedDisjunctively": false
  },
- "wild-nutrition": {
-  "title": "Wild Nutrition",
-  "rules": [
-   {
-    "column": "VENDOR",
-    "relation": "EQUALS",
-    "condition": "Wild Nutrition"
-   }
-  ],
-  "appliedDisjunctively": false
- },
  "womens-fragrance": {
   "title": "Women's Fragrance",
   "rules": [

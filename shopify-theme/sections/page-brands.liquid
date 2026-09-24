@@ -2,7 +2,7 @@
   .brand-tile { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; border:1px solid #e6e7e4; border-radius:14px; padding:26px 20px; background:#ffffff; min-height:150px; }
   .brand-tile:hover { box-shadow:0 12px 26px rgba(0,0,0,.08); border-color:var(--c-accent); }
   .brand-chip { display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:8px; background:#f2f3f1; color:#3a3d39; font-family:var(--font-heading); font-weight:800; font-size:14.5px; }
-  .brand-chip:hover { background:var(--c-primary) !important; color:var(--c-on-primary) !important; }
+  a.brand-chip:hover { background:var(--c-primary) !important; color:var(--c-on-primary) !important; }
   .brand-az-a { font-size:14.5px; line-height:1.45; color:#3a3d39; }
   .brand-az-a:hover { color:var(--c-primary-text) !important; }
   .brand-pill { display:inline-flex; align-items:center; height:38px; padding:0 18px; border-radius:999px; font-size:14px; font-weight:700; background:#f2f3f1; color:#3a3d39; }
@@ -56,13 +56,21 @@
   {%- endif -%}
 
   <div style="display:flex; flex-wrap:wrap; gap:7px; padding:16px 0 24px; border-top:1px solid #e6e7e4; border-bottom:1px solid #e6e7e4; margin:0 0 30px;">
+    {%- comment -%} brand-az.liquid is generated from setup/brands.json, which only has the
+        letters some brand starts with; a chip for a missing letter would jump nowhere. {%- endcomment -%}
+    {%- capture brand_az -%}{% render 'brand-az' %}{%- endcapture -%}
     {%- assign letters = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z' | split: ',' -%}
     {%- for l in letters -%}
-      <a href="#brand-{{ l | downcase }}" class="brand-chip">{{ l }}</a>
+      {%- assign anchor = 'id="brand-' | append: l | downcase | append: '"' -%}
+      {%- if brand_az contains anchor -%}
+        <a href="#brand-{{ l | downcase }}" class="brand-chip">{{ l }}</a>
+      {%- else -%}
+        <span class="brand-chip" aria-disabled="true" style="opacity:.4; cursor:default;">{{ l }}</span>
+      {%- endif -%}
     {%- endfor -%}
   </div>
   <div data-brand-az style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:30px 26px;">
-    {% render 'brand-az' %}
+    {{ brand_az }}
   </div>
   <p data-brand-empty hidden style="padding:8px 0 0; font-size:15px; color:#666b60;">No brand matches that name. <button type="button" data-brand-clear style="border:none; background:none; padding:0; font:inherit; color:var(--c-primary-text); font-weight:700; cursor:pointer; text-decoration:underline;">Show all brands</button>, or press Search to look for products instead.</p>
 </section>
@@ -76,7 +84,7 @@
   const grid = root.querySelector('[data-brand-az]');
   if (!input || !grid) return;
   const groups = [...grid.children];
-  const chips = [...root.querySelectorAll('.brand-chip')];
+  const chips = [...root.querySelectorAll('a.brand-chip')];
   const empty = root.querySelector('[data-brand-empty]');
 
   const filter = () => {
