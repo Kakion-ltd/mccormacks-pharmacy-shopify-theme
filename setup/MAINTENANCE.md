@@ -446,6 +446,36 @@ in a confidently wrong order.
 
 ---
 
+## Store API access — check it, do not guess it (24 Sep 2026)
+
+Two sessions on 24 Sep reported different access levels for the same store.
+What is actually granted on `mccormackpharmacy.myshopify.com`, as of that date:
+
+- **App:** "Shopify CLI Connector App" (`shopify-cli-connector-app`), installed
+  by `npx shopify store auth`.
+- **Scopes:** `read_products` and `write_products`, nothing else. That covers
+  products and collections (rules, vendors, types), and not orders, customers,
+  themes or settings. This is the agreed scope for catalogue work.
+- **User:** matthew@kakion.com (not the account owner).
+- **Token:** `~/Library/Preferences/shopify-cli-store-nodejs/config.json` on
+  this Mac, an access token that lasts about 24 hours plus a refresh token.
+  Never print that file unredacted.
+
+Scopes change when someone re-runs `store auth` with a different `--scopes`
+list. Once the app is installed, adding a scope can pass without a visible
+prompt. So ask the store what it has granted:
+
+```sh
+npx shopify store execute -s mccormackpharmacy.myshopify.com \
+  -q '{ currentAppInstallation { accessScopes { handle } } }'
+```
+
+`store execute` refuses mutations unless `--allow-mutations` is passed, so
+read-only work cannot write by accident. `setup/provision.mjs` does not use this
+token: it takes a separate Admin API token through `ADMIN_TOKEN`.
+
+---
+
 ## Dispatch cutoff and Click & Collect — both fail closed
 
 `snippets/buy-assurance.liquid` renders the reassurance beside the Add to bag
