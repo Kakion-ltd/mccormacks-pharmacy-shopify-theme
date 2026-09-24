@@ -955,9 +955,19 @@
     "column": "TYPE",
     "relation": "EQUALS",
     "condition": "Pharmacy > Sensitive Conditions"
+   },
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Pharmacy > Women's Health"
+   },
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Pharmacy > Sexual Health"
    }
   ],
-  "appliedDisjunctively": false
+  "appliedDisjunctively": true
  },
  "sensodyne": {
   "title": "Sensodyne",
