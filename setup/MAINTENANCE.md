@@ -482,10 +482,13 @@ worth knowing: on a bank holiday Monday, Google will show that store's normal
 Monday hours. Fixing that properly means publishing a dated exception list each
 year.
 
-**Still outstanding: latitude and longitude for all seven.** Until every store
-has both, the locator's "Use my location" button stays disabled — that is
-deliberate, since sorting by distance with partial coordinates would put stores
-in a confidently wrong order.
+**Latitude and longitude are set for all seven** (Store block → Latitude /
+Longitude, in `page.store-locator.json` since `04b27a6`, 23 Sep 2026). They
+place each store on the map and drive "Use my location" sorting.
+
+If a store is added, enter its coordinates when it is created: the "Use my
+location" button renders once *any* store has coordinates, not only when *every*
+store does, so a store saved without them would sort in a confidently wrong place.
 
 ---
 

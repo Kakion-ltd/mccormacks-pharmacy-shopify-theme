@@ -113,11 +113,6 @@ footer already point at Shopify's set.
 
 ### Store details
 
-**Map positions for the seven shops. Owner: Pharmacy.**
-The "use my location" button on the store finder stays switched off until
-every shop has its exact map position (latitude and longitude). You can copy
-these from each shop's Google Business Profile.
-
 **Who reads the website's email inbox. Owner: Pharmacy.**
 Seven forms on the website send an email and nothing else:
 
@@ -148,6 +143,29 @@ You chose white writing on the lime-green voucher card. It is hard to read,
 and it fails the readability standard the rest of the site meets. Please
 confirm you want to keep it. Dark writing is a one-line change if you
 reconsider.
+
+### The Sale collection has one product on sale
+
+**What goes in the Sale collection. Decision needed: pharmacy.**
+The Sale collection holds 2 products, and only 1 of them is on the website:
+the Voduz R'oil and Hairdryer Bundle. The Electric Picnic Bundle is in the
+collection but isn't published to the online shop.
+
+Sale is one of the most visible things on the site. Customers reach it from:
+
+- the homepage section headed **"On Sale This Month"**
+- the **Special Offers** slide on the homepage
+- the **Sale** link in the header and in the homepage category row
+- the "You may also like" row on the gift vouchers page
+
+Right now, all of them lead to a single product. Please decide what should be
+on sale at launch. Enter each product's old price as well as its new one, so
+the website can show the reduction. If you'd rather not run a sale at launch,
+tell us and we'll take the Sale links and sections down until you do.
+
+Please don't unpublish the last product in the collection without telling us.
+If the collection has nothing published, the homepage section falls back to
+sample products from the design, with made-up prices.
 
 ### Product questions (from the two spreadsheets)
 
@@ -203,18 +221,12 @@ Some images are still missing, including photos of the seven shops. Where an
 image is missing, the website shows a neat placeholder. The image brief
 (`IMAGE-BRIEF.md`) lists every slot with the size it needs.
 
-**Mobile filter and sort. Owner: Kakion.**
-Built and checked, not yet live:
-
-- On phones, the filter now opens as a panel from the side, with **Apply** and
-  **Clear all** always on screen.
-- The sort box matches the rest of the site.
-
-Due to go live in the next update.
-
-**Mobile "back" link and breadcrumbs. Owner: Kakion.**
-Built and checked, not yet live. On phones, a single "back" link replaces the
-long trail of page links at the top of the page. Due in the same update.
+**Lock the Google Maps key. Owner: Kakion.**
+The store finder's map uses a Google Maps key, and anyone can see it in the
+page. On 24 September it worked from any website, not just yours, so someone
+else could use it and run up charges on your Google account. We're restricting
+it to your web addresses in Google's settings. It needs the new address added
+when the site moves to its own domain.
 
 **Test the website's forms with a real submission. Owner: Kakion, with the
 pharmacy.**
@@ -230,13 +242,10 @@ Nothing on the website changes with the seasons by itself. The homepage slides
 changed by hand in the theme editor.
 
 **Small tidy-ups. Owner: Kakion.**
-- The store still holds two spare copies of the website design: "Policies
-  Preview", from the previous developer, and a development copy. Neither is
-  shown to customers. We'll remove them after the handover so nobody edits
-  the wrong one.
-- The store-finder map uses a Google Maps key. It should be locked to your
-  web address in Google's settings, so nobody else can use it and run up
-  charges.
+- The store still holds one spare copy of the website design, "Policies
+  Preview", from the previous developer. Customers don't see it. It stays until
+  you've signed everything off, then we'll remove it so nobody edits the wrong
+  one.
 - The "cancel an order" form doesn't label its emails the way the other six
   do. It is a small fix, so the inbox can sort them.
 - An unfinished change to the widths of the drop-down menus. We'll finish it
@@ -246,8 +255,8 @@ changed by hand in the theme editor.
 
 ## 3. What is done
 
-All of this is built and checked. The most recent work, including the
-pharmacist check, goes onto the store in the final update before the handover.
+All of this is built, checked and on the store, as of the update on 24
+September.
 
 - The new design, on every page, on phones and computers.
 - About 2,474 products, arranged in 8 departments and roughly 290 categories,
@@ -255,10 +264,15 @@ pharmacist check, goes onto the store in the final update before the handover.
 - Menus built from the same category list, so the header, the phone menu and
   the category pages always agree.
 - Search with suggestions as you type.
+- Filters that open as a panel on phones, with Apply and Clear all always on
+  screen, and a sort box that matches the rest of the site.
+- On phones, a single "back" link at the top of each page instead of the long
+  trail of links.
 - A bag that slides in from the side, a wishlist, and a "quick view" on
   product cards.
-- The seven shops, with addresses, phone numbers, opening hours and a map.
-  Google reads the opening hours too.
+- The seven shops, with addresses, phone numbers, opening hours, a map, and a
+  "use my location" button that puts the nearest shop first. Google reads the
+  opening hours too.
 - The gift voucher page.
 - The pharmacist check for medicines, ready for your list and your questions.
 - "Tell me when it's back" requests on sold-out products. A person from the
