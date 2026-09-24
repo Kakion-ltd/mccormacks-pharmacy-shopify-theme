@@ -1178,6 +1178,40 @@ drop the `.pdp-recs` flex order from the mobile rules; do not cap the
 gallery height instead, which shrinks the photo to fit whatever the buy
 column happens to be for that product.
 
+## Brand pages — which brands get one (24 Sep 2026)
+
+`setup/brands.json` was rebuilt from the live catalogue on 24 Sep 2026. It is
+the source for the Brands page A–Z, the brand collections in
+`collections.json`, and the brand tier in the category snippets. It had been a
+design-time list: 44 of its 88 brands had no products, and the store's biggest
+vendors (BPerfect, Medicare, Jenny Glow) had no page.
+
+The rule: **a vendor with 5 or more published products gets a page.** Two
+deliberate exceptions:
+
+- **Thin but kept:** 19 brands with 1–4 products stay, and are flagged to the
+  client as a ranging question rather than removed. They include CeraVe,
+  Sudocrem, Bio-Oil, Neutrogena, Oral-B and Viagra Connect, which customers
+  search for by name.
+- **Adopted, not duplicated:** BPerfect, Voduz, Luna By Lisa and Pestle & Mortar
+  use the client's own collections (same handle, same vendor rule). They
+  remain the client's, and `provision.mjs rules` will not overwrite them.
+
+A brand page's rule is `VENDOR EQUALS <title>`. Shopify matches it ignoring
+case and accents: the fabÜ page matches vendor "Fabu". So a title can read
+"Calvin Klein" while the vendor stays "CALVIN KLEIN".
+
+**A new collection 404s on the storefront until it is published** to the
+Online Store. The `provision.mjs publish` step needs `read_publications` and
+`write_publications`, which the catalogue token does not carry by default (see
+"Store API access").
+
+Letter chips on the Brands page link only to letters that have a brand. The
+rest render greyed out, so removing a brand can no longer leave a chip that
+jumps nowhere. X and Y are greyed out as of this rebuild.
+
+---
+
 ## Generated snippets — edit the generator, never the output (three times now)
 
 Nine snippets are written by three scripts in `setup/`: `gen_brands.py` owns
