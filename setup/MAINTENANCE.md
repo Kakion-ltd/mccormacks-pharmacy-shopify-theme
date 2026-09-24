@@ -491,9 +491,13 @@ What is actually granted on `mccormackpharmacy.myshopify.com`, as of that date:
 
 - **App:** "Shopify CLI Connector App" (`shopify-cli-connector-app`), installed
   by `npx shopify store auth`.
-- **Scopes:** `read_products` and `write_products`, nothing else. That covers
-  products and collections (rules, vendors, types), and not orders, customers,
-  themes or settings. This is the agreed scope for catalogue work.
+- **Scopes:** `read_products`, `write_products`, `read_publications` and
+  `write_publications`, nothing else. The first two cover products and
+  collections (rules, vendors, types). The publications pair, added later on
+  24 Sep, lets a new collection be published to the Online Store. None of them
+  reach orders, customers, themes or settings. This is the agreed scope for
+  catalogue work.
+- **Sales channel:** Online Store is `gid://shopify/Publication/341524873547`.
 - **User:** matthew@kakion.com (not the account owner).
 - **Token:** `~/Library/Preferences/shopify-cli-store-nodejs/config.json` on
   this Mac, an access token that lasts about 24 hours plus a refresh token.
@@ -1240,9 +1244,9 @@ case and accents: the fabÜ page matches vendor "Fabu". So a title can read
 "Calvin Klein" while the vendor stays "CALVIN KLEIN".
 
 **A new collection 404s on the storefront until it is published** to the
-Online Store. The `provision.mjs publish` step needs `read_publications` and
-`write_publications`, which the catalogue token does not carry by default (see
-"Store API access").
+Online Store. Publishing needs `read_publications` and `write_publications`,
+which the catalogue token has carried since 24 Sep (see "Store API access").
+All 134 brand collections were checked as published on that date.
 
 Letter chips on the Brands page link only to letters that have a brand. The
 rest render greyed out, so removing a brand can no longer leave a chip that
