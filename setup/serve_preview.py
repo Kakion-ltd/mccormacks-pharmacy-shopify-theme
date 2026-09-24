@@ -29,6 +29,10 @@ def product_page(handle):
         return first_existing("preview/product.variants2.html", "preview/product.html")
     if handle == "nurofen-plus-200mg-12-8mg-24-tablets":
         return first_existing("preview/product.restricted.html", "preview/product.html")
+    if handle == "viagra-connect-sildenafil-50mg-tablets-8-pack":
+        # The gated pharmacy fixture: its own render so the questionnaire modal and the
+        # form-less (no-JS-safe) buy box are reachable. Not in CATALOGUE, so routed here.
+        return first_existing("preview/product.gated.html", "preview/product.html")
     # Unknown handles 404, as on Shopify. Serving the generic page for any handle
     # hid dead product links and let verify scripts pass against URLs that do not exist.
     if handle not in HANDLES:

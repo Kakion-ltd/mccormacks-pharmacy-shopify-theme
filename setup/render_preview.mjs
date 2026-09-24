@@ -379,6 +379,49 @@ CATALOGUE[0].faq = [
   { question: 'TEST DATA: this entry has no answer and must not render.', answer: '   ' },
 ];
 
+// Harness-only pharmacist-questionnaire fixture: the Viagra Connect question set, so the
+// gate (snippets/pharmacy-questionnaire + the gated buy box) has something real to render
+// before the client supplies their own. NOT customer copy and never shipped — on the live
+// store these come from the pharmacy_questionnaire / pharmacy_question metaobjects the
+// pharmacist edits. Field shape mirrors a metaobject: every field read as `.value`, list
+// fields as arrays. Kinds: yes_no, choice, multi, confirm, short_text, long_text.
+const mfv = (value) => ({ value });
+const pharmaQuestion = (label, kind, extra = {}) => ({
+  label: mfv(label), kind: mfv(kind),
+  options: mfv(extra.options || null),
+  optional: mfv(extra.optional === true),
+  blocking_answers: mfv(extra.blocking || null),
+  help: mfv(extra.help || null),
+});
+const CONTRAINDICATIONS = [
+  'Heart attack, heart failure or stroke in the last 6 months',
+  'Unstable angina, or angina during sex',
+  'Low blood pressure, or uncontrolled high blood pressure',
+  'Allergy or intolerance to any of the ingredients',
+  'A physical deformation of the penis (e.g. Peyronie’s disease)',
+];
+const INTERACTING_MEDS = [
+  'Nitrates or nitric oxide donors (e.g. GTN spray), or "poppers" (amyl nitrate)',
+  'Guanylate cyclase stimulators such as riociguat',
+  'Alpha-blockers such as doxazosin',
+  'Ritonavir, ketoconazole, itraconazole, clarithromycin or erythromycin',
+];
+const PHARMACY_QUESTIONNAIRE = {
+  title: mfv('Questions from our pharmacist'),
+  version: mfv('viagra-connect-2026-09'),
+  questions: mfv([
+    pharmaQuestion('Are you a male over 18 experiencing erectile dysfunction (difficulty getting or keeping an erection)?', 'yes_no', { blocking: ['No'] }),
+    pharmaQuestion('Do any of these apply to you?', 'multi', { options: CONTRAINDICATIONS, blocking: CONTRAINDICATIONS,
+      help: 'These are conditions where this medicine should not be taken.' }),
+    pharmaQuestion('Do you have any of these health conditions?', 'multi', {
+      options: ['Severe kidney impairment', 'Severe liver impairment', 'Pelvic surgery or non-nerve-sparing prostatectomy', 'Breathlessness or chest pain on light activity'],
+      help: 'Not automatic blocks — your pharmacist will review these before dispensing.' }),
+    pharmaQuestion('Are you taking any of these medications?', 'multi', { options: INTERACTING_MEDS, blocking: INTERACTING_MEDS }),
+    pharmaQuestion('I confirm I have read the product description and directions of use, and will use the product together with the Patient Information Leaflet.', 'confirm'),
+    pharmaQuestion('I consent to McCormack’s Pharmacy processing my health data for the purpose of ensuring the safe supply of this medication.', 'confirm'),
+  ]),
+};
+
 const handleOf = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 // Minimal collection stub for product.collections — the PDP breadcrumb reads
 // .first.url and .first.title from it.
@@ -966,6 +1009,35 @@ const FORM_ON = { 'page.in-store-services': { __sectionSettingsOverride: { 'page
     try {
       writeFileSync(join(outDir, 'product.restricted.html'), await renderTemplate('product'));
       console.log(`restricted product page: ${restricted.handle}`);
+    } finally {
+      Object.assign(globals, saved);
+    }
+  }
+}
+
+{
+  // The gated pharmacy product: worked example of the questionnaire framework. Built
+  // from a single-variant product shape, then given the restricted tag (so grids
+  // suppress its one-click add) and a pharmacy.questionnaire metafield (so the PDP
+  // renders the gate instead of a plain add-to-cart form). Harness-only, like the FAQ
+  // fixture; not in catalogue.json, so it never seeds the store.
+  const base = products.find((p) => p.has_only_default_variant && p.available);
+  if (base) {
+    const gated = {
+      ...base,
+      title: 'Viagra Connect Sildenafil 50mg Tablets 8 Pack',
+      handle: 'viagra-connect-sildenafil-50mg-tablets-8-pack',
+      url: '/products/viagra-connect-sildenafil-50mg-tablets-8-pack',
+      vendor: 'Viagra Connect', type: 'Sexual Health',
+      tags: [...(base.tags || []), globals.settings.restricted_tag || 'pharmacist-review'],
+      metafields: { ...base.metafields, pharmacy: { questionnaire: { value: PHARMACY_QUESTIONNAIRE }, intro: { value: null } } },
+    };
+    const saved = { product: globals.product, request: globals.request };
+    globals.product = gated;
+    globals.request = { ...globals.request, page_type: 'product' };
+    try {
+      writeFileSync(join(outDir, 'product.gated.html'), await renderTemplate('product'));
+      console.log(`gated product page: ${gated.handle} (questionnaire: ${PHARMACY_QUESTIONNAIRE.questions.value.length} questions)`);
     } finally {
       Object.assign(globals, saved);
     }

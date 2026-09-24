@@ -1,0 +1,268 @@
+{%- comment -%}
+  Pharmacist questionnaire — the gate a P-medicine product passes through before it
+  can be added to the bag. Rendered by sections/main-product.liquid ONLY when the
+  product carries a pharmacy.questionnaire metafield; ungated products never see it.
+
+  How the gate holds (and why it is unlike Inish's):
+    - The gated buy box has NO {% form 'product' %} around it, so with JavaScript
+      off there is nothing to submit and the product cannot be added at all. The
+      "Answer a few questions" button is type=button and inert without JS. This is
+      the requirement Inish leave open: their /cart/add form still posts without JS.
+    - With JS, the button opens this modal. Submitting posts the answers to
+      /cart/add.js as line-item properties, so they land ON THE ORDER, visible to
+      the pharmacist in Shopify admin under each line item. No third party, no
+      Airtable, no token in the page.
+
+  Question kinds (metaobject pharmacy_question.kind):
+    yes_no   single-select Yes / No
+    choice   single-select radio over `options`
+    multi    multi-select checkboxes over `options`, plus an exclusive
+             "None of the above" the framework adds itself
+    confirm  one mandatory tick; the label is the statement being confirmed
+    short_text / long_text  free text
+  Every question is required unless its `optional` flag is set. Any selected answer
+  listed in a question's `blocking_answers` stops the sale and shows the notice.
+
+  Accepts: product, questionnaire (the pharmacy_questionnaire metaobject),
+           section_id, variant (current variant, for the id fallback).
+{%- endcomment -%}
+{%- assign pq_id = 'pq-' | append: section_id -%}
+<div class="pq-modal" data-pq-modal="{{ pq_id }}" hidden>
+  <div class="pq-backdrop" data-pq-close></div>
+  <div class="pq-card" role="dialog" aria-modal="true" aria-labelledby="{{ pq_id }}-title" tabindex="-1">
+    <button type="button" class="pq-x" data-pq-close aria-label="Close">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 19 19 5M5 5l14 14"/></svg>
+    </button>
+    <h3 class="pq-title" id="{{ pq_id }}-title">{{ questionnaire.title.value | default: 'Questions from our pharmacist' }}</h3>
+    <p class="pq-intro">This is a pharmacy medicine. Please answer honestly so our registered pharmacist can check it is safe for you before we dispense {{ product.title }}. Your answers are attached to your order for the pharmacist to review.</p>
+
+    <form class="pq-form" data-pq-form novalidate>
+      {%- for q in questionnaire.questions.value -%}
+        {%- assign kind = q.kind.value -%}
+        {%- assign required = true -%}
+        {%- if q.optional.value == true -%}{%- assign required = false -%}{%- endif -%}
+        {%- capture blocking -%}{{ q.blocking_answers.value | join: '||' }}{%- endcapture -%}
+        {%- assign fname = pq_id | append: '-q' | append: forloop.index -%}
+        <fieldset class="pq-q" data-pq-q data-kind="{{ kind }}" data-label="{{ q.label.value | escape }}" data-required="{{ required }}" data-blocking="{{ blocking | escape }}">
+          <legend class="pq-q-label">{{ q.label.value }}{%- unless required %} <span class="pq-optional">(optional)</span>{%- endunless -%}</legend>
+          {%- if q.help.value != blank -%}<p class="pq-help">{{ q.help.value }}</p>{%- endif -%}
+          <div class="pq-fields">
+            {%- case kind -%}
+              {%- when 'yes_no' -%}
+                <label class="pq-opt"><input type="radio" name="{{ fname }}" value="Yes"> Yes</label>
+                <label class="pq-opt"><input type="radio" name="{{ fname }}" value="No"> No</label>
+              {%- when 'choice' -%}
+                {%- for opt in q.options.value -%}
+                  <label class="pq-opt"><input type="radio" name="{{ fname }}" value="{{ opt | escape }}"> {{ opt }}</label>
+                {%- endfor -%}
+              {%- when 'multi' -%}
+                {%- for opt in q.options.value -%}
+                  <label class="pq-opt"><input type="checkbox" name="{{ fname }}" value="{{ opt | escape }}"> {{ opt }}</label>
+                {%- endfor -%}
+                <label class="pq-opt"><input type="checkbox" name="{{ fname }}" value="None of the above" data-pq-none> None of the above</label>
+              {%- when 'confirm' -%}
+                <label class="pq-opt pq-confirm"><input type="checkbox" name="{{ fname }}" value="I confirm"> {{ q.label.value }}</label>
+              {%- when 'short_text' -%}
+                <input type="text" class="pq-text" name="{{ fname }}">
+              {%- when 'long_text' -%}
+                <textarea class="pq-text" name="{{ fname }}" rows="3"></textarea>
+            {%- endcase -%}
+          </div>
+          <p class="pq-error" data-pq-error hidden>Please answer this question.</p>
+        </fieldset>
+      {%- endfor -%}
+
+      <div class="pq-blocked" data-pq-blocked hidden role="alert">
+        Based on your answers, this medicine may not be safe for you. Please speak to our pharmacist before buying — call the pharmacy or use Ask a pharmacist. We cannot add it to your bag.
+      </div>
+
+      <input type="hidden" data-pq-version value="{{ questionnaire.version.value }}">
+      <button type="submit" class="btn btn-fill pq-submit" data-pq-submit>Submit &amp; add to bag</button>
+      <p class="pq-status" data-pq-status hidden></p>
+    </form>
+  </div>
+</div>
+
+{%- comment -%} One binding for the page, however many gated sections render (only one
+   ever does on a PDP). Kept inline so the snippet ships nothing extra to load. {%- endcomment -%}
+<script>
+(() => {
+  if (window.__pqBound) return; window.__pqBound = true;
+  const routes = window.mccRoutes || {};
+  const addUrl = (routes.cart_add_url || '/cart/add') + '.js';
+  const cartUrl = (routes.cart_url || '/cart') + '.js';
+
+  const modalFor = (btn) => {
+    const sec = btn.closest('[id^="pdp-"]') || document;
+    return sec.querySelector('[data-pq-modal]') || document.querySelector('[data-pq-modal]');
+  };
+  let lastFocus = null;
+  const open = (modal) => {
+    lastFocus = document.activeElement;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    const first = modal.querySelector('input, textarea, button');
+    if (first) first.focus();
+  };
+  const close = (modal) => {
+    modal.hidden = true;
+    document.body.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  };
+
+  document.addEventListener('click', (e) => {
+    const opener = e.target.closest('[data-open-questionnaire]');
+    if (opener) { e.preventDefault(); const m = modalFor(opener); if (m) open(m); return; }
+    const closer = e.target.closest('[data-pq-close]');
+    if (closer) { const m = closer.closest('[data-pq-modal]'); if (m) close(m); }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const m = document.querySelector('[data-pq-modal]:not([hidden])');
+    if (m) close(m);
+  });
+
+  // "None of the above" is exclusive with the real options in its question.
+  document.addEventListener('change', (e) => {
+    const cb = e.target;
+    if (cb.type !== 'checkbox') return;
+    const q = cb.closest('[data-pq-q]');
+    if (!q || q.dataset.kind !== 'multi') return;
+    const none = q.querySelector('[data-pq-none]');
+    if (!none) return;
+    if (cb === none) {
+      if (none.checked) q.querySelectorAll('input[type=checkbox]').forEach((o) => { if (o !== none) o.checked = false; });
+    } else if (cb.checked) {
+      none.checked = false;
+    }
+    reblock(q.closest('[data-pq-form]'));
+  });
+
+  // Read the selected answers of one question as an array of strings.
+  const answersOf = (q) => {
+    const kind = q.dataset.kind;
+    if (kind === 'yes_no' || kind === 'choice') {
+      const r = q.querySelector('input[type=radio]:checked');
+      return r ? [r.value] : [];
+    }
+    if (kind === 'multi' || kind === 'confirm') {
+      return [...q.querySelectorAll('input[type=checkbox]:checked')].map((c) => c.value);
+    }
+    const t = q.querySelector('.pq-text');
+    const v = t && t.value.trim();
+    return v ? [v] : [];
+  };
+
+  // A blocking answer anywhere in the form stops the sale, live.
+  const isBlocked = (form) => [...form.querySelectorAll('[data-pq-q]')].some((q) => {
+    const set = (q.dataset.blocking || '').split('||').filter(Boolean);
+    if (!set.length) return false;
+    return answersOf(q).some((a) => set.includes(a));
+  });
+  const reblock = (form) => {
+    if (!form) return;
+    const blocked = isBlocked(form);
+    form.querySelector('[data-pq-blocked]').hidden = !blocked;
+    const submit = form.querySelector('[data-pq-submit]');
+    submit.disabled = blocked;
+    submit.style.opacity = blocked ? '.5' : '';
+  };
+
+  const setError = (q, on) => {
+    q.querySelector('[data-pq-error]').hidden = !on;
+    q.classList.toggle('pq-has-error', on);
+  };
+
+  document.addEventListener('submit', async (e) => {
+    const form = e.target.closest('[data-pq-form]');
+    if (!form) return;
+    e.preventDefault();
+    if (isBlocked(form)) { reblock(form); return; }
+
+    // Validate: every required question answered.
+    let firstBad = null;
+    form.querySelectorAll('[data-pq-q]').forEach((q) => {
+      const required = q.dataset.required === 'true';
+      const bad = required && answersOf(q).length === 0;
+      setError(q, bad);
+      if (bad && !firstBad) firstBad = q;
+    });
+    if (firstBad) { firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+
+    // Answers become line-item properties, keyed and ordered as the pharmacist reads them.
+    const props = {};
+    form.querySelectorAll('[data-pq-q]').forEach((q, i) => {
+      const ans = answersOf(q);
+      if (!ans.length) return;
+      props[(i + 1) + '. ' + q.dataset.label] = ans.join('; ');
+    });
+    // Hidden stamps (leading _ keeps them off the cart display, still on the order).
+    props._questionnaire = form.closest('[data-pq-modal]').querySelector('.pq-title').textContent.trim();
+    const ver = form.querySelector('[data-pq-version]').value;
+    if (ver) props._questionnaire_version = ver;
+    props._answered_at = new Date().toISOString();
+    props._pharmacist_review = 'required';
+
+    const sec = form.closest('[id^="pdp-"]') || document;
+    const idInput = sec.querySelector('input[name="id"]') || document.querySelector('[data-gated-buybox] input[name="id"]');
+    const qtyInput = sec.querySelector('[data-pdp-qty]');
+    const id = idInput && parseInt(idInput.value, 10);
+    const quantity = Math.max(1, (qtyInput && parseInt(qtyInput.value, 10)) || 1);
+    const status = form.querySelector('[data-pq-status]');
+    const submit = form.querySelector('[data-pq-submit]');
+    if (!id) { status.hidden = false; status.textContent = 'Please choose an option first.'; return; }
+
+    submit.disabled = true; submit.textContent = 'Submitting…'; status.hidden = true;
+    try {
+      const res = await fetch(addUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, quantity, properties: props }),
+      });
+      if (!res.ok) {
+        let msg = 'Sorry — we could not add this to your bag.';
+        try { const b = await res.json(); msg = b.description || b.message || msg; } catch {}
+        throw new Error(msg);
+      }
+      const cart = await fetch(cartUrl).then((r) => r.json());
+      document.querySelectorAll('[data-cart-count]').forEach((el) => {
+        el.textContent = cart.item_count; el.style.display = cart.item_count > 0 ? 'flex' : 'none';
+      });
+      close(form.closest('[data-pq-modal]'));
+      if (window.mccCartDrawer) { window.mccCartDrawer.render(cart); window.mccCartDrawer.open(); }
+    } catch (err) {
+      status.hidden = false; status.textContent = err.message;
+    } finally {
+      submit.disabled = false; submit.textContent = 'Submit & add to bag';
+      reblock(form);
+    }
+  });
+})();
+</script>
+
+{% style %}
+  .pq-modal { position: fixed; inset: 0; z-index: 500; display: flex; align-items: center; justify-content: center; padding: 20px; }
+  .pq-modal[hidden] { display: none; }
+  .pq-backdrop { position: absolute; inset: 0; background: rgba(20,22,19,.55); }
+  .pq-card {
+    position: relative; z-index: 1; width: min(560px, 100%); max-height: 88vh; overflow-y: auto;
+    background: #fff; border-radius: 18px; padding: 30px 30px 34px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.28);
+  }
+  .pq-x { position: absolute; top: 16px; right: 16px; border: none; background: transparent; color: #3a3d39; cursor: pointer; padding: 4px; }
+  .pq-title { font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-weight: 800; font-size: 22px; color: var(--c-primary-text); margin: 0 40px 8px 0; }
+  .pq-intro { font-size: 14.5px; line-height: 1.6; color: #4a4d47; margin: 0 0 22px; }
+  .pq-q { border: none; margin: 0 0 22px; padding: 0; }
+  .pq-q-label { font-weight: 700; font-size: 15px; color: #2A2B2A; padding: 0; margin-bottom: 10px; line-height: 1.45; }
+  .pq-optional { font-weight: 500; color: #767a70; }
+  .pq-help { font-size: 13px; color: #767a70; margin: 0 0 8px; }
+  .pq-fields { display: flex; flex-direction: column; gap: 9px; }
+  .pq-opt { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; line-height: 1.45; color: #2A2B2A; cursor: pointer; }
+  .pq-opt input { margin-top: 3px; flex: 0 0 auto; }
+  .pq-text { width: 100%; border: 1.5px solid #dfe1dc; border-radius: 10px; padding: 10px 12px; font: inherit; }
+  .pq-error { color: #B3261E; font-size: 13px; margin: 8px 0 0; font-weight: 600; }
+  .pq-has-error .pq-q-label { color: #B3261E; }
+  .pq-blocked { background: #fbeceb; color: #8a1f18; border-radius: 12px; padding: 14px 16px; font-size: 14px; line-height: 1.55; font-weight: 600; margin: 4px 0 20px; }
+  .pq-submit { width: 100%; }
+  .pq-status { color: #B3261E; font-size: 14px; font-weight: 600; margin: 12px 0 0; text-align: center; }
+{% endstyle %}

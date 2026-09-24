@@ -11,6 +11,11 @@
 {%- endif -%}
 {%- assign ingredients_mf = product.metafields.custom.ingredients -%}
 {%- assign how_to_use_mf = product.metafields.custom.how_to_use -%}
+{%- comment -%} A pharmacy-only product references a questionnaire metaobject here. When
+    it does, the buy box is gated: no {% form 'product' %} is rendered (so with JS off the
+    product cannot be added at all), and Add to bag opens the questionnaire instead. See
+    the form block below and snippets/pharmacy-questionnaire. {%- endcomment -%}
+{%- assign questionnaire = product.metafields.pharmacy.questionnaire.value -%}
 
 {%- comment -%} The most specific collection this product belongs to. Shopify's
     product.collections ordering is arbitrary, so .first was picking a department as
@@ -217,16 +222,15 @@
           {% if current_variant.available %}In stock — ready to ship{% else %}Out of stock{% endif %}
         </div>
 
-        {% form 'product', product, data-ajax-add: 'true' %}
-          {%- comment -%} On a multi-variant product this input starts disabled, so it is
-              not submitted, and the script below enables it. Two reasons. The option
-              selects cannot name a variant on their own — Shopify's /cart/add resolves
-              an `id`, never a set of option values — so with no JavaScript the noscript
-              select underneath is the only control that can, and a disabled input keeps
-              the two from both submitting `id`. And if the script never runs at all, the
-              form submits no id and fails loudly rather than adding whichever variant
-              the page happened to be built with. On a pharmacy, shipping the wrong pack
-              size silently is the worse outcome. {%- endcomment -%}
+        {%- comment -%} The variant controls are identical whether or not the product is
+            gated, so they are captured once and emitted into whichever buy box renders.
+            The hidden id input starts disabled on a multi-variant product (the script
+            below enables it) so a no-JS submit sends no id rather than the wrong one, and
+            the option selects cannot name a variant on their own — /cart/add resolves an
+            `id`, never option values. The noscript variant picker is the no-JS buy path
+            and so is dropped for a gated product, which must have no no-JS buy path at
+            all. {%- endcomment -%}
+        {%- capture variant_selects -%}
           <input type="hidden" name="id" value="{{ current_variant.id }}"{% unless product.has_only_default_variant %} disabled data-pdp-id{% endunless %}>
           {%- unless product.has_only_default_variant -%}
             {%- for option in product.options_with_values -%}
@@ -234,54 +238,73 @@
               <div style="margin-bottom:16px;">
                 <label for="Opt-{{ section.id }}-{{ opt_i }}" style="display:block; font-size:13.5px; font-weight:700; color:#2A2B2A; margin-bottom:8px;">{{ option.name }}</label>
                 <select id="Opt-{{ section.id }}-{{ opt_i }}" data-opt-index="{{ opt_i }}" style="width:100%; height:52px; border:1.5px solid #dfe1dc; border-radius:11px; padding:0 14px; font-family:inherit; font-size:15px; color:#2A2B2A; background:#fff; cursor:pointer;">
-                  {%- comment -%} Selected comes from the variant the rest of the buy box is
-                      built from, not from option.selected_value. The two disagree whenever
-                      the first variant is unavailable: selected_value can still name the
-                      first variant's values while every other field here — price, stock,
-                      the submitted id — follows selected_or_first_available_variant. The
-                      page then offers a sold-out combination at another variant's price
-                      and adds a third. Reading current_variant is right either way. {%- endcomment -%}
                   {%- for value in option.values -%}
                     <option value="{{ value | escape }}" {% if current_variant.options[opt_i] == value %}selected{% endif %}>{{ value }}</option>
                   {%- endfor -%}
                 </select>
               </div>
             {%- endfor -%}
-            {%- comment -%} The no-JavaScript buy path: one control that names a variant
-                outright. Browsers do not put noscript content in the DOM when scripting
-                is on, so this never competes with the selects above. {%- endcomment -%}
-            <noscript>
-              <div style="margin-bottom:16px;">
-                <label for="NoJsVariant-{{ section.id }}" style="display:block; font-size:13.5px; font-weight:700; color:#2A2B2A; margin-bottom:8px;">Choose an option</label>
-                <select id="NoJsVariant-{{ section.id }}" name="id" style="width:100%; height:52px; border:1.5px solid #dfe1dc; border-radius:11px; padding:0 14px; font-family:inherit; font-size:15px; color:#2A2B2A; background:#fff;">
-                  {%- for variant in product.variants -%}
-                    <option value="{{ variant.id }}"{% if variant.id == current_variant.id %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} (out of stock){% endunless %}</option>
-                  {%- endfor -%}
-                </select>
-              </div>
-            </noscript>
+            {%- if questionnaire == blank -%}
+              <noscript>
+                <div style="margin-bottom:16px;">
+                  <label for="NoJsVariant-{{ section.id }}" style="display:block; font-size:13.5px; font-weight:700; color:#2A2B2A; margin-bottom:8px;">Choose an option</label>
+                  <select id="NoJsVariant-{{ section.id }}" name="id" style="width:100%; height:52px; border:1.5px solid #dfe1dc; border-radius:11px; padding:0 14px; font-family:inherit; font-size:15px; color:#2A2B2A; background:#fff;">
+                    {%- for variant in product.variants -%}
+                      <option value="{{ variant.id }}"{% if variant.id == current_variant.id %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} (out of stock){% endunless %}</option>
+                    {%- endfor -%}
+                  </select>
+                </div>
+              </noscript>
+            {%- endif -%}
           {%- endunless -%}
-          <div class="pdp-addbag" style="display:flex; gap:12px; align-items:stretch; margin-bottom:18px;">
-            <div style="flex:0 0 auto; display:flex; align-items:center; border:1.5px solid #dfe1dc; border-radius:12px; overflow:hidden;">
-              <button type="button" data-qty-step="-1" disabled aria-label="Decrease quantity" style="width:46px; height:100%; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">−</button>
-              <input type="text" name="quantity" value="1" inputmode="numeric" data-pdp-qty aria-label="Quantity" style="width:44px; border:none; text-align:center; font-weight:700; font-size:16px; color:var(--c-primary-text); outline:none; background:#fff;">
-              <button type="button" data-qty-step="1" aria-label="Increase quantity" style="width:46px; height:100%; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">+</button>
-            </div>
-            <button type="submit" data-pdp-submit class="btn btn-fill" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:11px; letter-spacing:.06em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
-              {%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}
-            </button>
+        {%- endcapture -%}
+        {%- capture qty_stepper -%}
+          <div style="flex:0 0 auto; display:flex; align-items:center; border:1.5px solid #dfe1dc; border-radius:12px; overflow:hidden;">
+            <button type="button" data-qty-step="-1" disabled aria-label="Decrease quantity" style="width:46px; height:100%; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">−</button>
+            <input type="text" name="quantity" value="1" inputmode="numeric" data-pdp-qty aria-label="Quantity" style="width:44px; border:none; text-align:center; font-weight:700; font-size:16px; color:var(--c-primary-text); outline:none; background:#fff;">
+            <button type="button" data-qty-step="1" aria-label="Increase quantity" style="width:46px; height:100%; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">+</button>
           </div>
-          {% render 'wishlist-button', product: product, style: 'text' %}
-          {%- comment -%} Shopify's accelerated checkout button (Shop Pay / Apple Pay / …).
-              Skips the cart entirely for a shopper who just wants this one item. Behind a
-              setting because it can cannibalise cart-based upsell — switch it off in the
-              editor rather than editing code. Renders nothing in the mock preview. {%- endcomment -%}
-          {%- if section.settings.show_dynamic_checkout and current_variant.available -%}
-            <div class="pdp-express" style="margin-top:12px;">
-              {{ form | payment_button }}
+        {%- endcapture -%}
+
+        {%- if questionnaire == blank -%}
+          {% form 'product', product, data-ajax-add: 'true' %}
+            {{ variant_selects }}
+            <div class="pdp-addbag" style="display:flex; gap:12px; align-items:stretch; margin-bottom:18px;">
+              {{ qty_stepper }}
+              <button type="submit" data-pdp-submit class="btn btn-fill" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:11px; letter-spacing:.06em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
+                {%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}
+              </button>
             </div>
-          {%- endif -%}
-        {% endform %}
+            {% render 'wishlist-button', product: product, style: 'text' %}
+            {%- comment -%} Shopify's accelerated checkout button (Shop Pay / Apple Pay / …).
+                Skips the cart entirely for a shopper who just wants this one item. Behind a
+                setting because it can cannibalise cart-based upsell — switch it off in the
+                editor rather than editing code. Renders nothing in the mock preview. {%- endcomment -%}
+            {%- if section.settings.show_dynamic_checkout and current_variant.available -%}
+              <div class="pdp-express" style="margin-top:12px;">
+                {{ form | payment_button }}
+              </div>
+            {%- endif -%}
+          {% endform %}
+        {%- else -%}
+          {%- comment -%} Gated buy box. Deliberately NOT a {% form 'product' %}: with no
+              form there is nothing to POST, so a no-JS visitor cannot add this medicine at
+              all — the gate Inish leave open. The button is type=button and opens the
+              questionnaire; the express checkout button is omitted because it would skip
+              the questionnaire entirely. The same data-* hooks are used, so the variant
+              script below still drives the id, price and stock. {%- endcomment -%}
+          <div class="pdp-buybox" data-gated-buybox>
+            {{ variant_selects }}
+            <div class="pdp-addbag" style="display:flex; gap:12px; align-items:stretch; margin-bottom:18px;">
+              {{ qty_stepper }}
+              <button type="button" data-pdp-submit data-open-questionnaire aria-haspopup="dialog" class="btn btn-fill" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:11px; letter-spacing:.04em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
+                {%- if current_variant.available %}ANSWER A FEW QUESTIONS{% else %}OUT OF STOCK{% endif -%}
+              </button>
+            </div>
+            {% render 'wishlist-button', product: product, style: 'text' %}
+          </div>
+          {% render 'pharmacy-questionnaire', product: product, questionnaire: questionnaire, section_id: section.id, variant: current_variant %}
+        {%- endif -%}
         {%- comment -%} Outside the product form deliberately: a contact form cannot be
             nested inside another form, and this is the one case where the buy box has
             nothing to sell. Off by default (show_back_in_stock) until the client
@@ -381,10 +404,20 @@
       <span data-buybar-qty style="min-width:34px; text-align:center; font-weight:700; font-size:16px; color:var(--c-primary-text);">1</span>
       <button type="button" data-qty-step="1" aria-label="Increase quantity" style="width:46px; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">+</button>
     </div>
-    <button type="button" data-add-id="{{ current_variant.id }}" data-add-qty="1" data-buybar-add class="btn btn-fill" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:10px; letter-spacing:.05em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-      <span data-buybar-label>{%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}</span>
-    </button>
+    {%- comment -%} On a gated product this bar opens the questionnaire too, rather than
+        quick-adding: a [data-add-id] button would post straight to /cart/add.js and skip
+        the gate. {%- endcomment -%}
+    {%- if questionnaire == blank -%}
+      <button type="button" data-add-id="{{ current_variant.id }}" data-add-qty="1" data-buybar-add class="btn btn-fill" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:10px; letter-spacing:.05em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        <span data-buybar-label>{%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}</span>
+      </button>
+    {%- else -%}
+      <button type="button" data-open-questionnaire aria-haspopup="dialog" class="btn btn-fill" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:10px; letter-spacing:.04em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        <span>{%- if current_variant.available %}ANSWER A FEW QUESTIONS{% else %}OUT OF STOCK{% endif -%}</span>
+      </button>
+    {%- endif -%}
   </div>
 
 </div>
