@@ -366,7 +366,7 @@
    {
     "column": "TYPE",
     "relation": "EQUALS",
-    "condition": "Supplements > Women's Wellbeing"
+    "condition": "Supplements > Energy & Vitality"
    }
   ],
   "appliedDisjunctively": false
@@ -461,6 +461,22 @@
  },
  "face-masks": {
   "title": "Face Masks",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Skincare > Masks & Peels"
+   },
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Masks & Peels"
+   }
+  ],
+  "appliedDisjunctively": true
+ },
+ "facial-skincare": {
+  "title": "Facial Skincare",
   "rules": [
    {
     "column": "TYPE",
@@ -1057,12 +1073,17 @@
   "title": "Travel Sickness",
   "rules": [
    {
-    "column": "TYPE",
+    "column": "VENDOR",
     "relation": "EQUALS",
-    "condition": "Pharmacy > Travel Essentials"
+    "condition": "Kwells"
+   },
+   {
+    "column": "VENDOR",
+    "relation": "EQUALS",
+    "condition": "Stugeron"
    }
   ],
-  "appliedDisjunctively": false
+  "appliedDisjunctively": true
  },
  "udos-choice": {
   "title": "Udo’s Choice",
@@ -1125,7 +1146,7 @@
    {
     "column": "VENDOR",
     "relation": "EQUALS",
-    "condition": "WILD"
+    "condition": "Wild Nutrition"
    }
   ],
   "appliedDisjunctively": false
@@ -1140,6 +1161,22 @@
    }
   ],
   "appliedDisjunctively": false
+ },
+ "womens-health": {
+  "title": "Women's Health",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Supplements > Women's Wellbeing"
+   },
+   {
+    "column": "TAG",
+    "relation": "EQUALS",
+    "condition": "Women's Health"
+   }
+  ],
+  "appliedDisjunctively": true
  },
  "zirtek": {
   "title": "Zirtek",
