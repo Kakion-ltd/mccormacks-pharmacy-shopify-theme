@@ -234,12 +234,17 @@ emails and Shopify's own consent banner always link there and a theme can't
 change that. **Don't delete or redirect the `/pages/` versions yet.** The
 client and their solicitor still have to confirm which text is correct.
 
+On 24 Sep the places where a customer agrees to or is shown the terms were
+moved to `/policies/`: the registration checkbox (`main-register.liquid`),
+the phone-only bottom-bar link in `footer.liquid`, and the footer Policies
+menu (Terms, Privacy). Registration and checkout now point at the same
+documents.
+
 Links in the theme that still point at the `/pages/` versions are in
-`main-register.liquid`, `back-in-stock.liquid`, `page-prescriptions.liquid`,
-`page-services.liquid`, `page-cookie-policy.liquid`, `legal-sidebar.liquid`,
-`product-faq.liquid`, and the phone-only bottom-bar link at the foot of
-`footer.liquid`. The footer's link columns come from admin menus and point at
-a mix of both.
+`back-in-stock.liquid`, `page-prescriptions.liquid`, `page-services.liquid`,
+`page-cookie-policy.liquid`, `legal-sidebar.liquid` and `product-faq.liquid`.
+The footer's Shipping & Returns menu still links `/pages/shipping` and
+`/pages/returns`. Move them when the solicitor has confirmed the text.
 
 The `/policies/*` pages are styled by the block headed "Shopify policy pages"
 in `base.css`. Shopify writes that markup itself; the theme only gets the class

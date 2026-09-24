@@ -32,3 +32,11 @@ timing points to a script, but the store records no author or app for pages.
 
 Still live and not changed: `/pages/faq`, which is now linked from nowhere and
 itself links to the hidden `delivery` and `internet-supply`.
+
+**Later the same day.** `/pages/faq` hidden too: nothing linked to it, and two of
+its own links pointed at hidden pages. The four footer menus were rebuilt:
+Policies to `/policies/` for Terms and Privacy, plus Cookie Policy and Withdraw
+From Contract, minus Refund Policy; Customer Care plus Store Locator,
+Prescriptions, In-Store Services and Careers, with Blog moved to `/blogs/news`;
+Shipping & Returns plus Pharmacist Review; Shop minus New In (empty collection).
+Before: `footer-menus-before-rebuild.json`.

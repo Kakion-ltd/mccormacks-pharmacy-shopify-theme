@@ -114,18 +114,19 @@ async function createCollections() {
 // built-in fallback links, so this can land last without breaking the footer.
 const FOOTER_MENUS = [
   ['Footer Shop', 'footer-shop', [
-    ['All Brands', '/pages/brands'], ['New In', '/collections/new-in'], ['Bundles', '/collections/bundles'],
+    ['All Brands', '/pages/brands'], ['Bundles', '/collections/bundles'],
     ['Gift Vouchers', '/pages/gift-vouchers'], ['Sale', '/collections/sale']]],
   ['Footer Customer Care', 'footer-customer-care', [
-    ['About Us', '/pages/about-us'], ['Contact Us', '/pages/contact-us'],
-    ['Loyalty Rewards Club', '/pages/loyalty-rewards-club'], ['Blog', '/blogs/health-hub']]],
+    ['About Us', '/pages/about-us'], ['Contact Us', '/pages/contact-us'], ['Store Locator', '/pages/store-locator'],
+    ['Prescriptions', '/pages/prescriptions'], ['In-Store Services', '/pages/in-store-services'],
+    ['Careers', '/pages/careers'], ['Blog', '/blogs/news']]],
   ['Footer Shipping Returns', 'footer-shipping-returns', [
     ['Shipping & Free Delivery', '/pages/shipping'], ['Returns & Refunds', '/pages/returns'],
-    ['Click & Collect', '/pages/click-and-collect']]],
+    ['Click & Collect', '/pages/click-and-collect'], ['Pharmacist Review', '/pages/pharmacist-review']]],
   ['Footer Policies', 'footer-policies', [
-    ['Terms & Conditions', '/pages/terms-and-conditions'], ['Privacy Policy', '/pages/privacy-policy'],
-    ['Cookie Policy', '/pages/cookie-policy'], ['Registered Internet Supply Pharmacy', '/pages/internet-supply-pharmacy'],
-    ['Withdraw From Contract', '/pages/withdraw-from-contract']]],
+    ['Terms & Conditions', '/policies/terms-of-service'], ['Privacy Policy', '/policies/privacy-policy'],
+    ['Cookie Policy', '/pages/cookie-policy'], ['Withdraw From Contract', '/pages/withdraw-from-contract'],
+    ['Registered Internet Supply Pharmacy', '/pages/internet-supply-pharmacy']]],
 ];
 
 async function createMenus() {

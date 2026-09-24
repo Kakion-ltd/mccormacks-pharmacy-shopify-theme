@@ -1,0 +1,135 @@
+[
+ {
+  "id": "gid://shopify/Menu/332913836363",
+  "handle": "footer-policies",
+  "title": "Policies",
+  "items": [
+   {
+    "id": "gid://shopify/MenuItem/866478293323",
+    "title": "Terms & Conditions",
+    "url": "/policies/terms-of-service",
+    "type": "HTTP",
+    "items": []
+   },
+   {
+    "id": "gid://shopify/MenuItem/866478326091",
+    "title": "Privacy Policy",
+    "url": "/policies/privacy-policy",
+    "type": "HTTP",
+    "items": []
+   },
+   {
+    "id": "gid://shopify/MenuItem/866478358859",
+    "title": "Refund Policy",
+    "url": "/policies/refund-policy",
+    "type": "HTTP",
+    "items": []
+   },
+   {
+    "id": "gid://shopify/MenuItem/866478391627",
+    "title": "Registered Internet Supply Pharmacy",
+    "url": "/pages/internet-supply-pharmacy",
+    "type": "HTTP",
+    "items": []
+   }
+  ]
+ },
+ {
+  "id": "gid://shopify/Menu/346541130059",
+  "handle": "footer-shop",
+  "title": "Footer Shop",
+  "items": [
+   {
+    "id": "gid://shopify/MenuItem/882617155915",
+    "title": "All Brands",
+    "url": "/pages/brands",
+    "type": "HTTP",
+    "items": []
+   },
+   {
+    "id": "gid://shopify/MenuItem/882617188683",
+    "title": "New In",
+    "url": "/collections/new-in",
+    "type": "HTTP",
+    "items": []
+   },
+   {
+    "id": "gid://shopify/MenuItem/882617221451",
+    "title": "Bundles",
+    "url": "/collections/bundles",
+    "type": "HTTP",
+    "items": []
+   },
+   {
+    "id": "gid://shopify/MenuItem/882617254219",
+    "title": "Gift Vouchers",
+    "url": "/pages/gift-vouchers",
+    "type": "HTTP",
+    "items": []
+   },
+   {
+    "id": "gid://shopify/MenuItem/882617286987",
+    "title": "Sale",
+    "url": "/collections/sale",
+    "type": "HTTP",
+    "items": []
+   }
+  ]
+ },
+ {
+  "id": "gid://shopify/Menu/346541162827",
+  "handle": "footer-customer-care",
+  "title": "Footer Customer Care",
+  "items": [
+   {
+    "id": "gid://shopify/MenuItem/882617319755",
+    "title": "About Us",
+    "url": "/pages/about-us",
+    "type": "HTTP",
+    "items": []
+   },
+   {
+    "id": "gid://shopify/MenuItem/882617352523",
+    "title": "Contact Us",
+    "url": "/pages/contact-us",
+    "type": "HTTP",
+    "items": []
+   },
+   {
+    "id": "gid://shopify/MenuItem/882617418059",
+    "title": "Blog",
+    "url": "/blogs/health-hub",
+    "type": "HTTP",
+    "items": []
+   }
+  ]
+ },
+ {
+  "id": "gid://shopify/Menu/346541195595",
+  "handle": "footer-shipping-returns",
+  "title": "Footer Shipping Returns",
+  "items": [
+   {
+    "id": "gid://shopify/MenuItem/882617450827",
+    "title": "Shipping & Free Delivery",
+    "url": "/pages/shipping",
+    "type": "HTTP",
+    "items": []
+   },
+   {
+    "id": "gid://shopify/MenuItem/882617483595",
+    "title": "Returns & Refunds",
+    "url": "/pages/returns",
+    "type": "HTTP",
+    "items": []
+   },
+   {
+    "id": "gid://shopify/MenuItem/882617516363",
+    "title": "Click & Collect",
+    "url": "/pages/click-and-collect",
+    "type": "HTTP",
+    "items": []
+   }
+  ]
+ }
+]
