@@ -718,7 +718,7 @@ body[data-qv-open] { overflow: hidden; }
 .qv-media img { width: 88%; height: auto; display: block; }
 .qv-info { display: flex; flex-direction: column; padding-right: 36px; }
 .qv-vendor { font-size: 13px; font-weight: 700; color: var(--c-primary-text); margin-bottom: 6px; }
-.qv-title { font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-weight: 800; color: var(--c-dark); font-size: 24px; line-height: 1.2; margin: 0 0 12px; }
+.qv-title { font-family: var(--font-heading); font-weight: 800; color: var(--c-dark); font-size: 24px; line-height: 1.2; margin: 0 0 12px; }
 .qv-price { display: flex; align-items: baseline; gap: 10px; color: var(--c-primary-text); font-weight: 800; font-size: 26px; margin-bottom: 18px; }
 .qv-compare { color: #666b60; font-weight: 600; font-size: 16px; text-decoration: line-through; }
 .qv-opt { margin-bottom: 14px; }

@@ -10,7 +10,7 @@
   }
   .loc-search:focus { border-color:var(--c-primary-text); }
   .loc-btn-outline:hover { border-color: var(--c-accent) !important; }
-  .loc-store-link { font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-weight: 800; font-size: 18.5px; color: var(--c-dark); background: none; border: none; padding: 0; cursor: pointer; text-align: left; }
+  .loc-store-link { font-family: var(--font-heading); font-weight: 800; font-size: 18.5px; color: var(--c-dark); background: none; border: none; padding: 0; cursor: pointer; text-align: left; }
   .loc-store-link:hover { color:var(--c-primary-text); }
   .loc-other-link { display: block; width: 100%; padding: 10px 0; border: none; border-bottom: 1px solid #eceee9; background: none; font-family: inherit; font-size: 14.5px; font-weight: 700; color: #3a3d39; cursor: pointer; text-align: left; }
   .loc-other-link:hover { color:var(--c-primary-text); }
@@ -21,7 +21,7 @@
     <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
       <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Store Locator</span>
     </nav>
-    <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
+    <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
     <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
     <div style="display:flex; flex-wrap:wrap; gap:10px; max-width:560px; margin:0 0 28px;">
       <input type="search" data-loc-search class="loc-search" placeholder="Town or Eircode" aria-controls="loc-results-{{ section.id }}" style="flex:1 1 240px; height:44px; border:1px solid #dfe1dc; border-radius:10px; padding:0 16px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none; min-width:0;">
@@ -80,7 +80,7 @@
         {%- capture map_stores -%}[{%- for block in section.blocks -%}{"name":{{ block.settings.name | json }},"lat":{{ block.settings.latitude | json }},"lng":{{ block.settings.longitude | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]{%- endcapture -%}
         {% render 'map-placeholder', height: 440, stores: map_stores %}
         <div style="margin-top:16px; padding:20px 22px; border-radius:16px; background:#eef2e8;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:7px;">Bank holiday hours</div>
+          <div style="font-family:var(--font-heading); font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:7px;">Bank holiday hours</div>
           <div style="font-size:14px; line-height:1.7; color:#3a3d39;">On bank holidays every store keeps its Sunday hours &mdash; Newbridge and Haggardstown open 11.00am &ndash; 5.00pm, the rest are closed. Christmas and New Year hours vary, so please phone your store before travelling.</div>
         </div>
       </aside>
@@ -100,7 +100,7 @@
           {%- if block.settings.badge != blank -%}
             <span style="display:inline-flex; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:#eef2e8; color:var(--c-primary-text); font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:14px;">{{ block.settings.badge }}</span>
           {%- endif -%}
-          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ block.settings.name }}</h2>
+          <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ block.settings.name }}</h2>
           <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ full_address }}</p>
           <div style="display:flex; flex-wrap:wrap; gap:12px; margin:0 0 30px;">
             <a href="tel:{{ block.settings.phone | remove: ' ' }}" class="btn btn-fill" style="gap:9px">
@@ -120,7 +120,7 @@
             {%- capture map_stores -%}[{"name":{{ block.settings.name | json }},"lat":{{ block.settings.latitude | json }},"lng":{{ block.settings.longitude | json }}}]{%- endcapture -%}
             {% render 'map-placeholder', height: 300, stores: map_stores %}
           {%- endif -%}
-          <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">Opening hours</h2>
+          <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">Opening hours</h2>
           <div style="border-top:1px solid #e6e7e4; max-width:460px;">
             {%- capture hour_rows -%}{%- render 'store-hours', hours: block.settings.hours -%}{%- endcapture -%}
             {%- assign hour_lines = hour_rows | strip | split: '|' -%}
@@ -131,7 +131,7 @@
           </div>
           <div style="font-size:13.5px; color:#666b60; margin-top:12px;">Bank holidays follow Sunday hours. Christmas and New Year hours vary &mdash; please phone ahead.</div>
           {%- if block.settings.services != blank -%}
-            <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">Services at this store</h2>
+            <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">Services at this store</h2>
             <div style="display:flex; flex-wrap:wrap; gap:10px;">
               {%- assign svc_list = block.settings.services | split: ',' -%}
               {%- for svc in svc_list -%}
@@ -148,7 +148,7 @@
         </div>
         <aside class="loc-side" style="flex:0 0 330px; width:330px; position:sticky; top:20px;">
           <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin:0 0 14px;">Other stores</div>
+            <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin:0 0 14px;">Other stores</div>
             <div style="display:flex; flex-direction:column; gap:3px;">
               {%- assign current_index = forloop.index -%}
               {%- for other in section.blocks -%}

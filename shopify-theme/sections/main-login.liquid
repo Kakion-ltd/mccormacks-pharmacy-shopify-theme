@@ -4,7 +4,7 @@
 
       {%- comment -%} Recover panel (rendered first so recover_success is known before the login card) {%- endcomment -%}
       <div data-view="recover" style="display:none; border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(25px,2.8vw,33px); line-height:1.12; margin:0 0 10px;">Reset your password</h1>
+        <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(25px,2.8vw,33px); line-height:1.12; margin:0 0 10px;">Reset your password</h1>
         <p style="margin:0 0 24px; font-size:15.5px; line-height:1.65; color:#4a4d47;">Enter the email address on your account and we will send you a link to set a new password.</p>
         {% form 'recover_customer_password' %}
           {%- assign recover_success = form.posted_successfully? -%}
@@ -23,7 +23,7 @@
       </div>
 
       <div data-view="login" style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(25px,2.8vw,33px); line-height:1.12; margin:0 0 10px;">Sign in</h1>
+        <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(25px,2.8vw,33px); line-height:1.12; margin:0 0 10px;">Sign in</h1>
         {%- if recover_success -%}
           <div style="background:#EEF6E4; color:var(--c-success); border:1px solid rgba(94,138,31,.25); border-radius:10px; padding:14px 16px; margin:0 0 18px; font-size:14px; line-height:1.6;">We've sent you an email with a link to update your password.</div>
         {%- endif -%}

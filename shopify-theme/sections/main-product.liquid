@@ -151,7 +151,7 @@
         {%- if rel_count > 0 -%}
         <!-- You may also like: under the description, not beside Add To Bag -->
         <div class="pdp-recs" style="margin-top:34px; max-width:600px;">
-        <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:24px; margin:0 0 20px;">You May Also Like</h2>
+        <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:24px; margin:0 0 20px;">You May Also Like</h2>
         <div style="display:flex; flex-direction:column; gap:6px;">
           {%- assign shown = 0 -%}
           {%- for p in rel -%}
@@ -203,13 +203,13 @@
         {%- if product.vendor != blank -%}
           <div style="font-size:14px; font-weight:700; color:var(--c-primary-text); margin-bottom:8px;"><a href="{{ product.vendor | url_for_vendor }}" class="hov-green-dk" style="color:var(--c-primary-text);">{{ product.vendor }}</a></div>
         {%- endif -%}
-        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(26px,2.8vw,34px); line-height:1.12; margin:0 0 10px;">{{ product.title }}</h1>
+        <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(26px,2.8vw,34px); line-height:1.12; margin:0 0 10px;">{{ product.title }}</h1>
         {%- if current_variant.sku != blank -%}
           <div data-pdp-sku style="font-size:14px; color:#666b60; margin-bottom:10px;">SKU {{ current_variant.sku }}</div>
         {%- endif -%}
         <div style="margin-bottom:18px;">{% render 'product-rating', product: product, size: 16, count_label: 'long', link: '#product-reviews' %}</div>
         <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:12px;">
-          <span data-pdp-price style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-primary-text); font-weight:800; font-size:clamp(28px,3vw,38px);">{{ current_variant.price | money }}</span>
+          <span data-pdp-price style="font-family:var(--font-heading); color:var(--c-primary-text); font-weight:800; font-size:clamp(28px,3vw,38px);">{{ current_variant.price | money }}</span>
           <span data-pdp-compare style="font-weight:600; font-size:clamp(17px,1.8vw,22px); color:#666b60; text-decoration:line-through; {% unless on_sale %}display:none;{% endunless %}">{{ current_variant.compare_at_price | money }}</span>
         </div>
         <div data-pdp-stock style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:700; margin-bottom:24px; color:{% if current_variant.available %}var(--c-success){% else %}#B3261E{% endif %};">
@@ -320,7 +320,7 @@
   {%- if rel != blank and rel.size > 0 -%}
   <!-- Have you checked -->
   <section style="max-width:1440px; margin:0 auto; padding:52px 30px 8px;">
-    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,32px); margin:0 0 26px;">Have You Checked These Products Out?</h2>
+    <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,32px); margin:0 0 26px;">Have You Checked These Products Out?</h2>
     <div style="position:relative;">
       <div id="checked-track-{{ section.id }}" style="display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;">
         {%- assign railshown = 0 -%}
@@ -394,7 +394,7 @@
   .pdp-thumb-nav:hover { border-color: var(--c-accent) !important; background: #f2f8e9 !important; }
   .pdp-tab {
     background: transparent; border: none; cursor: pointer; padding: 12px 14px 14px;
-    font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-weight: 700; color: var(--c-dark);
+    font-family: var(--font-heading); font-weight: 700; color: var(--c-dark);
     font-size: clamp(16px, 1.7vw, 20px); border-bottom: 3px solid transparent; margin-bottom: -1px;
   }
   .pdp-tab:not([data-active="true"]):hover { color:var(--c-primary-text); }

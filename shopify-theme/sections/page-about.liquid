@@ -11,7 +11,7 @@
   </nav>
   <div class="co-wrap" style="display:flex; gap:44px; align-items:flex-start;">
     <div style="flex:1 1 auto; min-width:0; max-width:760px;">
-      <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
+      <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
       {%- comment -%} Blank lines in the Intro setting become paragraph breaks;
           [threshold] prints the free delivery amount from Brand settings, as in
           the announcement bar, so the copy can never drift from the cart. {%- endcomment -%}
@@ -36,28 +36,28 @@
                loading="lazy" width="1254" height="579" style="{{ about_style }}">
         {%- endif -%}
       </div>
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">What we stand for</h2>
+      <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">What we stand for</h2>
       <p style="margin:0 0 15px; font-size:16px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">A pharmacy is not a supermarket shelf. Most of what we sell has an effect on someone&rsquo;s health, which is why there is always a pharmacist available to talk it through &mdash; whether you are spending &euro;5 or &euro;50, in store or on the phone.</p>
       <p style="margin:0 0 15px; font-size:16px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">We stock what we would recommend. If a product does not do what it claims, we do not carry it. And if the answer to your question is &ldquo;you should see your GP&rdquo;, we will say so rather than sell you something.</p>
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">The team</h2>
+      <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">The team</h2>
       <p style="margin:0 0 15px; font-size:16px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">Our pharmacists are registered with the Pharmaceutical Society of Ireland and are supported by trained pharmacy technicians, healthcare assistants and beauty advisors. Several of our team have been with us for over a decade, and many live in the towns they serve.</p>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin:22px 0 0;">
         {%- for block in section.blocks -%}
         {%- if block.type == 'stat' %}
         <div style="border:1px solid #e6e7e4; border-radius:14px; padding:20px 22px; background:#fbfcfa;" {{ block.shopify_attributes }}>
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:30px; color:var(--c-dark); line-height:1;">{{ block.settings.value }}</div>
+          <div style="font-family:var(--font-heading); font-weight:800; font-size:30px; color:var(--c-dark); line-height:1;">{{ block.settings.value }}</div>
           <div style="font-size:14.5px; font-weight:700; color:#2A2B2A; margin:8px 0 3px;">{{ block.settings.label }}</div>
           <div style="font-size:13px; line-height:1.55; color:#666b60;">{{ block.settings.sub }}</div>
         </div>
         {%- endif -%}
         {%- endfor %}
       </div>
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">Regulated, and proud of it</h2>
+      <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">Regulated, and proud of it</h2>
       <p style="margin:0 0 15px; font-size:16px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">Every one of our pharmacies is a registered retail pharmacy business, and we are on the PSI Register of Internet Supply Pharmacies. That means the medicines we sell online are supplied from a real pharmacy, by real pharmacists, under Irish law. You can <a href="/pages/internet-supply-pharmacy" class="hov-green-dk" style="font-weight:700;">read more about our registration</a>.</p>
     </div>
     <aside class="co-side" style="flex:0 0 330px; width:330px; position:sticky; top:20px;">
       <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-        <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin:0 0 14px;">Get in touch</div>
+        <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin:0 0 14px;">Get in touch</div>
         <div style="display:flex; flex-direction:column; gap:12px; font-size:14.5px; line-height:1.7; color:#3a3d39;">
           <div><span style="display:block; font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#666b60; margin-bottom:3px;">Phone</span><a href="tel:{{ settings.phone | remove: ' ' }}" class="hov-green-dk" style="font-weight:700;">{{ settings.phone }}</a></div>
           <div><span style="display:block; font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#666b60; margin-bottom:3px;">Email</span><a href="mailto:{{ settings.email }}" class="hov-green-dk" style="font-weight:700; word-break:break-word;">{{ settings.email }}</a></div>
@@ -65,7 +65,7 @@
         </div>
         <div style="margin-top:18px;"><a href="/pages/contact-us" class="btn btn-fill" style="gap:9px; width:100%">Contact us</a></div></div>
       <div style="margin-top:16px; padding:22px 24px; border-radius:16px; background:var(--c-dark); color:var(--c-on-dark);">
-        <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin:0 0 8px;">Work with us</div>
+        <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; margin:0 0 8px;">Work with us</div>
         <div style="font-size:14px; line-height:1.65; color:#d6e2cd; margin:0 0 16px;">We are usually looking for pharmacists, technicians and retail staff across our stores.</div>
         <a href="/pages/careers" class="btn btn-fill">See open roles</a>
       </div>

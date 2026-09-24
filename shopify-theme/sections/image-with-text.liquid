@@ -9,7 +9,7 @@
   <div class="iwt-flex" style="display:flex; flex-wrap:wrap;{% if section.settings.layout == 'image_first' %} flex-direction:row-reverse;{% endif %} border-radius:18px; overflow:hidden; background:#f4f5f2; min-height:clamp(180px,19vw,252px);">
     <div class="iwt-body" style="flex:1 1 380px; padding:clamp(22px,2.6vw,34px) clamp(22px,3vw,40px); display:flex; flex-direction:column; justify-content:center; gap:10px;">
       {%- if section.settings.heading != blank -%}
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,34px); line-height:1.1; margin:0;">{{ section.settings.heading }}</h2>
+      <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,34px); line-height:1.1; margin:0;">{{ section.settings.heading }}</h2>
       {%- endif -%}
       {%- if section.settings.body != blank -%}
       <div class="iwt-copy" style="font-size:clamp(14.5px,1.15vw,16px); line-height:1.6; color:#3a3d39; max-width:560px;">{{ section.settings.body }}</div>

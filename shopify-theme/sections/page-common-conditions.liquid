@@ -16,7 +16,7 @@
   .ccs-card { border: 1px solid #e6e7e4; border-radius: 16px; background: #ffffff; padding: 22px 22px 24px; }
 {% endstyle %}
 
-{%- assign h_font = "font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark);" -%}
+{%- assign h_font = "font-family:var(--font-heading); font-weight:800; color:var(--c-dark);" -%}
 
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
   <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
@@ -104,7 +104,7 @@
         {%- assign faq_id = 'ccs-faq-' | append: section.id | append: '-' | append: faq_n -%}
         <div style="border-bottom:1px solid #eceee9; padding:22px 0;" {{ block.shopify_attributes }}>
           <button data-acc-toggle="{{ faq_id }}" aria-expanded="false" aria-controls="{{ faq_id }}" style="display:flex; align-items:center; justify-content:space-between; gap:14px; width:100%; background:transparent; border:none; padding:0; cursor:pointer; text-align:left;">
-            <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0;">{{ block.settings.question }}</h3>
+            <h3 style="font-family:var(--font-heading); font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0;">{{ block.settings.question }}</h3>
             <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div class="ccs-faq-content" id="{{ faq_id }}" data-acc-content="{{ faq_id }}" data-open="false">

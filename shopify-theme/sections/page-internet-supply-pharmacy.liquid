@@ -8,7 +8,7 @@
       <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 14px;">
         <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span>Policies</span><span>/</span><span style="color:#3a3d39; font-weight:700;">Registered Internet Supply Pharmacy</span>
       </nav>
-      <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(30px,3.4vw,42px); line-height:1.08; margin:0 0 14px;">{{ section.settings.heading }}</h1>
+      <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(30px,3.4vw,42px); line-height:1.08; margin:0 0 14px;">{{ section.settings.heading }}</h1>
       <p style="margin:0 0 28px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
       <div style="height:1px; background:#e6e7e4;"></div>
       <div style="display:flex; gap:14px; background:#eef2e8; border-radius:14px; padding:18px 20px; margin:0 0 24px; margin-top:26px; align-items:center;">
@@ -17,7 +17,7 @@
           <div style="font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:4px;">Check the PSI Internet Supply list</div>
           <div style="font-size:14.5px; line-height:1.65; color:#3a3d39;">You can check the full PSI Internet Supply list at <a href="https://registrations.thepsi.ie/search-isl/" style="word-break:break-word;">thepsi.ie</a>, or by clicking the PSI logo in our footer.</div>
         </div>
-      </div><h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,27px); line-height:1.2; margin:36px 0 12px;">Record of transactions</h2><p style="margin:0 0 14px; font-size:15.5px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">As part of the regulation to maintain our inclusion on this list, please be aware that <strong>a record of each transaction will be retained for 2 years</strong>.</p><h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,27px); line-height:1.2; margin:36px 0 12px;">Contact details for the PSI</h2>
+      </div><h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,27px); line-height:1.2; margin:36px 0 12px;">Record of transactions</h2><p style="margin:0 0 14px; font-size:15.5px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">As part of the regulation to maintain our inclusion on this list, please be aware that <strong>a record of each transaction will be retained for 2 years</strong>.</p><h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,27px); line-height:1.2; margin:36px 0 12px;">Contact details for the PSI</h2>
       <div style="margin:0 0 24px;">
           <div style="display:flex; flex-wrap:wrap; gap:6px 18px; padding:13px 0; border-bottom:1px solid #eceee9;">
             <span style="flex:0 0 210px; font-weight:800; font-size:14.5px; color:#2A2B2A;">Address</span>
@@ -35,7 +35,7 @@
             <span style="flex:0 0 210px; font-weight:800; font-size:14.5px; color:#2A2B2A;">Website</span>
             <span style="flex:1 1 240px; font-size:15px; line-height:1.6; color:#3a3d39;"><a href="https://www.psi.ie" rel="noopener">www.psi.ie</a></span>
           </div>
-      </div><h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,27px); line-height:1.2; margin:36px 0 12px;">Speak to our pharmacy team</h2><p style="margin:0 0 14px; font-size:15.5px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">If you have a question about a medicine or an order, contact us on <a href="tel:{{ settings.phone | remove: ' ' }}">{{ settings.phone }}</a> during working hours and one of our trained staff will help you.</p>
+      </div><h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,27px); line-height:1.2; margin:36px 0 12px;">Speak to our pharmacy team</h2><p style="margin:0 0 14px; font-size:15.5px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">If you have a question about a medicine or an order, contact us on <a href="tel:{{ settings.phone | remove: ' ' }}">{{ settings.phone }}</a> during working hours and one of our trained staff will help you.</p>
       </div>
 
       {% render 'legal-question-card' %}

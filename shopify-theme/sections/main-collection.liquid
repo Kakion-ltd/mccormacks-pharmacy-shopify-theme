@@ -58,7 +58,7 @@
         {%- if section.settings.banner_badge != blank -%}
           <span style="display:inline-flex; align-items:center; width:fit-content; height:28px; padding:0 12px; border-radius:6px; background:#ffffff; color:var(--c-sale); font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase;">{{ section.settings.banner_badge }}</span>
         {%- endif -%}
-        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#ffffff; font-size:clamp(27px,3vw,40px); line-height:1.08; margin:0;">{{ banner_heading }}</h1>
+        <h1 style="font-family:var(--font-heading); font-weight:800; color:#ffffff; font-size:clamp(27px,3vw,40px); line-height:1.08; margin:0;">{{ banner_heading }}</h1>
         <div style="font-size:16.5px; line-height:1.65; color:#ffffff; max-width:46ch;">
           {{ banner_copy }}
         </div>
@@ -75,7 +75,7 @@
     {%- comment -%} Text-only hero: heading and copy sit side by side and use the
         width the image used to take, rather than leaving a wide empty band. {%- endcomment -%}
     <div class="banner-text" style="border-radius:18px; background:#f4f5f2; padding:clamp(24px,3vw,40px) clamp(24px,3.4vw,48px); display:flex; flex-wrap:wrap; align-items:center; gap:clamp(10px,2.4vw,44px);">
-      <h1 style="flex:1 1 300px; min-width:0; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,44px); line-height:1.05; letter-spacing:-.01em; margin:0;">{{ banner_heading }}</h1>
+      <h1 style="flex:1 1 300px; min-width:0; font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,44px); line-height:1.05; letter-spacing:-.01em; margin:0;">{{ banner_heading }}</h1>
       {%- if banner_copy != blank -%}
         <div class="banner-copy" style="flex:1 1 380px; min-width:0; font-size:clamp(14.5px,1.15vw,16px); line-height:1.6; color:#3a3d39; max-width:62ch; border-left:3px solid #dfe4d7; padding-left:clamp(14px,1.6vw,22px);">{{ banner_copy }}</div>
       {%- endif -%}
@@ -83,7 +83,7 @@
   {%- else -%}
     <div class="banner-flex" style="display:flex; flex-wrap:wrap; border-radius:18px; overflow:hidden; background:#f4f5f2; min-height:clamp(180px,19vw,252px);">
       <div class="banner-body" style="flex:1 1 440px; padding:clamp(22px,2.6vw,38px) clamp(22px,3vw,44px); display:flex; flex-direction:column; justify-content:center;">
-        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,44px); line-height:1.05; letter-spacing:-.01em; margin:0 0 12px;">{{ banner_heading }}</h1>
+        <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,44px); line-height:1.05; letter-spacing:-.01em; margin:0 0 12px;">{{ banner_heading }}</h1>
         <div class="banner-copy" style="font-size:clamp(14.5px,1.15vw,16px); line-height:1.55; color:#3a3d39; max-width:560px;">
           {{ banner_copy }}
         </div>
@@ -175,7 +175,7 @@
         {%- case filter.type -%}
           {%- when 'list', 'boolean' -%}
             <div style="margin-bottom:30px; {% unless forloop.first %}border-top:1px solid #e6e7e4; padding-top:24px;{% endunless %}">
-              <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:var(--c-primary-text); font-size:20px; margin:0 0 18px;">{{ filter.label }}</h3>
+              <h3 style="font-family:var(--font-heading); font-weight:700; color:var(--c-primary-text); font-size:20px; margin:0 0 18px;">{{ filter.label }}</h3>
               <div style="display:flex; flex-direction:column; gap:14px;">
                 {%- for value in filter.values -%}
                   <a href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}" style="display:flex; align-items:center; gap:12px; font-size:15px; color:#2A2B2A; {% if value.count == 0 and value.active == false %}opacity:.45; pointer-events:none;{% endif %}">
@@ -190,7 +190,7 @@
             </div>
           {%- when 'price_range' -%}
             <div style="{% unless forloop.first %}border-top:1px solid #e6e7e4; padding-top:24px;{% endunless %}">
-              <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:var(--c-primary-text); font-size:20px; margin:0 0 18px;">{{ filter.label }}</h3>
+              <h3 style="font-family:var(--font-heading); font-weight:700; color:var(--c-primary-text); font-size:20px; margin:0 0 18px;">{{ filter.label }}</h3>
               <div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;">
                 <div style="flex:1; display:flex; align-items:center; gap:6px; border:1.5px solid #dfe1dc; border-radius:8px; padding:9px 11px;"><span style="color:#666b60;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.min_value.param_name }}" type="number" min="0" step="0.01" placeholder="0" value="{% if filter.min_value.value %}{{ filter.min_value.value | money_without_currency | remove: ',' }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:15px; color:#2A2B2A; padding:0;"></div>
                 <span style="color:#666b60;">&ndash;</span>
@@ -300,7 +300,7 @@
       {%- else -%}
       <!-- Empty collection -->
       <div style="border:1px solid #eceee9; border-radius:16px; padding:clamp(36px,5vw,64px) 30px; text-align:center;">
-        <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 12px;">
+        <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 12px;">
           {%- if has_active -%}No products match your filters{%- else -%}No products here yet{%- endif -%}
         </h2>
         <p style="margin:0 auto 22px; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:52ch;">
@@ -322,14 +322,14 @@
 <!-- SEO copy + FAQ -->
 <section style="max-width:1440px; margin:0 auto; padding:48px 30px 8px;">
   {%- if section.settings.seo_heading != blank -%}
-    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,40px); line-height:1.1; margin:0 0 20px;">{{ section.settings.seo_heading }}</h2>
+    <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,40px); line-height:1.1; margin:0 0 20px;">{{ section.settings.seo_heading }}</h2>
   {%- endif -%}
   {%- if section.settings.seo_text != blank -%}
     <div class="seo-copy" style="margin:0 0 40px; font-size:16px; line-height:1.7; color:#3a3d39; max-width:1000px;">{{ section.settings.seo_text }}</div>
   {%- endif -%}
 
   {%- if section.blocks.size > 0 -%}
-    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,34px); margin:0 0 26px;">{{ section.settings.faq_heading }}</h2>
+    <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,34px); margin:0 0 26px;">{{ section.settings.faq_heading }}</h2>
     <div style="display:flex; flex-direction:column;">
       {%- for block in section.blocks -%}
         <div style="border-bottom:1px solid #eceee9; padding:22px 0;" {{ block.shopify_attributes }}>
@@ -337,7 +337,7 @@
               buries the rest of the page. {%- endcomment -%}
           {%- if forloop.first -%}{%- assign faq_open = 'true' -%}{%- else -%}{%- assign faq_open = 'false' -%}{%- endif -%}
           <button data-acc-toggle="faq-{{ section.id }}-{{ forloop.index }}" aria-expanded="{{ faq_open }}" aria-controls="faq-{{ section.id }}-{{ forloop.index }}" style="display:flex; align-items:center; justify-content:space-between; gap:14px; width:100%; background:transparent; border:none; padding:0; cursor:pointer; text-align:left;">
-            <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0;">{{ block.settings.question }}</h3>
+            <h3 style="font-family:var(--font-heading); font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0;">{{ block.settings.question }}</h3>
             <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transform:rotate({% if forloop.first %}180{% else %}0{% endif %}deg); transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div class="faq-content" id="faq-{{ section.id }}-{{ forloop.index }}" data-acc-content="faq-{{ section.id }}-{{ forloop.index }}" data-open="{{ faq_open }}">
@@ -359,7 +359,7 @@
 {%- if section.settings.show_also and also_col.products.size > 0 -%}
 <!-- You may also like -->
 <section style="max-width:1440px; margin:0 auto; padding:44px 30px 8px;">
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">{{ section.settings.also_heading }}</h2>
+  <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">{{ section.settings.also_heading }}</h2>
   <div style="position:relative;">
     <div id="also-track-{{ section.id }}" style="display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;">
       {%- for product in also_col.products limit: 6 -%}

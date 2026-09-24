@@ -34,7 +34,7 @@
     </nav>
     <div class="rx-wrap" style="display:flex; gap:44px; align-items:flex-start;">
       <div style="flex:1 1 auto; min-width:0; max-width:760px;">
-        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Submit a prescription</h1>
+        <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Submit a prescription</h1>
         <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">Send us your prescription in advance and we will have it ready. Our dispensary team will contact you to confirm collection or delivery.</p>
         <div style="display:flex; gap:14px; align-items:flex-start; background:#fdf6e9; border:1px solid #f0e2c4; border-radius:14px; padding:18px 20px; margin:0 0 26px;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="#c98a1b" style="flex:0 0 auto; margin-top:1px;"><path d="M12 2 1.5 21h21L12 2Zm-1 8.5v4.5h2V10.5h-2Zm0 5.8v2h2v-2h-2Z"></path></svg>
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin:0 0 18px;">Your prescription</div>
+          <div style="font-family:var(--font-heading); font-weight:800; font-size:19px; color:var(--c-dark); margin:0 0 18px;">Your prescription</div>
           {%- form 'contact', id: 'rx-submit-form' -%}
             <input type="hidden" name="contact[form_type]" value="submit-prescription">
             {%- if form.posted_successfully? -%}
@@ -61,7 +61,7 @@
               <div style="width:48px; height:48px; margin:0 auto 14px; border-radius:999px; background:#eef2e8; display:flex; align-items:center; justify-content:center;">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"></path><polyline points="7 9 12 4 17 9"></polyline><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path></svg>
               </div>
-              <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; color:var(--c-dark); margin-bottom:6px;">Upload a photo or scan</div>
+              <div style="font-family:var(--font-heading); font-weight:800; font-size:17px; color:var(--c-dark); margin-bottom:6px;">Upload a photo or scan</div>
               <div style="font-size:14px; line-height:1.65; color:#666b60; max-width:44ch; margin:0 auto 16px;">Make sure the whole prescription is visible, including the prescriber&rsquo;s details and the date. JPG, PNG or PDF, up to 10MB.</div>
               <button class="btn-sm btn-fill" type="button" disabled style="opacity:.55">Choose a file</button>
               <div style="font-size:11.5px; color:#666b60; margin-top:8px;">Uploads coming soon — we will confirm details by phone or email after you submit.</div>
@@ -115,24 +115,24 @@
       </div>
       <aside class="rx-side" style="flex:0 0 330px; width:330px; position:sticky; top:20px;">
         <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin:0 0 16px;">What happens next</div>
+          <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin:0 0 16px;">What happens next</div>
           <div style="display:flex; flex-direction:column; gap:18px;">
             <div style="display:flex; gap:18px; align-items:flex-start;">
-              <span style="flex:0 0 auto; width:36px; height:36px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center;">1</span>
+              <span style="flex:0 0 auto; width:36px; height:36px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-family:var(--font-heading); font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center;">1</span>
               <div style="padding-top:4px;">
                 <div style="font-weight:800; font-size:16.5px; color:#2A2B2A; margin-bottom:5px;">We check it</div>
                 <div style="font-size:15.5px; line-height:1.7; color:#3a3d39;">Our pharmacist verifies the prescription and confirms we have the medicine in stock.</div>
               </div>
             </div>
             <div style="display:flex; gap:18px; align-items:flex-start;">
-              <span style="flex:0 0 auto; width:36px; height:36px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center;">2</span>
+              <span style="flex:0 0 auto; width:36px; height:36px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-family:var(--font-heading); font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center;">2</span>
               <div style="padding-top:4px;">
                 <div style="font-weight:800; font-size:16.5px; color:#2A2B2A; margin-bottom:5px;">We contact you</div>
                 <div style="font-size:15.5px; line-height:1.7; color:#3a3d39;">By phone or email, usually the same working day, to confirm timing and answer any questions.</div>
               </div>
             </div>
             <div style="display:flex; gap:18px; align-items:flex-start;">
-              <span style="flex:0 0 auto; width:36px; height:36px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center;">3</span>
+              <span style="flex:0 0 auto; width:36px; height:36px; border-radius:999px; background:var(--c-primary); color:var(--c-on-primary); font-family:var(--font-heading); font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center;">3</span>
               <div style="padding-top:4px;">
                 <div style="font-weight:800; font-size:16.5px; color:#2A2B2A; margin-bottom:5px;">You collect or we deliver</div>
                 <div style="font-size:15.5px; line-height:1.7; color:#3a3d39;">Collect in store with photo ID, or we arrange delivery once verification is complete.</div>
@@ -140,7 +140,7 @@
             </div>
           </div></div>
         <div style="margin-top:16px; padding:22px 24px; border-radius:16px; background:var(--c-dark); color:var(--c-on-dark);">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin:0 0 8px;">Talk to our dispensary</div>
+          <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; margin:0 0 8px;">Talk to our dispensary</div>
           <div style="font-size:14px; line-height:1.65; color:#d6e2cd; margin:0 0 16px;">Questions about a dose, a supply issue or a medicine change? Our team will help.</div>
           <a href="tel:{{ settings.phone | remove: ' ' }}" class="btn btn-fill">{{ settings.phone }}</a>
         </div>
@@ -156,7 +156,7 @@
     </nav>
     <div class="rx-wrap" style="display:flex; gap:44px; align-items:flex-start;">
       <div style="flex:1 1 auto; min-width:0; max-width:760px;">
-        <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Repeat prescriptions</h1>
+        <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">Repeat prescriptions</h1>
         <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">If you take a regular medicine, order your repeat here and we will let you know as soon as it is ready.</p>
         <div style="display:flex; gap:14px; align-items:flex-start; background:#fdf6e9; border:1px solid #f0e2c4; border-radius:14px; padding:18px 20px; margin:0 0 26px;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="#c98a1b" style="flex:0 0 auto; margin-top:1px;"><path d="M12 2 1.5 21h21L12 2Zm-1 8.5v4.5h2V10.5h-2Zm0 5.8v2h2v-2h-2Z"></path></svg>
@@ -166,7 +166,7 @@
           </div>
         </div>
         <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin:0 0 6px;">Order a repeat</div>
+          <div style="font-family:var(--font-heading); font-weight:800; font-size:19px; color:var(--c-dark); margin:0 0 6px;">Order a repeat</div>
           <div style="font-size:14.5px; line-height:1.65; color:#666b60; margin:0 0 20px;">Already registered with us? <a href="{{ routes.account_login_url }}" class="hov-green-dk" style="font-weight:700;">Sign in</a> to see your repeat items and order in one click.</div>
           {%- form 'contact', id: 'rx-repeat-form' -%}
             <input type="hidden" name="contact[form_type]" value="repeat-prescription">
@@ -215,13 +215,13 @@
             <div style="margin-top:20px;"><button type="submit" class="btn btn-fill" style="gap:9px; width:100%">Request repeat</button></div>
           {%- endform -%}
         </div>
-        <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">Good to know</h2>
+        <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,28px); margin:36px 0 16px;">Good to know</h2>
         <p style="margin:0 0 15px; font-size:16px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">We hold your prescription on file and dispense each repeat as it falls due. Please allow two working days, and order before you run out &mdash; particularly around bank holidays.</p>
         <p style="margin:0 0 15px; font-size:16px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">If your prescription has expired, or your GP has changed your dose, we will need a new prescription before we can dispense. We will tell you as soon as we spot it.</p>
       </div>
       <aside class="rx-side" style="flex:0 0 330px; width:330px; position:sticky; top:20px;">
         <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin:0 0 16px;">Never miss a repeat</div>
+          <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin:0 0 16px;">Never miss a repeat</div>
           <div style="font-size:14.5px; line-height:1.7; color:#3a3d39; margin:0 0 16px;">Create an account and we will track your repeat items, show what is due, and let you reorder in a click.</div>
           <a href="{{ routes.account_register_url }}" class="btn btn-fill" style="gap:9px; width:100%">Create an account</a>
           <div style="margin-top:10px;"><a href="{{ routes.account_login_url }}" class="btn btn-outline" style="gap:9px; width:100%">Sign in</a></div></div>

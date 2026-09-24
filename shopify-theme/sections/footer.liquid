@@ -5,7 +5,7 @@
     <div style="position:absolute; bottom:-70%; right:14%; width:220px; height:220px; border-radius:999px; background:rgba(255,255,255,.03);"></div>
     <div class="ftr-newsletter" style="max-width:1440px; margin:0 auto; height:120px; padding:0 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 48px; position:relative;">
       <div style="flex:1 1 340px;">
-        <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#ffffff; font-size:clamp(19px,1.9vw,24px); margin:0 0 4px; line-height:1.15;">{{ section.settings.newsletter_heading }}</h3>
+        <h3 style="font-family:var(--font-heading); font-weight:800; color:#ffffff; font-size:clamp(19px,1.9vw,24px); margin:0 0 4px; line-height:1.15;">{{ section.settings.newsletter_heading }}</h3>
         <p style="margin:0; color:rgba(255,255,255,.78); font-size:13.5px; line-height:1.4;">{{ section.settings.newsletter_subtext }}</p>
       </div>
       <div style="flex:1 1 340px; max-width:400px; border-radius:9px; background:#ffffff; padding:3px;">
@@ -54,7 +54,7 @@
         {%- assign slug = parts[1] | default: block.id -%}
       {%- endif -%}
       <div {{ block.shopify_attributes }}>
-        <h4 style="margin:0;"><button type="button" data-acc-toggle="{{ slug }}" aria-expanded="false" class="ftr-acc-btn" style="width:100%; background:none; border:none; text-align:left; font-family:'Arial Rounded MT Bold', Arial, sans-serif; color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding:0 0 10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">{{ block.settings.heading }}<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></button></h4>
+        <h4 style="margin:0;"><button type="button" data-acc-toggle="{{ slug }}" aria-expanded="false" class="ftr-acc-btn" style="width:100%; background:none; border:none; text-align:left; font-family:var(--font-heading); color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding:0 0 10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">{{ block.settings.heading }}<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></button></h4>
         <div class="ftr-acc-content" data-acc-content="{{ slug }}" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;">
           {%- if menu.links.size > 0 -%}
             {%- for link in menu.links -%}

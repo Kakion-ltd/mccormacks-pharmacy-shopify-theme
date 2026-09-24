@@ -16,7 +16,7 @@
       <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Shopping bag</span>
     </nav>
     <div style="display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:12px 24px; margin:0 0 22px;">
-      <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,40px); line-height:1.08; margin:0;">Your shopping bag</h1>
+      <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,40px); line-height:1.08; margin:0;">Your shopping bag</h1>
       {%- if cart.item_count > 0 -%}
         <span style="font-size:14.5px; color:#666b60;">{{ cart.item_count }} item{% if cart.item_count != 1 %}s{% endif %}</span>
       {%- endif -%}
@@ -27,7 +27,7 @@
       <!-- Empty bag -->
       <div style="border:1px solid #e6e7e4; border-radius:16px; padding:56px 30px; text-align:center; background:#ffffff;">
         <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:16px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-        <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:22px; color:var(--c-dark); margin-bottom:8px;">Your bag is empty</div>
+        <div style="font-family:var(--font-heading); font-weight:800; font-size:22px; color:var(--c-dark); margin-bottom:8px;">Your bag is empty</div>
         <p style="margin:0 auto 24px; max-width:44ch; font-size:15px; line-height:1.6; color:#666b60;">Looks like you haven't added anything yet. Browse our shelves and we'll keep your bag ready.</p>
         <a href="/collections/medicines-health" class="btn btn-fill" style="gap:9px">Continue shopping</a>
       </div>
@@ -48,7 +48,7 @@
             </a>
             <div style="flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:8px;">
               {%- if item.vendor != blank -%}
-                <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">{{ item.vendor }}</div>
+                <div style="font-family:var(--font-heading); font-weight:800; font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">{{ item.vendor }}</div>
               {%- endif -%}
               <a href="{{ item.url }}" class="hov-green" style="font-weight:700; font-size:16px; line-height:1.45; color:#2A2B2A; max-width:46ch;">{{ item.product.title }}</a>
               {%- unless item.product.has_only_default_variant -%}
@@ -73,7 +73,7 @@
                 <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0" class="cart-remove" style="font-size:13.5px; font-weight:700; color:#666b60; border-bottom:1px solid #d8dcd3;">Remove</a>
               </div>
             </div>
-            <div style="flex:0 0 auto; text-align:right; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:#2A2B2A;">{{ item.final_line_price | money }}</div>
+            <div style="flex:0 0 auto; text-align:right; font-family:var(--font-heading); font-weight:800; font-size:19px; color:#2A2B2A;">{{ item.final_line_price | money }}</div>
           </div>
           {%- endfor -%}
         </div>
@@ -94,7 +94,7 @@
 
       <aside class="cart-side" style="flex:0 0 372px; width:372px; position:sticky; top:20px;">
         <div style="border:1px solid #e6e7e4; border-radius:16px; padding:24px; background:#ffffff;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:var(--c-dark); margin:0 0 16px;">Order summary</div>
+          <div style="font-family:var(--font-heading); font-weight:800; font-size:20px; color:var(--c-dark); margin:0 0 16px;">Order summary</div>
 
           {%- comment -%} Free delivery progress — threshold from Brand settings, same source as the bag drawer {%- endcomment -%}
           {%- assign progress = cart.total_price | times: 100 | divided_by: free_delivery_threshold | at_most: 100 -%}
@@ -114,24 +114,24 @@
 
           <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:9px 0;">
             <span style="font-size:15px; color:#666b60;">Subtotal</span>
-            <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15.5px; color:#2A2B2A;">{{ cart.original_total_price | money }}</span>
+            <span style="font-family:var(--font-heading); font-weight:800; font-size:15.5px; color:#2A2B2A;">{{ cart.original_total_price | money }}</span>
           </div>
 
           {%- if cart.total_discount > 0 -%}
           <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:9px 0;">
             <span style="font-size:15px; color:#666b60;">Savings</span>
-            <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15.5px; color:#2A2B2A;">&minus;{{ cart.total_discount | money }}</span>
+            <span style="font-family:var(--font-heading); font-weight:800; font-size:15.5px; color:#2A2B2A;">&minus;{{ cart.total_discount | money }}</span>
           </div>
           {%- endif -%}
 
           <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:9px 0;">
             <span style="font-size:15px; color:#666b60;">Delivery</span>
-            <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15.5px; color:#2A2B2A;">{% if cart.total_price >= free_delivery_threshold %}Free{% else %}Calculated at checkout{% endif %}</span>
+            <span style="font-family:var(--font-heading); font-weight:800; font-size:15.5px; color:#2A2B2A;">{% if cart.total_price >= free_delivery_threshold %}Free{% else %}Calculated at checkout{% endif %}</span>
           </div>
 
           <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:14px 0 0; border-top:1px solid #e6e7e4; margin-top:6px;">
             <span style="font-size:16.5px; font-weight:800; color:#2A2B2A;">Total</span>
-            <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:25px; color:var(--c-dark);">{{ cart.total_price | money }}</span>
+            <span style="font-family:var(--font-heading); font-weight:800; font-size:25px; color:var(--c-dark);">{{ cart.total_price | money }}</span>
           </div>
           <div style="font-size:12.5px; color:#666b60; margin:6px 0 18px;">Includes VAT where applicable</div>
 

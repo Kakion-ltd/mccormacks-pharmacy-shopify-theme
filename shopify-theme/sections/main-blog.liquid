@@ -12,8 +12,8 @@
 {% endstyle %}
 
 <section style="max-width:1440px; margin:0 auto; padding:34px 30px 6px;">
-  <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--c-primary-text); margin:0 0 10px;">{{ blog.title }}</div>
-  <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(32px,4vw,50px); line-height:1.05; margin:0 0 14px;">{{ section.settings.heading }}</h1>
+  <div style="font-family:var(--font-heading); font-weight:800; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--c-primary-text); margin:0 0 10px;">{{ blog.title }}</div>
+  <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(32px,4vw,50px); line-height:1.05; margin:0 0 14px;">{{ section.settings.heading }}</h1>
   <p style="margin:0; font-size:17.5px; line-height:1.65; color:#4a4d47; max-width:60ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
 </section>
 
@@ -53,7 +53,7 @@
             {%- endif -%}
             <span style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">Featured</span>
           </div>
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(24px,2.6vw,34px); line-height:1.15; color:var(--c-dark);">{{ featured.title }}</div>
+          <div style="font-family:var(--font-heading); font-weight:800; font-size:clamp(24px,2.6vw,34px); line-height:1.15; color:var(--c-dark);">{{ featured.title }}</div>
           <div style="font-size:16px; line-height:1.7; color:#4a4d47;">{{ featured.excerpt_or_content | strip_html | truncate: 160 }}</div>
           <div class="art-meta" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px 20px; font-size:13.5px; color:#666b60;">
             <span>{{ featured.published_at | date: '%-d %B %Y' }}</span>
@@ -67,7 +67,7 @@
   {%- endif -%}
 
   <section style="max-width:1440px; margin:0 auto; padding:44px 30px 0;">
-    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">Latest articles</h2>
+    <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">Latest articles</h2>
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:24px;">
       {%- for article in blog.articles -%}
         {%- if show_featured and forloop.first -%}{%- continue -%}{%- endif -%}

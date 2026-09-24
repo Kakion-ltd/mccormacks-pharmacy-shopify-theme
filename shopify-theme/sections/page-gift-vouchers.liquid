@@ -46,7 +46,7 @@
   <div class="banner-flex" style="display:flex; flex-wrap:wrap; border-radius:18px; overflow:hidden; background:var(--c-dark); min-height:clamp(300px,30vw,400px);">
     <div style="flex:1 1 480px; padding:clamp(28px,4vw,56px); display:flex; flex-direction:column; justify-content:center; color:#ffffff;">
       <span style="display:inline-flex; align-self:flex-start; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:var(--c-accent); color:var(--c-on-accent); font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:16px;">Valid 5 years</span>
-      <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(34px,4.4vw,58px); line-height:1.02; letter-spacing:-.01em; margin:0 0 20px;">{{ section.settings.heading }}</h1>
+      <h1 style="font-family:var(--font-heading); font-weight:800; font-size:clamp(34px,4.4vw,58px); line-height:1.02; letter-spacing:-.01em; margin:0 0 20px;">{{ section.settings.heading }}</h1>
       <p style="margin:0 0 10px; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:#d6e2cd; max-width:560px;">One voucher, the whole shop. Spend it on pharmacy, vitamins, skincare, beauty, fragrance, baby or toiletries &mdash; online or in any of our seven stores.</p>
       <p style="margin:0; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:#d6e2cd; max-width:560px;">Send it by email in minutes, or have a printed voucher posted free anywhere in Ireland.</p>
     </div>
@@ -66,7 +66,7 @@
           {%- # theme-check-enable RemoteAsset %}
           <span style="font-size:10.5px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; padding-top:3px;">Gift Voucher</span>
         </div>
-        <div data-gv-amount style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:clamp(34px,4.6vw,46px); line-height:1;">&euro;{{ gv_default }}</div>
+        <div data-gv-amount style="font-family:var(--font-heading); font-weight:800; font-size:clamp(34px,4.6vw,46px); line-height:1;">&euro;{{ gv_default }}</div>
         <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:12px; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;">
           <span>Valid 5 years</span>
           <span>Online &amp; in store</span>
@@ -81,24 +81,24 @@
   <div class="gv-wrap" style="display:flex; gap:44px; align-items:flex-start;">
     <div style="flex:1 1 auto; min-width:0;">
 
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 6px;">1. Choose an amount</h2>
+      <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 6px;">1. Choose an amount</h2>
       <p style="margin:0 0 18px; font-size:15.5px; line-height:1.65; color:#5d6159;">Pick a set amount, or enter your own between &euro;10 and &euro;500.</p>
       <div class="gv-amounts" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; margin:0 0 18px;">
         {%- for block in section.blocks -%}
         {%- if block.type == 'amount' %}
-        <button type="button" class="gv-amt{% if block.settings.preselected %} gv-on{% endif %}" aria-pressed="{% if block.settings.preselected %}true{% else %}false{% endif %}" data-gv-pick="€{{ block.settings.amount }}" {{ block.shopify_attributes }}><span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:26px; line-height:1;">&euro;{{ block.settings.amount }}</span><span style="font-size:12.5px; font-weight:700; opacity:.7;">{{ block.settings.tag }}</span></button>
+        <button type="button" class="gv-amt{% if block.settings.preselected %} gv-on{% endif %}" aria-pressed="{% if block.settings.preselected %}true{% else %}false{% endif %}" data-gv-pick="€{{ block.settings.amount }}" {{ block.shopify_attributes }}><span style="font-family:var(--font-heading); font-weight:800; font-size:26px; line-height:1;">&euro;{{ block.settings.amount }}</span><span style="font-size:12.5px; font-weight:700; opacity:.7;">{{ block.settings.tag }}</span></button>
         {%- endif -%}
         {%- endfor %}
       </div>
       <label style="display:flex; flex-direction:column; gap:7px; max-width:320px;">
         <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Or enter your own amount</span>
         <div style="display:flex; align-items:center; height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 14px; gap:8px; background:#ffffff;">
-          <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-primary-text);">&euro;</span>
+          <span style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-primary-text);">&euro;</span>
           <input type="number" min="10" max="500" placeholder="75" id="gv-custom" style="flex:1; min-width:0; border:none; outline:none; font-family:inherit; font-size:16px; color:#2A2B2A; background:transparent;">
         </div>
       </label>
 
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:38px 0 6px;">2. How should we send it?</h2>
+      <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:38px 0 6px;">2. How should we send it?</h2>
       <p style="margin:0 0 18px; font-size:15.5px; line-height:1.65; color:#5d6159;">Email vouchers arrive within minutes. Printed vouchers are posted free within Ireland.</p>
       <div style="display:flex; flex-direction:column; gap:12px; max-width:620px;">
         <button type="button" class="gv-method gv-on" aria-pressed="true" data-gv-method="By email">
@@ -127,7 +127,7 @@
         </button>
       </div>
 
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:38px 0 6px;">3. Who is it for?</h2>
+      <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:38px 0 6px;">3. Who is it for?</h2>
       <div style="display:flex; flex-wrap:wrap; gap:14px; max-width:620px; margin-top:12px;">
         <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
           <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Recipient name</span>
@@ -154,7 +154,7 @@
               <button type="button" id="gv-prev" aria-label="Previous month" class="gv-cal-nav">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg>
               </button>
-              <span id="gv-month" style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16px; color:var(--c-dark);"></span>
+              <span id="gv-month" style="font-family:var(--font-heading); font-weight:800; font-size:16px; color:var(--c-dark);"></span>
               <button type="button" id="gv-next" aria-label="Next month" class="gv-cal-nav">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg>
               </button>
@@ -184,7 +184,7 @@
       <div class="gv-summary" style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
         <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#666b60; margin-bottom:10px;">Your voucher</div>
         <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:4px;">
-          <span data-gv-amount style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:40px; line-height:1; color:var(--c-dark);">&euro;50</span>
+          <span data-gv-amount style="font-family:var(--font-heading); font-weight:800; font-size:40px; line-height:1; color:var(--c-dark);">&euro;50</span>
         </div>
         <div data-gv-method-label style="font-size:14px; color:#666b60; margin-bottom:20px;">By email</div>
         <div style="border-top:1px solid #eceee9; padding-top:16px; display:flex; flex-direction:column; gap:10px; font-size:14.5px; color:#3a3d39;">
@@ -195,7 +195,7 @@
         <div style="font-size:12.5px; line-height:1.6; color:#666b60; margin-top:12px;">Vouchers are valid for five years and can be spent over as many visits as you like.</div>
       </div>
       <div style="margin-top:16px; padding:20px 22px; border-radius:16px; background:#eef2e8;">
-        <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:10px;">Prefer to buy in store?</div>
+        <div style="font-family:var(--font-heading); font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:10px;">Prefer to buy in store?</div>
         <div style="font-size:14px; line-height:1.7; color:#3a3d39; margin-bottom:12px;">Gift vouchers are available at the counter in all seven stores, in any amount you like.</div>
         <a href="/pages/store-locator" class="hov-green-dk" style="font-weight:800; font-size:14.5px; color:var(--c-primary-text);">Find your nearest store &rarr;</a>
       </div>
@@ -205,21 +205,21 @@
 
 <!-- How it works -->
 <section style="max-width:1440px; margin:0 auto; padding:48px 30px 8px;">
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">How it works</h2>
+  <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">How it works</h2>
   <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px;">
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin-bottom:14px;">1</div>
-      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">Choose and pay</div>
+      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-weight:800; font-size:18px; margin-bottom:14px;">1</div>
+      <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">Choose and pay</div>
       <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Pick an amount and how you want it delivered, then check out as normal. Vouchers count towards free delivery on other items in the same order.</div>
     </div>
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin-bottom:14px;">2</div>
-      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">It arrives</div>
+      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-weight:800; font-size:18px; margin-bottom:14px;">2</div>
+      <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">It arrives</div>
       <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Email vouchers land within minutes, or on the date you chose. Printed vouchers are posted in a card within two working days.</div>
     </div>
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; margin-bottom:14px;">3</div>
-      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">They spend it</div>
+      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-weight:800; font-size:18px; margin-bottom:14px;">3</div>
+      <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">They spend it</div>
       <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Online at checkout, or at the counter in any of our seven stores. Any unspent balance stays on the voucher for next time.</div>
     </div>
   </div>
@@ -227,33 +227,33 @@
 
 <!-- SEO copy + FAQ -->
 <section style="max-width:1440px; margin:0 auto; padding:48px 30px 8px;">
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,40px); line-height:1.1; margin:0 0 20px;">About McCormack&rsquo;s gift vouchers</h2>
+  <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,40px); line-height:1.1; margin:0 0 20px;">About McCormack&rsquo;s gift vouchers</h2>
   <p style="margin:0 0 40px; font-size:16px; line-height:1.7; color:#3a3d39; max-width:1000px;">A McCormack&rsquo;s gift voucher works across everything we sell &mdash; pharmacy and healthcare, vitamins and supplements, skincare, beauty, fragrance, baby and toiletries &mdash; online and in all seven of our stores. It is a practical present for someone who is particular about their skincare, restocking after a new baby, or simply hard to buy for. Email vouchers arrive within minutes and can be scheduled for a specific date. Printed vouchers are posted in a card, free of charge, within Ireland. Vouchers are valid for five years from the date of purchase, can be spent over as many visits as you like, and any remaining balance stays on the voucher.</p>
 
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,34px); margin:0 0 26px;">Frequently Asked Questions</h2>
+  <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,34px); margin:0 0 26px;">Frequently Asked Questions</h2>
   <div style="display:flex; flex-direction:column;">
     <div style="border-bottom:1px solid #eceee9; padding:22px 0;">
-      <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">How long is a gift voucher valid for?</h3>
+      <h3 style="font-family:var(--font-heading); font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">How long is a gift voucher valid for?</h3>
       <p style="margin:0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">Five years from the date of purchase. The expiry date is printed on the voucher and shown on the email.</p>
     </div>
     <div style="border-bottom:1px solid #eceee9; padding:22px 0;">
-      <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">Can it be spent online and in store?</h3>
+      <h3 style="font-family:var(--font-heading); font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">Can it be spent online and in store?</h3>
       <p style="margin:0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">Yes &mdash; online at checkout, and at the counter in any of our seven stores. The same voucher works in both.</p>
     </div>
     <div style="border-bottom:1px solid #eceee9; padding:22px 0;">
-      <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">What happens if they spend less than the full amount?</h3>
+      <h3 style="font-family:var(--font-heading); font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">What happens if they spend less than the full amount?</h3>
       <p style="margin:0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">Any remaining balance stays on the voucher and can be used on as many future visits as they like, until it runs out or expires.</p>
     </div>
     <div style="border-bottom:1px solid #eceee9; padding:22px 0;">
-      <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">Can I add to a voucher or use more than one on an order?</h3>
+      <h3 style="font-family:var(--font-heading); font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">Can I add to a voucher or use more than one on an order?</h3>
       <p style="margin:0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">Vouchers cannot be topped up, but you can use several on a single order. If the order comes to more than the voucher balance, pay the difference by card as normal.</p>
     </div>
     <div style="border-bottom:1px solid #eceee9; padding:22px 0;">
-      <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">What if the voucher is lost?</h3>
+      <h3 style="font-family:var(--font-heading); font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">What if the voucher is lost?</h3>
       <p style="margin:0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">Email vouchers can be resent to the original recipient address &mdash; contact us with your order number. Printed vouchers work like cash and cannot be replaced if lost.</p>
     </div>
     <div style="border-bottom:1px solid #eceee9; padding:22px 0;">
-      <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">Are gift vouchers refundable?</h3>
+      <h3 style="font-family:var(--font-heading); font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">Are gift vouchers refundable?</h3>
       <p style="margin:0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">Vouchers cannot be returned or exchanged for cash, in line with Irish consumer law on gift vouchers. Products bought with a voucher can be returned under our normal returns policy.</p>
     </div>
   </div>
@@ -261,7 +261,7 @@
 
 <!-- You may also like -->
 <section style="max-width:1440px; margin:0 auto; padding:44px 30px 8px;">
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">You may also like</h2>
+  <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">You may also like</h2>
   <div style="position:relative;">
     <div id="also-track" style="display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;">
       {%- if section.settings.also_collection != blank -%}

@@ -7,19 +7,19 @@
   <nav style="display:flex; flex-wrap:wrap; align-items:center; gap:9px; font-size:13px; color:#666b60; margin:0 0 16px;">
     <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Search</span>
   </nav>
-  <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,36px); line-height:1.1; margin:0 0 8px;">Results for &ldquo;{{ search.terms | escape }}&rdquo;</h1>
+  <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,36px); line-height:1.1; margin:0 0 8px;">Results for &ldquo;{{ search.terms | escape }}&rdquo;</h1>
   <p style="margin:0 0 8px; font-size:15.5px; color:#666b60;">{{ search.results_count }} result{% if search.results_count != 1 %}s{% endif %} found</p>
 
   <div class="srch-wrap" style="display:flex; gap:40px; align-items:flex-start; margin-top:26px;">
     {%- if search.filters.size > 0 -%}
     <aside class="srch-side facet-side" style="flex:0 0 264px; width:264px;">
       <div style="border:1px solid #e6e7e4; border-radius:16px; padding:20px 20px 6px; background:#ffffff;">
-        <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; color:var(--c-dark); margin:0 0 4px;">Refine</div>
+        <div style="font-family:var(--font-heading); font-weight:800; font-size:17px; color:var(--c-dark); margin:0 0 4px;">Refine</div>
         {%- for filter in search.filters -%}
           {%- case filter.type -%}
             {%- when 'list', 'boolean' -%}
               <div style="padding:18px 0; border-bottom:1px solid #e6e7e4;">
-                <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15px; color:#2A2B2A; margin:0 0 12px;">{{ filter.label }}</div>
+                <div style="font-family:var(--font-heading); font-weight:800; font-size:15px; color:#2A2B2A; margin:0 0 12px;">{{ filter.label }}</div>
                 <div style="display:flex; flex-direction:column; gap:10px;">
                   {%- for value in filter.values -%}
                     <a href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}" style="display:flex; align-items:center; gap:10px; font-size:14.5px; color:#3a3d39; {% if value.count == 0 and value.active == false %}opacity:.45; pointer-events:none;{% endif %}">
@@ -32,7 +32,7 @@
               </div>
             {%- when 'price_range' -%}
               <div style="padding:18px 0; border-bottom:1px solid #e6e7e4;">
-                <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:15px; color:#2A2B2A; margin:0 0 12px;">{{ filter.label }}</div>
+                <div style="font-family:var(--font-heading); font-weight:800; font-size:15px; color:#2A2B2A; margin:0 0 12px;">{{ filter.label }}</div>
                 <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
                   <div style="flex:1; display:flex; align-items:center; gap:5px; border:1.5px solid #dfe1dc; border-radius:8px; padding:8px 10px;"><span style="color:#666b60;">{{ cart.currency.symbol | default: '€' }}</span><input data-price-input name="{{ filter.min_value.param_name }}" type="number" min="0" step="0.01" placeholder="0" value="{% if filter.min_value.value %}{{ filter.min_value.value | money_without_currency | remove: ',' }}{% endif %}" style="width:100%; border:none; outline:none; font-family:inherit; font-weight:600; font-size:14.5px; color:#2A2B2A; padding:0;"></div>
                   <span style="color:#666b60;">&ndash;</span>
@@ -111,11 +111,11 @@
               {% render 'quick-view-button', product: product, restricted: restricted %}
               </div>
               <div style="padding:0 18px 18px; display:flex; flex-direction:column; gap:9px; flex:1;">
-                <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">{{ product.vendor }}</div>
+                <div style="font-family:var(--font-heading); font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">{{ product.vendor }}</div>
                 <a href="{{ product.url }}" class="hov-green" style="font-weight:700; font-size:15px; line-height:1.45; color:#2A2B2A; flex:1;">{{ product.title }}</a>
                 {% render 'product-rating', product: product, size: 13 %}
                 <div style="display:flex; align-items:baseline; gap:9px;">
-                  <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:20px; color:#2A2B2A;">{% if product.price_varies %}From {% endif %}{{ product.price | money }}</span>
+                  <span style="font-family:var(--font-heading); font-weight:800; font-size:20px; color:#2A2B2A;">{% if product.price_varies %}From {% endif %}{{ product.price | money }}</span>
                   {%- if on_sale -%}
                     <span style="font-size:13.5px; color:#666b60; text-decoration:line-through;">{{ was }}</span>
                   {%- endif -%}
@@ -130,7 +130,7 @@
             </div>
           {%- else -%}
             <div class="srch-card" style="display:flex; flex-direction:column; gap:9px; border:1px solid #e6e7e4; border-radius:14px; background:#ffffff; padding:18px; transition:box-shadow .18s;">
-              <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">{% if item.object_type == 'article' %}Article{% else %}Page{% endif %}</div>
+              <div style="font-family:var(--font-heading); font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">{% if item.object_type == 'article' %}Article{% else %}Page{% endif %}</div>
               <a href="{{ item.url }}" class="hov-green" style="font-weight:700; font-size:16px; line-height:1.45; color:#2A2B2A;">{{ item.title }}</a>
               <p style="margin:0; font-size:14px; line-height:1.6; color:#666b60; flex:1;">{{ item.content | strip_html | truncate: 120 }}</p>
               <a href="{{ item.url }}" class="hov-green-dk" style="font-weight:700; font-size:14px; color:var(--c-primary-text);">Read more &rarr;</a>
@@ -166,10 +166,10 @@
   </nav>
   <div style="max-width:640px; margin:0 0 44px;">
     {%- if search.performed -%}
-      <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,36px); line-height:1.1; margin:0 0 12px;">No results for &ldquo;{{ search.terms | escape }}&rdquo;</h1>
+      <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,36px); line-height:1.1; margin:0 0 12px;">No results for &ldquo;{{ search.terms | escape }}&rdquo;</h1>
       <p style="margin:0 0 22px; font-size:16.5px; line-height:1.7; color:#4a4d47;">We could not find any products matching that search. Check the spelling, try a shorter or more general term, or browse the categories below.</p>
     {%- else -%}
-      <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,36px); line-height:1.1; margin:0 0 12px;">Search McCormack's</h1>
+      <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,36px); line-height:1.1; margin:0 0 12px;">Search McCormack's</h1>
       <p style="margin:0 0 22px; font-size:16.5px; line-height:1.7; color:#4a4d47;">Search thousands of pharmacy, health and beauty products, all dispatched from our registered Irish pharmacy.</p>
     {%- endif -%}
     <form action="{{ routes.search_url }}" method="get" role="search" style="display:flex; gap:10px; max-width:460px;">
@@ -191,7 +191,7 @@
   <div style="display:flex; gap:14px; align-items:flex-start; background:#eef2e8; border-radius:16px; padding:22px 24px; max-width:760px; margin:0 0 44px;">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--c-primary)" style="flex:0 0 auto; margin-top:2px;"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-2h2v2Zm1.8-6.2-.9.9c-.6.6-.9 1.1-.9 2.3h-2v-.5c0-.9.4-1.7 1-2.3l1.2-1.2c.3-.3.5-.8.5-1.3a2 2 0 1 0-4 0H8a4 4 0 1 1 8 0c0 .8-.3 1.5-.9 2.1Z"></path></svg>
     <div>
-      <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:6px;">Looking for something specific?</div>
+      <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:6px;">Looking for something specific?</div>
       <div style="font-size:15px; line-height:1.7; color:#3a3d39; margin-bottom:16px;">If you cannot find a product on the website, contact us and we will check whether we can order it in for you.</div>
       <div style="display:flex; flex-wrap:wrap; gap:10px;">
         <a href="tel:{{ settings.phone | remove: ' ' }}" class="btn btn-fill" style="gap:9px">Call {{ settings.phone }}</a>
@@ -201,7 +201,7 @@
   </div>
 
   <div>
-    <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.2vw,27px); margin:0 0 20px;">Popular categories</h2>
+    <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.2vw,27px); margin:0 0 20px;">Popular categories</h2>
     {%- comment -%} Text pills, not image cards. These four tiles were only ever
         visible on the empty-search state and all four reused artwork from other
         sections — four image downloads for a screen most visitors never see.

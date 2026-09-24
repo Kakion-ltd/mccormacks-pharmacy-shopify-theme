@@ -9,7 +9,7 @@
     <div style="position:absolute; top:-40%; right:8%; width:220px; height:220px; border-radius:999px; background:rgba(255,255,255,.05);"></div>
     <div style="flex:1 1 340px; position:relative;">
       {%- if section.settings.heading != blank -%}
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:#ffffff; font-size:clamp(19px,1.9vw,24px); margin:0 0 4px; line-height:1.15;">{{ section.settings.heading }}</h2>
+      <h2 style="font-family:var(--font-heading); font-weight:800; color:#ffffff; font-size:clamp(19px,1.9vw,24px); margin:0 0 4px; line-height:1.15;">{{ section.settings.heading }}</h2>
       {%- endif -%}
       {%- if section.settings.subtext != blank -%}
       <p style="margin:0; color:rgba(255,255,255,.78); font-size:13.5px; line-height:1.4;">{{ section.settings.subtext }}</p>

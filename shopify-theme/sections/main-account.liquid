@@ -9,7 +9,7 @@
 
     <div style="flex:1 1 auto; min-width:0;">
 
-      <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.1vw,26px); margin:0 0 16px;">Hello {{ customer.first_name }}</h2>
+      <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.1vw,26px); margin:0 0 16px;">Hello {{ customer.first_name }}</h2>
 
       {% liquid
         assign open_orders = 0
@@ -22,17 +22,17 @@
       %}
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin:0 0 30px;">
         <div style="border:1px solid #e6e7e4; border-radius:14px; padding:20px 22px; background:#fbfcfa;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:28px; color:var(--c-dark); line-height:1;">{{ open_orders }}</div>
+          <div style="font-family:var(--font-heading); font-weight:800; font-size:28px; color:var(--c-dark); line-height:1;">{{ open_orders }}</div>
           <div style="font-size:14.5px; font-weight:700; color:#2A2B2A; margin:8px 0 3px;">Open orders</div>
           <div style="font-size:13px; color:#666b60;">{% if open_orders > 0 %}Being prepared or on the way{% else %}Nothing in progress{% endif %}</div>
         </div>
         <div style="border:1px solid #e6e7e4; border-radius:14px; padding:20px 22px; background:#fbfcfa;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:28px; color:var(--c-dark); line-height:1;">{{ customer.orders_count }}</div>
+          <div style="font-family:var(--font-heading); font-weight:800; font-size:28px; color:var(--c-dark); line-height:1;">{{ customer.orders_count }}</div>
           <div style="font-size:14.5px; font-weight:700; color:#2A2B2A; margin:8px 0 3px;">Orders placed</div>
           <div style="font-size:13px; color:#666b60;">{% if oldest_order %}Since {{ oldest_order.created_at | date: '%B %Y' }}{% else %}No orders yet{% endif %}</div>
         </div>
         <div style="border:1px solid #e6e7e4; border-radius:14px; padding:20px 22px; background:#fbfcfa;">
-          <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:28px; color:var(--c-dark); line-height:1;">{{ customer.addresses_count }}</div>
+          <div style="font-family:var(--font-heading); font-weight:800; font-size:28px; color:var(--c-dark); line-height:1;">{{ customer.addresses_count }}</div>
           <div style="font-size:14.5px; font-weight:700; color:#2A2B2A; margin:8px 0 3px;">Saved address{% if customer.addresses_count != 1 %}es{% endif %}</div>
           <div style="font-size:13px; color:#666b60;">Manage in Details &amp; addresses</div>
         </div>
@@ -40,7 +40,7 @@
 
       <div id="orders" style="margin:0 0 30px;">
         <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin:0 0 6px;">
-          <h3 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin:0;">Recent orders</h3>
+          <h3 style="font-family:var(--font-heading); font-weight:800; font-size:19px; color:var(--c-dark); margin:0;">Recent orders</h3>
         </div>
         {% paginate customer.orders by 20 %}
           <div style="border-top:1px solid #e6e7e4;">
@@ -63,7 +63,7 @@
               <div class="ord-row" style="display:flex; flex-wrap:wrap; align-items:center; gap:14px 24px; padding:18px 0; border-bottom:1px solid #e6e7e4;">
                 <div style="flex:0 0 130px;">
                   <div style="font-size:12px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; color:#666b60; margin-bottom:4px;">Order</div>
-                  <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:16px; color:var(--c-dark);">{{ order.name }}</div>
+                  <div style="font-family:var(--font-heading); font-weight:800; font-size:16px; color:var(--c-dark);">{{ order.name }}</div>
                 </div>
                 <div style="flex:0 0 120px; font-size:14.5px; color:#3a3d39;">{{ order.created_at | date: '%-d %b %Y' }}</div>
                 <div style="flex:0 0 auto;"><span style="display:inline-flex; align-items:center; height:27px; padding:0 11px; border-radius:6px; background:{{ badge_bg }}; color:{{ badge_fg }}; font-size:12.5px; font-weight:800;">{{ badge_label }}</span></div>
@@ -101,7 +101,7 @@
       <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
         <div style="display:flex; flex-wrap:wrap; align-items:center; gap:18px 26px;">
           <div style="flex:1 1 300px;">
-            <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:19px; color:var(--c-dark); margin-bottom:5px;">Need a repeat prescription?</div>
+            <div style="font-family:var(--font-heading); font-weight:800; font-size:19px; color:var(--c-dark); margin-bottom:5px;">Need a repeat prescription?</div>
             <div style="font-size:14.5px; line-height:1.65; color:#3a3d39;">Submit a request and our dispensary team will confirm when it is ready to collect or dispatch.</div>
           </div>
           <a href="/pages/prescriptions" class="btn btn-fill" style="flex:0 0 auto">Manage prescriptions</a>

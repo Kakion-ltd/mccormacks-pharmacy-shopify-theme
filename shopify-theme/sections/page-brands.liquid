@@ -1,7 +1,7 @@
 {% style %}
   .brand-tile { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; border:1px solid #e6e7e4; border-radius:14px; padding:26px 20px; background:#ffffff; min-height:150px; }
   .brand-tile:hover { box-shadow:0 12px 26px rgba(0,0,0,.08); border-color:var(--c-accent); }
-  .brand-chip { display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:8px; background:#f2f3f1; color:#3a3d39; font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; }
+  .brand-chip { display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:8px; background:#f2f3f1; color:#3a3d39; font-family:var(--font-heading); font-weight:800; font-size:14.5px; }
   .brand-chip:hover { background:var(--c-primary) !important; color:var(--c-on-primary) !important; }
   .brand-az-a { font-size:14.5px; line-height:1.45; color:#3a3d39; }
   .brand-az-a:hover { color:var(--c-primary-text) !important; }
@@ -21,7 +21,7 @@
     <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span><span style="color:#3a3d39; font-weight:700;">Brands</span>
   </nav>
 
-  <h1 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
+  <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
   <p style="margin:0 0 26px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
   <form action="{{ routes.search_url }}" method="get" style="display:flex; flex-wrap:wrap; gap:10px; max-width:460px; margin:0 0 32px;">
     <input type="search" name="q" placeholder="Search brands" class="brand-search" style="flex:1 1 240px; height:44px; border:1px solid #dfe1dc; border-radius:10px; padding:0 16px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none; min-width:0;">
@@ -31,7 +31,7 @@
   {%- comment -%} A heading over an empty grid is worse than no section, so the whole
       featured-brands block renders only when the template supplies blocks. {%- endcomment -%}
   {%- if section.blocks.size > 0 -%}
-  <h2 style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.1vw,26px); margin:0 0 18px;">Featured brands</h2>
+  <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.1vw,26px); margin:0 0 18px;">Featured brands</h2>
   <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:16px; margin:0 0 40px;">
     {%- for block in section.blocks -%}
       {%- if block.type == 'featured_brand' -%}
@@ -45,10 +45,10 @@
               <img src="{{ block.settings.logo_asset | asset_url }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="350" height="112" style="{{ logo_style }}">
             {%- else -%}
               {%- comment -%} No logo: the brand name in the house display face, matching brand-slider. {%- endcomment -%}
-              <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:17px; color:var(--c-dark);">{{ block.settings.name }}</span>
+              <span style="font-family:var(--font-heading); font-weight:800; font-size:17px; color:var(--c-dark);">{{ block.settings.name }}</span>
             {%- endif -%}
           </span>
-          <span style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:14.5px; color:var(--c-dark); text-align:center;">{{ block.settings.name }}</span>
+          <span style="font-family:var(--font-heading); font-weight:800; font-size:14.5px; color:var(--c-dark); text-align:center;">{{ block.settings.name }}</span>
         </a>
       {%- endif -%}
     {%- endfor -%}

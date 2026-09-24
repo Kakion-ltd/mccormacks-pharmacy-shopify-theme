@@ -10,7 +10,7 @@
     {% for i in (1..3) %}
       {% assign key = 'step' | append: i %}
       <div style="background:#ffffff; border:1px solid #e6e7e4; border-radius:14px; padding:20px;">
-        <span style="width:30px; height:30px; border-radius:999px; background:var(--c-dark); color:var(--c-on-dark); font-weight:800; font-size:14px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:10px; font-family:'Arial Rounded MT Bold', Arial, sans-serif;">{{ i }}</span>
+        <span style="width:30px; height:30px; border-radius:999px; background:var(--c-dark); color:var(--c-on-dark); font-weight:800; font-size:14px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:10px; font-family:var(--font-heading);">{{ i }}</span>
         <p style="margin:0; font-size:14.5px; line-height:1.65; color:#3a3d39;">{{ section.settings[key] }}</p>
       </div>
     {% endfor %}

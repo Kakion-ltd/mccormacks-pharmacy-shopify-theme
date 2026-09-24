@@ -2,7 +2,7 @@
   Address add/edit form. Usage: {% render 'address-form', address: address, panel_id: 'EditAddress-123', heading: 'Edit address' %}
 {% endcomment %}
 {% form 'customer_address', address %}
-  <div style="font-family:'Arial Rounded MT Bold', Arial, sans-serif; font-weight:800; font-size:18px; color:var(--c-dark); margin:0 0 16px;">{{ heading }}</div>
+  <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin:0 0 16px;">{{ heading }}</div>
   {% render 'form-errors', form: form %}
   <div style="display:flex; flex-wrap:wrap; gap:16px;">
     <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
