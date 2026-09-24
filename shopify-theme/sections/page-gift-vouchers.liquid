@@ -259,13 +259,15 @@
   </div>
 </section>
 
-<!-- You may also like -->
+<!-- You may also like. Drawn only when the chosen collection has products published to
+     the online store; otherwise nothing, so customers never meet an empty heading. -->
+{%- assign also_col = section.settings.also_collection -%}
+{%- if also_col.products.size > 0 -%}
 <section style="max-width:1440px; margin:0 auto; padding:44px 30px 8px;">
   <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">You may also like</h2>
   <div style="position:relative;">
     <div id="also-track" style="display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;">
-      {%- if section.settings.also_collection != blank -%}
-        {%- for product in section.settings.also_collection.products limit: 8 -%}
+        {%- for product in also_col.products limit: 8 -%}
           {%- capture restricted -%}{%- render 'product-restricted', product: product -%}{%- endcapture -%}
           {%- assign restricted = restricted | strip -%}
           {%- comment -%} Blank unless the price shown is genuinely reduced — see snippets/product-compare-at.liquid. {%- endcomment -%}
@@ -288,18 +290,18 @@
             <a href="{{ product.url }}" class="btn-sm btn-fill" style="margin-top:auto">View Product</a>
           </div>
         {%- endfor -%}
-      {%- else -%}
-        {%- comment -%} No collection chosen: say so rather than shipping five
-            hardcoded product shots that duplicate the catalogue and go stale. {%- endcomment -%}
-        <p style="margin:0; padding:18px 4px; font-size:15px; color:#666b60;">
-          Pick a collection in <strong>Gift vouchers page &rsaquo; You may also like</strong> to show products here.
-        </p>
-      {%- endif -%}
     </div>
     <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="also-track" data-rail-by="-540" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
     <button aria-label="Scroll forward" data-rail-btn data-rail-target="also-track" data-rail-by="540" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
   </div>
 </section>
+{%- elsif request.design_mode -%}
+<section style="max-width:1440px; margin:0 auto; padding:44px 30px 8px;">
+  <p style="margin:0; padding:18px; border:1.5px dashed #cfd1cc; border-radius:12px; text-align:center; font-size:15px; color:#666b60;">
+    <strong>You may also like</strong> is hidden: pick a collection with products published to the online store in <strong>Gift vouchers page &rsaquo; "You may also like" collection</strong>. Customers don't see this note.
+  </p>
+</section>
+{%- endif -%}
 
 <script>
   (function () {
@@ -434,7 +436,7 @@
       "type": "collection",
       "id": "also_collection",
       "label": "\"You may also like\" collection",
-      "info": "Optional. When empty, the design's sample products are shown."
+      "info": "Optional. The row is hidden unless this collection has products published to the online store."
     }
   ],
   "presets": [

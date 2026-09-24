@@ -1,9 +1,15 @@
+{%- comment -%} Real, published products only. With none, the section is not drawn at all.
+    It used to fall back to eight design cards with invented prices (Cetrine at
+    €7.99 against the catalogue's €10.55) and an "Add To Bag" that was really a link.
+    That fallback was a live-store defect waiting for the collection to empty.
+    coll.products holds only what the Online Store channel can sell, so an
+    unpublished product cannot keep the section alive. {%- endcomment -%}
+{%- assign coll = collections[section.settings.collection] -%}
+{%- if coll.products.size > 0 -%}
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 8px;">
   <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); text-align:center; font-size:clamp(24px,2.4vw,32px); margin:0 0 28px;">{{ section.settings.heading }}</h2>
   <div style="position:relative;">
     <div id="sale-{{ section.id }}" style="display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;">
-      {%- assign coll = collections[section.settings.collection] -%}
-      {%- if coll.products_count > 0 -%}
         {%- for product in coll.products limit: section.settings.limit -%}
           {%- capture restricted -%}{%- render 'product-restricted', product: product -%}{%- endcapture -%}
           {%- assign restricted = restricted | strip -%}
@@ -34,26 +40,18 @@
             {%- endif -%}
           </div>
         {%- endfor -%}
-      {%- else -%}
-        {%- comment -%} Onboarding placeholders (design cards) — shown only until a non-empty collection is picked. {%- endcomment -%}
-        {%- assign ph_imgs = "prod-fabu-glow.jpg|prod-cetrine.jpg|prod-revive.jpg|prod-optibac-max.jpg|prod-sudocrem.jpg|prod-nurofen.jpg|prod-cerave-cleanser.jpg|prod-vitd.jpg" | split: "|" -%}
-        {%- assign ph_titles = "fabü Skin Hair Nails Glow 60 Capsules|Cetrine Allergy 10mg 30 Tablets|Revive Active 30 Sachets|Optibac Every Day MAX 30 Capsules|Sudocrem Antiseptic Healing Cream 125g|Nurofen 200mg Ibuprofen 24 Tablets|CeraVe Hydrating Cleanser 236ml|Vitamin D3 1000IU 60 Capsules" | split: "|" -%}
-        {%- assign ph_prices = "€19.95|€7.99|€34.95|€23.99|€6.49|€4.99|€11.95|€9.99" | split: "|" -%}
-        {%- for title in ph_titles -%}
-          {%- assign i = forloop.index0 -%}
-          <div style="flex:0 0 230px; border:1px solid #eceee9; border-radius:16px; padding:20px; display:flex; flex-direction:column; text-align:center;">
-            <div style="height:200px; border-radius:9px; background:#ffffff; display:flex; align-items:center; justify-content:center; margin-bottom:16px; overflow:hidden;"><img src="{{ ph_imgs[i] | asset_url }}" alt="{{ title | escape }}" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" width="600" height="600"></div>
-            <h3 style="font-weight:700; font-size:14px; margin:0 0 8px; min-height:42px;">{{ title }}</h3>
-            <div style="color:var(--c-primary-text); font-weight:800; font-size:19px; margin-bottom:16px;">{{ ph_prices[i] }}</div>
-            <a href="/collections/sale" class="btn-sm btn-fill" style="margin-top:auto">Add To Bag</a>
-          </div>
-        {%- endfor -%}
-      {%- endif -%}
     </div>
     <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="sale-{{ section.id }}" data-rail-by="-504" class="hov-scroll" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
     <button aria-label="Scroll forward" data-rail-btn data-rail-target="sale-{{ section.id }}" data-rail-by="504" class="hov-scroll" style="position:absolute; right:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
   </div>
 </section>
+{%- elsif request.design_mode -%}
+<section style="max-width:1440px; margin:0 auto; padding:30px 30px 8px;">
+  <p style="margin:0; padding:18px; border:1.5px dashed #cfd1cc; border-radius:12px; text-align:center; font-size:15px; color:#666b60;">
+    <strong>{{ section.settings.heading }}</strong> is hidden: its collection has no products published to the online store. Customers don't see this note.
+  </p>
+</section>
+{%- endif -%}
 
 {% style %}
 .hov-scroll:hover { border-color: var(--c-accent) !important; background: #f2f8e9 !important; }

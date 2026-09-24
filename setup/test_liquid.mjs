@@ -277,4 +277,50 @@ check('no collections returns nothing', primary([]), '');
 check('ties keep the earlier collection, so the result is stable',
   primary(['pain-relief', 'stomach-gastrointestinal']), 'pain-relief');
 
+/* ---------- product rails never fall back to invented products ----------
+   "On Sale This Month" used to draw eight design cards with made-up prices when
+   its collection was empty, and the gift vouchers rail an empty heading or an
+   editor instruction. On a live store an empty collection must draw nothing. */
+
+const sectionEngine = new Liquid({ root: [join(THEME, 'sections'), join(THEME, 'snippets')], extname: '.liquid' });
+const skipBlock = (end) => ({
+  parse(_, remain) { let t; while ((t = remain.shift())) if (t.name === end) return; },
+  render() { return ''; },
+});
+sectionEngine.registerTag('schema', skipBlock('endschema'));
+sectionEngine.registerTag('style', skipBlock('endstyle'));
+const renderSection = (file, scope) =>
+  sectionEngine.renderFileSync(file, scope, { globals: { settings: {} } });
+
+const onSale = { title: 'Voduz Test Bundle', url: '/products/voduz-test', price: 1995,
+  available: true, has_only_default_variant: true, tags: [] };
+const saleRail = (products, design_mode = false, handle = 'sale') => renderSection('sale-products', {
+  section: { id: 's1', settings: { heading: 'On Sale This Month', collection: handle, limit: 8 } },
+  collections: { sale: { products } },
+  request: { design_mode },
+});
+const SAMPLE = /Cetrine|Sudocrem|€\d/;
+
+check('sale rail: empty collection draws no section', saleRail([]).includes('<section'), false);
+check('sale rail: empty collection shows no sample products', SAMPLE.test(saleRail([])), false);
+check('sale rail: no collection chosen draws no section', saleRail([], false, '').includes('<section'), false);
+check('sale rail: the theme editor gets a note instead', saleRail([], true).includes('is hidden'), true);
+check('sale rail: the editor note carries no sample products', SAMPLE.test(saleRail([], true)), false);
+check('sale rail: a published product is drawn', saleRail([onSale]).includes('Voduz Test Bundle'), true);
+
+const gvRail = (also_collection, design_mode = false) => renderSection('page-gift-vouchers', {
+  section: { id: 'g1', settings: { also_collection }, blocks: [] },
+  request: { design_mode },
+});
+check('gift vouchers rail: empty collection draws no rail',
+  gvRail({ products: [] }).includes('>You may also like</h2>'), false);
+check('gift vouchers rail: no collection chosen draws no rail',
+  gvRail(null).includes('>You may also like</h2>'), false);
+check('gift vouchers rail: no editor instruction reaches customers',
+  gvRail(null).includes('Pick a collection'), false);
+check('gift vouchers rail: the theme editor gets a note instead',
+  gvRail(null, true).includes('is hidden'), true);
+check('gift vouchers rail: a published product is drawn',
+  gvRail({ products: [onSale] }).includes('Voduz Test Bundle'), true);
+
 console.log(`${passed}/${passed} liquid snippet checks passed`);
