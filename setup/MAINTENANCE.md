@@ -808,6 +808,31 @@ whole rectangle white.
 
 ---
 
+## Headings are Nunito, not Arial Rounded — a decision (24 Sep 2026)
+
+The design handoff sets headings in **Arial Rounded MT Bold**. The theme now sets them
+in **Nunito**, self-hosted beside Mulish. Arial Rounded is a macOS/iOS system font, so
+the handoff was only ever seen as designed on Apple hardware: Windows drew Arial and
+Android drew Roboto. Even on a Mac it was wrong: the font is a single bold face that
+declares itself weight 400, and nearly every heading asks for 800, so Chrome drew a
+synthetic bold over it.
+
+Nunito was picked over Baloo 2, Quicksand and Varela Round after screenshots of the
+homepage, a collection and a product page at 1440 and 390. It has real 700 and 800
+(the only weights headings use), it is by Mulish's designer, and on seven pages at both
+widths no heading wraps differently from Arial Rounded. Quicksand stops at 700 and
+Varela Round at 400, so both would fake the 800 again.
+
+- **One place:** `--font-heading` in `base.css`. Every heading reads the token; there
+  are no typed-out font stacks left, and `setup/verify/fonts.py` fails if one appears.
+- **The file:** `assets/nunito-variable.woff2`, 38 KB, Google's latin subset — the same
+  230 characters as `mulish-variable.woff2` — declared and preloaded in
+  `theme.liquid`, `password.liquid` and `templates/gift_card.liquid`.
+- **To reverse it:** set `--font-heading` back to `'Arial Rounded MT Bold', Arial,
+  sans-serif` and delete the Nunito preload and `@font-face` from those three files.
+
+---
+
 ## Why fixture coverage matters — two worked examples
 
 Both were found in the same pass, both had shipped through code review, and both

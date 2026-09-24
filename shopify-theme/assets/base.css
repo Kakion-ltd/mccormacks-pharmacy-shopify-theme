@@ -28,7 +28,7 @@
   --c-error-bg: #FBEAE9;
   --c-success: var(--c-primary-text); /* follows the editor; the lime darkened to AA */
   --c-success-bg: #EEF6E4;
-  --font-heading: 'Arial Rounded MT Bold', Arial, sans-serif;
+  --font-heading: 'Nunito', system-ui, sans-serif;
   --font-body: 'Mulish', system-ui, sans-serif;
 }
 
