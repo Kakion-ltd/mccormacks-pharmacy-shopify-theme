@@ -191,7 +191,7 @@
         "type": "text",
         "id": "trust_text_3",
         "label": "Text",
-        "default": "by over 20,000 customers since 2010"
+        "default": "by customers since 2010"
       }
     ]
   },

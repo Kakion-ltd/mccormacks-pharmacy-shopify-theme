@@ -132,6 +132,25 @@ password comes off.
 Send us the confirmed text and details and we'll put them in and remove the
 markers. Both pages should be settled before launch.
 
+### What the website says on your behalf
+
+**The five Google reviews on the homepage. Owner: Pharmacy.**
+The homepage quotes five real Google reviews by name: Bryan Mc Bride, Amy
+O'Brien, Stephen Donohoe, Ray Keogh and Eimear Murphy. Each card shows **five
+stars**, which tells customers that each of those people gave you five stars
+on Google. Please check each review on your Google Business Profiles and
+confirm the stars match. If any gave fewer than five, tell us and we'll
+correct that card or take it down.
+
+**"Trusted by customers since 2010". Owner: Pharmacy, if you want a number.**
+The strip under the header on every page used to read "Trusted by over 20,000
+customers since 2010". That number came from the design mock-up, the same
+source that made up a review count for the design, and nobody could say where
+it came from. So we have removed it.
+
+If you have a real figure you can stand over, it can go back in: Theme
+settings › Trust bar › Message 3 › Text. It changes every page at once.
+
 ### Store details
 
 **Who reads the website's email inbox. Owner: Pharmacy.**

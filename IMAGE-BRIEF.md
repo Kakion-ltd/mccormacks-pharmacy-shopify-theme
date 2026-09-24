@@ -8,7 +8,7 @@ largest rendered slot — do not double them again).
 
 ## The house look
 
-Irish family pharmacy, seven stores, trading since 1982. Reads as clinical
+Irish family pharmacy, seven stores, established in 2010. Reads as clinical
 trust first, retail beauty second. Not a spa, not a supermarket.
 
 **Palette** — imagery has to sit against these, and a banner's text panel is
