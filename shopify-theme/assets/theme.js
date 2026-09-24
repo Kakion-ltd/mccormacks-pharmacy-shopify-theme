@@ -1048,11 +1048,20 @@
   on(document, 'click', '[data-view-btn]', (e, btn) => {
     e.preventDefault();
     const key = btn.dataset.viewBtn;
+    let shown;
     document.querySelectorAll('[data-view]').forEach(v => {
       v.style.display = v.dataset.view === key ? '' : 'none';
+      if (v.dataset.view === key) shown = v;
     });
     document.querySelectorAll('[data-view-btn]').forEach(b =>
       b.setAttribute('data-active', String(b.dataset.viewBtn === key)));
+    // A button inside the view it just hid (breadcrumb, "All services", a store link)
+    // would drop focus to <body>; hand it to the new view's heading instead. Buttons
+    // that stay visible, like the Prescriptions tabs, keep focus.
+    if (!btn.getClientRects().length && shown) {
+      const h = shown.querySelector('h1, h2');
+      if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+    }
   });
 
   // ---- Store map: [data-map-load] swaps its [data-map] placeholder for a Google map.

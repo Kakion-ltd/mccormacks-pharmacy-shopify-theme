@@ -48,9 +48,9 @@ for m in menus:
     claim([handleize(i) for i in m.get('flat', [])], [(mt, mh)])
     # top-level menus themselves fall through to the {% else %} (Home / title)
 
-CRUMB_SEP = '<span>/</span>'
+CRUMB_SEP = '<span aria-hidden="true">/</span>'
 HOME = '<a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a>'
-CUR = '<span style="color:#3a3d39; font-weight:700;">{{ collection.title }}</span>'
+CUR = '<span aria-current="page" style="color:#3a3d39; font-weight:700;">{{ collection.title }}</span>'
 
 def crumb_link(title, handle):
     return f'<a href="/collections/{handle}" class="hov-green" style="color:#666b60;">{esc(title)}</a>'

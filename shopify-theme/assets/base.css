@@ -104,6 +104,11 @@ main .shopify-policy__body a { text-decoration: underline; text-underline-offset
    hiding it needs !important. Pages with no parent keep the trail at every width. */
 .crumb-back { display: none; align-items: center; gap: 6px; min-height: 24px; font-size: 13px; font-weight: 700; color: #3a3d39; }
 button.crumb-back { background: none; border: 0; padding: 0; font-family: inherit; cursor: pointer; }
+/* In-page view buttons (breadcrumbs, back links, Services and Store Locator links) take
+   the .btn ring rather than the browser default. The heading theme.js moves focus to
+   after a view switch is not a control, so it gets no ring. */
+[data-view-btn]:focus-visible { outline: 2px solid var(--c-dark); outline-offset: 2px; }
+[data-view] :is(h1, h2)[tabindex="-1"]:focus { outline: none; }
 @media (max-width: 900px) {
   .crumb-trail.has-back { display: none !important; }
   .crumb-back { display: inline-flex; }

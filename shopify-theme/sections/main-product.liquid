@@ -62,7 +62,7 @@
   <!-- Breadcrumb -->
   <nav aria-label="Breadcrumb" style="max-width:1440px; margin:0 auto; padding:12px 30px 0;">
     <div class="crumb-trail{% if primary_collection != blank %} has-back{% endif %}" style="font-size:13px; color:#666b60; display:flex; flex-wrap:wrap; gap:9px; align-items:center;">
-      <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span>/</span>
+      <a href="{{ routes.root_url }}" class="hov-green" style="color:#666b60;">Home</a><span aria-hidden="true">/</span>
       {%- if primary_collection != blank -%}
         {%- comment -%} The collection's ancestors, from the same data as the
             BreadcrumbList, so the visible trail and the schema match. {%- endcomment -%}
@@ -72,12 +72,12 @@
           {%- assign crumbs = crumb_data | split: '|' -%}
           {%- for crumb in crumbs -%}
             {%- assign parts = crumb | split: '~' -%}
-            <a href="/collections/{{ parts[1] }}" class="hov-green" style="color:#666b60;">{{ parts[0] | escape }}</a><span>/</span>
+            <a href="/collections/{{ parts[1] }}" class="hov-green" style="color:#666b60;">{{ parts[0] | escape }}</a><span aria-hidden="true">/</span>
           {%- endfor -%}
         {%- endif -%}
-        <a href="{{ primary_collection.url }}" class="hov-green" style="color:#666b60;">{{ primary_collection.title }}</a><span>/</span>
+        <a href="{{ primary_collection.url }}" class="hov-green" style="color:#666b60;">{{ primary_collection.title }}</a><span aria-hidden="true">/</span>
       {%- endif -%}
-      <span style="color:#2A2B2A;">{{ product.title }}</span>
+      <span aria-current="page" style="color:#2A2B2A;">{{ product.title }}</span>
     </div>
     {%- if primary_collection != blank -%}
       {%- render 'crumb-back', url: primary_collection.url, title: primary_collection.title -%}

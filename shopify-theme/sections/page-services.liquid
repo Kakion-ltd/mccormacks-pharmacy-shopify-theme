@@ -24,6 +24,7 @@
   .svc-input:focus { border-color:var(--c-primary-text); }
   .svc-textarea { border: 1px solid #dfe1dc; border-radius: 9px; padding: 12px 14px; font-family: inherit; font-size: 15.5px; line-height: 1.6; color: #2A2B2A; outline: none; resize: vertical; }
   .svc-textarea:focus { border-color:var(--c-primary-text); }
+  /* The image button fills a clipped card, so its focus ring (base.css) is drawn inset: outline-offset -3px on it. */
   .svc-link-btn { background: none; border: none; padding: 0; font-family: inherit; cursor: pointer; text-align: left; }
   .svc-outline:hover { border-color: var(--c-accent) !important; }
   .svc-band-outline:hover { border-color: var(--c-accent) !important; color: var(--c-accent) !important; }
@@ -45,7 +46,7 @@
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px;">
       {%- for block in section.blocks -%}
         <div class="svc-card" {{ block.shopify_attributes }}>
-          <button type="button" class="svc-link-btn" data-view-btn="svc-{{ forloop.index }}" style="position:relative; display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#ffffff;">
+          <button type="button" class="svc-link-btn" data-view-btn="svc-{{ forloop.index }}" style="position:relative; display:block; width:100%; aspect-ratio:16/10; overflow:hidden; background:#ffffff; outline-offset:-3px;">
             {%- if block.settings.image != blank -%}
               {{ block.settings.image | image_url: width: 800 | image_tag: style: 'width:100%; height:100%; object-fit:cover; display:block;', alt: block.settings.title }}
             {%- elsif block.settings.image_asset != blank -%}

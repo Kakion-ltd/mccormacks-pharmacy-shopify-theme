@@ -44,13 +44,31 @@ STATE = """() => {
   const back = shown('.crumb-back');
   const lists = [...document.querySelectorAll('script[type="application/ld+json"]')]
     .map(s => JSON.parse(s.textContent)).filter(d => d['@type'] === 'BreadcrumbList');
+  const kids = trail ? [...trail.children] : [];
   return { trail: vis(trail), back: vis(back) ? back.textContent.trim() : null,
            schema: lists.map(l => l.itemListElement.map(i => i.name)),
+           // screen readers: separators silent, the last crumb and only it is the page
+           seps_read: kids.filter(k => k.textContent.trim() === '/' && k.getAttribute('aria-hidden') !== 'true').length,
+           current: kids.filter(k => k.getAttribute('aria-current') === 'page').map(k => kids.indexOf(k) === kids.length - 1),
            overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth };
 }"""
 
+# Where focus is, and the ring it shows.
+ACTIVE = """() => { const e = document.activeElement, cs = getComputedStyle(e);
+  return { tag: e.tagName, tabindex: e.getAttribute('tabindex'),
+           view: e.closest('[data-view]') ? e.closest('[data-view]').dataset.view : null,
+           ring: cs.outlineStyle + ' ' + cs.outlineWidth }; }"""
+
 res = []
 def ck(name, got, want=True): res.append((got == want, name, got))
+
+def press(pg, sel):
+    """Focus the first visible match and press Enter, as a keyboard user would."""
+    pg.keyboard.press("Tab")                       # keyboard modality, so :focus-visible applies
+    pg.locator(sel + ":visible").first.focus()
+    ring = pg.evaluate(ACTIVE)["ring"]
+    pg.keyboard.press("Enter")
+    return ring
 
 with sync_playwright() as pw:
     b = pw.chromium.launch(headless=True)
@@ -64,15 +82,33 @@ with sync_playwright() as pw:
             ck(f"[{w}] {path} back link", s["back"], back if mobile else None)
             ck(f"[{w}] {path} BreadcrumbList", s["schema"], [schema] if schema else [])
             ck(f"[{w}] {path} no sideways scroll", s["overflow"], False)
-        if w == 390:
+            if not mobile:
+                ck(f"[{w}] {path} separators hidden from screen readers", s["seps_read"], 0)
+                ck(f"[{w}] {path} aria-current on the last crumb only", s["current"], [True])
+        if w in (1440, 390):
+            # Keyboard round trip: open the child view, then go back through the breadcrumb.
+            # The pressed button is hidden with its view, so focus must land on the new
+            # view's heading, not fall to <body>.
+            crumb = ".crumb-back" if w <= 900 else ".crumb-trail [data-view-btn]"
             for path, opener, back, hub in VIEWS:
                 pg.goto(BASE + path, wait_until="networkidle")
-                pg.locator(opener + ':visible').first.click()
-                s = pg.evaluate(STATE)
-                ck(f"[390] {path} {opener} back link", s["back"], back)
-                pg.locator(".crumb-back:visible").first.click()
-                ck(f"[390] {path} {opener} back returns to {hub}",
-                   pg.evaluate(f"() => getComputedStyle(document.querySelector('[data-view=\"{hub}\"]')).display"), "block")
+                press(pg, opener)
+                a = pg.evaluate(ACTIVE)
+                child = pg.evaluate(f"() => document.querySelector('{opener}').dataset.viewBtn")
+                ck(f"[{w}] {path} {opener} focus on the child view's heading",
+                   (a["tag"] in ("H1", "H2"), a["tabindex"], a["view"]), (True, "-1", child))
+                if w <= 900:
+                    ck(f"[{w}] {path} {opener} back link", pg.evaluate(STATE)["back"], back)
+                ring = press(pg, crumb)
+                ck(f"[{w}] {path} breadcrumb button has the 2px ring", ring, "solid 2px")
+                a = pg.evaluate(ACTIVE)
+                ck(f"[{w}] {path} back: focus on the {hub} heading",
+                   (a["tag"] in ("H1", "H2"), a["tabindex"], a["view"]), (True, "-1", hub))
+            # Tabs stay visible when pressed, so they keep focus.
+            pg.goto(BASE + "/pages/prescriptions", wait_until="networkidle")
+            press(pg, '[data-view-btn="rx-repeat"]')
+            ck(f"[{w}] Prescriptions tab keeps focus",
+               pg.evaluate("() => document.activeElement.dataset.viewBtn"), "rx-repeat")
         pg.close()
     b.close()
 
