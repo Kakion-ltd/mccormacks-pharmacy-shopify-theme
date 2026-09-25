@@ -1709,3 +1709,21 @@ deliberately *not* `--c-error`: a reduced price is not a failure.
 background and both pairings pass, so it stays green through every mistake described
 above. The shadow, the lift and the button-against-its-ground separation are all
 invisible to it. Look at a hover in a browser.
+
+---
+
+## The client handover PDF is built from HANDOVER.md (25 Sep 2026)
+
+The client gets `setup/HANDOVER.md` as a PDF, not as Markdown. After any change
+to the handover, rebuild it:
+
+```sh
+python3 setup/build_client_pdfs.py ~/Downloads/McCormacks-Client-Pack
+```
+
+That writes `1-Handover.pdf`, dated with the build date, with the logo and the
+same styling as the staff guide. Pass the image handover `.docx` as a second
+argument to rebuild `4-Images-Handover.pdf` too. Needs
+`pip3 install --user markdown`, Python Playwright and Google Chrome. A PDF left
+over from before the last handover edit says something the repo no longer does,
+so rebuild before sending, not after.

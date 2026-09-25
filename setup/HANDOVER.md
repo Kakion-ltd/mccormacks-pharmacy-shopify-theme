@@ -344,11 +344,10 @@ changed by hand in the theme editor.
 
 ## 3. What is done
 
-All of this is built, checked and on the store, as of the update on 24
-September.
+All of this is built, checked and on the store, as of 25 September.
 
 - The new design, on every page, on phones and computers.
-- About 2,474 products, arranged in 8 departments and roughly 290 categories,
+- 2,427 products, arranged in 8 departments and roughly 290 categories,
   plus 134 brand pages and an A–Z brands page.
 - Menus built from the same category list, so the header, the phone menu and
   the category pages always agree.
