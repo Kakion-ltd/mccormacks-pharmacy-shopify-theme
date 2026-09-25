@@ -844,11 +844,15 @@ Varela Round at 400, so both would fake the 800 again.
 
 ---
 
-## Why fixture coverage matters — two worked examples
+## Why fixture coverage matters — three worked examples
 
-Both were found in the same pass, both had shipped through code review, and both
-were invisible for the same reason: nothing in any preview ever rendered the state
-that exposed them.
+All three had shipped through code review, and all three were invisible for the same
+reason: nothing in any preview ever rendered the state that exposed them. The first
+two were found in the same pass.
+
+This is a different blind spot from content in a closed accordion or tab (see "Audits
+have to open every accordion, tab and modal"). There the state exists on the page
+and nothing opened it. Here the state never renders at all unless a fixture forces it.
 
 ### 1. The variant picker never worked
 
@@ -886,6 +890,13 @@ never been exercised.** The harness dropped the form's `data-ajax-add` attribute
 which is what binds the AJAX handler, so every add-to-cart check clicked a
 collection tile instead — a different code path. The button itself turned out to be
 fine; the harness had been lying about it.
+
+The variant defects that came after were the same shape. The one-option fixture's
+first variant was in stock, so nothing rendered a product whose first variant is
+sold out and also the cheapest. That is the case where `price_min` and
+`selected_or_first_available_variant` point at different variants, and most of those
+defects lived there. `setup/verify/variant-integrity.py` has the fixture now and
+records what it caught.
 
 ### 2. Consent could not be answered on a mobile product page
 
@@ -925,6 +936,24 @@ hit, and it is asking a real question: does your new element cover the consent
 controls on a mobile product page? Raising its `z-index` past 400 to make your
 element sit on top is the wrong answer. The consent banner is meant to be the
 topmost layer on the site.
+
+### 3. The pharmacist questionnaire gate failed open (24 Sep 2026)
+
+A gated product carries a `pharmacy.questionnaire` metafield pointing at a
+questionnaire. If that questionnaire was deleted, the metafield's `.value` resolved to
+nil, which the product page read as "not gated". So a product that should have needed
+a pharmacist's questionnaire showed an ordinary buy box. A questionnaire with zero
+questions had the same problem.
+
+No check caught it, because every fixture's questionnaire existed and had questions.
+It was found by asking what happens when the target is missing, not by a test.
+
+It now fails closed (2ea967e). Whether the metafield is *present* decides if the
+product is gated. Whether the questionnaire has questions is checked separately. A
+deleted or empty target shows a "not available" notice with no form, no add button
+and no opener, and the mobile buy bar is disabled. `setup/verify/questionnaire.py`
+has a fixture for each of the two states and asserts that neither offers a way to
+add the product. See "Pharmacist questionnaire — the suitability gate" above.
 
 ---
 
@@ -1013,15 +1042,13 @@ What that means when you add copy:
 hidden on load has no size, so an audit that looks at the page as it loads does not
 check it. The audit does not report it as a pass or a fail; it leaves it out.
 
-It has happened three times:
+It has happened twice:
 
 1. **The prescriptions form.** Five labels let their selects run off phone screens,
    51px off at 360. The width audit found four. The fifth was in the "Repeat
    prescriptions" tab, hidden until clicked, and turned up only because someone
    went looking.
-2. **The pharmacist questionnaire.** Its states only exist once the modal is opened
-   and answered, so nothing that stops at page load can check them.
-3. **The common conditions FAQ.** Its answers ran 1000px wide, about 140 characters
+2. **The common conditions FAQ.** Its answers ran 1000px wide, about 140 characters
    a line, inside collapsed accordions. The reading-width audit measured every page
    and never saw them.
 
