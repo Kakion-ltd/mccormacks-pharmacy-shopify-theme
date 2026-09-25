@@ -11,14 +11,14 @@ Every item says who owns it:
 - **Decision needed**: we need an answer before anyone can act.
 
 The website is on the store now, behind the password page. Customers cannot
-see it until the password is taken off, and the five launch blockers below need
+see it until the password is taken off, and the six launch blockers below need
 to be settled before that happens.
 
 ---
 
 ## 1. What the pharmacy needs to do
 
-### The five launch blockers
+### The six launch blockers
 
 These have to be settled before the website opens to customers.
 
@@ -75,11 +75,8 @@ Shopify keeps no copy of any of them. If an email is deleted, the request is
 gone. Please name the person who reads info@mccormackspharmacy.ie. They should
 file these emails rather than delete them.
 
-**The emails don't go to that address yet.** Shopify sends them to the
-store's own contact email, and on 25 September that was **info@efulfill.ie**.
-It needs changing to info@mccormackspharmacy.ie in Shopify, under Settings ›
-General (the store's contact email), and a test sent, before any of the
-below works.
+**The emails don't go to that address yet.** See launch blocker 6: until the
+store's email is changed, none of the below works.
 
 Naming one person unblocks four things:
 
@@ -95,6 +92,17 @@ Naming one person unblocks four things:
   website can't send that email itself. Until someone replies to each
   withdrawal request by hand, quoting the reference number it carries (it
   starts "WD-"), we are not meeting that requirement.
+
+**6. Change the store's email address. Owner: Pharmacy, after the transfer.**
+Every form on the website sends its email to the store's own email address,
+including both prescription forms. On 25 September that address was still
+**info@efulfill.ie**, which is not McCormack's. Until it changes, customers'
+prescription requests, withdrawals and messages go to someone else's inbox.
+
+It must change to McCormack's own address, such as
+info@mccormackspharmacy.ie, **before the password comes off**. In Shopify it
+is under Settings › General, as the store's contact email. After changing it,
+send one test through a form and check it arrives.
 
 ### Questions for the pharmacist
 
