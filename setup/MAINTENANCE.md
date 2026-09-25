@@ -29,6 +29,13 @@ cd <main checkout> && git merge --ff-only <session>/<topic>   # refuses unless m
 git push origin main
 ```
 
+**Merge, then push, as separate steps.** Run the merge on its own, confirm it
+succeeded, and only then run `git push` or `shopify theme push`. Never chain
+them in one command, and never pipe the merge through `tail` or `head`: a pipe
+reports the exit status of its last command, so `git merge … | tail -1 && push`
+pushes even after the merge is refused. See "A refused merge did not stop the
+push", below.
+
 If the merge refuses, main has moved: back in the worktree run
 `git rebase main && npm run render && npm test`, then merge again. Do not
 `git push . HEAD:main` from the worktree; git refuses to update a branch that
@@ -122,6 +129,33 @@ discards everyone's work in that file, not just yours; and a patch taken with
 All three vanish with a worktree per session: each index is private, each
 commit is by whole file with nothing foreign in it, and `push . HEAD:main`
 cannot overwrite anyone because it only fast-forwards.
+
+### A refused merge did not stop the push (25 Sep 2026)
+
+The eleventh cross-session incident, and the first where a failed step did not
+stop what came after it. A worktree per session does not prevent this one.
+
+A session landed a one-line fix to the contact page FAQ with a single chained
+command: fast-forward merge, `git push`, `shopify theme push --only
+sections/page-contact.liquid --allow-live` to the live theme, then remove the
+worktree. Another session had landed a commit on main in the meantime, so the
+merge was refused. The merge was written as `git merge --ff-only … | tail -1`,
+and a pipe exits with the status of its last command. `tail` succeeded, so the
+chain carried on. `git push` had nothing to send. The theme push uploaded the
+main checkout's copy of the section, which did not contain the fix.
+
+It did no harm only because main's copy of that file happened to match the
+store already; the session had checked that minutes earlier. The same shape
+would have put the wrong version on the live store if main's copy had differed
+from the store in any way, for example if someone had fixed that file on the
+store and the fix had not yet come back to git. The FAQ fix itself was rebased,
+tested and landed properly afterwards (`cf8b707`).
+
+The rule, now in the landing steps above: merge and push are separate steps,
+and a push runs only after the merge is confirmed. Check the result of the
+merge before running anything that goes out of the repo, whether that is
+GitHub or the store. Don't let a pipe or a `;` stand between a step and the
+check on it.
 
 ---
 
