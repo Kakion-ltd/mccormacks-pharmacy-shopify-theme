@@ -1,0 +1,490 @@
+{
+ "p0": {
+  "id": "gid://shopify/Product/16024784666955",
+  "title": "Calvin Klein Eternity For Men 50Ml Edt Spr",
+  "handle": "calvin-klein-eternity-for-men-50ml-edt-spr",
+  "vendor": "CALVIN KLEIN",
+  "productType": "Gifts for Him",
+  "tags": [
+   "Gifts",
+   "Gifts for Him"
+  ],
+  "status": "ACTIVE",
+  "createdAt": "2026-09-23T19:12:51Z",
+  "updatedAt": "2026-09-25T15:52:03Z",
+  "publishedAt": null,
+  "onlineStoreUrl": null,
+  "descriptionHtml": "<p>Calvin Klein Eternity for Men is a bold, woody aromatic fragrance for men with fresh, spiced top notes over a warm, sensual base. Presented as a 50ml spray bottle, it's a beautifully long-lasting fragrance, perfect for everyday wear or as a special gift.</p>",
+  "templateSuffix": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "category": null,
+  "media": {
+   "nodes": [
+    {
+     "id": "gid://shopify/MediaImage/74284922208587",
+     "alt": "",
+     "mediaContentType": "IMAGE",
+     "image": {
+      "url": "https://cdn.shopify.com/s/files/1/1041/6652/3211/files/031655644295.png?v=1790190771",
+      "width": 1080,
+      "height": 1080
+     }
+    }
+   ]
+  },
+  "metafields": {
+   "nodes": []
+  },
+  "collections": {
+   "nodes": [
+    {
+     "handle": "gifting",
+     "title": "Gifting",
+     "ruleSet": {
+      "appliedDisjunctively": false
+     }
+    },
+    {
+     "handle": "calvin-klein",
+     "title": "Calvin Klein",
+     "ruleSet": {
+      "appliedDisjunctively": false
+     }
+    }
+   ]
+  },
+  "variants": {
+   "nodes": [
+    {
+     "id": "gid://shopify/ProductVariant/58579862094155",
+     "sku": "31655644295",
+     "barcode": "031655644295",
+     "price": "53.00",
+     "compareAtPrice": null,
+     "taxable": true,
+     "inventoryPolicy": "DENY",
+     "inventoryQuantity": 0,
+     "inventoryItem": {
+      "tracked": false,
+      "requiresShipping": true,
+      "measurement": {
+       "weight": {
+        "value": 0,
+        "unit": "KILOGRAMS"
+       }
+      }
+     }
+    }
+   ]
+  },
+  "events": {
+   "nodes": [
+    {
+     "createdAt": "2026-09-23T19:12:51Z",
+     "message": "Anas-product-image-upload created a new product: <a href=\"https://admin.shopify.com/store/mccormackpharmacy/admin/products/16024784666955\">Calvin Klein Eternity For Men 50Ml Edt Spr</a>.",
+     "appTitle": "Anas-product-image-upload",
+     "attributeToApp": true,
+     "attributeToUser": false,
+     "action": "create"
+    },
+    {
+     "createdAt": "2026-09-24T09:15:21Z",
+     "message": "Anas-product-image-upload included a product on Point of Sale: <a href=\"https://admin.shopify.com/store/mccormackpharmacy/admin/products/16024784666955\">Calvin Klein Eternity For Men 50Ml Edt Spr</a>.",
+     "appTitle": "Anas-product-image-upload",
+     "attributeToApp": true,
+     "attributeToUser": false,
+     "action": "published"
+    },
+    {
+     "createdAt": "2026-09-24T09:15:22Z",
+     "message": "Anas-product-image-upload changed product status from draft to active: <a href=\"https://admin.shopify.com/store/mccormackpharmacy/admin/products/16024784666955\">Calvin Klein Eternity For Men 50Ml Edt Spr</a>.",
+     "appTitle": "Anas-product-image-upload",
+     "attributeToApp": true,
+     "attributeToUser": false,
+     "action": "status_changed"
+    }
+   ]
+  },
+  "resourcePublications": {
+   "nodes": [
+    {
+     "isPublished": true,
+     "publication": {
+      "name": "Point of Sale"
+     }
+    }
+   ]
+  }
+ },
+ "p1": {
+  "id": "gid://shopify/Product/15671298261323",
+  "title": "Ck Men 50Ml Edt Spr",
+  "handle": "ck-men-50ml-edt-spr",
+  "vendor": "CALVIN KLEIN",
+  "productType": "Gifts > Gifts for Him",
+  "tags": [
+   "CALVIN KLEIN",
+   "Gifts > Gifts for Him"
+  ],
+  "status": "ACTIVE",
+  "createdAt": "2026-04-16T20:36:52Z",
+  "updatedAt": "2026-09-25T15:55:20Z",
+  "publishedAt": "2026-04-16T20:36:52Z",
+  "onlineStoreUrl": null,
+  "descriptionHtml": "<p>Calvin Klein Eternity for Men is a bold, woody aromatic fragrance for men with fresh, spiced top notes over a warm, sensual base. Presented as a 50ml spray bottle, it's a beautifully long-lasting fragrance, perfect for everyday wear or as a special gift.</p>",
+  "templateSuffix": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "category": null,
+  "media": {
+   "nodes": [
+    {
+     "id": "gid://shopify/MediaImage/71448162042187",
+     "alt": "Ck Men 50Ml Edt Spr",
+     "mediaContentType": "IMAGE",
+     "image": {
+      "url": "https://cdn.shopify.com/s/files/1/1041/6652/3211/files/031655644295___L.jpg?v=1776371814",
+      "width": 600,
+      "height": 600
+     }
+    }
+   ]
+  },
+  "metafields": {
+   "nodes": []
+  },
+  "collections": {
+   "nodes": [
+    {
+     "handle": "gifts-for-him",
+     "title": "Gifts for Him",
+     "ruleSet": {
+      "appliedDisjunctively": false
+     }
+    },
+    {
+     "handle": "gifting",
+     "title": "Gifting",
+     "ruleSet": {
+      "appliedDisjunctively": false
+     }
+    },
+    {
+     "handle": "calvin-klein",
+     "title": "Calvin Klein",
+     "ruleSet": {
+      "appliedDisjunctively": false
+     }
+    }
+   ]
+  },
+  "variants": {
+   "nodes": [
+    {
+     "id": "gid://shopify/ProductVariant/57051051196747",
+     "sku": "031655644295",
+     "barcode": "031655644295",
+     "price": "53.00",
+     "compareAtPrice": null,
+     "taxable": true,
+     "inventoryPolicy": "DENY",
+     "inventoryQuantity": 1,
+     "inventoryItem": {
+      "tracked": true,
+      "requiresShipping": true,
+      "measurement": {
+       "weight": {
+        "value": 0,
+        "unit": "KILOGRAMS"
+       }
+      }
+     }
+    }
+   ]
+  },
+  "events": {
+   "nodes": []
+  },
+  "resourcePublications": {
+   "nodes": [
+    {
+     "isPublished": true,
+     "publication": {
+      "name": "Online Store"
+     }
+    },
+    {
+     "isPublished": true,
+     "publication": {
+      "name": "Point of Sale"
+     }
+    },
+    {
+     "isPublished": true,
+     "publication": {
+      "name": "Shop"
+     }
+    }
+   ]
+  }
+ },
+ "p2": {
+  "id": "gid://shopify/Product/15671257596235",
+  "title": "Murine Irritation & Redness Relief Eye Drops",
+  "handle": "murine-irritation-redness-relief-eye-drops",
+  "vendor": "Murine",
+  "productType": "Pharmacy > Eye & Ear Care",
+  "tags": [
+   "Murine",
+   "pharmacist-review",
+   "Pharmacy > Eye & Ear Care"
+  ],
+  "status": "ACTIVE",
+  "createdAt": "2026-04-16T20:25:34Z",
+  "updatedAt": "2026-09-23T14:41:59Z",
+  "publishedAt": "2026-04-16T20:25:34Z",
+  "onlineStoreUrl": null,
+  "descriptionHtml": "<p>Murine Irritation &amp; Redness Relief Eye Drops are formulated to quickly relieve red, irritated eyes caused by minor irritants such as dust, smoke, chlorine or long periods of screen use, leaving eyes feeling refreshed and looking brighter.</p>",
+  "templateSuffix": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "category": null,
+  "media": {
+   "nodes": [
+    {
+     "id": "gid://shopify/MediaImage/74227859947851",
+     "alt": "Murine Irritation & Redness Relief Eye Drops",
+     "mediaContentType": "IMAGE",
+     "image": {
+      "url": "https://cdn.shopify.com/s/files/1/1041/6652/3211/files/murine-irritation-redness-relief-eye-drops-1_19e2c883-e7ce-4629-84e5-50b1da344f3d.jpg?v=1790002818",
+      "width": 1024,
+      "height": 1024
+     }
+    },
+    {
+     "id": "gid://shopify/MediaImage/74227857457483",
+     "alt": "Murine Irritation & Redness Relief Eye Drops",
+     "mediaContentType": "IMAGE",
+     "image": {
+      "url": "https://cdn.shopify.com/s/files/1/1041/6652/3211/files/murine-irritation-redness-relief-eye-drops-1.jpg?v=1790002803",
+      "width": 1024,
+      "height": 1024
+     }
+    }
+   ]
+  },
+  "metafields": {
+   "nodes": []
+  },
+  "collections": {
+   "nodes": [
+    {
+     "handle": "pharmacy",
+     "title": "Pharmacy",
+     "ruleSet": {
+      "appliedDisjunctively": false
+     }
+    },
+    {
+     "handle": "pharmacist-review-required",
+     "title": "Pharmacist Review Required",
+     "ruleSet": {
+      "appliedDisjunctively": false
+     }
+    },
+    {
+     "handle": "medicines-health",
+     "title": "Medicines & Health",
+     "ruleSet": {
+      "appliedDisjunctively": false
+     }
+    },
+    {
+     "handle": "eye-ear-health",
+     "title": "Eye & Ear Health",
+     "ruleSet": {
+      "appliedDisjunctively": false
+     }
+    }
+   ]
+  },
+  "variants": {
+   "nodes": [
+    {
+     "id": "gid://shopify/ProductVariant/57050816250187",
+     "sku": "50600188802040",
+     "barcode": null,
+     "price": "9.95",
+     "compareAtPrice": null,
+     "taxable": true,
+     "inventoryPolicy": "DENY",
+     "inventoryQuantity": 0,
+     "inventoryItem": {
+      "tracked": true,
+      "requiresShipping": true,
+      "measurement": {
+       "weight": {
+        "value": 0,
+        "unit": "KILOGRAMS"
+       }
+      }
+     }
+    }
+   ]
+  },
+  "events": {
+   "nodes": []
+  },
+  "resourcePublications": {
+   "nodes": [
+    {
+     "isPublished": true,
+     "publication": {
+      "name": "Online Store"
+     }
+    },
+    {
+     "isPublished": true,
+     "publication": {
+      "name": "Point of Sale"
+     }
+    },
+    {
+     "isPublished": true,
+     "publication": {
+      "name": "Shop"
+     }
+    }
+   ]
+  }
+ },
+ "p3": {
+  "id": "gid://shopify/Product/15671329161547",
+  "title": "Murine Irritation & Redness Eye Drops 10Ml",
+  "handle": "murine-irritation-redness-eye-drops-10ml",
+  "vendor": "Murine",
+  "productType": "Pharmacy > Eye & Ear Care",
+  "tags": [
+   "Murine",
+   "pharmacist-review",
+   "Pharmacy > Eye & Ear Care"
+  ],
+  "status": "ACTIVE",
+  "createdAt": "2026-04-16T20:46:32Z",
+  "updatedAt": "2026-09-25T15:56:42Z",
+  "publishedAt": "2026-04-16T20:46:32Z",
+  "onlineStoreUrl": null,
+  "descriptionHtml": "<p>Murine is formulated to clear redness and soothe eyes which have been irritated by, for example, dusty atmospheres, wind, swimming, smoke. air pollutants, and close work such as reading and computer use. It has a fast action and long lasting action.</p>",
+  "templateSuffix": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "category": null,
+  "media": {
+   "nodes": [
+    {
+     "id": "gid://shopify/MediaImage/74275911172427",
+     "alt": "Murine Irritation & Redness Eye Drops 10Ml",
+     "mediaContentType": "IMAGE",
+     "image": {
+      "url": "https://cdn.shopify.com/s/files/1/1041/6652/3211/files/murine-irritation-redness-eye-drops-10ml-1.jpg?v=1790165364",
+      "width": 2048,
+      "height": 2048
+     }
+    }
+   ]
+  },
+  "metafields": {
+   "nodes": []
+  },
+  "collections": {
+   "nodes": [
+    {
+     "handle": "pharmacy",
+     "title": "Pharmacy",
+     "ruleSet": {
+      "appliedDisjunctively": false
+     }
+    },
+    {
+     "handle": "pharmacist-review-required",
+     "title": "Pharmacist Review Required",
+     "ruleSet": {
+      "appliedDisjunctively": false
+     }
+    },
+    {
+     "handle": "medicines-health",
+     "title": "Medicines & Health",
+     "ruleSet": {
+      "appliedDisjunctively": false
+     }
+    },
+    {
+     "handle": "eye-ear-health",
+     "title": "Eye & Ear Health",
+     "ruleSet": {
+      "appliedDisjunctively": false
+     }
+    }
+   ]
+  },
+  "variants": {
+   "nodes": [
+    {
+     "id": "gid://shopify/ProductVariant/57051106771275",
+     "sku": "5060018880204",
+     "barcode": "5060018880204",
+     "price": "9.95",
+     "compareAtPrice": null,
+     "taxable": true,
+     "inventoryPolicy": "DENY",
+     "inventoryQuantity": 0,
+     "inventoryItem": {
+      "tracked": true,
+      "requiresShipping": true,
+      "measurement": {
+       "weight": {
+        "value": 0,
+        "unit": "KILOGRAMS"
+       }
+      }
+     }
+    }
+   ]
+  },
+  "events": {
+   "nodes": []
+  },
+  "resourcePublications": {
+   "nodes": [
+    {
+     "isPublished": true,
+     "publication": {
+      "name": "Online Store"
+     }
+    },
+    {
+     "isPublished": true,
+     "publication": {
+      "name": "Point of Sale"
+     }
+    },
+    {
+     "isPublished": true,
+     "publication": {
+      "name": "Shop"
+     }
+    }
+   ]
+  }
+ }
+}
