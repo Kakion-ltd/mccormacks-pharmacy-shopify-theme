@@ -54,12 +54,12 @@ Their answers come to you with the order, and nothing is sent until you
 approve it. This is built and tested, but it has nothing to work on yet,
 because nobody has said which products need it.
 
-At the moment all 521 products in your "Pharmacy" department are treated the
+At the moment the 540 products in your "Pharmacy" department are treated the
 same way. That includes things that are not medicines at all: for example, a
 suncare travel set is filed under Pharmacy > Travel Sickness and shows "Ask a
 pharmacist before you buy". We need a list of the products that genuinely need
-a pharmacist check, and the questions to ask for each. The spreadsheet of all
-521 is described under "Product questions" below.
+a pharmacist check, and the questions to ask for each. The spreadsheet for this
+is described under "Product questions" below.
 
 **5. Who reads the website's email inbox. Owner: Pharmacy.**
 Seven forms on the website send an email and nothing else:
@@ -257,12 +257,14 @@ sample products from the design, with made-up prices.
 
 ### Product questions
 
-**The 521 "pharmacist review" products. Owner: Pharmacy (pharmacist).**
-Spreadsheet: `pharmacist-review-gated-products.csv`. It lists every product in
-the Pharmacy department, with type, brand, price and stock. Please mark the
-ones that genuinely need a pharmacist check. This is the list that settles
-launch blocker 4. It was made on 9 September, and some products have moved
-department since, so a few rows may no longer sit under Pharmacy.
+**Which products need a pharmacist check. Owner: Pharmacy (pharmacist).**
+Spreadsheet: `Pharmacist-Review-Website-Pages.xlsx`, tab "Needs a pharmacist
+check". It lists all 548 products that are in the Pharmacy department or
+already marked for a pharmacist, as the store stood on 25 September. Choose
+Yes or No for each. The first 164 are ones we think are No, such as plasters
+and throat sweets, so they should take a few minutes; the rest need the
+pharmacist's judgement. This is the list that settles launch blocker 4. The
+workbook's other tabs ask which products belong on each category page.
 
 **Brands on the current website versus the new shop. Owner: Pharmacy.**
 We compared the two on 9 September:
@@ -347,7 +349,7 @@ changed by hand in the theme editor.
 All of this is built, checked and on the store, as of 25 September.
 
 - The new design, on every page, on phones and computers.
-- 2,427 products, arranged in 8 departments and roughly 290 categories,
+- 2,427 products, arranged in 8 departments and 175 categories,
   plus 134 brand pages and an A–Z brands page.
 - Menus built from the same category list, so the header, the phone menu and
   the category pages always agree.
