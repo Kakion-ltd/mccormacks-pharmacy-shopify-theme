@@ -157,6 +157,36 @@ merge before running anything that goes out of the repo, whether that is
 GitHub or the store. Don't let a pipe or a `;` stand between a step and the
 check on it.
 
+### The store has no worktree: one session writes to it at a time (25 Sep 2026)
+
+Worktrees protect the repo. Nothing protects the store. Every session reaches
+the same live catalogue through `shopify store execute`, and Shopify keeps no
+branches, no merge and no refusal. The last write wins, silently.
+
+On 25 September two sessions wrote to the catalogue within the same hour. One
+was tagging products and fixing their types; the other was retyping products
+and deleting collections. Between one session reading the store and writing
+to it, the other had retyped Sidena, Calpol and Deep Heat and deleted 98
+collections, including 25 the first session was about to unpublish. Nothing
+was lost only because both sessions re-read each product just before writing
+and refused to write if it had changed. That was luck of habit, not a
+safeguard.
+
+The rule:
+
+- **One session at a time makes store writes.** That means any mutation:
+  product tags, types or status, collections, publishing, metafields, theme
+  pushes to the live theme, anything run with `--allow-mutations`.
+- **A session that is going to write to the store says so first**, to the
+  person running the sessions, and does not start until they confirm no other
+  session is writing. It says again when it has finished.
+- Every other session treats the store as read-only: reports, proposals and
+  CSVs, with no writes.
+- The session that writes still re-reads each record immediately before
+  changing it, and stops if the record differs from what its plan expected.
+  That check caught today's overlap; keep it as a second line of defence, not
+  instead of the rule.
+
 ---
 
 ## The recurring defect: one thing in two places, saying two things
