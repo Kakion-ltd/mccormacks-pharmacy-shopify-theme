@@ -981,6 +981,68 @@ header's height, change that token in the same edit.
 
 ---
 
+## Reading width — one token, 580px, and it stops working below 14.5px (25 Sep 2026)
+
+Body copy is capped at `--measure` in `base.css`: policies, the seven legal-sidebar
+pages, articles, product descriptions, collection and gift-voucher copy, about,
+careers, withdraw, loyalty, wishlist and common conditions. The aim is under about
+90 characters a line. Before this, the legal pages ran 153 and articles 190.
+
+**The limit: 580px only holds for text at 14.5px and above.** A pixel cap gives a
+character count that depends on the type size and the letters. Measured with every
+accordion open, 580px gives 89 or under on every page. The worst is the wishlist
+note at 14.5px, which is the smallest text using the token. At 600px that same note
+reached 93. So did a line of short, narrow words on withdraw.
+
+What that means when you add copy:
+
+- **Text smaller than 14.5px needs its own, narrower cap.** Do not put it under
+  `--measure`; it will pass review and run over 90.
+- **Do not raise the token.** 600 and 620 were both tried and measured over 90.
+- **The 17px intros are not on the token.** They stay at `64ch`, which measured 75
+  to 85 characters at that size. A `ch` cap scales with the font; a pixel cap does not.
+- **Check a change by counting characters on rendered lines, not by pixel width.**
+  Count them at every width, with accordions and tabs open (next section).
+
+---
+
+## Audits have to open every accordion, tab and modal (25 Sep 2026)
+
+**Any audit of this site, by a script or by eye, must open every accordion, tab,
+`<details>` and modal before it measures anything.** Content that is collapsed or
+hidden on load has no size, so an audit that looks at the page as it loads does not
+check it. The audit does not report it as a pass or a fail; it leaves it out.
+
+It has happened three times:
+
+1. **The prescriptions form.** Five labels let their selects run off phone screens,
+   51px off at 360. The width audit found four. The fifth was in the "Repeat
+   prescriptions" tab, hidden until clicked, and turned up only because someone
+   went looking.
+2. **The pharmacist questionnaire.** Its states only exist once the modal is opened
+   and answered, so nothing that stops at page load can check them.
+3. **The common conditions FAQ.** Its answers ran 1000px wide, about 140 characters
+   a line, inside collapsed accordions. The reading-width audit measured every page
+   and never saw them.
+
+**For clipping, `setup/verify/sweep.py` handles this now.** It opens every
+`<details>` and `[data-acc-toggle]` in `main`. It shows each `[data-view]` tab
+through its own button, so the theme lays it out. It checks element bounds in each
+state. It also fails on any form control that was never on screen and is hidden by
+a toggle, so a new kind of toggle it cannot open fails the check instead of being
+skipped.
+
+**Nothing else does it.** Contrast, reading width, spacing and copy checks all
+look at the page as it loads unless they are written otherwise. When you write a
+new check or run an audit by hand:
+
+- Use the sweep's walk. Copy its `CLIPPED` preamble: open everything, then visit
+  each tab.
+- Say which states were covered. A result that only covers the page as loaded
+  should say so.
+
+---
+
 ## Correct code, wrong behaviour — the defects only a browser finds (10 Sep 2026)
 
 **Eight** defects in this theme have now shipped through code review and a passing
