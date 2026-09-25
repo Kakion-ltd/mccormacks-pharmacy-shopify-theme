@@ -74,7 +74,7 @@
         <div style="font-family:var(--font-heading); font-weight:800; font-size:clamp(20px,2.1vw,26px); line-height:1.25; margin:0 0 7px;">Not sure which service you need?</div>
         <div style="font-size:15px; line-height:1.65; color:#d6e2cd;">Call us and describe what is going on. We will tell you what we can help with in store, and when you are better off seeing your GP.</div>
       </div>
-      <div style="flex:0 0 auto; display:flex; flex-wrap:wrap; gap:12px;">
+      <div style="flex:0 1 auto; min-width:0; display:flex; flex-wrap:wrap; gap:12px;">
         <a href="tel:{{ settings.phone | remove: ' ' }}" class="btn btn-fill">{{ settings.phone }}</a>
         {%- if section.settings.show_booking_form -%}
           <button type="button" class="svc-link-btn svc-band-outline btn" data-view-btn="svc-book" style="border-color:rgba(255,255,255,.28); color:#ffffff">Request an appointment</button>
