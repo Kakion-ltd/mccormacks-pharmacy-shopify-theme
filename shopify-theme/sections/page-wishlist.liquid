@@ -18,7 +18,7 @@
   {%- render 'breadcrumb', current: 'Wishlist', margin: '0 0 18px' -%}
 
   <h1 style="margin:0 0 14px; color:var(--c-dark);">{{ section.settings.heading }}</h1>
-  <p style="font-size:16px; line-height:1.7; color:#5a6153; margin:0 0 26px; max-width:70ch;">{{ section.settings.intro }}</p>
+  <p style="font-size:16px; line-height:1.7; color:#5a6153; margin:0 0 26px; max-width:var(--measure);">{{ section.settings.intro }}</p>
 
   <div class="wish-grid" data-wish-grid
        data-wish-restricted-tag="{{ settings.restricted_tag | downcase | escape }}" hidden></div>
@@ -32,7 +32,7 @@
           </span>
           <h2 style="margin:0; font-size:18px;">Nothing saved yet</h2>
         </div>
-        <p style="margin:0; font-size:14.5px; line-height:1.7; color:#5a6153;">{{ section.settings.body }}</p>
+        <p style="margin:0; font-size:14.5px; line-height:1.7; color:#5a6153; max-width:var(--measure);">{{ section.settings.body }}</p>
         <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:6px;">
           <a href="/collections/medicines-health" class="btn btn-fill">Start shopping</a>
           {% if customer %}

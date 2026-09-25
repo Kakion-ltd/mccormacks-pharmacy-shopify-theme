@@ -63,7 +63,7 @@
 
 <section id="ccs-conditions" style="max-width:1440px; margin:0 auto; padding:40px 30px 10px; scroll-margin-top:120px;">
   <h2 style="{{ h_font }} font-size:clamp(24px,2.6vw,34px); margin:0 0 10px;">Conditions we can treat</h2>
-  <p style="margin:0 0 22px; font-size:16px; line-height:1.65; color:#4a4d47; max-width:70ch;">{{ section.settings.conditions_intro }}</p>
+  <p style="margin:0 0 22px; font-size:16px; line-height:1.65; color:#4a4d47; max-width:var(--measure);">{{ section.settings.conditions_intro }}</p>
   <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px;">
     {%- for block in section.blocks -%}
       {%- if block.type == 'condition' -%}
@@ -78,7 +78,7 @@
 
 <section id="ccs-stores" style="max-width:1440px; margin:0 auto; padding:40px 30px 10px; scroll-margin-top:120px;">
   <h2 style="{{ h_font }} font-size:clamp(24px,2.6vw,34px); margin:0 0 10px;">Call your pharmacy to book</h2>
-  <p style="margin:0 0 22px; font-size:16px; line-height:1.65; color:#4a4d47; max-width:70ch;">{{ section.settings.stores_intro }}</p>
+  <p style="margin:0 0 22px; font-size:16px; line-height:1.65; color:#4a4d47; max-width:var(--measure);">{{ section.settings.stores_intro }}</p>
   <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px;">
     {%- for block in section.blocks -%}
       {%- if block.type == 'store' -%}
@@ -106,7 +106,7 @@
             <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div class="ccs-faq-content" id="{{ faq_id }}" data-acc-content="{{ faq_id }}" data-open="false">
-            <div style="margin:10px 0 0; font-size:15.5px; line-height:1.65; color:#5a6153;">
+            <div style="margin:10px 0 0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:var(--measure);">
               {{ block.settings.answer }}
               {%- comment -%} The branch list renders from the store blocks, so it cannot drift from the cards above. {%- endcomment -%}
               {%- if block.settings.list_stores -%}

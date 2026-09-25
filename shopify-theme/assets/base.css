@@ -20,10 +20,14 @@
   --c-border: #E6E7E4;
   --c-border-2: #DFE1DC;
   /* The one reading width for body copy: policies, legal pages, articles, product
-     descriptions, collection and gift-voucher copy, about, careers, withdraw, loyalty.
-     620px is about 90 characters a line at 15.5-16px in this font, the upper limit for
-     body text; the 780px the policy pages had was 113. The 17px intros stay at 64ch. */
-  --measure: 620px;
+     descriptions, collection and gift-voucher copy, about, careers, withdraw, loyalty,
+     wishlist and common conditions. Body text should stay under about 90 characters a
+     line; the 780px the policy pages had gave 113. A pixel cap cannot promise that for
+     every line, because the count depends on the letters and the size: at 600px a line
+     of short, narrow words on withdraw reached 93, and so did the 14.5px wishlist note.
+     580px measured 89 or under on every page, accordions open. The 17px intros stay at
+     64ch. Copy in a smaller size than 14.5px should get its own, narrower cap. */
+  --measure: 580px;
   /* Sale red. Not a brand green and not editor-driven, so it lives here rather than in
      theme.liquid — but it IS one decision, and it was three hardcoded copies until the
      product page drifted off it. Near --c-error on purpose and not the same: a reduced

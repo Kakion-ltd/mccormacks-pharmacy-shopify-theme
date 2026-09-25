@@ -67,7 +67,7 @@ bad = []
 loads = 0
 with sync_playwright() as pw:
     b = pw.chromium.launch(headless=True)
-    # Four widths, not two. Three of the eight defects recorded in MAINTENANCE.md
+    # Five widths, not two. Three of the eight defects recorded in MAINTENANCE.md
     # ("Correct code, wrong behaviour") lived between 1440 and 390 and were invisible at
     # both: a mega panel asking 1030px of columns inside a 904px panel at 1024, a vh
     # height cap that could not know its own top once the nav wrapped to two rows there,
@@ -77,7 +77,11 @@ with sync_playwright() as pw:
     for label, vp in (("1440", {"width":1440,"height":900}),
                       ("1280", {"width":1280,"height":800}),
                       ("1024", {"width":1024,"height":768}),
-                      ("390",  {"width":390, "height":844})):
+                      ("390",  {"width":390, "height":844}),
+                      # The narrowest common phone. Content clipped at the edge grows as
+                      # the screen shrinks: the prescription selects were 21px off at 390
+                      # and 51px at 360, the services buttons 9px and 39px.
+                      ("360",  {"width":360, "height":780})):
         pg = b.new_page(viewport=vp)
         errs = []
         pg.on("pageerror", lambda e: errs.append(str(e)))
