@@ -410,9 +410,18 @@ copy live, which is how the original claim survived a previous edit.
 
 ## Restricted products — tag, not code
 
-**Theme settings → Pharmacy → Restricted product tag** (default
-`pharmacist-only`). Products carrying the tag lose the one-click add on every
-listing, search result and recommendation, and link to the product page instead.
+**Theme settings → Pharmacy → Restricted product tag.** The schema default is
+`pharmacist-only`; this store's setting is **`pharmacist-review`**. Products
+carrying the tag lose the one-click add on every listing, search result and
+recommendation, and link to the product page instead.
+
+**The same tag triggers the pharmacist hold** (Shopify Flow, "The pharmacist hold
+follows the tag" below). So the tag means "this is a medicine" to two systems:
+the theme reads it from the setting, the Flow reads it as a literal string. If
+the setting is ever renamed, change the Flow condition in the same sitting, or
+medicines will skip the hold. Since 25 Sep 2026 it is applied from the HPRA
+register, not by department (see "Licensed medicines outside Pharmacy tagged"
+and the retag notes further down).
 
 Two rules for anyone adding a new product grid or rail:
 
@@ -433,12 +442,12 @@ Two rules for anyone adding a new product grid or rail:
    test — it is the only thing standing between a saved pharmacist-only
    medicine and a one-click add.
 
-**This is suppression, not a suitability check.** The restricted tag only hides the
-one-click add on grids; it does not ask the customer anything, and on its own it
-leaves the product page's Add to bag ungated. The *suitability* gate is a separate
-mechanism — the pharmacist questionnaire below — driven by a metafield, not the tag.
-A pharmacy medicine usually wants both: the tag to keep it off quick-add surfaces,
-and the questionnaire metafield to gate its own product page.
+**In the theme this is suppression, not a suitability check.** The tag hides the
+one-click add on grids; it does not ask the customer anything, and it leaves the
+product page's Add to bag open. The *questions* are a separate mechanism, the
+pharmacist questionnaire below, driven by a metafield. The *review* of every
+medicine order is the Flow hold, driven by this tag. A medicine always needs the
+tag; it needs a questionnaire only if the pharmacist wants questions asked.
 
 ---
 
@@ -466,9 +475,12 @@ Three things that are load-bearing and easy to break:
 
 3. **The gate holds the order AFTER payment, not before checkout.** There is no
    Shopify-native way to block checkout from the theme; the model is: customer pays,
-   a pharmacist reviews the answers on the order, and dispatch is held (via Shopify
-   Flow matching the hidden `_pharmacist_review` line-item property) until they
-   approve — or the order is refused and refunded. This is the same model Inish use
+   a pharmacist reviews the order (and the answers, where there were questions), and
+   dispatch is held until they approve — or the order is refused and refunded. **The
+   hold follows the `pharmacist-review` tag, not the questionnaire**: see the next
+   section. The hidden `_pharmacist_review` line-item property the questionnaire
+   stamps only says "answers are attached to this line"; it is not what holds the
+   order. This is the same model Inish use
    and it is the right one, **but it means the customer pays before the decision is
    made.** So whoever writes customer-facing copy must make that sequence clear
    *before* payment: you pay now, a pharmacist reviews, an unsuitable order is
@@ -476,6 +488,47 @@ Three things that are load-bearing and easy to break:
    in `snippets/pharmacy-questionnaire.liquid` (`.pq-consent-note`). If the flow or
    the copy changes, keep the two in step, and get the wording pharmacist/client
    signed off like any other medical copy.
+
+---
+
+## The pharmacist hold follows the tag, not the questionnaire (25 Sep 2026)
+
+PSI guidance (Internet Supply of Non-Prescription Medicines, section 2.5) says a
+registered pharmacist must personally review and authorise **every** order for a
+medicine before it is supplied. The first design held only orders carrying the
+questionnaire's `_pharmacist_review` line property. No product has a questionnaire
+(no `pharmacy_questionnaire` metaobject exists on the store) and most medicines
+never will, so that design held nothing. The hold now keys off the product tag
+every medicine carries.
+
+**Not built yet.** Nothing in this repo creates the Flow; build it in Shopify admin
+→ Apps → Flow:
+
+- **Trigger:** Order created.
+- **Condition:** any line item's product has the tag `pharmacist-review`. Exact
+  text, lower case: Flow compares tags as literal strings, unlike the theme,
+  which matches case-insensitively.
+- **Actions:** hold the order's fulfillment orders, and tag the order
+  `awaiting-pharmacist` so the pharmacist can filter for it.
+- **Release:** the pharmacist reviews the order in admin and releases the hold,
+  or cancels and refunds it. A mixed bag is held whole; nothing ships until the
+  medicine line is approved.
+
+What this covers and what it does not:
+
+- It covers every tagged medicine, whichever way it reached the bag: product page,
+  questionnaire, wishlist or a saved cart.
+- It is only as good as the tagging. An untagged medicine skips the hold **and**
+  the one-click suppression. That is why the staff guide's page on adding a
+  medicine says to tag every product with a licence number on the pack (PA, PPA,
+  TR, EU/1/, or VPA for pet medicines). Sudocrem (licensed GSL, PA0436/054/001)
+  was untagged on 25 Sep 2026 because the register match marked it "unsure".
+- It does **not** meet the rest of section 2.5 on its own: recording that the
+  purchaser is over 18, knows to follow the pack's instructions and is buying a
+  reasonable quantity; keeping each transaction record for two years in a
+  permanent, unalterable form; and spotting repeat requests for medicines liable
+  to misuse (laxatives, painkillers, antihistamines). How those are satisfied is
+  the client's decision. None of it is built.
 
 ---
 
@@ -1520,7 +1573,7 @@ decision. Every row, before and after, is in
   they do not collect their sub-pages' products.
 - A `Pharmacy >` type turns on the pharmacist lines in `buy-assurance`, so
   Dettol, surgical spirits and similar now show them. It does not gate
-  anything; the questionnaire follows the `pharmacist-review` tag.
+  anything; the pharmacist hold follows the `pharmacist-review` tag.
 - Sidena 50mg (sildenafil, P on the HPRA list) had no `pharmacist-review`
   tag, so it sold without the questionnaire. It has the tag now (next section).
 
@@ -1551,6 +1604,29 @@ the bag in one click. Approved by Kakion:
 
 The list came from `medicine-classification-2026-09-25.csv` (HPRA register
 match); a product it did not match is not proven to be a non-medicine.
+
+## pharmacist-review rebuilt from the HPRA register (25 Sep 2026)
+
+The tag had been applied by department, so plasters, bandages and throat sweets
+carried it alongside medicines. It was rebuilt from
+`medicine-classification-2026-09-25.csv` (a title match against the HPRA human
+register), approved by Kakion:
+
+- 532 tagged before. 208 had no licence match; each was checked by hand.
+  **200 untagged**, their previous tags logged so any can be restored.
+- **8 kept** although the title match missed them: Ov Iodine Tincture 30ml
+  (Iodine Tincture BP, PA0206/025/001, pharmacy only), Broncho Stop Junior
+  (probably Buttercup Bronchostop, TR2006, general sale), Fleaway Plus x5
+  (veterinary medicines, not on the human register) and Hayfever Heroes Bundle
+  (may contain antihistamines).
+- Licensed P and GSL: all 202 were already tagged. The 162 the match marked
+  "unsure" were left as they were: 122 tagged, 40 not, Sudocrem among them.
+- **332 tagged after.** The workbook's "Needs a pharmacist check" tab lists
+  them, licensed medicines first.
+
+"No match" means the title matched no licence name, not that the product is
+proven not to be a medicine. Any product with a licence number on its pack
+gets the tag, whatever the classification says.
 
 ## Two things that look like failures when tagging products
 
