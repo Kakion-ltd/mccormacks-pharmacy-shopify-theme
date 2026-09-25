@@ -130,6 +130,30 @@ those answers on its own results page, away from the product. So on a pharmacy
 site, each one needs your sign-off before it goes up. None have been written
 yet.
 
+### PSI rules for selling medicines online
+
+**Internet Supply List registration for each shop. Owner: Pharmacy.**
+The PSI's guidance is explicit that every pharmacy supplying medicines online
+must be registered on the Internet Supply List in its own right, even when
+several pharmacies share one website. We hold one registration, number
+10001884, and the website's PSI logo links to it. Please send us the
+registration numbers for the other six shops, or confirm which shops that one
+registration covers.
+
+This may limit which shop can fulfil online medicine orders. A shop that isn't
+registered shouldn't dispatch them, so the answer decides where medicine
+orders are sent from.
+
+**A pharmacist supervises every medicine sold online. Owner: Pharmacy
+(pharmacist).**
+The PSI require every medicine supplied from a pharmacy to be supplied under
+the personal supervision of a pharmacist. That covers pharmacy-only and
+general sale medicines alike, and it applies at a distance too. It is broader
+than launch blocker 4, which is only about the shortlist of products that need
+a questionnaire. How that supervision is satisfied for online orders is your
+professional judgement. Tell us what you decide and we'll set the website up
+to match.
+
 ### The legal pages
 
 **Which version of each legal page is the right one. Decision needed:
