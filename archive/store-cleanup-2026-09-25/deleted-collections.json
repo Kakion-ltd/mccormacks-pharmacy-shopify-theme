@@ -1,0 +1,2983 @@
+{
+ "supplements": {
+  "id": "gid://shopify/Collection/689669341515",
+  "handle": "supplements",
+  "title": "Supplements",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T15:39:55Z",
+  "productsCount": {
+   "count": 280
+  },
+  "image": {
+   "url": "https://cdn.shopify.com/s/files/1/1041/6652/3211/collections/793618110697___L.jpg?v=1777154733",
+   "altText": "Supplements \u2014 McCormack's Pharmacy"
+  },
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "STARTS_WITH",
+     "condition": "Supplements"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "gifts": {
+  "id": "gid://shopify/Collection/689669505355",
+  "handle": "gifts",
+  "title": "Gifts",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-25T11:05:31Z",
+  "productsCount": {
+   "count": 263
+  },
+  "image": {
+   "url": "https://cdn.shopify.com/s/files/1/1041/6652/3211/collections/6294015186407___L.jpg?v=1777154728",
+   "altText": "Gifts \u2014 McCormack's Pharmacy"
+  },
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "STARTS_WITH",
+     "condition": "Gifts"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "face-makeup": {
+  "id": "gid://shopify/Collection/689669833035",
+  "handle": "face-makeup",
+  "title": "Face Makeup",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-25T11:20:15Z",
+  "productsCount": {
+   "count": 113
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Beauty > Face"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "baby": {
+  "id": "gid://shopify/Collection/689669439819",
+  "handle": "baby",
+  "title": "Baby",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T15:36:41Z",
+  "productsCount": {
+   "count": 106
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "STARTS_WITH",
+     "condition": "Baby"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "body-care": {
+  "id": "gid://shopify/Collection/689669767499",
+  "handle": "body-care",
+  "title": "Body Care",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T15:38:09Z",
+  "productsCount": {
+   "count": 85
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Skincare > Body Care"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "cold-flu": {
+  "id": "gid://shopify/Collection/689669570891",
+  "handle": "cold-flu",
+  "title": "Cold & Flu",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T15:38:19Z",
+  "productsCount": {
+   "count": 73
+  },
+  "image": {
+   "url": "https://cdn.shopify.com/s/files/1/1041/6652/3211/collections/5010123667344___L.jpg?v=1777154742",
+   "altText": "Cold & Flu \u2014 McCormack's Pharmacy"
+  },
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Pharmacy > Cold & Flu"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "face-care": {
+  "id": "gid://shopify/Collection/689669734731",
+  "handle": "face-care",
+  "title": "Face Care",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T15:39:14Z",
+  "productsCount": {
+   "count": 73
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Skincare > Face"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "digestive-health": {
+  "id": "gid://shopify/Collection/689669669195",
+  "handle": "digestive-health",
+  "title": "Digestive Health",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T14:51:32Z",
+  "productsCount": {
+   "count": 49
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Pharmacy > Stomach & Digestion"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "stomach-digestion": {
+  "id": "gid://shopify/Collection/698010468683",
+  "handle": "stomach-digestion",
+  "title": "Stomach & Digestion",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T14:51:32Z",
+  "productsCount": {
+   "count": 49
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": true,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Pharmacy > Stomach & Digestion"
+    },
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Pharmacy > Digestive Health"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "brands": {
+  "id": "gid://shopify/Collection/689669538123",
+  "handle": "brands",
+  "title": "Brands",
+  "descriptionHtml": "",
+  "sortOrder": "ALPHA_ASC",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-25T11:05:30Z",
+  "productsCount": {
+   "count": 40
+  },
+  "image": {
+   "url": "https://cdn.shopify.com/s/files/1/1041/6652/3211/collections/5060907052873___L.jpg?v=1777154731",
+   "altText": "Brands \u2014 McCormack's Pharmacy"
+  },
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "STARTS_WITH",
+     "condition": "Brands"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "allergy-hayfever": {
+  "id": "gid://shopify/Collection/689669701963",
+  "handle": "allergy-hayfever",
+  "title": "Allergy & Hayfever",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T15:37:10Z",
+  "productsCount": {
+   "count": 39
+  },
+  "image": {
+   "url": "https://cdn.shopify.com/s/files/1/1041/6652/3211/collections/5013011003545___L.jpg?v=1777154737",
+   "altText": "Allergy & Hayfever \u2014 McCormack's Pharmacy"
+  },
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": true,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Pharmacy > Allergy Relief"
+    },
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Pharmacy > Allergy & Hayfever"
+    },
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Pharmacy > Hayfever"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "womens-wellbeing": {
+  "id": "gid://shopify/Collection/698010894667",
+  "handle": "womens-wellbeing",
+  "title": "Women's Wellbeing",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T15:36:46Z",
+  "productsCount": {
+   "count": 38
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Supplements > Women's Wellbeing"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "probiotics-gut": {
+  "id": "gid://shopify/Collection/698010927435",
+  "handle": "probiotics-gut",
+  "title": "Probiotics & Gut",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T15:39:55Z",
+  "productsCount": {
+   "count": 36
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Supplements > Probiotics & Gut"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "eye-ear-care": {
+  "id": "gid://shopify/Collection/698010534219",
+  "handle": "eye-ear-care",
+  "title": "Eye & Ear Care",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T15:34:06Z",
+  "productsCount": {
+   "count": 35
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Pharmacy > Eye & Ear Care"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "childrens-medicine": {
+  "id": "gid://shopify/Collection/698010501451",
+  "handle": "childrens-medicine",
+  "title": "Children's Medicine",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T15:39:29Z",
+  "productsCount": {
+   "count": 34
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Pharmacy > Children's Medicine"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "foot-nail-care": {
+  "id": "gid://shopify/Collection/698010665291",
+  "handle": "foot-nail-care",
+  "title": "Foot & Nail Care",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-15T21:20:21Z",
+  "productsCount": {
+   "count": 26
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Pharmacy > Foot & Nail Care"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "sun-care": {
+  "id": "gid://shopify/Collection/689669800267",
+  "handle": "sun-care",
+  "title": "Sun Care",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T15:37:55Z",
+  "productsCount": {
+   "count": 23
+  },
+  "image": {
+   "url": "https://cdn.shopify.com/s/files/1/1041/6652/3211/collections/3661434006715___L.jpg?v=1777154746",
+   "altText": "Sun Care \u2014 McCormack's Pharmacy"
+  },
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": true,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Skincare > Sun Care & SPF"
+    },
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Skincare > Sun Care"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "hands-feet-skincare": {
+  "id": "gid://shopify/Collection/698010829131",
+  "handle": "hands-feet-skincare",
+  "title": "Hands & Feet Skincare",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T14:52:10Z",
+  "productsCount": {
+   "count": 23
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Skincare > Hands & Feet"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "eye-makeup": {
+  "id": "gid://shopify/Collection/689669865803",
+  "handle": "eye-makeup",
+  "title": "Eye Makeup",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-15T21:20:11Z",
+  "productsCount": {
+   "count": 21
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Beauty > Eyes"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "lip-makeup": {
+  "id": "gid://shopify/Collection/689669898571",
+  "handle": "lip-makeup",
+  "title": "Lip Makeup",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-25T11:22:05Z",
+  "productsCount": {
+   "count": 24
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Beauty > Lips"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "energy-vitality": {
+  "id": "gid://shopify/Collection/698010960203",
+  "handle": "energy-vitality",
+  "title": "Energy & Vitality",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-15T21:27:13Z",
+  "productsCount": {
+   "count": 20
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Supplements > Energy & Vitality"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "childrens-supplements": {
+  "id": "gid://shopify/Collection/698010992971",
+  "handle": "childrens-supplements",
+  "title": "Children's Supplements",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T15:36:18Z",
+  "productsCount": {
+   "count": 16
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Supplements > Children's Supplements"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "sleep-stress": {
+  "id": "gid://shopify/Collection/698011025739",
+  "handle": "sleep-stress",
+  "title": "Sleep & Stress",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T14:51:30Z",
+  "productsCount": {
+   "count": 16
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Supplements > Sleep & Stress"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "medicated-skincare": {
+  "id": "gid://shopify/Collection/698010730827",
+  "handle": "medicated-skincare",
+  "title": "Medicated Skincare",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T15:33:36Z",
+  "productsCount": {
+   "count": 14
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Pharmacy > Medicated Skincare"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "oral-health": {
+  "id": "gid://shopify/Collection/698010698059",
+  "handle": "oral-health",
+  "title": "Oral Health",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T14:50:45Z",
+  "productsCount": {
+   "count": 13
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Pharmacy > Oral Health"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "cleansers": {
+  "id": "gid://shopify/Collection/698010796363",
+  "handle": "cleansers",
+  "title": "Cleansers",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T15:39:02Z",
+  "productsCount": {
+   "count": 12
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Skincare > Cleanse"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "brain-health-omega-oils": {
+  "id": "gid://shopify/Collection/698011091275",
+  "handle": "brain-health-omega-oils",
+  "title": "Brain Health & Omega Oils",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T15:36:52Z",
+  "productsCount": {
+   "count": 12
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Supplements > Brain Health & Omega Oils"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "muscle-joint-bone": {
+  "id": "gid://shopify/Collection/698011058507",
+  "handle": "muscle-joint-bone",
+  "title": "Muscle, Joint & Bone",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-15T21:27:02Z",
+  "productsCount": {
+   "count": 10
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Supplements > Muscle, Joint & Bone"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "travel-toiletries": {
+  "id": "gid://shopify/Collection/698011255115",
+  "handle": "travel-toiletries",
+  "title": "Travel Toiletries",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T15:39:42Z",
+  "productsCount": {
+   "count": 7
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Toiletries > Travel"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "medical-devices": {
+  "id": "gid://shopify/Collection/698010763595",
+  "handle": "medical-devices",
+  "title": "Medical Devices",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-15T21:19:43Z",
+  "productsCount": {
+   "count": 5
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TYPE",
+     "relation": "EQUALS",
+     "condition": "Pharmacy > Medical Devices"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "kash-beauty": {
+  "id": "gid://shopify/Collection/689670652235",
+  "handle": "kash-beauty",
+  "title": "Kash Beauty",
+  "descriptionHtml": "",
+  "sortOrder": "BEST_SELLING",
+  "templateSuffix": null,
+  "updatedAt": "2026-08-11T21:12:45Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": {
+   "url": "https://cdn.shopify.com/s/files/1/1041/6652/3211/collections/5391540616604___L.jpg?v=1777154759",
+   "altText": "Kash Beauty \u2014 McCormack's Pharmacy"
+  },
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Kash Beauty"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "acnecide": {
+  "id": "gid://shopify/Collection/702823465291",
+  "handle": "acnecide",
+  "title": "Acnecide",
+  "descriptionHtml": "<p>Shop the full Acnecide range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:07:26Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Acnecide"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "avene": {
+  "id": "gid://shopify/Collection/702823629131",
+  "handle": "avene",
+  "title": "Avene",
+  "descriptionHtml": "<p>Shop the full Avene range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:07:29Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Avene"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "bioderma": {
+  "id": "gid://shopify/Collection/702823989579",
+  "handle": "bioderma",
+  "title": "Bioderma",
+  "descriptionHtml": "<p>Shop the full Bioderma range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:07:34Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Bioderma"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "blistex": {
+  "id": "gid://shopify/Collection/702824120651",
+  "handle": "blistex",
+  "title": "Blistex",
+  "descriptionHtml": "<p>Shop the full Blistex range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:07:35Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Blistex"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "blood-pressure-monitors": {
+  "id": "gid://shopify/Collection/702824251723",
+  "handle": "blood-pressure-monitors",
+  "title": "Blood Pressure Monitors",
+  "descriptionHtml": "<p>Browse Blood Pressure Monitors \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines &amp; Health range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:07:37Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Blood Pressure Monitors"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "body-tape-nipple-covers": {
+  "id": "gid://shopify/Collection/702824350027",
+  "handle": "body-tape-nipple-covers",
+  "title": "Body Tape & Nipple Covers",
+  "descriptionHtml": "<p>Browse Body Tape &amp; Nipple Covers \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:07:38Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Body Tape & Nipple Covers"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "contact-lens-care": {
+  "id": "gid://shopify/Collection/702824874315",
+  "handle": "contact-lens-care",
+  "title": "Contact Lens Care",
+  "descriptionHtml": "<p>Browse Contact Lens Care \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines &amp; Health range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:07:45Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Contact Lens Care"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "deep-freeze": {
+  "id": "gid://shopify/Collection/702825169227",
+  "handle": "deep-freeze",
+  "title": "Deep Freeze",
+  "descriptionHtml": "<p>Shop the full Deep Freeze range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:07:50Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Deep Freeze"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "dermalogica": {
+  "id": "gid://shopify/Collection/702825201995",
+  "handle": "dermalogica",
+  "title": "Dermalogica",
+  "descriptionHtml": "<p>Shop the full Dermalogica range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:07:51Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Dermalogica"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "diabetes-care": {
+  "id": "gid://shopify/Collection/702825267531",
+  "handle": "diabetes-care",
+  "title": "Diabetes Care",
+  "descriptionHtml": "<p>Shop Diabetes Care at McCormack's Pharmacy, part of our Medicines &amp; Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:07:51Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Diabetes Care"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "ducray": {
+  "id": "gid://shopify/Collection/702825496907",
+  "handle": "ducray",
+  "title": "Ducray",
+  "descriptionHtml": "<p>Shop the full Ducray range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:07:54Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Ducray"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "essential-oils": {
+  "id": "gid://shopify/Collection/702825791819",
+  "handle": "essential-oils",
+  "title": "Essential Oils",
+  "descriptionHtml": "<p>Browse Essential Oils \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:07:58Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Essential Oils"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "eye-infections": {
+  "id": "gid://shopify/Collection/702826053963",
+  "handle": "eye-infections",
+  "title": "Eye Infections",
+  "descriptionHtml": "<p>Browse Eye Infections \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines &amp; Health range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:01Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Eye Infections"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "eye-makeup-remover": {
+  "id": "gid://shopify/Collection/702826086731",
+  "handle": "eye-makeup-remover",
+  "title": "Eye Makeup Remover",
+  "descriptionHtml": "<p>Browse Eye Makeup Remover \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:01Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Eye Makeup Remover"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "facial-suncare": {
+  "id": "gid://shopify/Collection/702826414411",
+  "handle": "facial-suncare",
+  "title": "Facial Suncare",
+  "descriptionHtml": "<p>Browse Facial Suncare \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:06Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Facial Suncare"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "fertility-aids-lubricant": {
+  "id": "gid://shopify/Collection/702826512715",
+  "handle": "fertility-aids-lubricant",
+  "title": "Fertility Aids & Lubricant",
+  "descriptionHtml": "<p>Browse Fertility Aids &amp; Lubricant \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines &amp; Health range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:07Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Fertility Aids & Lubricant"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "filorga": {
+  "id": "gid://shopify/Collection/702826578251",
+  "handle": "filorga",
+  "title": "Filorga",
+  "descriptionHtml": "<p>Shop the full Filorga range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:08Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Filorga"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "flexiseq": {
+  "id": "gid://shopify/Collection/702826643787",
+  "handle": "flexiseq",
+  "title": "Flexiseq",
+  "descriptionHtml": "<p>Shop the full Flexiseq range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:09Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Flexiseq"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "frezyderm": {
+  "id": "gid://shopify/Collection/702826774859",
+  "handle": "frezyderm",
+  "title": "Frezyderm",
+  "descriptionHtml": "<p>Shop the full Frezyderm range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:11Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Frezyderm"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "healthcare-medicine-accessories": {
+  "id": "gid://shopify/Collection/702827200843",
+  "handle": "healthcare-medicine-accessories",
+  "title": "Healthcare & Medicine Accessories",
+  "descriptionHtml": "<p>Shop Healthcare &amp; Medicine Accessories at McCormack's Pharmacy, part of our Medicines &amp; Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:17Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Healthcare & Medicine Accessories"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "hearing-aid-batteries": {
+  "id": "gid://shopify/Collection/702827266379",
+  "handle": "hearing-aid-batteries",
+  "title": "Hearing Aid Batteries",
+  "descriptionHtml": "<p>Browse Hearing Aid Batteries \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines &amp; Health range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:17Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Hearing Aid Batteries"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "holland-cooper": {
+  "id": "gid://shopify/Collection/702827364683",
+  "handle": "holland-cooper",
+  "title": "Holland Cooper",
+  "descriptionHtml": "<p>Shop the full Holland Cooper range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:19Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Holland Cooper"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "hyalo": {
+  "id": "gid://shopify/Collection/702827397451",
+  "handle": "hyalo",
+  "title": "Hyalo",
+  "descriptionHtml": "<p>Shop the full Hyalo range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:19Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Hyalo"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "hydralyte": {
+  "id": "gid://shopify/Collection/702827430219",
+  "handle": "hydralyte",
+  "title": "Hydralyte",
+  "descriptionHtml": "<p>Shop the full Hydralyte range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:19Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Hydralyte"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "ideal-protein": {
+  "id": "gid://shopify/Collection/702827462987",
+  "handle": "ideal-protein",
+  "title": "Ideal Protein",
+  "descriptionHtml": "<p>Shop the full Ideal Protein range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:20Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Ideal Protein"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "insoles": {
+  "id": "gid://shopify/Collection/702827561291",
+  "handle": "insoles",
+  "title": "Insoles",
+  "descriptionHtml": "<p>Browse Insoles \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines &amp; Health range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:21Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Insoles"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "ivax": {
+  "id": "gid://shopify/Collection/702827626827",
+  "handle": "ivax",
+  "title": "Ivax",
+  "descriptionHtml": "<p>Shop the full Ivax range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:22Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Ivax"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "jason": {
+  "id": "gid://shopify/Collection/702827659595",
+  "handle": "jason",
+  "title": "Jason",
+  "descriptionHtml": "<p>Shop the full Jason range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:23Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Jason"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "johnsons-baby": {
+  "id": "gid://shopify/Collection/702827692363",
+  "handle": "johnsons-baby",
+  "title": "Johnson\u2019s Baby",
+  "descriptionHtml": "<p>Shop the full Johnson\u2019s Baby range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:23Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Johnson\u2019s Baby"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "kerasal": {
+  "id": "gid://shopify/Collection/702827757899",
+  "handle": "kerasal",
+  "title": "Kerasal",
+  "descriptionHtml": "<p>Shop the full Kerasal range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:24Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Kerasal"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "kids-vits": {
+  "id": "gid://shopify/Collection/702827790667",
+  "handle": "kids-vits",
+  "title": "Kids Vits",
+  "descriptionHtml": "<p>Shop the full Kids Vits range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:24Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Kids Vits"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "kiehls": {
+  "id": "gid://shopify/Collection/702827823435",
+  "handle": "kiehls",
+  "title": "Kiehl\u2019s",
+  "descriptionHtml": "<p>Shop the full Kiehl\u2019s range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:25Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Kiehl\u2019s"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "lamberts": {
+  "id": "gid://shopify/Collection/702827954507",
+  "handle": "lamberts",
+  "title": "Lamberts",
+  "descriptionHtml": "<p>Shop the full Lamberts range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:26Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Lamberts"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "liners": {
+  "id": "gid://shopify/Collection/702827987275",
+  "handle": "liners",
+  "title": "Liners",
+  "descriptionHtml": "<p>Browse Liners \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines &amp; Health range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:27Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Liners"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "lubricants-accessories": {
+  "id": "gid://shopify/Collection/702828216651",
+  "handle": "lubricants-accessories",
+  "title": "Lubricants & Accessories",
+  "descriptionHtml": "<p>Browse Lubricants &amp; Accessories \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines &amp; Health range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:29Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Lubricants & Accessories"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "lypsyl": {
+  "id": "gid://shopify/Collection/702828249419",
+  "handle": "lypsyl",
+  "title": "Lypsyl",
+  "descriptionHtml": "<p>Shop the full Lypsyl range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:30Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Lypsyl"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "makeup-sponges": {
+  "id": "gid://shopify/Collection/702828478795",
+  "handle": "makeup-sponges",
+  "title": "Makeup Sponges",
+  "descriptionHtml": "<p>Browse Makeup Sponges \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:33Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Makeup Sponges"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "maybelline": {
+  "id": "gid://shopify/Collection/702828577099",
+  "handle": "maybelline",
+  "title": "Maybelline",
+  "descriptionHtml": "<p>Shop the full Maybelline range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:34Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Maybelline"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "metanium": {
+  "id": "gid://shopify/Collection/702828740939",
+  "handle": "metanium",
+  "title": "Metanium",
+  "descriptionHtml": "<p>Shop the full Metanium range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:37Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Metanium"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "mustela": {
+  "id": "gid://shopify/Collection/702828937547",
+  "handle": "mustela",
+  "title": "Mustela",
+  "descriptionHtml": "<p>Shop the full Mustela range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:39Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Mustela"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "nail-polish": {
+  "id": "gid://shopify/Collection/702829003083",
+  "handle": "nail-polish",
+  "title": "Nail Polish",
+  "descriptionHtml": "<p>Browse Nail Polish \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:40Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Nail Polish"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "nail-polish-remover": {
+  "id": "gid://shopify/Collection/702829035851",
+  "handle": "nail-polish-remover",
+  "title": "Nail Polish Remover",
+  "descriptionHtml": "<p>Browse Nail Polish Remover \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:41Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Nail Polish Remover"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "natures-plus": {
+  "id": "gid://shopify/Collection/702829101387",
+  "handle": "natures-plus",
+  "title": "Nature\u2019s Plus",
+  "descriptionHtml": "<p>Shop the full Nature\u2019s Plus range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:41Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Nature\u2019s Plus"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "needles-lancets": {
+  "id": "gid://shopify/Collection/702829166923",
+  "handle": "needles-lancets",
+  "title": "Needles & Lancets",
+  "descriptionHtml": "<p>Browse Needles &amp; Lancets \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines &amp; Health range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:42Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Needles & Lancets"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "nicotine-gum": {
+  "id": "gid://shopify/Collection/702829232459",
+  "handle": "nicotine-gum",
+  "title": "Nicotine Gum",
+  "descriptionHtml": "<p>Browse Nicotine Gum \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines &amp; Health range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:43Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Nicotine Gum"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "nicotine-lozenges": {
+  "id": "gid://shopify/Collection/702829265227",
+  "handle": "nicotine-lozenges",
+  "title": "Nicotine Lozenges",
+  "descriptionHtml": "<p>Browse Nicotine Lozenges \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines &amp; Health range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:44Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Nicotine Lozenges"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "nicotine-sprays": {
+  "id": "gid://shopify/Collection/702829330763",
+  "handle": "nicotine-sprays",
+  "title": "Nicotine Sprays",
+  "descriptionHtml": "<p>Browse Nicotine Sprays \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines &amp; Health range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:45Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Nicotine Sprays"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "nuk": {
+  "id": "gid://shopify/Collection/702829429067",
+  "handle": "nuk",
+  "title": "NUK",
+  "descriptionHtml": "<p>Shop the full NUK range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:46Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "NUK"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "pain-relief-headache": {
+  "id": "gid://shopify/Collection/702829723979",
+  "handle": "pain-relief-headache",
+  "title": "Pain Relief & Headache",
+  "descriptionHtml": "<p>Browse Pain Relief &amp; Headache \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines &amp; Health range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:50Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Pain Relief & Headache"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "prep-maintain": {
+  "id": "gid://shopify/Collection/702829986123",
+  "handle": "prep-maintain",
+  "title": "Prep & Maintain",
+  "descriptionHtml": "<p>Browse Prep &amp; Maintain \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:54Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Prep & Maintain"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "roc": {
+  "id": "gid://shopify/Collection/702830215499",
+  "handle": "roc",
+  "title": "Roc",
+  "descriptionHtml": "<p>Shop the full Roc range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:08:57Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Roc"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "sugar-level-maintenance": {
+  "id": "gid://shopify/Collection/702830772555",
+  "handle": "sugar-level-maintenance",
+  "title": "Sugar Level Maintenance",
+  "descriptionHtml": "<p>Browse Sugar Level Maintenance \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines &amp; Health range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:09:05Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Sugar Level Maintenance"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "tan-luxe": {
+  "id": "gid://shopify/Collection/702830870859",
+  "handle": "tan-luxe",
+  "title": "Tan-Luxe",
+  "descriptionHtml": "<p>Shop the full Tan-Luxe range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:09:06Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Tan-Luxe"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "tan-remover": {
+  "id": "gid://shopify/Collection/702830903627",
+  "handle": "tan-remover",
+  "title": "Tan Remover",
+  "descriptionHtml": "<p>Browse Tan Remover \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:09:06Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Tan Remover"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "test-strips-blood-glucose-monitors": {
+  "id": "gid://shopify/Collection/702831034699",
+  "handle": "test-strips-blood-glucose-monitors",
+  "title": "Test Strips & Blood Glucose Monitors",
+  "descriptionHtml": "<p>Browse Test Strips &amp; Blood Glucose Monitors \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines &amp; Health range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:09:08Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Test Strips & Blood Glucose Monitors"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "the-ordinary": {
+  "id": "gid://shopify/Collection/702831067467",
+  "handle": "the-ordinary",
+  "title": "The Ordinary",
+  "descriptionHtml": "<p>Shop the full The Ordinary range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:09:08Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "The Ordinary"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "tiger-balm": {
+  "id": "gid://shopify/Collection/702831133003",
+  "handle": "tiger-balm",
+  "title": "Tiger Balm",
+  "descriptionHtml": "<p>Shop the full Tiger Balm range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:09:09Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Tiger Balm"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "tinted-moisturiser": {
+  "id": "gid://shopify/Collection/702831165771",
+  "handle": "tinted-moisturiser",
+  "title": "Tinted Moisturiser",
+  "descriptionHtml": "<p>Browse Tinted Moisturiser \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:09:10Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Tinted Moisturiser"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "treatments": {
+  "id": "gid://shopify/Collection/702831329611",
+  "handle": "treatments",
+  "title": "Treatments",
+  "descriptionHtml": "<p>Browse Treatments \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:09:12Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Treatments"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "verucca": {
+  "id": "gid://shopify/Collection/702831460683",
+  "handle": "verucca",
+  "title": "Verucca",
+  "descriptionHtml": "<p>Browse Verucca \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines &amp; Health range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:09:13Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Verucca"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "vichy": {
+  "id": "gid://shopify/Collection/702831526219",
+  "handle": "vichy",
+  "title": "Vichy",
+  "descriptionHtml": "<p>Shop the full Vichy range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:09:14Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Vichy"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "warmup-recovery": {
+  "id": "gid://shopify/Collection/702831624523",
+  "handle": "warmup-recovery",
+  "title": "Warmup & Recovery",
+  "descriptionHtml": "<p>Browse Warmup &amp; Recovery \u2014 trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines &amp; Health range.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:09:15Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "TAG",
+     "relation": "EQUALS",
+     "condition": "Warmup & Recovery"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "weleda": {
+  "id": "gid://shopify/Collection/702831657291",
+  "handle": "weleda",
+  "title": "Weleda",
+  "descriptionHtml": "<p>Shop the full Weleda range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:09:16Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Weleda"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "wild-nutrition": {
+  "id": "gid://shopify/Collection/702831690059",
+  "handle": "wild-nutrition",
+  "title": "Wild Nutrition",
+  "descriptionHtml": "<p>Shop the full Wild Nutrition range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-24T14:49:46Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Wild Nutrition"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "xls-medical": {
+  "id": "gid://shopify/Collection/702831755595",
+  "handle": "xls-medical",
+  "title": "Xls Medical",
+  "descriptionHtml": "<p>Shop the full Xls Medical range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:09:17Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Xls Medical"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "yes-organic": {
+  "id": "gid://shopify/Collection/702831788363",
+  "handle": "yes-organic",
+  "title": "Yes Organic",
+  "descriptionHtml": "<p>Shop the full Yes Organic range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:09:18Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Yes Organic"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ },
+ "zerobase": {
+  "id": "gid://shopify/Collection/702831821131",
+  "handle": "zerobase",
+  "title": "Zerobase",
+  "descriptionHtml": "<p>Shop the full Zerobase range at McCormack's Pharmacy \u2014 trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>",
+  "sortOrder": "MOST_RELEVANT",
+  "templateSuffix": null,
+  "updatedAt": "2026-09-09T20:09:18Z",
+  "productsCount": {
+   "count": 0
+  },
+  "image": null,
+  "seo": {
+   "title": null,
+   "description": null
+  },
+  "ruleSet": {
+   "appliedDisjunctively": false,
+   "rules": [
+    {
+     "column": "VENDOR",
+     "relation": "EQUALS",
+     "condition": "Zerobase"
+    }
+   ]
+  },
+  "resourcePublicationsCount": {
+   "count": 1
+  }
+ }
+}

@@ -1301,9 +1301,10 @@ then a hand check of every candidate). Decisions, approved by Kakion:
   Polish, Nicotine Gum, the Diabetes Care group; or a duplicate, e.g. Verucca,
   Pain Relief & Headache) and 13 merged into their parent (under 3 products, e.g.
   Nicotine Sprays, Insoles). The menus, chips and breadcrumbs regenerate from
-  the taxonomy, so the links went with it. **The 30 collections still exist on
-  the store**, unlinked; nothing was deleted. To bring one back, put its title
-  back in `taxonomy.json` and regenerate.
+  the taxonomy, so the links went with it. The store collections were left
+  in place at first, then deleted with the other unlinked collections (next
+  section). To bring one back, put its title back in `taxonomy.json`,
+  regenerate, and recreate the collection from its saved rule.
 - **4 switched to an existing type**, recorded in `collection-rules.json`:
   Ladies Fragrance, Baby Accessories, Baby Skincare, Slimming.
 - **Tag-based sub-pages are filled by tagging products** with the rule's exact
@@ -1315,6 +1316,37 @@ then a hand check of every candidate). Decisions, approved by Kakion:
 `setup/verify/mobile-nav.py` used to assert 18 Medicines groups and 18 Vitamins
 items. It now reads both counts from `taxonomy.json`, so the next removal does
 not turn it red.
+
+---
+
+## Unlinked store collections deleted (25 Sep 2026)
+
+98 collections on the store had no link from anything: not the generated
+menus, chips or breadcrumbs, not the brand A-Z, not a theme setting, not an
+admin menu, not a redirect. All were deleted, approved by Kakion; no discount
+was limited to any of them.
+
+- **68 were empty**: the 30 category pages removed above, and brand
+  collections for brands with no products.
+- **30 had products**, and every product was also on a linked page. They were
+  old type-based pages that duplicated a menu page (`face-makeup`,
+  `cold-flu`, `supplements`, `gifts`, `baby` and so on) plus `brands`, which
+  matched products typed `Brands > <brand>`. Those 36 products were retyped
+  to real categories first.
+- **Kept deliberately:** `pharmacist-review-required` (the staff worklist of
+  every tagged product) and `frontpage` (Shopify's default).
+
+Every deleted collection's title, handle, rule, description and SEO is in
+`archive/store-cleanup-2026-09-25/deleted-collections.json`. A recreated
+collection gets a new ID.
+
+How the check was done, so it can be repeated: take every store collection
+handle and remove the ones that are in `collections.json` (menu, group, leaf),
+in `brands.json`, or in the theme as `/collections/<handle>`,
+`collections['<handle>']` or a `"collection": "<handle>"` setting. Pull the
+live theme too, not just the repo. Watch for false matches: `brands`,
+`supplements`, `gifts` and `baby` all appear in the theme as **block IDs** in
+`index.json` and `header-group.json`, which are not links.
 
 ---
 
