@@ -3,9 +3,10 @@ running title, build date and page number in the footer, green accents.
 
     python3 setup/build_client_pdfs.py <outdir> [image-handover.docx]
 
-Always writes <outdir>/1-Handover.pdf from setup/HANDOVER.md. With the .docx it
-also writes <outdir>/4-Images-Handover.pdf. Rebuild the handover PDF after every
-change to HANDOVER.md. Needs `pip3 install --user markdown`, Python Playwright
+Always writes <outdir>/1-Handover.pdf from setup/HANDOVER.md and
+<outdir>/5-Pharmacist-Questions.pdf from setup/PHARMACIST-QUESTIONS.md. With the
+.docx it also writes <outdir>/3-Images-Handover.pdf. Rebuild after every change
+to either Markdown file. Needs `pip3 install --user markdown`, Python Playwright
 (already used by setup/verify) and Google Chrome.
 """
 import base64, datetime, html, os, re, sys, zipfile
@@ -16,7 +17,6 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = sys.argv[1]
 os.makedirs(OUT, exist_ok=True)
 DOCX = sys.argv[2] if len(sys.argv) > 2 else None
-MD = os.path.join(HERE, "HANDOVER.md")
 LOGO = os.path.join(HERE, "..", "shopify-theme", "assets", "mccormacks-logo.png")
 logo = "data:image/png;base64," + base64.b64encode(open(LOGO, "rb").read()).decode()
 today = datetime.date.today()
@@ -46,6 +46,7 @@ td { padding: 1.6mm 2mm; border-bottom: 1px solid #e6e7e4; vertical-align: top; 
 tr:nth-child(even) td { background: #f6f9f1; }
 p, li { orphans: 3; widows: 3; }
 .lead { break-after: avoid; margin-bottom: 1mm; }
+p:has(+ ol), p:has(+ ul) { break-after: avoid; }
 """
 
 def page(title, running, body):
@@ -63,12 +64,12 @@ def pdf(p, doc, running, path):
            header_template=hdr, footer_template=ftr, margin={"top": "26mm", "bottom": "22mm", "left": "20mm", "right": "20mm"})
     pg.close()
 
-# Handover: markdown as written. Section rules replace the --- dividers.
-src = open(MD).read().replace("\n---\n", "\n")
-# A list straight after a paragraph line needs a blank line for python-markdown.
-src = re.sub(r"(?m)^(?!- |\d+\. |\s|>)(\S.*)\n(- |\d+\. )", r"\1\n\n\2", src)
-title = re.match(r"# (.+)", src).group(1)
-body = markdown.markdown(src, extensions=["tables", "sane_lists"])
+def md_doc(name):
+    """Markdown as written, from setup/. Section rules replace the --- dividers."""
+    src = open(os.path.join(HERE, name)).read().replace("\n---\n", "\n")
+    # A list straight after a paragraph line needs a blank line for python-markdown.
+    src = re.sub(r"(?m)^(?!- |\d+\. |\s|>)(\S.*)\n(- |\d+\. )", r"\1\n\n\2", src)
+    return re.match(r"# (.+)", src).group(1), markdown.markdown(src, extensions=["tables", "sane_lists"])
 
 # Image handover: docx paragraphs and the one table, in document order.
 W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
@@ -115,8 +116,11 @@ flush()
 
 with sync_playwright() as p:
     b = p.chromium.launch(channel="chrome")
-    pdf(b, page(title, "Website handover", body), "Website handover", f"{OUT}/1-Handover.pdf")
+    for name, running, out in (("HANDOVER.md", "Website handover", "1-Handover.pdf"),
+                               ("PHARMACIST-QUESTIONS.md", "Questions before purchase", "5-Pharmacist-Questions.pdf")):
+        title, body = md_doc(name)
+        pdf(b, page(title, running, body), running, f"{OUT}/{out}")
     if DOCX:
-        pdf(b, page(doc_title, "Product images", "".join(parts)), "Product images", f"{OUT}/4-Images-Handover.pdf")
+        pdf(b, page(doc_title, "Product images", "".join(parts)), "Product images", f"{OUT}/3-Images-Handover.pdf")
     b.close()
 print("built")

@@ -1797,9 +1797,11 @@ to the handover, rebuild it:
 python3 setup/build_client_pdfs.py ~/Downloads/McCormacks-Client-Pack
 ```
 
-That writes `1-Handover.pdf`, dated with the build date, with the logo and the
-same styling as the staff guide. Pass the image handover `.docx` as a second
-argument to rebuild `4-Images-Handover.pdf` too. Needs
+That writes `1-Handover.pdf` and `5-Pharmacist-Questions.pdf` (from
+`setup/PHARMACIST-QUESTIONS.md`, the draft questions for the pharmacist), dated
+with the build date, with the logo and the same styling as the staff guide. Pass
+the image handover `.docx` as a second argument to rebuild
+`3-Images-Handover.pdf` too. Needs
 `pip3 install --user markdown`, Python Playwright and Google Chrome. A PDF left
 over from before the last handover edit says something the repo no longer does,
 so rebuild before sending, not after.
