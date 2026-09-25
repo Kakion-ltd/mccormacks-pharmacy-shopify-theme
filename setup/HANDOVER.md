@@ -255,24 +255,25 @@ Please don't unpublish the last product in the collection without telling us.
 If the collection has nothing published, the homepage section falls back to
 sample products from the design, with made-up prices.
 
-### Product questions (from the two spreadsheets)
+### Product questions
 
 **The 521 "pharmacist review" products. Owner: Pharmacy (pharmacist).**
 Spreadsheet: `pharmacist-review-gated-products.csv`. It lists every product in
 the Pharmacy department, with type, brand, price and stock. Please mark the
 ones that genuinely need a pharmacist check. This is the list that settles
-launch blocker 4.
+launch blocker 4. It was made on 9 September, and some products have moved
+department since, so a few rows may no longer sit under Pharmacy.
 
 **Brands on the current website versus the new shop. Owner: Pharmacy.**
-Spreadsheet: `brand-counts-live-vs-catalogue.csv`, dated 9 September.
+We compared the two on 9 September:
 
 - Some brands have fewer products in the new shop than on your current
   website. For example, Jenny Glow has 67 there and 44 here.
 - A few brands have none in the new shop: Lerelle Beauty, Harry's and
   Dr Squatch.
 
-Please check whether the missing products should come across. We'll refresh
-the numbers first, because the catalogue has changed since.
+The catalogue has changed since, so we'll send you a refreshed spreadsheet.
+Please then check whether the missing products should come across.
 
 **Sizes sold as separate products. Decision needed: pharmacy.**
 The import turned each size into its own product. For example, Revive Active
@@ -305,9 +306,9 @@ On the Vitamins & Supplements slide, the white heading sits on pale green and
 can't be read. We will fix the colours.
 
 **Hero and banner artwork. Owner: Pharmacy supplies, Kakion places.**
-Some images are still missing, including photos of the seven shops. Where an
-image is missing, the website shows a neat placeholder. The image brief
-(`IMAGE-BRIEF.md`) lists every slot with the size it needs.
+Some images are still missing. Where an image is missing, the website shows a
+neat placeholder. We need photographs of the seven shops: a phone camera is
+fine, held landscape.
 
 **Lock the Google Maps key. Owner: Kakion.**
 The store finder's map uses a Google Maps key, and anyone can see it in the
