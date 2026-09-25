@@ -1350,6 +1350,30 @@ live theme too, not just the repo. Watch for false matches: `brands`,
 
 ---
 
+## Products on no category page retyped (25 Sep 2026)
+
+195 products were on no category page: typed as a brand (`Brands > BPerfect`),
+with no type, with a leftover type (`Clearance > 3 for €10`, `Luna Haircare`),
+with a brand name as the type, or missing the department (`Lips` for
+`Beauty > Lips`). 175 were retyped, approved by Kakion; 20 are held for a
+decision. Every row, before and after, is in
+`archive/store-cleanup-2026-09-25/retypes.csv`.
+
+- Every new type is one that an existing type rule already matches, so each
+  product lands on a leaf page and its department.
+- The 6 Mx Health home tests were typed `Pharmacy > Medical Devices` and tagged
+  `Self Testing Kits`; the pregnancy and ovulation tests also carry their
+  page tag and `Trying To Conceive`. Group pages match their own tag only;
+  they do not collect their sub-pages' products.
+- A `Pharmacy >` type turns on the pharmacist lines in `buy-assurance`, so
+  Dettol, surgical spirits and similar now show them. It does not gate
+  anything; the questionnaire follows the `pharmacist-review` tag.
+- **Open:** Sidena 50mg (sildenafil, P on the HPRA list) has no
+  `pharmacist-review` tag, so it sells without the questionnaire. The client
+  decides.
+
+---
+
 ## Generated snippets — edit the generator, never the output (three times now)
 
 Nine snippets are written by three scripts in `setup/`: `gen_brands.py` owns
