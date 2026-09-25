@@ -54,11 +54,13 @@ Their answers come to you with the order, and nothing is sent until you
 approve it. This is built and tested, but it has nothing to work on yet,
 because nobody has said which products need it.
 
-At the moment the 540 products in your "Pharmacy" department are treated the
-same way. That includes things that are not medicines at all: for example, a
-suncare travel set is filed under Pharmacy > Travel Sickness and shows "Ask a
-pharmacist before you buy". We need a list of the products that genuinely need
-a pharmacist check, and the questions to ask for each. The spreadsheet for this
+On 25 September we narrowed the products marked for a pharmacist to the 332
+that the HPRA register lists as medicines, or may list; plasters, bandages and
+throat sweets no longer carry the mark. Anything filed under your "Pharmacy"
+department still shows "Ask a pharmacist before you buy", though, even a
+suncare travel set filed under Pharmacy > Travel Sickness. We need a list of the
+products that genuinely need a pharmacist check, and the questions to ask for
+each. The spreadsheet for this
 is described under "Product questions" below.
 
 **5. Who reads the website's email inbox. Owner: Pharmacy.**
@@ -259,11 +261,10 @@ sample products from the design, with made-up prices.
 
 **Which products need a pharmacist check. Owner: Pharmacy (pharmacist).**
 Spreadsheet: `Pharmacist-Review-Website-Pages.xlsx`, tab "Needs a pharmacist
-check". It lists all 548 products that are in the Pharmacy department or
-already marked for a pharmacist, as the store stood on 25 September. Choose
-Yes or No for each. The first 164 are ones we think are No, such as plasters
-and throat sweets, so they should take a few minutes; the rest need the
-pharmacist's judgement. This is the list that settles launch blocker 4.
+check". It lists the 332 products marked for a pharmacist on 25 September.
+Choose Yes or No for each. The first 203 are licensed medicines on the HPRA
+register, so we expect Yes; the other 129 need the pharmacist's judgement,
+including five veterinary flea treatments. This is the list that settles launch blocker 4.
 
 The same workbook asks two more things. "Pages to fill" lists 281 products we
 think may belong on 29 empty category pages: Yes or No for each. "Confirm
