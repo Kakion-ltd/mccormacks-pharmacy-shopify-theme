@@ -143,13 +143,14 @@ confirm the stars match. If any gave fewer than five, tell us and we'll
 correct that card or take it down.
 
 **"Trusted by customers since 2010". Owner: Pharmacy, if you want a number.**
-The strip under the header on every page used to read "Trusted by over 20,000
-customers since 2010". That number came from the design mock-up, the same
-source that made up a review count for the design, and nobody could say where
-it came from. So we have removed it.
+The strip under the header on the homepage, product, collection and search
+pages used to read "Trusted by over 20,000 customers since 2010". That number
+came from the design mock-up, the same source that made up a review count for
+the design, and nobody could say where it came from. So we have removed it.
 
 If you have a real figure you can stand over, it can go back in: Theme
-settings › Trust bar › Message 3 › Text. It changes every page at once.
+settings › Trust bar › Message 3 › Text. It changes every page that shows the
+strip at once.
 
 ### Store details
 

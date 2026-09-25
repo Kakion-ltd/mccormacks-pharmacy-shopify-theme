@@ -83,7 +83,7 @@
     "settings": [
       {
         "type": "paragraph",
-        "content": "The three messages in the strip under the header, shown on every page. Write [threshold] to print the free delivery amount from Brand settings. The strip is built for exactly three messages."
+        "content": "The three messages in the strip under the header. It shows on the homepage, product pages, collection pages, search results and the all-collections page; content pages, the cart, the blog and account pages do not carry it. Write [threshold] to print the free delivery amount from Brand settings. The strip is built for exactly three messages."
       },
       {
         "type": "header",
@@ -101,7 +101,7 @@
           },
           {
             "value": "shamrock",
-            "label": "Shamrock"
+            "label": "Map of Ireland"
           },
           {
             "value": "star",
@@ -137,7 +137,7 @@
           },
           {
             "value": "shamrock",
-            "label": "Shamrock"
+            "label": "Map of Ireland"
           },
           {
             "value": "star",
@@ -173,7 +173,7 @@
           },
           {
             "value": "shamrock",
-            "label": "Shamrock"
+            "label": "Map of Ireland"
           },
           {
             "value": "star",

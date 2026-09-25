@@ -5,6 +5,9 @@
   [threshold] in a message prints the free delivery amount from Brand
   settings, exactly like the announcement bar. Layout, icons and the mobile
   carousel are fixed at three messages (trustSlide animates -100%/-200%).
+  The 'shamrock' option draws a map of Ireland, not a shamrock; the editor labels
+  it "Map of Ireland". The value stays 'shamrock' because saved theme settings
+  store it, and renaming it would silently turn those icons into the van.
 {%- endcomment -%}
 {%- capture fd_amount -%}{%- render 'free-delivery-amount' -%}{%- endcapture -%}
 <div class="trust-mob-wrap" style="width:100%; background:#ffffff;">
