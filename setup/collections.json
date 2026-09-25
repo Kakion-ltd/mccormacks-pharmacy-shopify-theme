@@ -497,17 +497,6 @@
     "description_html": "<p>Browse Blocked Nose & Sinus — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
   },
   {
-    "handle": "blood-pressure-monitors",
-    "title": "Blood Pressure Monitors",
-    "level": "leaf",
-    "parent_menu": "Medicines & Health",
-    "group": "Electrical Healthcare",
-    "nav_paths": [
-      "Medicines & Health > Electrical Healthcare > Blood Pressure Monitors"
-    ],
-    "description_html": "<p>Browse Blood Pressure Monitors — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
-  },
-  {
     "handle": "blusher",
     "title": "Blusher",
     "level": "leaf",
@@ -528,17 +517,6 @@
       "Skincare > Body Skincare"
     ],
     "description_html": "<p>Shop Body Skincare at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
-  },
-  {
-    "handle": "body-tape-nipple-covers",
-    "title": "Body Tape & Nipple Covers",
-    "level": "leaf",
-    "parent_menu": "Beauty",
-    "group": "Beauty Accessories",
-    "nav_paths": [
-      "Beauty > Beauty Accessories > Body Tape & Nipple Covers"
-    ],
-    "description_html": "<p>Browse Body Tape & Nipple Covers — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
   },
   {
     "handle": "bperfect",
@@ -882,17 +860,6 @@
     "description_html": "<p>Browse Constipation — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
   },
   {
-    "handle": "contact-lens-care",
-    "title": "Contact Lens Care",
-    "level": "leaf",
-    "parent_menu": "Medicines & Health",
-    "group": "Eye & Ear Health",
-    "nav_paths": [
-      "Medicines & Health > Eye & Ear Health > Contact Lens Care"
-    ],
-    "description_html": "<p>Browse Contact Lens Care — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
-  },
-  {
     "handle": "continence-care",
     "title": "Continence Care",
     "level": "group",
@@ -1045,17 +1012,6 @@
       "Skincare > Dermatological Skincare"
     ],
     "description_html": "<p>Shop Dermatological Skincare at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
-  },
-  {
-    "handle": "diabetes-care",
-    "title": "Diabetes Care",
-    "level": "group",
-    "parent_menu": "Medicines & Health",
-    "group": null,
-    "nav_paths": [
-      "Medicines & Health > Diabetes Care"
-    ],
-    "description_html": "<p>Shop Diabetes Care at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
     "handle": "diarrhoea",
@@ -1256,17 +1212,6 @@
     "description_html": "<p>Shop the full Eskimo-3 range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
   },
   {
-    "handle": "essential-oils",
-    "title": "Essential Oils",
-    "level": "leaf",
-    "parent_menu": "Vitamins",
-    "group": null,
-    "nav_paths": [
-      "Vitamins > Essential Oils"
-    ],
-    "description_html": "<p>Browse Essential Oils — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
-  },
-  {
     "handle": "eucerin",
     "title": "Eucerin",
     "level": "brand",
@@ -1342,28 +1287,6 @@
       "Vitamins > Eye Health"
     ],
     "description_html": "<p>Browse Eye Health — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Vitamins range.</p>"
-  },
-  {
-    "handle": "eye-infections",
-    "title": "Eye Infections",
-    "level": "leaf",
-    "parent_menu": "Medicines & Health",
-    "group": "Eye & Ear Health",
-    "nav_paths": [
-      "Medicines & Health > Eye & Ear Health > Eye Infections"
-    ],
-    "description_html": "<p>Browse Eye Infections — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
-  },
-  {
-    "handle": "eye-makeup-remover",
-    "title": "Eye Makeup Remover",
-    "level": "leaf",
-    "parent_menu": "Beauty",
-    "group": "Eyes",
-    "nav_paths": [
-      "Beauty > Eyes > Eye Makeup Remover"
-    ],
-    "description_html": "<p>Browse Eye Makeup Remover — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
   },
   {
     "handle": "eyebrows",
@@ -1465,17 +1388,6 @@
     "description_html": "<p>Shop Facial Skincare at McCormack's Pharmacy, part of our Skincare range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
-    "handle": "facial-suncare",
-    "title": "Facial Suncare",
-    "level": "leaf",
-    "parent_menu": "Skincare",
-    "group": "Facial Skincare",
-    "nav_paths": [
-      "Skincare > Facial Skincare > Facial Suncare"
-    ],
-    "description_html": "<p>Browse Facial Suncare — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
-  },
-  {
     "handle": "false-eyelashes",
     "title": "False Eyelashes",
     "level": "leaf",
@@ -1507,17 +1419,6 @@
       "Toiletries > Feminine Care"
     ],
     "description_html": "<p>Browse Feminine Care — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Toiletries range.</p>"
-  },
-  {
-    "handle": "fertility-aids-lubricant",
-    "title": "Fertility Aids & Lubricant",
-    "level": "leaf",
-    "parent_menu": "Medicines & Health",
-    "group": "Trying To Conceive",
-    "nav_paths": [
-      "Medicines & Health > Trying To Conceive > Fertility Aids & Lubricant"
-    ],
-    "description_html": "<p>Browse Fertility Aids & Lubricant — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
   },
   {
     "handle": "fertility-pregnancy",
@@ -1806,17 +1707,6 @@
     "description_html": "<p>Browse Headlice — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
   },
   {
-    "handle": "healthcare-medicine-accessories",
-    "title": "Healthcare & Medicine Accessories",
-    "level": "group",
-    "parent_menu": "Medicines & Health",
-    "group": null,
-    "nav_paths": [
-      "Medicines & Health > Healthcare & Medicine Accessories"
-    ],
-    "description_html": "<p>Shop Healthcare & Medicine Accessories at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
-  },
-  {
     "handle": "healthy-mind-sleeping-aids",
     "title": "Healthy Mind & Sleeping Aids",
     "level": "leaf",
@@ -1827,17 +1717,6 @@
       "Vitamins > Healthy Mind & Sleeping Aids"
     ],
     "description_html": "<p>Browse Healthy Mind & Sleeping Aids — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
-  },
-  {
-    "handle": "hearing-aid-batteries",
-    "title": "Hearing Aid Batteries",
-    "level": "leaf",
-    "parent_menu": "Medicines & Health",
-    "group": "Eye & Ear Health",
-    "nav_paths": [
-      "Medicines & Health > Eye & Ear Health > Hearing Aid Batteries"
-    ],
-    "description_html": "<p>Browse Hearing Aid Batteries — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
   },
   {
     "handle": "heart-health",
@@ -1937,17 +1816,6 @@
       "Medicines & Health > First Aid > Insect Bites & Prevention"
     ],
     "description_html": "<p>Browse Insect Bites & Prevention — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
-  },
-  {
-    "handle": "insoles",
-    "title": "Insoles",
-    "level": "leaf",
-    "parent_menu": "Medicines & Health",
-    "group": "Foot Care",
-    "nav_paths": [
-      "Medicines & Health > Foot Care > Insoles"
-    ],
-    "description_html": "<p>Browse Insoles — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
   },
   {
     "handle": "irritated-damaged-skin",
@@ -2126,17 +1994,6 @@
     "description_html": "<p>Shop the full Lemsip range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
   },
   {
-    "handle": "liners",
-    "title": "Liners",
-    "level": "leaf",
-    "parent_menu": "Medicines & Health",
-    "group": "Continence Care",
-    "nav_paths": [
-      "Medicines & Health > Continence Care > Liners"
-    ],
-    "description_html": "<p>Browse Liners — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
-  },
-  {
     "handle": "lip-care",
     "title": "Lip Care",
     "level": "leaf",
@@ -2201,17 +2058,6 @@
       "Brands > L’Oréal Paris"
     ],
     "description_html": "<p>Shop the full L’Oréal Paris range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
-  },
-  {
-    "handle": "lubricants-accessories",
-    "title": "Lubricants & Accessories",
-    "level": "leaf",
-    "parent_menu": "Medicines & Health",
-    "group": "Sexual Health",
-    "nav_paths": [
-      "Medicines & Health > Sexual Health > Lubricants & Accessories"
-    ],
-    "description_html": "<p>Browse Lubricants & Accessories — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
   },
   {
     "handle": "luna-by-lisa",
@@ -2289,17 +2135,6 @@
       "Beauty > Face > Makeup Remover"
     ],
     "description_html": "<p>Browse Makeup Remover — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
-  },
-  {
-    "handle": "makeup-sponges",
-    "title": "Makeup Sponges",
-    "level": "leaf",
-    "parent_menu": "Beauty",
-    "group": "Makeup Brushes & Tools",
-    "nav_paths": [
-      "Beauty > Makeup Brushes & Tools > Makeup Sponges"
-    ],
-    "description_html": "<p>Browse Makeup Sponges — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
   },
   {
     "handle": "mam",
@@ -2490,28 +2325,6 @@
     "description_html": "<p>Browse Nail Care — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
   },
   {
-    "handle": "nail-polish",
-    "title": "Nail Polish",
-    "level": "leaf",
-    "parent_menu": "Beauty",
-    "group": "Nails",
-    "nav_paths": [
-      "Beauty > Nails > Nail Polish"
-    ],
-    "description_html": "<p>Browse Nail Polish — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
-  },
-  {
-    "handle": "nail-polish-remover",
-    "title": "Nail Polish Remover",
-    "level": "leaf",
-    "parent_menu": "Beauty",
-    "group": "Nails",
-    "nav_paths": [
-      "Beauty > Nails > Nail Polish Remover"
-    ],
-    "description_html": "<p>Browse Nail Polish Remover — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
-  },
-  {
     "handle": "nails",
     "title": "Nails",
     "level": "group",
@@ -2532,17 +2345,6 @@
       "Medicines & Health > Stomach & Gastrointestinal > Nausea, Acid Indigestion & Reflux"
     ],
     "description_html": "<p>Browse Nausea, Acid Indigestion & Reflux — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
-  },
-  {
-    "handle": "needles-lancets",
-    "title": "Needles & Lancets",
-    "level": "leaf",
-    "parent_menu": "Medicines & Health",
-    "group": "Diabetes Care",
-    "nav_paths": [
-      "Medicines & Health > Diabetes Care > Needles & Lancets"
-    ],
-    "description_html": "<p>Browse Needles & Lancets — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
   },
   {
     "handle": "neutrogena",
@@ -2567,28 +2369,6 @@
     "description_html": "<p>Shop the full Nicorette range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
   },
   {
-    "handle": "nicotine-gum",
-    "title": "Nicotine Gum",
-    "level": "leaf",
-    "parent_menu": "Medicines & Health",
-    "group": "Nicotine Replacement",
-    "nav_paths": [
-      "Medicines & Health > Nicotine Replacement > Nicotine Gum"
-    ],
-    "description_html": "<p>Browse Nicotine Gum — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
-  },
-  {
-    "handle": "nicotine-lozenges",
-    "title": "Nicotine Lozenges",
-    "level": "leaf",
-    "parent_menu": "Medicines & Health",
-    "group": "Nicotine Replacement",
-    "nav_paths": [
-      "Medicines & Health > Nicotine Replacement > Nicotine Lozenges"
-    ],
-    "description_html": "<p>Browse Nicotine Lozenges — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
-  },
-  {
     "handle": "nicotine-patches",
     "title": "Nicotine Patches",
     "level": "leaf",
@@ -2609,17 +2389,6 @@
       "Medicines & Health > Nicotine Replacement"
     ],
     "description_html": "<p>Shop Nicotine Replacement at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
-  },
-  {
-    "handle": "nicotine-sprays",
-    "title": "Nicotine Sprays",
-    "level": "leaf",
-    "parent_menu": "Medicines & Health",
-    "group": "Nicotine Replacement",
-    "nav_paths": [
-      "Medicines & Health > Nicotine Replacement > Nicotine Sprays"
-    ],
-    "description_html": "<p>Browse Nicotine Sprays — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
   },
   {
     "handle": "nivea",
@@ -2787,17 +2556,6 @@
     "description_html": "<p>Shop Pain Relief at McCormack's Pharmacy, part of our Medicines & Health range. Advice from our pharmacists on every order and free delivery over [threshold].</p>"
   },
   {
-    "handle": "pain-relief-headache",
-    "title": "Pain Relief & Headache",
-    "level": "leaf",
-    "parent_menu": "Medicines & Health",
-    "group": "Pain Relief",
-    "nav_paths": [
-      "Medicines & Health > Pain Relief > Pain Relief & Headache"
-    ],
-    "description_html": "<p>Browse Pain Relief & Headache — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
-  },
-  {
     "handle": "panadol",
     "title": "Panadol",
     "level": "brand",
@@ -2895,17 +2653,6 @@
       "Medicines & Health > Trying To Conceive > Pregnancy Tests"
     ],
     "description_html": "<p>Browse Pregnancy Tests — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
-  },
-  {
-    "handle": "prep-maintain",
-    "title": "Prep & Maintain",
-    "level": "leaf",
-    "parent_menu": "Beauty",
-    "group": "Tanning",
-    "nav_paths": [
-      "Beauty > Tanning > Prep & Maintain"
-    ],
-    "description_html": "<p>Browse Prep & Maintain — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
   },
   {
     "handle": "probiotics-digestive-health",
@@ -3271,17 +3018,6 @@
     "description_html": "<p>Shop the full Sudocrem range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
   },
   {
-    "handle": "sugar-level-maintenance",
-    "title": "Sugar Level Maintenance",
-    "level": "leaf",
-    "parent_menu": "Medicines & Health",
-    "group": "Diabetes Care",
-    "nav_paths": [
-      "Medicines & Health > Diabetes Care > Sugar Level Maintenance"
-    ],
-    "description_html": "<p>Browse Sugar Level Maintenance — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
-  },
-  {
     "handle": "sun",
     "title": "Sun",
     "level": "leaf",
@@ -3324,17 +3060,6 @@
       "Brands > Tampax"
     ],
     "description_html": "<p>Shop the full Tampax range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
-  },
-  {
-    "handle": "tan-remover",
-    "title": "Tan Remover",
-    "level": "leaf",
-    "parent_menu": "Beauty",
-    "group": "Tanning",
-    "nav_paths": [
-      "Beauty > Tanning > Tan Remover"
-    ],
-    "description_html": "<p>Browse Tan Remover — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
   },
   {
     "handle": "tanning",
@@ -3392,17 +3117,6 @@
     "description_html": "<p>Shop the full TePe range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
   },
   {
-    "handle": "test-strips-blood-glucose-monitors",
-    "title": "Test Strips & Blood Glucose Monitors",
-    "level": "leaf",
-    "parent_menu": "Medicines & Health",
-    "group": "Diabetes Care",
-    "nav_paths": [
-      "Medicines & Health > Diabetes Care > Test Strips & Blood Glucose Monitors"
-    ],
-    "description_html": "<p>Browse Test Strips & Blood Glucose Monitors — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
-  },
-  {
     "handle": "the-belle-brush",
     "title": "The Belle Brush",
     "level": "brand",
@@ -3434,17 +3148,6 @@
       "Medicines & Health > Sensitive Conditions > Thrush & Antifungal"
     ],
     "description_html": "<p>Browse Thrush & Antifungal — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
-  },
-  {
-    "handle": "tinted-moisturiser",
-    "title": "Tinted Moisturiser",
-    "level": "leaf",
-    "parent_menu": "Beauty",
-    "group": "Face",
-    "nav_paths": [
-      "Beauty > Face > Tinted Moisturiser"
-    ],
-    "description_html": "<p>Browse Tinted Moisturiser — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Beauty range.</p>"
   },
   {
     "handle": "toe-nail-care",
@@ -3489,17 +3192,6 @@
       "Medicines & Health > Stomach & Gastrointestinal > Travel Sickness"
     ],
     "description_html": "<p>Browse Travel Sickness — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
-  },
-  {
-    "handle": "treatments",
-    "title": "Treatments",
-    "level": "leaf",
-    "parent_menu": "Skincare",
-    "group": "Facial Skincare",
-    "nav_paths": [
-      "Skincare > Facial Skincare > Treatments"
-    ],
-    "description_html": "<p>Browse Treatments — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Skincare range.</p>"
   },
   {
     "handle": "trilogy",
@@ -3579,17 +3271,6 @@
     "description_html": "<p>Shop the full Vaseline range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
   },
   {
-    "handle": "verucca",
-    "title": "Verucca",
-    "level": "leaf",
-    "parent_menu": "Medicines & Health",
-    "group": "Foot Care",
-    "nav_paths": [
-      "Medicines & Health > Foot Care > Verucca"
-    ],
-    "description_html": "<p>Browse Verucca — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
-  },
-  {
     "handle": "viagra-connect",
     "title": "Viagra Connect",
     "level": "brand",
@@ -3654,17 +3335,6 @@
       "Brands > Voltarol"
     ],
     "description_html": "<p>Shop the full Voltarol range at McCormack's Pharmacy — trusted stockist with fast delivery across Ireland and Click &amp; Collect from all seven stores.</p>"
-  },
-  {
-    "handle": "warmup-recovery",
-    "title": "Warmup & Recovery",
-    "level": "leaf",
-    "parent_menu": "Medicines & Health",
-    "group": "Sport",
-    "nav_paths": [
-      "Medicines & Health > Sport > Warmup & Recovery"
-    ],
-    "description_html": "<p>Browse Warmup & Recovery — trusted brands, pharmacist guidance and fast dispatch from our registered Irish pharmacy. Part of our Medicines & Health range.</p>"
   },
   {
     "handle": "wild",

@@ -5,7 +5,6 @@
       {
         "title": "Pain Relief",
         "items": [
-          "Pain Relief & Headache",
           "Baby & Children Pain Relief",
           "Muscle & Joint Pain"
         ]
@@ -46,10 +45,7 @@
       {
         "title": "Nicotine Replacement",
         "items": [
-          "Nicotine Patches",
-          "Nicotine Gum",
-          "Nicotine Lozenges",
-          "Nicotine Sprays"
+          "Nicotine Patches"
         ]
       },
       {
@@ -58,11 +54,8 @@
           "Dry Eye",
           "Blepharitis & Eyelid Hygiene",
           "Macular Degeneration & Glaucoma",
-          "Eye Infections",
-          "Contact Lens Care",
           "Ear Wax Treatments",
-          "Ear Care & Earplugs",
-          "Hearing Aid Batteries"
+          "Ear Care & Earplugs"
         ]
       },
       {
@@ -85,7 +78,6 @@
         "items": [
           "Bladder Weakness",
           "Pads",
-          "Liners",
           "Pants",
           "Odour Control & Barrier Creams"
         ]
@@ -93,7 +85,6 @@
       {
         "title": "Trying To Conceive",
         "items": [
-          "Fertility Aids & Lubricant",
           "Pregnancy Tests",
           "Ovulation Tests"
         ]
@@ -102,15 +93,12 @@
         "title": "Sexual Health",
         "items": [
           "Erectile Dysfunction",
-          "Condoms",
-          "Lubricants & Accessories"
+          "Condoms"
         ]
       },
       {
         "title": "Sport",
-        "items": [
-          "Warmup & Recovery"
-        ]
+        "items": []
       },
       {
         "title": "First Aid",
@@ -126,38 +114,23 @@
         "title": "Foot Care",
         "items": [
           "Athletes Foot",
-          "Verucca",
           "Fungal Nail Infection",
           "Cracked Heels & Dry Skin",
           "Blisters & Bunion Care",
           "Corn & Callous Care",
           "Chiropody Felt & Padding",
-          "Insoles",
           "Toe Nail Care",
           "Foot Soak & Odour Control"
         ]
       },
       {
-        "title": "Diabetes Care",
-        "items": [
-          "Test Strips & Blood Glucose Monitors",
-          "Needles & Lancets",
-          "Sugar Level Maintenance"
-        ]
-      },
-      {
         "title": "Electrical Healthcare",
         "items": [
-          "Blood Pressure Monitors",
           "Oximeters & Weighing Scales"
         ]
       },
       {
         "title": "Self Testing Kits",
-        "items": []
-      },
-      {
-        "title": "Healthcare & Medicine Accessories",
         "items": []
       }
     ],
@@ -183,7 +156,6 @@
       "Slimming",
       "Herbal Remedies",
       "Immune Support",
-      "Essential Oils",
       "Men's Health"
     ]
   },
@@ -211,7 +183,6 @@
       {
         "title": "Facial Skincare",
         "items": [
-          "Facial Suncare",
           "Facial Moisturisers",
           "Eye Cream",
           "Serums & Oils",
@@ -219,7 +190,6 @@
           "Toner",
           "Exfoliators & Peels",
           "Face Masks",
-          "Treatments",
           "Lip Care"
         ]
       },
@@ -252,8 +222,7 @@
           "Concealer",
           "Blusher",
           "Powders & Primers",
-          "Contouring & Highlighting",
-          "Tinted Moisturiser"
+          "Contouring & Highlighting"
         ]
       },
       {
@@ -263,8 +232,7 @@
           "Eyeliner",
           "Mascara",
           "Eyebrows",
-          "False Eyelashes",
-          "Eye Makeup Remover"
+          "False Eyelashes"
         ]
       },
       {
@@ -280,32 +248,26 @@
         "items": [
           "Self Tan",
           "Tanning Mitts",
-          "Gradual Tan",
-          "Prep & Maintain",
-          "Tan Remover"
+          "Gradual Tan"
         ]
       },
       {
         "title": "Nails",
         "items": [
-          "Nail Polish",
           "False Nails & Nail Wraps",
-          "Nail Care",
-          "Nail Polish Remover"
+          "Nail Care"
         ]
       },
       {
         "title": "Makeup Brushes & Tools",
         "items": [
           "Makeup Brushes",
-          "Makeup Sponges",
           "Makeup Brush Cleaners"
         ]
       },
       {
         "title": "Beauty Accessories",
         "items": [
-          "Body Tape & Nipple Covers",
           "Tweezers",
           "Beauty Accessories"
         ]

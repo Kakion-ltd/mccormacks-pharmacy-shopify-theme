@@ -1,7 +1,13 @@
+import json
 import os
 import sys
 from playwright.sync_api import sync_playwright
 BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
+# Expected counts come from the taxonomy the drawer is generated from, so removing
+# a page from taxonomy.json does not leave this check asserting the old number.
+TAX = {m["menu"]: m for m in json.load(open(os.path.join(os.path.dirname(__file__), "..", "taxonomy.json")))}
+MH_GROUPS = len(TAX["Medicines & Health"]["groups"])
+VIT_FLAT = len(TAX["Vitamins"]["flat"])
 res=[]
 def ck(n,g,w=True): res.append((g==w,n,g))
 with sync_playwright() as p:
@@ -31,8 +37,8 @@ with sync_playwright() as p:
     ck("shop-all link present",
        pg.locator('[data-mnav-panel="medicines-health"] .mnav-all').inner_text().strip(),
        "Shop all Medicines & Health")
-    ck("18 groups listed",
-       pg.locator('[data-mnav-panel="medicines-health"] > .mnav-list > .mnav-row').count(), 18)
+    ck(f"{MH_GROUPS} groups listed",
+       pg.locator('[data-mnav-panel="medicines-health"] > .mnav-list > .mnav-row').count(), MH_GROUPS)
 
     pg.locator('[data-mnav-panel="medicines-health"] .mnav-row', has_text="Pain Relief").first \
       .locator("[data-mnav-into]").click(); pg.wait_for_timeout(300)
@@ -63,7 +69,7 @@ with sync_playwright() as p:
     pg.locator('.mnav-row', has_text="Vitamins & Supplements").first.locator("[data-mnav-into]").click()
     pg.wait_for_timeout(300)
     ck("flat department lists its leaves directly",
-       pg.locator('[data-mnav-panel="vitamins"] .mnav-link').count(), 18)
+       pg.locator('[data-mnav-panel="vitamins"] .mnav-link').count(), VIT_FLAT)
     ck("flat department offers no further drilling",
        pg.locator('[data-mnav-panel="vitamins"] [data-mnav-into]').count(), 0)
 

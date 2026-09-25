@@ -3,7 +3,7 @@
   Home and the current collection. Consumed by snippets/structured-data.liquid.
   Render with: {% render 'category-breadcrumb-data', collection: collection %} {% endcomment %}
 {%- case collection.handle -%}
-{%- when 'pain-relief-headache' or 'baby-children-pain-relief' or 'muscle-joint-pain' -%}
+{%- when 'baby-children-pain-relief' or 'muscle-joint-pain' -%}
 Medicines & Health~medicines-health|Pain Relief~pain-relief
 {%- when 'cold-flu-combination-products' or 'cough' or 'hayfever-allergy' or 'sore-throat' or 'blocked-nose-sinus' -%}
 Medicines & Health~medicines-health|Cold, Flu & Allergy~cold-flu-allergy
@@ -11,39 +11,35 @@ Medicines & Health~medicines-health|Cold, Flu & Allergy~cold-flu-allergy
 Medicines & Health~medicines-health|Stomach & Gastrointestinal~stomach-gastrointestinal
 {%- when 'menopause' or 'hair-loss' or 'thrush-antifungal' or 'headlice' or 'cystitis' or 'skintags-warts-veruccas' -%}
 Medicines & Health~medicines-health|Sensitive Conditions~sensitive-conditions
-{%- when 'nicotine-patches' or 'nicotine-gum' or 'nicotine-lozenges' or 'nicotine-sprays' -%}
+{%- when 'nicotine-patches' -%}
 Medicines & Health~medicines-health|Nicotine Replacement~nicotine-replacement
-{%- when 'dry-eye' or 'blepharitis-eyelid-hygiene' or 'macular-degeneration-glaucoma' or 'eye-infections' or 'contact-lens-care' or 'ear-wax-treatments' or 'ear-care-earplugs' or 'hearing-aid-batteries' -%}
+{%- when 'dry-eye' or 'blepharitis-eyelid-hygiene' or 'macular-degeneration-glaucoma' or 'ear-wax-treatments' or 'ear-care-earplugs' -%}
 Medicines & Health~medicines-health|Eye & Ear Health~eye-ear-health
 {%- when 'healthy-mind-sleeping-aids' -%}
 Medicines & Health~medicines-health|Sleep & Rest~sleep-rest
 {%- when 'dry-mouth' or 'gum-health-gingivitis' or 'mouth-ulcers-cold-sores' or 'teething' -%}
 Medicines & Health~medicines-health|Mouth & Oral Care~mouth-oral-care
-{%- when 'bladder-weakness' or 'pads' or 'liners' or 'pants' or 'odour-control-barrier-creams' -%}
+{%- when 'bladder-weakness' or 'pads' or 'pants' or 'odour-control-barrier-creams' -%}
 Medicines & Health~medicines-health|Continence Care~continence-care
-{%- when 'fertility-aids-lubricant' or 'pregnancy-tests' or 'ovulation-tests' -%}
+{%- when 'pregnancy-tests' or 'ovulation-tests' -%}
 Medicines & Health~medicines-health|Trying To Conceive~trying-to-conceive
-{%- when 'erectile-dysfunction' or 'condoms' or 'lubricants-accessories' -%}
+{%- when 'erectile-dysfunction' or 'condoms' -%}
 Medicines & Health~medicines-health|Sexual Health~sexual-health
-{%- when 'warmup-recovery' -%}
-Medicines & Health~medicines-health|Sport~sport
 {%- when 'antiseptics-wound-cleaning' or 'bandages-plasters' or 'supports' or 'cold-therapy-heat-therapy' or 'insect-bites-prevention' -%}
 Medicines & Health~medicines-health|First Aid~first-aid
-{%- when 'athletes-foot' or 'verucca' or 'fungal-nail-infection' or 'cracked-heels-dry-skin' or 'blisters-bunion-care' or 'corn-callous-care' or 'chiropody-felt-padding' or 'insoles' or 'toe-nail-care' or 'foot-soak-odour-control' -%}
+{%- when 'athletes-foot' or 'fungal-nail-infection' or 'cracked-heels-dry-skin' or 'blisters-bunion-care' or 'corn-callous-care' or 'chiropody-felt-padding' or 'toe-nail-care' or 'foot-soak-odour-control' -%}
 Medicines & Health~medicines-health|Foot Care~foot-care
-{%- when 'test-strips-blood-glucose-monitors' or 'needles-lancets' or 'sugar-level-maintenance' -%}
-Medicines & Health~medicines-health|Diabetes Care~diabetes-care
-{%- when 'blood-pressure-monitors' or 'oximeters-weighing-scales' -%}
+{%- when 'oximeters-weighing-scales' -%}
 Medicines & Health~medicines-health|Electrical Healthcare~electrical-healthcare
-{%- when 'pain-relief' or 'cold-flu-allergy' or 'stomach-gastrointestinal' or 'sensitive-conditions' or 'nicotine-replacement' or 'eye-ear-health' or 'sleep-rest' or 'mouth-oral-care' or 'continence-care' or 'trying-to-conceive' or 'sexual-health' or 'sport' or 'first-aid' or 'foot-care' or 'diabetes-care' or 'electrical-healthcare' or 'self-testing-kits' or 'healthcare-medicine-accessories' -%}
+{%- when 'pain-relief' or 'cold-flu-allergy' or 'stomach-gastrointestinal' or 'sensitive-conditions' or 'nicotine-replacement' or 'eye-ear-health' or 'sleep-rest' or 'mouth-oral-care' or 'continence-care' or 'trying-to-conceive' or 'sexual-health' or 'sport' or 'first-aid' or 'foot-care' or 'electrical-healthcare' or 'self-testing-kits' -%}
 Medicines & Health~medicines-health
-{%- when 'probiotics-digestive-health' or 'children-vitamins' or 'fish-oils-omegas' or 'womens-health' or 'everyday-multivitamins' or 'energy-wellbeing' or 'skin-hair-nails' or 'joint-bone-health' or 'fertility-pregnancy' or 'brain-health' or 'eye-health' or 'heart-health' or 'slimming' or 'herbal-remedies' or 'immune-support' or 'essential-oils' or 'mens-health' -%}
+{%- when 'probiotics-digestive-health' or 'children-vitamins' or 'fish-oils-omegas' or 'womens-health' or 'everyday-multivitamins' or 'energy-wellbeing' or 'skin-hair-nails' or 'joint-bone-health' or 'fertility-pregnancy' or 'brain-health' or 'eye-health' or 'heart-health' or 'slimming' or 'herbal-remedies' or 'immune-support' or 'mens-health' -%}
 Vitamins~vitamins
 {%- when 'anti-ageing' or 'acne-blemish' or 'dry-skin' or 'sensitive-skin' or 'irritated-damaged-skin' or 'sun' -%}
 Skincare~skincare|Dermatological Skincare~dermatological-skincare
 {%- when 'moisturisers' or 'exfoliators' -%}
 Skincare~skincare|Body Skincare~body-skincare
-{%- when 'facial-suncare' or 'facial-moisturisers' or 'eye-cream' or 'serums-oils' or 'cleanser' or 'toner' or 'exfoliators-peels' or 'face-masks' or 'treatments' or 'lip-care' -%}
+{%- when 'facial-moisturisers' or 'eye-cream' or 'serums-oils' or 'cleanser' or 'toner' or 'exfoliators-peels' or 'face-masks' or 'lip-care' -%}
 Skincare~skincare|Facial Skincare~facial-skincare
 {%- when 'dry-skin-eczema-psoriasis' -%}
 Skincare~skincare|Problem Skin~problem-skin
@@ -51,19 +47,19 @@ Skincare~skincare|Problem Skin~problem-skin
 Skincare~skincare|Hands & Nails~hands-nails
 {%- when 'dermatological-skincare' or 'body-skincare' or 'facial-skincare' or 'problem-skin' or 'hands-nails' -%}
 Skincare~skincare
-{%- when 'foundation' or 'makeup-remover' or 'bronzer' or 'concealer' or 'blusher' or 'powders-primers' or 'contouring-highlighting' or 'tinted-moisturiser' -%}
+{%- when 'foundation' or 'makeup-remover' or 'bronzer' or 'concealer' or 'blusher' or 'powders-primers' or 'contouring-highlighting' -%}
 Beauty~beauty|Face~face
-{%- when 'eyeshadow' or 'eyeliner' or 'mascara' or 'eyebrows' or 'false-eyelashes' or 'eye-makeup-remover' -%}
+{%- when 'eyeshadow' or 'eyeliner' or 'mascara' or 'eyebrows' or 'false-eyelashes' -%}
 Beauty~beauty|Eyes~eyes
 {%- when 'lip-gloss' or 'lipstick' or 'lip-liner' -%}
 Beauty~beauty|Lips~lips
-{%- when 'self-tan' or 'tanning-mitts' or 'gradual-tan' or 'prep-maintain' or 'tan-remover' -%}
+{%- when 'self-tan' or 'tanning-mitts' or 'gradual-tan' -%}
 Beauty~beauty|Tanning~tanning
-{%- when 'nail-polish' or 'false-nails-nail-wraps' or 'nail-care' or 'nail-polish-remover' -%}
+{%- when 'false-nails-nail-wraps' or 'nail-care' -%}
 Beauty~beauty|Nails~nails
-{%- when 'makeup-brushes' or 'makeup-sponges' or 'makeup-brush-cleaners' -%}
+{%- when 'makeup-brushes' or 'makeup-brush-cleaners' -%}
 Beauty~beauty|Makeup Brushes & Tools~makeup-brushes-tools
-{%- when 'body-tape-nipple-covers' or 'tweezers' or 'beauty-accessories' -%}
+{%- when 'tweezers' or 'beauty-accessories' -%}
 Beauty~beauty|Beauty Accessories~beauty-accessories
 {%- when 'face' or 'eyes' or 'lips' or 'tanning' or 'nails' or 'makeup-brushes-tools' -%}
 Beauty~beauty

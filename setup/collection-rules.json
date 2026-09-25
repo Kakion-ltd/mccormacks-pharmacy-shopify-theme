@@ -1198,5 +1198,49 @@
    }
   ],
   "appliedDisjunctively": false
+ },
+ "baby-accessories": {
+  "title": "Baby Accessories",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Baby > Soothers & Accessories"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "baby-skincare": {
+  "title": "Baby Skincare",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Baby > Bathing & Skincare"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "ladies-fragrance": {
+  "title": "Ladies Fragrance",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Gifts > Women's Fragrance"
+   }
+  ],
+  "appliedDisjunctively": false
+ },
+ "slimming": {
+  "title": "Slimming",
+  "rules": [
+   {
+    "column": "TYPE",
+    "relation": "EQUALS",
+    "condition": "Supplements > Weight Management"
+   }
+  ],
+  "appliedDisjunctively": false
  }
 }

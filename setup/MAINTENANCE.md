@@ -1290,6 +1290,34 @@ jumps nowhere. X and Y are greyed out as of this rebuild.
 
 ---
 
+## Category pages: 30 removed, 4 switched to type (25 Sep 2026)
+
+141 of the 193 group and sub-category pages were empty. Every one matched on a
+tag (`TAG EQUALS <title>`) that no product carried; every page matching on type
+had products. The pages were reviewed one by one (word match on product titles,
+then a hand check of every candidate). Decisions, approved by Kakion:
+
+- **30 removed from `taxonomy.json`**: 17 dropped (nothing stocked, e.g. Nail
+  Polish, Nicotine Gum, the Diabetes Care group; or a duplicate, e.g. Verucca,
+  Pain Relief & Headache) and 13 merged into their parent (under 3 products, e.g.
+  Nicotine Sprays, Insoles). The menus, chips and breadcrumbs regenerate from
+  the taxonomy, so the links went with it. **The 30 collections still exist on
+  the store**, unlinked; nothing was deleted. To bring one back, put its title
+  back in `taxonomy.json` and regenerate.
+- **4 switched to an existing type**, recorded in `collection-rules.json`:
+  Ladies Fragrance, Baby Accessories, Baby Skincare, Slimming.
+- **Tag-based sub-pages are filled by tagging products** with the rule's exact
+  condition. Take it from the live rule, not the page title: Dry Skin, Eczema &
+  Psoriasis matches the tag `Eczema & Psoriasis`.
+- Medicines & Health pages wait for a pharmacist's sign-off, and 39 pages the
+  word match could not fill go to the client to map by hand.
+
+`setup/verify/mobile-nav.py` used to assert 18 Medicines groups and 18 Vitamins
+items. It now reads both counts from `taxonomy.json`, so the next removal does
+not turn it red.
+
+---
+
 ## Generated snippets — edit the generator, never the output (three times now)
 
 Nine snippets are written by three scripts in `setup/`: `gen_brands.py` owns
