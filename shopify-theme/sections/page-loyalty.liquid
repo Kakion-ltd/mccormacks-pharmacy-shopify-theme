@@ -2,7 +2,7 @@
   <div style="max-width:820px;">
   {%- render 'breadcrumb', current: 'Loyalty Rewards Club', margin: '0 0 18px' -%}
   <h1 style="margin:0 0 14px; color:var(--c-dark);">{{ section.settings.heading }}</h1>
-  <p style="font-size:16px; line-height:1.7; color:#5a6153; margin:0 0 26px;">{{ section.settings.intro }}</p>
+  <p style="font-size:16px; line-height:1.7; color:#5a6153; margin:0 0 26px; max-width:var(--measure);">{{ section.settings.intro }}</p>
 
   <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:14px; margin-bottom:26px;">
     {% for i in (1..3) %}

@@ -19,6 +19,11 @@
   --c-muted-2: #666b60; /* 4.62:1 on white was too close; this holds AA on the pale tints too */
   --c-border: #E6E7E4;
   --c-border-2: #DFE1DC;
+  /* The one reading width for body copy: policies, legal pages, articles, product
+     descriptions, collection and gift-voucher copy, about, careers, withdraw, loyalty.
+     620px is about 90 characters a line at 15.5-16px in this font, the upper limit for
+     body text; the 780px the policy pages had was 113. The 17px intros stay at 64ch. */
+  --measure: 620px;
   /* Sale red. Not a brand green and not editor-driven, so it lives here rather than in
      theme.liquid — but it IS one decision, and it was three hardcoded copies until the
      product page drifted off it. Near --c-error on purpose and not the same: a reduced
@@ -91,7 +96,7 @@ h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 
    a policy rewritten to start with a paragraph keeps body type rather than going h1. */
 main .shopify-policy__container { max-width: 1440px; margin: 0 auto; padding: 30px 30px 56px; text-align: left; }
 main .shopify-policy__title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-main .shopify-policy__body { max-width: 780px; font-size: 15.5px; line-height: 1.75; color: #3a3d39; text-wrap: pretty; overflow-wrap: anywhere; }
+main .shopify-policy__body { max-width: var(--measure); font-size: 15.5px; line-height: 1.75; color: #3a3d39; text-wrap: pretty; overflow-wrap: anywhere; }
 /* One level down from our pages, because the policy's h2 is its title: h3 is the
    section heading, h4 and below the subheading. */
 main .shopify-policy__body :is(h1, h2, h3) { font-family: var(--font-heading); font-weight: 800; color: var(--c-dark); font-size: clamp(21px, 2.2vw, 27px); line-height: 1.2; margin: 36px 0 12px; }
@@ -319,6 +324,13 @@ html { scroll-padding-top: calc(var(--hdr-pinned) + 8px); }
   .main-nav-bar > div > nav a { font-size: clamp(12px, 1.05vw, 13.5px) !important; white-space: nowrap !important; }
   .main-nav-bar > div > div > a { padding: 0 clamp(10px, 1.1vw, 14px) !important; font-size: clamp(12px, 1.05vw, 13.5px) !important; }
   .main-nav-bar > div > div > a svg { width: 15px !important; height: 15px !important; }
+  /* Gutters are 20px here, 30px above and 16px on phones. The page rule used to start at
+     1100, so 1101-1280 kept 30px under a nav row already at 20: the header had two left
+     edges 10px apart. The footer rows were in neither rule and stayed at 30px throughout.
+     Every row that meets the page edge is listed, so they all move together. */
+  section, main .shopify-policy__container { padding-left: 20px !important; padding-right: 20px !important; }
+  .hdr-sticky header { padding-left: 20px; padding-right: 20px; }
+  .annc-row, .ftr-newsletter, .ftr-cols, .ftr-psi, .ftr-bottom { padding-left: 20px !important; padding-right: 20px !important; }
 }
 @media (max-width: 1100px) and (min-width: 901px) {
   /* --hdr-pinned is set from the bar's measured height by theme.js, which is the only
@@ -333,7 +345,6 @@ html { scroll-padding-top: calc(var(--hdr-pinned) + 8px); }
      the three columns still come to 661px of the 841px available. */
   .hdr-sticky header { padding: 12px 20px; column-gap: 18px; grid-template-columns: 1fr minmax(200px, 380px) 1fr; }
   .hdr-icons { gap: 18px !important; }
-  section, main .shopify-policy__container { padding-left: 20px !important; padding-right: 20px !important; }
 }
 @media (max-width: 900px) {
   /* Phones: the whole wrapper sticks, search row included. It is the search field a
@@ -354,7 +365,8 @@ html { scroll-padding-top: calc(var(--hdr-pinned) + 8px); }
   /* Square art frame on phones, copy beneath it. The cut-out is shown whole (contain). */
   .annc-row { justify-content: space-between !important; gap: 8px 14px !important; font-size: 11px !important; padding: 5px 16px !important; }
   .annc-hide { display: none !important; }
-  .sec-pad, section, main .shopify-policy__container { padding-left: 16px !important; padding-right: 16px !important; }
+  .sec-pad, section, main .shopify-policy__container,
+  .ftr-newsletter, .ftr-cols, .ftr-psi, .ftr-bottom { padding-left: 16px !important; padding-right: 16px !important; }
   .hdr-mobile-left { gap: 14px !important; }
   .hdr-icons { gap: 16px !important; }
   .svc-slider { display: flex !important; gap: 14px !important; overflow-x: auto !important; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 12px !important; margin-right: -16px !important; padding-right: 16px !important; }
@@ -414,17 +426,17 @@ html { scroll-padding-top: calc(var(--hdr-pinned) + 8px); }
   .cat-tile-row a { flex: 0 0 auto !important; }
   .ftr-newsletter { display: none !important; }
   .ftr-cols { text-align: left; padding: 0 !important; gap: 0 !important; grid-template-columns: 1fr !important; }
-  .ftr-cols > div:first-child { align-items: flex-start; display: flex; flex-direction: column; padding: 24px 20px; }
+  .ftr-cols > div:first-child { align-items: flex-start; display: flex; flex-direction: column; padding: 24px 16px; }
   .ftr-cols > div:first-child p { display: none; }
-  .ftr-cols .ftr-acc-btn { text-align: left; justify-content: space-between !important; gap: 10px !important; color:var(--c-primary-text); border-bottom: none !important; padding: 18px 20px !important; margin: 0 !important; font-size: 17px !important; border-top: 1px solid var(--c-border); }
+  .ftr-cols .ftr-acc-btn { text-align: left; justify-content: space-between !important; gap: 10px !important; color:var(--c-primary-text); border-bottom: none !important; padding: 18px 16px !important; margin: 0 !important; font-size: 17px !important; border-top: 1px solid var(--c-border); }
   .ftr-acc-chevron { display: inline-flex !important; width: 20px !important; height: 20px !important; }
   .ftr-acc-content[data-open="false"] { display: none !important; }
-  .ftr-acc-content { padding: 0 20px 18px; align-items: flex-start !important; }
-  .ftr-psi { justify-content: flex-start !important; padding: 14px 20px !important; margin-right: 0 !important; }
+  .ftr-acc-content { padding: 0 16px 18px; align-items: flex-start !important; }
+  .ftr-psi { justify-content: flex-start !important; padding: 14px 16px !important; margin-right: 0 !important; }
   /* design carried the desktop -40px pull-up into mobile, overlapping the Policies accordion */
   .ftr-psi a { margin-right: 0 !important; margin-top: 0 !important; }
   .ftr-psi img { height: 56px !important; }
-  .ftr-bottom { flex-direction: column !important; text-align: center; gap: 14px !important; padding: 22px 20px !important; }
+  .ftr-bottom { flex-direction: column !important; text-align: center; gap: 14px !important; padding: 22px 16px !important; }
   .ftr-bottom > div { justify-content: center !important; }
   .ftr-payments { order: 1; }
   .ftr-terms { display: block !important; order: 2; font-size: 13px; }

@@ -163,7 +163,7 @@
               <button type="button" class="pdp-tab" data-view-btn="how">How To Use</button>
             {%- endif -%}
           </div>
-          <div data-view="desc" style="padding:22px 4px 26px; font-size:15.5px; line-height:1.7; color:#4a4d47;">{{ product.description }}</div>
+          <div data-view="desc" style="max-width:var(--measure); padding:22px 4px 26px; font-size:15.5px; line-height:1.7; color:#4a4d47;">{{ product.description }}</div>
           {%- if ingredients_mf != blank -%}
             <div data-view="ingredients" style="display:none; padding:22px 4px 26px; font-size:15.5px; line-height:1.7; color:#4a4d47;">{{ ingredients_mf | metafield_tag }}</div>
           {%- endif -%}

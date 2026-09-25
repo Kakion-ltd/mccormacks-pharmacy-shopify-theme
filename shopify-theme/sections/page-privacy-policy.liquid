@@ -3,7 +3,7 @@
 
     {% render 'legal-sidebar', active: 'privacy', updated_date: section.settings.updated_date, show_help: section.settings.show_help_card, phone: section.settings.help_phone %}
 
-    <div style="flex:1; min-width:0; max-width:none;">
+    <div style="flex:1; min-width:0; max-width:var(--measure);">
       <div>
       {%- render 'breadcrumb', current: 'Privacy Policy', parent_title: 'Policies', margin: '0 0 14px' -%}
       <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(30px,3.4vw,42px); line-height:1.08; margin:0 0 14px;">{{ section.settings.heading }}</h1>

@@ -8,7 +8,7 @@
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
   {%- render 'breadcrumb', current: 'About Us' -%}
   <div class="co-wrap" style="display:flex; gap:44px; align-items:flex-start;">
-    <div style="flex:1 1 auto; min-width:0; max-width:760px;">
+    <div style="flex:1 1 auto; min-width:0; max-width:var(--measure);">
       <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(28px,3.2vw,42px); line-height:1.08; margin:0 0 12px;">{{ section.settings.heading }}</h1>
       {%- comment -%} Blank lines in the Intro setting become paragraph breaks;
           [threshold] prints the free delivery amount from Brand settings, as in

@@ -371,7 +371,7 @@
     <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,40px); line-height:1.1; margin:0 0 20px;">{{ section.settings.seo_heading }}</h2>
   {%- endif -%}
   {%- if section.settings.seo_text != blank -%}
-    <div class="seo-copy" style="margin:0 0 40px; font-size:16px; line-height:1.7; color:#3a3d39; max-width:1000px;">{{ section.settings.seo_text }}</div>
+    <div class="seo-copy" style="margin:0 0 40px; font-size:16px; line-height:1.7; color:#3a3d39; max-width:var(--measure);">{{ section.settings.seo_text }}</div>
   {%- endif -%}
 
   {%- if section.blocks.size > 0 -%}
@@ -387,7 +387,7 @@
             <svg data-acc-chevron width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; transform:rotate({% if forloop.first %}180{% else %}0{% endif %}deg); transition:transform .2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div class="faq-content" id="faq-{{ section.id }}-{{ forloop.index }}" data-acc-content="faq-{{ section.id }}-{{ forloop.index }}" data-open="{{ faq_open }}">
-            <p style="margin:10px 0 0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:1000px;">{{ block.settings.answer | replace: '[threshold]', fd_amount }}</p>
+            <p style="margin:10px 0 0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:var(--measure);">{{ block.settings.answer | replace: '[threshold]', fd_amount }}</p>
           </div>
         </div>
       {%- endfor -%}
