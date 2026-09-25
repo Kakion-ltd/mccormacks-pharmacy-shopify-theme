@@ -11,14 +11,14 @@ Every item says who owns it:
 - **Decision needed**: we need an answer before anyone can act.
 
 The website is on the store now, behind the password page. Customers cannot
-see it until the password is taken off, and the four launch blockers below need
+see it until the password is taken off, and the five launch blockers below need
 to be settled before that happens.
 
 ---
 
 ## 1. What the pharmacy needs to do
 
-### The four launch blockers
+### The five launch blockers
 
 These have to be settled before the website opens to customers.
 
@@ -60,6 +60,41 @@ suncare travel set is filed under Pharmacy > Travel Sickness and shows "Ask a
 pharmacist before you buy". We need a list of the products that genuinely need
 a pharmacist check, and the questions to ask for each. The spreadsheet of all
 521 is described under "Product questions" below.
+
+**5. Who reads the website's email inbox. Owner: Pharmacy.**
+Seven forms on the website send an email and nothing else:
+
+- back-in-stock requests
+- contact
+- cancelling an order (the withdrawal form)
+- booking an in-store service
+- careers
+- two prescription forms
+
+Shopify keeps no copy of any of them. If an email is deleted, the request is
+gone. Please name the person who reads info@mccormackspharmacy.ie. They should
+file these emails rather than delete them.
+
+**The emails don't go to that address yet.** Shopify sends them to the
+store's own contact email, and on 25 September that was **info@efulfill.ie**.
+It needs changing to info@mccormackspharmacy.ie in Shopify, under Settings ›
+General (the store's contact email), and a test sent, before any of the
+below works.
+
+Naming one person unblocks four things:
+
+- **Back-in-stock requests can be switched on.** They are off until someone
+  owns the inbox.
+- **The in-store services booking form can be switched on.** It is off for
+  the same reason.
+- **Prescription requests have an owner.** Both prescription forms are live,
+  and at the moment nobody is named to act on what they send.
+- **Withdrawal acknowledgements get sent.** When a customer withdraws from an
+  order, the law says we must acknowledge it in a durable form, such as an
+  email, without delay. A message on the screen doesn't count, and the
+  website can't send that email itself. Until someone replies to each
+  withdrawal request by hand, quoting the reference number it carries (it
+  starts "WD-"), we are not meeting that requirement.
 
 ### Questions for the pharmacist
 
@@ -147,20 +182,6 @@ settings › Trust bar › Message 3 › Text. It changes every page that shows 
 strip at once.
 
 ### Store details
-
-**Who reads the website's email inbox. Owner: Pharmacy.**
-Seven forms on the website send an email and nothing else:
-
-- back-in-stock requests
-- contact
-- cancelling an order
-- booking an in-store service
-- careers
-- two prescription forms
-
-Shopify keeps no copy of any of them. If an email is deleted, the request is
-gone. Please name the person who owns that inbox. They should file these
-emails rather than delete them.
 
 **Click and collect. Decision needed: pharmacy.**
 Which shops will offer collection? Pickup is switched on shop by shop in
