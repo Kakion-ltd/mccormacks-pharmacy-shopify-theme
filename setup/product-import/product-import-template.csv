@@ -1,2 +1,2 @@
 Title,URL handle,Description,Vendor,Type,Tags,Published on online store,Status,SKU,Barcodes,Price,Compare-at price,Charge tax,Inventory tracker,Inventory quantity,Continue selling when out of stock,Requires shipping,Product image URL,Image alt text
-EXAMPLE - DELETE THIS ROW - Aveeno Daily Moisturising Lotion 200ml,,"<p>A daily moisturiser for dry skin, with colloidal oatmeal.</p>",Aveeno,Skincare > Body Care,"Dry Skin, Moisturisers",TRUE,active,5012345678900,,12.99,,TRUE,shopify,12,FALSE,TRUE,,
+EXAMPLE - DELETE THIS ROW - Aveeno Daily Moisturising Lotion 200ml,,"<p>A daily moisturiser for dry skin, with colloidal oatmeal.</p>",Aveeno,Skincare > Body Care,"Dry Skin, Moisturisers",TRUE,active,5012345678900,5012345678900,12.99,,TRUE,shopify,12,FALSE,TRUE,,

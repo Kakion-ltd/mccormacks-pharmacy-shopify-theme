@@ -51,7 +51,7 @@ EXAMPLE = {
     "Published on online store": "TRUE",
     "Status": "active",
     "SKU": "5012345678900",
-    "Barcodes": "",
+    "Barcodes": "5012345678900",
     "Price": "12.99",
     "Compare-at price": "",
     "Charge tax": "TRUE",
@@ -70,9 +70,9 @@ NOTES = {
               "misses its brand page and appears under a new, separate brand.",
     "Type": "Pick from the list. Anything else and the product lands on no category page.",
     "Tags": "Comma-separated. Copy tags exactly from the 'Category tags' sheet.",
-    "SKU": "The product's barcode (EAN, usually 13 digits). The whole store keeps the "
-           "barcode here. This column is formatted as text so Excel keeps every digit.",
-    "Barcodes": "Leave blank. The barcode goes in SKU.",
+    "SKU": "The product's barcode (EAN, usually 13 digits). The store shows it under the "
+           "title. Formatted as text so Excel keeps every digit.",
+    "Barcodes": "The same barcode again, exactly as in SKU. Google reads this one.",
     "Compare-at price": "Only for a reduced product: the old, higher price. This is what "
                         "shows the SALE badge. Blank for a normal product.",
     "Inventory quantity": "Stock count. See the Read me: this may be ignored if the store "
@@ -210,9 +210,12 @@ def write_workbook(types, tags, special, brand_pages, vendors, existing):
          "'A. Vogel' makes a second, separate brand, and a product under it is missing from "
          "the brand's page and filters. A genuinely new brand is allowed: check the Vendors "
          "sheet first, then use one spelling for every product of that brand.", False),
-        ("BARCODE goes in the SKU column, not the Barcodes column. That is how every product "
-         "already on the store is set up. The SKU column is formatted as text so Excel does "
-         "not turn 5012345678900 into 5.01E+12 or drop a leading zero.", False),
+        ("BARCODE goes in BOTH the SKU column and the Barcodes column, the same number in each. "
+         "SKU is what the product page shows; Barcodes is what Google reads. Both columns are "
+         "formatted as text so Excel does not turn 5012345678900 into 5.01E+12 or drop a "
+         "leading zero. A bundle made up in the shop has no barcode of its own: leave Barcodes "
+         "blank rather than inventing one. (A boxed gift set from the brand has a real barcode "
+         "on the box; use that.)", False),
         ("SALE: the SALE badge and the crossed-out price appear only when 'Compare-at price' "
          "is filled in AND higher than 'Price'. Put the old price there. Leave it blank for "
          "anything not reduced. To also list the product on the Sale page, add the tag 'sale'.", False),
