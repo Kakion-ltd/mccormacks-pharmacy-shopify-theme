@@ -104,6 +104,13 @@ paracetamol 500 mg, phenylephrine, diphenhydramine and caffeine).
 > whether it should be sold online at all. If it should, the questions below
 > are a starting point.
 
+**Question for you: which other products contain codeine?** No product on the
+website mentions codeine in its title or description, Uniflu included. We
+found Uniflu only from its licence. So we cannot tell from the website which
+products contain codeine, and only you can. Please list any others you stock
+online, so they can be taken off the online shop in the same way until you
+decide.
+
 **Licence conditions** (SmPC PA1113/006/001):
 
 - Age 12 and over. Ages 12 to 18: codeine 30 mg a day at most.

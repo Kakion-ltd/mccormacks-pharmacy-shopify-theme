@@ -77,8 +77,8 @@ Shopify keeps no copy of any of them. If an email is deleted, the request is
 gone. Please name the person who reads info@mccormackspharmacy.ie. They should
 file these emails rather than delete them.
 
-**The emails don't go to that address yet.** See launch blocker 6: until the
-store's email is changed, none of the below works.
+**The emails only reach that address once launch blocker 6 is done.** Until
+the store's email is changed and tested, none of the below works.
 
 Naming one person unblocks three things:
 
@@ -99,16 +99,25 @@ should not sit in a shared inbox. It stays off until those requests have
 somewhere safer to go. Until then, the services pages point customers to their
 nearest shop and the phone.
 
-**6. Change the store's email address. Owner: Pharmacy, after the transfer.**
-Every form on the website sends its email to the store's own email address,
-including both prescription forms. On 25 September that address was still
-**info@efulfill.ie**, which is not McCormack's. Until it changes, customers'
-prescription requests, withdrawals and messages go to someone else's inbox.
+**6. The store's email addresses. Owner: Kakion, with the pharmacy.**
+On 25 September the store's email address was still **info@efulfill.ie**,
+which is not McCormack's. It is being changed in Shopify (Settings › General)
+to the two addresses you gave us:
 
-It must change to McCormack's own address, such as
-info@mccormackspharmacy.ie, **before the password comes off**. In Shopify it
-is under Settings › General, as the store's contact email. After changing it,
-send one test through a form and check it arrives.
+- **info@mccormackspharmacy.ie** is the store's contact email, and the address
+  the store's emails come from. Every form on the website sends here: both
+  prescription forms, contact, cancelling an order and careers, and
+  back-in-stock requests once they are switched on.
+- **sales@mccormackspharmacy.ie** gets the staff order notifications: the
+  email Shopify sends your team when an order comes in.
+
+Before the password comes off, we'll check both with you: one test through a
+form, to confirm it arrives at info@, and one test order, to confirm the
+notification arrives at sales@.
+
+**This settles where the emails land, not who reads them.** Somebody still has
+to work through what arrives at info@: prescription requests, contact
+enquiries and withdrawal notices. That is launch blocker 5.
 
 ### Questions for the pharmacist
 
@@ -330,8 +339,10 @@ when the site moves to its own domain.
 
 **Test the website's forms with a real submission. Owner: Kakion, with the
 pharmacy.**
-None of the seven email forms has been sent on the real store yet. We'll send
-one test together and confirm it reaches the right inbox and reads properly.
+None of the website's forms has been sent on the real store yet. We'll send
+one test form and one test order together, and confirm each reaches the right
+inbox and reads properly: the form at info@, the order notification at sales@
+(see launch blocker 6).
 
 **Point the remaining links at the right legal pages. Owner: Kakion.**
 Waiting on the solicitor's decision.
