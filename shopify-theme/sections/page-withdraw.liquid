@@ -29,32 +29,11 @@
   {%- render 'breadcrumb', current: 'Withdraw From Contract' -%}
 
   <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,38px); line-height:1.1; margin:0 0 14px;">Withdraw From Contract</h1>
-  <p style="margin:0 0 20px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:62ch;">If you have changed your mind about an eligible online order, this page is how you tell us that you wish to withdraw from the contract, under your statutory right of withdrawal. Completing the form below is the quickest way to notify us &mdash; you do not need an account or to log in.</p>
-  <a href="#withdrawal-form" class="btn btn-fill" style="gap:8px; margin-bottom:8px">Start your withdrawal request &rarr;</a>
+  <p style="margin:0 0 20px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:62ch;">When you buy from us online, you can usually change your mind and cancel your order. Where that right applies, we want to make using it simple. This page explains how it works and gives you a form to tell us.</p>
 
-  <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">When can I withdraw?</h2>
-  <p style="margin:0; font-size:16px; line-height:1.75; color:#3a3d39;">You have <strong>14 days</strong> from the day you (or someone you nominate) receives your order to tell us you wish to withdraw &mdash; you do not need to give a reason. You then have a further <strong>14 days from the date you give us notice</strong> to return the goods to us.</p>
-
-  <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Products that cannot be withdrawn</h2>
-  <span style="display:inline-block; font-size:11px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; color:#7a4b00; background:#FDF1DC; border:1px solid #E9C98C; border-radius:5px; padding:4px 9px; margin-bottom:10px;">Pending legal review</span>
-  <div style="border:1.5px dashed #D8B073; background:#FFFBF3; border-radius:12px; padding:20px 22px;">
-    <div style="font-family:ui-monospace,monospace; font-size:12px; color:#8a6416; margin-bottom:10px;">[PLACEHOLDER — start]</div>
-    <p style="margin:0 0 10px; font-size:16px; line-height:1.7; color:#3a3d39;">The right of withdrawal does not apply to certain goods once purchased, including:</p>
-    <ul style="margin:0 0 12px; padding-left:22px; font-size:16px; line-height:1.8; color:#3a3d39;">
-      <li>Sealed health, hygiene or cosmetic products which have been opened after delivery</li>
-      <li>Medicines and other pharmacy-supplied medicinal products</li>
-      <li>Perishable or short-shelf-life goods</li>
-      <li>Goods made to your specification or clearly personalised</li>
-    </ul>
-    <p style="margin:0 0 12px; font-size:16px; line-height:1.7; color:#3a3d39;">This does not affect your statutory rights in relation to goods that are faulty, damaged, or not as described.</p>
-    <div style="font-family:ui-monospace,monospace; font-size:12px; color:#8a6416;">[PLACEHOLDER — end]</div>
-  </div>
-
-  <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Returning the goods</h2>
-  <p style="margin:0; font-size:16px; line-height:1.75; color:#3a3d39;">Goods should be returned unused, unopened where applicable, in their original packaging, and in a condition suitable for resale. You are responsible for the cost of return postage, unless the item is faulty, damaged or was sent to you incorrectly. We recommend using a tracked delivery service, as we cannot take responsibility for items lost in transit back to us.</p>
-
-  <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Refunds</h2>
-  <p style="margin:0; font-size:16px; line-height:1.75; color:#3a3d39;">Refunds are issued to your original payment method. We may withhold reimbursement until we have received the goods back, or you have supplied evidence of having sent them back, whichever is earlier.</p>
+  <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">How to withdraw</h2>
+  <p style="margin:0 0 12px; font-size:16px; line-height:1.75; color:#3a3d39;">Fill in the form below. You don&rsquo;t need an account or to log in. Have your order number to hand, along with the dates you ordered and received your goods.</p>
+  <p style="margin:0; font-size:16px; line-height:1.75; color:#3a3d39;">If you&rsquo;d rather write to us, you can email us or use the model withdrawal form at the bottom of this page. Any clear statement that you want to withdraw from your order is enough.</p>
 
   <section id="withdrawal-form" style="background:#f6f8f2; border:1px solid #e6e7e4; border-radius:14px; padding:28px 24px; margin-top:36px;">
     <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.2vw,25px); margin:0 0 20px;">Your withdrawal request</h2>
@@ -137,17 +116,38 @@
     {%- endform -%}
   </section>
 
-  <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Need help?</h2>
+  <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">When you can withdraw</h2>
+  <p style="margin:0; font-size:16px; line-height:1.75; color:#3a3d39;">You can withdraw within <strong>14 days</strong> of the day you, or someone you nominate, receive your order. You don&rsquo;t need to give a reason. Once you&rsquo;ve told us, you have a further <strong>14 days</strong> to send the goods back.</p>
+
+  <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Goods you may not be able to return</h2>
+  <p style="margin:0 0 10px; font-size:16px; line-height:1.7; color:#3a3d39;">The right to withdraw may not apply to some goods. These can include:</p>
+  <ul style="margin:0 0 12px; padding-left:22px; font-size:16px; line-height:1.8; color:#3a3d39;">
+    <li>sealed goods that are not suitable for return for health or hygiene reasons, once the seal has been broken after delivery</li>
+    <li>items made to your specification or personalised for you</li>
+    <li>goods that can go off or expire quickly</li>
+    <li>certain healthcare and pharmacy products</li>
+  </ul>
+  <p style="margin:0 0 12px; font-size:16px; line-height:1.75; color:#3a3d39;">If you&rsquo;re not sure whether an item can be returned, please contact us before you open it.</p>
+  <p style="margin:0; font-size:16px; line-height:1.75; color:#3a3d39;">None of this affects your statutory rights if goods are faulty, damaged or not as described.</p>
+
+  <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Returning the goods</h2>
+  <p style="margin:0 0 12px; font-size:16px; line-height:1.75; color:#3a3d39;">Please return goods unused, unopened, in their original packaging and in a condition we can resell, unless the item is faulty.</p>
+  <p style="margin:0; font-size:16px; line-height:1.75; color:#3a3d39;">You pay the cost of return postage, unless the item is faulty or we sent you the wrong item. We recommend a tracked postal service, so you have proof that you sent it.</p>
+
+  <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Refunds</h2>
+  <p style="margin:0; font-size:16px; line-height:1.75; color:#3a3d39;">We refund you to the payment method you used for the order. We may wait to refund you until we have the goods back, or until you show us proof that you&rsquo;ve sent them, whichever happens first.</p>
+
+  <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Contact us</h2>
   <div style="background:#f6f8f2; border:1px solid #e6e7e4; border-radius:12px; padding:20px 22px;">
-    <p style="margin:0 0 8px; font-size:15.5px;">If you have any questions about this process, email us at <a href="mailto:{{ settings.email }}" style="font-weight:700;">{{ settings.email }}</a>.</p>
-    <p style="margin:0; font-size:15.5px; color:#5a6153;">Please quote your order number in any correspondence.</p>
+    <p style="margin:0 0 12px; font-size:15.5px;">If you have a question about withdrawing from an order, get in touch. Please quote your order number.</p>
+    <p style="margin:0; font-size:15.5px; line-height:1.7;">Melfer Limited<br>23 Bolton Street, Clonmel, Co. Tipperary, E91 E0F1<br>Email: <a href="mailto:{{ settings.email }}" style="font-weight:700;">{{ settings.email }}</a><br>Phone: <a href="tel:{{ settings.phone | remove: ' ' }}" style="font-weight:700;">{{ settings.phone }}</a></p>
   </div>
 
   <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(20px,2.2vw,25px); margin:38px 0 12px; border-top:1px solid #e6e7e4; padding-top:24px;">Model withdrawal form</h2>
-  <p style="margin:0 0 16px; font-size:16px; line-height:1.7; color:#3a3d39;">If you would prefer to notify us in writing, you may use the model form below. Complete and send it to the address shown, or print and post it to us.</p>
+  <p style="margin:0 0 16px; font-size:16px; line-height:1.7; color:#3a3d39;">You don&rsquo;t have to use this form. If you&rsquo;d like to, fill it in and email it to us, or print it and post it to the address shown.</p>
   <div class="wfc-print-area" style="border:1.5px solid #e6e7e4; border-radius:14px; padding:24px; background:#ffffff;">
     <h3 style="margin:0 0 10px; font-family:var(--font-heading); color:var(--c-dark); font-size:18px;">Notice of Withdrawal</h3>
-    <p style="margin:0 0 20px; font-size:14.5px; line-height:1.6;">To: [TRADER LEGAL NAME], [REGISTERED ADDRESS]<br>PSI Internet Supply List No: [PSI INTERNET SUPPLY LIST NUMBER]<br>Email: [CUSTOMER SERVICE EMAIL] &nbsp;&middot;&nbsp; Phone: [PHONE NUMBER]</p>
+    <p style="margin:0 0 20px; font-size:14.5px; line-height:1.6;">To: Melfer Limited, 23 Bolton Street, Clonmel, Co. Tipperary, E91 E0F1<br>PSI Internet Supply List No: 10001884<br>Email: {{ settings.email }} &nbsp;&middot;&nbsp; Phone: {{ settings.phone }}</p>
     <p style="margin:0 0 22px; border-bottom:1px solid #b9bdb3; padding-bottom:4px; font-size:14.5px;">I/We hereby give notice that I/We withdraw from my/our contract of sale for the following goods:</p>
     <p style="margin:0 0 22px; border-bottom:1px solid #b9bdb3; padding-bottom:4px;">&nbsp;</p>
     <p style="margin:0 0 22px; border-bottom:1px solid #b9bdb3; padding-bottom:4px; font-size:14.5px;">Ordered on:</p>

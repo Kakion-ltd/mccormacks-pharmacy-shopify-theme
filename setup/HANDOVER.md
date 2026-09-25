@@ -113,24 +113,18 @@ footer already point at Shopify's set.
 
 **Unfinished wording that customers can see. Owner: Pharmacy and your
 solicitor supply the text, then Kakion.**
-Two legal pages still carry draft markers. These aren't hidden in the editor:
-they show on the pages themselves, so every customer will see them once the
-password comes off.
+The cookie policy still carries a draft marker. It isn't hidden in the
+editor: it shows on the page itself, so every customer will see it once the
+password comes off. (Withdraw from contract had markers too; they came out on
+25 Sep 2026 when the page was rewritten with the trader details. The new
+text is for your solicitor to review.)
 
-- **Withdraw from contract**
-  - The list of goods that can't be returned sits between the markers
-    "[PLACEHOLDER — start]" and "[PLACEHOLDER — end]". Your solicitor needs to
-    confirm that list.
-  - The printable cancellation form a customer can post to you still reads
-    "[TRADER LEGAL NAME], [REGISTERED ADDRESS]", "[PSI INTERNET SUPPLY LIST
-    NUMBER]", "[CUSTOMER SERVICE EMAIL]" and "[PHONE NUMBER]". It needs your
-    real details.
 - **Cookie policy:** a box headed "Draft copy" tells the reader the page uses
   placeholder wording. We need the final cookie policy text and the list of
   cookies the site uses.
 
-Send us the confirmed text and details and we'll put them in and remove the
-markers. Both pages should be settled before launch.
+Send us the confirmed text and we'll put it in and remove the marker. It
+should be settled before launch.
 
 ### What the website says on your behalf
 

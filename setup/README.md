@@ -21,7 +21,6 @@ Everything needed to provision a Shopify dev store to match the theme in `shopif
 7. In theme settings, assign the homepage "On Sale This Month" collection, hero slides, social URLs (the footer icons stay hidden until set), and — if you want the store locator's "Use my location" button — a latitude/longitude on each store block.
 
 ## Known placeholders (must be resolved before launch)
-- Withdraw From Contract page: trader legal name, registered address, customer service email/phone, PSI Internet Supply List number ([PLACEHOLDER] markers in the section defaults).
 - Real photography for striped-placeholder tiles.
 - Checkout is Shopify-hosted: brand it under Settings → Checkout (colors/logo/font); the designed multi-step checkout page cannot be recreated on non-Plus plans.
 - Cookie Policy page carries placeholder wording pending the real text and cookie list.
