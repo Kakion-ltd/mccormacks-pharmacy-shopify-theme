@@ -263,8 +263,12 @@ check". It lists all 548 products that are in the Pharmacy department or
 already marked for a pharmacist, as the store stood on 25 September. Choose
 Yes or No for each. The first 164 are ones we think are No, such as plasters
 and throat sweets, so they should take a few minutes; the rest need the
-pharmacist's judgement. This is the list that settles launch blocker 4. The
-workbook's other tabs ask which products belong on each category page.
+pharmacist's judgement. This is the list that settles launch blocker 4.
+
+The same workbook asks two more things. "Pages to fill" lists 281 products we
+think may belong on 29 empty category pages: Yes or No for each. "Confirm
+Medicines & Health" has 120 products we have matched to 33 pages, held back
+until a pharmacist agrees.
 
 **Brands on the current website versus the new shop. Owner: Pharmacy.**
 We compared the two on 9 September:
