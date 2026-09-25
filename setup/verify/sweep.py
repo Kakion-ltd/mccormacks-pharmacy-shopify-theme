@@ -6,6 +6,63 @@ PAGES = ["/", "/collections/medicines-health", "/collections/skincare", "/produc
          "/cart", "/search?q=vitamins", "/pages/shipping", "/pages/contact-us",
          "/pages/store-locator", "/blogs/health-hub", "/pages/in-store-services",
          "/pages/prescriptions", "/account/login"]
+
+# Content cut off at the edge, in every state the page can be put in.
+#
+# main has overflow-x:hidden, so anything wider than the viewport is clipped rather than
+# scrolled and never shows in the document scroll width above. That hid the prescription
+# selects (21px off at 390) and the services buttons (9px) while this sweep passed. So
+# this measures element bounds against the viewport instead, ignoring anything inside an
+# ancestor below main that clips or scrolls on purpose (carousels, sliders).
+#
+# One state is not enough either: the fifth clipped select sat in the "Repeat
+# prescriptions" tab, hidden on load. Every <details> and closed accordion in main is
+# opened, then each [data-view] tab is shown in turn through its own button, so the
+# theme's handler lays it out, not a forced display. Last, a coverage guard: a form
+# control that was never on screen and is hidden by a toggle (a hidden attribute or an
+# inline display:none, which is how theme.js hides things) fails the check. A new kind of
+# toggle this walk does not know how to open then fails loudly instead of going unchecked.
+# Stylesheet hiding (.hide-mobile at one width) is layout, not a toggle, and is skipped.
+CLIPPED = r"""() => {
+  const main = document.querySelector('main'), vw = document.documentElement.clientWidth;
+  const onScreen = el => { const r = el.getBoundingClientRect();
+    return getComputedStyle(el).visibility !== 'hidden' && r.width > 1 && r.height > 1; };
+  const name = el => el.tagName.toLowerCase() + (el.name ? `[name="${el.name}"]` : '')
+    + (el.classList[0] ? '.' + el.classList[0] : '') + ` "${(el.textContent || '').trim().slice(0, 30)}"`;
+  const controls = [...main.querySelectorAll('input:not([type=hidden]), select, textarea')];
+  const seen = new Set(), clips = [];
+  const scan = state => {
+    const off = [];
+    for (const el of main.querySelectorAll('*')) {
+      if (!onScreen(el)) continue;
+      const r = el.getBoundingClientRect();
+      if (r.right <= vw + 1 && r.left >= -1) continue;
+      let a = el.parentElement, own = false;
+      while (a && a !== main) { if (getComputedStyle(a).overflowX !== 'visible') { own = true; break; } a = a.parentElement; }
+      if (!own) off.push([el, Math.round(Math.max(r.right - vw, -r.left))]);
+    }
+    const els = new Set(off.map(o => o[0]));
+    for (const [el, px] of off) if (!els.has(el.parentElement)) clips.push(`${state}: ${name(el)} ${px}px past the edge`);
+    controls.forEach(c => { if (onScreen(c)) seen.add(c); });
+  };
+  main.querySelectorAll('details').forEach(d => { d.open = true; });
+  main.querySelectorAll('[data-acc-toggle]').forEach(t => {
+    const c = document.querySelector(`[data-acc-content="${t.dataset.accToggle}"]`);
+    if (c && c.getAttribute('data-open') !== 'true') t.click();
+  });
+  scan('on load');
+  for (const key of new Set([...main.querySelectorAll('[data-view]')].map(v => v.dataset.view))) {
+    const btn = document.querySelector(`[data-view-btn="${key}"]`);
+    if (btn) { btn.click(); scan(`tab ${key}`); }
+  }
+  const unseen = controls.filter(c => !seen.has(c)).filter(c => {
+    for (let a = c; a && a !== main; a = a.parentElement)
+      if (a.hidden || a.style.display === 'none') return true;
+    return false;
+  }).map(c => `never shown, hidden by a toggle the sweep cannot open: ${name(c)}`);
+  return [...new Set(clips)].concat(unseen);
+}"""
+
 bad = []
 loads = 0
 with sync_playwright() as pw:
@@ -43,11 +100,15 @@ with sync_playwright() as pw:
             want = "vitamins" if path.startswith("/search") else ""
             if pg.locator("[data-ps-input]").input_value() != want:
                 bad.append(f"{label} {path}: search input holds {pg.locator('[data-ps-input]').input_value()!r}, want {want!r}")
+            # Last, because it opens tabs and accordions and leaves them open.
+            for c in pg.evaluate(CLIPPED):
+                bad.append(f"{label} {path}: {c}")
             for e in errs:
                 bad.append(f"{label} {path}: JS {e}")
         pg.close()
     b.close()
 print("\n".join(bad) if bad else
-      f"{loads} page-loads clean: no overflow, no broken images, no JS errors, "
+      f"{loads} page-loads clean: no overflow, nothing clipped in any tab or accordion, "
+      "no broken images, no JS errors, "
       "search input present on every page, empty off the results page")
 sys.exit(1 if bad else 0)
