@@ -1430,9 +1430,48 @@ decision. Every row, before and after, is in
 - A `Pharmacy >` type turns on the pharmacist lines in `buy-assurance`, so
   Dettol, surgical spirits and similar now show them. It does not gate
   anything; the questionnaire follows the `pharmacist-review` tag.
-- **Open:** Sidena 50mg (sildenafil, P on the HPRA list) has no
-  `pharmacist-review` tag, so it sells without the questionnaire. The client
-  decides.
+- Sidena 50mg (sildenafil, P on the HPRA list) had no `pharmacist-review`
+  tag, so it sold without the questionnaire. It has the tag now (next section).
+
+---
+
+## Licensed medicines outside Pharmacy tagged (25 Sep 2026)
+
+18 products on the HPRA register (8 P, 10 GSL) were typed outside the Pharmacy
+department. With no `Pharmacy >` type they skipped the pharmacist lines in
+`buy-assurance`, and with no `pharmacist-review` tag they could be added to
+the bag in one click. Approved by Kakion:
+
+- **All 18 tagged `pharmacist-review`**, P and GSL alike. The tag is what
+  blocks quick-add (`product-restricted`), so it went on first; 12 were live.
+- **10 retyped into Pharmacy**: Sidena (`Pharmacy > Sexual Health`), Canesten
+  Combi (`Pharmacy > Women's Health`), Anhydrol Forte and both Capasal
+  shampoos (`Pharmacy > Medicated Skincare`), Corsodyl gel and mouthwash
+  (`Pharmacy > Oral Health`), Calpol 6+ Fastmelts and Deep Heat Spray
+  (`Pharmacy > Pain Relief`), Desenex (`Pharmacy > Foot & Nail Care`).
+- **8 kept their type** so they stay where customers look for them; the tag
+  gives them the pharmacist lines and the quick-add block: Ferrograd,
+  Clonfolic, Magnesium Verla, both Kalms (Vitamins), and the three Ovelle
+  emollients (`Skincare > Body Care`).
+- **For the pharmacist**: the register matches for Corsodyl 50g Dental Gel
+  (matched the mouthwash licence) and Calpol 6+ Fastmelts (matched the infant
+  suspension) are for other products. Both are on the "Check licence" tab of
+  the pharmacist workbook.
+
+The list came from `medicine-classification-2026-09-25.csv` (HPRA register
+match); a product it did not match is not proven to be a non-medicine.
+
+## Two things that look like failures when tagging products
+
+- **Shopify splits tags on commas.** `tagsAdd` with `Skin, Hair & Nails`
+  stores two tags, `Skin` and `Hair & Nails`. The Skin, Hair & Nails page
+  still picked the product up, but check the stored tags after adding any tag
+  with a comma, and never give a new rule a comma in its condition.
+- **Collection pages lag a few minutes behind a tag change.** Straight after
+  a bulk tag run, three Vitamins pages read 0 products although every product
+  carried the right tag; a few minutes later all were there. Read the
+  product's `collections` to check a tag worked, or wait before counting a
+  page.
 
 ---
 
