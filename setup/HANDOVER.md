@@ -80,12 +80,10 @@ file these emails rather than delete them.
 **The emails don't go to that address yet.** See launch blocker 6: until the
 store's email is changed, none of the below works.
 
-Naming one person unblocks four things:
+Naming one person unblocks three things:
 
 - **Back-in-stock requests can be switched on.** They are off until someone
   owns the inbox.
-- **The in-store services booking form can be switched on.** It is off for
-  the same reason.
 - **Prescription requests have an owner.** Both prescription forms are live,
   and at the moment nobody is named to act on what they send.
 - **Withdrawal acknowledgements get sent.** When a customer withdraws from an
@@ -94,6 +92,12 @@ Naming one person unblocks four things:
   website can't send that email itself. Until someone replies to each
   withdrawal request by hand, quoting the reference number it carries (it
   starts "WD-"), we are not meeting that requirement.
+
+**The in-store services booking form stays off, even once the inbox has an
+owner.** A booking can include a note about a customer's health, and that
+should not sit in a shared inbox. It stays off until those requests have
+somewhere safer to go. Until then, the services pages point customers to their
+nearest shop and the phone.
 
 **6. Change the store's email address. Owner: Pharmacy, after the transfer.**
 Every form on the website sends its email to the store's own email address,
@@ -370,8 +374,10 @@ All of this is built, checked and on the store, as of 25 September.
   opening hours too.
 - The gift voucher page.
 - The pharmacist check for medicines, ready for your list and your questions.
-- "Tell me when it's back" requests on sold-out products. A person from the
-  pharmacy replies; it is not an automatic alert.
+- "Tell me when it's back" requests on sold-out products: built, but
+  **switched off**, so customers can't use it yet. It goes on once the inbox has
+  an owner (launch blocker 5). A person from the pharmacy replies; it is not an
+  automatic alert.
 - The cookie banner, with the choices Irish and EU law require.
 - The PSI registration mark in the footer.
 - The free-delivery amount set in one place, so the website can't contradict
