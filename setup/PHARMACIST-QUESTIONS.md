@@ -48,7 +48,7 @@ questions. They are at the end with our reasons, so you can disagree.
 > least five attacks over a year, and a heart-risk assessment before supply.
 > It is set 4.
 
-## Four decisions we need from you
+## Six decisions we need from you
 
 These are also on the "Decisions" tab of the pharmacist workbook, with space
 for your answer. Answer in either place.
@@ -73,12 +73,25 @@ for your answer. Answer in either place.
    limit and we will set it. The same limits apply to Calpol 6+ 140 ml and to
    the other paracetamol products; tell us whether you want one limit across
    all of them.
-4. **E45 Cream: add the pharmacist mark?** E45 Cream is a licensed medicine
-   (PA22650/007/001, general sale), but it does not carry the mark, so its
-   orders would not wait for your review. The 50 g is on the website; the
-   125 g is sold in the shops only. Our rule is that any product with a
-   licence number on the pack gets the mark. E45 was missed because our
-   search of the register did not recognise its title.
+4. **E45 Cream: keep the pharmacist mark?** E45 Cream is a licensed medicine
+   (PA22650/007/001, general sale). It had been missed because our search of
+   the register did not recognise its title, so we added the mark on
+   26 September, as for other licensed medicines; its website orders will wait
+   for your review. The 50 g is on the website; the 125 g is sold in the shops
+   only. Tell us if it should not have the mark. Sixteen other licensed
+   medicines were marked the same day for the same reason; they are on the
+   "Needs a pharmacist check" tab.
+5. **Tefin 75mg Ibuprofen Suppositories: the correct description.** Its
+   website description is Tefin 150 mg's text, and says "must be aged over 18"
+   and "maximum five packs per order". We took it off the website and the
+   shops' tills (set to draft) on 26 September. Please send the correct
+   description from the Tefin 75 mg leaflet, or tell us what it should say;
+   we have not rewritten it ourselves.
+6. **Zirtek Tabs 10Mg 30Pk: which licence is on the box?** Zirtek Allergy
+   Relief 10 mg (PA0891/008/005) allows up to 30 tablets without prescription,
+   pharmacy only. Zirtek 10 mg film-coated tablets (PA0891/008/002) is
+   prescription only above 7 tablets. If the box shows PA0891/008/002, the
+   30-pack needs a prescription and must come off the website.
 
 ## Set 1. Erectile dysfunction (5 products)
 

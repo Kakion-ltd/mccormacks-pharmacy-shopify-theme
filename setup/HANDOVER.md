@@ -274,17 +274,20 @@ sample products from the design, with made-up prices.
 
 **Which products need a pharmacist check. Owner: Pharmacy (pharmacist).**
 Spreadsheet: `Pharmacist-Review-Website-Pages.xlsx`, tab "Needs a pharmacist
-check". It lists the 332 products marked for a pharmacist on 25 September.
-Choose Yes or No for each. The first 203 are licensed medicines on the HPRA
+check". It lists the 348 products marked for a pharmacist: the 332 marked on
+25 September, less one listing since deleted, plus 17 licensed medicines found
+unmarked on 26 September (Sudocrem, E45 Cream, Dettol Liquid and others).
+Choose Yes or No for each. The first 219 are licensed medicines on the HPRA
 register, so we expect Yes; the other 129 need the pharmacist's judgement,
 including five veterinary flea treatments. This is the list that settles launch blocker 4.
 
 The same workbook asks two more things. "Pages to fill" lists 281 products we
 think may belong on 29 empty category pages: Yes or No for each. "Confirm
 Medicines & Health" has 120 products we have matched to 33 pages, held back
-until a pharmacist agrees. "Decisions" has four questions about particular
-medicines (Sidena, Canesten Combi, Calpol Infant 140 ml, E45 Cream); they are
-also in the pharmacist questions document.
+until a pharmacist agrees. "Decisions" has six questions about particular
+medicines (Sidena, Canesten Combi, Calpol Infant 140 ml, E45 Cream, the Tefin
+75 mg description, the Zirtek 30-pack's licence); they are also in the
+pharmacist questions document.
 
 **Brands on the current website versus the new shop. Owner: Pharmacy.**
 We compared the two on 9 September:

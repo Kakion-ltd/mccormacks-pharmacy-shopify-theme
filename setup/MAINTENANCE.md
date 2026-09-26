@@ -1632,6 +1632,42 @@ register), approved by Kakion:
 proven not to be a medicine. Any product with a licence number on its pack
 gets the tag, whatever the classification says.
 
+### 17 licensed medicines the match missed, tagged 26 Sep 2026
+
+A re-check against the register found 17 licensed products still untagged,
+15 of them live: Nizoral Dandruff Shampoo and Oilatum 500ml (both P), four
+Sudocrem, two E45 Cream, two Dettol Liquid, Regaine Men Foam, Caldesene,
+Caldease, Oraldene, two Ov Calamine Lotion and Ov Aqueous Cream (GSL). All 17
+tagged `pharmacist-review`; before state in
+`archive/store-cleanup-2026-09-26/tag-and-draft-before.csv`. The classification
+CSV now carries their status, marked "corrected by hand 26 Sep 2026".
+
+The title match failed in three ways. Any rebuild that reuses it will fail the
+same way:
+
+- **A pack size read as a strength.** "Caldesene Medicated Powder 100G" was
+  rejected against the licence's "10%" because 100g looked like a
+  contradicting strength. Same for Oraldene, Nizoral and Caldease.
+- **Every word of the licence name required in the title.** "Dettol
+  Antiseptic Disinfectant", "Regaine for Men Extra Strength Scalp Foam" and
+  "Sudocrem Antiseptic Healing Cream" have words the titles lack. E45's
+  licence name runs on into its ingredients ("E45 Cream White Soft
+  Paraffin"), so "white" became a required word.
+- **Generic licence names count only when they begin the title.** Ovelle's
+  licences are "Calamine Lotion" and "Aqueous Cream"; the titles start "Ov".
+  The licence holder was never used.
+
+Those products were then left untagged because the rebuild left "unsure"
+matches as they were, and the old tag had followed the Pharmacy department,
+which none of them are in.
+
+**Pack size changes the class, too.** Panadol Actifast 20Pk, Panadol Extra
+24Pk, Lemsip Max Cold & Flu 10Pk and Gaviscon Peppermint 600ml match GSL
+licences, but the licence makes those pack sizes pharmacy only. The
+classification CSV and the workbook now say P for all four. Paracetamol and
+pseudoephedrine licences also cap packs per sale (one or two); nothing on the
+website enforces that yet.
+
 ## Two things that look like failures when tagging products
 
 - **Shopify splits tags on commas.** `tagsAdd` with `Skin, Hair & Nails`

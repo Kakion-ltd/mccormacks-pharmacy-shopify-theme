@@ -1,0 +1,19 @@
+product_id,handle,title,status_before,tags_before,channels_before,change
+15671304651083,nizoral-dandruff-shampoo-100ml,Nizoral Dandruff Shampoo 100Ml,ACTIVE,"Nizoral, Toiletries > Hair Care","Online Store, Point of Sale, Shop",add tag pharmacist-review
+15671426810187,oilatum-500ml,Oilatum 500Ml,ACTIVE,"Oilatum, Toiletries > Bath & Shower","Online Store, Point of Sale, Shop",add tag pharmacist-review
+15671272538443,sudocrem-tub-60g,Sudocrem Tub 60G,ACTIVE,"Baby > Baby Wipes & Changing, Sudocrem","Online Store, Point of Sale, Shop",add tag pharmacist-review
+15671318970699,sudocrem-tube-30g,Sudocrem Tube 30G,ACTIVE,"Baby > Baby Wipes & Changing, Sudocrem","Online Store, Point of Sale, Shop",add tag pharmacist-review
+15671394697547,sudocrem-tub-125g,Sudocrem Tub 125G,ACTIVE,"Baby > Baby Wipes & Changing, Sudocrem","Online Store, Point of Sale, Shop",add tag pharmacist-review
+15671367237963,sudocrem-tub-250g,Sudocrem Tub 250G,ACTIVE,"Baby > Baby Wipes & Changing, Sudocrem","Online Store, Point of Sale, Shop",add tag pharmacist-review
+15671394304331,e45-cream-50g,E45 Cream 50G,ACTIVE,"E45, Irritated & Damaged Skin, Skincare > Body Care","Online Store, Point of Sale, Shop",add tag pharmacist-review
+16024784044363,e45-cream-125g,E45 Cream 125G,ACTIVE,"Body Care, Irritated & Damaged Skin, Skincare",Point of Sale,add tag pharmacist-review
+15671257825611,dettol-antiseptic-liquid-750ml,Dettol Antiseptic Liquid 750Ml,ACTIVE,"Dettol, Toiletries > Bath & Shower","Online Store, Point of Sale, Shop",add tag pharmacist-review
+15671363764555,dettol-liquid-500ml,Dettol Liquid 500Ml,ACTIVE,Dettol,"Online Store, Point of Sale, Shop",add tag pharmacist-review
+15671259726155,regaine-men-foam-5-3pk,Regaine Men Foam 5% 3Pk,ACTIVE,"Regaine, Toiletries > Men's Grooming","Online Store, Point of Sale, Shop",add tag pharmacist-review
+15671284498763,caldesene-medicated-powder-100g,Caldesene Medicated Powder 100G,ACTIVE,"Baby, Caldesene","Online Store, Point of Sale, Shop",add tag pharmacist-review
+15671381754187,caldease-30g-nappy-rash-ointment,Caldease 30G Nappy Rash Ointment,ACTIVE,"Baby > Baby Wipes & Changing, Caldease","Online Store, Point of Sale, Shop",add tag pharmacist-review
+15671286956363,oraldene-liquid-200ml,Oraldene Liquid 200Ml,ACTIVE,"Oraldene, Toiletries > Dental","Online Store, Point of Sale, Shop",add tag pharmacist-review
+15671364157771,ov-calamine-lotion-100ml,Ov Calamine Lotion 100Ml,ACTIVE,"Ovelle, Skincare > Body Care","Online Store, Point of Sale, Shop",add tag pharmacist-review
+15671415406923,ov-calamine-lotion-200ml,Ov Calamine Lotion 200Ml,ACTIVE,"Ovelle, Skincare > Body Care","Online Store, Point of Sale, Shop",add tag pharmacist-review
+15671283122507,ov-aqueous-cream-500g,Ov Aqueous Cream 500G,ACTIVE,"Ovelle, Skincare > Body Care","Online Store, Point of Sale, Shop",add tag pharmacist-review
+15671426482507,tefin-75mg-ibuprofen-suppositories,Tefin 75Mg Ibuprofen Suppositories,ACTIVE,"pharmacist-review, Pharmacy > Children's Medicine, Tefin","Online Store, Point of Sale, Shop",set status to DRAFT
