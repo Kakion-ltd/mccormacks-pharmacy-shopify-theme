@@ -48,6 +48,38 @@ questions. They are at the end with our reasons, so you can disagree.
 > least five attacks over a year, and a heart-risk assessment before supply.
 > It is set 4.
 
+## Four decisions we need from you
+
+These are also on the "Decisions" tab of the pharmacist workbook, with space
+for your answer. Answer in either place.
+
+1. **Sidena 50mg Tablets 4 Pack: sell it on the website?** It is sold in the
+   shops only at the moment. The HPRA register lists Sidena 50 mg Tablets
+   (PA0711/170/002) as not subject to prescription, pharmacy only; Sidena
+   25 mg and 100 mg are prescription only. The register shows no supply
+   conditions for the 50 mg, where Viagra Connect's entry requires a
+   consultation with a healthcare professional. **Please confirm Sidena's
+   supply conditions from its SmPC before deciding**, since the register entry
+   may not show every condition in the licence. If it goes online, it takes the
+   set 1 questions below.
+2. **Canesten Combi 500mg Gel Pessary & 2% Cream 10G: sell it on the
+   website?** It is also sold in the shops only. It is pharmacy only
+   (PA1410/039/001), with no supply conditions on the register. If it goes
+   online, it takes the set 6 questions below.
+3. **Calpol Infant 140 ml: how many packs may one order hold?** The licence
+   allows general sale only in packs of up to 60 ml, one per sale. A 140 ml pack
+   is pharmacy only, **at most two packs per sale** (PA23490/003/001). The
+   website currently lets a customer put any number in the bag. Tell us the
+   limit and we will set it. The same limits apply to Calpol 6+ 140 ml and to
+   the other paracetamol products; tell us whether you want one limit across
+   all of them.
+4. **E45 Cream: add the pharmacist mark?** E45 Cream is a licensed medicine
+   (PA22650/007/001, general sale), but it does not carry the mark, so its
+   orders would not wait for your review. The 50 g is on the website; the
+   125 g is sold in the shops only. Our rule is that any product with a
+   licence number on the pack gets the mark. E45 was missed because our
+   search of the register did not recognise its title.
+
 ## Set 1. Erectile dysfunction (5 products)
 
 **Products:** Viagra Connect 50mg Tablets 4 Pack; Viagra Connect 50mg Tablets 8

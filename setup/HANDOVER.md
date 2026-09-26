@@ -282,7 +282,9 @@ including five veterinary flea treatments. This is the list that settles launch 
 The same workbook asks two more things. "Pages to fill" lists 281 products we
 think may belong on 29 empty category pages: Yes or No for each. "Confirm
 Medicines & Health" has 120 products we have matched to 33 pages, held back
-until a pharmacist agrees.
+until a pharmacist agrees. "Decisions" has four questions about particular
+medicines (Sidena, Canesten Combi, Calpol Infant 140 ml, E45 Cream); they are
+also in the pharmacist questions document.
 
 **Brands on the current website versus the new shop. Owner: Pharmacy.**
 We compared the two on 9 September:

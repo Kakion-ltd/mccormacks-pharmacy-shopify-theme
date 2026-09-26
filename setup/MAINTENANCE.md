@@ -1597,10 +1597,14 @@ the bag in one click. Approved by Kakion:
   gives them the pharmacist lines and the quick-add block: Ferrograd,
   Clonfolic, Magnesium Verla, both Kalms (Vitamins), and the three Ovelle
   emollients (`Skincare > Body Care`).
-- **For the pharmacist**: the register matches for Corsodyl 50g Dental Gel
-  (matched the mouthwash licence) and Calpol 6+ Fastmelts (matched the infant
-  suspension) are for other products. Both are on the "Check licence" tab of
-  the pharmacist workbook.
+- **For the pharmacist**: the register match for Corsodyl 50g Dental Gel
+  (matched the mouthwash licence) is for another product; it is on the "Check
+  licence" tab of the pharmacist workbook.
+- **Calpol 6+ Fastmelts has its own licence.** The title match picked the
+  infant suspension, but the register lists Calpol Six Plus Fastmelts 250 mg
+  Paracetamol orodispersible tablets, PA23490/003/005, general sale, with no
+  supply conditions (checked 26 Sep 2026). It was on the "Check licence" tab as
+  a mismatch; that row now records the correct licence.
 
 The list came from `medicine-classification-2026-09-25.csv` (HPRA register
 match); a product it did not match is not proven to be a non-medicine.
