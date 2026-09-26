@@ -284,10 +284,13 @@ including five veterinary flea treatments. This is the list that settles launch 
 The same workbook asks two more things. "Pages to fill" lists 281 products we
 think may belong on 29 empty category pages: Yes or No for each. "Confirm
 Medicines & Health" has 120 products we have matched to 33 pages, held back
-until a pharmacist agrees. "Decisions" has six questions about particular
-medicines (Sidena, Canesten Combi, Calpol Infant 140 ml, E45 Cream, the Tefin
-75 mg description, the Zirtek 30-pack's licence); they are also in the
-pharmacist questions document.
+until a pharmacist agrees. "Decisions" has seven questions: six about
+particular medicines (Sidena, Canesten Combi, Calpol Infant 140 ml, E45 Cream,
+the Tefin 75 mg description, the Zirtek 30-pack's licence) and whether to pay
+for an app that enforces per-order quantity limits at checkout. They are also
+in the pharmacist questions document. `6-Quantity-Limit-Tags-Draft.csv` lists
+the 46 medicines those limits would cover, with the most per order we
+suggest for each, for the pharmacist to confirm.
 
 **Brands on the current website versus the new shop. Owner: Pharmacy.**
 We compared the two on 9 September:

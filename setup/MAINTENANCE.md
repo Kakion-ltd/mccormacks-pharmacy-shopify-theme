@@ -646,6 +646,29 @@ token: it takes a separate Admin API token through `ADMIN_TOKEN`.
 
 ---
 
+## The store is online only — the shops do not use Shopify POS (26 Sep 2026)
+
+The pharmacy's shops run their own tills, not Shopify POS. The store sells
+through the website alone, so a product's "Point of Sale" channel does
+nothing, and a product published only to Point of Sale is on no channel that
+sells.
+
+- **The 70 products the `Anas-product-image-upload` app created on 23 Sep**
+  were published to Point of Sale only. That channel was removed on 26 Sep;
+  they are now active but on no sales channel, and nobody can buy them until
+  they are published to the Online Store. Before state in
+  `archive/store-cleanup-2026-09-26/app-products-channels-before.csv`.
+- **Most other products are still published to Point of Sale** alongside the
+  Online Store and Shop. That is harmless and was left alone.
+- **Wording:** do not describe a product as "sold in the shops" or "on the
+  tills" because of its Shopify channel; say whether it is on the website.
+  Draft status takes a product off the website; it has no effect on the
+  shops' own tills.
+- Channel IDs: Online Store `341524873547`, Point of Sale `341524971851`,
+  Shop `341525004619` (all `gid://shopify/Publication/…`).
+
+---
+
 ## Dispatch cutoff and Click & Collect — both fail closed
 
 `snippets/buy-assurance.liquid` renders the reassurance beside the Add to bag

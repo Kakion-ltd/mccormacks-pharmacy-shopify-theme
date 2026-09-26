@@ -36,7 +36,7 @@ the same questions.
 | 7. Product-specific limits | 7 | Medium |
 | 8. Sedating antihistamines | 3 | Medium |
 
-Two further groups, 88 products in all, we recommend handling without
+Two further groups, 90 products in all, we recommend handling without
 questions. They are at the end with our reasons, so you can disagree.
 
 > **Sumatran Relief was not on the list we started from.** We were asked to
@@ -48,13 +48,13 @@ questions. They are at the end with our reasons, so you can disagree.
 > least five attacks over a year, and a heart-risk assessment before supply.
 > It is set 4.
 
-## Six decisions we need from you
+## Seven decisions we need from you
 
 These are also on the "Decisions" tab of the pharmacist workbook, with space
 for your answer. Answer in either place.
 
-1. **Sidena 50mg Tablets 4 Pack: sell it on the website?** It is sold in the
-   shops only at the moment. The HPRA register lists Sidena 50 mg Tablets
+1. **Sidena 50mg Tablets 4 Pack: sell it on the website?** It is not on the
+   website at the moment. The HPRA register lists Sidena 50 mg Tablets
    (PA0711/170/002) as not subject to prescription, pharmacy only; Sidena
    25 mg and 100 mg are prescription only. The register shows no supply
    conditions for the 50 mg, where Viagra Connect's entry requires a
@@ -63,7 +63,7 @@ for your answer. Answer in either place.
    may not show every condition in the licence. If it goes online, it takes the
    set 1 questions below.
 2. **Canesten Combi 500mg Gel Pessary & 2% Cream 10G: sell it on the
-   website?** It is also sold in the shops only. It is pharmacy only
+   website?** It is not on the website either. It is pharmacy only
    (PA1410/039/001), with no supply conditions on the register. If it goes
    online, it takes the set 6 questions below.
 3. **Calpol Infant 140 ml: how many packs may one order hold?** The licence
@@ -77,14 +77,14 @@ for your answer. Answer in either place.
    (PA22650/007/001, general sale). It had been missed because our search of
    the register did not recognise its title, so we added the mark on
    26 September, as for other licensed medicines; its website orders will wait
-   for your review. The 50 g is on the website; the 125 g is sold in the shops
-   only. Tell us if it should not have the mark. Sixteen other licensed
-   medicines were marked the same day for the same reason; they are on the
-   "Needs a pharmacist check" tab.
+   for your review. The 50 g is on the website; the 125 g is not. Tell us if
+   it should not have the mark. Sixteen other licensed medicines were marked
+   the same day for the same reason; they are on the "Needs a pharmacist
+   check" tab.
 5. **Tefin 75mg Ibuprofen Suppositories: the correct description.** Its
    website description is Tefin 150 mg's text, and says "must be aged over 18"
-   and "maximum five packs per order". We took it off the website and the
-   shops' tills (set to draft) on 26 September. Please send the correct
+   and "maximum five packs per order". We took it off the website (set to
+   draft) on 26 September. Please send the correct
    description from the Tefin 75 mg leaflet, or tell us what it should say;
    we have not rewritten it ourselves.
 6. **Zirtek Tabs 10Mg 30Pk: which licence is on the box?** Zirtek Allergy
@@ -92,6 +92,18 @@ for your answer. Answer in either place.
    pharmacy only. Zirtek 10 mg film-coated tablets (PA0891/008/002) is
    prescription only above 7 tablets. If the box shows PA0891/008/002, the
    30-pack needs a prescription and must come off the website.
+7. **A quantity-limit app: worth about $20 a month?** The website cannot
+   stop a customer ordering more packs than a licence allows (for example two
+   pseudoephedrine products, or three packs of Calpol Infant 140 ml). A limit
+   in the website's own pages is easy to get round. An App Store app,
+   **Minmaxify Premium or Avada Order Limits, at about $20 a month**, checks
+   the limits at checkout itself, including Apple Pay and Shop Pay, so an
+   order over a limit cannot be placed on the website. Either way, every
+   medicine order waits for your review before it is sent, so you would catch
+   an over-limit order then; the app stops it being placed at all, so there
+   is nothing to cancel and refund. The limits it would apply are in
+   `6-Quantity-Limit-Tags-Draft.csv`: please confirm the products and the
+   most per order. Nothing is installed yet.
 
 ## Set 1. Erectile dysfunction (5 products)
 
@@ -407,14 +419,16 @@ You may disagree with either of these. Both would still have every order
 reviewed by you; the difference is whether the customer answers questions
 first.
 
-### Pseudoephedrine decongestants (13 products)
+### Pseudoephedrine decongestants (15 products)
 
-**Products:** Actifed Tabs 12Pk; Advil Cold & Flu 20Pk; Benylin Dry Dual Action
-100ml; Benylin Day & Night Tabs 16Pk; Lemsip Max Sinus & Flu Hot Lemon 10Pk;
-Nurofen Cold & Flu 24Pk (two listings); Nurofen Sinus & Pain 24Pk; Sinutab
-Non-Drowsy Tabs 15Pk; Sudafed Non-Drowsy Tabs 12Pk; Sudafed Syrup 100ml (please
-confirm it contains pseudoephedrine); Sudaplus Non-Drowsy Tabs 15Pk; Zirtek
-Plus Decongestant 6Pk.
+**Products:** Actifed Syrup 100ml; Actifed Tabs 12Pk; Advil Cold & Flu 20Pk;
+Benylin 4 Flu Tabs 24Pk; Benylin Dry Dual Action 100ml; Benylin Day & Night
+Tabs 16Pk; Lemsip Max Sinus & Flu Hot Lemon 10Pk; Nurofen Cold & Flu 24Pk (two
+listings); Nurofen Sinus & Pain 24Pk; Sinutab Non-Drowsy Tabs 15Pk; Sudafed
+Non-Drowsy Tabs 12Pk; Sudafed Syrup 100ml (Non-Drowsy Sudafed syrup,
+PA23490/034/001: pseudoephedrine); Sudaplus Non-Drowsy Tabs 15Pk; Zirtek Plus
+Decongestant 6Pk. Actifed Syrup and Benylin 4 Flu were added on 26 September;
+our first list missed them.
 
 **Licence conditions** (Non-Drowsy Sudafed SmPC PA23490/034/002; HPRA
 register): age 12+, 5 days; must not be used with high blood pressure or heart
@@ -428,7 +442,7 @@ is quantity, because it can be diverted, rather than suitability. One pack per
 order, a check for repeat orders, and your review of every order address that
 more directly than questions. **A short questionnaire is still defensible**
 (blood pressure, heart disease, MAOIs, diabetes, thyroid). If you want one, it
-becomes set 9 and the total rises to 39.
+becomes set 9 and the total rises to 41.
 
 ### The PSI's misuse categories: painkillers, antihistamines, laxatives (about 75 products)
 
