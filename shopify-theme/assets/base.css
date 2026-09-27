@@ -440,7 +440,6 @@ html { scroll-padding-top: calc(var(--hdr-pinned) + 8px); }
   /* design carried the desktop -40px pull-up into mobile, overlapping the Policies accordion */
   .ftr-psi a { margin-right: 0 !important; margin-top: 0 !important; }
   .ftr-psi img { height: 56px !important; }
-  .ftr-psi-text { margin: 0 0 12px !important; text-align: left !important; }
   .ftr-bottom { flex-direction: column !important; text-align: center; gap: 14px !important; padding: 22px 16px !important; }
   .ftr-bottom > div { justify-content: center !important; }
   .ftr-payments { order: 1; }
