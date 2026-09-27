@@ -667,6 +667,41 @@ sells.
 - Channel IDs: Online Store `341524873547`, Point of Sale `341524971851`,
   Shop `341525004619` (all `gid://shopify/Publication/…`).
 
+### Medicines are sold on the Online Store only (27 Sep 2026)
+
+The PSI's Internet Supply List registers one website, and PSI guidance 2.1
+wants the EU common logo on every page that sells medicines. The Shop app
+shows neither, and it skips the pharmacist questionnaire and quick-add block
+too. So:
+
+- **Every product tagged `pharmacist-review` is off the Shop channel** (334
+  removed on 27 Sep; before state in
+  `archive/store-cleanup-2026-09-27/medicines-channels-before.csv`). A newly
+  tagged product must come off Shop as well: tagging does not do it.
+- Medicines are still published to Point of Sale, which the shops do not use,
+  so it sells nothing.
+- Non-medicines stay on Shop; that is a commercial choice, not a compliance
+  one.
+
+### The primary domain must be www.mccormackspharmacy.ie
+
+Our Internet Supply List entry (10001884, McCormack's Pharmacy, 23 Bolton
+Street, Clonmel) names the website as `https://www.mccormackspharmacy.ie`.
+The common logo in the footer links to that entry, so the store's primary
+domain must be `www.mccormackspharmacy.ie`. Launching on any other domain
+(the `.myshopify.com` one, a new domain, or the bare `mccormackspharmacy.ie`
+as primary) means the logo vouches for a different website. Either keep the
+domain or have the PSI update the entry first.
+
+### PSI 2.1 on the site
+
+The footer carries the common logo, linked to our entry, and beside it one line
+with the PSI's contact details, a psi.ie link and the 2-year transaction record
+(`sections/footer.liquid`, `.ftr-psi-text`). `/pages/internet-supply-pharmacy`
+has the same in full. The guidance needs only the logo on every page; the line
+makes every page carry all four. Shopify's checkout does not use the theme, so
+the logo is not there, and on Basic nothing can be added to the checkout steps.
+
 ---
 
 ## Dispatch cutoff and Click & Collect — both fail closed
