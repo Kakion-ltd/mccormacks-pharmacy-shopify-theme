@@ -695,12 +695,21 @@ domain or have the PSI update the entry first.
 
 ### PSI 2.1 on the site
 
-The footer carries the common logo, linked to our entry, and beside it one line
-with the PSI's contact details, a psi.ie link and the 2-year transaction record
-(`sections/footer.liquid`, `.ftr-psi-text`). `/pages/internet-supply-pharmacy`
-has the same in full. The guidance needs only the logo on every page; the line
-makes every page carry all four. Shopify's checkout does not use the theme, so
-the logo is not there, and on Basic nothing can be added to the checkout steps.
+Section 2.1 asks for four things. Only one has to be on every page:
+
+- **The EU common logo, on every page that relates to the sale of medicines,**
+  linking to our Internet Supply List entry. It is in the footer
+  (`sections/footer.liquid`), which is on every storefront page.
+- **The PSI's contact details, a link to psi.ie, and a statement that a
+  record of each transaction is kept for 2 years** need to be on the website
+  once. They live on `/pages/internet-supply-pharmacy` only, which 2.1
+  allows. That page is linked from the footer's Policies menu. Do not delete
+  or unpublish it; it is the only place they appear.
+
+A footer line repeating those three was added and removed again on 27 Sep
+2026: 2.1 does not ask for it. Shopify's checkout does not use the theme, so
+the logo is not there either, and on Basic nothing can be added to the
+checkout steps.
 
 ---
 
