@@ -1896,7 +1896,7 @@ website enforces that yet.
 
 ---
 
-### Two Calpol Vapour products untagged, 28 Sep 2026
+### Calpol Vapour, Carnation pads and Capasal corrected, 28 Sep 2026
 
 Calpol Vapour Plug & Nightlight and Calpol Vapour Refill Pads 5Pk carried
 `pharmacist-review` because the title match paired them with the Calpol
@@ -1904,21 +1904,28 @@ infant suspension licence on the word "Calpol". Neither is on the HPRA
 authorised human medicines list (`latestHumanlist.xml`, checked 28 Sep), so
 the tag came off both. Capasal Therapeutic Shampoo 250ml had vendor
 "Canesten", which put it on the Canesten brand page; it is now "Capasal". It
-keeps the tag (Capasal Therapeutic Shampoo is P) and still has a stale
-`Canesten` tag, which no rule reads. Before state in
+keeps the tag (Capasal Therapeutic Shampoo is P). Its leftover `Canesten`
+tag was swapped for `Capasal` later the same day. Before state in
 `archive/store-cleanup-2026-09-28/untag-and-vendor-before.csv`.
 
 Carnation Bunion Pads 4Pk lost the tag the same day, for the same reason:
 the match offered it Carnation's three licences (Callous Caps, Corn Caps and
 Vericap, PA23188/001/001-003), and it is none of them. Eight more Carnation
-products carry the tag on the same non-match and were left for a decision:
-Heel Grips, Gel Toe Separators, Animal Wool, Hydrocolloid Blister Care, Corn
-Pads 9Pk, Fleecy Stretch Padding, Chiropody Felt and Corn Shields. Callous
-Caps and Corn Caps are licensed and keep it.
+products carried it on the same non-match and lost it later that day: Heel
+Grips, Gel Toe Separators, Animal Wool, Hydrocolloid Blister Care, Corn Pads
+9Pk, Fleecy Stretch Padding, Chiropody Felt and Corn Shields. None is on the
+register and none is medicated. Callous Caps and Corn Caps (salicylic acid)
+are licensed and keep it. The eight are still typed `Pharmacy > Foot & Nail
+Care` (Corn Shields `Pharmacy > First Aid`), so they stay on those pages and
+show the pharmacist lines, and they are still off the Shop channel.
 
-The two Calpol Vapour products are still typed "Pharmacy > Children's
-Medicine", are still off the Shop channel from the 27 Sep medicines sweep,
-and are still rows in the client pack's "Medicine classification" tab.
+The two Calpol Vapour products were then retyped `Baby > Baby Health`, the
+page Snufflebabe Vapour Rub is on, with the type-mirror tag swapped to match,
+and put back on the Shop channel. That takes them off Medicines & Health.
+Vicks Comfort Plug In is the same kind of product and is still typed
+Children's Medicine and tagged `pharmacist-review`; it was not reviewed.
+Before state for the 28 Sep afternoon changes is in
+`archive/store-cleanup-2026-09-28/carnation-calpol-capasal-before.csv`.
 
 ---
 
@@ -1935,10 +1942,12 @@ that the Shopify docs get wrong for this store:
 - **`resources[options][fields]` is ignored.** Adding tag, then body, gave
   identical results for "paracetamol" and "ibuprofen", and restricting it to
   `vendor` still matched titles. Don't add it expecting a change.
-- **Search & Discovery synonyms had no visible effect.** With the group
-  "menthol, deep heat" added on 28 Sep, "menthol" returned no Deep Heat in the
-  dropdown or on 5 pages of `/search`, and "deep heat" returned nothing that
-  was only menthol, after more than half an hour. Recheck before relying on synonyms.
+- **Synonyms are not available on this store.** Search & Discovery here has
+  no Synonyms section, so the "menthol, deep heat" test on 28 Sep had nothing
+  to act on, and the synonym work was dropped. The draft ingredient-to-brand
+  list is not kept anywhere; the weak ingredient searches below remain. The
+  levers left are product titles and descriptions, since the semantic search
+  reads both.
 
 The weak spots are ingredient searches for combination products: "menthol",
 "phenylephrine" (whose top hit is Phenergan, a different medicine),
