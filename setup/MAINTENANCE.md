@@ -413,7 +413,10 @@ copy live, which is how the original claim survived a previous edit.
 **Theme settings → Pharmacy → Restricted product tag.** The schema default is
 `pharmacist-only`; this store's setting is **`pharmacist-review`**. Products
 carrying the tag lose the one-click add on every listing, search result and
-recommendation, and link to the product page instead.
+recommendation, and link to the product page instead. On the preview theme only
+(branch `psi25/order-review`, not yet live), the tag also removes Buy it now and
+the express buttons, and puts the over-18 tick on the bag page ("The over-18
+tick on the bag page", below).
 
 **The same tag triggers the pharmacist hold** (Shopify Flow, "The pharmacist hold
 follows the tag" below). So the tag means "this is a medicine" to two systems:
@@ -501,23 +504,83 @@ questionnaire's `_pharmacist_review` line property. No product has a questionnai
 never will, so that design held nothing. The hold now keys off the product tag
 every medicine carries.
 
-**Not built yet.** Nothing in this repo creates the Flow; build it in Shopify admin
-→ Apps → Flow:
+**Built on the store 28 Sep 2026, not yet tested.** Both Flows are live in
+Shopify, built by hand from `setup/PHARMACIST-HOLD-FLOWS.md` (nothing in this
+repo creates them), and Shopify Order Printer is installed with the "Medicine
+order record (PSI 2.5)" template. **One difference from the guide: "Notify
+merchant" is ticked on all three hold actions** (Flow 1's two branches and Flow
+2's re-hold). The guide's test plan (step 5) has not been run. **The theme's
+over-18 tick box is still on the preview theme only** (`psi25/order-review`,
+theme 208803529035), not on main and not live.
 
-- **Trigger:** Order created.
-- **Condition:** any line item's product has the tag `pharmacist-review`. Exact
-  text, lower case: Flow compares tags as literal strings, unlike the theme,
-  which matches case-insensitively.
-- **Actions:** hold the order's fulfillment orders, and tag the order
-  `awaiting-pharmacist` so the pharmacist can filter for it.
-- **Release:** the pharmacist reviews the order in admin and releases the hold,
-  or cancels and refunds it. A mixed bag is held whole; nothing ships until the
-  medicine line is approved.
+Until that theme goes live, the live bag page has no tick box, so **every
+medicine order placed on the live site arrives without the declaration and is
+tagged `no-declaration`**. That is the Flow failing safe, not a fault: the
+pharmacist gets the confirmation from the customer before approving. The live
+site also does not yet tell the customer, before they pay, that a pharmacist
+reviews the order and may cancel and refund it; that line is on the preview
+theme with the tick box ("Pharmacist questionnaire" above says it must come
+before payment).
+
+The design:
+
+- **Flow 1, "Pharmacist hold: medicine orders".** Trigger Order created (every
+  channel, and a completed draft order). If at least one line item's product tag
+  equals `pharmacist-review` (exact text, lower case: Flow compares literally,
+  the theme does not), it holds the fulfillment orders, tags the order
+  `awaiting-pharmacist` and writes the note. If the order also lacks the custom
+  attribute `Over 18 and will follow the leaflet` = `Yes`, it adds
+  `no-declaration` and says so in the same note.
+- **Write the note once per branch.** "Update order note" replaces the note, and
+  `{{order.note}}` is the note as it was when the order was created. A second note
+  action in the same run would overwrite the first, so the no-declaration branch
+  writes the held text and the flag text together.
+- **Flow 2, "Pharmacist hold: release guard".** Flow has **no "Order tags added"
+  trigger** (checked 28 Sep 2026; there is one for customer tags only), so a tag
+  cannot release an order. The pharmacist adds `pharmacist-approved-<initials>`
+  and clicks Release hold. Flow 2 (trigger "Fulfillment order holds released")
+  removes `awaiting-pharmacist` if a tag starting `pharmacist-approved-` is
+  there, and otherwise holds the order again and tags it
+  `released-without-approval`. Flow cannot see which staff member added a tag;
+  the initials in the tag are what name the approver.
+- **REVIEWER: waiting on the pharmacist.** Who may approve and the initials
+  scheme.
+- **NOTIFICATIONS: partly decided.** "Notify merchant" is on for every hold,
+  so the store's staff notification recipients hear when an order is held or
+  re-held. Still open: whether the customer gets an "under review" email. Not
+  built.
+
+**The 2-year record.**
+
+- **At launch: signed hardcopy.** The pharmacist prints each held order with the
+  Order Printer template `setup/order-printer/medicine-record.liquid` ("Medicine
+  order record (PSI 2.5)"), ticks over 18, aware of the leaflet and quantity
+  reasonable given previous orders, marks approved or refused, signs and dates
+  it, and files it by order number for 2 years. The sheet shows the order, the
+  medicine lines and quantities, the customer's declaration (or "NOT GIVEN"),
+  other items (custom items flagged) and the customer's order count. The
+  template is edited in the repo, checked with `node
+  setup/order-printer/check.mjs` (part of `npm test`), and pasted into Order
+  Printer again. A copy edited only in Order Printer is the second copy this file
+  warns about.
+- **Later upgrade: archive mailbox.** Flow sends a record email on approval and
+  refusal to a mailbox under a locked retention policy (Google Vault retention
+  rule, or Microsoft 365 retention with preservation lock). An ordinary mailbox,
+  an unsigned PDF, a Google Sheet or the Shopify order itself can be edited or
+  deleted and do not meet "unalterable". Not built.
+
+Step 0 of the build file (the store must not fulfil orders automatically) was
+part of the build; the first test order confirms it. HANDOVER.md and
+PHARMACIST-QUESTIONS.md say "built, not yet tested" since 28 Sep. Change them
+again once the test plan has passed and when the tick box goes live.
 
 What this covers and what it does not:
 
 - It covers every tagged medicine, whichever way it reached the bag: product page,
   questionnaire, wishlist or a saved cart.
+- It does not cover a draft order's **custom line item**: it has no product, so
+  no tag. Staff must add medicines to a draft order as the product, never as a
+  custom item.
 - It is only as good as the tagging. An untagged medicine skips the hold **and**
   the one-click suppression. That is why the product upload sheet asks "Is it
   a medicine?" and the handover tells staff to answer Yes for any product with a
@@ -529,7 +592,44 @@ What this covers and what it does not:
   reasonable quantity; keeping each transaction record for two years in a
   permanent, unalterable form; and spotting repeat requests for medicines liable
   to misuse (laxatives, painkillers, antihistamines). How those are satisfied is
-  the client's decision. None of it is built.
+  the client's decision. The hold and the signed record above cover all of it
+  but the last, and the tick box adds the customer's own declaration once it
+  is live; repeat requests are still open.
+
+### The over-18 tick on the bag page (28 Sep 2026)
+
+**Preview theme only.** This lives on branch `psi25/order-review` (preview
+theme 208803529035) and is not on main or the live theme. The two checks named
+below exist on that branch.
+
+A bag holding a medicine (the restricted tag, via `product-restricted`) shows a
+required tick box inside the checkout form: "I confirm I'm over 18 and will use
+this medicine as the leaflet says." Ticked, it saves the cart attribute
+`Over 18 and will follow the leaflet` = `Yes`, which shows on the order under
+Additional details. **The key is load-bearing**: step 4 of the Flow matches it
+by exact text. Rename one, rename both. The box's wording and the line under it
+("A pharmacist reviews every medicine order…") are customer-facing medical copy
+and need pharmacist sign-off like the questionnaire's; don't put this theme live
+before the Flow is on, or that line is untrue.
+
+The tick is a soft gate. It is only as honest as the customer, and anything
+that reaches checkout without the bag page skips it. The theme closes the
+routes it owns:
+
+- **Buy it now** is not rendered on a medicine's product page.
+- **Express buttons** (Shop Pay, Apple Pay, Google Pay, PayPal) are not rendered
+  on the bag page or in the drawer when the bag holds a medicine. They are not
+  submit buttons, so a `required` tick box would not stop them.
+- **The drawer** sends a medicine bag to the bag page instead of checkout.
+  `/cart.js` has no tags, so it fetches `/cart?section_id=main-cart` and looks
+  for `[data-medicine-declaration]`. It fails closed: until the answer comes,
+  or if it fails, the drawer shows "Review bag and check out".
+
+The routes it cannot close on Basic: cart links (`/cart/<variant>:<qty>`), a
+direct `/checkout`, Buy again in new customer accounts, admin draft orders, and
+any other sales channel. Those orders arrive without the attribute, and the
+Flow tags them `no-declaration` (step 5). `setup/verify/medicine-declaration.py`
+checks the theme half; the preview's medicine bag is `/cart?fixture=medicine`.
 
 ---
 
@@ -2036,9 +2136,9 @@ with a before copy kept under `archive/client-pack-<date>/`.
   whether a product needs a check. **An answer never removes the
   `pharmacist-review` tag by itself.** A "Not a medicine" goes back to the
   pharmacist before anyone changes the product.
-- **The pack says the hold is not built,** and that it will be once the
-  pharmacist confirms how orders are reviewed. Change that wording when the Flow
-  exists, in HANDOVER.md and PHARMACIST-QUESTIONS.md both.
+- **The pack says the hold is built but not yet tested** (since 28 Sep), and that
+  the over-18 tick box is not on the live website yet. Change that wording in
+  HANDOVER.md and PHARMACIST-QUESTIONS.md both when either changes.
 
 ### Checking a medicine's licence: read hpra.ie, and three traps (28 Sep 2026)
 

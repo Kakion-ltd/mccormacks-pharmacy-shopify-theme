@@ -13,9 +13,8 @@ Prepared 25 September 2026, updated 28 September, for Fergal.
 Every medicine order on the website must wait for a pharmacist to review it
 before it is sent. That is the PSI requirement for internet supply (section 2.5
 of the PSI's guidance on internet supply), and it applies to every medicine,
-whether or not it has questions. The hold that does this is not built yet: we
-will build it once you confirm how you will review orders (launch blocker 4 in
-the handover).
+whether or not it has questions. The hold that does this is now built, but not
+yet tested; we will test it before launch (launch blocker 4 in the handover).
 
 Questions are an extra step for a smaller set of products. For those, the
 customer answers on the product page before they can add it to the bag. Any
@@ -93,8 +92,8 @@ for your answer. Answer in either place.
    in the website's own pages is easy to get round. An App Store app,
    **Minmaxify Premium or Avada Order Limits, at about $20 a month**, checks
    the limits at checkout itself, including Apple Pay and Shop Pay, so an
-   order over a limit cannot be placed on the website. Either way, once the
-   hold is built every medicine order waits for your review before it is sent, so you would catch
+   order over a limit cannot be placed on the website. Either way, every
+   medicine order waits for your review before it is sent, so you would catch
    an over-limit order then; the app stops it being placed at all, so there
    is nothing to cancel and refund. The limits it would apply are in
    `6-Quantity-Limit-Tags-Draft.csv`: please confirm the products and the

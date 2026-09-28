@@ -50,20 +50,33 @@ medicines alike. There is no shortlist: every product marked as a medicine is
 covered.
 
 The website marks 346 products as medicines. The hold that stops those orders
-being sent until a pharmacist approves them **is not built yet**. We will build
-it once Fergal confirms how he will review orders. Please tell us:
+being sent until a pharmacist approves them **is now built, but not yet
+tested**. Every order containing a medicine is put on hold, marked "awaiting
+pharmacist", and the shop gets an email. The pharmacist prints a record sheet
+for the order, ticks and signs it, and approves the order by adding a tag with
+their initials and releasing the hold. An order released without that tag is
+put back on hold. We will test all of this with test orders before launch.
 
-- Who will review medicine orders, and how quickly.
+The tick box where the customer confirms, before paying, that they are over 18
+and will use the medicine as the leaflet says is built too, but **it is not on
+the live website yet**. Until it is, every medicine order arrives marked "no
+declaration", and the pharmacist needs to get that confirmation from the
+customer before approving. Please tell us:
+
+- Who will review medicine orders, and how quickly, and the initials each
+  pharmacist will use to approve.
+- Whether the wording of the tick box, and the line under it saying a
+  pharmacist reviews every medicine order, is right.
 - How each order is approved or refused. Shopify can't pause a customer at
   checkout while a pharmacist looks, so the order of events would be: the
   customer pays, a pharmacist reviews the order, and it is either sent or
   cancelled and refunded. The customer is told this before they pay.
-- How you will cover the rest of section 2.5, which the website does not do by
-  itself: recording that the buyer is over 18, knows to follow the pack's
-  instructions and is buying a reasonable quantity; keeping a record of each
-  sale for two years in a form that can't be altered; and spotting repeat
-  requests for medicines open to misuse, such as painkillers, antihistamines
-  and laxatives.
+- Whether the signed record sheet suits you. It covers the rest of section 2.5
+  except one part: it records that the buyer is over 18, knows to follow the
+  pack's instructions and is buying a reasonable quantity, and, kept for two
+  years, it is the record of each sale. Spotting repeat requests for medicines
+  open to misuse, such as painkillers, antihistamines and laxatives, is still
+  open: tell us how you want to handle it.
 
 Some medicines may also need the customer to answer questions before they can
 add them to the bag. That part is built and waiting for your questions: our
@@ -338,11 +351,11 @@ Sudocrem, Bio-Oil, Neutrogena and Oral-B. Keep, expand or drop each one.
 
 ## 2. What is still to be built or finished
 
-**The pharmacist hold on medicine orders. Owner: Kakion, once the pharmacist
-decides.**
-Every order containing a medicine will wait for a pharmacist's approval before
-it can be sent. We build it once Fergal has confirmed how he will review
-orders (launch blocker 4).
+**The pharmacist hold on medicine orders. Owner: Kakion.**
+Built on 28 September but not yet tested. Every order containing a medicine
+now waits for a pharmacist's approval before it can be sent. Still to do: test
+it with test orders, and put the over-18 tick box on the live website once
+Fergal has approved its wording (launch blocker 4).
 
 **Redirects from the old website. Owner: Kakion (needs a list from the
 pharmacy).**

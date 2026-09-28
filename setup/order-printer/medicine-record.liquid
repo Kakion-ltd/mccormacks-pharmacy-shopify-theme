@@ -1,0 +1,99 @@
+{%- comment -%}
+  Order Printer template: "Medicine order record (PSI 2.5)".
+  Paste this whole file into Apps > Order Printer > Templates > Create a template.
+  The source of truth is this file (setup/order-printer/medicine-record.liquid);
+  edit here, check with `node setup/order-printer/check.mjs`, then paste again.
+
+  The pharmacist prints one per held order, ticks the three boxes, signs, and files
+  it by order number for 2 years. Two strings are load-bearing and must match the
+  theme and the Flow: the tag `pharmacist-review` (medicine lines) and the cart
+  attribute `Over 18 and will follow the leaflet` (the customer's tick at the bag).
+{%- endcomment -%}
+{%- assign declaration = order.attributes["Over 18 and will follow the leaflet"] -%}
+{%- assign medicine_count = 0 -%}
+{%- for line_item in order.line_items -%}
+  {%- assign t = line_item.product.tags | join: '||' | downcase | split: '||' -%}
+  {%- if t contains 'pharmacist-review' -%}{%- assign medicine_count = medicine_count | plus: 1 -%}{%- endif -%}
+{%- endfor -%}
+<style>
+  .mr { font-family: Arial, Helvetica, sans-serif; font-size: 12.5px; color: #111; line-height: 1.45; }
+  .mr h1 { font-size: 19px; margin: 0 0 2px; }
+  .mr h2 { font-size: 13.5px; margin: 18px 0 6px; text-transform: uppercase; letter-spacing: .04em; }
+  .mr table { width: 100%; border-collapse: collapse; }
+  .mr th, .mr td { border: 1px solid #888; padding: 5px 7px; text-align: left; vertical-align: top; }
+  .mr th { background: #eee; }
+  .mr .q { text-align: right; width: 60px; }
+  .mr .warn { border: 2px solid #000; padding: 8px 10px; font-weight: bold; margin: 10px 0; }
+  .mr .box { display: inline-block; width: 14px; height: 14px; border: 1.5px solid #000; margin-right: 8px; vertical-align: -3px; }
+  .mr .tick { margin: 7px 0; }
+  .mr .sign td { height: 34px; border: none; border-bottom: 1px solid #000; }
+  .mr .sign th { border: none; background: none; width: 28%; padding-left: 0; vertical-align: bottom; }
+  .mr .muted { color: #555; }
+</style>
+<div class="mr">
+  <h1>Medicine order record &mdash; {{ order.name }}</h1>
+  <div class="muted">{{ shop.name }} &middot; PSI Internet Supply List 10001884 &middot; kept 2 years from the date of supply (PSI 2.5)</div>
+
+  {%- if medicine_count == 0 -%}
+    <div class="warn">This order has no line tagged pharmacist-review. No medicine record is needed unless a line below is a medicine that was never tagged, or a custom item.</div>
+  {%- endif -%}
+
+  <h2>Order</h2>
+  <table>
+    <tr><th style="width:28%">Placed</th><td>{{ order.created_at | date: "%d %B %Y, %H:%M" }}</td></tr>
+    <tr><th>Customer</th><td>{{ order.customer.name | default: order.shipping_address.name }}</td></tr>
+    <tr><th>Email / phone</th><td>{{ order.email }}{% if order.shipping_address.phone != blank %} &middot; {{ order.shipping_address.phone }}{% endif %}</td></tr>
+    <tr><th>Deliver to</th><td>{% if order.shipping_address %}{{ order.shipping_address.address1 }}{% if order.shipping_address.address2 != blank %}, {{ order.shipping_address.address2 }}{% endif %}, {{ order.shipping_address.city }}{% if order.shipping_address.zip != blank %}, {{ order.shipping_address.zip }}{% endif %}{% else %}No delivery address (collection){% endif %}</td></tr>
+    <tr><th>Orders on this account</th><td>{% if order.customer %}{{ order.customer.orders_count }}, including this one. Check the earlier ones on the customer's page in admin before ticking box 3.{% else %}No customer account.{% endif %}</td></tr>
+    {%- if order.note != blank -%}
+    <tr><th>Customer note</th><td>{{ order.note }}</td></tr>
+    {%- endif -%}
+  </table>
+
+  <h2>Customer's declaration at the bag</h2>
+  {%- if declaration == "Yes" -%}
+    <p>Ticked: &ldquo;I confirm I&rsquo;m over 18 and will use this medicine as the leaflet says.&rdquo;</p>
+  {%- else -%}
+    <div class="warn">NOT GIVEN. The customer reached checkout without the bag page. Get the confirmation from the customer before approving, and note how and when below.</div>
+  {%- endif -%}
+
+  <h2>Medicine lines</h2>
+  <table>
+    <tr><th>Product</th><th>Option</th><th>SKU</th><th class="q">Qty</th></tr>
+    {%- for line_item in order.line_items -%}
+      {%- assign t = line_item.product.tags | join: '||' | downcase | split: '||' -%}
+      {%- if t contains 'pharmacist-review' -%}
+      <tr><td>{{ line_item.product.title | default: line_item.title }}</td><td>{% unless line_item.variant.title == 'Default Title' %}{{ line_item.variant.title }}{% endunless %}</td><td>{{ line_item.sku }}</td><td class="q"><strong>{{ line_item.quantity }}</strong></td></tr>
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if medicine_count == 0 -%}<tr><td colspan="4" class="muted">None</td></tr>{%- endif -%}
+  </table>
+
+  {%- assign other_count = order.line_items.size | minus: medicine_count -%}
+  {%- if other_count > 0 -%}
+  <h2>Other items in the order</h2>
+  <table>
+    {%- for line_item in order.line_items -%}
+      {%- assign t = line_item.product.tags | join: '||' | downcase | split: '||' -%}
+      {%- unless t contains 'pharmacist-review' -%}
+      <tr><td>{{ line_item.title }}{% if line_item.product == blank %} <strong>(custom item: check it is not a medicine)</strong>{% endif %}</td><td class="q">{{ line_item.quantity }}</td></tr>
+      {%- endunless -%}
+    {%- endfor -%}
+  </table>
+  {%- endif -%}
+
+  <h2>Pharmacist review</h2>
+  <div class="tick"><span class="box"></span>The purchaser is over 18.</div>
+  <div class="tick"><span class="box"></span>The purchaser is aware of the packaging and leaflet recommendations.</div>
+  <div class="tick"><span class="box"></span>The quantity is reasonable, having regard to previous supply to this customer.</div>
+  <div class="tick" style="margin-top:12px;"><span class="box"></span>Approved for supply &nbsp;&nbsp;&nbsp; <span class="box"></span>Refused (order cancelled and refunded)</div>
+  <p class="muted" style="margin:6px 0 0;">Notes (a confirmation obtained by phone or email, the reason for a refusal):</p>
+  <div style="height:48px; border-bottom:1px solid #000;"></div>
+
+  <table class="sign" style="margin-top:10px;">
+    <tr><th>Pharmacist name</th><td></td></tr>
+    <tr><th>PSI registration no.</th><td></td></tr>
+    <tr><th>Signature</th><td></td></tr>
+    <tr><th>Date and time</th><td></td></tr>
+  </table>
+</div>
