@@ -533,12 +533,14 @@
   const cartUrl = (routes.cart_url || '/cart') + '.js';
 
   // Shopify answers a rejected cart write with 422 and its own sentence in
-  // `description` — "You can only add 12 of that item to your cart." That sentence is
-  // the only thing that tells a shopper what to do next, so it is what gets shown,
-  // verbatim. Everything used to collapse into the button label "Sold out", which is
-  // a different fact and usually a false one: the item is in stock, just not twelve
-  // deep. A quantity problem and an availability problem need different answers.
+  // `description` — "You can only add 12 of that item to your cart." Until 28 Sep that
+  // sentence was shown verbatim, but the store's stock counts are placeholders
+  // (most products at 1), so the number it names means nothing to a customer. A 422
+  // now shows one fixed sentence with no number. It still says "can't add more",
+  // not "Sold out": a quantity problem and an availability problem need different
+  // answers. Anything else falls back to Shopify's text or the generic line.
   const cartError = async (res) => {
+    if (res.status === 422) return new Error("Sorry, we can't add more of this item right now.");
     let body = null;
     try { body = await res.json(); } catch { /* not JSON; fall through to the generic */ }
     return new Error((body && (body.description || body.message)) || 'Sorry — we could not update your bag.');

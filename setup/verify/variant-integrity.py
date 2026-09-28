@@ -20,6 +20,7 @@ import sys
 import urllib.request
 from playwright.sync_api import sync_playwright
 
+MSG = "Sorry, we can't add more of this item right now."
 BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
 
 # The preview server holds ONE process-global cart. It outlives every script and is
@@ -197,8 +198,10 @@ with sync_playwright() as pw:
     ck("an over-stock add does not claim the item is sold out",
        pg.locator("[data-pdp-submit]").first.inner_text().strip().lower(), "not added")
     ck("an over-stock add shows the shop's own reason", err.is_visible())
-    ck("the reason names the limit rather than being generic",
-       "only add 12" in err.inner_text())
+    ck("the reason is the fixed sentence, not Shopify's number",
+       err.inner_text().strip(), MSG)
+    ck("the reason names no number (stock counts are placeholders)",
+       any(c.isdigit() for c in err.inner_text()), False)
     ck("an over-stock add adds nothing",
        pg.evaluate("async () => (await (await fetch('/cart.js')).json()).item_count"), before)
 
@@ -221,7 +224,7 @@ with sync_playwright() as pw:
     ck("the drawer stepper stops at the stock ceiling",
        pg.locator(".cd-qty span").first.inner_text().strip(), "12")
     ck("the drawer stepper says why it stopped", err.is_visible())
-    ck("the drawer's reason names the limit", "only add 12" in err.inner_text())
+    ck("the drawer stepper shows the same sentence", err.inner_text().strip(), MSG)
     ck("no JS errors on the quantity paths", errs, [])
     pg.close()
     b.close()

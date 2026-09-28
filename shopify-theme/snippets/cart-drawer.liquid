@@ -37,8 +37,9 @@
   </div>
 
   {%- comment -%} Where a rejected cart write says what happened. Shopify answers an
-      over-stock add or quantity change with 422 and its own sentence naming the limit
-      ("You can only add 12 of that item to your cart."); that sentence lands here.
+      over-stock add or quantity change with 422 and its own sentence naming the limit;
+      theme.js (cartError) replaces it with "Sorry, we can't add more of this item right
+      now.", since the store's stock counts are placeholders, and that lands here.
       Before this the drawer's quantity buttons swallowed the failure whole — the
       number simply did not move and nothing said why. {%- endcomment -%}
   <p class="cd-err" data-cd-error role="alert" hidden></p>
