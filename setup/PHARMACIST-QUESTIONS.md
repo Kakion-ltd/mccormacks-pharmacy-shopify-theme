@@ -86,7 +86,8 @@ for your answer. Answer in either place.
    stock shows PA22650/007/001, and tell us if it shows something else. The
    50 g is on the website; the 125 g is not yet. Sixteen other licensed
    medicines were marked the same day for the same reason; they are on the
-   "Needs a pharmacist check" tab.
+   "Medicine
+   classification" tab.
 5. **Tefin 75mg Ibuprofen Suppositories: the correct description.** Its
    website description is Tefin 150 mg's text, and says "must be aged over 18"
    and "maximum five packs per order". We took it off the website (set to

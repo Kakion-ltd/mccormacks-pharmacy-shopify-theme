@@ -722,8 +722,9 @@ exists, because the alternative is promising something the store cannot do.
 
 **Dispatch cutoff** — Theme settings → Pharmacy → Same-day dispatch cutoff.
 Blank by default, and blank means the line does not render at all. Before
-setting it, know that **12 collection FAQ answers independently say "before
-3pm"**. Those are separate copy and will not follow this setting. Either set it
+setting it, know that **11 collection FAQ answers independently say "before
+3pm"**: every collection template except Bundles and Sale, counted on the repo and
+the live theme on 28 Sep 2026 (the settings help text still says 12). Those are separate copy and will not follow this setting. Either set it
 to match them, or tokenise them the way `[threshold]` works — do not leave the
 two disagreeing, which is exactly the failure the delivery threshold had.
 
@@ -1693,7 +1694,7 @@ register), approved by Kakion:
   (may contain antihistamines).
 - Licensed P and GSL: all 202 were already tagged. The 162 the match marked
   "unsure" were left as they were: 122 tagged, 40 not, Sudocrem among them.
-- **332 tagged after.** The workbook's "Needs a pharmacist check" tab lists
+- **332 tagged after.** The workbook's "Needs a pharmacist check" (renamed "Medicine classification" on 28 Sep) tab lists
   them, licensed medicines first.
 
 "No match" means the title matched no licence name, not that the product is
@@ -1921,7 +1922,7 @@ with a before copy kept under `archive/client-pack-<date>/`.
 ### What the pack says about medicines (28 Sep 2026)
 
 - **Every medicine order is reviewed; there is no shortlist.** The workbook's
-  "Needs a pharmacist check" tab asks the pharmacist whether our
+  "Needs a pharmacist check" (renamed "Medicine classification" on 28 Sep) tab asks the pharmacist whether our
   classification is right (Pharmacy-only, General sale or Not a medicine), not
   whether a product needs a check. **An answer never removes the
   `pharmacist-review` tag by itself.** A "Not a medicine" goes back to the

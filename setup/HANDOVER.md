@@ -39,8 +39,8 @@ few days, so it is worth starting first. Once it is on, we will put one real
 test order through together and refund it.
 
 **3. Same-day dispatch cut-off. Owner: Pharmacy.**
-Twelve of the category-page questions say "order before 3pm". Tell us the real
-time. The website won't promise same-day dispatch until you do.
+The questions on every category page except Bundles and Sale (eleven sets of
+questions in all) say "order before 3pm". Tell us the real time. The website won't promise same-day dispatch until you do.
 
 **4. How a pharmacist reviews medicine orders. Owner: Pharmacy (pharmacist).**
 The PSI's guidance (section 2.5 of its guidance on internet supply) says a
@@ -294,8 +294,7 @@ tracking yet.
   decisions in the pharmacist workbook.
 
 **Check how each medicine is classified. Owner: Pharmacy (pharmacist).**
-Spreadsheet: `2-Pharmacist-Review-Website-Pages.xlsx`, tab "Needs a pharmacist
-check". It lists the 348 products the website treats as medicines. For each,
+Spreadsheet: `2-Pharmacist-Review-Website-Pages.xlsx`, tab "Medicine classification". It lists the 348 products the website treats as medicines. For each,
 tell us whether our classification is right: pharmacy-only, general sale, or
 not a medicine. The first 219 are licensed medicines on the HPRA register; the
 other 129 need the pharmacist's judgement, including five veterinary flea
