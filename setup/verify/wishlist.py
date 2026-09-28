@@ -14,7 +14,7 @@ BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
 urllib.request.urlopen(urllib.request.Request(
     BASE + "/cart/clear.js", data=b"{}", method="POST")).read()
 
-RESTRICTED = "Nurofen Plus"
+RESTRICTED = "Nurofen Tablets"
 res = []
 def ck(name, got, want=True): res.append((got == want, name, got))
 

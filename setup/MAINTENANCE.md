@@ -645,6 +645,28 @@ npx shopify store execute -s mccormackpharmacy.myshopify.com \
 read-only work cannot write by accident. `setup/provision.mjs` does not use this
 token: it takes a separate Admin API token through `ADMIN_TOKEN`.
 
+### provision.mjs refuses the real store (28 Sep 2026)
+
+`setup/provision.mjs` was written to seed a dev store. Every step creates and
+publishes something: `products` creates the preview's fixture products with
+stock and publishes them, and `all` creates collections, menus, pages and the
+blog and publishes them. Until 28 Sep its fixtures included "Nurofen Plus
+200mg/12.8mg 24 Tablets", a codeine product that is not on the store, so one
+`node setup/provision.mjs products` against the real store would have put a
+codeine medicine on sale.
+
+- **It now refuses** when `SHOP` matches `mccormackpharmacy` or
+  `mccormackspharmacy` (the store handle and the domain are spelled
+  differently), and exits with code 2 unless `--real-store` is given. With the
+  flag it warns and waits 10 seconds before doing anything. The flag is not
+  permission: the one-writer rule above still applies.
+- **The fixture is now "Nurofen Tablets 12Pk"** (ibuprofen, a real product,
+  tagged), still the preview's only tagged medicine. `funnel.py`,
+  `quick-view.py`, `wishlist.py` and `serve_preview.py` find it by that name.
+  No codeine product belongs in `catalogue.json`.
+- `setup/verify/provision-guard.mjs` (in `npm test`) checks the refusal
+  without touching the network.
+
 ---
 
 ## The store is online only — the shops do not use Shopify POS (26 Sep 2026)

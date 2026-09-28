@@ -26,7 +26,7 @@ urllib.request.urlopen(urllib.request.Request(
 
 GRID = "/collections/skincare"                 # normal cards, one on sale
 VARIANTS = "/collections/everyday-multivitamins"  # Vitamin D3 has pack sizes
-RESTRICTED = "/collections/pain-relief"        # Nurofen Plus carries the gate tag
+RESTRICTED = "/collections/pain-relief"        # Nurofen Tablets carries the gate tag
 fails = 0
 def ck(label, got, want=True):
     global fails
@@ -39,7 +39,7 @@ with sync_playwright() as pw:
     p = b.new_context(viewport={"width": 1440, "height": 900}).new_page()
     p.goto(BASE + GRID, wait_until="networkidle"); p.evaluate("document.querySelector('[data-cc-banner]')?.setAttribute('hidden','')")
     cards = p.locator(".pgrid .pcard")
-    restricted_here = cards.filter(has_text="Nurofen Plus").count()
+    restricted_here = cards.filter(has_text="Nurofen Tablets").count()
     ck("every card in the grid has an eye, except the restricted one", p.locator(".pgrid .pcard .qv-btn").count(), cards.count() - restricted_here)
     eye = cards.first.locator(".qv-btn")
     ck("eye is hidden until hover", eye.evaluate("e=>getComputedStyle(e).opacity"), "0")
@@ -110,7 +110,7 @@ with sync_playwright() as pw:
 
     # gate
     p.goto(BASE + RESTRICTED, wait_until="networkidle")
-    r = p.locator(".pgrid .pcard").filter(has_text="Nurofen Plus").first
+    r = p.locator(".pgrid .pcard").filter(has_text="Nurofen Tablets").first
     ck("restricted product card has no eye", r.locator(".qv-btn").count(), 0)
     ck("but other cards on the same page do", p.locator(".pgrid .pcard .qv-btn").count() > 0)
 

@@ -27,7 +27,7 @@ def product_page(handle):
         return first_existing("preview/product.variants.html", "preview/product.html")
     if handle == "cerave-moisturising-cream":
         return first_existing("preview/product.variants2.html", "preview/product.html")
-    if handle == "nurofen-plus-200mg-12-8mg-24-tablets":
+    if handle == "nurofen-tablets-12pk":
         return first_existing("preview/product.restricted.html", "preview/product.html")
     if handle == "viagra-connect-sildenafil-50mg-tablets-8-pack":
         # The gated pharmacy fixture: its own render so the questionnaire modal and the

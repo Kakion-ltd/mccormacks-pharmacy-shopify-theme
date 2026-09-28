@@ -27,6 +27,23 @@ if (!SHOP || !TOKEN) {
   console.error('Set SHOP and ADMIN_TOKEN env vars.');
   process.exit(1);
 }
+// The real store is not a dev store. Every step here creates and publishes things
+// (products with stock, collections, menus, pages), and the last write wins. So it
+// refuses to touch mccormackpharmacy.myshopify.com / mccormackspharmacy.ie unless
+// told to in so many words. See MAINTENANCE, "provision.mjs refuses the real store".
+const REAL_STORE = /mccormacks?pharmacy/i.test(SHOP);
+if (REAL_STORE && !process.argv.includes('--real-store')) {
+  console.error(`REFUSED: ${SHOP} is the real McCormack's store.
+provision.mjs CREATES AND PUBLISHES products, collections, menus and pages there.
+Only one session may write to the store at a time (MAINTENANCE). If you mean it,
+confirm no other session is writing, then re-run with --real-store.`);
+  process.exit(2);
+}
+if (REAL_STORE) {
+  console.warn(`WARNING: writing to the REAL store ${SHOP}. This creates and publishes
+products, collections, menus and pages. Ctrl-C within 10 seconds to stop.`);
+  await new Promise((r) => setTimeout(r, 10000));
+}
 
 async function gql(query, variables) {
   const res = await fetch(`https://${SHOP}/admin/api/${API}/graphql.json`, {
@@ -254,7 +271,8 @@ async function createMetafields() {
 // The ten fixture products the preview renders, so collection pages on the dev
 // store are not empty. Images are pulled from the public Vercel preview. Tags carry
 // the exact category titles the smart collections match on, plus the restricted
-// tag on the codeine product. Idempotent by handle.
+// tag on the one medicine (Nurofen Tablets 12Pk, ibuprofen; no codeine product
+// belongs in this file). Idempotent by handle.
 const CATALOGUE = JSON.parse(readFileSync(join(HERE, 'catalogue.json'), 'utf8'));
 const IMAGE_BASE = process.env.IMAGE_BASE || 'https://mccormacks-pharmacy-shopify-theme.vercel.app/shopify-theme/assets';
 const money = (cents) => (cents / 100).toFixed(2);
@@ -461,7 +479,7 @@ async function publishCollections() {
 }
 
 // ---------------------------------------------------------------- main
-const cmd = process.argv[2] || 'all';
+const cmd = process.argv.slice(2).find((a) => !a.startsWith('--')) || 'all';
 const steps = { collections: createCollections, menus: createMenus, pages: createPages, blog: createBlog, metafields: createMetafields, products: createProducts, metaobjects: createMetaobjects, rules: applyRules, publish: publishCollections };
 try {
   if (cmd === 'all') {

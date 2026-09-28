@@ -14,7 +14,7 @@ BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
 urllib.request.urlopen(urllib.request.Request(
     BASE + "/cart/clear.js", data=b"{}", method="POST")).read()
 
-RESTRICTED = "Nurofen Plus"
+RESTRICTED = "Nurofen Tablets"
 results = []
 errors = []
 
@@ -164,7 +164,7 @@ with sync_playwright() as pw:
         # ---- D2. Buy-box assurance (3.3 / 3.4) ----
         # The pharmacy lines show on a medicine (here the pharmacist-review fixture)
         # and not on a vitamin, which is what product.html renders.
-        page.goto(BASE + "/products/nurofen-plus-200mg-12-8mg-24-tablets", wait_until="networkidle")
+        page.goto(BASE + "/products/nurofen-tablets-12pk", wait_until="networkidle")
         body = page.locator("body").inner_text()
         check(f"[{label}] PSI registration shown beside the buy box on a medicine",
               page.locator("[data-buy-assurance] a[href='/pages/internet-supply-pharmacy']").count() >= 1)
