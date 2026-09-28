@@ -2211,3 +2211,27 @@ that is deliberate. Before and after in
   the same.
 - **Jointace Original's description was Jointace Omega-3's.** Replaced; the
   old text is in `jointace-description-before.html` beside the CSV.
+
+## Descriptions cut at 500 characters; medicines restored from the old site (28 Sep 2026)
+
+Product descriptions were imported cut at 500 characters, often mid-word and,
+for medicines, mid-warning ("Do not take with any other pseudoe"). 685 look
+cut, 71 of them medicines; the list, with whether the old site has the full
+text, is `setup/truncated-descriptions-2026-09-28.csv`. The April import file
+from Efulfill is not in the project; the July export of the old site's
+database has full descriptions for only 1,038 products.
+
+- **Medicines were restored from the old site's "Product Information" text**,
+  word for word, whitespace collapsed into one paragraph as before. Before and
+  after in `archive/store-cleanup-2026-09-28/medicine-descriptions-before*.csv`.
+- **Restored descriptions carry the old site's quantity and "over 18"
+  lines** ("MAXIMUM order quantity of THREE packs per order", "You Must Be
+  Aged Over 18 Years to Purchase This Product") and its typos. Nothing on this
+  site enforces those limits, and some disagree with the licence caps. The
+  quantity pass after Fergal's sign-off corrects them; until then, don't treat
+  a description as the source for a limit.
+- **Not restored:** Dulcolax and Salatac (cut on the old site too), and five
+  whose old-site wording differs from ours (Bonjela Teething, both Nicorette
+  Cools 2Mg, Clonfolic 98Pk, Nytol), pending a decision. 45 were restored.
+- Fetch the old site no faster than one page every 10 seconds: at four at a
+  time it returned 403 to everything for several minutes.
