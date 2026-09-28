@@ -1,22 +1,20 @@
 """Builds the client PDFs in the staff guide's style: A4, logo on page 1, grey
 running title, build date and page number in the footer, green accents.
 
-    python3 setup/build_client_pdfs.py <outdir> [image-handover.docx]
+    python3 setup/build_client_pdfs.py <outdir>
 
-Always writes <outdir>/1-Handover.pdf from setup/HANDOVER.md and
-<outdir>/5-Pharmacist-Questions.pdf from setup/PHARMACIST-QUESTIONS.md. With the
-.docx it also writes <outdir>/3-Images-Handover.pdf. Rebuild after every change
-to either Markdown file. Needs `pip3 install --user markdown`, Python Playwright
+Writes <outdir>/1-Handover.pdf from setup/HANDOVER.md, <outdir>/3-Images-Handover.pdf
+from setup/IMAGES-HANDOVER.md and <outdir>/5-Pharmacist-Questions.pdf from
+setup/PHARMACIST-QUESTIONS.md. Rebuild after every change to any of them. Needs `pip3 install --user markdown`, Python Playwright
 (already used by setup/verify) and Google Chrome.
 """
-import base64, datetime, html, os, re, sys, zipfile
+import base64, datetime, html, os, re, sys
 import markdown
 from playwright.sync_api import sync_playwright
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = sys.argv[1]
 os.makedirs(OUT, exist_ok=True)
-DOCX = sys.argv[2] if len(sys.argv) > 2 else None
 LOGO = os.path.join(HERE, "..", "shopify-theme", "assets", "mccormacks-logo.png")
 logo = "data:image/png;base64," + base64.b64encode(open(LOGO, "rb").read()).decode()
 today = datetime.date.today()
@@ -37,7 +35,6 @@ strong { color: #1a1a1a; }
 code { font-family: Menlo, monospace; font-size: 9pt; background: #f1f2ef; padding: 0 3px; border-radius: 3px; }
 blockquote { margin: 0 0 3mm; padding: 3mm 4mm; background: #f6f9f1; border-left: 3px solid #82C914; border-radius: 0 6px 6px 0; }
 blockquote p:last-child { margin: 0; }
-.note { background: #eaf3fb; border-radius: 6px; padding: 3mm 4mm; margin: 0 0 3mm; break-inside: avoid; }
 .caption { color: #6b6b6b; font-size: 9pt; }
 table { width: 100%; border-collapse: collapse; margin: 0 0 3mm; font-size: 9.5pt; break-inside: avoid; }
 th { text-align: left; font-size: 8pt; letter-spacing: .06em; text-transform: uppercase; color: #6b6b6b;
@@ -45,7 +42,6 @@ th { text-align: left; font-size: 8pt; letter-spacing: .06em; text-transform: up
 td { padding: 1.6mm 2mm; border-bottom: 1px solid #e6e7e4; vertical-align: top; }
 tr:nth-child(even) td { background: #f6f9f1; }
 p, li { orphans: 3; widows: 3; }
-.lead { break-after: avoid; margin-bottom: 1mm; }
 p:has(+ ol), p:has(+ ul) { break-after: avoid; }
 """
 
@@ -71,56 +67,12 @@ def md_doc(name):
     src = re.sub(r"(?m)^(?!- |\d+\. |\s|>)(\S.*)\n(- |\d+\. )", r"\1\n\n\2", src)
     return re.match(r"# (.+)", src).group(1), markdown.markdown(src, extensions=["tables", "sane_lists"])
 
-# Image handover: docx paragraphs and the one table, in document order.
-W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
-import xml.etree.ElementTree as ET
-def runs(p):
-    out = []
-    for r in p.iter(W + "r"):
-        t = "".join(x.text or "" for x in r.iter(W + "t"))
-        if not t: continue
-        b = r.find(f"{W}rPr/{W}b") is not None and r.find(f"{W}rPr/{W}b").get(W + "val") not in ("0", "false")
-        i = r.find(f"{W}rPr/{W}i") is not None
-        t = html.escape(t)
-        out.append(f"<strong>{t}</strong>" if b else f"<em>{t}</em>" if i else t)
-    return "".join(out)
-def style(p):
-    s = p.find(f"{W}pPr/{W}pStyle"); return s.get(W + "val") if s is not None else ""
-parts, items, doc_title = [], [], None
-body_el = ET.fromstring(zipfile.ZipFile(DOCX).read("word/document.xml")).find(W + "body") if DOCX else []
-def flush():
-    global items
-    if items: parts.append("<ul>" + "".join(f"<li>{x}</li>" for x in items) + "</ul>"); items = []
-for el in body_el:
-    if el.tag == W + "p":
-        txt, st = runs(el), style(el)
-        plain = re.sub("<[^>]+>", "", txt).strip()
-        if not plain: continue
-        if st.startswith("ListParagraph"): items.append(txt); continue
-        flush()
-        if plain == "MCCORMACKS PHARMACY": continue          # the text logo; the real one replaces it
-        if doc_title is None: doc_title = plain; parts.append(f"<h1>{txt}</h1>"); continue
-        if st == "Heading1": parts.append(f"<h2>{txt}</h2>")
-        elif st == "Heading2": parts.append(f"<h3>{txt}</h3>")
-        elif plain.startswith("What to do:"): parts.append(f'<div class="note">{txt}</div>')
-        elif plain.startswith("Five of the 43"): parts.append(f'<p class="caption">{txt}</p>')
-        elif txt.startswith("<strong>") and txt.endswith("</strong>") and txt.count("<strong>") == 1: parts.append(f'<p class="lead">{txt}</p>')
-        else: parts.append(f"<p>{txt}</p>")
-    elif el.tag == W + "tbl":
-        flush()
-        rows = [[runs(c) for c in tr.findall(W + "tc")] for tr in el.findall(W + "tr")]
-        t = "<table><tr>" + "".join(f"<th>{c}</th>" for c in rows[0]) + "</tr>"
-        t += "".join("<tr>" + "".join(f"<td>{c}</td>" for c in r) + "</tr>" for r in rows[1:]) + "</table>"
-        parts.append(t)
-flush()
-
 with sync_playwright() as p:
     b = p.chromium.launch(channel="chrome")
     for name, running, out in (("HANDOVER.md", "Website handover", "1-Handover.pdf"),
+                               ("IMAGES-HANDOVER.md", "Product images", "3-Images-Handover.pdf"),
                                ("PHARMACIST-QUESTIONS.md", "Questions before purchase", "5-Pharmacist-Questions.pdf")):
         title, body = md_doc(name)
         pdf(b, page(title, running, body), running, f"{OUT}/{out}")
-    if DOCX:
-        pdf(b, page(doc_title, "Product images", "".join(parts)), "Product images", f"{OUT}/3-Images-Handover.pdf")
     b.close()
 print("built")

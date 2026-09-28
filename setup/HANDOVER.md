@@ -1,7 +1,7 @@
 # McCormack's Pharmacy website — handover
 
-Written 24 September 2026, before the Shopify store moves into the pharmacy's
-ownership. It lists what is still needed from the pharmacy, what Kakion is
+Updated 28 September 2026. The store has been in the pharmacy's ownership since
+25 September. This lists what is still needed from the pharmacy, what Kakion is
 still building, and what is already done.
 
 Every item says who owns it:
@@ -23,8 +23,8 @@ to be settled before that happens.
 These have to be settled before the website opens to customers.
 
 **1. Real stock figures. Owner: Pharmacy.**
-Every product on the store says it has either 1 in stock (1,815 products) or 0
-in stock (659 products). Those are placeholder numbers from the import, not
+Every product on the store says it has either 1 in stock (1,762 products) or 0
+in stock (663 products). Those are placeholder numbers from the import, not
 real counts. Until they are real, the website will sell things you don't have
 and mark things "sold out" when they are on the shelf. We need either real
 counts or a decision on how stock will be kept up to date, for example from
@@ -33,35 +33,41 @@ your shop system.
 **2. Card payments. Owner: Pharmacy.**
 Customers can't pay until the store's payment account is set up in Shopify.
 That needs the business's own details: company and bank details and proof of
-identity. Only the owner can enter them, which is why it waits for the
-transfer. Once it is on, we will put one real test order through together and
-refund it.
+identity. Only the owner can enter them. The store is in your name now, so
+Fergal can start this now. Shopify checks the details itself, which can take a
+few days, so it is worth starting first. Once it is on, we will put one real
+test order through together and refund it.
 
-**3. Delivery rates. Owner: Pharmacy, then Kakion.**
-We need your delivery prices, and two numbers confirmed:
+**3. Same-day dispatch cut-off. Owner: Pharmacy.**
+Twelve of the category-page questions say "order before 3pm". Tell us the real
+time. The website won't promise same-day dispatch until you do.
 
-- **Free delivery over €65 or €60?** The website says €65 everywhere. Your
-  About Us text says €60. One of them is wrong.
-- **Same-day dispatch cut-off.** Twelve of the category-page questions say
-  "order before 3pm". Tell us the real time. The website won't promise
-  same-day dispatch until you do.
+**4. How a pharmacist reviews medicine orders. Owner: Pharmacy (pharmacist).**
+The PSI's guidance (section 2.5 of its guidance on internet supply) says a
+pharmacist must personally review and authorise **every** order that contains
+a medicine before it is sent. That covers pharmacy-only and general sale
+medicines alike. There is no shortlist: every product marked as a medicine is
+covered.
 
-Once we have your answers, we'll enter them.
+The website marks 348 products as medicines. The hold that stops those orders
+being sent until a pharmacist approves them **is not built yet**. We will build
+it once Fergal confirms how he will review orders. Please tell us:
 
-**4. Which medicines need a pharmacist check. Owner: Pharmacy (pharmacist).**
-The website can make a customer answer your questions before buying a medicine.
-Their answers come to you with the order, and nothing is sent until you
-approve it. This is built and tested, but it has nothing to work on yet,
-because nobody has said which products need it.
+- Who will review medicine orders, and how quickly.
+- How each order is approved or refused. Shopify can't pause a customer at
+  checkout while a pharmacist looks, so the order of events would be: the
+  customer pays, a pharmacist reviews the order, and it is either sent or
+  cancelled and refunded. The customer is told this before they pay.
+- How you will cover the rest of section 2.5, which the website does not do by
+  itself: recording that the buyer is over 18, knows to follow the pack's
+  instructions and is buying a reasonable quantity; keeping a record of each
+  sale for two years in a form that can't be altered; and spotting repeat
+  requests for medicines open to misuse, such as painkillers, antihistamines
+  and laxatives.
 
-On 25 September we narrowed the products marked for a pharmacist to the 332
-that the HPRA register lists as medicines, or may list; plasters, bandages and
-throat sweets no longer carry the mark. Anything filed under your "Pharmacy"
-department still shows "Ask a pharmacist before you buy", though, even a
-suncare travel set filed under Pharmacy > Travel Sickness. We need a list of the
-products that genuinely need a pharmacist check, and the questions to ask for
-each. The spreadsheet for this
-is described under "Product questions" below.
+Some medicines may also need the customer to answer questions before they can
+add them to the bag. That part is built and waiting for your questions: our
+draft is in `5-Pharmacist-Questions.pdf`.
 
 **5. Who reads the website's email inbox. Owner: Pharmacy.**
 Seven forms on the website send an email and nothing else:
@@ -76,9 +82,6 @@ Seven forms on the website send an email and nothing else:
 Shopify keeps no copy of any of them. If an email is deleted, the request is
 gone. Please name the person who reads info@mccormackspharmacy.ie. They should
 file these emails rather than delete them.
-
-**The emails only reach that address once launch blocker 6 is done.** Until
-the store's email is changed and tested, none of the below works.
 
 Naming one person unblocks three things:
 
@@ -99,10 +102,8 @@ should not sit in a shared inbox. It stays off until those requests have
 somewhere safer to go. Until then, the services pages point customers to their
 nearest shop and the phone.
 
-**6. The store's email addresses. Owner: Kakion, with the pharmacy.**
-On 25 September the store's email address was still **info@efulfill.ie**,
-which is not McCormack's. It is being changed in Shopify (Settings › General)
-to the two addresses you gave us:
+**6. Test the store's emails. Owner: Kakion, with the pharmacy.**
+The store's email addresses are now the two you gave us:
 
 - **info@mccormackspharmacy.ie** is the store's contact email, and the address
   the store's emails come from. Every form on the website sends here: both
@@ -111,13 +112,9 @@ to the two addresses you gave us:
 - **sales@mccormackspharmacy.ie** gets the staff order notifications: the
   email Shopify sends your team when an order comes in.
 
-Before the password comes off, we'll check both with you: one test through a
-form, to confirm it arrives at info@, and one test order, to confirm the
-notification arrives at sales@.
-
-**This settles where the emails land, not who reads them.** Somebody still has
-to work through what arrives at info@: prescription requests, contact
-enquiries and withdrawal notices. That is launch blocker 5.
+Neither has been tested yet. Before the password comes off, we'll check both
+with you: one test through a form, to confirm it arrives at info@, and one test
+order, to confirm the notification arrives at sales@.
 
 ### Questions for the pharmacist
 
@@ -132,20 +129,6 @@ Every one of the 293 category pages carries this answer:
 We are not confident it is right. It says nothing about pharmacy-only
 medicines, which need a pharmacist's involvement even though no prescription
 is needed. Please approve it or rewrite it.
-
-**How the pharmacist check works with payment. Owner: Pharmacy (pharmacist).**
-Shopify can't hold a customer at the till while a pharmacist looks at their
-answers. So the order of events is:
-
-1. The customer pays.
-2. A pharmacist reviews the answers.
-3. The order is either sent, or cancelled and refunded.
-
-The customer is told this before they pay. Please confirm:
-
-- You are happy with this way of working.
-- You are happy with the wording the customer sees.
-- Who will review these orders, and how quickly.
 
 **Answers shown on product pages. Owner: Pharmacy (pharmacist).**
 Each product can carry its own short questions and answers. Google may show
@@ -167,15 +150,13 @@ This may limit which shop can fulfil online medicine orders. A shop that isn't
 registered shouldn't dispatch them, so the answer decides where medicine
 orders are sent from.
 
-**A pharmacist supervises every medicine sold online. Owner: Pharmacy
-(pharmacist).**
-The PSI require every medicine supplied from a pharmacy to be supplied under
-the personal supervision of a pharmacist. That covers pharmacy-only and
-general sale medicines alike, and it applies at a distance too. It is broader
-than launch blocker 4, which is only about the shortlist of products that need
-a questionnaire. How that supervision is satisfied for online orders is your
-professional judgement. Tell us what you decide and we'll set the website up
-to match.
+**The website's address. Owner: Kakion, with the pharmacy.**
+Your Internet Supply List entry names the website as
+**www.mccormackspharmacy.ie**, and the PSI logo on every page links to that
+entry. So the new website must go live at exactly that address. If you ever
+want a different address, the PSI has to update the entry first. Moving the
+address across needs whoever manages your domain and its settings; we'll
+arrange that with you before launch.
 
 ### The legal pages
 
@@ -193,13 +174,14 @@ Please have your solicitor confirm the correct text. We will then point every
 link at the confirmed version and remove the duplicates. Registration and the
 footer already point at Shopify's set.
 
+The withdraw-from-contract page was rewritten on 25 September with the
+business's details. Please ask your solicitor to review that too.
+
 **Unfinished wording that customers can see. Owner: Pharmacy and your
 solicitor supply the text, then Kakion.**
 The cookie policy still carries a draft marker. It isn't hidden in the
 editor: it shows on the page itself, so every customer will see it once the
-password comes off. (Withdraw from contract had markers too; they came out on
-25 Sep 2026 when the page was rewritten with the trader details. The new
-text is for your solicitor to review.)
+password comes off.
 
 - **Cookie policy:** a box headed "Draft copy" tells the reader the page uses
   placeholder wording. We need the final cookie policy text and the list of
@@ -221,8 +203,8 @@ correct that card or take it down.
 **"Trusted by customers since 2010". Owner: Pharmacy, if you want a number.**
 The strip under the header on the homepage, product, collection and search
 pages used to read "Trusted by over 20,000 customers since 2010". That number
-came from the design mock-up, the same source that made up a review count for
-the design, and nobody could say where it came from. So we have removed it.
+came from the design mock-up and nobody could say where it came from, so we
+have removed it.
 
 If you have a real figure you can stand over, it can go back in: Theme
 settings › Trust bar › Message 3 › Text. It changes every page that shows the
@@ -252,7 +234,7 @@ reconsider.
 **What goes in the Sale collection. Decision needed: pharmacy.**
 The Sale collection holds 2 products, and only 1 of them is on the website:
 the Voduz R'oil and Hairdryer Bundle. The Electric Picnic Bundle is in the
-collection but isn't published to the online shop.
+collection but isn't on the website.
 
 Sale is one of the most visible things on the site. Customers reach it from:
 
@@ -270,19 +252,59 @@ Please don't unpublish the last product in the collection without telling us.
 If the collection has nothing published, the homepage section falls back to
 sample products from the design, with made-up prices.
 
-### Product questions
+### Products
 
-**Which products need a pharmacist check. Owner: Pharmacy (pharmacist).**
-Spreadsheet: `Pharmacist-Review-Website-Pages.xlsx`, tab "Needs a pharmacist
-check". It lists the 348 products marked for a pharmacist: the 332 marked on
-25 September, less one listing since deleted, plus 17 licensed medicines found
-unmarked on 26 September (Sudocrem, E45 Cream, Dettol Liquid and others).
-Choose Yes or No for each. The first 219 are licensed medicines on the HPRA
-register, so we expect Yes; the other 129 need the pharmacist's judgement,
-including five veterinary flea treatments. This is the list that settles launch blocker 4.
+**Adding new products. Owner: Pharmacy (Keelan's team).**
+To add products, fill in `7-Product-Upload-Sheet.xlsx`, one row per product:
 
-The same workbook asks two more things. "Pages to fill" lists 281 products we
-think may belong on 29 empty category pages: Yes or No for each. "Confirm
+- barcode
+- product name, with the size
+- price
+- how many you have in stock
+- whether it is a medicine
+- a link to the product on the supplier's website (optional)
+- a note for us (optional)
+
+Send it to us and we'll add the products, put each one in the right category
+and brand, and check them before they go live.
+
+**Is it a medicine?** Look on the pack for a licence number: PA or PPA
+followed by numbers, TR (herbal medicines), EU/1/, or VPA (medicines for pets).
+If there is one, answer Yes, even if it looks like a toiletry: Sudocrem and
+E45 Cream are medicines. Every order for a medicine waits for a pharmacist
+(launch blocker 4). If you're not sure, answer Yes and add a note.
+
+**Real stock numbers only.** If you put 1 when you have none, the website
+sells something you can't send. If you put 0 when it is on the shelf, it shows
+"sold out" and the sale is lost.
+
+**70 products added to the store but not on the website. Decision needed:
+pharmacy.**
+On 23 September 70 products were added from the pharmacy's product list, and
+they are not on the website yet. Among them are the ranges that were missing
+from the new shop: Lerelle Beauty (8), Harry's (7) and Dr Squatch (6), along
+with Mx Health home tests (6), Lippy (5) and others. None of them has stock
+tracking yet.
+
+- **62 are not medicines.** Tell us whether to put them on the website, and
+  send their stock numbers so they don't sell what you don't have.
+- **8 are medicines**, and wait for the pharmacist: Sidena 50mg, Canesten
+  Combi, E45 Cream 125g, Calpol 6+ Fastmelts, Calpol Infant Sugar Free 140 ml,
+  Deep Heat Spray, and two Ovelle ointments. Sidena and Canesten Combi are
+  decisions in the pharmacist workbook.
+
+**Check how each medicine is classified. Owner: Pharmacy (pharmacist).**
+Spreadsheet: `2-Pharmacist-Review-Website-Pages.xlsx`, tab "Needs a pharmacist
+check". It lists the 348 products the website treats as medicines. For each,
+tell us whether our classification is right: pharmacy-only, general sale, or
+not a medicine. The first 219 are licensed medicines on the HPRA register; the
+other 129 need the pharmacist's judgement, including five veterinary flea
+treatments. Every one of the 348 stays marked as a medicine until you have
+answered, and any answer of "not a medicine" is one we'll check with you before
+changing anything.
+
+The same workbook asks three more things. "Pages to fill" lists 281 products
+we think may belong on 29 empty category pages: Yes or No for each. "Confirm
 Medicines & Health" has 120 products we have matched to 33 pages, held back
 until a pharmacist agrees. "Decisions" has seven questions: six about
 particular medicines (Sidena, Canesten Combi, Calpol Infant 140 ml, E45 Cream,
@@ -293,14 +315,12 @@ the 46 medicines those limits would cover, with the most per order we
 suggest for each, for the pharmacist to confirm.
 
 **Brands on the current website versus the new shop. Owner: Pharmacy.**
-We compared the two on 9 September:
+We compared the two on 9 September. Some brands have fewer products in the new
+shop than on your current website: for example, Jenny Glow has 67 there and 44
+here. Three brands that were missing, Lerelle Beauty, Harry's and Dr Squatch,
+have since been added and are among the 70 products above.
 
-- Some brands have fewer products in the new shop than on your current
-  website. For example, Jenny Glow has 67 there and 44 here.
-- A few brands have none in the new shop: Lerelle Beauty, Harry's and
-  Dr Squatch.
-
-The catalogue has changed since, so we'll send you a refreshed spreadsheet.
+The catalogue has changed since, so we'll send you a refreshed comparison.
 Please then check whether the missing products should come across.
 
 **Sizes sold as separate products. Decision needed: pharmacy.**
@@ -318,6 +338,12 @@ Sudocrem, Bio-Oil, Neutrogena and Oral-B. Keep, expand or drop each one.
 ---
 
 ## 2. What is still to be built or finished
+
+**The pharmacist hold on medicine orders. Owner: Kakion, once the pharmacist
+decides.**
+Every order containing a medicine will wait for a pharmacist's approval before
+it can be sent. We build it once Fergal has confirmed how he will review
+orders (launch blocker 4).
 
 **Redirects from the old website. Owner: Kakion (needs a list from the
 pharmacy).**
@@ -338,13 +364,6 @@ Some images are still missing. Where an image is missing, the website shows a
 neat placeholder. We need photographs of the seven shops: a phone camera is
 fine, held landscape.
 
-**Lock the Google Maps key. Owner: Kakion.**
-The store finder's map uses a Google Maps key, and anyone can see it in the
-page. On 24 September it worked from any website, not just yours, so someone
-else could use it and run up charges on your Google account. We're restricting
-it to your web addresses in Google's settings. It needs the new address added
-when the site moves to its own domain.
-
 **Test the website's forms with a real submission. Owner: Kakion, with the
 pharmacy.**
 None of the website's forms has been sent on the real store yet. We'll send
@@ -360,24 +379,20 @@ Nothing on the website changes with the seasons by itself. The homepage slides
 (currently including Back To School), the offers and the promotional strip are
 changed by hand in the theme editor.
 
-**Small tidy-ups. Owner: Kakion.**
-- The store still holds one spare copy of the website design, "Policies
-  Preview", from the previous developer. Customers don't see it. It stays until
-  you've signed everything off, then we'll remove it so nobody edits the wrong
-  one.
-- The "cancel an order" form doesn't label its emails the way the other six
-  do. It is a small fix, so the inbox can sort them.
-- An unfinished change to the widths of the drop-down menus. We'll finish it
-  or drop it.
+**Remove the old spare design. Owner: Kakion.**
+The store still holds one spare copy of the website design, "Policies
+Preview", from the previous developer. Customers don't see it. It stays until
+you've signed everything off, then we'll remove it so nobody edits the wrong
+one.
 
 ---
 
 ## 3. What is done
 
-All of this is built, checked and on the store, as of 25 September.
+All of this is built, checked and on the store, as of 28 September.
 
 - The new design, on every page, on phones and computers.
-- 2,427 products, arranged in 8 departments and 175 categories,
+- 2,425 products, arranged in 8 departments and 175 categories,
   plus 134 brand pages and an A–Z brands page.
 - Menus built from the same category list, so the header, the phone menu and
   the category pages always agree.
@@ -390,16 +405,25 @@ All of this is built, checked and on the store, as of 25 September.
   product cards.
 - The seven shops, with addresses, phone numbers, opening hours, a map, and a
   "use my location" button that puts the nearest shop first. Google reads the
-  opening hours too.
+  opening hours too. The map's Google key only works on your own web
+  addresses, so nobody else can run up charges on it.
 - The gift voucher page.
-- The pharmacist check for medicines, ready for your list and your questions.
+- Delivery: Ireland only. Standard €6, express €9, free over €65. The
+  free-delivery amount is set in one place, so the website can't contradict
+  itself.
+- The store in your name since 25 September, with its emails coming from
+  and going to your own addresses.
+- Online sales through the website only. Medicines are not offered in
+  Shopify's Shop app, which does not show the PSI logo.
+- Questions before purchase for medicines that need them, ready for the
+  questions the pharmacist approves.
 - "Tell me when it's back" requests on sold-out products: built, but
   **switched off**, so customers can't use it yet. It goes on once the inbox has
   an owner (launch blocker 5). A person from the pharmacy replies; it is not an
   automatic alert.
 - The cookie banner, with the choices Irish and EU law require.
-- The PSI registration mark in the footer.
-- The free-delivery amount set in one place, so the website can't contradict
-  itself.
+- The PSI registration mark in the footer, linked to your Internet Supply List
+  entry, and the PSI's contact details on the Registered Internet Supply
+  Pharmacy page.
 - A set of automatic checks we run on each update: readability, layout on
-  phones, forms, menus and the pharmacist check.
+  phones, forms, menus and the questions before purchase.

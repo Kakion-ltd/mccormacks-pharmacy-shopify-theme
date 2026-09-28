@@ -1,19 +1,21 @@
 # Questions before purchase: a draft for the pharmacist
 
 > **This is our suggestion for you to correct, not a regulatory determination.**
-> It was put together by the web team from each product's SmPC, the HPRA
+> It was put together by Kakion from each product's SmPC, the HPRA
 > register and PSI guidance. You decide which medicines need questions, what
 > the questions are, and which answers stop a sale. Cross out, add and reword
 > freely; the website will follow what you send back.
 
-Prepared 25 September 2026 for Fergal.
+Prepared 25 September 2026, updated 28 September, for Fergal.
 
 ## How this fits with the website
 
-Every medicine order on the website is designed to wait for a pharmacist to
-review it before it is sent. That is the PSI requirement for internet supply
-(section 2.5 of the PSI's guidance on internet supply), and it applies to all
-licensed medicines, whether or not they have questions.
+Every medicine order on the website must wait for a pharmacist to review it
+before it is sent. That is the PSI requirement for internet supply (section 2.5
+of the PSI's guidance on internet supply), and it applies to every medicine,
+whether or not it has questions. The hold that does this is not built yet: we
+will build it once you confirm how you will review orders (launch blocker 4 in
+the handover).
 
 Questions are an extra step for a smaller set of products. For those, the
 customer answers on the product page before they can add it to the bag. Any
@@ -21,9 +23,12 @@ answer marked **stop** below prevents the sale and tells the customer to speak
 to a pharmacist or their GP. Any answer marked **review** lets the order through
 to you with the answer highlighted. You see every answer on the order.
 
-We looked at the 203 products on the website that hold an HPRA licence. We
-suggest questions for **26 of them, in 8 sets**. Products in the same set share
-the same questions.
+The website carries 219 licensed medicines. We suggest questions for **26 of
+them, in 8 sets**. Products in the same set share the same questions. Seventeen
+of the 219 were only identified as medicines on 26 September, after this draft
+was written (Sudocrem, E45 Cream, Dettol Liquid, Nizoral, Oilatum, Regaine for
+Men and others); we have not drafted questions for them, so please tell us if
+any need them.
 
 | Set | Products | Confidence |
 |---|---|---|
@@ -73,14 +78,15 @@ for your answer. Answer in either place.
    limit and we will set it. The same limits apply to Calpol 6+ 140 ml and to
    the other paracetamol products; tell us whether you want one limit across
    all of them.
-4. **E45 Cream: keep the pharmacist mark?** E45 Cream is a licensed medicine
-   (PA22650/007/001, general sale). It had been missed because our search of
-   the register did not recognise its title, so we added the mark on
-   26 September, as for other licensed medicines; its website orders will wait
-   for your review. The 50 g is on the website; the 125 g is not. Tell us if
-   it should not have the mark. Sixteen other licensed medicines were marked
-   the same day for the same reason; they are on the "Needs a pharmacist
-   check" tab.
+4. **E45 Cream: is the pack you stock the licensed one?** E45 Cream is a
+   licensed medicine (PA22650/007/001, general sale). It had been missed
+   because our search of the register did not recognise its title, so we
+   marked it as a medicine on 26 September, and like every medicine its
+   website orders will wait for your review. Please check that the pack you
+   stock shows PA22650/007/001, and tell us if it shows something else. The
+   50 g is on the website; the 125 g is not yet. Sixteen other licensed
+   medicines were marked the same day for the same reason; they are on the
+   "Needs a pharmacist check" tab.
 5. **Tefin 75mg Ibuprofen Suppositories: the correct description.** Its
    website description is Tefin 150 mg's text, and says "must be aged over 18"
    and "maximum five packs per order". We took it off the website (set to
@@ -98,8 +104,8 @@ for your answer. Answer in either place.
    in the website's own pages is easy to get round. An App Store app,
    **Minmaxify Premium or Avada Order Limits, at about $20 a month**, checks
    the limits at checkout itself, including Apple Pay and Shop Pay, so an
-   order over a limit cannot be placed on the website. Either way, every
-   medicine order waits for your review before it is sent, so you would catch
+   order over a limit cannot be placed on the website. Either way, once the
+   hold is built every medicine order waits for your review before it is sent, so you would catch
    an over-limit order then; the app stops it being placed at all, so there
    is nothing to cancel and refund. The limits it would apply are in
    `6-Quantity-Limit-Tags-Draft.csv`: please confirm the products and the
@@ -110,6 +116,11 @@ for your answer. Answer in either place.
 **Products:** Viagra Connect 50mg Tablets 4 Pack; Viagra Connect 50mg Tablets 8
 Pack; Cialis For Men Tadalafil Tablets 4Pk; Cialis For Men Tadalafil Tablets
 8Pk; Sidena 50mg Tablets 4 Pack.
+
+> **None of these is on the website until you decide.** Viagra Connect and
+> Cialis were taken off the website, because their register entries require
+> a consultation with a healthcare professional before supply (see below).
+> Sidena has not been put on it yet (decision 1).
 
 **Licence conditions** (SmPCs PA23355/063/001, PA25208/001/001,
 PA0711/170/002):
@@ -157,7 +168,7 @@ paracetamol 500 mg, phenylephrine, diphenhydramine and caffeine).
 > **This product is off the website until you decide.** PSI guidance says
 > codeine medicines must not be accessible to the public for self-selection. A
 > product a customer can add to a bag online is arguably exactly that, so it
-> was taken off the online shop and left in the shops' tills. Please decide
+> was taken off the website. Please decide
 > whether it should be sold online at all. If it should, the questions below
 > are a starting point.
 
@@ -165,7 +176,7 @@ paracetamol 500 mg, phenylephrine, diphenhydramine and caffeine).
 website mentions codeine in its title or description, Uniflu included. We
 found Uniflu only from its licence. So we cannot tell from the website which
 products contain codeine, and only you can. Please list any others you stock
-online, so they can be taken off the online shop in the same way until you
+online, so they can be taken off the website in the same way until you
 decide.
 
 **Licence conditions** (SmPC PA1113/006/001):
@@ -471,7 +482,7 @@ doctor if diarrhoea lasts more than 24 hours).
   Cools 4mg, NiQuitin Mini 4mg). The licences want professional advice for
   recent heart problems and pregnancy. Your review of the order covers that;
   we suggest no questionnaire.
-- **Age limits in general.** Almost every one of the 203 licensed products has
+- **Age limits in general.** Almost every licensed product we read has
   one, usually 12+. We included age only where the non-prescription licence
   narrows it materially (18+, 18 to 65, 35 kg, infants).
 
@@ -479,7 +490,7 @@ doctor if diarrhoea lasts more than 24 hours).
 
 - **Emergency contraception** and **chloramphenicol eye drops**: none in the
   catalogue.
-- **Head lice**: none among the 203 licensed products. Lyclear Creme Rinse 1%
+- **Head lice**: none among the licensed products. Lyclear Creme Rinse 1%
   (permethrin, from 6 months) is a licensed medicine but was not in the
   classified list; please add it if it needs questions. Lyclear Treatment
   Shampoo, Full Marks and Vamousse are not licensed medicines.

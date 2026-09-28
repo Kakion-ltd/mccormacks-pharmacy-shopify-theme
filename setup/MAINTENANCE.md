@@ -519,9 +519,10 @@ What this covers and what it does not:
 - It covers every tagged medicine, whichever way it reached the bag: product page,
   questionnaire, wishlist or a saved cart.
 - It is only as good as the tagging. An untagged medicine skips the hold **and**
-  the one-click suppression. That is why the staff guide's page on adding a
-  medicine says to tag every product with a licence number on the pack (PA, PPA,
-  TR, EU/1/, or VPA for pet medicines). Sudocrem (licensed GSL, PA0436/054/001)
+  the one-click suppression. That is why the product upload sheet asks "Is it
+  a medicine?" and the handover tells staff to answer Yes for any product with a
+  licence number on the pack (PA, PPA, TR, EU/1/, or VPA for pet medicines):
+  whoever imports the sheet tags every Yes. Sudocrem (licensed GSL, PA0436/054/001)
   was untagged on 25 Sep 2026 because the register match marked it "unsure".
 - It does **not** meet the rest of section 2.5 on its own: recording that the
   purchaser is over 18, knows to follow the pack's instructions and is buying a
@@ -1895,20 +1896,49 @@ invisible to it. Look at a hover in a browser.
 
 ---
 
-## The client handover PDF is built from HANDOVER.md (25 Sep 2026)
+## The client handover PDFs are built from Markdown (25 Sep 2026)
 
-The client gets `setup/HANDOVER.md` as a PDF, not as Markdown. After any change
-to the handover, rebuild it:
+The client gets `setup/HANDOVER.md`, `setup/IMAGES-HANDOVER.md` and
+`setup/PHARMACIST-QUESTIONS.md` as PDFs, not as Markdown. After any change to
+one of them, rebuild all three:
 
 ```sh
 python3 setup/build_client_pdfs.py ~/Downloads/McCormacks-Client-Pack
 ```
 
-That writes `1-Handover.pdf` and `5-Pharmacist-Questions.pdf` (from
-`setup/PHARMACIST-QUESTIONS.md`, the draft questions for the pharmacist), dated
-with the build date, with the logo and the same styling as the staff guide. Pass
-the image handover `.docx` as a second argument to rebuild
-`3-Images-Handover.pdf` too. Needs
-`pip3 install --user markdown`, Python Playwright and Google Chrome. A PDF left
-over from before the last handover edit says something the repo no longer does,
-so rebuild before sending, not after.
+That writes `1-Handover.pdf`, `3-Images-Handover.pdf` and
+`5-Pharmacist-Questions.pdf`, dated with the build date, with the logo and the
+same styling. Needs `pip3 install --user markdown`, Python Playwright and
+Google Chrome. A PDF left over from before the last edit says something the
+repo no longer does, so rebuild before sending, not after. Until 28 Sep the
+images handover was built from a Word file in ~/Downloads; it moved into the
+repo so all three have one source each.
+
+The pack's two workbooks (`2-Pharmacist-Review-Website-Pages.xlsx` and
+`3-Images-Action-List.xlsx`) have no build script: they are edited in place,
+with a before copy kept under `archive/client-pack-<date>/`.
+
+### What the pack says about medicines (28 Sep 2026)
+
+- **Every medicine order is reviewed; there is no shortlist.** The workbook's
+  "Needs a pharmacist check" tab asks the pharmacist whether our
+  classification is right (Pharmacy-only, General sale or Not a medicine), not
+  whether a product needs a check. **An answer never removes the
+  `pharmacist-review` tag by itself.** A "Not a medicine" goes back to the
+  pharmacist before anyone changes the product.
+- **The pack says the hold is not built,** and that it will be once the
+  pharmacist confirms how orders are reviewed. Change that wording when the Flow
+  exists, in HANDOVER.md and PHARMACIST-QUESTIONS.md both.
+
+### Adding products: the 7-column upload sheet (28 Sep 2026)
+
+Keelan's team fills `7-Product-Upload-Sheet.xlsx`: barcode, product name with
+size, price, stock, medicine or not, supplier link (optional) and a note
+(optional). Kakion turns each row into a product with `setup/product-import/`
+(type, vendor, tags, the `pharmacist-review` tag for every medicine, Online
+Store only for medicines), and checks it before it goes live.
+
+Retired on 28 Sep, both in `archive/client-pack-2026-09-28/`: the 28-page
+staff guide (`4-Staff-Guide-Adding-Products.pdf`), which taught staff to add
+products straight into Shopify and to publish to all channels, and the 13-column
+V1 sheet. Don't send either again.
