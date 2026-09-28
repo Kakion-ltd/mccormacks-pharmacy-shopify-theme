@@ -43,8 +43,8 @@
                         sizes="100vw">
               {%- endif -%}
               {%- assign hero_desktop = block.settings.image | default: block.settings.image_mobile -%}
-              {{ hero_desktop | image_url: width: 1920 | image_tag:
-                   widths: '800,1200,1600,1920',
+              {{ hero_desktop | image_url: width: 2880 | image_tag:
+                   widths: '800,1200,1600,1920,2400,2880',
                    sizes: '100vw',
                    alt: block.settings.title,
                    loading: slide_loading,
@@ -63,7 +63,7 @@
                    class="hero-img-el" style="{{ hero_style }}">
             </picture>
           {%- else -%}
-            {%- render 'image-placeholder', w: 1920, h: 720, label: 'Canva Banner (Desktop)', note: 'Full bleed background image. Mobile: 1080x1080.' -%}
+            {%- render 'image-placeholder', w: 2880, h: 1080, label: 'Canva Banner (Desktop)', note: 'Full bleed background image. Mobile: 1080x1350.' -%}
           {%- endif -%}
         </div>
 
@@ -300,13 +300,13 @@
           "type": "image_picker",
           "id": "image",
           "label": "Canva Banner (Desktop)",
-          "info": "Upload a full-bleed banner. Recommended size: 1920x720."
+          "info": "Upload a full-bleed banner. Recommended size: 2880x1080, sharp on retina laptops."
         },
         {
           "type": "image_picker",
           "id": "image_mobile",
           "label": "Canva Banner (Mobile)",
-          "info": "Recommended size: 1080x1080."
+          "info": "Recommended size: 1080x1350."
         },
         {
           "type": "text",

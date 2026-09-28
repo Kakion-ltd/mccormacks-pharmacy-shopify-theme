@@ -45,6 +45,7 @@
         },
         "slide-special-offers": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "title": "Special Offers",
             "subtext": "Explore our latest promotional savings, value bundles and special pharmacy deals.",

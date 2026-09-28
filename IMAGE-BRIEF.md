@@ -46,7 +46,11 @@ Still **empty** and rendering a dashed placeholder:
 
 Two more are **filled with a borrowed image** at the wrong aspect ratio:
 
-- Hot Offers *(the 536×545 Mitchum hot-offer tile)*
+- **Hot Offers** — needs `banner-hot-offers.png` (or `.jpg`), `1300 × 600`,
+  same rule as the other department banners. Today it borrows the 536×545
+  Mitchum image, the worst banner on the site: in the 650×252 slot at 1440
+  it is enlarged 1.21× on a standard screen and 2.43× on a retina laptop,
+  2.00× on a phone, and only 38% of its height shows (55% on a phone).
 - Bundles *(the hero travel shot)*
 
 ### B. Store photography — 7 needed
@@ -69,7 +73,14 @@ enough to read on white. Missing: NIVEA, Optibac, Revive Active, Mitchum,
 Piz Buin, Nurofen. *(Supplied by the brands — usually a press-kit download
 rather than a design job.)*
 
-### E. Services card images — up to 9 optional
+### E. Homepage hero — Special Offers slide
+`2880 × 1080` desktop plus `1080 × 1350` mobile, to the hero house rule
+below. The slide is **disabled** in the theme until both exist
+(`hero-special-offers.jpg` / `-mobile.jpg` were never supplied, and the
+slide was showing a broken-image icon). Re-enable it in the theme editor
+once the artwork is set.
+
+### F. Services card images — up to 9 optional
 `800 × 600`. The In-Store Services page has nine service cards, all currently
 text-only. They render fine without images; add them if you want the page to
 carry weight.
@@ -86,15 +97,14 @@ or cropping badly. Ordered by how visible the problem is.
 | `contact-us.png` | 299×299 | 658×658 | Less than half resolution, homepage |
 | `instore-services.png` | 299×299 | 658×658 | Same |
 | `common-conditions.jpg` | 299×299 | 658×658 | Same |
-| `mitchum-hot-offers.jpg` | 536×545 | 800×600 | Near-square in a 4:3 thumb loses its top and bottom; also the Hot Offers collection banner, wrong shape there too |
+| `mitchum-hot-offers.jpg` | 536×545 | 1300×600 | Used only as the Hot Offers collection banner; replace with its own banner (Priority 1A) |
 | `cat-suncare.jpg` | 860×531 | 1360×765 | Under-size, wrong aspect |
 | `cat-vitamins.jpg` | 1440×500 | 1360×765 | 2.88:1 forced into 16:9 — heavy crop |
-| Hero slides ×4 | 1440×500 | 1760×920 | 2.88:1 forced into 1.91:1 — heavy crop |
-| `hero-summer-travel.jpg` | 1570×880 | 1760×920 | Marginally under |
+| Hero slides, desktop ×3 | 1920×720 | 2880×1080 | Sharp at 1×; enlarged 1.44× on a retina laptop at 1440 (the slot is 1380 wide, 2760 at 2×). Re-export the Canva designs at 1.5× |
 | `brand-loreal/proven/sculpted.png` | 175×120 | 350×240 | Blurry at 2× |
 
-The hero slides are the worst of these: the frame is `1760 × 920` desktop and
-the images are 500px tall, so roughly half of each is discarded.
+The desktop hero is the most visible of these: it is the first thing on the
+homepage and most laptops are 2×. The mobile hero files (1080×1350) are fine.
 
 ---
 
@@ -114,8 +124,8 @@ few lines.
 
 | Slot | Source px | Ratio | Notes |
 |---|---|---|---|
-| Hero slide | 1600 × 1000 | 1.6:1 | Transparent PNG/WebP cut-out on no ground, shown whole on the theme's own ground at every width; no mobile file. See the house rule below |
-| Hero slide, photographic alternative | 1760 × 920 + 1100 × 1100 | 1.91:1 / 1:1 | Only if a slide is a photograph rather than a cut-out; the safe-area rule is in the same house rule |
+| Hero slide (desktop) | 2880 × 1080 | 8:3 | Full bleed, cropped. Copy over the left 42%. See the house rule below |
+| Hero slide (mobile) | 1080 × 1350 | 4:5 | Shown whole. Copy over the bottom two-thirds. See the house rule below |
 | Category / sale banner | 1300 × 600 | 2.17:1 | Subject right |
 | Feature tile | 1360 × 765 | 16:9 | Subject right and upper; bottom-left 55% × 55% is background only; theme darkens the bottom 60%; no text or badges; both tiles in a section share one image language. See the house rule below |
 | Feature tile (mobile) | 800 × 800 | 1:1 | Optional. Same rule applied to its own bottom-left corner |
@@ -163,50 +173,42 @@ master for it in `artwork/`, so ask the supplier for one with this rule.
 
 ## House rule: homepage hero slides
 
-The hero changed in September 2026. It was a fixed green copy panel beside a
-cropped image, so the supplier composited product cut-outs onto a green
-gradient with a "Big Savings" starburst, and the two greens met in a hard
-seam. Now the whole hero sits on one pale ground; the theme draws the lime
-glow, the soft shadow and the offer badge, and shows the artwork whole rather
-than cropping it. The artwork is therefore the cut-out layer the supplier
-already has before they composite it.
+Each slide is a full-bleed image with the badge, headline, text and button
+set over it in live HTML. The image fills the whole slot edge to edge and is
+cropped to fit (`object-fit: cover`). Nothing is shown whole on a ground, and
+there is no cut-out layer. (A cut-out design, 1600 × 1000 shown whole, was
+tried and dropped on 23 September 2026; any brief asking for that is out of
+date.)
 
-1. **Frame.** 1600 × 1000, transparent PNG, or WebP with alpha if they can
-   (under 150 KB; PNG under 500 KB). One file per slide; no mobile file.
-2. **Content.** The product cluster only, filling the frame with about 5%
-   clear on every edge. No ground, no gradient, no drop shadow, no
-   reflection. The theme adds the shadow.
-3. **No text in the image.** No starburst, price flash, "special offer" or
+1. **Two files per slide.** Desktop `2880 × 1080` (8:3) and mobile
+   `1080 × 1350` (4:5), JPEG quality ~80. Desktop under 500 KB, mobile under
+   250 KB. Canva designs made at 1920 × 720 can be exported at 1.5×.
+2. **Desktop crop.** The slot is 460px tall and up to 1380 wide. At 1440 the
+   full width shows and about 6% is cut from the top and the bottom. On a
+   narrower desktop (901–1280) the height stays 460 and **the sides are cut**,
+   up to 15% off each side at 901. Keep the subject inside the middle 70% of
+   the width and the middle 88% of the height.
+3. **Desktop copy area.** The copy column is 580px wide on the left at every
+   desktop width: the left 42% of the frame at 1440, and two-thirds of the
+   visible frame at 901. Keep that side quiet and even in tone, and put the
+   subject in the right-hand third (roughly 60–85% across).
+4. **Mobile.** Shown whole in a 4:5 frame (358 × 448 at 390 wide), no crop.
+   The copy sits over the **bottom two-thirds**, full width, so the subject
+   goes in the top third with 5% clear on every edge, and the lower part
+   stays quiet enough for dark text to read. (The Vitamins slide uses white
+   text, so its lower part must be dark instead.)
+5. **No text in the image.** No starburst, price flash, "special offer" or
    brand lockup. The slide's Badge setting carries the offer as live text,
-   blank by default, editable in the theme editor and read by screen
-   readers.
-4. **Composition.** The cluster is shown whole in a 1.6:1 frame at 460px
-   tall on desktop and in a square frame, 358px at 390 wide, on a phone. Keep
-   the silhouette compact and near 4:3: a wide, low cluster reads small on a
-   phone, and a tall one reads small on desktop.
-5. **Until proper cut-outs arrive** the theme shows whatever it is given
-   whole, so today's 1300 × 600 composites appear as green rectangles
-   floating on the pale ground. That is expected and is the reason to
-   re-supply. Leave every slide's Badge setting blank until then: the
-   vitamins file still carries its starburst, and a live badge beside it
-   would say the same thing twice. **The vitamins slide in particular** is a
-   1100 × 850 landscape composite, so in the square phone frame it shows with
-   pale bands above and below it. That is the frame doing its job, not a bug;
-   it goes away when the slide is re-supplied to this rule.
-6. **An empty slot stays visible.** A slide with no image (Mother & Baby,
-   Gifts) shows the quiet striped placeholder on the same pale ground as
-   the copy, which reads as an empty slot and not as a broken page. Keep
-   the slide enabled rather than hiding it; the placeholder disappears on
-   its own when the artwork is set.
-
-**Photographic alternative.** If a slide is ever a photograph rather than a
-cut-out, supply 1760 × 920 JPEG plus a 1100 × 1100 square mobile crop and the
-theme's contain treatment still shows it whole; the copy sits beside it, not
-on it. Should a future layout overlay the copy on the photograph, the rule is
-the feature-tile one with the safe area moved: the left 45% of the desktop
-frame and the bottom 50% of the mobile frame are background only, mid to
-dark in tone because a scrim darkens them, with the subject right and upper
-and 8% clear on every edge. No text, true tone.
+   editable in the theme editor and read by screen readers.
+6. **No artwork, no slide.** A slide without both files is **disabled** in
+   the theme editor, not left on the placeholder or on a filename that does
+   not exist: the placeholder prints its slot label across the slide, and a
+   missing file shows a broken-image icon. Re-enable the slide once the
+   artwork is set.
+7. **Upload through the image pickers**, not as theme assets. A picked image
+   gets a srcset (800 to 2880 wide), so a standard screen downloads 1600 and
+   only a retina screen downloads 2880. A theme asset is one fixed file, so
+   every desktop visitor downloads the full 2880.
 
 ## House rule: hot-offer images
 
@@ -234,7 +236,8 @@ image stopped floating inside the card and started bleeding to its edge.
   needing transparency. Do not supply WebP — Shopify generates its own formats
   and sizes from whatever is uploaded, and a WebP source just limits what it
   can do.
-- Under **300KB** per file. The two banners that were 3MB were the site's worst
+- Under **300KB** per file, except the desktop hero slides (under 500 KB, see
+  the hero house rule). The two banners that were 3MB were the site's worst
   performance problem before they were re-exported.
 - Everything except brand logos and product shots is **cropped by the browser
   with `object-fit: cover`**, so supply generous framing and never let the
@@ -257,8 +260,8 @@ textures, no logo work — `mccormacks-logo.png` and the PSI mark are in place.
 
 ## Counts
 
-**Genuinely missing: 27** — 12 category banners, 7 store photos, 2 homepage
-tiles, 6 brand logos.
+**Genuinely missing: 28** — 12 category banners, 1 hero slide (Special Offers,
+desktop + mobile), 7 store photos, 2 homepage tiles, 6 brand logos.
 **Wanted but optional: 11** — 9 service cards, social share, favicon.
 **Re-exports of existing artwork: 13.**
 
