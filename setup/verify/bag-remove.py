@@ -5,12 +5,15 @@ Drawer (against the preview server's in-memory cart):
      "Remove <product>" for a screen reader.
   2. Remove takes the line out at once and the subtotal and free-delivery message
      follow it; focus lands on the drawer, not <body>.
-  3. Minus on a quantity of 1 still removes the line.
+  3. Removing the last medicine turns "Review bag and check out" back into the
+     checkout form. The preview has no Section Rendering API, so the main-cart
+     answer is faked from what is really in the cart, as Shopify would render it.
+  4. Minus on a quantity of 1 still removes the line.
 Bag page (static render, so the request is what is checked):
-  4. Remove sits under the stepper, is labelled per line, posts quantity 0 and
+  5. Remove sits under the stepper, is labelled per line, posts quantity 0 and
      reloads; without JS its href does the same.
 Header:
-  5. "My Bag", no "My Cart"; the bag page's tab title says bag.
+  6. "My Bag", no "My Cart"; the bag page's tab title says bag.
 """
 import json
 import os
@@ -18,7 +21,7 @@ import sys
 from playwright.sync_api import sync_playwright
 
 BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
-FIRST = 40000008   # Nurofen Tablets 12Pk
+MEDICINE = 40000008   # Nurofen Tablets 12Pk, the preview's only tagged medicine
 OTHER = 40000002
 
 results = []
@@ -32,6 +35,14 @@ with sync_playwright() as pw:
     pg.on("pageerror", lambda e: errs.append(str(e)))
     pg.route("**/recommendations/**", lambda r: r.fulfill(status=200, body=""))
 
+    medicine_html = pg.request.get(BASE + "/cart?fixture=medicine").text()
+    plain_html = pg.request.get(BASE + "/cart").text()
+    def section(route):
+        items = json.loads(pg.request.get(BASE + "/cart.js").text())["items"]
+        has = any(it["variant_id"] == MEDICINE for it in items)
+        route.fulfill(status=200, content_type="text/html", body=medicine_html if has else plain_html)
+    pg.route("**/cart?section_id=main-cart", section)
+
     pg.goto(BASE + "/products/vitamin-d3-1000iu-60-capsules", wait_until="networkidle")
     pg.evaluate("""async ([a, c]) => {
         await fetch('/cart/clear.js', {method: 'POST'});
@@ -39,7 +50,7 @@ with sync_playwright() as pw:
             headers: {'Content-Type': 'application/json'}, body: JSON.stringify({id, quantity: 1})});
         window.mccCartDrawer.render(await (await fetch('/cart.js')).json());
         window.mccCartDrawer.open();
-    }""", [FIRST, OTHER])
+    }""", [MEDICINE, OTHER])
     pg.wait_for_timeout(600)
 
     lines = pg.locator("[data-cd-items] .cd-line")
@@ -52,16 +63,22 @@ with sync_playwright() as pw:
     qty_box = first.locator(".cd-qty").bounding_box()
     rm_box = first.locator(".cd-remove").bounding_box()
     check("drawer: Remove sits under the quantity control", rm_box["y"] >= qty_box["y"] + qty_box["height"] - 1)
+    check("drawer: medicine bag shows the review route",
+          pg.evaluate("!document.querySelector('[data-cd-medicine]').hidden"))
 
     subtotal = pg.locator("[data-cd-subtotal]").inner_text()
     ship = pg.locator("[data-cd-ship-msg]").inner_text()
-    first_line = pg.locator(".cd-line", has=pg.locator(".cd-remove[aria-label*='Nurofen']"))
-    first_line.locator(".cd-remove").click()
+    med_line = pg.locator(".cd-line", has=pg.locator(".cd-remove[aria-label*='Nurofen']"))
+    med_line.locator(".cd-remove").click()
     pg.wait_for_timeout(700)
     check("drawer: Remove took the line out", lines.count(), 1)
     check("drawer: no Nurofen line left", pg.locator(".cd-remove[aria-label*='Nurofen']").count(), 0)
     check("drawer: subtotal changed", pg.locator("[data-cd-subtotal]").inner_text() != subtotal)
     check("drawer: free-delivery message changed", pg.locator("[data-cd-ship-msg]").inner_text() != ship)
+    check("drawer: last medicine gone -> checkout form back",
+          pg.evaluate("""() => ({review: !document.querySelector('[data-cd-medicine]').hidden,
+                                 checkout: !document.querySelector('[data-cd-checkout-form]').hidden})"""),
+          {"review": False, "checkout": True})
     check("drawer: focus kept inside the drawer",
           pg.evaluate("!!document.activeElement.closest('[data-cd-drawer]')"))
 
@@ -71,12 +88,8 @@ with sync_playwright() as pw:
     check("drawer: minus to zero removes the line", lines.count(), 0)
     check("drawer: empty bag state shows", pg.locator("[data-cd-empty]").is_visible())
 
-    # Bag page: put the two lines back so the page has rows to check.
-    pg.evaluate("""async ([a, c]) => {
-        for (const id of [a, c]) await fetch('/cart/add.js', {method: 'POST',
-            headers: {'Content-Type': 'application/json'}, body: JSON.stringify({id, quantity: 1})});
-    }""", [FIRST, OTHER])
-    pg.goto(BASE + "/cart", wait_until="networkidle")
+    # Bag page.
+    pg.goto(BASE + "/cart?fixture=medicine", wait_until="networkidle")
     rows = pg.locator(".cart-row")
     rm = pg.locator(".cart-row .cart-remove")
     check("bag page: a Remove per line", rm.count(), rows.count())

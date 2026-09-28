@@ -45,7 +45,7 @@ with sync_playwright() as pw:
     check("ordinary bag: express buttons kept", pg.locator(".cart-express").count(), 1)
 
     # 3. Product pages.
-    pg.goto(BASE + "/products/nurofen-plus-200mg-12-8mg-24-tablets", wait_until="networkidle")
+    pg.goto(BASE + "/products/nurofen-tablets-12pk", wait_until="networkidle")
     check("medicine PDP: no Buy it now", pg.locator(".pdp-express").count(), 0)
     check("medicine PDP: Add to bag still there", pg.locator("form[data-ajax-add] [data-pdp-submit]").count(), 1)
     pg.goto(BASE + "/products/vitamin-d3-1000iu-60-capsules", wait_until="networkidle")

@@ -88,7 +88,7 @@
                   <button type="button" class="cart-step" data-line="{{ forloop.index }}" data-line-qty="{{ item.quantity | plus: 1 }}" aria-label="Increase quantity" style="width:42px; height:100%; border:none; background:#fbfcfa; color:#2A2B2A; font-size:19px; font-weight:700; cursor:pointer; font-family:inherit;">+</button>
                 </div>
                 {%- comment -%} Same handler as the steppers (quantity 0), so the page reloads
-                    with the totals and the delivery bar recomputed. The
+                    with the totals, the delivery bar and the medicine tick box recomputed. The
                     href is the no-JS route. The label names the line for a screen reader. {%- endcomment -%}
                 <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0" class="cart-remove" data-line="{{ forloop.index }}" data-line-qty="0" aria-label="Remove {{ item.product.title | escape }}{% unless item.product.has_only_default_variant %}, {{ item.variant.title | escape }}{% endunless %}" style="display:inline-flex; align-items:center; gap:6px; font-size:13.5px; font-weight:700; color:#666b60;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6M14 11v6"></path></svg>Remove</a>
               </div>
