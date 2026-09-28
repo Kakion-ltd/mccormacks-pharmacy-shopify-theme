@@ -49,7 +49,7 @@ a medicine before it is sent. That covers pharmacy-only and general sale
 medicines alike. There is no shortlist: every product marked as a medicine is
 covered.
 
-The website marks 348 products as medicines. The hold that stops those orders
+The website marks 346 products as medicines. The hold that stops those orders
 being sent until a pharmacist approves them **is not built yet**. We will build
 it once Fergal confirms how he will review orders. Please tell us:
 
@@ -278,36 +278,36 @@ E45 Cream are medicines. Every order for a medicine waits for a pharmacist
 sells something you can't send. If you put 0 when it is on the shelf, it shows
 "sold out" and the sale is lost.
 
-**70 products added to the store but not on the website. Decision needed:
-pharmacy.**
-On 23 September 70 products were added from the pharmacy's product list, and
-they are not on the website yet. Among them are the ranges that were missing
-from the new shop: Lerelle Beauty (8), Harry's (7) and Dr Squatch (6), along
-with Mx Health home tests (6), Lippy (5) and others. None of them has stock
-tracking yet.
+**70 products added to the store but not on the website yet. Owner:
+Pharmacy (stock numbers), then Kakion.**
+On 23 September 70 products were added from the pharmacy's product list. All
+70 are sold on your current website, so they are approved for online sale, but
+they are not on the new website yet. Among them are the ranges that were
+missing from the new shop: Lerelle Beauty (8), Harry's (7) and Dr Squatch (6),
+along with Mx Health home tests (6), Lippy (5) and others. None of them has
+stock tracking yet, so each goes on once we have a real stock number for it.
 
-- **62 are not medicines.** Tell us whether to put them on the website, and
-  send their stock numbers so they don't sell what you don't have.
-- **8 are medicines**, and wait for the pharmacist: Sidena 50mg, Canesten
-  Combi, E45 Cream 125g, Calpol 6+ Fastmelts, Calpol Infant Sugar Free 140 ml,
-  Deep Heat Spray, and two Ovelle ointments. Sidena and Canesten Combi are
-  decisions in the pharmacist workbook.
+- **62 are not medicines.**
+- **8 are medicines:** Sidena 50mg, Canesten Combi, E45 Cream 125g, Calpol 6+
+  Fastmelts, Calpol Infant Sugar Free 140 ml, Deep Heat Spray, and two Ovelle
+  ointments. Sidena and Canesten Combi also need their questions set up first
+  (see the pharmacist questions document).
 
 **Check how each medicine is classified. Owner: Pharmacy (pharmacist).**
-Spreadsheet: `2-Pharmacist-Review-Website-Pages.xlsx`, tab "Medicine classification". It lists the 348 products the website treats as medicines. For each,
+Spreadsheet: `2-Pharmacist-Review-Website-Pages.xlsx`, tab "Medicine classification". It lists the 346 products the website treats as medicines. For each,
 tell us whether our classification is right: pharmacy-only, general sale, or
 not a medicine. The first 219 are licensed medicines on the HPRA register; the
-other 129 need the pharmacist's judgement, including five veterinary flea
-treatments. Every one of the 348 stays marked as a medicine until you have
+other 127 need the pharmacist's judgement, including five veterinary flea
+treatments. Every one of the 346 stays marked as a medicine until you have
 answered, and any answer of "not a medicine" is one we'll check with you before
 changing anything.
 
 The same workbook asks three more things. "Pages to fill" lists 281 products
 we think may belong on 29 empty category pages: Yes or No for each. "Confirm
 Medicines & Health" has 120 products we have matched to 33 pages, held back
-until a pharmacist agrees. "Decisions" has seven questions: six about
-particular medicines (Sidena, Canesten Combi, Calpol Infant 140 ml, E45 Cream,
-the Tefin 75 mg description, the Zirtek 30-pack's licence) and whether to pay
+until a pharmacist agrees. "Decisions" has five questions: four about
+particular medicines (Calpol Infant 140 ml, E45 Cream, the Tefin 75 mg
+description, the Zirtek 30-pack's licence) and whether to pay
 for an app that enforces per-order quantity limits at checkout. They are also
 in the pharmacist questions document. `6-Quantity-Limit-Tags-Draft.csv` lists
 the 46 medicines those limits would cover, with the most per order we

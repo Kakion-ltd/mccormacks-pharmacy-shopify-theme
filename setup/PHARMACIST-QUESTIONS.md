@@ -23,8 +23,9 @@ answer marked **stop** below prevents the sale and tells the customer to speak
 to a pharmacist or their GP. Any answer marked **review** lets the order through
 to you with the answer highlighted. You see every answer on the order.
 
-The website carries 219 licensed medicines. We suggest questions for **26 of
-them, in 8 sets**. Products in the same set share the same questions. Seventeen
+The website carries 219 licensed medicines. We suggest questions for **25 of
+them, in 8 sets**. Products in the same set share the same questions. The
+codeine set has no product on the website at the moment (see set 2). Seventeen
 of the 219 were only identified as medicines on 26 September, after this draft
 was written (Sudocrem, E45 Cream, Dettol Liquid, Nizoral, Oilatum, Regaine for
 Men and others); we have not drafted questions for them, so please tell us if
@@ -33,7 +34,7 @@ any need them.
 | Set | Products | Confidence |
 |---|---|---|
 | 1. Erectile dysfunction | 5 | High |
-| 2. Codeine | 1 | High |
+| 2. Codeine | 0 | High |
 | 3. Heartburn (proton pump inhibitors) | 4 | High |
 | 4. Migraine (sumatriptan) | 1 | High |
 | 5. Domperidone | 2 | High |
@@ -53,32 +54,19 @@ questions. They are at the end with our reasons, so you can disagree.
 > least five attacks over a year, and a heart-risk assessment before supply.
 > It is set 4.
 
-## Seven decisions we need from you
+## Five decisions we need from you
 
 These are also on the "Decisions" tab of the pharmacist workbook, with space
 for your answer. Answer in either place.
 
-1. **Sidena 50mg Tablets 4 Pack: sell it on the website?** It is not on the
-   website at the moment. The HPRA register lists Sidena 50 mg Tablets
-   (PA0711/170/002) as not subject to prescription, pharmacy only; Sidena
-   25 mg and 100 mg are prescription only. The register shows no supply
-   conditions for the 50 mg, where Viagra Connect's entry requires a
-   consultation with a healthcare professional. **Please confirm Sidena's
-   supply conditions from its SmPC before deciding**, since the register entry
-   may not show every condition in the licence. If it goes online, it takes the
-   set 1 questions below.
-2. **Canesten Combi 500mg Gel Pessary & 2% Cream 10G: sell it on the
-   website?** It is not on the website either. It is pharmacy only
-   (PA1410/039/001), with no supply conditions on the register. If it goes
-   online, it takes the set 6 questions below.
-3. **Calpol Infant 140 ml: how many packs may one order hold?** The licence
+1. **Calpol Infant 140 ml: how many packs may one order hold?** The licence
    allows general sale only in packs of up to 60 ml, one per sale. A 140 ml pack
    is pharmacy only, **at most two packs per sale** (PA23490/003/001). The
    website currently lets a customer put any number in the bag. Tell us the
    limit and we will set it. The same limits apply to Calpol 6+ 140 ml and to
    the other paracetamol products; tell us whether you want one limit across
    all of them.
-4. **E45 Cream: is the pack you stock the licensed one?** E45 Cream is a
+2. **E45 Cream: is the pack you stock the licensed one?** E45 Cream is a
    licensed medicine (PA22650/007/001, general sale). It had been missed
    because our search of the register did not recognise its title, so we
    marked it as a medicine on 26 September, and like every medicine its
@@ -88,18 +76,18 @@ for your answer. Answer in either place.
    medicines were marked the same day for the same reason; they are on the
    "Medicine
    classification" tab.
-5. **Tefin 75mg Ibuprofen Suppositories: the correct description.** Its
+3. **Tefin 75mg Ibuprofen Suppositories: the correct description.** Its
    website description is Tefin 150 mg's text, and says "must be aged over 18"
    and "maximum five packs per order". We took it off the website (set to
    draft) on 26 September. Please send the correct
    description from the Tefin 75 mg leaflet, or tell us what it should say;
    we have not rewritten it ourselves.
-6. **Zirtek Tabs 10Mg 30Pk: which licence is on the box?** Zirtek Allergy
+4. **Zirtek Tabs 10Mg 30Pk: which licence is on the box?** Zirtek Allergy
    Relief 10 mg (PA0891/008/005) allows up to 30 tablets without prescription,
    pharmacy only. Zirtek 10 mg film-coated tablets (PA0891/008/002) is
    prescription only above 7 tablets. If the box shows PA0891/008/002, the
    30-pack needs a prescription and must come off the website.
-7. **A quantity-limit app: worth about $20 a month?** The website cannot
+5. **A quantity-limit app: worth about $20 a month?** The website cannot
    stop a customer ordering more packs than a licence allows (for example two
    pseudoephedrine products, or three packs of Calpol Infant 140 ml). A limit
    in the website's own pages is easy to get round. An App Store app,
@@ -118,10 +106,11 @@ for your answer. Answer in either place.
 Pack; Cialis For Men Tadalafil Tablets 4Pk; Cialis For Men Tadalafil Tablets
 8Pk; Sidena 50mg Tablets 4 Pack.
 
-> **None of these is on the website until you decide.** Viagra Connect and
-> Cialis were taken off the website, because their register entries require
-> a consultation with a healthcare professional before supply (see below).
-> Sidena has not been put on it yet (decision 1).
+> **None of these is on the new website yet.** Viagra Connect and Cialis
+> were taken off it because their licences require a consultation with a
+> healthcare professional before supply (see below). Sidena is sold on your
+> current website but has not been put on the new one. All three go on once
+> their questions are set up.
 
 **Licence conditions** (SmPCs PA23355/063/001, PA25208/001/001,
 PA0711/170/002):
@@ -137,9 +126,11 @@ PA0711/170/002):
 - See a doctor first: breathlessness or chest pain on light exertion,
   alpha-blockers, severe kidney disease, sickle cell disease, myeloma,
   leukaemia, a bleeding disorder or an active stomach ulcer.
-- **The HPRA register requires a consultation with a healthcare professional
-  before non-prescription supply of Viagra Connect and Cialis.** Sidena's
-  register entry has no such condition.
+- **Viagra Connect's and Cialis's licences require a consultation with a
+  healthcare professional before non-prescription supply.** Sidena's licence
+  lists no such condition, but the manufacturer's "Essential information for
+  the supply of Sidena" (on hpra.ie) gives its legal category as pharmacy only
+  and provides a Pharmacy Consultation Guide, which it describes as optional.
 
 **Draft questions:**
 
@@ -161,26 +152,21 @@ PA0711/170/002):
    an active stomach ulcer, severe kidney disease, or a condition affecting
    the shape of the penis? *Yes: review.*
 
-## Set 2. Codeine (1 product)
+## Set 2. Codeine (no product on the website)
 
-**Product:** Uniflu With Vitamin C Tablets 24Pk (codeine phosphate 10 mg with
-paracetamol 500 mg, phenylephrine, diphenhydramine and caffeine).
+> **No product on the website contains codeine, as far as we can tell.** We
+> first put Uniflu With Vitamin C Tablets 24Pk here. That was a mistake: its
+> licence, Uniflu with Vitamin C, contains paracetamol, caffeine,
+> diphenhydramine and phenylephrine, and no codeine. The codeine version is
+> Uniflu Plus with Vitamin C, which neither your current website nor the new
+> one sells. Uniflu With Vitamin C can go back on the website. These questions
+> are kept for any codeine medicine you decide to stock online.
 
-> **This product is off the website until you decide.** PSI guidance says
-> codeine medicines must not be accessible to the public for self-selection. A
-> product a customer can add to a bag online is arguably exactly that, so it
-> was taken off the website. Please decide
-> whether it should be sold online at all. If it should, the questions below
-> are a starting point.
+**Question for you: does anything you stock online contain codeine?** Product
+titles and descriptions rarely say so, so only you can tell. Please list any,
+so they get these questions.
 
-**Question for you: which other products contain codeine?** No product on the
-website mentions codeine in its title or description, Uniflu included. We
-found Uniflu only from its licence. So we cannot tell from the website which
-products contain codeine, and only you can. Please list any others you stock
-online, so they can be taken off the website in the same way until you
-decide.
-
-**Licence conditions** (SmPC PA1113/006/001):
+**Licence conditions** (Uniflu Plus with Vitamin C, SmPC PA1113/006/001, as an example):
 
 - Age 12 and over. Ages 12 to 18: codeine 30 mg a day at most.
 - **No longer than 3 days.**
@@ -293,8 +279,8 @@ questions do not replace it; your review of the order is where it happens.
 
 - Age 12 and over **and** at least 35 kg. 30 mg a day at most, usually no
   longer than a week.
-- **The HPRA register limits non-prescription supply to packs of 10 and
-  100 mg per quarter.**
+- **The licence allows non-prescription supply only in packs of up to 10
+  tablets (100 mg a pack); larger packs need a prescription.**
 - Must not be used with: moderate or severe liver disease; heart disease,
   including heart failure or QT prolongation; electrolyte disturbance;
   medicines that prolong the QT interval or strongly inhibit CYP3A4; a
@@ -372,8 +358,8 @@ system, or more than two-thirds of the nail affected need a doctor.
 4. Do they have psoriasis, or nails that are painful or misshapen? *Yes: review.*
 
 **Anusol HC Suppositories 12Pk** (SmPC PA22647/002/002; HPRA register). Adults.
-7 days at most. **The register caps non-prescription supply at 12
-suppositories.** Rectal bleeding needs a doctor first.
+7 days at most. **Packs of up to 12 suppositories can be sold without a
+prescription; larger packs need one.** Rectal bleeding needs a doctor first.
 
 1. Is the person aged 18 or over? *No: stop.*
 2. Have they had any bleeding from the back passage? *Yes: stop.*
@@ -393,10 +379,10 @@ supervision. Not with fever, diarrhoea, vomiting or kidney problems.
    *Yes: stop.*
 
 **Vermox Tabs 6Pk; Vermox 100mg/5ml Oral Suspension 30ml** (SmPC
-PA23490/026/002). Age 2 and over. **Must not be used in pregnancy.** Avoid with
-metronidazole.
+PA23490/026/002). Not for children under 1 year, with little data under 2.
+**Must not be used in pregnancy.** Avoid with metronidazole.
 
-1. Is everyone who will take it aged 2 or over? *No: stop.*
+1. Is everyone who will take it aged 1 or over? *No: stop.*
 2. Is anyone who will take it pregnant, or could be? *Yes: stop.*
 3. Is anyone who will take it on metronidazole? *Yes: stop.*
 
@@ -409,9 +395,12 @@ metronidazole.
 and adults; **must not be given under 2**, not recommended 2 to 5; no more
 than 7 days without medical advice; **risk of abuse**; must not be used with
 CNS depression, an MAOI in the last 14 days, a long QT interval or a blood
-disorder. We did not read the SmPCs for Night Nurse or Panadol Night; they
-contain sedating antihistamines (promethazine; diphenhydramine) and are
-grouped here on that basis. Please check their age limits.
+disorder. Night Nurse Capsules (promethazine) and Panadol Night
+(diphenhydramine): adults 16 and over; Panadol Night not for under 12s except
+on medical advice, and no more than 7 days without a doctor. The Night Nurse
+Capsules SmPC sets no duration limit. Night Nurse Liquid and Uniflu With
+Vitamin C also contain a sedating antihistamine: should they have these
+questions too?
 
 **Draft questions:**
 

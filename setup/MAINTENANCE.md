@@ -1987,6 +1987,39 @@ with a before copy kept under `archive/client-pack-<date>/`.
   pharmacist confirms how orders are reviewed. Change that wording when the Flow
   exists, in HANDOVER.md and PHARMACIST-QUESTIONS.md both.
 
+### Checking a medicine's licence: read hpra.ie, and three traps (28 Sep 2026)
+
+An audit of the pharmacist sign-off sheet against HPRA's own documents found
+ten rows wrong. Record of what the checks were and what went wrong:
+
+- **Match the product, not the brand.** "Uniflu With Vitamin C" was treated as
+  the codeine product for three days. Its licence (Uniflu with Vitamin C,
+  PA1113/005/001) has no codeine; the codeine product is Uniflu Plus with
+  Vitamin C (PA1113/006/001), which neither website sells. The limits CSV had
+  the right licence all along; the questions draft cited the wrong one.
+- **Pack size is not quantity per sale.** Motilium's condition ("MPS: 10: MQP:
+  100 mg") and Anusol HC's ("maximum pack size - 12 suppositories") cap the
+  pack a pharmacy may sell without a prescription. Neither limits packs per
+  sale.
+- **hpra.ie cuts licence conditions at 256 characters**, on the product page
+  and in its data alike. Several paracetamol conditions stop before the
+  pharmacy-pack wording, so the per-sale number cannot be read there. The
+  general-sale rule (one pack per retail transaction) is in S.I. 540/2003
+  itself; the pharmacy "two packs" comes from each licence.
+- **A manufacturer's consultation guide is not a licence condition.** Viagra
+  Connect's and Cialis's conditions say "HCP consultation required for OTC
+  supply". Sidena's have none; its "Essential information for the supply of
+  Sidena" gives the legal category (pharmacy only) and calls its Pharmacy
+  Consultation Guide optional.
+- **No official 16-tablet sildenafil limit was found.** The HPRA documents for
+  Sidena, Viagra Connect and Cialis for men set no per-sale quantity, and
+  S.I. 540/2003 has none. The figure appears as a retailer's own policy.
+
+The product records come from `sfapi.hpra.ie/api/HumanApprovedProducts` with
+`{"id": "<product id>"}`, called from a page on hpra.ie (it refuses requests
+made from outside a browser page). Product ids come from the site's search.
+The per-row audit is in `~/Downloads/Fergal-Sign-Off-Audit-2026-09-28.xlsx`.
+
 ### Adding products: the 7-column upload sheet (28 Sep 2026)
 
 Keelan's team fills `7-Product-Upload-Sheet.xlsx`: barcode, product name with
