@@ -1553,6 +1553,22 @@ drop the `.pdp-recs` flex order from the mobile rules; do not cap the
 gallery height instead, which shrinks the photo to fit whatever the buy
 column happens to be for that product.
 
+**Changed 28 Sep 2026, at the client's request, for wide desktop only.** From
+1101px the product page is a CSS grid (`main-product.liquid`, the
+`min-width: 1101px` block): gallery and buy box in row 1, the tabs and "You
+May Also Like" side by side in row 2, the list in the 400px buy column and
+starting level with the tabs, then the FAQ. The description keeps `--measure`.
+Below 1101px nothing changed: the left column is 540px at 1024, too narrow to
+share, so the list stays under the description.
+
+The balance above no longer holds. The buy box has grown (PSI verify block,
+Save for later, express placeholder), and on 4 of 5 preview fixtures it now
+ends below the gallery: by 16px (Nurofen Plus), 21px (the gated fixture),
+73px (sold out) and 120px (CeraVe, with variants) at 1440. Row 2 starts under
+whichever is taller, so that is the gap under the gallery. The earlier rule
+still applies: do not cap the gallery to close it. If the gap matters, the
+fix is to shorten the buy box.
+
 ## Brand pages — which brands get one (24 Sep 2026)
 
 `setup/brands.json` was rebuilt from the live catalogue on 24 Sep 2026. It is

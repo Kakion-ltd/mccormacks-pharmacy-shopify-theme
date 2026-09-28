@@ -184,7 +184,7 @@
           {%- endfor -%}
         {%- endif -%}
         {%- if rel_count > 0 -%}
-        <!-- You may also like: under the description, not beside Add To Bag -->
+        <!-- You may also like: in the buy column beside the tabs from 1101px, under the description below that -->
         <div class="pdp-recs" style="margin-top:34px; max-width:600px;">
         <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:24px; margin:0 0 20px;">You May Also Like</h2>
         <div style="display:flex; flex-direction:column; gap:6px;">
@@ -479,6 +479,23 @@
   [data-qty-step]:hover:not(:disabled) { background: #f4f5f2 !important; }
   [data-qty-step]:disabled { opacity: .4; cursor: default; }
   .pdp-tab[data-active="true"] { color:var(--c-primary-text); border-bottom-color:var(--c-primary-text); }
+  /* Wide desktop: a grid, so "You May Also Like" sits in the 400px buy column
+     level with the tabs, below Add To Bag rather than beside it. Row 1 is the
+     gallery and the buy box, row 2 the tabs and the list, row 3 the FAQ. The
+     description keeps its --measure cap. Below 1101 the left column is too narrow
+     to give up, so the list stays under the description (the flex layout above).
+     If a buy box ever runs taller than the gallery, row 2 starts under the buy
+     box, leaving a gap under the gallery; that is the cost of the tabs and the
+     list starting level. See MAINTENANCE, "You May Also Like". */
+  @media (min-width: 1101px) {
+    .pdp-cols { display: grid !important; grid-template-columns: minmax(0, 1fr) 400px; column-gap: 44px; }
+    .pdp-left { display: contents !important; }
+    .gallery-flex { grid-column: 1; grid-row: 1; }
+    .pdp-right { grid-column: 2; grid-row: 1; width: auto !important; }
+    .pdp-accordions { grid-column: 1; grid-row: 2; }
+    .pdp-recs { grid-column: 2; grid-row: 2; max-width: none !important; }
+    .pfaq { grid-column: 1; grid-row: 3; }
+  }
   @media (max-width: 940px) {
     .pdp-cols { flex-direction: column !important; align-items: stretch !important; gap: 24px !important; }
     .pdp-left { display: contents !important; }
