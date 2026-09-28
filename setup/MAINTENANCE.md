@@ -1751,6 +1751,62 @@ website enforces that yet.
 
 ---
 
+### Two Calpol Vapour products untagged, 28 Sep 2026
+
+Calpol Vapour Plug & Nightlight and Calpol Vapour Refill Pads 5Pk carried
+`pharmacist-review` because the title match paired them with the Calpol
+infant suspension licence on the word "Calpol". Neither is on the HPRA
+authorised human medicines list (`latestHumanlist.xml`, checked 28 Sep), so
+the tag came off both. Capasal Therapeutic Shampoo 250ml had vendor
+"Canesten", which put it on the Canesten brand page; it is now "Capasal". It
+keeps the tag (Capasal Therapeutic Shampoo is P) and still has a stale
+`Canesten` tag, which no rule reads. Before state in
+`archive/store-cleanup-2026-09-28/untag-and-vendor-before.csv`.
+
+The two Calpol Vapour products are still typed "Pharmacy > Children's
+Medicine", are still off the Shop channel from the 27 Sep medicines sweep,
+and are still rows in the client pack's "Medicine classification" tab.
+
+---
+
+## Predictive search — what the store's search actually does (28 Sep 2026)
+
+The header dropdown is `sections/predictive-search.liquid`, fetched by
+`theme.js` from `/search/suggest`. Three things about the search behind it
+that the Shopify docs get wrong for this store:
+
+- **It is semantic search, not prefix-plus-one-typo.** "neurofen",
+  "nurophen" and "nurfen" all find Nurofen; "paracetamol" finds Panadol Extra,
+  whose title never says paracetamol; "headache" finds Excedrin and Nurofen.
+  45 misspellings of the top 10 medicine brands all found the right brand.
+- **`resources[options][fields]` is ignored.** Adding tag, then body, gave
+  identical results for "paracetamol" and "ibuprofen", and restricting it to
+  `vendor` still matched titles. Don't add it expecting a change.
+- **Search & Discovery synonyms had no visible effect.** With the group
+  "menthol, deep heat" added on 28 Sep, "menthol" returned no Deep Heat in the
+  dropdown or on 5 pages of `/search`, and "deep heat" returned nothing that
+  was only menthol, after more than half an hour. Recheck before relying on synonyms.
+
+The weak spots are ingredient searches for combination products: "menthol",
+"phenylephrine" (whose top hit is Phenergan, a different medicine),
+"caffeine", "guaifenesin", "zinc oxide", "folic acid".
+
+The storefront is password protected, so `/search/suggest.json` returns 401
+without the storefront session cookie; the Storefront API answers "Online
+Store channel is locked". Test against a logged-in cookie jar.
+
+**The dropdown markup is the ARIA 1.2 combobox pattern.** Focus stays in the
+input; arrows move `aria-activedescendant` over `[role=option]` links in
+labelled `[role=group]`s inside `#predictive-search-results` (the listbox,
+which arrives with each response; `[data-ps-panel]` is only the box). Don't
+put anything but groups and options inside the listbox, and don't move focus
+into the panel: `funnel.py` checks both. On phones the panel is absolute, not
+fixed (`.hdr-sticky`'s transform), and `theme.js` sets `--ps-top` so it
+reaches the foot of the screen. Shopify wraps the typed part of a suggested
+search in `<mark>`; the preview mock uses `<b>`, and `base.css` styles both.
+
+---
+
 ## Generated snippets — edit the generator, never the output (three times now)
 
 Nine snippets are written by three scripts in `setup/`: `gen_brands.py` owns
