@@ -63,7 +63,16 @@
       <span data-cd-subtotal></span>
     </div>
     <p class="cd-vat">Shipping and VAT calculated at checkout</p>
-    <form action="{{ routes.cart_url }}" method="post">
+    {%- comment -%} A bag holding a medicine goes through the bag page, where the
+        customer ticks the over-18 / leaflet box (PSI 2.5, sections/main-cart.liquid).
+        /cart.js carries no tags, so theme.js asks the server: it fetches the main-cart
+        section and looks for its [data-medicine-declaration] box. Until that answer
+        arrives, or if it fails, the drawer shows this route and not the checkout form. {%- endcomment -%}
+    <div data-cd-medicine>
+      <p class="cd-vat">Your bag has a medicine in it. Please confirm one thing on the bag page before checkout.</p>
+      <a href="{{ routes.cart_url }}" class="cd-checkout btn btn-fill">Review bag and check out</a>
+    </div>
+    <form action="{{ routes.cart_url }}" method="post" data-cd-checkout-form hidden>
       <button type="submit" name="checkout" class="cd-checkout btn btn-fill">Checkout securely</button>
       {%- comment -%} Same express buttons as the cart page, one step earlier.
           Guarded: with no accelerated methods enabled, Shopify renders nothing and

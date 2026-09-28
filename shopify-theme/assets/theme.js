@@ -394,6 +394,31 @@
       if (e.key === 'Escape' && document.body.hasAttribute('data-cd-open')) close();
     });
 
+    // PSI 2.5: a bag holding a medicine must go through the bag page, where the
+    // customer ticks the over-18 / leaflet box. /cart.js has no product tags, so ask
+    // Shopify to render the cart section and look for that box — the tag rule stays
+    // in Liquid, as with the cross-sell rail. Fails closed: the "Review bag" route is
+    // the default, and the checkout form shows only on a clear "no medicine".
+    let medSeq = 0;
+    const checkMedicine = (empty) => {
+      const seq = ++medSeq;
+      const setMedicine = (yes) => {
+        if (seq !== medSeq) return; // a later bag change owns the answer
+        $('[data-cd-medicine]').hidden = !yes;
+        $('[data-cd-checkout-form]').hidden = yes;
+      };
+      setMedicine(true);
+      if (empty) return;
+      fetch(((window.mccRoutes || {}).cart_url || '/cart') + '?section_id=main-cart')
+        .then((r) => (r.ok ? r.text() : Promise.reject(new Error('cart section failed'))))
+        .then((html) => {
+          const holder = document.createElement('div');
+          holder.innerHTML = html;
+          setMedicine(!!holder.querySelector('[data-medicine-declaration]'));
+        })
+        .catch(() => setMedicine(true));
+    };
+
     const render = (cart) => {
       $('[data-cd-count]').textContent = '(' + cart.item_count + ')';
       const empty = cart.item_count === 0;
@@ -450,6 +475,8 @@
           '</div>' +
         '</div>';
       }).join('');
+
+      checkMedicine(empty);
 
       // Cross-sell follows the first line item, and refreshes whenever the bag changes.
       loadRecs(recMount,

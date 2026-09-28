@@ -8,6 +8,25 @@
 
 {%- assign free_delivery_threshold = settings.free_shipping_threshold | at_least: 1 | times: 100 -%}
 
+{%- comment -%} PSI 2.5: a bag holding a medicine (the restricted tag) asks the customer
+    to confirm they are over 18 and will follow the leaflet before checkout. The tick is
+    a required checkbox in the checkout form, saved as the cart attribute
+    "Over 18 and will follow the leaflet" = "Yes", which lands on the order's
+    Additional details. The attribute NAME is load-bearing: the pharmacist-hold Flow
+    checks for it by exact text (setup/MAINTENANCE.md, "The pharmacist hold"). Rename
+    one, rename both.
+    Express buttons are dropped for such a bag: they are not submit buttons, so they
+    would skip the required tick. This is the soft gate; Buy it now, cart links and
+    draft orders never see this page, and the Flow flags any medicine order without
+    the attribute. The drawer (snippets/cart-drawer.liquid) fetches this section and
+    looks for [data-medicine-declaration] to decide whether to send the shopper here
+    first, so keep that marker on the box. {%- endcomment -%}
+{%- assign cart_has_medicine = false -%}
+{%- for item in cart.items -%}
+  {%- capture item_restricted -%}{%- render 'product-restricted', product: item.product -%}{%- endcapture -%}
+  {%- if item_restricted == 'true' -%}{%- assign cart_has_medicine = true -%}{%- break -%}{%- endif -%}
+{%- endfor -%}
+
 <div style="width:100%; overflow-x:hidden; background:#ffffff;">
 
   <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
@@ -137,11 +156,23 @@
           <div style="font-size:12.5px; color:#666b60; margin:6px 0 18px;">Includes VAT where applicable</div>
 
           <form action="{{ routes.cart_url }}" method="post">
+            {%- if cart_has_medicine -%}
+              {%- comment -%} Customer-facing medical copy: pharmacist/client sign-off
+                  before this goes live, like the questionnaire's consent note. {%- endcomment -%}
+              <div data-medicine-declaration style="margin:0 0 14px; padding:14px 16px; border:1.5px solid #dfe1dc; border-radius:12px; background:#fbfcfa;">
+                <label style="display:flex; gap:11px; align-items:flex-start; font-size:14.5px; line-height:1.55; color:#2A2B2A; cursor:pointer;">
+                  <input type="checkbox" name="attributes[Over 18 and will follow the leaflet]" value="Yes" required style="flex:0 0 auto; width:20px; height:20px; margin:2px 0 0; accent-color:var(--c-primary);">
+                  <span>I confirm I’m over 18 and will use this medicine as the leaflet says.</span>
+                </label>
+                <p style="margin:10px 0 0 31px; font-size:13px; line-height:1.55; color:#666b60;">A pharmacist reviews every medicine order before we send it. If it isn’t suitable, we’ll cancel it and refund you in full.</p>
+              </div>
+            {%- endif -%}
             <button type="submit" name="checkout" class="btn btn-fill" style="gap:9px; width:100%">Checkout securely</button>
             {%- comment -%} Shop Pay / Apple Pay / Google Pay / PayPal. Rendered by Shopify
                 from the payment providers enabled in the admin — nothing shows here until
-                accelerated checkouts are switched on, and nothing shows in the mock preview. {%- endcomment -%}
-            {%- if additional_checkout_buttons -%}
+                accelerated checkouts are switched on, and nothing shows in the mock preview.
+                Not for a bag holding a medicine: see the note at the top. {%- endcomment -%}
+            {%- if additional_checkout_buttons and cart_has_medicine == false -%}
               <div class="cart-express" style="margin-top:12px; display:grid; gap:10px;">
                 {{ content_for_additional_checkout_buttons }}
               </div>

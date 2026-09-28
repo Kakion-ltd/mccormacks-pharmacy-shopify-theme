@@ -309,8 +309,13 @@
             {%- comment -%} Shopify's accelerated checkout button (Shop Pay / Apple Pay / …).
                 Skips the cart entirely for a shopper who just wants this one item. Behind a
                 setting because it can cannibalise cart-based upsell — switch it off in the
-                editor rather than editing code. Renders nothing in the mock preview. {%- endcomment -%}
-            {%- if section.settings.show_dynamic_checkout and current_variant.available -%}
+                editor rather than editing code. Renders nothing in the mock preview.
+                Never on a medicine: Buy it now skips the bag, and the bag is where the
+                customer confirms they are over 18 and will follow the leaflet (PSI 2.5,
+                sections/main-cart.liquid). The Flow flags an order that skipped it
+                anyway; this only stops the theme offering the skip. {%- endcomment -%}
+            {%- capture self_restricted -%}{%- render 'product-restricted', product: product -%}{%- endcapture -%}
+            {%- if section.settings.show_dynamic_checkout and current_variant.available and self_restricted != 'true' -%}
               <div class="pdp-express" style="margin-top:12px;">
                 {{ form | payment_button }}
               </div>

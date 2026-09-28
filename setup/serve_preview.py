@@ -120,6 +120,8 @@ def route(path):
         rest = p[len("/blogs/"):].split("/")
         return "/preview/article.html" if len(rest) > 1 and rest[1] else "/preview/blog.html"
     if p == "/cart":
+        if query.get("fixture", [""])[0] == "medicine":
+            return first_existing("preview/cart.medicine.html", "preview/cart.html")
         return "/preview/cart.html"
     if p == "/search":
         return "/preview/search.html"

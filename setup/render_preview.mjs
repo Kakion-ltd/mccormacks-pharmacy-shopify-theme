@@ -1019,6 +1019,22 @@ const FORM_ON = { 'page.in-store-services': { __sectionSettingsOverride: { 'page
     } finally {
       Object.assign(globals, saved);
     }
+    // A bag holding that medicine: the over-18 / leaflet declaration and the dropped
+    // express buttons (PSI 2.5) only render then. Served at /cart?fixture=medicine.
+    const i = products.indexOf(restricted);
+    const line = {
+      ...globals.cart.items[0], key: 'a:med', title: restricted.title, product_title: restricted.title,
+      product: restricted, url: restricted.url, vendor: restricted.vendor, variant: mockVariant(i),
+      variant_id: 40000000 + i, product_id: 30000000 + i, image: null,
+    };
+    const savedCart = globals.cart;
+    globals.cart = { ...savedCart, item_count: savedCart.item_count + 1, items: [...savedCart.items, line] };
+    try {
+      writeFileSync(join(outDir, 'cart.medicine.html'), await renderTemplate('cart'));
+      console.log(`medicine cart page: ${restricted.handle}`);
+    } finally {
+      globals.cart = savedCart;
+    }
   }
 }
 
