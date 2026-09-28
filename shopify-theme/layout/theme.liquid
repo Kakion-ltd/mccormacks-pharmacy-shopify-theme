@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-    {{- page_title -}}
+    {%- comment -%} Shopify titles the bag page "Cart"; everywhere else the site says bag. {%- endcomment -%}
+    {%- if request.page_type == 'cart' -%}Your bag{%- else -%}{{- page_title -}}{%- endif -%}
     {%- unless page_title contains shop.name %} | {{ shop.name }}{% endunless -%}
   </title>
   {%- if page_description -%}

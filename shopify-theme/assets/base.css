@@ -497,12 +497,16 @@ body[data-cd-open] { overflow: hidden; }
 .cd-line-title a { color: inherit; }
 .cd-line-variant { font-size: 13px; color: var(--c-muted-2); }
 .cd-err { margin: 0 18px 12px; padding: 10px 12px; border-radius: 8px; background: var(--c-error-bg); color: var(--c-error); font-size: 13.5px; line-height: 1.5; }
-.cd-line-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 2px; }
+.cd-line-foot { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-top: 2px; }
 .cd-qty { display: inline-flex; align-items: center; border: 1.5px solid var(--c-border-2); border-radius: 8px; overflow: hidden; }
 .cd-qty button { width: 30px; height: 30px; border: none; background: #fff; color: var(--c-text); font-size: 16px; cursor: pointer; line-height: 1; }
 .cd-qty button:hover:not(:disabled) { background: #f4f5f2; }
 .cd-qty button:disabled { opacity: .4; cursor: default; }
 .cd-qty span { min-width: 30px; text-align: center; font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.cd-qty-col { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.cd-remove { display: inline-flex; align-items: center; gap: 5px; padding: 2px 0; border: none; background: none; font: inherit; font-size: 12.5px; font-weight: 700; color: var(--c-muted-2); cursor: pointer; }
+.cd-remove:hover:not(:disabled) { color: #a33; }
+.cd-remove:disabled { opacity: .4; cursor: default; }
 .cd-line-price { font-family: var(--font-heading); font-weight: 800; font-size: 15.5px; color: var(--c-text); font-variant-numeric: tabular-nums; }
 .cd-line-was { font-size: 13px; color: var(--c-muted-2); text-decoration: line-through; margin-right: 6px; font-weight: 400; }
 

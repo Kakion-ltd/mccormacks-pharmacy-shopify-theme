@@ -433,10 +433,17 @@
             // on a single-variant line. The cart page has always shown this.
             (it.variant_title ? '<span class="cd-line-variant">' + esc(it.variant_title) + '</span>' : '') +
             '<div class="cd-line-foot">' +
+              '<span class="cd-qty-col">' +
               '<span class="cd-qty">' +
                 '<button type="button" data-cd-qty="' + (i + 1) + '" data-cd-to="' + (it.quantity - 1) + '" aria-label="Decrease quantity">&minus;</button>' +
                 '<span>' + it.quantity + '</span>' +
                 '<button type="button" data-cd-qty="' + (i + 1) + '" data-cd-to="' + (it.quantity + 1) + '" aria-label="Increase quantity">+</button>' +
+              '</span>' +
+              // Quantity 0 through the same handler as the stepper, so the subtotal, the
+              // delivery bar re-run from Shopify's answer.
+              '<button type="button" class="cd-remove" data-cd-qty="' + (i + 1) + '" data-cd-to="0" aria-label="Remove ' +
+                esc(it.product_title + (it.variant_title ? ', ' + it.variant_title : '')) + '">' +
+                '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6M14 11v6"></path></svg>Remove</button>' +
               '</span>' +
               '<span class="cd-line-price">' + was + fmt(it.final_line_price) + '</span>' +
             '</div>' +
@@ -474,6 +481,9 @@
         }
         const cart = await res.json();
         render(cart);
+        // The line (and the button that had focus) is gone; don't drop keyboard and
+        // screen-reader users on <body>.
+        if (to === 0) focusSoon($('[data-cd-close]'));
         document.querySelectorAll('[data-cart-count]').forEach((el) => {
           el.textContent = cart.item_count;
           el.style.display = cart.item_count > 0 ? 'flex' : 'none';

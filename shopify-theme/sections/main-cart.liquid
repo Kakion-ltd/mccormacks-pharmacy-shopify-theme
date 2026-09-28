@@ -62,13 +62,16 @@
                 {%- endif -%}
                 <span style="color:#666b60; font-size:13.5px;">each</span>
               </div>
-              <div class="cart-row-foot" style="display:flex; flex-wrap:wrap; align-items:center; gap:16px 22px; margin-top:4px;">
+              <div class="cart-row-foot" style="display:flex; flex-direction:column; align-items:flex-start; gap:10px; margin-top:4px;">
                 <div style="display:flex; align-items:center; border:1px solid #dfe1dc; border-radius:9px; height:44px; overflow:hidden; width:fit-content;">
                   <button type="button" class="cart-step" data-line="{{ forloop.index }}" data-line-qty="{{ item.quantity | minus: 1 }}" aria-label="Decrease quantity" style="width:42px; height:100%; border:none; background:#fbfcfa; color:#2A2B2A; font-size:19px; font-weight:700; cursor:pointer; font-family:inherit;">&minus;</button>
                   <span style="min-width:44px; text-align:center; font-weight:800; font-size:15.5px;">{{ item.quantity }}</span>
                   <button type="button" class="cart-step" data-line="{{ forloop.index }}" data-line-qty="{{ item.quantity | plus: 1 }}" aria-label="Increase quantity" style="width:42px; height:100%; border:none; background:#fbfcfa; color:#2A2B2A; font-size:19px; font-weight:700; cursor:pointer; font-family:inherit;">+</button>
                 </div>
-                <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0" class="cart-remove" style="font-size:13.5px; font-weight:700; color:#666b60; border-bottom:1px solid #d8dcd3;">Remove</a>
+                {%- comment -%} Same handler as the steppers (quantity 0), so the page reloads
+                    with the totals and the delivery bar recomputed. The
+                    href is the no-JS route. The label names the line for a screen reader. {%- endcomment -%}
+                <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0" class="cart-remove" data-line="{{ forloop.index }}" data-line-qty="0" aria-label="Remove {{ item.product.title | escape }}{% unless item.product.has_only_default_variant %}, {{ item.variant.title | escape }}{% endunless %}" style="display:inline-flex; align-items:center; gap:6px; font-size:13.5px; font-weight:700; color:#666b60;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6M14 11v6"></path></svg>Remove</a>
               </div>
             </div>
             <div style="flex:0 0 auto; text-align:right; font-family:var(--font-heading); font-weight:800; font-size:19px; color:#2A2B2A;">{{ item.final_line_price | money }}</div>
@@ -189,6 +192,7 @@
     document.addEventListener('click', async e => {
       const btn = e.target.closest('[data-line-qty]');
       if (!btn) return;
+      e.preventDefault(); // Remove is a link, for the no-JS route
       btn.disabled = true;
       try {
         await fetch(changeUrl, {
