@@ -2230,8 +2230,9 @@ database has full descriptions for only 1,038 products.
   site enforces those limits, and some disagree with the licence caps. The
   quantity pass after Fergal's sign-off corrects them; until then, don't treat
   a description as the source for a limit.
-- **Not restored:** Dulcolax and Salatac (cut on the old site too), and five
-  whose old-site wording differs from ours (Bonjela Teething, both Nicorette
-  Cools 2Mg, Clonfolic 98Pk, Nytol), pending a decision. 45 were restored.
+- **50 restored.** Five of them took the old site's wording over ours, which
+  differed (Bonjela Teething repeated itself, Nicorette Cools 2Mg 20Pk and
+  Panadol Ets 24Pk carried another product's text). **Not restored:** Dulcolax
+  and Salatac, cut on the old site too.
 - Fetch the old site no faster than one page every 10 seconds: at four at a
   time it returned 403 to everything for several minutes.
