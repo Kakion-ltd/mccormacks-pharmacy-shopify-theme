@@ -1942,12 +1942,20 @@ that the Shopify docs get wrong for this store:
 - **`resources[options][fields]` is ignored.** Adding tag, then body, gave
   identical results for "paracetamol" and "ibuprofen", and restricting it to
   `vendor` still matched titles. Don't add it expecting a change.
-- **Synonyms are not available on this store.** Search & Discovery here has
-  no Synonyms section, so the "menthol, deep heat" test on 28 Sep had nothing
-  to act on, and the synonym work was dropped. The draft ingredient-to-brand
-  list is not kept anywhere; the weak ingredient searches below remain. The
-  levers left are product titles and descriptions, since the semantic search
-  reads both.
+- **Synonym groups can't be used here.** Shopify's free Search & Discovery
+  app has had synonym groups, but by 28 Sep its Synonyms section was gone on
+  this store. Merchants on Shopify's forums report the same from 16 Sep 2026,
+  with the move to semantic search; no official Shopify notice was found.
+  - **Installed?** The client reports the app is installed. The API can't
+    confirm it: the catalogue token has no `read_apps` scope, and there is no
+    API for synonym groups.
+  - **What's set?** Nothing is visible or editable. A "menthol, deep heat"
+    test on 28 Sep had no effect in the dropdown or on `/search`.
+  - **So:** the synonym work was dropped, and the draft ingredient-to-brand
+    list is not kept. The weak ingredient searches below remain. The levers
+    left are product titles and descriptions, which the semantic search reads.
+    If Shopify brings synonyms back, rerun the menthol test before relying on
+    them.
 
 The weak spots are ingredient searches for combination products: "menthol",
 "phenylephrine" (whose top hit is Phenergan, a different medicine),
