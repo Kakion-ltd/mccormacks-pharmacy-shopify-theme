@@ -152,23 +152,23 @@
           </div>
         </div>
 
-        <!-- Description / Ingredients / How To Use tabs -->
+        <!-- Description / How To Use / Ingredients tabs -->
         <div class="pdp-accordions" style="margin-top:34px;">
           <div style="display:flex; flex-wrap:wrap; gap:0 8px; border-bottom:1px solid #e6e7e4;">
             <button type="button" class="pdp-tab" data-view-btn="desc" data-active="true">Description</button>
-            {%- if ingredients_mf != blank -%}
-              <button type="button" class="pdp-tab" data-view-btn="ingredients">Ingredients</button>
-            {%- endif -%}
             {%- if how_to_use_mf != blank -%}
               <button type="button" class="pdp-tab" data-view-btn="how">How To Use</button>
             {%- endif -%}
+            {%- if ingredients_mf != blank -%}
+              <button type="button" class="pdp-tab" data-view-btn="ingredients">Ingredients</button>
+            {%- endif -%}
           </div>
           <div data-view="desc" style="max-width:var(--measure); padding:22px 4px 26px; font-size:15.5px; line-height:1.7; color:#4a4d47;">{{ product.description }}</div>
-          {%- if ingredients_mf != blank -%}
-            <div data-view="ingredients" style="display:none; padding:22px 4px 26px; font-size:15.5px; line-height:1.7; color:#4a4d47;">{{ ingredients_mf | metafield_tag }}</div>
-          {%- endif -%}
           {%- if how_to_use_mf != blank -%}
             <div data-view="how" style="display:none; padding:22px 4px 26px; font-size:15.5px; line-height:1.7; color:#4a4d47;">{{ how_to_use_mf | metafield_tag }}</div>
+          {%- endif -%}
+          {%- if ingredients_mf != blank -%}
+            <div data-view="ingredients" style="display:none; padding:22px 4px 26px; font-size:15.5px; line-height:1.7; color:#4a4d47;">{{ ingredients_mf | metafield_tag }}</div>
           {%- endif -%}
         </div>
 
