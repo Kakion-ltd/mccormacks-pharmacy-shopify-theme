@@ -1999,3 +1999,29 @@ Retired on 28 Sep, both in `archive/client-pack-2026-09-28/`: the 28-page
 staff guide (`4-Staff-Guide-Adding-Products.pdf`), which taught staff to add
 products straight into Shopify and to publish to all channels, and the 13-column
 V1 sheet. Don't send either again.
+
+## Product titles: till notes and a lost "no" (28 Sep 2026)
+
+24 titles fixed, titles only, approved by Kakion. Handles were left alone, so
+some handles still carry the old text (`…-blue-clonmel`, `tena-lady-rmal`);
+that is deliberate. Before and after in
+`archive/store-cleanup-2026-09-28/titles-before.csv`.
+
+- **Till notes in titles.** Imported titles carried notes from the shops' till
+  system: pack colour and maker ("Paralief … 24Pk Blue Clonmel"; Clonmel is
+  Clonmel Healthcare, not the shop), stock codes ("6'S-5069", "Can509"),
+  prices ("2Pk €7"), "(New)" and cut-off words ("Blister T"). Two were left:
+  "Brylcream Gel Cream 2 For €6" (pack size unknown) and "Tubigrip Bandage
+  0.5M Natural F 1" (meaning of the "1" unknown).
+- **"no" deleted from some titles.** An earlier import removed every "no",
+  in any case and mid-word: Normal became "Rmal", Nordic "Rdic", Pharmanord
+  "Pharmard", Lansinoh "Lansih", Snoring "Sring", Retinol "Retil". 14 titles
+  were hit, all non-medicines, and no descriptions; 74 other titles kept their
+  "no", so it was one batch. A title that looks like a mangled brand name is
+  worth checking for this before assuming a typo.
+- **Titles are keys elsewhere.** `setup/quantity-limit-tags-draft.csv` and the
+  classification CSV match products by title. The Paralief row in the
+  quantity-limit draft was updated with the store; a later title change needs
+  the same.
+- **Jointace Original's description was Jointace Omega-3's.** Replaced; the
+  old text is in `jointace-description-before.html` beside the CSV.
