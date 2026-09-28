@@ -1569,6 +1569,13 @@ whichever is taller, so that is the gap under the gallery. The earlier rule
 still applies: do not cap the gallery to close it. If the gap matters, the
 fix is to shorten the buy box.
 
+**`psi25/order-review` also edits `sections/main-product.liquid`** (the express
+checkout and the gated buy box). It branched before this layout landed
+(8e8ec97), so it must be rebased onto `main` before its next push to any
+theme. Pushing it unrebased puts the old file back and silently undoes the
+side column. Before pushing that file, check that its `min-width: 1101px`
+grid block is still there.
+
 ## Brand pages — which brands get one (24 Sep 2026)
 
 `setup/brands.json` was rebuilt from the live catalogue on 24 Sep 2026. It is
@@ -1800,6 +1807,14 @@ the tag came off both. Capasal Therapeutic Shampoo 250ml had vendor
 keeps the tag (Capasal Therapeutic Shampoo is P) and still has a stale
 `Canesten` tag, which no rule reads. Before state in
 `archive/store-cleanup-2026-09-28/untag-and-vendor-before.csv`.
+
+Carnation Bunion Pads 4Pk lost the tag the same day, for the same reason:
+the match offered it Carnation's three licences (Callous Caps, Corn Caps and
+Vericap, PA23188/001/001-003), and it is none of them. Eight more Carnation
+products carry the tag on the same non-match and were left for a decision:
+Heel Grips, Gel Toe Separators, Animal Wool, Hydrocolloid Blister Care, Corn
+Pads 9Pk, Fleecy Stretch Padding, Chiropody Felt and Corn Shields. Callous
+Caps and Corn Caps are licensed and keep it.
 
 The two Calpol Vapour products are still typed "Pharmacy > Children's
 Medicine", are still off the Shop channel from the 27 Sep medicines sweep,
