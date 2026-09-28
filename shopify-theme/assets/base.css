@@ -546,7 +546,8 @@ body[data-cd-open] { overflow: hidden; }
 .ps-item[aria-selected="true"], .ps-all[aria-selected="true"] { box-shadow: inset 0 0 0 2px var(--c-primary-text); }
 .ps-query { gap: 10px; color: var(--c-muted); font-size: 14px; }
 .ps-query svg { flex: 0 0 auto; color: var(--c-muted-2); }
-.ps-query b { color: var(--c-text); font-weight: 800; }
+/* Shopify marks the typed part with <mark> (the preview mock uses <b>); without this it is UA yellow */
+.ps-query b, .ps-query mark { background: none; color: var(--c-text); font-weight: 800; }
 .ps-collection { font-weight: 600; }
 
 .ps-products { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 8px; }
@@ -574,6 +575,8 @@ body[data-cd-open] { overflow: hidden; }
   .ps-cols { flex-direction: column; align-items: stretch; }
   .ps-side { flex: none; padding: 0; margin: 0; border: 0; }
   .ps-item { min-height: 44px; }
+  /* two searches, not four, so the first products are on the first screen */
+  .ps-query:nth-of-type(n+3) { display: none; }
   .ps-colls { display: flex; flex-wrap: wrap; gap: 8px; padding: 2px 0 6px; }
   .ps-collection { min-height: 40px; padding: 8px 14px; border: 1px solid var(--c-border); border-radius: 999px; font-size: 14px; }
   .ps-products { gap: 10px; }

@@ -839,7 +839,7 @@
     // Focus never leaves the input: arrows move aria-activedescendant through the
     // [role=option] links (the ARIA 1.2 combobox pattern), so a screen reader reads
     // each option as it becomes active and the phone keyboard stays open.
-    const psOptions = () => Array.from(psPanel.querySelectorAll('[role="option"]'));
+    const psOptions = () => Array.from(psPanel.querySelectorAll('[role="option"]')).filter(o => o.offsetParent);
     const psPhone = window.matchMedia('(max-width: 900px)');
     let psActive = -1;
 
