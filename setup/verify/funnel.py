@@ -76,10 +76,34 @@ with sync_playwright() as pw:
         check(f"[{label}] aria-expanded true", inp.get_attribute("aria-expanded") == "true")
         check(f"[{label}] 'see all' link present", page.locator(".ps-all").count() == 1)
 
+        # Combobox pattern: focus stays in the input, aria-activedescendant moves.
+        lb = page.evaluate("""() => { const lb = document.getElementById(
+            document.querySelector('[data-ps-input]').getAttribute('aria-controls'));
+          if (!lb || lb.getAttribute('role') !== 'listbox') return 'no listbox';
+          const bad = [...lb.querySelectorAll('*')].filter(e => e.getAttribute('role')
+            && !['group', 'option'].includes(e.getAttribute('role')));
+          const loose = [...lb.querySelectorAll('[role=option]')].filter(o => !o.closest('[role=group]'));
+          return bad.length + loose.length; }""")
+        check(f"[{label}] listbox owns only groups and options", lb, 0)
         page.keyboard.press("ArrowDown")
         page.wait_for_timeout(120)
-        focused = page.evaluate("document.activeElement.className")
-        check(f"[{label}] ArrowDown moves into list", "ps-item" in focused or "ps-all" in focused)
+        first = page.evaluate("document.querySelector('[role=option]').id")
+        check(f"[{label}] ArrowDown activates first option",
+              inp.get_attribute("aria-activedescendant"), first)
+        check(f"[{label}] focus stays in the input",
+              page.evaluate("document.activeElement.hasAttribute('data-ps-input')"))
+        check(f"[{label}] active option is aria-selected",
+              page.locator(f"#{first}").get_attribute("aria-selected"), "true")
+        page.keyboard.press("ArrowUp")
+        page.wait_for_timeout(80)
+        check(f"[{label}] ArrowUp from first returns to the text",
+              inp.get_attribute("aria-activedescendant"), None)
+        page.keyboard.press("ArrowUp")
+        page.wait_for_timeout(80)
+        check(f"[{label}] ArrowUp from the text wraps to View all",
+              inp.get_attribute("aria-activedescendant"), "ps-opt-all")
+        check(f"[{label}] status announces the results",
+              "arrows" in (page.locator("[data-ps-status]").text_content() or ""))
 
         page.keyboard.press("Escape")
         page.wait_for_timeout(150)
@@ -92,8 +116,10 @@ with sync_playwright() as pw:
 
         inp.fill("pain")
         page.wait_for_timeout(600)
-        flag = page.locator(".ps-flag").count()
-        check(f"[{label}] restricted suggestion flagged, not priced", flag >= 1)
+        flagged = page.locator(".ps-product").filter(has=page.locator(".ps-flag"))
+        check(f"[{label}] restricted suggestion labelled Pharmacy", flagged.count() >= 1)
+        check(f"[{label}] restricted suggestion still priced",
+              "\u20ac" in (flagged.first.locator(".ps-price").text_content() or ""))
         check(f"[{label}] no add button anywhere in panel",
               panel.locator("[data-add-id]").count() == 0)
 

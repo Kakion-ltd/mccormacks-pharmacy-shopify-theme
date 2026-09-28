@@ -836,11 +836,35 @@
     // refetches, and the panel a shopper just dismissed springs straight back.
     let psDismissed = false;
 
-    const psItems = () => Array.from(psPanel.querySelectorAll('.ps-item, .ps-all'));
+    // Focus never leaves the input: arrows move aria-activedescendant through the
+    // [role=option] links (the ARIA 1.2 combobox pattern), so a screen reader reads
+    // each option as it becomes active and the phone keyboard stays open.
+    const psOptions = () => Array.from(psPanel.querySelectorAll('[role="option"]'));
+    const psPhone = window.matchMedia('(max-width: 900px)');
+    let psActive = -1;
+
+    function psSetActive(i) {
+      const opts = psOptions();
+      opts.forEach((o, n) => o.setAttribute('aria-selected', String(n === i)));
+      psActive = i >= 0 && i < opts.length ? i : -1;
+      if (psActive === -1) { psInput.removeAttribute('aria-activedescendant'); return; }
+      psInput.setAttribute('aria-activedescendant', opts[psActive].id);
+      opts[psActive].scrollIntoView({ block: 'nearest' });
+    }
+
+    // Phones: the panel runs from under the field to the foot of the screen. It is
+    // absolute, not fixed, because .hdr-sticky's transform would capture a fixed box,
+    // so its height is measured from where it actually starts.
+    function psFit() {
+      if (psPanel.hidden || !psPhone.matches) { psPanel.style.removeProperty('--ps-top'); return; }
+      psPanel.style.setProperty('--ps-top', psPanel.getBoundingClientRect().top + 'px');
+    }
+    addEventListener('resize', psFit);
 
     function psClose() {
       psPanel.hidden = true;
       psPanel.innerHTML = '';
+      psSetActive(-1);
       psInput.setAttribute('aria-expanded', 'false');
       if (psAbort) { psAbort.abort(); psAbort = null; }
       clearTimeout(psTimer);
@@ -848,13 +872,23 @@
 
     function psShow(html) {
       psPanel.innerHTML = html;
+      psActive = -1;
+      psInput.removeAttribute('aria-activedescendant');
+      const products = psPanel.querySelectorAll('.ps-product').length;
+      const colls = psPanel.querySelectorAll('.ps-collection').length;
       const count = psPanel.querySelectorAll('.ps-item').length;
       psPanel.hidden = count === 0 && !psPanel.querySelector('.ps-empty');
-      psInput.setAttribute('aria-expanded', String(!psPanel.hidden));
+      psInput.setAttribute('aria-expanded', String(count > 0));
+      psFit();
       if (psStatus) {
+        const plural = (n, w) => n + ' ' + w + (n === 1 ? '' : 's');
+        const parts = [];
+        if (products) parts.push(plural(products, 'product'));
+        if (colls) parts.push(plural(colls, 'collection'));
+        if (!parts.length && count) parts.push(plural(count, 'suggestion'));
         psStatus.textContent = count > 0
-          ? count + (count === 1 ? ' suggestion' : ' suggestions') + ' available'
-          : 'No suggestions';
+          ? parts.join(' and ') + '. Use the up and down arrows to browse.'
+          : 'No matches';
       }
     }
 
@@ -897,26 +931,26 @@
       if (!psDismissed && term.length >= 2 && psPanel.hidden) psFetch(term);
     });
 
-    // Arrow keys walk the suggestions, Escape returns to the input.
+    // Down/Up walk every option in reading order, past the last one back to the
+    // text; Enter follows the active option, or submits the search if none is;
+    // Escape closes the panel, and a second Escape is left to the browser.
     psInput.addEventListener('keydown', e => {
-      if (e.key === 'Escape') { psDismissed = true; psClose(); return; }
+      if (e.key === 'Escape') {
+        if (psPanel.hidden) return;
+        e.preventDefault(); psDismissed = true; psClose(); return;
+      }
+      if (e.key === 'Enter' && psActive > -1) {
+        e.preventDefault();
+        window.location.href = psOptions()[psActive].href;
+        return;
+      }
       if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
-      const items = psItems();
-      if (!items.length) return;
+      const n = psOptions().length;
+      if (psPanel.hidden || !n) return;
       e.preventDefault();
-      (e.key === 'ArrowDown' ? items[0] : items[items.length - 1]).focus();
-    });
-
-    psPanel.addEventListener('keydown', e => {
-      if (e.key === 'Escape') { psDismissed = true; psClose(); psInput.focus(); return; }
-      if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
-      const items = psItems();
-      const i = items.indexOf(document.activeElement);
-      if (i === -1) return;
-      e.preventDefault();
-      const next = e.key === 'ArrowDown' ? i + 1 : i - 1;
-      if (next < 0) psInput.focus();
-      else if (next < items.length) items[next].focus();
+      let i = psActive + (e.key === 'ArrowDown' ? 1 : -1);
+      if (psActive === -1 && e.key === 'ArrowUp') i = n - 1;
+      psSetActive(i >= n ? -1 : i);
     });
 
     document.addEventListener('click', e => {

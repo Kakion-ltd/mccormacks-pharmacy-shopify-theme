@@ -530,31 +530,57 @@ body[data-cd-open] { overflow: hidden; }
 /* ---- Predictive search (sections/predictive-search.liquid, driven by theme.js) ---- */
 .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
-.ps-panel { position: absolute; z-index: 60; top: calc(100% + 8px); left: 0; right: 0; max-height: min(70vh, 520px); overflow-y: auto; overscroll-behavior: contain; background: #fff; border: 1px solid var(--c-border); border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .13); padding: 8px; }
+/* Desktop: wider than the 550px field and centred on it (the field is the middle grid
+   column, so centred on the page too), Searches + Collections left, Products right. */
+.ps-panel { position: absolute; z-index: 60; top: calc(100% + 8px); left: 50%; width: min(860px, calc(100vw - 40px)); transform: translateX(-50%); max-height: min(75vh, 600px); overflow-y: auto; overscroll-behavior: contain; background: #fff; border: 1px solid var(--c-border); border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .13); padding: 8px; }
 /* .ps-panel sets display:block above, which beats the UA sheet's [hidden]{display:none} */
 .ps-panel[hidden] { display: none !important; }
 
-.ps-list { list-style: none; margin: 0; padding: 0; }
+.ps-cols { display: flex; align-items: flex-start; }
+.ps-side { flex: 0 0 230px; min-width: 0; padding-right: 8px; margin-right: 8px; border-right: 1px solid var(--c-border); align-self: stretch; }
+.ps-main { flex: 1 1 auto; min-width: 0; }
 .ps-group-label { padding: 10px 10px 6px; font-size: 11.5px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--c-muted-2); }
 .ps-item { display: flex; align-items: center; gap: 12px; padding: 8px 10px; border-radius: 9px; color: var(--c-text); font-size: 14.5px; }
-.ps-item:hover, .ps-item:focus-visible, .ps-item.is-active { background: #f1f5ec; outline: none; }
+/* aria-selected is the keyboard's active option: focus stays in the input */
+.ps-item:hover, .ps-item[aria-selected="true"], .ps-all:hover, .ps-all[aria-selected="true"] { background: #f1f5ec; outline: none; }
+.ps-item[aria-selected="true"], .ps-all[aria-selected="true"] { box-shadow: inset 0 0 0 2px var(--c-primary-text); }
 .ps-query { gap: 10px; color: var(--c-muted); font-size: 14px; }
 .ps-query svg { flex: 0 0 auto; color: var(--c-muted-2); }
 .ps-query b { color: var(--c-text); font-weight: 800; }
-
-.ps-thumb { flex: 0 0 44px; width: 44px; height: 44px; border-radius: 7px; border: 1px solid var(--c-border-2); background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.ps-thumb-img { max-width: 86%; max-height: 86%; width: auto; height: auto; object-fit: contain; display: block; }
-.ps-meta { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
-.ps-title { font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.ps-price { font-weight: 800; font-size: 14px; color:var(--c-primary-text); font-variant-numeric: tabular-nums; }
-.ps-price .price-was { font-size: 12px; margin-left: 6px; }
-.ps-oos { font-weight: 700; font-size: 13px; color: var(--c-muted-2); }
-/* Restricted lines show why there is no price-and-add shortcut, not a bare price */
-.ps-flag { font-weight: 700; font-size: 12.5px; color: #8a6210; }
 .ps-collection { font-weight: 600; }
+
+.ps-products { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 8px; }
+.ps-thumb { flex: 0 0 56px; width: 56px; height: 56px; border-radius: 7px; border: 1px solid var(--c-border-2); background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.ps-thumb-img { max-width: 86%; max-height: 86%; width: auto; height: auto; object-fit: contain; display: block; }
+.ps-meta { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.ps-brand { font-size: 12px; font-weight: 700; color: var(--c-muted-2); }
+.ps-title { font-weight: 600; font-size: 14px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ps-price { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-weight: 800; font-size: 14px; color:var(--c-primary-text); font-variant-numeric: tabular-nums; }
+.ps-price .price-was { font-size: 12px; }
+.ps-oos { font-weight: 700; font-size: 13px; color: var(--c-muted-2); }
+/* A medicine: priced like anything else, labelled so it is clear a pharmacist reviews the order */
+.ps-flag { font-weight: 800; font-size: 11px; letter-spacing: .03em; line-height: 1; padding: 3px 6px; border-radius: 4px; color: #8a6210; background: #fbf3e2; }
 .ps-empty { margin: 0; padding: 18px 12px; font-size: 14.5px; color: var(--c-muted); }
-.ps-all { display: block; margin-top: 6px; padding: 12px 10px; border-top: 1px solid var(--c-border); font-size: 14px; font-weight: 700; color: var(--c-dark); }
+.ps-foot { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--c-border); }
+.ps-all { display: block; padding: 12px 10px; border-radius: 9px; font-size: 14px; font-weight: 700; color: var(--c-dark); }
 .ps-all:hover { color:var(--c-primary-text); }
+
+/* Phones: a full-screen panel from under the field to the foot of the screen, edge to
+   edge (the -16px undoes .hdr-search-row's gutter). --ps-top is the panel's measured
+   top, set by theme.js; the fallback is the pinned header's height. Collections become
+   chips above the products, which go two across as small cards. */
+@media (max-width: 900px) {
+  .ps-panel { left: -16px; right: -16px; width: auto; transform: none; top: calc(100% + 10px); height: calc(100dvh - var(--ps-top, 112px)); max-height: none; border-radius: 0; border-width: 1px 0 0; box-shadow: none; padding: 4px 16px 24px; }
+  .ps-cols { flex-direction: column; align-items: stretch; }
+  .ps-side { flex: none; padding: 0; margin: 0; border: 0; }
+  .ps-item { min-height: 44px; }
+  .ps-colls { display: flex; flex-wrap: wrap; gap: 8px; padding: 2px 0 6px; }
+  .ps-collection { min-height: 40px; padding: 8px 14px; border: 1px solid var(--c-border); border-radius: 999px; font-size: 14px; }
+  .ps-products { gap: 10px; }
+  .ps-product { flex-direction: column; align-items: stretch; gap: 8px; padding: 8px; border: 1px solid var(--c-border); }
+  .ps-thumb { flex: none; width: 100%; height: auto; aspect-ratio: 1; border: 0; }
+  .ps-all { text-align: center; }
+}
 
 /* ---- Cart cross-sell rail (sections/cart-recommendations.liquid) ---- */
 /* The mount is display:block once filled, so it needs the !important [hidden]

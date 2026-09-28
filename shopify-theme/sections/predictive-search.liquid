@@ -8,7 +8,15 @@
   applied server-side in Liquid rather than reimplemented in JavaScript.
 
   Suggestions are links only. Nothing in this panel adds to the bag, so the
-  panel can never bypass a product page.
+  panel can never bypass a product page. A restricted product still shows its
+  price, with a "Pharmacy" label.
+
+  Structure is the ARIA 1.2 combobox pattern: focus stays in the header input,
+  which points aria-activedescendant at one [role=option] in the listbox below.
+  Every option sits in a labelled [role=group]; the wrappers between them are
+  plain divs, so the listbox owns nothing but groups and options. Searches and
+  collections are the left column, products the right; on phones the columns
+  stack and products go two across (base.css, "Predictive search").
 {% endcomment %}
 {%- assign products = predictive_search.resources.products -%}
 {%- assign collections = predictive_search.resources.collections -%}
@@ -20,65 +28,74 @@
     <p class="ps-empty">No matches for &ldquo;{{ predictive_search.terms }}&rdquo;. Try a brand or a product name.</p>
 
   {%- else -%}
+    <div class="ps-listbox" id="predictive-search-results" role="listbox" aria-label="Search suggestions">
+      <div class="ps-cols">
+        {%- if queries.size > 0 or collections.size > 0 -%}
+          <div class="ps-side">
+            {%- if queries.size > 0 -%}
+              <div class="ps-group" role="group" aria-labelledby="ps-h-queries">
+                <div class="ps-group-label" id="ps-h-queries">Searches</div>
+                {%- for query in queries limit: 4 -%}
+                  <a class="ps-item ps-query" role="option" aria-selected="false" id="ps-opt-q{{ forloop.index }}" href="{{ query.url }}" tabindex="-1">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
+                    <span>{{ query.styled_text }}</span>
+                  </a>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
 
-    {%- if queries.size > 0 -%}
-      <ul class="ps-list ps-queries" role="list">
-        {%- for query in queries limit: 4 -%}
-          <li>
-            <a class="ps-item ps-query" href="{{ query.url }}">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
-              <span>{{ query.styled_text }}</span>
-            </a>
-          </li>
-        {%- endfor -%}
-      </ul>
-    {%- endif -%}
+            {%- if collections.size > 0 -%}
+              <div class="ps-group" role="group" aria-labelledby="ps-h-collections">
+                <div class="ps-group-label" id="ps-h-collections">Collections</div>
+                <div class="ps-colls">
+                  {%- for collection in collections limit: 6 -%}
+                    <a class="ps-item ps-collection" role="option" aria-selected="false" id="ps-opt-c{{ forloop.index }}" href="{{ collection.url }}" tabindex="-1">{{ collection.title }}</a>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
 
-    {%- if products.size > 0 -%}
-      <div class="ps-group-label">Products</div>
-      <ul class="ps-list" role="list">
-        {%- for product in products -%}
-          {%- capture restricted -%}{%- render 'product-restricted', product: product -%}{%- endcapture -%}
-          {%- comment -%} Blank unless the price shown is genuinely reduced — see snippets/product-compare-at.liquid. {%- endcomment -%}
-          {%- capture was -%}{%- render 'product-compare-at', product: product -%}{%- endcapture -%}
-          {%- assign was = was | strip -%}
-          <li>
-            <a class="ps-item ps-product" href="{{ product.url }}">
-              <span class="ps-thumb">
-                {%- if product.featured_image -%}
-                  {{ product.featured_image | image_url: width: 120 | image_tag: alt: '', loading: 'lazy', width: 60, height: 60, class: 'ps-thumb-img' }}
-                {%- endif -%}
-              </span>
-              <span class="ps-meta">
-                <span class="ps-title">{{ product.title }}</span>
-                <span class="ps-price">
-                  {%- if restricted == 'true' -%}
-                    <span class="ps-flag">Pharmacist advice</span>
-                  {%- elsif product.available == false -%}
-                    <span class="ps-oos">Out of stock</span>
-                  {%- else -%}
-                    {{ product.price | money }}{%- if was != blank -%}<span class="price-was">{{ was }}</span>{%- endif -%}
-                  {%- endif -%}
-                </span>
-              </span>
-            </a>
-          </li>
-        {%- endfor -%}
-      </ul>
-    {%- endif -%}
+        {%- if products.size > 0 -%}
+          <div class="ps-main">
+            <div class="ps-group" role="group" aria-labelledby="ps-h-products">
+              <div class="ps-group-label" id="ps-h-products">Products</div>
+              <div class="ps-products">
+                {%- for product in products -%}
+                  {%- capture restricted -%}{%- render 'product-restricted', product: product -%}{%- endcapture -%}
+                  {%- comment -%} Blank unless the price shown is genuinely reduced — see snippets/product-compare-at.liquid. {%- endcomment -%}
+                  {%- capture was -%}{%- render 'product-compare-at', product: product -%}{%- endcapture -%}
+                  {%- assign was = was | strip -%}
+                  <a class="ps-item ps-product" role="option" aria-selected="false" id="ps-opt-p{{ forloop.index }}" href="{{ product.url }}" tabindex="-1">
+                    <span class="ps-thumb">
+                      {%- if product.featured_image -%}
+                        {{ product.featured_image | image_url: width: 360 | image_tag: alt: '', loading: 'lazy', widths: '120,240,360', sizes: '(max-width: 900px) 45vw, 56px', width: 180, height: 180, class: 'ps-thumb-img' }}
+                      {%- endif -%}
+                    </span>
+                    <span class="ps-meta">
+                      {%- if product.vendor != blank -%}<span class="ps-brand">{{ product.vendor }}</span>{%- endif -%}
+                      <span class="ps-title">{{ product.title }}</span>
+                      <span class="ps-price">
+                        {%- if product.available == false -%}
+                          <span class="ps-oos">Out of stock</span>
+                        {%- else -%}
+                          {{ product.price | money }}{%- if was != blank -%}<span class="price-was">{{ was }}</span>{%- endif -%}
+                        {%- endif -%}
+                        {%- if restricted == 'true' -%}<span class="ps-flag">Pharmacy</span>{%- endif -%}
+                      </span>
+                    </span>
+                  </a>
+                {%- endfor -%}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
 
-    {%- if collections.size > 0 -%}
-      <div class="ps-group-label">Categories</div>
-      <ul class="ps-list" role="list">
-        {%- for collection in collections limit: 3 -%}
-          <li><a class="ps-item ps-collection" href="{{ collection.url }}">{{ collection.title }}</a></li>
-        {%- endfor -%}
-      </ul>
-    {%- endif -%}
-
-    <a class="ps-all" href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}">
-      See all results for &ldquo;{{ predictive_search.terms }}&rdquo;
-    </a>
-
+      <div class="ps-group ps-foot" role="group" aria-label="All results">
+        <a class="ps-all" role="option" aria-selected="false" id="ps-opt-all" href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&amp;options%5Bprefix%5D=last" tabindex="-1">View all results</a>
+      </div>
+    </div>
   {%- endif -%}
 {%- endif -%}
