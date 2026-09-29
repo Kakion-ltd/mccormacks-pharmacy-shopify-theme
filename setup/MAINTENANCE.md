@@ -1915,7 +1915,9 @@ products carried it on the same non-match and lost it later that day: Heel
 Grips, Gel Toe Separators, Animal Wool, Hydrocolloid Blister Care, Corn Pads
 9Pk, Fleecy Stretch Padding, Chiropody Felt and Corn Shields. None is on the
 register and none is medicated. Callous Caps and Corn Caps (salicylic acid)
-are licensed and keep it. The eight are still typed `Pharmacy > Foot & Nail
+are licensed and keep it. The client pack followed on 29 Sep: the nine rows came out of the
+"Medicine classification" tab and the Handover now says 337 (219 licensed,
+118 other). The eight are still typed `Pharmacy > Foot & Nail
 Care` (Corn Shields `Pharmacy > First Aid`), so they stay on those pages and
 show the pharmacist lines, and they are still off the Shop channel.
 

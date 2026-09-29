@@ -49,7 +49,7 @@ a medicine before it is sent. That covers pharmacy-only and general sale
 medicines alike. There is no shortlist: every product marked as a medicine is
 covered.
 
-The website marks 346 products as medicines. The hold that stops those orders
+The website marks 337 products as medicines. The hold that stops those orders
 being sent until a pharmacist approves them **is now built, but not yet
 tested**. Every order containing a medicine is put on hold, marked "awaiting
 pharmacist", and the shop gets an email. The pharmacist prints a record sheet
@@ -307,11 +307,11 @@ stock tracking yet, so each goes on once we have a real stock number for it.
   (see the pharmacist questions document).
 
 **Check how each medicine is classified. Owner: Pharmacy (pharmacist).**
-Spreadsheet: `2-Pharmacist-Review-Website-Pages.xlsx`, tab "Medicine classification". It lists the 346 products the website treats as medicines. For each,
+Spreadsheet: `2-Pharmacist-Review-Website-Pages.xlsx`, tab "Medicine classification". It lists the 337 products the website treats as medicines. For each,
 tell us whether our classification is right: pharmacy-only, general sale, or
 not a medicine. The first 219 are licensed medicines on the HPRA register; the
-other 127 need the pharmacist's judgement, including five veterinary flea
-treatments. Every one of the 346 stays marked as a medicine until you have
+other 118 need the pharmacist's judgement, including five veterinary flea
+treatments. Every one of the 337 stays marked as a medicine until you have
 answered, and any answer of "not a medicine" is one we'll check with you before
 changing anything.
 
