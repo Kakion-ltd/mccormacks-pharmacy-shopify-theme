@@ -2647,7 +2647,14 @@ That writes `1-Handover.pdf`, `3-Images-Handover.pdf` and
 `5-Pharmacist-Questions.pdf`, dated with the build date, with the logo and the
 same styling. Needs `pip3 install --user markdown`, Python Playwright and
 Google Chrome. A PDF left over from before the last edit says something the
-repo no longer does, so rebuild before sending, not after. Until 28 Sep the
+repo no longer does, so rebuild before sending, not after. **The PDFs are not in
+git, by design, so nothing in a diff, a commit or `npm test` will tell you
+they have gone stale** — the only thing that knows is this paragraph. On
+30 Sep a session edited HANDOVER.md, checked whether a Handover PDF was
+tracked, found none, and concluded there was nothing to rebuild; the pack in
+`~/Downloads` then said the Sale collection had one product while 89 were on
+sale. Another session caught it eight minutes later. "Untracked" means the
+rebuild is manual, not that it is unnecessary. Until 28 Sep the
 images handover was built from a Word file in ~/Downloads; it moved into the
 repo so all three have one source each.
 
