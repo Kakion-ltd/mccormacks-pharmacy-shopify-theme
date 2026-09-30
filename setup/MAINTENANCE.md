@@ -2017,6 +2017,37 @@ the splits the designer had chosen by hand.
 also asserts the generator has not gone back to reading the design file or
 importing a browser. A build no longer needs either.
 
+## The multi-buy offers are automatic discounts, not anything in the theme (30 Sep 2026)
+
+The eight multi-buy and gift offers from the old site ("3 for €10", "Buy one get
+one half price", "Free tanning mitt with every Tan Studio item") are Shopify
+automatic discounts, applied at the cart. **Nothing in the theme implements
+them.** The theme only shows the words, through `custom.promo_label`, and the
+words and the discount are two separate things that have to be changed together —
+the label says "3 for €10" whether or not a discount exists behind it.
+
+- **Built and checked by** `setup/offers/discounts.py` and
+  `setup/verify/offer-carts.py`. The verify script builds one real cart per
+  discount against the real catalogue and matches the total **to the cent**.
+- **Read the percentage note in `discounts.py` before changing a price** in any
+  of these sets. Shopify truncates the per-line discount rather than rounding it,
+  so the obvious percentage (the saving divided by the price) leaves every
+  fixed-price offer a cent short and "3 for €10" charges €10.01. It did, for
+  about ten minutes on 30 Sep, until a cart test with an exact match caught it.
+  An earlier run of the same test passed 9/9 with a one-cent tolerance, which is
+  why that tolerance is now zero.
+- **Two collections exist only to scope a discount**: `3-for-10` and `3-for-5`,
+  smart collections on the tags `Clearance > 3 for €10` and
+  `Clearance > 3 FOR €5`. They are not published and nothing links to them, so
+  they look exactly like the unlinked collections deleted on 25 Sep (below).
+  **Deleting them switches two offers off silently.** Their descriptions say so.
+- Every one of them has `combinesWith.productDiscounts: true` and no
+  `usesPerOrderLimit`: six of a 3-for-€10 product is €20, not one discounted
+  trio and three at full price.
+- **The free mitt is not added to the bag for the customer.** Shopify discounts a
+  gift once it is in the cart; it never puts it there. The old site behaves the
+  same way, which is why this was left as is rather than automated.
+
 ## Seasonal rotation is manual — nothing in this theme is date-scheduled
 
 **There is no date scheduling anywhere in the theme. Not the hero slides, not
