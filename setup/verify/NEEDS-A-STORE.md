@@ -13,8 +13,15 @@ and the ones marked **decision** need a merchant answer before they can be check
   draws a labelled placeholder.
 - Automatic discounts, discount codes, `line_level_discount_allocations`,
   `cart.total_discount` from a real discount.
-- Unit prices, selling plans and subscriptions, inventory policy for
-  "continue selling when out of stock" (available true with quantity 0).
+- Unit prices, selling plans and subscriptions.
+- Inventory policy for "continue selling when out of stock" (available true with
+  quantity 0) — **checked 2026-09-30 on the real store** by
+  `setup/verify/continue-selling.py`, after the launch change that put every
+  in-stock variant on `CONTINUE`. It found that this store enforces no stock
+  ceiling at `/cart/add.js` at all, on `DENY` variants at 0 as much as on
+  `CONTINUE` ones, so the 422 path in `theme.js` never fires here. See "Stock at
+  launch" in `setup/MAINTENANCE.md`. The check needs `npx shopify theme dev`
+  running, because the storefront is still behind the password page.
 - The order status page and order confirmation.
 
 ## Search

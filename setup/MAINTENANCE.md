@@ -998,6 +998,98 @@ Confirm with the client who owns that mailbox before launch, and see
 
 ---
 
+## Stock at launch: in-stock products continue selling, out-of-stock stay off (30 Sep 2026)
+
+The store's stock counts are placeholders, not a stocktake. On 30 September 1,760 of
+the 1,761 tracked variants with any stock at all were at a count of exactly 1 (one was
+at 3). With "continue selling when out of stock" off, every one of them would have gone
+to "Out of stock" after a single order, and the site would have emptied itself in its
+first week of trading.
+
+**The client's launch decision, and the rule from here on:**
+
+- **A product that is in stock continues selling.** Any variant with tracking on and a
+  count above 0 has `inventoryPolicy: CONTINUE`, so its count can go to 0 and below
+  without the site taking it off sale. The count itself is left alone.
+- **A product that is out of stock stays off.** Any variant at 0 or below keeps
+  `inventoryPolicy: DENY`, so it shows "Out of stock" and cannot be added. **Keelan
+  turns those back on himself** by setting a real count; nobody else changes them, and
+  nothing in this repo flips them in bulk.
+- **Untracked products are left alone.** Tracking off already means always available,
+  so the policy on them does nothing either way.
+
+Applied on 30 Sep to 1,761 variants across 1,761 products (every product on this store
+is single-variant). Before state, the full before/after snapshot of all 2,425 variants,
+and a per-variant write log are in `archive/store-cleanup-2026-09-30/`. The 594 at 0 and
+the 70 untracked were not touched; a re-read of the whole catalogue afterwards confirmed
+no count and no tracking flag moved.
+
+This is the launch position, not a permanent one. Once the counts mean something,
+turning `CONTINUE` back off is what stops the store overselling — see the stock rule
+above and do not treat "continue selling" as the settled state of this store.
+
+### Nothing on this store stops an oversell at the bag (30 Sep 2026)
+
+Worth knowing before anyone relies on `DENY` to protect anything: **this store's
+`/cart/add.js` enforces no stock ceiling at all.** A variant that is tracked, at a
+count of 0, with `inventoryPolicy: DENY` and `sellableOnlineQuantity: 0` — a product
+the page correctly draws as "Out of stock" — is still accepted into the bag by a direct
+POST, and so is a quantity of 9,999. Checked on 30 Sep against four such products,
+including one untouched by that day's change, so this is not a consequence of turning
+`CONTINUE` on.
+
+What that means in practice:
+
+- **The disabled button is the only thing keeping an out-of-stock product out of the
+  bag.** `variant.available` is false in Liquid, so the buy button renders disabled and
+  reads "OUT OF STOCK", and the quick-add button is not rendered at all. That is enough
+  for anyone using the site normally, and it is not enough if a page is stale or a
+  request is made by hand.
+- **The "can't add more" sentence in `theme.js` (`cartError`, 422) is unreachable on
+  this store**, because nothing returns 422. It is correct code with nothing to fire
+  it; leave it in place rather than deleting it, because it becomes reachable the moment
+  inventory is enforced.
+- **Most likely cause is a location that does not stock these items.** Shopify only
+  enforces a ceiling where the inventory item has a level at a location the online store
+  can draw from. Confirming it needs `read_inventory`, which the CLI Connector App does
+  not have (see "Store API access"), so it has to be checked in the admin: open one of
+  the 0-count products and see whether its inventory says it is stocked at the location
+  at all.
+
+Do not describe this store as protected against overselling until that is settled.
+
+### Checking it needs the real store, and `theme dev` fights back
+
+`setup/verify/continue-selling.py` is the check. Inventory policy is one of the things
+`setup/verify/NEEDS-A-STORE.md` lists as unverifiable in the mock preview, so it has to
+run against the real catalogue, and the storefront is behind the password page. It
+drives `npx shopify theme dev` instead:
+
+```sh
+npx shopify theme dev --store mccormackpharmacy.myshopify.com --path shopify-theme --port 9292
+python3 setup/verify/continue-selling.py
+```
+
+**One quirk will waste an afternoon if you meet it cold.** `theme dev` answers
+`/cart.js` and `/cart/*.js` with a `Clear-Site-Data` header. Chromium acts on it, the
+proxy loses its own storefront-password session, and the *second* cart write of a run
+comes back 502 and everything after it 401. The theme surfaces that as its generic
+"could not update your bag" line, which reads exactly like a real defect in the bag and
+is not one. Two things in the check keep it honest, and both are load-bearing:
+
+- **The header is stripped from every response**, not just the cart ones — section
+  renders and the recommendations endpoint carry it too, and any one of them is enough.
+- **A 401, 502 or other 5xx is never scored.** A poisoned session does not recover
+  within a run, so the whole run restarts with a fresh browser context, up to four
+  times. In practice one restart per run is normal and three runs in three then pass.
+
+**Only a 422 is the store refusing an add.** Do not "fix" the script by scoring a 401
+or a 502 as a failure, and do not remove the restart.
+
+A run against the real storefront, once the password comes off, needs none of this.
+
+---
+
 ## Product FAQ — the definition lives in the admin, not in the theme
 
 `snippets/product-faq.liquid` renders a per-product FAQ and emits FAQPage JSON-LD
