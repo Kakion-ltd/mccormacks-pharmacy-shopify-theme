@@ -118,6 +118,24 @@ engine.registerFilter('link_to', (v, u) => `<a href="${u}">${v}</a>`);
 engine.registerFilter('highlight', (v) => v);
 engine.registerFilter('weight_with_unit', (v) => `${v}g`);
 engine.registerFilter('metafield_text', (v) => (v && v.value) || v || '');
+// metafield_tag on a rich_text_field: Shopify renders the stored node tree as HTML.
+// Only the node types this theme stores are handled (paragraph, text, link); an
+// unknown type renders its children rather than vanishing.
+engine.registerFilter('metafield_tag', (v) => {
+  const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const walk = (n) => {
+    if (!n) return '';
+    if (n.type === 'text') return esc(n.value);
+    const kids = (n.children || []).map(walk).join('');
+    if (n.type === 'paragraph') return `<p>${kids}</p>`;
+    if (n.type === 'link') return `<a href="${esc(n.url)}">${kids}</a>`;
+    return kids;
+  };
+  const val = v && v.value !== undefined ? v.value : v;
+  if (!val) return '';
+  return walk(typeof val === 'string' ? JSON.parse(val) : val);
+});
 // Shopify renders these from the store's enabled payment providers. The mock shows a
 // labelled stand-in so placement is reviewable; the real buttons only appear on a store.
 engine.registerFilter('payment_button', () =>
@@ -539,7 +557,8 @@ const products = CATALOGUE.map((c, i) => {
     content: '<p>Product description.</p>',
     collections: (c.cols || []).map(collectionRef),
     metafields: { reviews: {}, custom: { ...(c.faq ? { faq: { value: c.faq } } : {}),
-      ...(c.promo ? { promo_label: { value: c.promo } } : {}) } },
+      ...(c.promo ? { promo_label: { value: c.promo } } : {}),
+      ...(c.promoNote ? { promo_note: { value: c.promoNote } } : {}) } },
   };
 });
 

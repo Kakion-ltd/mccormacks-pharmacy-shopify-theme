@@ -285,6 +285,16 @@
         {%- capture promo -%}{%- render 'product-promo-label', product: product -%}{%- endcapture -%}
         {%- assign promo = promo | strip -%}
         {%- if promo != blank -%}<div style="margin-bottom:18px;"><span class="promo-label">{{ promo }}</span></div>{%- endif -%}
+        {%- comment -%} The gift offers need a sentence the chip cannot carry: a free
+            gift is only free once the customer puts it in the bag, because Shopify
+            discounts a gift in the cart and never adds it there. PDP only — a card has
+            no room for it, and the chip already says an offer exists. Rich text so the
+            link to the gift lives with the copy instead of being built here.
+            MAINTENANCE.md, "The multi-buy offers are automatic discounts". {%- endcomment -%}
+        {%- assign promo_note = product.metafields.custom.promo_note -%}
+        {%- if promo_note != blank -%}
+          <div class="promo-note">{{ promo_note | metafield_tag }}</div>
+        {%- endif -%}
         <div data-pdp-stock style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:700; margin-bottom:24px; color:{% if current_variant.available %}var(--c-success){% else %}#B3261E{% endif %};">
           <span style="width:9px; height:9px; border-radius:999px; background:currentColor;"></span>
           {% if current_variant.available %}In stock — ready to ship{% else %}Out of stock{% endif %}

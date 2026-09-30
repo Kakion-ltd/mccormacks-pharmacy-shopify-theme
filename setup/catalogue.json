@@ -10,7 +10,35 @@
     "p": 1995,
     "was": 2495,
     "ty": "Vitamins",
-    "promo": "3 for €10"
+    "promo": "3 for €10",
+    "promoNote": {
+      "type": "root",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Free tanning mitt: "
+            },
+            {
+              "type": "link",
+              "url": "/products/bperfect-double-sided-luxury-velvet-tanning-mitt",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "add it to your bag"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": " and it’s free at checkout."
+            }
+          ]
+        }
+      ]
+    }
   },
   {
     "t": "Cetrine Allergy 10mg 30 Tablets",
