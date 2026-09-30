@@ -16,8 +16,9 @@ tabs = [
      'Medicines. The pharmacist decides the wording for every one of these.',
      [r for r in rows if r['medicine']]),
     ('Restore from old site',
-     'Not medicines, and the old site still has the full text. Nothing has been '
-     'restored yet - this is the list to work from.',
+     'All 146 were restored from the old site on 30 September 2026, using its own '
+     'wording. Nothing is left on this tab. How To Use and Ingredients went into '
+     'the product page tabs at the same time.',
      [r for r in rows if not r['medicine'] and r['has_old'] == 'yes']),
     ('Staff to fix',
      'Not medicines. The old site has no fuller text, or it was never checked, '
@@ -34,7 +35,7 @@ for name, blurb, items in tabs:
     items.sort(key=lambda r: (r['problems'][0], r['title']))
     ws = wb.create_sheet(name)
     counts = collections.Counter(p for r in items for p in r['problems'])
-    ws.append([f'{len(items)} products'])
+    ws.append([f'{len(items)} products' if items else 'Nothing left to do'])
     ws.append([blurb])
     for prob, n in counts.most_common():
         ws.append([f'{prob}: {n}'])

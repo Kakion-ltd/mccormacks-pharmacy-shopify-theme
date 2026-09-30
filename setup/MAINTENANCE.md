@@ -2485,6 +2485,46 @@ that is deliberate. Before and after in
 - **Jointace Original's description was Jointace Omega-3's.** Replaced; the
   old text is in `jointace-description-before.html` beside the CSV.
 
+## 146 descriptions restored from the old site, tabs filled (30 Sep 2026)
+
+The 146 non-medicines whose old-site page still had the fuller text now carry
+it, in the old site's own wording. Before state in
+`archive/store-cleanup-2026-09-30/description-restore-before.jsonl`, the fetched
+pages in `old-site-descriptions.json` beside it, scripts in
+`setup/descriptions/`.
+
+- **The old site's accordion is `<dl class="mz_accordion">`**, with a `<dt>`
+  naming each section and a `<dd>` holding it: Product Information, How To Use,
+  Active Ingredients, Returns Policy. `extract.py` reads it from the served
+  HTML. The `mz_tabs` block further down the page looks like the same thing and
+  is always empty — it is filled by JavaScript, so anything fetching the page
+  gets nothing from it. The `itemprop="description"` meta is the *cut* text, not
+  the full one; don't take it.
+- **Product Information became the description. How To Use and Active
+  Ingredients became `custom.how_to_use` and `custom.ingredients`**, which
+  `main-product.liquid` already renders as the How To Use and Ingredients tabs
+  (77 and 50 products). Both definitions are `multi_line_text_field`, so their
+  value is plain text: bullets keep their marker and go on their own line, since
+  there is no `<li>` to carry the list. Returns Policy is boilerplate on every
+  page and was skipped.
+- **Only non-medicines.** No product tagged `pharmacist-review` was touched, and
+  the writer refuses one that is, refuses a product whose description moved
+  since the plan, and refuses one whose tabs are already filled.
+- **Three products word it differently on the old site and two of those are
+  shorter.** Quies Foam Ear Plugs 3Pk and Kelkin Tea Tree Shampoo 250Ml took the
+  old site's shorter text because the store's longer text was cut mid-sentence
+  and the old site's is a finished sentence. The Quies text on the store also
+  described *wax* earplugs on a *foam* product. Longer is not the test; finished
+  is.
+- **A 301 is not a refusal.** The first fetch run stopped at one because `curl`
+  was not following redirects, and the same URL answered 200 a minute later.
+  `fetch_old.py` follows redirects now and stops only on 403, 429 or a 5xx. The
+  10-second gap between pages still stands — 146 pages fetched at that pace with
+  no refusal at all.
+- **Two products the old site could not improve** were left alone by the length
+  test before the three-exception rule was added: the guard is still there, and
+  it is what stops a "restore" from shortening a description by accident.
+
 ## Inline bullets in descriptions: 39 turned into real lists (30 Sep 2026)
 
 Descriptions imported with their bullets run into one paragraph — "…verruca
