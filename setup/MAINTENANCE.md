@@ -2654,7 +2654,15 @@ they have gone stale** — the only thing that knows is this paragraph. On
 tracked, found none, and concluded there was nothing to rebuild; the pack in
 `~/Downloads` then said the Sale collection had one product while 89 were on
 sale. Another session caught it eight minutes later. "Untracked" means the
-rebuild is manual, not that it is unnecessary. Until 28 Sep the
+rebuild is manual, not that it is unnecessary.
+
+**To check what a built PDF actually says, use `pdftotext` or pypdf, never
+`strings`.** These PDFs deflate their text streams, so `strings` cannot see
+the words at all — and it does not fail, it returns nothing and lets you read
+that as "the phrase is absent". On 30 Sep it was used to confirm a rebuild and
+reported the same phrases present and then absent across two runs before the
+extractor, rather than the file, was suspected. A verification that cannot see
+its subject is worse than none, because it answers. Until 28 Sep the
 images handover was built from a Word file in ~/Downloads; it moved into the
 repo so all three have one source each.
 
