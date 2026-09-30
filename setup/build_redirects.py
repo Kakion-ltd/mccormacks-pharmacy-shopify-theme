@@ -6,7 +6,10 @@ paths), a store pull (products + collections JSON) and the old category listing
 pages, which give each old product its old category so an unmatched product can
 land on that category's collection.
 
-  python3 setup/build_redirects.py <store-products.json> <store-collections.json> <old-cats-dir>
+  python3 setup/build_redirects.py <store-products.json> <store-collections.json> <old-cats-dir> <published.json>
+
+published.json maps handle -> [status, publishedOnOnlineStore]; a product that is
+not ACTIVE and on the Online Store gets its collection, not its product page.
 """
 import csv, json, os, re, sys, urllib.parse
 from collections import Counter
@@ -16,6 +19,10 @@ OLD = os.path.join(ROOT, "archive/old-site-2026-09-30")
 prods = json.load(open(sys.argv[1]))
 cols = {c["handle"]: c for c in json.load(open(sys.argv[2]))}
 cats_dir = sys.argv[3]
+published = json.load(open(sys.argv[4]))
+def on_site(h):
+    st, pub = published.get(h, ("MISSING", False))
+    return st == "ACTIVE" and bool(pub)
 collections_json = {c["handle"]: c for c in json.load(open(os.path.join(ROOT, "setup/collections.json")))}
 
 # ---- old category -> new path (hand-mapped 30 Sep 2026; '?' marks a judgement call)
@@ -195,7 +202,7 @@ for line in open(os.path.join(OLD, "products.txt")):
     if not h:
         h = fuzzy(s); kind = "title-fuzzy"
     if h:
-        if by_handle[h]["status"] != "ACTIVE":
+        if not on_site(h):
             to = product_landing(h) or old_category_target(path)
             add(path, to or "/collections/all", "off-website", h if to else "no collection; check")
         else:
