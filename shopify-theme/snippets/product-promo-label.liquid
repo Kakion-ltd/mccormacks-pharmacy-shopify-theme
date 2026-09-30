@@ -1,0 +1,24 @@
+{%- comment -%}
+  The promo label a card may show beside the price — "3 for €10", "While stocks
+  last", "Free tanning mitt with every Tan Studio item" — or nothing at all.
+  Callers capture it and treat blank as "no offer text":
+
+    {%- capture promo -%}{%- render 'product-promo-label', product: product -%}{%- endcapture -%}
+    {%- assign promo = promo | strip -%}
+    {%- if promo != blank -%}<span class="promo-label">{{ promo }}</span>{%- endif -%}
+
+  It is one line, and it is a snippet for the same reason product-compare-at is:
+  the card exists as seven hand-copied versions, so anything they must agree on
+  has to be rendered from one place or the copies drift. See MAINTENANCE.md,
+  "Components get pasted, not shared".
+
+  The text is a product metafield, custom.promo_label, single line. It is NOT
+  derived from the price, the tags or the compare-at: a multi-buy has no
+  compare-at to read and a "while stocks last" is not a discount at all. Whoever
+  writes the label owns the claim, which is the point — a promo label is a price
+  claim a pharmacy gets asked about, and it expires. Nothing here dates it; see
+  "Seasonal rotation is manual" in MAINTENANCE.md.
+
+  Accepts: product (required)
+{%- endcomment -%}
+{{- product.metafields.custom.promo_label.value -}}

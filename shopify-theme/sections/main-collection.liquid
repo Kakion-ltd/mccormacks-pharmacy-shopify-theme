@@ -284,6 +284,8 @@
               See snippets/product-compare-at.liquid for why the product-level fields
               cannot be compared directly. {%- endcomment -%}
           {%- capture was -%}{%- render 'product-compare-at', product: product -%}{%- endcapture -%}
+          {%- capture promo -%}{%- render 'product-promo-label', product: product -%}{%- endcapture -%}
+          {%- assign promo = promo | strip -%}
           {%- assign was = was | strip -%}
           {%- assign on_sale = false -%}
           {%- if was != blank -%}{%- assign on_sale = true -%}{%- endif -%}
@@ -312,6 +314,7 @@
                 <span class="price-was">{{ was }}</span>
               {%- endif -%}
             </div>
+            {%- if promo != blank -%}<div style="margin-bottom:14px;"><span class="promo-label">{{ promo }}</span></div>{%- endif -%}
             {%- comment -%} One treatment at every width, as the design handoff has it: a
                 filled button under the price. The desktop hover-reveal pill over the
                 image was a conversion-era addition that gave the same action a second

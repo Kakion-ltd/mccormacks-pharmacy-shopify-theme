@@ -119,6 +119,16 @@ for (const key of Object.keys(PRICE_EXEMPT)) {
     uploadErrors++;
   }
 }
+// The promo label ("3 for €10", "While stocks last") is a product metafield, and only
+// three of the seven card copies render it — see MAINTENANCE.md, "Components get pasted,
+// not shared". These three are the ones the offers at launch depend on. If one loses the
+// render, that surface silently shows a multi-buy product with no sign there is an offer.
+for (const f of ['sections/main-collection.liquid', 'sections/sale-products.liquid', 'sections/main-product.liquid']) {
+  if (!readFileSync(join(root, f), 'utf8').includes("render 'product-promo-label'")) {
+    console.log(`ERROR  /${f}  PromoLabelMissing  no render 'product-promo-label': an offer on this surface shows nothing`);
+    uploadErrors++;
+  }
+}
 // The Common Conditions page lists every store with its phone for "call to book". Liquid
 // cannot read another template's blocks, so that list is a copy of the store locator's.
 // It must name the same stores with the same address and phone, or a patient rings a

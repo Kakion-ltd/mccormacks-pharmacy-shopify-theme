@@ -538,7 +538,8 @@ const products = CATALOGUE.map((c, i) => {
     description: '<p>Product description.</p>',
     content: '<p>Product description.</p>',
     collections: (c.cols || []).map(collectionRef),
-    metafields: { reviews: {}, custom: c.faq ? { faq: { value: c.faq } } : {} },
+    metafields: { reviews: {}, custom: { ...(c.faq ? { faq: { value: c.faq } } : {}),
+      ...(c.promo ? { promo_label: { value: c.promo } } : {}) } },
   };
 });
 

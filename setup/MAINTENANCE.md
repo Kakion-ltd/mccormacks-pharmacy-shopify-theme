@@ -289,6 +289,48 @@ somewhere else on the site, render the existing one or move it into a snippet.
 If a component genuinely has to be copied, add a check for the part that must
 not drift.
 
+### The promo label is on three of the seven cards (30 Sep 2026)
+
+The eighth instance of the pattern above, and this one is **deliberately
+incomplete** — recorded here so the next person knows it is a gap, not an
+oversight.
+
+The old site shows a free-text promo line under the price ("3 for €10",
+"While stocks last", "Free tanning mitt with every Tan Studio item"). 99 of the
+147 offers on its Sale and Clearance pages carry one, so it is most of what
+those pages actually say. Nothing in this theme had a counterpart. It is now
+`snippets/product-promo-label.liquid`, one line reading the product metafield
+`custom.promo_label`, with `.promo-label` in `base.css`.
+
+**Rendered on three surfaces**, the ones the launch offers depend on:
+
+- the collection grid (`sections/main-collection.liquid`, which is the Sale page)
+- the homepage rail (`sections/sale-products.liquid`)
+- the product page's own price block (`sections/main-product.liquid`)
+
+**Not rendered on the other four card copies**, which will show a multi-buy
+product with no sign there is an offer:
+
+- the "You might also like" rail on collection pages (`main-collection.liquid`,
+  the *second* card in that same file — it is pasted twice)
+- "Have You Checked" and "You May Also Like" on the product page
+  (`main-product.liquid`, likewise two more copies in one file)
+- the cart drawer suggestions (`snippets/cart-drawer.liquid`)
+- the wishlist and quick view, built in JavaScript from `assets/theme.js`, which
+  would need the metafield in the product JSON before they could show anything
+
+`PromoLabelMissing` in `check.mjs` (in `npm test`) fails if one of the three
+loses its render. It does **not** catch a new surface that forgets to add one,
+for the same reason `PriceWithoutCompareAt` needs its exemption list: there is no
+way to tell a card that should show a label from a strip that should not. If you
+add a surface that shows a price, ask whether it also shows the offer.
+
+**The text is a claim with no expiry.** Nothing dates it — see "Seasonal rotation
+is manual" below — so a "While stocks last" sits there until someone clears the
+metafield. It is deliberately not derived from the price, the tags or the
+compare-at: a multi-buy has no compare-at to read, and "while stocks last" is not
+a discount at all.
+
 ### Open case: the legal pages (23 Sep 2026)
 
 Privacy, terms, returns and shipping each exist twice: as a Shopify policy and

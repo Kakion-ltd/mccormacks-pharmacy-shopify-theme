@@ -282,6 +282,9 @@
           <span data-pdp-price style="font-family:var(--font-body); color:var(--c-primary-text); font-weight:800; font-size:clamp(28px,3vw,38px);">{{ current_variant.price | money }}</span>
           <span data-pdp-compare style="font-weight:600; font-size:clamp(17px,1.8vw,22px); color:#666b60; text-decoration:line-through; {% unless on_sale %}display:none;{% endunless %}">{{ current_variant.compare_at_price | money }}</span>
         </div>
+        {%- capture promo -%}{%- render 'product-promo-label', product: product -%}{%- endcapture -%}
+        {%- assign promo = promo | strip -%}
+        {%- if promo != blank -%}<div style="margin-bottom:18px;"><span class="promo-label">{{ promo }}</span></div>{%- endif -%}
         <div data-pdp-stock style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:700; margin-bottom:24px; color:{% if current_variant.available %}var(--c-success){% else %}#B3261E{% endif %};">
           <span style="width:9px; height:9px; border-radius:999px; background:currentColor;"></span>
           {% if current_variant.available %}In stock — ready to ship{% else %}Out of stock{% endif %}
