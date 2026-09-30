@@ -1388,26 +1388,50 @@ problem, not an oversell risk:
 The store is protected against selling stock it does not have. It is not protected
 against a customer reaching checkout with something it cannot sell them.
 
-### The empty stock-problems checkout — what "Complete order" does is UNTESTED (30 Sep 2026)
+### The empty stock-problems checkout is refused, and unreachable anyway (30 Sep 2026)
 
 A bag holding **only** an out-of-stock product loses its one line at
 `stock-problems`, which leaves a checkout with no items, a **€0.00 total** and
-"Your order is free. No payment is required." — with a working **Complete order**
-button.
+"Your order is free. No payment is required." **Tested on the live store on
+30 Sep: Shopify refuses it, and no order is created.** Two separate things stop it.
 
-**Nobody has pressed it.** Whether Shopify refuses an empty order or creates a €0
-one is the open question. It matters because an empty order would carry no line
-item tagged `pharmacist-review`, so Flow 1's Condition A would not match and the
-order would **not** be held — it would land in the admin as an ordinary order for
-staff to deal with, with nothing in it. Test orders #1001 to #1007 all had line
-items, so none of them answers this.
+**1. A customer cannot reach the button.** `stock-problems` puts up a modal —
+"Out of stock / These items are no longer available and will be removed from your
+cart", the line marked **SOLD OUT** — whose only control is **Return to store**.
+It has no close control, **Escape does not close it, and neither does clicking the
+backdrop.** A hit test at the centre of **Complete order** lands on the modal's
+overlay `div`, not the button. The button is enabled in the DOM, which is what
+made it look reachable at first; it is not.
 
-To settle it: reach `stock-problems` with only an out-of-stock product (the table
-above says how), press **Complete order** once, and record the result here. Before
-you do, read "The store has no worktree: one session writes to it at a time" — an
-order is a store write, and on 30 Sep a session placing gift-card test orders
-(#1008 to #1012) was running at the same time as this was being looked into, which
-is why it is still open. Cancel whatever it creates, and say so here.
+**2. The submission is refused even when forced.** Clicking **Complete order**
+through the overlay, with every required field filled (email, name, address, city,
+county, postal code), does not create an order. The form answers
+
+> **Shipping not available** — Your order cannot be shipped to the selected
+> address. Review your address to ensure it's correct and try again, or select a
+> different address.
+
+and stays on `stock-problems`. The store's latest order was **#1012 both before and
+after**, so nothing was created: no order, therefore no hold, no tags, no note, and
+no staff notification or customer email. The same address on a checkout holding a
+real product raises no such error, so the refusal follows the empty order rather
+than the address.
+
+**Why it was worth settling.** An empty order would carry no line item tagged
+`pharmacist-review`, so Flow 1's Condition A could not match and it would **not**
+be held — it would land in the admin as an ordinary order with nothing in it, for
+staff to puzzle over. Order #1006 (a non-medicine) already shows that Otherwise
+path. That risk does not arise, because the order cannot be created.
+
+**The one case not covered:** the refusal surfaces as a *shipping rate* failure, so
+it rests on the order having nothing shippable in it. A €0 order that needed no
+shipping at all might behave differently. Nothing on this store is in that position
+today — gift cards are the only non-shippable line and they are never out of stock —
+but if a digital or no-shipping product is ever added, retest this.
+
+Reproduce with `setup/verify/continue-selling.py`'s two variants and the table
+above. An order is a store write: read "The store has no worktree: one session
+writes to it at a time" before placing one, and cancel whatever you create.
 
 ### Checking it needs the real store, and `theme dev` fights back
 
