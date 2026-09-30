@@ -279,28 +279,53 @@ and it fails the readability standard the rest of the site meets. Please
 confirm you want to keep it. Dark writing is a one-line change if you
 reconsider.
 
-### The Sale collection has one product on sale
+### The Sale offers are live, and nobody has said when they end
 
-**What goes in the Sale collection. Decision needed: pharmacy.**
-The Sale collection holds 2 products, and only 1 of them is on the website:
-the Voduz R'oil and Hairdryer Bundle. The Electric Picnic Bundle is in the
-collection but isn't on the website.
+**Decision needed: pharmacy.** The offers from your old website are now on the
+new one, so the two sites show the same prices at launch.
 
-Sale is one of the most visible things on the site. Customers reach it from:
+What went on:
 
-- the homepage section headed **"On Sale This Month"**
-- the **Special Offers** slide on the homepage
-- the **Sale** link in the header and in the homepage category row
-- the "You may also like" row on the gift vouchers page
+- **89 products** show a reduced price with the old price struck through beside
+  it, taken from what your old site was showing on 30 September. The Sale
+  collection holds all 89, up from 1.
+- **Eight multi-buy and gift offers** work automatically in the bag: 3 for €10,
+  3 for €5, Buy 2 for €7 on Batiste, 2 for €52.45 on Revive Zest Active, Buy 4
+  for €3 on the BioMiracle wipes, buy one get one half price on Revive Active
+  and on Mitchum, and a free tanning mitt with every BPerfect Tan Studio item.
+  Each one has been tested in a real bag and comes to the exact advertised
+  total.
+- **Six prices were corrected.** The five BPerfect Chroma Cover foundations and
+  the Foot Soak Bundle were at your old site's *pre-sale* price on the new site,
+  so they were higher than what you were actually charging.
+- **71 products show an offer line** beside the price, such as "3 for €10" or
+  "While stocks last", in your old site's words tidied up.
 
-Right now, all of them lead to a single product. Please decide what should be
-on sale at launch. Enter each product's old price as well as its new one, so
-the website can show the reduction. If you'd rather not run a sale at launch,
-tell us and we'll take the Sale links and sections down until you do.
+**The one thing we need from you: when does each offer end?**
 
-Please don't unpublish the last product in the collection without telling us.
-If the collection has nothing published, the homepage section falls back to
-sample products from the design, with made-up prices.
+**Nothing on the website has an end date.** There is no scheduling anywhere in
+it: an offer line reads exactly the same on the 1st of January as it did the day
+it went up, and it keeps reading that way until a person removes it. Right now
+that includes 18 products saying "While stocks last" and 10 saying "€5 off while
+stocks last".
+
+So please tell us, for each offer, either an end date or "until we say
+otherwise". Offers that are already over can come off in the same pass. We will
+also need telling when a multi-buy ends, because the offer line and the
+discount in the bag are two separate things and both have to be switched off —
+one without the other either advertises a discount that no longer applies, or
+applies one the page does not mention.
+
+**Two things we have left alone for you to confirm**, listed in the offers
+review sent separately: 29 offers that look out of date (Black Friday badges, an
+Electric Picnic bundle, suncream deals, and 18 products your old site shows as
+out of stock), and 2 Sculpted By Aimee bundles that are on the old site but not
+on the new one. The Electric Picnic bundle has been taken out of the Sale
+collection, as it is out of stock and the festival was in August.
+
+Please don't unpublish the last product in the Sale collection without telling
+us: with nothing published, the "On Sale This Month" section on the homepage
+does not appear at all.
 
 ### Products
 
