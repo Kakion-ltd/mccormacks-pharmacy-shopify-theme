@@ -1,29 +1,36 @@
 #!/bin/sh
-# Run every check, then report what failed.
+# Run every preview check, then report what failed.
 #
-# This was a single `&&` chain in package.json, which stops at the first failure.
-# contrast.py fails on a recorded client decision (the white-on-lime gift voucher
-# card, MAINTENANCE.md), so it failed on every run, and the four checks after it —
-# questionnaire, medicine-declaration, bag-remove, gift-voucher — never ran at all.
-# A suite that cannot get past its own known failure is not a suite.
+# Two things this fixes, both of which hid real information:
 #
-# Every check still counts: a failure here is a failure, contrast included. The
-# change is only that one does not hide the others. PORT is inherited, so
-# `PORT=8736 npm run verify` still works.
+# 1. This was a single `&&` chain in package.json, which stops at the first
+#    failure. contrast.py fails on a recorded client decision (the white-on-lime
+#    gift voucher card, MAINTENANCE.md), so it failed on every run and the four
+#    checks after it never ran at all. A suite that cannot get past its own known
+#    failure is not a suite.
+#
+# 2. The replacement listed the checks by hand, which is the defect at the top of
+#    MAINTENANCE.md — one thing in two places. A new check would have been written,
+#    committed, and silently never run. So the list is now the directory: every
+#    setup/verify/*.py runs, and a new one is picked up by existing.
+#
+# SKIP is the exception, and it is small on purpose. These checks drive the REAL
+# store rather than the local preview, so they need a theme dev server and a live
+# catalogue and cannot run in this suite. A new one has to be named here; that is
+# a smaller and louder obligation than remembering to add every check twice.
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 
-CHECKS="generators chips-taxonomy mega-taxonomy consent funnel mobile-nav
-        header-wrapper header-band sweep fonts wishlist back-in-stock variants
-        variant-integrity pagination hero-swipe trust-bar breadcrumb form-states
-        render-states product-faq quick-view contrast questionnaire
-        medicine-declaration bag-remove gift-voucher"
+SKIP="continue-selling offer-carts"
 
 failed=""
 passed=0
-for c in $CHECKS; do
+skipped=""
+for f in setup/verify/*.py; do
+  c=$(basename "$f" .py)
+  case " $SKIP " in *" $c "*) skipped="$skipped $c"; continue ;; esac
   printf '\n=== %s ===\n' "$c"
-  if python3 "setup/verify/$c.py"; then
+  if python3 "$f"; then
     passed=$((passed + 1))
   else
     failed="$failed $c"
@@ -31,6 +38,7 @@ for c in $CHECKS; do
 done
 
 printf '\n========================================\n'
+[ -n "$skipped" ] && printf 'skipped (real-store checks, run them by hand):%s\n' "$skipped"
 if [ -z "$failed" ]; then
   printf 'verify: all %d checks passed\n' "$passed"
   exit 0

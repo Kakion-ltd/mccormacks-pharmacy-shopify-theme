@@ -1594,6 +1594,16 @@ now `setup/verify/run-all.sh`, which runs all 27 and reports failures at the end
 Contrast still fails and still exits non-zero; it just no longer hides anything.
 If the client reverses this decision, the expected result is 27/27.
 
+**The runner takes its list from the directory, not from a list.** Every
+`setup/verify/*.py` runs, so a new check is picked up by existing — the first
+version of this script named them by hand, which is the defect at the top of this
+file and would have orphaned the next check written. The exception is `SKIP` at
+the top of the script, currently `continue-selling` and `offer-carts`: those two
+drive the **real store** and need a `shopify theme dev` server, so they cannot run
+against the local preview and are listed as skipped in the summary rather than
+failed. A new real-store check has to be named there; a new preview check needs
+nothing.
+
 ## Headings are Nunito, not Arial Rounded — a decision (24 Sep 2026)
 
 The design handoff sets headings in **Arial Rounded MT Bold**. The theme now sets them
