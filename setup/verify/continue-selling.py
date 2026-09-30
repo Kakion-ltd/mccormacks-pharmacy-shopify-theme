@@ -6,14 +6,25 @@
             and clicking it adds nothing
 
 Inventory policy is one of the things `NEEDS-A-STORE.md` lists as unverifiable in
-the mock preview, so this has to run against the real catalogue. The storefront
-is still behind the password page, so it goes through `theme dev`:
+the mock preview, so this has to run against the real catalogue.
+
+**Prefer the real storefront.** It is the live theme, with no proxy in the way:
+
+    BASE=https://mccormackpharmacy.myshopify.com \
+    STOREFRONT_PASSWORD=<the password page's password> \
+        python3 setup/verify/continue-selling.py
+
+Drop `STOREFRONT_PASSWORD` once the password page is off. The `.ie` domain
+answered 403 as of 30 Sep 2026 and is not usable yet; see "The primary domain
+must be www.mccormackspharmacy.ie".
+
+**Without a password, fall back to `theme dev`** (HEAD's files, real catalogue):
 
     npx shopify theme dev --store mccormackpharmacy.myshopify.com \
         --path shopify-theme --port 9292
-    python3 setup/verify/continue-selling.py
+    BASE=http://localhost:9292 python3 setup/verify/continue-selling.py
 
-**The harness fights back, and telling the two apart is the whole trick.**
+**That fallback fights back, and telling the two apart is the whole trick.**
 `theme dev` answers `/cart.js` and `/cart/*.js` with a `Clear-Site-Data` header.
 Chromium acts on it, the proxy loses its own storefront-password session, and
 from then on cart writes come back 502 and then 401 for the rest of that browser
@@ -24,17 +35,21 @@ line, reading exactly like a real defect in the bag. Two things keep this honest
   2. a 401/502/5xx is never scored. Once a session is poisoned it does not
      recover, so the whole run restarts with a fresh browser context.
 
+Neither applies to a real storefront run, which needs no header surgery and has
+never needed a restart.
+
 **Only a 422 is the store refusing an add.** Do not "fix" this script by
 treating a 401 or 502 as a failure, and do not delete the retry: it is the
 difference between a real finding and an afternoon spent on a proxy bug.
-
-Against the real storefront, once the password comes off, none of this is needed.
 """
 import json
+import os
 import sys
 from playwright.sync_api import sync_playwright
 
-BASE = "http://localhost:9292"
+BASE = os.environ.get("BASE", "http://localhost:9292").rstrip("/")
+PASSWORD = os.environ.get("STOREFRONT_PASSWORD")
+PROXIED = "localhost" in BASE or "127.0.0.1" in BASE   # i.e. running via theme dev
 CHANGED,   CHANGED_VID   = "aveeno-body-wash", 57050810909003
 UNTOUCHED, UNTOUCHED_VID = "sensodyne-pronamel-tp-whitening-75ml", 57050812481867
 CANT_ADD = "can't add more"
@@ -166,15 +181,28 @@ def main():
         if not ok:
             fails.append(label)
 
+    print(f"storefront: {BASE}"
+          + ("  (theme dev proxy)" if PROXIED else "  (live theme)")
+          + ("  [password page]" if PASSWORD else ""))
     with sync_playwright() as p:
         br = p.chromium.launch()
         for attempt in range(1, 5):
             fails.clear()
             ctx = br.new_context(viewport={"width": 1280, "height": 900})
-            # every response, not only the cart ones: section renders and the
-            # recommendations endpoint carry the header too, and one is enough
-            ctx.route("**/*", strip_csd)
+            if PROXIED:
+                # every response, not only the cart ones: section renders and the
+                # recommendations endpoint carry the header too, and one is enough
+                ctx.route("**/*", strip_csd)
             page = ctx.new_page()
+            if PASSWORD:
+                page.goto(f"{BASE}/password", wait_until="load", timeout=90000)
+                page.fill('input[name="password"]', PASSWORD)
+                page.press('input[name="password"]', "Enter")
+                page.wait_for_timeout(2500)
+                if "/password" in page.url:
+                    print(f"  the storefront password was refused at {BASE}/password")
+                    br.close()
+                    return 2
             adds, changes = [], []
             page.on("response", lambda r: adds.append(r.status) if "/cart/add" in r.url else None)
             page.on("response", lambda r: changes.append(r.status) if "/cart/change" in r.url else None)
