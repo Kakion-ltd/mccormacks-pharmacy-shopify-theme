@@ -7,22 +7,6 @@
         "also_collection": "sale"
       },
       "blocks": {
-        "amt1": {
-          "type": "amount",
-          "settings": {
-            "amount": 10,
-            "tag": "",
-            "preselected": false
-          }
-        },
-        "amt2": {
-          "type": "amount",
-          "settings": {
-            "amount": 20,
-            "tag": "",
-            "preselected": false
-          }
-        },
         "amt3": {
           "type": "amount",
           "settings": {
@@ -38,31 +22,11 @@
             "tag": "Most gifted",
             "preselected": true
           }
-        },
-        "amt5": {
-          "type": "amount",
-          "settings": {
-            "amount": 100,
-            "tag": "",
-            "preselected": false
-          }
-        },
-        "amt6": {
-          "type": "amount",
-          "settings": {
-            "amount": 150,
-            "tag": "",
-            "preselected": false
-          }
         }
       },
       "block_order": [
-        "amt1",
-        "amt2",
         "amt3",
-        "amt4",
-        "amt5",
-        "amt6"
+        "amt4"
       ]
     }
   },

@@ -1666,6 +1666,109 @@ own is never held at all.
 
 ---
 
+## The voucher's date picker was 88 lines; it is now an `<input type="date">` (1 Oct 2026)
+
+`page-gift-vouchers.liquid` shipped a hand-rolled calendar: a field button, three
+quick chips (Today / Tomorrow / In a week) and a popup with month navigation, a day
+grid, a "Send immediately" reset and a Done button. **Two radios and a native date
+input replaced all of it.** `Send now` is the default and leaves the input `disabled`;
+`Pick a date` enables it, with `min` today and `max` at Shopify's 90-day ceiling.
+
+What the custom control cost, all of it measured in a browser rather than argued:
+
+| | Before | After |
+|---|---|---|
+| Custom JS in the section | 134 code lines | 79 |
+| The date control's share of it | 77 | 23 |
+| Date markup | 35 lines | 14 |
+| Date CSS | 16 rules | 3 |
+| Covered another field when open | Message at 1440; Message **and** From at 375 | nothing |
+| Closed with Escape | no | n/a, nothing to close |
+| Closed with a click outside | no | n/a |
+| Footer buttons at 375×667 | Done at y=726, "Send immediately" at y=729, both **below a 667px fold** | n/a |
+| Focusable buttons that did nothing | 29 (every past day in the month) | 0 |
+| Accessible name of the control | "Send immediately" | "Delivery date" (fieldset + legend) |
+
+Counted with blank lines and `//` comments stripped, before and after, from the
+`<script>` block in the section. **55 lines of JavaScript went.** The file itself only
+shrank 657 → 592, because roughly forty lines of comment went in where the code came
+out — the numbers above are the code, not the diff.
+
+Four things worth keeping in mind before anyone reaches for a picker again:
+
+- **`min`/`max` are set from JS on load, not from Liquid.** `{{ 'now' | date: … }}`
+  renders server-side into a CDN-cached page, so a Liquid `min` carries the *shop's*
+  timezone and goes stale at midnight. `iso()` survives for exactly the reason it
+  always existed — local date parts, never `toISOString()`, which moves an Irish
+  summer evening to the next day.
+- **`max` is a courtesy, not the guard.** Shopify refuses to schedule a gift card
+  more than 90 days out and the cart is what enforces it; its error reaches the
+  shopper through `showCartMessage`. Dawn ships **no** `min` or `max` at all and
+  relies on that error alone, so this is stricter than Shopify's own reference theme.
+- **The radios get the last word on `disabled`.** `applyMethod` enables every input
+  its method owns, the date input included, so it ends by calling `applyWhen()`.
+  `applyWhen` reads `dateBox.hidden` — what `applyMethod` has just decided — so a
+  printed voucher never posts a `Send on` even with "Pick a date" still checked.
+  That exact case is checked; without it, choosing a date and then switching method
+  scheduled a card that is going in the post.
+- **"Today" and "Send immediately" were two controls for one outcome.** The chip
+  posted `Send on: <today>`, the reset posted nothing. Shopify documents only "without
+  a date specified, the gift card is sent immediately" and says nothing about a
+  same-day date, so the difference was either nil or a scheduled-job delay against
+  copy that promises "within minutes". The question does not arise any more.
+
+### `From` is gone, because it could never reach the recipient
+
+There was a **From** field posting `properties[From]`. It reached the bag, the order
+in admin and the buyer's own confirmation — never the person getting the voucher. The
+gift card notification renders in `gift_card` scope, with no `order` and no
+`line_item`, so a line item property cannot appear in it, and
+[the `gift_card` object](https://shopify.dev/docs/api/liquid/objects/gift_card) has no
+sender property to hold one. There is no template workaround; the data is not in scope.
+
+The page was already admitting it: the Message hint read *"sign it if you'd like them
+to see who it's from"* directly beneath a From field that they never see. `Message`
+carries it now and the hint says what happens to it, including that a posted voucher
+is written into the card as typed.
+
+### `Delivery` is posted for all three methods now
+
+It used to be posted only for `Printed and posted`, so an order for an emailed voucher
+said nothing about how it was sent and staff inferred it from whether `Recipient email`
+was present. All three post it: `By email`, `Printed and posted`, `Sent to me`. Only
+one input is ever enabled, which is what keeps three inputs sharing a name legal.
+
+`Sent to me` therefore no longer posts a completely bare line. That does **not** change
+what Shopify does: issuing to the buyer follows from the *absence* of `Recipient email`
+and the send flag, not from the absence of every property. The check that used to read
+"posts no properties at all" now reads "Delivery is the only property".
+
+### Four of the six amount blocks said nothing
+
+The buttons come from the gift card product's variants; a block only decorates a
+variant it matches, with a tag and a preselected flag. `€10`, `€20`, `€100` and `€150`
+each had an empty tag and `preselected: false`, and a variant with no block already
+renders a blank tag — so deleting them changed no pixel. Two remain: `€25` ("Popular")
+and `€50` ("Most gifted", preselected). Both `templates/page.gift-vouchers.json` and
+the section's own preset were trimmed, so a freshly added section starts the same way.
+Adding a block for a denomination you do not intend to label achieves nothing.
+
+The summary panel also had `€50` typed in twice as a literal while the hero used
+`{{ gv_default }}`. Change which amount is preselected and, with JS blocked, the
+summary lied. It reads `{{ gv_default }}` now — the one-thing-in-two-places rule at
+the top of this file, in the same section it warns about.
+
+### Later: the delivery methods should be radios too
+
+The three delivery methods are still `<button aria-pressed>` toggles. Three pressed
+buttons do not announce "pick one of three" the way a radio group does, and the same
+argument that retired the calendar applies to them. Left alone deliberately on 1 Oct
+so this change stayed one thing; `applyMethod` is the money path and the conversion
+wants its own commit and its own run of `gift-voucher.py`. The custom dot styling and
+`state.method` would both go.
+
+---
+
 ## `product.gift_card?` was false in every preview (1 Oct 2026)
 
 The theme asks `product.gift_card?` in five places — the two buy boxes in

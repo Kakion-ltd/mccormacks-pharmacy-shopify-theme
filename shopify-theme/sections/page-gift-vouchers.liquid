@@ -1,16 +1,14 @@
 {% style %}
   /* These are <button> elements — reset the UA styling anchors never had. */
-  .gv-amt, .gv-method, .gv-quick, #gv-date-field, #gv-clear, #gv-done { font-family:inherit; cursor:pointer; -webkit-appearance:none; appearance:none; }
+  .gv-amt, .gv-method { font-family:inherit; cursor:pointer; -webkit-appearance:none; appearance:none; }
   .gv-method { width:100%; text-align:left; }
   /* The method-scoped fields each set their own display, which beats the UA sheet's
      [hidden]{display:none} — so "Send it to me" left the whole recipient block on
      screen. Same trap as .cd-empty[hidden] and five others in base.css; it has to be
      !important. The fields were already disabled, so nothing was ever posted that
      shouldn't be; they were just visible. setup/verify/gift-voucher.py checks it. */
-  [data-gv-who][hidden], [data-gv-only][hidden] { display:none !important; }
-  #gv-clear { border:none; background:none; padding:0; }
-  .gv-amt:focus-visible, .gv-method:focus-visible, .gv-quick:focus-visible,
-  #gv-date-field:focus-visible, #gv-clear:focus-visible, #gv-done:focus-visible { outline:2px solid var(--c-dark); outline-offset:2px; }
+  [data-gv-who][hidden], [data-gv-only][hidden], [data-gv-when][hidden] { display:none !important; }
+  .gv-amt:focus-visible, .gv-method:focus-visible { outline:2px solid var(--c-dark); outline-offset:2px; }
   .gv-amt { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; height:92px; border-radius:14px; border:2px solid #e0e3dd; background:#ffffff; color:#3a3d39; }
   .gv-amt:hover { border-color: var(--c-accent) !important; }
   .gv-amt.gv-on { border-color:var(--c-primary-text); background:#eef2e8; color:var(--c-dark); }
@@ -18,25 +16,16 @@
   .gv-method.gv-on { border-color:var(--c-primary-text); background:#f7faf3; }
   .gv-method .gv-dot { flex:0 0 auto; width:20px; height:20px; margin-top:2px; border-radius:999px; border:2px solid #c2c6bd; background:#ffffff; }
   .gv-method.gv-on .gv-dot { border-color:var(--c-primary-text); background:var(--c-primary); }
-  .gv-quick { display:inline-flex; align-items:center; height:32px; padding:0 13px; border-radius:999px; border:1px solid #e0e3dd; background:#ffffff; color:#5d6159; font-size:13px; font-weight:700; }
-  .gv-quick:hover { border-color:var(--c-accent) !important; }
-  .gv-quick.gv-on { border-color:var(--c-primary-text); background:#eef2e8; color:var(--c-dark); }
-  .gv-cal-nav { width:34px; height:34px; border-radius:9px; border:1px solid #e0e3dd; background:#ffffff; display:flex; align-items:center; justify-content:center; color:var(--c-dark); cursor:pointer; }
-  .gv-cal-nav:hover { border-color:var(--c-accent); background:#f7faf3; }
-  .gv-day { display:flex; align-items:center; justify-content:center; height:38px; border-radius:9px; font-size:14px; font-weight:600; color:#2A2B2A; cursor:pointer; background:transparent; border:none; font-family:inherit; }
-  .gv-day:hover { background:#eef2e8; }
-  .gv-day.gv-past { color:#8b9182; cursor:not-allowed; } /* still muted, but the month reads as a full grid */
-  .gv-day.gv-past:hover { background:transparent; }
-  .gv-day.gv-blank { visibility:hidden; }
-  .gv-day.gv-sel { background:var(--c-primary); color:var(--c-on-primary); font-weight:800; }
+  /* Native radios, so the group is a real radio group: arrow keys move between them,
+     the label text is the hit area, and nothing here reimplements a control. */
+  .gv-when { display:flex; align-items:center; gap:11px; font-size:15.5px; color:#2A2B2A; cursor:pointer; }
+  .gv-when input { flex:0 0 auto; width:19px; height:19px; margin:0; accent-color:var(--c-primary); cursor:pointer; }
   .gv-input:focus { border-color:var(--c-primary-text) !important; }
   @media (max-width: 1000px) {
     .gv-wrap { flex-direction:column !important; gap:32px !important; }
     .gv-side { flex:1 1 auto !important; width:100% !important; position:static !important; }
   }
   @media (max-width: 620px) {
-    .gv-date { flex:1 1 100% !important; }
-    .gv-cal { width:100% !important; left:0 !important; right:0 !important; }
     .gv-amounts { grid-template-columns:repeat(3,minmax(0,1fr)) !important; gap:10px !important; }
     .gv-amounts > a { height:78px !important; }
     .gv-method { padding:15px 16px !important; }
@@ -53,6 +42,12 @@
   are drawn from `gv_product.variants`, and a block only decorates a variant it
   matches by amount — its tag and its preselected flag. A block matching nothing is
   skipped, and named in design mode so whoever added it finds out.
+
+  A block is therefore only worth adding to decorate one. Four of the six said
+  nothing — empty tag, not preselected — and deleting them changed no pixel, because
+  a variant with no block already renders with a blank tag. Two remain, for €25
+  ("Popular") and €50 ("Most gifted", preselected). Adding a block for a denomination
+  you do not want to label achieves nothing.
 
   `gift-voucher` is the handle of the real Shopify gift card product. If it is
   missing or unpublished the buy panel is replaced by a notice: no product means no
@@ -177,7 +172,7 @@
           <span class="gv-dot"></span>
           <span style="flex:1; min-width:0;">
             <span style="display:block; font-weight:800; font-size:16px; color:#2A2B2A; margin-bottom:3px;">Printed and posted</span>
-            <span style="display:block; font-size:14.5px; line-height:1.6; color:#5d6159;">Presented in a McCormack&rsquo;s card and posted anywhere in Ireland. We email you the code as well, so it can&rsquo;t be lost in the post.</span>
+            <span style="display:block; font-size:14.5px; line-height:1.6; color:#5d6159;">Presented in a McCormack&rsquo;s card and posted anywhere in Ireland within two working days. We email you the code as well, so it can&rsquo;t be lost in the post.</span>
           </span>
           <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:var(--c-dark);">Free</span>
         </button>
@@ -196,8 +191,15 @@
           control, where replacing the date picker would have taken them with it.
           `applyMethod`'s `input[data-gv-only]` loop enables exactly the ones whose
           method is chosen, so scoping is still one attribute and no new JS.
+
+          All three methods post `Delivery`. Only the printed one used to, so an order
+          for an emailed voucher stated nothing about how it was sent and staff had to
+          infer it from whether `Recipient email` was there. Three enabled inputs would
+          collide on the name, which is exactly why only one is ever enabled.
         {%- endcomment -%}
+        <input type="hidden" name="properties[Delivery]" value="By email" data-gv-only="By email" disabled>
         <input type="hidden" name="properties[Delivery]" value="Printed and posted" data-gv-only="Printed and posted" disabled>
+        <input type="hidden" name="properties[Delivery]" value="Sent to me" data-gv-only="Send it to me" disabled>
         <input type="hidden" name="properties[__shopify_send_gift_card_to_recipient]" value="if_present" data-gv-only="By email" disabled>
         <input type="hidden" name="properties[__shopify_offset]" id="gv-offset" data-gv-only="By email" disabled>
       </div>
@@ -213,8 +215,15 @@
         Fields not relevant to the chosen method are `disabled`, so the browser leaves
         them out of the post entirely — no JS runs at submit time, and "Send it to me"
         posts a bare gift card, which is precisely what makes Shopify issue it to the
-        buyer. `Recipient name`, `Message` and `From` are shared by the email and
-        printed methods; two enabled inputs may never carry the same name.
+        buyer. `Recipient name` and `Message` are shared by the email and printed
+        methods; two enabled inputs may never carry the same name.
+
+        There is no `From` field. It was one, and it reached the bag and the order but
+        never the recipient: the gift card notification renders in `gift_card` scope,
+        with no `order` and no `line_item`, so a line item property cannot appear in it
+        and there is no sender property on the object to hold one. A field that says
+        "From" beside a voucher nobody signs is a promise the platform cannot keep, so
+        `Message` carries it instead and its hint says so.
       {%- endcomment -%}
       <p data-gv-who-note style="margin:0; font-size:15.5px; line-height:1.65; color:#5d6159;">We&rsquo;ll send the voucher straight to them.</p>
       <div data-gv-who style="display:flex; flex-wrap:wrap; gap:14px; max-width:620px; margin-top:12px;">
@@ -230,45 +239,45 @@
           <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Postal address</span>
           <textarea rows="3" class="gv-input" name="properties[Postal address]" required disabled placeholder="Name, street, town, county, Eircode" style="border:1px solid #dfe1dc; border-radius:10px; padding:12px 14px; font-family:inherit; font-size:15.5px; line-height:1.6; color:#2A2B2A; outline:none; resize:vertical;"></textarea>
         </label>
-        <div class="gv-date" data-gv-only="By email" style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0; position:relative;">
-          <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Delivery date</span>
-          <input type="hidden" name="properties[Send on]" id="gv-send-on">
-          <button type="button" id="gv-date-field" aria-expanded="false" class="hov-border-accent" style="display:flex; align-items:center; gap:11px; height:52px; border:1.5px solid #dfe1dc; border-radius:10px; padding:0 14px; background:#ffffff; color:#2A2B2A;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
-            <span id="gv-date-label" style="flex:1; min-width:0; font-size:15.5px; font-weight:600; color:#666b60; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Send immediately</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#666b60" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-          <div style="display:flex; flex-wrap:wrap; gap:7px; margin-top:2px;">
-            <button type="button" class="gv-quick" aria-pressed="false" data-gv-offset="0">Today</button>
-            <button type="button" class="gv-quick" aria-pressed="false" data-gv-offset="1">Tomorrow</button>
-            <button type="button" class="gv-quick" aria-pressed="false" data-gv-offset="7">In a week</button>
-          </div>
-          <div class="gv-cal" id="gv-cal" style="display:none; position:absolute; z-index:60; top:126px; left:0; width:318px; max-width:100%; background:#ffffff; border:1px solid #e0e3dd; border-radius:16px; box-shadow:0 22px 46px rgba(0,0,0,.16); padding:16px;">
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px;">
-              <button type="button" id="gv-prev" aria-label="Previous month" class="gv-cal-nav">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg>
-              </button>
-              <span id="gv-month" style="font-family:var(--font-heading); font-weight:800; font-size:16px; color:var(--c-dark);"></span>
-              <button type="button" id="gv-next" aria-label="Next month" class="gv-cal-nav">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg>
-              </button>
-            </div>
-            <div style="display:grid; grid-template-columns:repeat(7,1fr); gap:2px; margin-bottom:6px;">
-              <span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#666b60; padding:4px 0;">Mon</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#666b60; padding:4px 0;">Tue</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#666b60; padding:4px 0;">Wed</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#666b60; padding:4px 0;">Thu</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#666b60; padding:4px 0;">Fri</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#666b60; padding:4px 0;">Sat</span><span style="text-align:center; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#666b60; padding:4px 0;">Sun</span>
-            </div>
-            <div id="gv-days" style="display:grid; grid-template-columns:repeat(7,1fr); gap:2px;"></div>
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:14px; padding-top:12px; border-top:1px solid #eceee9;">
-              <button type="button" id="gv-clear" class="hov-green" style="font-size:13.5px; font-weight:700; color:#666b60;">Send immediately</button>
-              <button type="button" id="gv-done" class="btn-sm btn-fill">Done</button>
-            </div>
-          </div>
-        </div>
-        <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
-          <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">From</span>
-          <input type="text" autocomplete="name" class="gv-input" name="properties[From]" style="height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
-        </label>
+        {%- comment -%}
+          Two radios and a native `<input type="date">`, which is what replaced 88 lines
+          of hand-rolled calendar. The old picker had a popup that covered the Message
+          field on desktop and both Message and From on mobile, closed with neither
+          Escape nor a click outside, and put its Done button below the fold at 375px —
+          all problems the platform's own control does not have.
+
+          `Send now` is the default and leaves the date input `disabled`, so the browser
+          posts no `Send on` at all and Shopify sends on fulfilment. That keeps the rule
+          the rest of this form runs on: what is posted is decided by `disabled`, before
+          submit, not by JS at submit time. With JS off the input stays disabled, so
+          no-JS means send now — the safe default rather than a broken one.
+
+          `min` and `max` are set from JS on load, not from Liquid: `{{ 'now' }}` renders
+          server-side into a CDN-cached page, so a Liquid `min` is the shop's timezone and
+          goes stale at midnight. `iso()` uses local date parts for the same reason it
+          always did. The 90-day ceiling is Shopify's: it refuses to schedule a gift card
+          further out. `max` is a courtesy, not the guard — the cart is the guard, and its
+          error reaches the shopper through `showCartMessage`.
+
+          A fieldset and legend, so the group announces as "Delivery date" instead of the
+          old button whose entire accessible name was "Send immediately".
+        {%- endcomment -%}
+        <fieldset class="gv-date" data-gv-only="By email" style="flex:1 1 100%; min-width:0; border:0; margin:0; padding:0; display:flex; flex-direction:column; gap:9px;">
+          <legend style="padding:0; font-size:13.5px; font-weight:700; color:#2A2B2A;">Delivery date</legend>
+          <label class="gv-when"><input type="radio" name="gv-when" id="gv-when-now" value="now" checked>Send now</label>
+          <label class="gv-when"><input type="radio" name="gv-when" id="gv-when-pick" value="pick">Pick a date</label>
+          {%- comment -%} `data-gv-when`, never `data-gv-only`: that attribute means "this
+              scope belongs to one delivery method" and `applyMethod` acts on it. The
+              `[hidden]` rule at the top of this file has to name this attribute too,
+              because the inline `display:flex` below would otherwise beat the UA sheet —
+              the same trap as `[data-gv-only][hidden]`. {%- endcomment -%}
+          <label data-gv-when="pick" hidden style="display:flex; flex-direction:column; gap:7px; max-width:260px;">
+            <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Send it on</span>
+            <input type="date" class="gv-input" name="properties[Send on]" id="gv-send-on" required disabled style="height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
+          </label>
+        </fieldset>
         <label style="flex:1 1 100%; display:flex; flex-direction:column; gap:7px; min-width:0;">
-          <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Message <span style="font-weight:600; color:#666b60;">(optional, up to 200 characters &mdash; sign it if you&rsquo;d like them to see who it&rsquo;s from)</span></span>
+          <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Message <span style="font-weight:600; color:#666b60;">(optional, up to 200 characters &mdash; sign it if you&rsquo;d like them to know who it&rsquo;s from. For posted vouchers we&rsquo;ll write it in the card as you&rsquo;ve typed it.)</span></span>
           <textarea rows="3" class="gv-input" name="properties[Message]" maxlength="200" style="border:1px solid #dfe1dc; border-radius:10px; padding:12px 14px; font-family:inherit; font-size:15.5px; line-height:1.6; color:#2A2B2A; outline:none; resize:vertical;"></textarea>
         </label>
       </div>
@@ -278,11 +287,11 @@
       <div class="gv-summary" style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
         <div style="font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#666b60; margin-bottom:10px;">Your voucher</div>
         <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:4px;">
-          <span data-gv-amount style="font-family:var(--font-heading); font-weight:800; font-size:40px; line-height:1; color:var(--c-dark);">&euro;50</span>
+          <span data-gv-amount style="font-family:var(--font-heading); font-weight:800; font-size:40px; line-height:1; color:var(--c-dark);">&euro;{{ gv_default }}</span>
         </div>
         <div data-gv-method-label style="font-size:14px; color:#666b60; margin-bottom:20px;">By email</div>
         <div style="border-top:1px solid #eceee9; padding-top:16px; display:flex; flex-direction:column; gap:10px; font-size:14.5px; color:#3a3d39;">
-          <div style="display:flex; justify-content:space-between; gap:12px;"><span style="color:#666b60;">Voucher value</span><span data-gv-amount style="font-weight:700;">&euro;50</span></div>
+          <div style="display:flex; justify-content:space-between; gap:12px;"><span style="color:#666b60;">Voucher value</span><span data-gv-amount style="font-weight:700;">&euro;{{ gv_default }}</span></div>
           <div style="display:flex; justify-content:space-between; gap:12px;"><span style="color:#666b60;">Delivery</span><span style="font-weight:700;">Free</span></div>
         </div>
         <div style="margin-top:20px;"><button type="submit" class="btn btn-fill" style="gap:9px; width:100%">Add voucher to bag</button></div>
@@ -304,17 +313,14 @@
   <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">How it works</h2>
   <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px;">
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-weight:800; font-size:18px; margin-bottom:14px;">1</div>
       <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">Choose and pay</div>
       <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Pick an amount and how you want it delivered, then check out as normal. Paying for a voucher costs nothing extra, whichever way it is sent.</div>
     </div>
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-weight:800; font-size:18px; margin-bottom:14px;">2</div>
       <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">It arrives</div>
-      <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Email vouchers land within minutes, or on the date you chose. Printed vouchers are posted in a card within two working days.</div>
+      <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Email vouchers land within minutes, or on the date you chose. Printed vouchers are posted in a card, and we email you the code straight away as well.</div>
     </div>
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
-      <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-weight:800; font-size:18px; margin-bottom:14px;">3</div>
       <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">They spend it</div>
       <div style="font-size:15px; line-height:1.7; color:#3a3d39;">At the checkout on mccormackspharmacy.ie. Any unspent balance stays on the voucher for next time.</div>
     </div>
@@ -405,14 +411,13 @@
     if (!form) return;   // no gift card product: the notice is showing, there is nothing to drive
 
     var sel = form.querySelector('.gv-amt.gv-on') || form.querySelector('.gv-amt');
-    var state = { amount: sel ? sel.dataset.gvPick : '', method: 'By email', date: null, monthOff: 0 };
+    var state = { amount: sel ? sel.dataset.gvPick : '', method: 'By email' };
 
-    // Shopify will not schedule a gift card more than 90 days out, so the picker must
+    // Shopify will not schedule a gift card more than 90 days out, so the input must
     // not offer day 91. Offering it and letting the cart reject it is the same defect
     // as a button for a denomination that does not exist.
     var today = new Date(); today.setHours(0, 0, 0, 0);
     var maxDate = new Date(today); maxDate.setDate(maxDate.getDate() + 90);
-    var maxOff = (maxDate.getFullYear() - today.getFullYear()) * 12 + (maxDate.getMonth() - today.getMonth());
 
     // Local parts, never toISOString(): that converts to UTC, so an evening in Ireland
     // during summer time becomes the next day and the voucher arrives a day early.
@@ -422,6 +427,33 @@
 
     var offset = document.getElementById('gv-offset');
     if (offset) offset.value = new Date().getTimezoneOffset();
+
+    // The bounds are set here rather than in Liquid: `{{ 'now' }}` renders server-side
+    // into a CDN-cached page, so it would carry the shop's timezone and go stale at
+    // midnight. Same reason `iso()` exists — local parts, never toISOString().
+    var dateInput = document.getElementById('gv-send-on');
+    var datePick = document.getElementById('gv-when-pick');
+    var dateBox = form.querySelector('.gv-date');
+    var dateWrap = form.querySelector('[data-gv-when="pick"]');
+    if (dateInput) {
+      dateInput.min = iso(today);
+      dateInput.max = iso(maxDate);
+    }
+
+    // Which of the two radios is chosen decides whether a date is posted at all, by the
+    // same `disabled` rule the delivery method uses. It must run after applyMethod, which
+    // enables everything its method owns — including this input — and it must not undo
+    // applyMethod for a method that has no date at all, or a printed voucher would post a
+    // `Send on`. `dateBox.hidden` is what applyMethod has just decided, so read that.
+    var applyWhen = function () {
+      if (!dateInput) return;
+      var pick = !dateBox.hidden && datePick.checked;
+      dateWrap.hidden = !pick;
+      dateInput.disabled = !pick;
+    };
+    form.querySelectorAll('[name="gv-when"]').forEach(function (r) {
+      r.addEventListener('change', applyWhen);
+    });
 
     // Which fields the chosen method actually submits. Disabled inputs are left out of
     // the post by the browser, so "Send it to me" sends a bare gift card line and
@@ -442,31 +474,19 @@
         if (scope) scope.hidden = !want;
         if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.disabled = !want;
       });
-      // The Delivery property sits beside the method buttons, outside the block above.
+      // The method's own properties sit beside the method buttons, outside the block above.
       form.querySelectorAll('input[data-gv-only]').forEach(function (el) {
         el.disabled = el.dataset.gvOnly !== state.method;
       });
+      // Last word on the date input, which the loop above has just enabled wholesale.
+      applyWhen();
     };
 
     var sync = function () {
       document.querySelectorAll('[data-gv-amount]').forEach(function (el) { el.textContent = state.amount; });
       document.querySelectorAll('[data-gv-method-label]').forEach(function (el) { el.textContent = state.method; });
-      var label = document.getElementById('gv-date-label');
-      var sendOn = document.getElementById('gv-send-on');
-      if (sendOn) sendOn.value = state.date ? iso(state.date) : '';
-      if (state.date) {
-        label.textContent = state.date.toLocaleDateString('en-IE', { weekday: 'short', day: 'numeric', month: 'long' });
-        label.style.color = '#2A2B2A'; label.style.fontWeight = '700';
-      } else {
-        label.textContent = 'Send immediately';
-        label.style.color = '#666b60'; label.style.fontWeight = '600';
-      }
-      document.querySelectorAll('.gv-quick').forEach(function (chip) {
-        var d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + parseInt(chip.dataset.gvOffset, 10));
-        chip.classList.toggle('gv-on', !!state.date && d.getTime() === state.date.getTime());
-      });
       // these controls are buttons — keep the selected state exposed to assistive tech
-      document.querySelectorAll('.gv-amt, .gv-method, .gv-quick').forEach(function (b) {
+      document.querySelectorAll('.gv-amt, .gv-method').forEach(function (b) {
         b.setAttribute('aria-pressed', b.classList.contains('gv-on') ? 'true' : 'false');
       });
       applyMethod();
@@ -496,67 +516,6 @@
       });
     });
 
-    // Date picker
-    var cal = document.getElementById('gv-cal');
-    var toggleCal = function (e) {
-      e.preventDefault();
-      var open = cal.style.display !== 'none';
-      cal.style.display = open ? 'none' : 'block';
-      var field = document.getElementById('gv-date-field');
-      field.style.borderColor = open ? '#dfe1dc' : 'var(--c-primary)';
-      field.setAttribute('aria-expanded', open ? 'false' : 'true');
-      if (!open) renderCal();
-    };
-    document.getElementById('gv-date-field').addEventListener('click', toggleCal);
-    document.getElementById('gv-done').addEventListener('click', toggleCal);
-    document.getElementById('gv-clear').addEventListener('click', function (e) {
-      e.preventDefault(); state.date = null; cal.style.display = 'none'; sync();
-    });
-    document.getElementById('gv-prev').addEventListener('click', function () {
-      state.monthOff = Math.max(0, state.monthOff - 1); renderCal();
-    });
-    document.getElementById('gv-next').addEventListener('click', function () {
-      state.monthOff = Math.min(maxOff, state.monthOff + 1); renderCal();
-    });
-    document.querySelectorAll('.gv-quick').forEach(function (chip) {
-      chip.addEventListener('click', function (e) {
-        e.preventDefault();
-        var d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + parseInt(chip.dataset.gvOffset, 10));
-        state.date = d; cal.style.display = 'none'; sync();
-      });
-    });
-
-    function renderCal() {
-      var base = new Date(today.getFullYear(), today.getMonth() + state.monthOff, 1);
-      document.getElementById('gv-month').textContent = base.toLocaleDateString('en-IE', { month: 'long', year: 'numeric' });
-      document.getElementById('gv-prev').disabled = state.monthOff === 0;
-      document.getElementById('gv-next').disabled = state.monthOff >= maxOff;
-      var days = document.getElementById('gv-days');
-      days.innerHTML = '';
-      var lead = (base.getDay() + 6) % 7;
-      for (var i = 0; i < lead; i++) {
-        var blank = document.createElement('span');
-        blank.className = 'gv-day gv-blank';
-        days.appendChild(blank);
-      }
-      var total = new Date(base.getFullYear(), base.getMonth() + 1, 0).getDate();
-      for (var d = 1; d <= total; d++) {
-        var dt = new Date(base.getFullYear(), base.getMonth(), d);
-        var usable = dt >= today && dt <= maxDate;
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'gv-day' + (usable ? '' : ' gv-past') +
-          (state.date && dt.getTime() === state.date.getTime() ? ' gv-sel' : '');
-        btn.textContent = d;
-        if (usable) {
-          btn.addEventListener('click', (function (picked) {
-            return function () { state.date = picked; cal.style.display = 'none'; sync(); };
-          })(dt));
-        }
-        days.appendChild(btn);
-      }
-    }
-
     sync();
   })();
 </script>
@@ -585,22 +544,6 @@
         {
           "type": "amount",
           "settings": {
-            "amount": 10,
-            "tag": "",
-            "preselected": false
-          }
-        },
-        {
-          "type": "amount",
-          "settings": {
-            "amount": 20,
-            "tag": "",
-            "preselected": false
-          }
-        },
-        {
-          "type": "amount",
-          "settings": {
             "amount": 25,
             "tag": "Popular",
             "preselected": false
@@ -612,22 +555,6 @@
             "amount": 50,
             "tag": "Most gifted",
             "preselected": true
-          }
-        },
-        {
-          "type": "amount",
-          "settings": {
-            "amount": 100,
-            "tag": "",
-            "preselected": false
-          }
-        },
-        {
-          "type": "amount",
-          "settings": {
-            "amount": 150,
-            "tag": "",
-            "preselected": false
           }
         }
       ]
