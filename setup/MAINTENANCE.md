@@ -187,6 +187,54 @@ The rule:
   That check caught today's overlap; keep it as a second line of defence, not
   instead of the rule.
 
+#### The CLI token is one file for the whole machine (30 Sep 2026)
+
+`npx shopify store auth` is itself a write against a shared resource, so it
+follows the one-writer rule above even though it touches no product.
+
+There is **one token file per machine**, not one per session or per worktree:
+`~/Library/Preferences/shopify-cli-store-nodejs/config.json`. Every session
+reads it. Re-running `store auth` rewrites it, which replaces the access token
+that every other session is holding — including one that is part way through a
+batch of mutations. A session whose token is swapped out mid-run gets an auth
+failure on its next call, having already written some of its records and not
+the rest, which is the worst state to leave the catalogue in.
+
+So: **do not re-run `store auth` while another session is writing**, and treat
+adding a scope as a store write to be announced and queued like any other. This
+matters more than it looks, because the reason to re-run it is usually that a
+scope is missing, which is exactly when a session is impatient to get on.
+
+#### An all-clear can be given in good faith while someone else is mid-write
+
+Asking the person running the sessions is necessary and it is not sufficient.
+On 30 Sep a session was told, truthfully as far as the person knew, that the
+catalogue was clear: the session they had in mind had indeed finished. A
+different session was three seconds into a `productUpdate`. By then there were
+**seven worktrees**, and no human tracks seven.
+
+Check as well as ask. This costs nothing and catches what the ask cannot:
+
+```sh
+pgrep -fl 'store execute.*allow-mutations'          # a mutation in flight right now
+git worktree list                                   # how many sessions actually exist
+```
+
+and, for what already landed, ask the store what it changed most recently —
+`products(first: 20, sortKey: UPDATED_AT, reverse: true)` with `updatedAt`. Two
+of those three would have caught it on 30 Sep; the worktree list alone would
+have shown a session nobody had mentioned.
+
+**A clean `git status` in another worktree does not mean that session is idle.**
+Store writes leave no trace in git until someone commits a before-state CSV, and
+a session can write for an hour with nothing staged. Judge whether a session is
+writing from the store and the process table, never from its working tree.
+
+One more thing that follows from all of this: a session that is waiting should
+say so to the others, and say when it starts and finishes. Sessions can message
+each other directly, and on 30 Sep three of them queued themselves that way
+without the person having to arbitrate.
+
 ---
 
 ## The recurring defect: one thing in two places, saying two things
