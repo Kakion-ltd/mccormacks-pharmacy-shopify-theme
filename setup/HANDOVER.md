@@ -210,16 +210,17 @@ but both copies say the same thing.
 - The other set is pages we built.
 
 Please have your solicitor confirm the correct text. We will then point every
-link at the confirmed version and remove the duplicates. Registration and the
-footer already point at Shopify's set.
+link at the confirmed version and remove the duplicates. Registration, the
+footer and the sidebar on the legal pages already point at Shopify's set; the
+services, prescription and back-in-stock forms still point at ours.
 
 The withdraw-from-contract page was rewritten on 25 September with the
 business's details. Please ask your solicitor to review that too.
 
 **Cookie policy updated 30 September 2026; David Reilly to review.**
-The draft marker is gone. `/pages/cookie-policy` now carries the pharmacy's
-own text, and the cookie table is the seven cookies the live store actually
-sets, scanned that day in a fresh browser: accept all, then home page,
+The draft marker is gone, and the page is on the live store. `/pages/cookie-policy`
+now carries the pharmacy's own text, and the cookie table is the seven
+cookies the live store actually sets, scanned that day in a fresh browser: accept all, then home page,
 product, add to bag, checkout. All seven are Shopify's own. No Google, Meta
 or other third-party analytics or advertising cookie was set at any point,
 because none is installed.
@@ -238,24 +239,47 @@ What the scan confirmed, and what David should know when reviewing:
   until the visitor answers. Re-check this the day any Google or Meta pixel
   is added.
 
-**Two things for the review, both decisions rather than defects:**
+**Two things that went with it, both since done and both live:**
 
-- **The banner offers four categories, the policy has three.** The banner
-  (Strictly necessary, Preferences, Analytics, Marketing) carries a
-  Preferences toggle that the policy does not mention, and no cookie the
-  scan found belongs to it. Either drop Preferences from the banner or add
-  the group to the policy. We have not changed either, because the policy
-  text is the client's.
-- **Privacy Policy is linked two ways from this one page.** The policy text
-  links to `/policies/privacy-policy`, as asked; the sidebar beside it still
-  links to `/pages/privacy-policy`. That sidebar is shared by all seven legal
-  pages, so pointing it at Shopify's set is one change that moves all of
-  them. It waits on the solicitor's decision above.
+- **The banner now offers the same three groups as the policy.** It had a
+  fourth, Preferences, which described itself as remembering "choices like
+  your nearest store". Nothing did that: the store locator asks the browser
+  for a position every time and stores nothing, no cookie in the scan
+  belonged to that group, and no pixel on the store asks for that
+  permission. It was a switch that changed nothing, naming a group the
+  policy does not have. Removed. The theme now never grants preferences, so
+  if a service in that group is ever added it stays switched off until both
+  the banner and this policy get the group back.
+- **Privacy Policy is now one document from the legal pages.** The sidebar
+  beside the policy used to link `/pages/privacy-policy` while the text
+  linked Shopify's `/policies/privacy-policy`; both now go to Shopify's,
+  which is the copy checkout and the order emails use and the only one a
+  customer can be shown at checkout. That sidebar is shared by all seven
+  legal pages, so all seven moved together.
+
+  `/pages/privacy-policy` is still live and still linked from three forms:
+  the in-store services booking, the prescription upload and the
+  back-in-stock request. Those three ask the customer to consent to their
+  details — health details, in the prescription case — being handled as that
+  document sets out, so which document they name is part of the solicitor's
+  decision above, not a link tidy-up. They are deliberately left alone until
+  that is settled.
+
+**The privacy policy contradicts this, and the cookie policy is the one with
+the evidence.** Both copies of the privacy policy name Google Analytics, the
+Facebook Pixel, Google Tag, Doubleclick, AdRoll, Nosto, Pubble, Trustpilot,
+BrotherMailer and Realex. The 30 September scan found none of them: no
+request to any of those domains, and no cookie from any of them, because
+none is installed. The privacy policy is describing a different website,
+most likely the old one. David should read the two together and treat the
+cookie table as the record of what the site actually does. A separate piece
+of work is already drafting the privacy policy replacement.
 
 Re-run the cookie scan before launch, and again whenever a pixel is added
 under Settings > Customer events. A cookie table that lists something the
 site no longer sets, or omits something it now does, is the same defect in a
-new place.
+new place. The same goes for the banner: a group in one and not the other is
+how this started.
 
 ### What the website says on your behalf
 
