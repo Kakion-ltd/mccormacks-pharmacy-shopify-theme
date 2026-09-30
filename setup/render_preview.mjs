@@ -539,6 +539,12 @@ const products = CATALOGUE.map((c, i) => {
     first_available_variant: firstAvailable,
     selected_or_first_available_variant: firstAvailable,
     has_only_default_variant: !multi,
+    // Shopify reads `product.gift_card?`; liquidjs looks up that literal key, so a
+    // fixture with only `gift_card` renders every gift-card branch as false. Same
+    // idiom as `posted_successfully?` and `attached_to_variant?` above. Nothing in
+    // catalogue.json is a gift card, so this is the honest value — but it has to be
+    // present, or `unless product.gift_card?` and `if` disagree about what is missing.
+    gift_card: false, 'gift_card?': false,
     options: multi ? optNames(c) : [],
     // selected_value is modelled off variant ONE, not the first available one, while
     // the hidden input takes selected_or_first_available_variant. Shopify's own
@@ -619,7 +625,7 @@ const globals = {
     'gift-voucher': {
       id: 30009000, title: "McCormack's Pharmacy Gift Voucher", handle: 'gift-voucher',
       url: '/products/gift-voucher', vendor: "McCormack's Pharmacy", type: 'Gift Voucher',
-      gift_card: true, available: true, tags: [], has_only_default_variant: false,
+      gift_card: true, 'gift_card?': true, available: true, tags: [], has_only_default_variant: false,
       featured_image: null, images: [], price: 1000, price_min: 1000, price_max: 15000,
       compare_at_price: null, options: ['Denomination'], metafields: {},
       variants: [1000, 2000, 2500, 5000, 10000, 15000].map((cents, k) => ({
@@ -1042,6 +1048,32 @@ const FORM_ON = { 'page.in-store-services': { __sectionSettingsOverride: { 'page
     } finally {
       Object.assign(globals, saved);
     }
+  }
+}
+
+{
+  // The gift card's own product page. The voucher is bought on /pages/gift-vouchers and
+  // nowhere else, so main-product.liquid replaces the whole buy box with a link there —
+  // a bare {% form 'product' %} would post a voucher with no recipient and Shopify would
+  // quietly issue it to the buyer. That branch existed in no preview: the fixture was
+  // only ever reachable through `all_products`, never as `product`, so nothing checked
+  // that the form is actually absent. setup/verify/gift-voucher.py section 6 does now.
+  const voucher = globals.all_products['gift-voucher'];
+  const saved = { product: globals.product, request: globals.request };
+  globals.product = {
+    ...voucher,
+    selected_or_first_available_variant: voucher.variants[3],
+    selected_variant: null,
+    first_available_variant: voucher.variants[0],
+    description: '', content: '', featured_media: null, media: [],
+    collections: [], selling_plan_groups: [], requires_selling_plan: false,
+  };
+  globals.request = { ...globals.request, page_type: 'product' };
+  try {
+    writeFileSync(join(outDir, 'product.gift-voucher.html'), await renderTemplate('product'));
+    console.log('gift card product page: gift-voucher (buy box replaced by the page link)');
+  } finally {
+    Object.assign(globals, saved);
   }
 }
 

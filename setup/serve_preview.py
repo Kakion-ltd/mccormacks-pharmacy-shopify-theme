@@ -29,6 +29,11 @@ def product_page(handle):
         return first_existing("preview/product.variants2.html", "preview/product.html")
     if handle == "nurofen-tablets-12pk":
         return first_existing("preview/product.restricted.html", "preview/product.html")
+    if handle == "gift-voucher":
+        # The gift card. Its buy box is a link to /pages/gift-vouchers, not a form, so it
+        # needs its own render — the generic page would show an add-to-bag that the real
+        # product page must never have.
+        return first_existing("preview/product.gift-voucher.html", "preview/product.html")
     if handle == "viagra-connect-sildenafil-50mg-tablets-8-pack":
         # The gated pharmacy fixture: its own render so the questionnaire modal and the
         # form-less (no-JS-safe) buy box are reachable. Not in CATALOGUE, so routed here.

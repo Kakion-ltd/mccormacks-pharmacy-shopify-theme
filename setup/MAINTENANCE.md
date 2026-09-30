@@ -1666,6 +1666,42 @@ own is never held at all.
 
 ---
 
+## `product.gift_card?` was false in every preview (1 Oct 2026)
+
+The theme asks `product.gift_card?` in five places — the two buy boxes in
+`main-product.liquid`, `product-card-url`, `product-restricted` and `buy-assurance`.
+**Every one of them rendered as false in the preview**, and no check could have caught
+it, because liquidjs looks `gift_card?` up as a *literal key*: `gift_card: true` alone
+does not satisfy it. Shopify's Liquid treats the `?` as an alias; liquidjs does not.
+
+The repo already knew this trap and had already handled it twice, which is what makes
+this worth writing down. `posted_successfully?` and `attached_to_variant?` are both in
+`render_preview.mjs` as `{ posted_successfully: x, 'posted_successfully?': x }`.
+`gift_card?` is the one that was missed. The fixture carries it now, and so does every
+catalogue product (as `false`, which is the honest value — nothing in `catalogue.json`
+is a gift card — but it has to be *present*, or `if` and `unless` disagree about what
+is missing).
+
+Before the fix, adding a render of the gift card's product page produced a page with
+an ordinary add-to-bag form and a **pharmacy questionnaire gate**: `product-restricted`
+returns true for a gift card, so `pq_set` fell through to `'default'` and set
+`is_gated`. On the live store `{% if product.gift_card? %}` is tested first and wins,
+so the shop was always right — but the preview was showing the wrong branch of a money
+path, silently, and would have kept doing so.
+
+**`/products/gift-voucher` now renders.** The fixture existed only as `all_products`,
+never as `product`, so the branch that replaces the buy box with a link to
+`/pages/gift-vouchers` was in no preview at all — the same blind spot that let a dead
+Add-to-bag link survive on the voucher page. `gift-voucher.py` section 6 asserts the
+buy box is that link, that no `form[action*=/cart/add]` and no `[data-pdp-submit]`
+exist on the page, that the questionnaire gate is absent, and that the mobile bar
+links to the page rather than carrying a `[data-add-id]` quick add.
+
+Grep for `\w+\.\w+\?` in the theme before adding a fixture; the full set in use is
+`form.posted_successfully?`, `product.gift_card?` and `image.attached_to_variant?`.
+
+---
+
 ## The gift voucher card is white on lime — a client decision (23 Sep 2026)
 
 The voucher card in the gift vouchers hero (`page-gift-vouchers.liquid`) shows the
