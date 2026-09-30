@@ -557,13 +557,25 @@ here anyway.
    what the pharmacist reads per medicine. If one is ever dropped, check which
    system was reading it first.
 
-The questions themselves are the old site's wording, character for character,
-including its typing mistakes ("riocigaut", "protsate", "non-artertic") and the
-fourth question, which breaks off mid-sentence. They were copied deliberately;
-do not tidy them without asking Fergal, and see `old-site-questionnaires.md` for
-the two things we flagged: the set is written for sildenafil and served
-unchanged on Cialis, which is tadalafil, and it has no question about the
-CYP3A4 inhibitors our own draft missed too.
+The questions are the old site's wording, character for character, with **three
+spelling mistakes corrected on 30 Sep 2026** at the client's instruction —
+riocigaut → riociguat, protsate → prostate, non-artertic → non-arteritic — and
+nothing else changed. What was deliberately left alone:
+
+- **Question 4 breaks off mid-sentence**: "Do you have any other heart problems
+  or are you under a doctor's care for any of the following". The old site has
+  no list after it. **The five ED products stay off the Online Store until
+  Fergal confirms the full wording**; they are tagged `questionnaire-ed` and
+  ready to publish the moment he does.
+- Punctuation slips that are not spelling: a space before four question marks,
+  missing spaces after commas in questions 5, 9 and 13, "e.g" without its
+  period in question 9, and an unclosed bracket in question 12.
+
+`setup/old-site-questionnaires.md` keeps the **verbatim** original and must stay
+verbatim: it is the record of what the old site asks, not a copy of what we ask.
+It also has the two things we flagged and Fergal has not yet answered: the set
+is written for sildenafil and served unchanged on Cialis, which is tadalafil,
+and neither site asks about the CYP3A4 inhibitors our own draft missed too.
 
 ---
 

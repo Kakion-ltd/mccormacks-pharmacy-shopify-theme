@@ -208,9 +208,27 @@
     submit.style.opacity = blocked ? '.5' : '';
   };
 
-  const setError = (q, on) => {
-    q.querySelector('[data-pq-error]').hidden = !on;
-    q.classList.toggle('pq-has-error', on);
+  // What is wrong with one question, as the sentence to show, or null if nothing is.
+  // yes_no_details has two ways to be unanswered: no Yes/No, or Yes with an empty box.
+  // The second is the one that matters to the pharmacist — a bare "Yes" tells them a
+  // customer is on something without saying what.
+  const faultOf = (q) => {
+    const required = q.dataset.required === 'true';
+    if (q.dataset.kind === 'yes_no_details') {
+      const r = q.querySelector('input[type=radio]:checked');
+      if (!r) return required ? 'Please answer this question.' : null;
+      if (r.value !== 'Yes') return null;
+      const d = q.querySelector('[data-pq-details-input]');
+      return d && d.value.trim() ? null : 'Please tell the pharmacist which ones.';
+    }
+    return required && answersOf(q).length === 0 ? 'Please answer this question.' : null;
+  };
+
+  const setError = (q, msg) => {
+    const el = q.querySelector('[data-pq-error]');
+    if (msg) el.textContent = msg;
+    el.hidden = !msg;
+    q.classList.toggle('pq-has-error', !!msg);
   };
 
   document.addEventListener('submit', async (e) => {
@@ -219,13 +237,12 @@
     e.preventDefault();
     if (isBlocked(form)) { reblock(form); return; }
 
-    // Validate: every required question answered.
+    // Validate: every required question answered, and every Yes explained.
     let firstBad = null;
     form.querySelectorAll('[data-pq-q]').forEach((q) => {
-      const required = q.dataset.required === 'true';
-      const bad = required && answersOf(q).length === 0;
-      setError(q, bad);
-      if (bad && !firstBad) firstBad = q;
+      const fault = faultOf(q);
+      setError(q, fault);
+      if (fault && !firstBad) firstBad = q;
     });
     if (firstBad) { firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
 

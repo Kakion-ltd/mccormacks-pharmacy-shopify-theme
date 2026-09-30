@@ -168,6 +168,13 @@ with sync_playwright() as pw:
     check("[default] unticked over-18 blocks the add", added["body"] is None)
     dp.locator("[data-pq-q][data-kind=confirm] input[type=checkbox]").check()
     dp.locator("[data-pq-q][data-kind=yes_no_details] input[value=Yes]").check()
+    # Yes with an empty box must not get through: a bare "Yes" tells the pharmacist a
+    # customer is on something without saying what. (Required since 30 Sep 2026.)
+    dp.locator("[data-pq-submit]").click()
+    dp.wait_for_timeout(250)
+    check("[default] Yes with no detail blocks the add", added["body"] is None)
+    check("[default] and says what is missing",
+          "which ones" in dp.locator("[data-pq-q][data-kind=yes_no_details] [data-pq-error]").inner_text())
     dp.locator("[data-pq-details-input]").fill("warfarin")
     dp.locator("[data-pq-submit]").click()
     dp.wait_for_timeout(300)
