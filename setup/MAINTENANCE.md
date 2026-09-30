@@ -157,6 +157,52 @@ merge before running anything that goes out of the repo, whether that is
 GitHub or the store. Don't let a pipe or a `;` stand between a step and the
 check on it.
 
+### Fetch before you say what main contains, and quote the sha (30 Sep 2026)
+
+The rules above are about writing to `main` safely. This one is about **reading**
+it, which turned out to be the commoner mistake: three sessions in one evening
+each stated something false about `main`, and none of them was careless. A
+worktree cannot tell you what `main` has, and neither can a fetch from ten
+minutes ago.
+
+- **A sha from an unmerged worktree is not an identifier anyone else can use.**
+  One session asked another to confirm it had commit `e5a37d3` before pushing
+  theme files. It was their own pre-rebase local commit; it had landed as
+  `4df10c1`, and `e5a37d3` was an ancestor of nothing on `main`. The warning was
+  right, the identifier could not be checked, and answering it meant checking
+  the file contents instead.
+- **A stale read asserted as current.** A session fetched, then did other work,
+  then read `run-all.sh` and told another session their commit had not landed.
+  It had, eight minutes earlier, and that session's own next commit already had
+  it as a parent — it was standing on the thing it said was missing.
+- **A merge refused twice** because `main` moved between the check and the merge
+  (see the rebase step in the landing instructions above).
+
+So, before you state anything about `main` — in a message to another session, in
+a commit message, or to the person running the sessions:
+
+```sh
+git fetch origin && git log --oneline -3 origin/main
+```
+
+and **quote the sha you actually read**. "main is at 1c273bb" can be checked by
+whoever you said it to; "my work is on main" cannot, and is what all three of
+these sounded like. Read `origin/main`, not your branch and not the main
+checkout, both of which can be behind or ahead.
+
+To check a file rather than a commit, read it out of the ref instead of trusting
+that your branch matches:
+
+```sh
+git show origin/main:setup/verify/run-all.sh | head -40
+git merge-base --is-ancestor <sha> origin/main && echo "on main"
+```
+
+The order matters and is the part that gets skipped: the read has to come
+*after* the fetch, in the same breath. A fetch at the top of a session and a
+claim at the bottom of it is the second incident above, which was made by the
+session that had just recommended this habit to someone else.
+
 ### The store has no worktree: one session writes to it at a time (25 Sep 2026)
 
 Worktrees protect the repo. Nothing protects the store. Every session reaches
