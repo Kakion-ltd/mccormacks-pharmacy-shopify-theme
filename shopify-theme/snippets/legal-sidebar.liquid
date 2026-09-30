@@ -30,7 +30,13 @@
     <div style="font-family:var(--font-heading); font-weight:800; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:#666b60; padding:0 14px; margin:0 0 10px;">Policies</div>
     <nav style="display:flex; flex-direction:column; gap:3px;">
       <a href="/pages/terms-and-conditions" class="legal-nav-a" style="{% if active == 'terms' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Terms &amp; Conditions</a>
-      <a href="/pages/privacy-policy" class="legal-nav-a" style="{% if active == 'privacy' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Privacy Policy</a>
+      {%- comment -%} Shopify's copy, not ours: checkout, the order emails and the footer
+          all link to this one, and it is the only one a customer can be shown at checkout.
+          It has no theme template, so this link leaves the sidebar layout behind. The
+          /pages/privacy-policy version is still live and still linked from the services,
+          prescriptions and back-in-stock forms; which set is authoritative is with the
+          solicitor. See setup/HANDOVER.md, "The legal pages". {%- endcomment -%}
+      <a href="/policies/privacy-policy" class="legal-nav-a" style="{% if active == 'privacy' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Privacy Policy</a>
       <a href="/pages/cookie-policy" class="legal-nav-a" style="{% if active == 'cookie' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Cookie Policy</a>
       <a href="/pages/internet-supply-pharmacy" class="legal-nav-a" style="{% if active == 'isp' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Registered Internet Supply Pharmacy</a>
     </nav>

@@ -823,11 +823,20 @@
     };
 
     const ccApply = (privacy, consent) => {
+      // Both of these are sent explicitly rather than left out. Omitting a key
+      // leaves it unanswered, and shouldShowBanner() then keeps the banner up.
+      //
       // sale_of_data is a US concept and is never granted from this banner; the
       // store does not sell personal data. Sending it explicitly keeps Shopify
       // from inferring it from the marketing grant.
+      //
+      // preferences is not granted either, and is not a choice the banner offers:
+      // the cookie policy has three groups and Preferences is not one of them, so
+      // nothing in that group is disclosed to consent to. Withheld is the safe
+      // direction — a Preferences-permission pixel added later stays off until the
+      // banner and the policy both gain the group back.
       const payload = {
-        preferences: !!consent.preferences,
+        preferences: false,
         analytics: !!consent.analytics,
         marketing: !!consent.marketing,
         sale_of_data: false,
@@ -850,11 +859,11 @@
 
       on(document, 'click', '[data-cc-accept]', (e) => {
         e.preventDefault();
-        ccApply(privacy, { preferences: true, analytics: true, marketing: true });
+        ccApply(privacy, { analytics: true, marketing: true });
       });
       on(document, 'click', '[data-cc-reject]', (e) => {
         e.preventDefault();
-        ccApply(privacy, { preferences: false, analytics: false, marketing: false });
+        ccApply(privacy, { analytics: false, marketing: false });
       });
       on(document, 'click', '[data-cc-save]', (e) => {
         e.preventDefault();

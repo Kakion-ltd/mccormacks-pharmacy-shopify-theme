@@ -97,8 +97,11 @@ with sync_playwright() as pw:
         fired = sorted(e["pixel"] for e in pg.evaluate("window.__pixelLog") if e["at"] == "fired")
         check(f"[{label}] both pixels fire only after accept", fired == ["ga4", "meta"])
         payload = pg.evaluate("window.__consentCalls.at(-1)")
-        check(f"[{label}] accept grants analytics+marketing+preferences",
-              payload["analytics"] and payload["marketing"] and payload["preferences"])
+        check(f"[{label}] accept grants analytics and marketing",
+              payload["analytics"] and payload["marketing"])
+        # Accept all means all of what the banner offers, which is two groups. The
+        # policy has no Preferences group, so there is nothing disclosed to grant.
+        check(f"[{label}] accept does not grant preferences", payload["preferences"], False)
         check(f"[{label}] accept still does not grant sale_of_data", payload["sale_of_data"], False)
 
         # GRANULAR: analytics only must not release the marketing pixel.

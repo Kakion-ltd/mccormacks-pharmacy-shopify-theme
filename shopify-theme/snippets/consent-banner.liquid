@@ -29,6 +29,16 @@
     - The choice must be changeable. The footer carries a permanent "Cookie
       settings" link that reopens this, and re-consent is recorded the same way.
 
+  Three categories, matching the three groups in /pages/cookie-policy. It shipped
+  with a fourth, Preferences, described as remembering "choices like your nearest
+  store". Nothing did that: the store locator asks the browser for a position
+  every time and stores nothing, no cookie the 30 Sep 2026 scan found belonged to
+  that group, and no pixel declared the Preferences permission. So the toggle
+  offered a choice that changed nothing and named a group the policy does not
+  have. Removed 30 Sep 2026. The theme now never grants preferences (see
+  assets/theme.js, ccApply): a Preferences-permission pixel added later stays
+  withheld until this banner and the policy both gain the group back.
+
   IMPORTANT — turn OFF Shopify's own banner (Settings > Customer privacy >
   Cookie banner) or the visitor gets two. Both write the same consent state, so
   either works; only one may be visible.
@@ -64,13 +74,6 @@
             <span>Your bag, checkout, and keeping you signed in. These cannot be switched off.</span>
           </span>
           <span class="cc-always">Always on</span>
-        </li>
-        <li class="cc-cat">
-          <label class="cc-cat-text" for="cc-preferences">
-            <strong>Preferences</strong>
-            <span>Remembers choices like your nearest store, so you are not asked twice.</span>
-          </label>
-          <input type="checkbox" id="cc-preferences" data-cc-toggle="preferences" class="cc-switch">
         </li>
         <li class="cc-cat">
           <label class="cc-cat-text" for="cc-analytics">
