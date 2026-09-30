@@ -2323,6 +2323,65 @@ that is deliberate. Before and after in
 - **Jointace Original's description was Jointace Omega-3's.** Replaced; the
   old text is in `jointace-description-before.html` beside the CSV.
 
+## Inline bullets in descriptions: 39 turned into real lists (30 Sep 2026)
+
+Descriptions imported with their bullets run into one paragraph — "…verruca
+virus. • Quick and easy application; • Results in 1-2 weeks; • No plasters
+required;" — and with headings stuck to the end of the previous sentence
+("…warts and verrucas. DIRECTIONS: Soak the affected region…"). 39 products
+fixed, formatting only: every word unchanged, in the same order. Before state
+in `archive/store-cleanup-2026-09-30/description-formatting-before.jsonl`;
+the scripts are in `setup/descriptions/`.
+
+- **Only the markers moved.** Bullets became `<li>`, headings started a new
+  `<p>`, and the semicolons that ended a bullet came off. `write.py` re-reads
+  each product after writing and compares the letter-and-digit stream of the
+  rendered text against the before state; the only punctuation allowed to
+  disappear is `•`, `-`, `–`, `*` and `;`. Anything else fails the product.
+- **`•` is safe to split on; `-` is not.** 33 descriptions have dashes that
+  could be bullets and only 9 are. The rest use a dash to join a label to its
+  meaning — "Paracetamol - For relief of headache" (Night Nurse), "Treats
+  heartburn - Forms a protective barrier" (Gaviscon), "1 Secure - Secure &
+  discreet" (TENA Lady). Splitting those would delete a dash that carries the
+  sentence. The 9 real ones were done by hand in `manual.py`, each one typed
+  out and checked letter by letter. Don't automate this; re-read the list.
+- **`·` and `*` are almost never bullets.** Every middot on the store is a
+  brand name (Sensi·Kin, b·bold) and every asterisk but one is a footnote
+  marker ("35% smoother hair**"). Udo's Super 8 is the single product that
+  uses `*` as a bullet.
+- **A heading only counts when a full stop precedes it.** "Product Features:"
+  after "…most shoes." is a heading; "contains:" in "Vitamin b complex
+  contains: thiamine" is mid-sentence and must stay put. `fix.py` requires
+  `[.!?;•]` before the heading word, which is what keeps the second kind
+  alone.
+
+### The broken-description list for the pharmacist (30 Sep 2026)
+
+651 products have a description that is cut off, empty or garbled —
+422 cut mid-sentence, 133 cut mid-word, 78 with no description at all, 20 with
+mojibake ("â€™", "Ã¬") or a `.?` where a paragraph break was lost, 8 with two
+words run together, 3 with a sentence repeated. `broken.py` rebuilds the list;
+`sheet.py` writes `~/Downloads/Descriptions-To-Fix.xlsx` with a tab each for
+the 12 medicines, the 146 non-medicines the old site can still supply, and the
+493 left for staff.
+
+- **The import cut the source at 485–500 characters**, not 500 exactly, because
+  entities (`&amp;` is five characters, one glyph) shift the count. A
+  description whose source falls in that band and does not end in punctuation
+  was cut; one that ends unpunctuated well under it is usually just a feature
+  list ("Mint fresh", "Vegan friendly") and is not flagged.
+- **"Another product's text" cannot be found automatically.** Two checks were
+  tried and both produced only false positives: a description naming a
+  different brand than the title (the Fusion 5 Gift Set legitimately describes
+  Gillette) and one contradicting the title's colour or SPF ("red" matches
+  inside "reduces", "grey hair" inside every root concealer). The Jointace
+  Original case from 28 Sep was same-brand and read perfectly. Only someone who
+  knows the products can spot these; the sheet does not claim to list them.
+- **A shared description across a product family is usually correct**, not a
+  mistake: 92 groups of products share one description, and nearly all are
+  colours, sizes or flavours of the same thing (TePe brushes, Halls Soothers,
+  Nivea Sun). Don't treat a duplicate as a defect without looking.
+
 ## Descriptions cut at 500 characters; medicines restored from the old site (28 Sep 2026)
 
 Product descriptions were imported cut at 500 characters, often mid-word and,
