@@ -854,6 +854,39 @@ any other sales channel. Those orders arrive without the attribute, and the
 Flow tags them `no-declaration` (step 5). `setup/verify/medicine-declaration.py`
 checks the theme half; the preview's medicine bag is `/cart?fixture=medicine`.
 
+### A `no-declaration` order is the fail-safe working, not a defect (30 Sep 2026)
+
+Order **#1012** arrived tagged `no-declaration` hours after the tick box went
+live, which reads like a regression and is not one. It was a test order placed
+by a script that posted to `/cart/add.js` and then went straight to `/checkout`.
+The bag page was never loaded, so the tick box was never drawn, so nothing could
+send the attribute. Nothing was broken; a route that the theme does not own was
+used.
+
+All four routes were probed against the live store the same evening:
+
+| Route | Tick box |
+|---|---|
+| Bag page, medicine | shown, `required`, blocks submit, express buttons gone |
+| Bag page, medicine **and** a gift voucher | shown |
+| Straight to `/checkout`, bag page never loaded | never drawn — this is what #1012 did |
+| `/cart/<variant>:<qty>` permalink | lands on checkout directly, never drawn |
+
+Live `main-cart.liquid` was byte-identical to `main` throughout, so this is the
+documented limit above, reached, rather than anything having moved.
+
+**Before treating a `no-declaration` order as a bug, ask which route it took.**
+The tag exists precisely because these routes cannot be closed from the theme on
+this plan: it marks the order so a pharmacist gets the confirmation from the
+customer by hand. A real customer reaches checkout through the bag page or the
+drawer, and both are closed. The ones that remain are a typed URL, a saved
+permalink, Buy again, a draft order or another sales channel.
+
+The only thing that could refuse such an order outright is a Cart or Checkout
+Validation Function, which is a Shopify app and is believed to need Plus — check
+that against the plan before anyone promises it, and do not assume the theme can
+be made to cover it.
+
 ---
 
 ## Store data — the opening hours format is load-bearing

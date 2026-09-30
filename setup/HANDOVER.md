@@ -1,6 +1,6 @@
 # McCormack's Pharmacy website — handover
 
-Updated 28 September 2026. The store has been in the pharmacy's ownership since
+Updated 30 September 2026. The store has been in the pharmacy's ownership since
 25 September. This lists what is still needed from the pharmacy, what Kakion is
 still building, and what is already done.
 
@@ -50,18 +50,26 @@ medicines alike. There is no shortlist: every product marked as a medicine is
 covered.
 
 The website marks 337 products as medicines. The hold that stops those orders
-being sent until a pharmacist approves them **is now built, but not yet
-tested**. Every order containing a medicine is put on hold, marked "awaiting
-pharmacist", and the shop gets an email. The pharmacist prints a record sheet
-for the order, ticks and signs it, and approves the order by adding a tag with
-their initials and releasing the hold. An order released without that tag is
-put back on hold. We will test all of this with test orders before launch.
+being sent until a pharmacist approves them **is built and tested**. Every order
+containing a medicine is put on hold, marked "awaiting pharmacist", and the shop
+gets an email. The pharmacist prints a record sheet for the order, ticks and
+signs it, and approves the order by adding a tag with their initials and
+releasing the hold. An order released without that tag is put back on hold.
 
 The tick box where the customer confirms, before paying, that they are over 18
-and will use the medicine as the leaflet says is built too, but **it is not on
-the live website yet**. Until it is, every medicine order arrives marked "no
-declaration", and the pharmacist needs to get that confirmation from the
-customer before approving. Please tell us:
+and will use the medicine as the leaflet says **is on the live website**, so a
+medicine order placed the normal way arrives with that confirmation on it.
+
+**If an order is tagged "no declaration", the customer skipped the bag-page tick
+box. Contact them to confirm they are over 18 and have read the leaflet before
+approving.** This is the website working as intended, not a fault. Nearly
+everybody buys through the basket, which always shows the tick box. A handful of
+ways round it can't be closed: someone who has saved a direct link to the
+checkout, the "buy again" button in a customer account, an order you create
+yourself in Shopify, or an order from another sales channel. Rather than let one
+of those through unnoticed, the website marks the order so you know to ask.
+
+Please tell us:
 
 - Who will review medicine orders, and how quickly, and the initials each
   pharmacist will use to approve.
