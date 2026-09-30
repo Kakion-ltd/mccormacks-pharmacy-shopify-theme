@@ -1338,35 +1338,76 @@ This is the launch position, not a permanent one. Once the counts mean something
 turning `CONTINUE` back off is what stops the store overselling — see the stock rule
 above and do not treat "continue selling" as the settled state of this store.
 
-### Nothing on this store stops an oversell at the bag (30 Sep 2026)
+### The bag accepts an out-of-stock product; checkout is what refuses it (30 Sep 2026)
 
-Worth knowing before anyone relies on `DENY` to protect anything: **this store's
-`/cart/add.js` enforces no stock ceiling at all.** A variant that is tracked, at a
-count of 0, with `inventoryPolicy: DENY` and `sellableOnlineQuantity: 0` — a product
-the page correctly draws as "Out of stock" — is still accepted into the bag by a direct
-POST, and so is a quantity of 9,999. Checked on 30 Sep against four such products,
-including one untouched by that day's change, so this is not a consequence of turning
-`CONTINUE` on.
+**`/cart/add.js` on this store enforces no stock ceiling at all.** A variant that is
+tracked, at a count of 0, with `inventoryPolicy: DENY` and `sellableOnlineQuantity: 0` —
+a product the page correctly draws as "Out of stock" — is still accepted into the bag by
+a direct POST, and so is a quantity of 9,999. Checked on 30 Sep against four such
+products, including ones untouched by that day's change, and reproduced on the live
+storefront as well as through `theme dev`, so it is neither a consequence of turning
+`CONTINUE` on nor a proxy artefact.
 
-What that means in practice:
+**Checkout refuses it, and that is the enforcement point.** Taking such a bag to
+`/checkout` lands on Shopify's `stock-problems` step, headed "There was a problem with
+our checkout" with an "Out of stock" section, the line marked **SOLD OUT** — and the
+line is removed from the cart. Confirmed on the live store, 30 Sep:
+
+| Bag, built by a direct POST | `/cart/add.js` | `/checkout` | Cart after |
+|---|---|---|---|
+| 1 × out of stock (count 0, `DENY`) | 200 | `stock-problems` | 1 → **0** |
+| out of stock **+** in stock | both 200 | `stock-problems` | 2 → **1**, only the in-stock line |
+| 50 × out of stock | 200 | `stock-problems` | 50 → **0** |
+| **12 × a `CONTINUE` product on a count of 1** | 200 | **proceeds normally** | stays **12** |
+
+That last row is the one the launch change depends on: **a continue-selling product
+sells above its count through checkout, not just on the product page.** If checkout ever
+starts refusing those, the change in "Stock at launch" above has stopped working.
+
+So **an out-of-stock product cannot be bought.** What is left is a customer-experience
+problem, not an oversell risk:
 
 - **The disabled button is the only thing keeping an out-of-stock product out of the
   bag.** `variant.available` is false in Liquid, so the buy button renders disabled and
   reads "OUT OF STOCK", and the quick-add button is not rendered at all. That is enough
-  for anyone using the site normally, and it is not enough if a page is stale or a
-  request is made by hand.
+  for anyone using the site normally, and not enough if a page is stale or a request is
+  made by hand. Someone who gets there sees an error-headed checkout rather than a clear
+  "this is sold out" on the product page they came from.
 - **The "can't add more" sentence in `theme.js` (`cartError`, 422) is unreachable on
-  this store**, because nothing returns 422. It is correct code with nothing to fire
-  it; leave it in place rather than deleting it, because it becomes reachable the moment
+  this store**, because nothing returns 422. It is correct code with nothing to fire it;
+  leave it in place rather than deleting it, because it becomes reachable the moment
   inventory is enforced.
-- **Most likely cause is a location that does not stock these items.** Shopify only
-  enforces a ceiling where the inventory item has a level at a location the online store
-  can draw from. Confirming it needs `read_inventory`, which the CLI Connector App does
-  not have (see "Store API access"), so it has to be checked in the admin: open one of
-  the 0-count products and see whether its inventory says it is stocked at the location
-  at all.
+- **Polish item, not a launch blocker: why `DENY` at 0 is not enforced at the bag.**
+  Most likely a location that does not stock these items — Shopify only enforces a
+  ceiling where the inventory item has a level at a location the online store can draw
+  from. Confirming it needs `read_inventory`, which the CLI Connector App does not have
+  (see "Store API access"), so it has to be checked in the admin: open one of the
+  0-count products and see whether its inventory says it is stocked at the location at
+  all.
 
-Do not describe this store as protected against overselling until that is settled.
+The store is protected against selling stock it does not have. It is not protected
+against a customer reaching checkout with something it cannot sell them.
+
+### The empty stock-problems checkout — what "Complete order" does is UNTESTED (30 Sep 2026)
+
+A bag holding **only** an out-of-stock product loses its one line at
+`stock-problems`, which leaves a checkout with no items, a **€0.00 total** and
+"Your order is free. No payment is required." — with a working **Complete order**
+button.
+
+**Nobody has pressed it.** Whether Shopify refuses an empty order or creates a €0
+one is the open question. It matters because an empty order would carry no line
+item tagged `pharmacist-review`, so Flow 1's Condition A would not match and the
+order would **not** be held — it would land in the admin as an ordinary order for
+staff to deal with, with nothing in it. Test orders #1001 to #1007 all had line
+items, so none of them answers this.
+
+To settle it: reach `stock-problems` with only an out-of-stock product (the table
+above says how), press **Complete order** once, and record the result here. Before
+you do, read "The store has no worktree: one session writes to it at a time" — an
+order is a store write, and on 30 Sep a session placing gift-card test orders
+(#1008 to #1012) was running at the same time as this was being looked into, which
+is why it is still open. Cancel whatever it creates, and say so here.
 
 ### Checking it needs the real store, and `theme dev` fights back
 

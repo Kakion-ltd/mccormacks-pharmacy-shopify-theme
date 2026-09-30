@@ -15,13 +15,16 @@ and the ones marked **decision** need a merchant answer before they can be check
   `cart.total_discount` from a real discount.
 - Unit prices, selling plans and subscriptions.
 - Inventory policy for "continue selling when out of stock" (available true with
-  quantity 0) — **checked 2026-09-30 on the real store** by
+  quantity 0) — **checked 2026-09-30 on the live store** by
   `setup/verify/continue-selling.py`, after the launch change that put every
-  in-stock variant on `CONTINUE`. It found that this store enforces no stock
-  ceiling at `/cart/add.js` at all, on `DENY` variants at 0 as much as on
-  `CONTINUE` ones, so the 422 path in `theme.js` never fires here. See "Stock at
-  launch" in `setup/MAINTENANCE.md`. The check needs `npx shopify theme dev`
-  running, because the storefront is still behind the password page.
+  in-stock variant on `CONTINUE`. Two findings, both in `setup/MAINTENANCE.md`
+  under "Stock at launch" and "The bag accepts an out-of-stock product": this
+  store enforces no stock ceiling at `/cart/add.js` at all, on `DENY` variants at
+  0 as much as on `CONTINUE` ones, so the 422 path in `theme.js` never fires
+  here — but **checkout does refuse**, on its `stock-problems` step, and a
+  `CONTINUE` product sells above its count right through checkout. Run it with
+  `BASE` and `STOREFRONT_PASSWORD` against the storefront; it falls back to
+  `npx shopify theme dev` when there is no password to hand.
 - The order status page and order confirmation.
 
 ## Search
