@@ -23,6 +23,6 @@ Everything needed to provision a Shopify dev store to match the theme in `shopif
 ## Known placeholders (must be resolved before launch)
 - Real photography for striped-placeholder tiles.
 - Checkout is Shopify-hosted: brand it under Settings → Checkout (colors/logo/font); the designed multi-step checkout page cannot be recreated on non-Plus plans.
-- Cookie Policy page carries placeholder wording pending the real text and cookie list.
+- Cookie Policy page carries the client's text and a cookie table scanned from the live store on 30 Sep 2026. Re-scan before launch and whenever a pixel is added under Settings → Customer events; the banner's four categories and the policy's three still need reconciling. See setup/HANDOVER.md.
 - The 293 collection descriptions are auto-generated draft copy — review before launch.
 - The mega menu is generated Liquid, **not** the Shopify navigation menu: editing navigation in admin has no storefront effect. Change `taxonomy.json` and re-run `gen_mega.py` + `gen_category_nav.py`.

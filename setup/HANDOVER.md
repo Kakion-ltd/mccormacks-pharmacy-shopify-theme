@@ -216,18 +216,46 @@ footer already point at Shopify's set.
 The withdraw-from-contract page was rewritten on 25 September with the
 business's details. Please ask your solicitor to review that too.
 
-**Unfinished wording that customers can see. Owner: Pharmacy and your
-solicitor supply the text, then Kakion.**
-The cookie policy still carries a draft marker. It isn't hidden in the
-editor: it shows on the page itself, so every customer will see it once the
-password comes off.
+**Cookie policy updated 30 September 2026; David Reilly to review.**
+The draft marker is gone. `/pages/cookie-policy` now carries the pharmacy's
+own text, and the cookie table is the seven cookies the live store actually
+sets, scanned that day in a fresh browser: accept all, then home page,
+product, add to bag, checkout. All seven are Shopify's own. No Google, Meta
+or other third-party analytics or advertising cookie was set at any point,
+because none is installed.
 
-- **Cookie policy:** a box headed "Draft copy" tells the reader the page uses
-  placeholder wording. We need the final cookie policy text and the list of
-  cookies the site uses.
+What the scan confirmed, and what David should know when reviewing:
 
-Send us the confirmed text and we'll put it in and remove the marker. It
-should be settled before launch.
+- Before any consent choice, only four cookies were set, all of them
+  necessary or functional: `_shopify_essential`, `cart_currency`,
+  `localization` and `_shop_app_essential` (on Shopify's `shop.app`). No
+  analytics and no marketing cookie. Shopify's consent state read empty for
+  analytics, marketing and preferences.
+- `_shopify_analytics` and `_shopify_marketing` appeared only after Accept
+  all, which is what the law requires.
+- There is no Google tag on the site, so there is no Google consent default
+  to check. The gate is Shopify's consent API instead, and it is closed
+  until the visitor answers. Re-check this the day any Google or Meta pixel
+  is added.
+
+**Two things for the review, both decisions rather than defects:**
+
+- **The banner offers four categories, the policy has three.** The banner
+  (Strictly necessary, Preferences, Analytics, Marketing) carries a
+  Preferences toggle that the policy does not mention, and no cookie the
+  scan found belongs to it. Either drop Preferences from the banner or add
+  the group to the policy. We have not changed either, because the policy
+  text is the client's.
+- **Privacy Policy is linked two ways from this one page.** The policy text
+  links to `/policies/privacy-policy`, as asked; the sidebar beside it still
+  links to `/pages/privacy-policy`. That sidebar is shared by all seven legal
+  pages, so pointing it at Shopify's set is one change that moves all of
+  them. It waits on the solicitor's decision above.
+
+Re-run the cookie scan before launch, and again whenever a pixel is added
+under Settings > Customer events. A cookie table that lists something the
+site no longer sets, or omits something it now does, is the same defect in a
+new place.
 
 ### What the website says on your behalf
 

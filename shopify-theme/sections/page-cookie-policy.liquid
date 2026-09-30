@@ -1,58 +1,172 @@
+{%- comment -%}
+  Cookie Policy, /pages/cookie-policy. Client copy, supplied 30 September 2026.
+
+  The cookie table is not a guess. It is the seven cookies actually observed on
+  mccormackpharmacy.myshopify.com on 30 Sep 2026 in a fresh browser: accept all,
+  then home, product, add to bag, checkout. No Google, Meta or other third-party
+  analytics or advertising cookie was set at any point, because no such pixel is
+  installed. Every purpose and duration below is Shopify's own documented
+  wording (shopify.com/legal/cookies); where the observed lifetime differed from
+  the documented one, both are given.
+
+  Re-run the scan and update this table before launch, and again whenever a
+  pixel is added under Settings > Customer events. A cookie table that lists
+  something the site no longer sets, or omits something it now does, is the
+  defect this file exists to avoid.
+
+  The banner (snippets/consent-banner.liquid) offers FOUR categories; this
+  policy has THREE. See setup/HANDOVER.md.
+{%- endcomment -%}
+
+{%- assign h2 = 'font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,27px); line-height:1.2; margin:36px 0 12px;' -%}
+{%- assign p = 'margin:0 0 14px; font-size:15.5px; line-height:1.75; color:#3a3d39; text-wrap:pretty;' -%}
+{%- assign th = 'text-align:left; vertical-align:bottom; font-family:var(--font-heading); font-weight:800; font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; color:#666b60; padding:12px 14px; border-bottom:1px solid #e6e7e4; white-space:nowrap;' -%}
+{%- assign td = 'vertical-align:top; padding:13px 14px; border-bottom:1px solid #eceee9; font-size:14.5px; line-height:1.6; color:#3a3d39;' -%}
+{%- assign td_name = 'vertical-align:top; padding:13px 14px; border-bottom:1px solid #eceee9; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13.5px; line-height:1.6; color:var(--c-dark); font-weight:700; white-space:nowrap;' -%}
+{%- assign chip_on = 'display:inline-block; font-size:11.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; padding:4px 9px; border-radius:6px; background:#e3edd4; color:var(--c-primary-text); white-space:nowrap;' -%}
+{%- assign chip_opt = 'display:inline-block; font-size:11.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; padding:4px 9px; border-radius:6px; background:#f4f5f2; color:#666b60; white-space:nowrap;' -%}
+
+{% style %}
+  /* Under 700px the five columns become a ribbon: "Holds / the / information" one word to a
+     line. Below that width each row stacks into a labelled block instead. Same cells, same
+     text — the labels come from data-l, so there is no phone copy of this table to drift. */
+  @media (max-width: 699px) {
+    .cookie-tbl-scroll { overflow-x: visible !important; }
+    .cookie-tbl { min-width: 0 !important; display: block; }
+    .cookie-tbl caption { padding: 16px 16px 0 !important; }
+    .cookie-tbl thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .cookie-tbl tbody, .cookie-tbl tr, .cookie-tbl td { display: block; width: auto; }
+    .cookie-tbl tr { padding: 4px 0 14px; border-bottom: 1px solid #eceee9; }
+    .cookie-tbl tr:last-child { border-bottom: none; }
+    .cookie-tbl td { border-bottom: none !important; padding: 4px 16px !important; white-space: normal !important; }
+    .cookie-tbl td[data-l="Name"] { padding-top: 14px !important; font-size: 14.5px !important; }
+    .cookie-tbl td:not([data-l="Name"])::before {
+      content: attr(data-l); display: block; font-family: var(--font-heading); font-weight: 800;
+      font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: #666b60; margin-bottom: 2px;
+    }
+  }
+{% endstyle %}
+
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
   <div class="legal-wrap" style="display:flex; gap:56px; align-items:flex-start;">
 
     {% render 'legal-sidebar', active: 'cookie', updated_date: section.settings.updated_date, show_help: section.settings.show_help_card, phone: section.settings.help_phone %}
 
-    <div style="flex:1; min-width:0; max-width:var(--measure);">
-      <div>
+    <div style="flex:1; min-width:0;">
+      <div style="max-width:var(--measure);">
       {%- render 'breadcrumb', current: 'Cookie Policy', parent_title: 'Policies', margin: '0 0 14px' -%}
-      <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(30px,3.4vw,42px); line-height:1.08; margin:0 0 14px;">{{ section.settings.heading }}</h1>
-      <p style="margin:0 0 28px; font-size:17px; line-height:1.65; color:#4a4d47; max-width:64ch; text-wrap:pretty;">{{ section.settings.intro }}</p>
-      <div style="height:1px; background:#e6e7e4;"></div>
-      <div style="display:flex; gap:14px; align-items:flex-start; background:#fdf6e9; border:1px solid #f0e2c4; border-radius:14px; padding:18px 20px; margin:0 0 24px;">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="#c98a1b" style="flex:0 0 auto; margin-top:2px;"><path d="M12 2 1.5 21h21L12 2Zm0 5.5 6.6 12H5.4L12 7.5Zm-1 3v4.5h2V10.5h-2Zm0 5.8v2h2v-2h-2Z"></path></svg>
-        <div>
-          <div style="font-weight:800; font-size:16px; color:#8a6210; margin-bottom:4px;">Draft copy</div>
-          <div style="font-size:14.5px; line-height:1.65; color:#5c4a24;">This page uses placeholder wording. Please supply the live cookie policy text and cookie list so it can be dropped in.</div>
-        </div>
-      </div><h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,27px); line-height:1.2; margin:36px 0 12px;">The cookies we use</h2>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin:0 0 10px;">
-        <div style="border:1px solid #e6e7e4; border-radius:14px; padding:22px 24px; background:#fbfcfa;">
-          <div style="display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:8px;">
-            <span style="font-family:var(--font-heading); font-weight:800; font-size:17px; color:var(--c-dark);">Strictly necessary</span>
-            <span style="font-size:11.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; padding:4px 9px; border-radius:6px; background:#e3edd4; color:var(--c-primary-text);">Always on</span>
-          </div>
-          <div style="font-size:14.5px; line-height:1.65; color:#3a3d39; margin-bottom:10px;">Keep you logged in, remember what is in your basket, and process checkout securely. The site cannot work without them.</div>
-          <div style="font-size:13.5px; line-height:1.6; color:#5d6159; border-top:1px solid #eceee9; padding-top:10px;">Session, cart and security tokens.</div>
-        </div>
-        <div style="border:1px solid #e6e7e4; border-radius:14px; padding:22px 24px; background:#fbfcfa;">
-          <div style="display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:8px;">
-            <span style="font-family:var(--font-heading); font-weight:800; font-size:17px; color:var(--c-dark);">Preferences</span>
-            <span style="font-size:11.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; padding:4px 9px; border-radius:6px; background:#f4f5f2; color:#666b60;">Optional</span>
-          </div>
-          <div style="font-size:14.5px; line-height:1.65; color:#3a3d39; margin-bottom:10px;">Remember choices such as your selected store and whether you have dismissed a banner.</div>
-          <div style="font-size:13.5px; line-height:1.6; color:#5d6159; border-top:1px solid #eceee9; padding-top:10px;">Store selection, cookie consent record.</div>
-        </div>
-        <div style="border:1px solid #e6e7e4; border-radius:14px; padding:22px 24px; background:#fbfcfa;">
-          <div style="display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:8px;">
-            <span style="font-family:var(--font-heading); font-weight:800; font-size:17px; color:var(--c-dark);">Analytics</span>
-            <span style="font-size:11.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; padding:4px 9px; border-radius:6px; background:#f4f5f2; color:#666b60;">Optional</span>
-          </div>
-          <div style="font-size:14.5px; line-height:1.65; color:#3a3d39; margin-bottom:10px;">Tell us which pages are used, where people leave, and what to improve.</div>
-          <div style="font-size:13.5px; line-height:1.6; color:#5d6159; border-top:1px solid #eceee9; padding-top:10px;">Google Analytics.</div>
-        </div>
-        <div style="border:1px solid #e6e7e4; border-radius:14px; padding:22px 24px; background:#fbfcfa;">
-          <div style="display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:8px;">
-            <span style="font-family:var(--font-heading); font-weight:800; font-size:17px; color:var(--c-dark);">Marketing &amp; personalisation</span>
-            <span style="font-size:11.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; padding:4px 9px; border-radius:6px; background:#f4f5f2; color:#666b60;">Optional</span>
-          </div>
-          <div style="font-size:14.5px; line-height:1.65; color:#3a3d39; margin-bottom:10px;">Let us show relevant products, personalise offers, and measure whether our advertising works.</div>
-          <div style="font-size:13.5px; line-height:1.6; color:#5d6159; border-top:1px solid #eceee9; padding-top:10px;">Facebook Pixel, Google Ad Services, Doubleclick, AdRoll, Nosto.</div>
-        </div>
-      </div><h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,27px); line-height:1.2; margin:36px 0 12px;">Managing your choices</h2><p style="margin:0 0 14px; font-size:15.5px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">You can accept or reject optional cookies when you first visit, and change your mind at any time by reopening cookie settings from the link in our footer. Rejecting optional cookies will not affect your ability to browse or order.</p><h3 style="font-weight:800; font-size:16.5px; color:#2A2B2A; margin:24px 0 8px;">Browser controls</h3><ul style="margin:0 0 16px; padding-left:4px; font-size:15.5px; line-height:1.7; color:#3a3d39; list-style:none; display:flex; flex-direction:column; gap:9px;"><li style="display:flex; gap:11px; align-items:flex-start;"><span style="flex:0 0 auto; margin-top:8px; width:7px; height:7px; border-radius:999px; background:var(--c-accent);"></span><span>Every major browser lets you block or delete cookies in its privacy settings.</span></li><li style="display:flex; gap:11px; align-items:flex-start;"><span style="flex:0 0 auto; margin-top:8px; width:7px; height:7px; border-radius:999px; background:var(--c-accent);"></span><span>Blocking strictly necessary cookies will stop the basket and checkout from working.</span></li><li style="display:flex; gap:11px; align-items:flex-start;"><span style="flex:0 0 auto; margin-top:8px; width:7px; height:7px; border-radius:999px; background:var(--c-accent);"></span><span>Clearing cookies will also clear your saved preferences and consent choices.</span></li></ul><h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(21px,2.2vw,27px); line-height:1.2; margin:36px 0 12px;">More information</h2><p style="margin:0 0 14px; font-size:15.5px; line-height:1.75; color:#3a3d39; text-wrap:pretty;">For detail on the analytics, personalisation and marketing services we use, and the data they receive, see our <a href="/pages/privacy-policy">Privacy Policy</a>.</p>
+      <h1 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(30px,3.4vw,42px); line-height:1.08; margin:0 0 6px;">{{ section.settings.heading }}</h1>
+      <p style="margin:0 0 16px; font-size:14.5px; line-height:1.6; color:#666b60;">Last updated: {{ section.settings.updated_date }}</p>
+
+      <h2 style="{{ h2 }} margin-top:0;">What are cookies?</h2>
+      <p style="{{ p }}">{{ section.settings.intro }}</p>
+
+      <h2 style="{{ h2 }}">How we use cookies</h2>
+      <p style="{{ p }}">We use cookies to make our online shop work, to understand how people use our website so we can improve it, and, with your permission, to show you relevant offers. We sort them into three groups:</p>
+      <p style="{{ p }}"><strong>Strictly necessary cookies</strong> keep the website working: your basket, signing in to your account, and completing checkout. They can&rsquo;t be switched off, because the shop won&rsquo;t work without them.</p>
+      <p style="{{ p }}"><strong>Analytics cookies</strong> tell us which pages are visited and how people move around the site, so we can improve it. They&rsquo;re only set if you agree.</p>
+      <p style="{{ p }}"><strong>Marketing cookies</strong> are set by partners such as Google and Meta (Facebook and Instagram), to show you relevant adverts on other websites and measure how well our adverts work. They&rsquo;re only set if you agree.</p>
+      <p style="{{ p }}">We never use cookies to store sensitive information such as health details or payment card numbers.</p>
+
+      <h2 style="{{ h2 }}">Session and persistent cookies</h2>
+      <p style="{{ p }}">Some cookies are deleted when you close your browser (session cookies). Others stay on your device for a set time, so we can remember your preferences when you come back (persistent cookies). How long each one lasts is shown in the table below.</p>
+
+      <h2 style="{{ h2 }}">The cookies we use</h2>
+      <p style="{{ p }}">These are the cookies set when we last checked the website, on {{ section.settings.updated_date }}, after accepting all cookies and going through the shop from the home page to checkout. All of them are set by Shopify, the platform the shop runs on.</p>
+
       </div>
 
-      {% render 'legal-question-card' %}
+      {%- comment -%} The table is the one thing on this page that wants more room than the
+          reading measure: five columns of prose inside 64ch is unreadable, which is what the
+          first draft did. It sits outside the prose block and gets the full content column.
+          overflow-x:auto so a long row scrolls inside the card rather than pushing the page
+          sideways on a phone; tabindex+role so a keyboard user can reach that scroll.
+          ponytail: scrolls sideways on a phone, restack the cells as cards if that annoys
+          anyone. {%- endcomment -%}
+      <div style="max-width:1000px; border:1px solid #e6e7e4; border-radius:14px; background:#fbfcfa; overflow:hidden; margin:0 0 10px;">
+        <div tabindex="0" role="region" aria-label="The cookies we use" class="cookie-tbl-scroll" style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
+          <table class="cookie-tbl" style="width:100%; min-width:720px; border-collapse:collapse;">
+            <caption style="text-align:left; padding:16px 14px 4px; font-size:13.5px; line-height:1.6; color:#5d6159;">Cookies set on mccormackspharmacy.ie</caption>
+            <thead>
+              <tr>
+                <th scope="col" style="{{ th }}">Name</th>
+                <th scope="col" style="{{ th }}">Domain</th>
+                <th scope="col" style="{{ th }}">Purpose</th>
+                <th scope="col" style="{{ th }}">How long it lasts</th>
+                <th scope="col" style="{{ th }}">Group</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-l="Name" style="{{ td_name }}">_shopify_essential</td>
+                <td data-l="Domain" style="{{ td }}">Our own website</td>
+                <td data-l="Purpose" style="{{ td }}">Holds the information the shop needs to work &mdash; your session, your checkout, anti-tampering data &mdash; and the record of the cookie choice you made.</td>
+                <td data-l="How long it lasts" style="{{ td }}">1 year</td>
+                <td data-l="Group" style="{{ td }}"><span style="{{ chip_on }}">Strictly necessary</span></td>
+              </tr>
+              <tr>
+                <td data-l="Name" style="{{ td_name }}">cart</td>
+                <td data-l="Domain" style="{{ td }}">Our own website</td>
+                <td data-l="Purpose" style="{{ td }}">Identifies what is in your basket.</td>
+                <td data-l="How long it lasts" style="{{ td }}">90 days from the moment you add something to your basket. Shopify documents this cookie as lasting 2 weeks.</td>
+                <td data-l="Group" style="{{ td }}"><span style="{{ chip_on }}">Strictly necessary</span></td>
+              </tr>
+              <tr>
+                <td data-l="Name" style="{{ td_name }}">cart_currency</td>
+                <td data-l="Domain" style="{{ td }}">Our own website</td>
+                <td data-l="Purpose" style="{{ td }}">Keeps your basket priced in the currency you last used, so a new basket starts in the right one.</td>
+                <td data-l="How long it lasts" style="{{ td }}">2 weeks, extended to 90 days once there is something in your basket.</td>
+                <td data-l="Group" style="{{ td }}"><span style="{{ chip_on }}">Strictly necessary</span></td>
+              </tr>
+              <tr>
+                <td data-l="Name" style="{{ td_name }}">localization</td>
+                <td data-l="Domain" style="{{ td }}">Our own website</td>
+                <td data-l="Purpose" style="{{ td }}">Prices and delivers your basket to the right country.</td>
+                <td data-l="How long it lasts" style="{{ td }}">1 year</td>
+                <td data-l="Group" style="{{ td }}"><span style="{{ chip_on }}">Strictly necessary</span></td>
+              </tr>
+              <tr>
+                <td data-l="Name" style="{{ td_name }}">_shop_app_essential</td>
+                <td data-l="Domain" style="{{ td }}">shop.app (Shopify)</td>
+                <td data-l="Purpose" style="{{ td }}">Needed for Shop Pay and Shopify&rsquo;s Shop app to work at checkout. Shopify documents it only as containing &ldquo;essential information for the correct functionality of Shop.app&rdquo;.</td>
+                <td data-l="How long it lasts" style="{{ td }}">1 year</td>
+                <td data-l="Group" style="{{ td }}"><span style="{{ chip_on }}">Strictly necessary</span></td>
+              </tr>
+              <tr>
+                <td data-l="Name" style="{{ td_name }}">_shopify_analytics</td>
+                <td data-l="Domain" style="{{ td }}">Our own website</td>
+                <td data-l="Purpose" style="{{ td }}">Records which pages are visited and how people move around the shop and checkout, so we can improve it.</td>
+                <td data-l="How long it lasts" style="{{ td }}">1 year</td>
+                <td data-l="Group" style="{{ td }}"><span style="{{ chip_opt }}">Analytics</span></td>
+              </tr>
+              <tr>
+                <td data-l="Name" style="{{ td_name }} border-bottom:none;">_shopify_marketing</td>
+                <td data-l="Domain" style="{{ td }} border-bottom:none;">Our own website</td>
+                <td data-l="Purpose" style="{{ td }} border-bottom:none;">Measures how well our marketing works &mdash; which adverts or emails brought someone to the shop, and what they did next.</td>
+                <td data-l="How long it lasts" style="{{ td }} border-bottom:none;">1 year</td>
+                <td data-l="Group" style="{{ td }} border-bottom:none;"><span style="{{ chip_opt }}">Marketing</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="max-width:var(--measure);">
+      <p style="margin:0 0 14px; font-size:13.5px; line-height:1.65; color:#5d6159;">The two optional cookies, <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12.5px;">_shopify_analytics</span> and <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12.5px;">_shopify_marketing</span>, were not present until we accepted cookies.</p>
+
+      <h2 style="{{ h2 }}">Your choices</h2>
+      <p style="{{ p }}">When you first visit our website, we ask whether you accept analytics and marketing cookies. None of these are set unless you agree. You can change your mind at any time using the Cookie settings link at the bottom of every page.</p>
+      <p style="{{ p }}">You can also block or delete cookies in your browser settings. If you block strictly necessary cookies, parts of the shop, including the basket and checkout, will stop working.</p>
+
+      <h2 style="{{ h2 }}">Third parties</h2>
+      <p style="{{ p }}">At the moment no advertising or analytics service outside Shopify runs on this website, and when we checked on {{ section.settings.updated_date }} no cookie from Google, Meta or any other such company was set. If we add one, it will be listed in the table above and will only be set if you agree to it.</p>
+      <p style="{{ p }}">Where we use services from companies such as Google and Meta (Facebook and Instagram), those companies may also process information about your visit, as set out in their own privacy policies. You can learn more about online advertising and your choices at <a href="https://www.youronlinechoices.eu/" rel="noopener nofollow" target="_blank">youronlinechoices.eu</a>.</p>
+
+      <h2 style="{{ h2 }}">More information</h2>
+      <p style="{{ p }}">For how we handle your personal data more generally, please see our <a href="/policies/privacy-policy">Privacy Policy</a>. If you have questions about our use of cookies, contact us at <a href="mailto:info@mccormackspharmacy.ie">info@mccormackspharmacy.ie</a> or call <a href="tel:0526199329">052 6199329</a>.</p>
+      </div>
+
+      <div style="max-width:var(--measure);">{% render 'legal-question-card' %}</div>
     </div>
 
   </div>
@@ -63,8 +177,8 @@
   "name": "Cookie Policy page",
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "Cookie Policy" },
-    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Cookies are small text files stored on your device. We use them to keep your basket working, to remember your preferences, and to understand how the site is used." },
-    { "type": "text", "id": "updated_date", "label": "Last reviewed date", "default": "12 June 2026" },
+    { "type": "textarea", "id": "intro", "label": "What are cookies? (opening paragraph)", "default": "Cookies are small text files stored on your computer, phone or tablet when you visit a website. They let the website recognise your device and remember information about your visit, such as what's in your basket." },
+    { "type": "text", "id": "updated_date", "label": "Last updated date", "default": "30 September 2026" },
     { "type": "checkbox", "id": "show_help_card", "label": "Show pharmacist help card", "default": true },
     { "type": "text", "id": "help_phone", "label": "Help phone number", "default": "052 6199329" }
   ],
