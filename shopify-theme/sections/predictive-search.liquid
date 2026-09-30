@@ -67,7 +67,7 @@
                   {%- comment -%} Blank unless the price shown is genuinely reduced — see snippets/product-compare-at.liquid. {%- endcomment -%}
                   {%- capture was -%}{%- render 'product-compare-at', product: product -%}{%- endcapture -%}
                   {%- assign was = was | strip -%}
-                  <a class="ps-item ps-product" role="option" aria-selected="false" id="ps-opt-p{{ forloop.index }}" href="{{ product.url }}" tabindex="-1">
+                  <a class="ps-item ps-product" role="option" aria-selected="false" id="ps-opt-p{{ forloop.index }}" href="{% render 'product-card-url', product: product %}" tabindex="-1">
                     <span class="ps-thumb">
                       {%- if product.featured_image -%}
                         {{ product.featured_image | image_url: width: 360 | image_tag: alt: '', loading: 'lazy', widths: '120,240,360', sizes: '(max-width: 900px) 45vw, 56px', width: 180, height: 180, class: 'ps-thumb-img' }}

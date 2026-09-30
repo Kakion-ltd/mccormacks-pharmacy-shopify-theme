@@ -375,7 +375,7 @@
             <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">{{ product.vendor }}</div>
             <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;">{{ product.title }}</h3>
             <div style="display:flex; align-items:baseline; gap:9px; margin-bottom:14px;"><span style="color:var(--c-primary-text); font-weight:800; font-size:19px;">{{ product.price | money }}</span>{%- if was != blank -%}<span class="price-was">{{ was }}</span>{%- endif -%}</div>
-            <a href="{{ product.url }}" class="btn-sm btn-fill" style="margin-top:auto">View Product</a>
+            <a href="{% render 'product-card-url', product: product %}" class="btn-sm btn-fill" style="margin-top:auto">View Product</a>
           </div>
         {%- endfor -%}
     </div>

@@ -41,17 +41,17 @@
         {%- capture was -%}{%- render 'product-compare-at', product: product -%}{%- endcapture -%}
         {%- assign was = was | strip -%}
         <div class="crec-card">
-          <a href="{{ product.url }}" class="crec-thumb" tabindex="-1" aria-hidden="true">
+          <a href="{% render 'product-card-url', product: product %}" class="crec-thumb" tabindex="-1" aria-hidden="true">
             {%- if product.featured_image -%}
               {{ product.featured_image | image_url: width: 220 | image_tag: alt: '', loading: 'lazy', width: 110, height: 110, class: 'crec-img' }}
             {%- endif -%}
           </a>
-          <a href="{{ product.url }}" class="crec-title">{{ product.title }}</a>
+          <a href="{% render 'product-card-url', product: product %}" class="crec-title">{{ product.title }}</a>
           <div class="crec-price">{{ product.price | money }}{%- if was != blank -%}<span class="price-was">{{ was }}</span>{%- endif -%}</div>
           {%- if product.variants.size == 1 and product.selling_plan_groups.size == 0 -%}
             <button type="button" data-add-id="{{ variant.id }}" class="crec-add btn-sm btn-fill">Add</button>
           {%- else -%}
-            <a href="{{ product.url }}" class="crec-add crec-add-link btn-sm btn-fill">Choose</a>
+            <a href="{% render 'product-card-url', product: product %}" class="crec-add crec-add-link btn-sm btn-fill">Choose</a>
           {%- endif -%}
         </div>
       {%- endunless -%}

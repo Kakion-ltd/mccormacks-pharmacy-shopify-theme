@@ -65,8 +65,16 @@
       everything before the first ">"; a type with no ">" is its own department.
     endcomment
     assign type_dept = product.type | downcase | split: '>' | first | strip
+    comment
+      product-restricted answers "do not one-click add", which is true of a gift
+      card as well as a medicine. Only the medicine half means pharmacy, so a gift
+      card is excluded here: a voucher must not wear pharmacist assurance copy.
+    endcomment
     if restricted == 'true' or type_dept == 'pharmacy'
       assign pharmacy = true
+    endif
+    if product.gift_card?
+      assign pharmacy = false
     endif
   endif
 

@@ -1,0 +1,17 @@
+{%- comment -%}
+  Where a product card's link and button should go.
+
+  Everything goes to its own product page, except a gift card, which goes to
+  /pages/gift-vouchers. That page is the only place the amount, the delivery
+  method, the recipient and the send date are collected, and those become the
+  line item properties Shopify reads to issue the voucher. A card that linked
+  to the gift card's own product page would let a shopper add a voucher with
+  none of them, and Shopify would quietly issue it to the buyer.
+
+  Pairs with product-restricted.liquid, which stops the one-click add on the
+  same products. Change one and change the other.
+
+  Usage: <a href="{% render 'product-card-url', product: product %}">
+  Accepts: product (required)
+{%- endcomment -%}
+{%- if product.gift_card? -%}/pages/gift-vouchers{%- else -%}{{ product.url }}{%- endif -%}

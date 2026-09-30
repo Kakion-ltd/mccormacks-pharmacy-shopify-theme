@@ -19,14 +19,34 @@
   page's own Add to bag still works unconditionally. The questionnaire the
   collection FAQ copy describes does not exist in this theme.
 
+  TWO reasons a product answers yes, and they are not the same reason:
+
+    1. The restricted tag — a medicine. Send the shopper to the product page.
+    2. A gift card. One-click add would put a voucher in the bag with no
+       recipient, no message and no send date, because those are collected
+       on /pages/gift-vouchers and nowhere else. The card links there instead;
+       `product-card-url` is what decides that, and the two must agree.
+
+  Callers that want "don't one-click add" want both. A caller that wants
+  "this is a medicine" wants only the first — see buy-assurance.liquid, which
+  asks this and then excludes gift cards again, because a voucher is not a
+  pharmacy product and must not wear pharmacy assurance copy.
+
   Accepts: product (required)
 {%- endcomment -%}
 {%- liquid
   assign gate_tag = settings.restricted_tag | strip | downcase
+  assign gated = false
   if gate_tag != blank
     assign product_tags = product.tags | join: '||' | downcase | split: '||'
     if product_tags contains gate_tag
-      echo 'true'
+      assign gated = true
     endif
+  endif
+  if product.gift_card?
+    assign gated = true
+  endif
+  if gated
+    echo 'true'
   endif
 -%}

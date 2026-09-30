@@ -56,7 +56,7 @@
         <div style="border-top:1px solid #e6e7e4;">
           {%- for item in cart.items -%}
           <div class="cart-row" style="display:flex; gap:22px; padding:24px 0; border-bottom:1px solid #e6e7e4;">
-            <a href="{{ item.url }}" style="flex:0 0 auto; width:118px; height:118px; border:1px solid #e6e7e4; border-radius:12px; overflow:hidden; background:#ffffff;">
+            <a href="{% render 'product-card-url', product: item.product %}" style="flex:0 0 auto; width:118px; height:118px; border:1px solid #e6e7e4; border-radius:12px; overflow:hidden; background:#ffffff;">
               {%- if item.image -%}
                 {{ item.image | image_url: width: 236 | image_tag: alt: item.title, style: 'width:100%; height:100%; object-fit:contain; display:block;' }}
               {%- else -%}
@@ -67,7 +67,7 @@
               {%- if item.vendor != blank -%}
                 <div style="font-family:var(--font-heading); font-weight:800; font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--c-primary-text);">{{ item.vendor }}</div>
               {%- endif -%}
-              <a href="{{ item.url }}" class="hov-green" style="font-weight:700; font-size:16px; line-height:1.45; color:#2A2B2A; max-width:46ch;">{{ item.product.title }}</a>
+              <a href="{% render 'product-card-url', product: item.product %}" class="hov-green" style="font-weight:700; font-size:16px; line-height:1.45; color:#2A2B2A; max-width:46ch;">{{ item.product.title }}</a>
               {%- unless item.product.has_only_default_variant -%}
                 <div style="font-size:13px; color:#666b60;">{{ item.variant.title }}</div>
               {%- endunless -%}

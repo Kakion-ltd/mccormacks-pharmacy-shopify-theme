@@ -67,6 +67,36 @@ check('gate tag as a prefix of another tag does not match', gate(['pharmacist-on
 // Clearing the setting disables the check, as the setting's help text promises.
 check('blank setting disables the gate', gate(['pharmacist-only'], ''), '');
 
+/* A gift card is gated too, for a different reason: a one-click add would put a
+   voucher in the bag with no recipient, no message and no send date, and Shopify
+   would issue it to the buyer without complaining. */
+const giftGate = (extra = {}) =>
+  render('product-restricted', {
+    product: { tags: [], 'gift_card?': true, ...extra },
+    settings: { restricted_tag: 'pharmacist-only' },
+  });
+
+check('a gift card is gated', giftGate(), 'true');
+check('a gift card is gated even with the setting blank',
+  render('product-restricted', { product: { tags: [], 'gift_card?': true }, settings: { restricted_tag: '' } }),
+  'true');
+check('a gift card carrying the tag too is still gated once', giftGate({ tags: ['pharmacist-only'] }), 'true');
+check('an ordinary product with gift_card? false is not gated',
+  render('product-restricted', { product: { tags: ['vitamins'], 'gift_card?': false }, settings: { restricted_tag: 'pharmacist-only' } }),
+  '');
+
+/* ---------- product-card-url ---------- */
+/* Where a card's link goes. Wrong branch = a shopper reaches a buy box that
+   collects none of the gift card recipient fields. */
+const cardUrl = (product) => render('product-card-url', { product });
+
+check('a gift card card links to the voucher page',
+  cardUrl({ 'gift_card?': true, url: '/products/gift-voucher' }), '/pages/gift-vouchers');
+check('an ordinary product card links to its own page',
+  cardUrl({ 'gift_card?': false, url: '/products/nurofen' }), '/products/nurofen');
+check('a product with no gift_card? key links to its own page',
+  cardUrl({ url: '/products/nurofen' }), '/products/nurofen');
+
 
 /* ---------- store-hours ---------- */
 const WEEK = [
