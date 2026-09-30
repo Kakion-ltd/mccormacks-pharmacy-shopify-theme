@@ -189,7 +189,17 @@
           </span>
           <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:var(--c-dark);">Free</span>
         </button>
+        {%- comment -%}
+          The method's own properties live here, beside the buttons that choose it, not
+          inside a field that a later redesign might move or delete. Shopify's two flags
+          are what make it email the recipient at all; they were nested in the date
+          control, where replacing the date picker would have taken them with it.
+          `applyMethod`'s `input[data-gv-only]` loop enables exactly the ones whose
+          method is chosen, so scoping is still one attribute and no new JS.
+        {%- endcomment -%}
         <input type="hidden" name="properties[Delivery]" value="Printed and posted" data-gv-only="Printed and posted" disabled>
+        <input type="hidden" name="properties[__shopify_send_gift_card_to_recipient]" value="if_present" data-gv-only="By email" disabled>
+        <input type="hidden" name="properties[__shopify_offset]" id="gv-offset" data-gv-only="By email" disabled>
       </div>
 
       <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:38px 0 6px;">3. Who is it for?</h2>
@@ -223,8 +233,6 @@
         <div class="gv-date" data-gv-only="By email" style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0; position:relative;">
           <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Delivery date</span>
           <input type="hidden" name="properties[Send on]" id="gv-send-on">
-          <input type="hidden" name="properties[__shopify_offset]" id="gv-offset">
-          <input type="hidden" name="properties[__shopify_send_gift_card_to_recipient]" value="if_present">
           <button type="button" id="gv-date-field" aria-expanded="false" class="hov-border-accent" style="display:flex; align-items:center; gap:11px; height:52px; border:1.5px solid #dfe1dc; border-radius:10px; padding:0 14px; background:#ffffff; color:#2A2B2A;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
             <span id="gv-date-label" style="flex:1; min-width:0; font-size:15.5px; font-weight:600; color:#666b60; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Send immediately</span>
