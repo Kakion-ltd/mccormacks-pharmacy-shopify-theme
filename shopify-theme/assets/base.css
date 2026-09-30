@@ -496,6 +496,9 @@ body[data-cd-open] { overflow: hidden; }
 .cd-line-title { font-size: 14.5px; line-height: 1.35; color: var(--c-text); font-weight: 600; }
 .cd-line-title a { color: inherit; }
 .cd-line-variant { font-size: 13px; color: var(--c-muted-2); }
+/* Line item properties in the drawer — the gift voucher's recipient and send date.
+   Same size as the variant line, which is the other "detail about this line" it sits with. */
+.cd-line-prop { display: block; font-size: 13px; line-height: 1.5; color: var(--c-muted-2); overflow-wrap: anywhere; }
 .cd-err { margin: 0 18px 12px; padding: 10px 12px; border-radius: 8px; background: var(--c-error-bg); color: var(--c-error); font-size: 13.5px; line-height: 1.5; }
 .cd-line-foot { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-top: 2px; }
 .cd-qty { display: inline-flex; align-items: center; border: 1.5px solid var(--c-border-2); border-radius: 8px; overflow: hidden; }

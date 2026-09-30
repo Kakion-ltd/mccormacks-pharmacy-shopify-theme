@@ -479,6 +479,8 @@
             // null for a product that has only the default variant, so nothing is drawn
             // on a single-variant line. The cart page has always shown this.
             (it.variant_title ? '<span class="cd-line-variant">' + esc(it.variant_title) + '</span>' : '') +
+            Object.entries(it.properties || {}).filter(([k, v]) => k[0] !== '_' && String(v).trim() !== '')
+              .map(([k, v]) => '<span class="cd-line-prop">' + esc(k) + ': ' + esc(v) + '</span>').join('') +
             '<div class="cd-line-foot">' +
               '<span class="cd-qty-col">' +
               '<span class="cd-qty">' +
@@ -605,11 +607,13 @@
     if (window.mccCartDrawer) window.mccCartDrawer.open();
   };
 
-  async function addToCart(id, qty) {
+  async function addToCart(id, qty, props) {
+    const body = { id, quantity: qty || 1 };
+    if (props && Object.keys(props).length) body.properties = props;
     const res = await fetch(cartAddUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, quantity: qty || 1 }),
+      body: JSON.stringify(body),
     });
     if (!res.ok) throw await cartError(res);
     const cart = await fetch(cartUrl).then(r => r.json());
@@ -640,12 +644,25 @@
   });
   on(document, 'submit', 'form[data-ajax-add]', async (e, form) => {
     e.preventDefault();
-    const id = parseInt(new FormData(form).get('id'), 10);
-    const qty = parseInt(new FormData(form).get('quantity') || '1', 10);
+    const data = new FormData(form);
+    const id = parseInt(data.get('id'), 10);
+    const qty = parseInt(data.get('quantity') || '1', 10);
+    // properties[Recipient email] -> properties['Recipient email'], so anything the form
+    // names as a property lands on the order. A disabled input is already absent from
+    // FormData, which is how the gift voucher page picks the fields for its method.
+    // Blank values are dropped: Shopify would otherwise keep an empty property on the line.
+    const props = {};
+    data.forEach((v, k) => {
+      const m = k.match(/^properties\[(.+)\]$/);
+      if (m && String(v).trim() !== '') props[m[1]] = v;
+    });
     const btn = form.querySelector('[type=submit]');
+    // The label was hardcoded back to 'Add To Bag', which renamed any button that said
+    // anything else — the voucher page's says 'Add voucher to bag'. Put back what was there.
+    const label = btn ? btn.textContent : '';
     if (btn) btn.disabled = true;
     try {
-      const cart = await addToCart(id, qty);
+      const cart = await addToCart(id, qty, props);
       if (btn) btn.textContent = 'Added to bag ✓';
       if (window.mccCartDrawer) { window.mccCartDrawer.render(cart); window.mccCartDrawer.open(); }
     }
@@ -653,7 +670,7 @@
       if (btn) btn.textContent = 'Not added';
       showCartMessage(err.message);
     }
-    if (btn) setTimeout(() => { btn.disabled = false; btn.textContent = 'Add To Bag'; }, 1600);
+    if (btn) setTimeout(() => { btn.disabled = false; btn.textContent = label; }, 1600);
   });
 
   // ---- Wishlist. Stored in the visitor's own browser, no account and no app.

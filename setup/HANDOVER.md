@@ -254,6 +254,16 @@ Your shops follow Sunday hours on bank holidays, and the website says so. But
 Google will show normal weekday hours on a bank holiday unless we give it a
 dated list each year. Decide whether that is worth doing.
 
+**Gift vouchers need switching on. Owner: Pharmacy (account owner).**
+The gift voucher page now sells a real Shopify gift card, and the seven old
+"E-Gift Card" products have been taken off the website — they took money and
+issued no voucher code, so they could not stay. One step is left, and only the
+Shopify account owner can do it: **Products → Gift cards → activate gift cards**
+(there are Shopify terms to accept). Shopify refuses to let anyone create a gift
+card product until that is done, so until it is, the voucher page tells customers
+vouchers aren't available online and points them at the shops. Nothing else is
+outstanding; the page, the emails and the staff alert are built and tested.
+
 **The gift voucher card. Decision needed: pharmacy.**
 You chose white writing on the lime-green voucher card. It is hard to read,
 and it fails the readability standard the rest of the site meets. Please

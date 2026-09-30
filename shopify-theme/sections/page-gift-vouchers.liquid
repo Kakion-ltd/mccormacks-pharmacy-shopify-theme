@@ -2,6 +2,12 @@
   /* These are <button> elements — reset the UA styling anchors never had. */
   .gv-amt, .gv-method, .gv-quick, #gv-date-field, #gv-clear, #gv-done { font-family:inherit; cursor:pointer; -webkit-appearance:none; appearance:none; }
   .gv-method { width:100%; text-align:left; }
+  /* The method-scoped fields each set their own display, which beats the UA sheet's
+     [hidden]{display:none} — so "Send it to me" left the whole recipient block on
+     screen. Same trap as .cd-empty[hidden] and five others in base.css; it has to be
+     !important. The fields were already disabled, so nothing was ever posted that
+     shouldn't be; they were just visible. setup/verify/gift-voucher.py checks it. */
+  [data-gv-who][hidden], [data-gv-only][hidden] { display:none !important; }
   #gv-clear { border:none; background:none; padding:0; }
   .gv-amt:focus-visible, .gv-method:focus-visible, .gv-quick:focus-visible,
   #gv-date-field:focus-visible, #gv-clear:focus-visible, #gv-done:focus-visible { outline:2px solid var(--c-dark); outline-offset:2px; }
@@ -39,15 +45,42 @@
   }
 {% endstyle %}
 
-{%- assign gv_default = 50 -%}
-{%- for block in section.blocks -%}{%- if block.type == 'amount' and block.settings.preselected -%}{%- assign gv_default = block.settings.amount -%}{%- endif -%}{%- endfor -%}
+{%- comment -%}
+  The amounts on this page are the gift card product's variants, not the section's
+  blocks. Six blocks plus six variants is the defect this repo keeps relearning
+  (MAINTENANCE.md, "one thing in two places, saying two things"), and here it fails
+  as a button that takes money for a variant that does not exist. So: the buttons
+  are drawn from `gv_product.variants`, and a block only decorates a variant it
+  matches by amount — its tag and its preselected flag. A block matching nothing is
+  skipped, and named in design mode so whoever added it finds out.
+
+  `gift-voucher` is the handle of the real Shopify gift card product. If it is
+  missing or unpublished the buy panel is replaced by a notice: no product means no
+  voucher can be issued, and a form that cannot work must not look like one.
+{%- endcomment -%}
+{%- liquid
+  assign gv_product = all_products['gift-voucher']
+  assign gv_count = gv_product.variants | size
+  assign gv_sel = gv_product.variants | first
+  for block in section.blocks
+    if block.type == 'amount' and block.settings.preselected
+      assign want = block.settings.amount | times: 100
+      for v in gv_product.variants
+        if v.price == want
+          assign gv_sel = v
+        endif
+      endfor
+    endif
+  endfor
+  assign gv_default = gv_sel.price | divided_by: 100
+-%}
 <!-- Gift voucher hero -->
 <section style="max-width:1440px; margin:0 auto; padding:24px 30px 6px;">
   <div class="banner-flex" style="display:flex; flex-wrap:wrap; border-radius:18px; overflow:hidden; background:var(--c-dark); min-height:clamp(300px,30vw,400px);">
     <div style="flex:1 1 480px; padding:clamp(28px,4vw,56px); display:flex; flex-direction:column; justify-content:center; color:#ffffff;">
       <span style="display:inline-flex; align-self:flex-start; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:var(--c-accent); color:var(--c-on-accent); font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:16px;">Valid 5 years</span>
       <h1 style="font-family:var(--font-heading); font-weight:800; font-size:clamp(34px,4.4vw,58px); line-height:1.02; letter-spacing:-.01em; margin:0 0 20px;">{{ section.settings.heading }}</h1>
-      <p style="margin:0 0 10px; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:#d6e2cd; max-width:560px;">One voucher, the whole shop. Spend it on pharmacy, vitamins, skincare, beauty, fragrance, baby or toiletries &mdash; online or in any of our seven stores.</p>
+      <p style="margin:0 0 10px; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:#d6e2cd; max-width:560px;">One voucher, the whole shop. Spend it on pharmacy, vitamins, skincare, beauty, fragrance, baby or toiletries &mdash; online at mccormackspharmacy.ie.</p>
       <p style="margin:0; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:#d6e2cd; max-width:560px;">Send it by email in minutes, or have a printed voucher posted free anywhere in Ireland.</p>
     </div>
     <div class="banner-img" style="flex:1 1 380px; background:var(--c-dark); min-height:clamp(240px,26vw,400px); display:flex; align-items:center; justify-content:center; padding:clamp(24px,3vw,44px);">
@@ -69,7 +102,7 @@
         <div data-gv-amount style="font-family:var(--font-heading); font-weight:800; font-size:clamp(34px,4.6vw,46px); line-height:1;">&euro;{{ gv_default }}</div>
         <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:12px; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;">
           <span>Valid 5 years</span>
-          <span>Online &amp; in store</span>
+          <span>Online only</span>
         </div>
       </div>
     </div>
@@ -78,25 +111,56 @@
 
 <!-- Buy a voucher -->
 <section style="max-width:1440px; margin:0 auto; padding:38px 30px 8px;">
+{%- if gv_count == 0 -%}
+  <div style="max-width:620px; padding:22px 24px; border:1px solid #e6e7e4; border-radius:16px; background:#ffffff;">
+    <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">Gift vouchers are not on sale online at the moment</div>
+    <p style="margin:0 0 12px; font-size:15px; line-height:1.7; color:#3a3d39;">We&rsquo;re sorry &mdash; you can&rsquo;t buy a voucher on the website just now. Vouchers are available at the counter in any of our seven stores.</p>
+    <a href="/pages/store-locator" class="hov-green-dk" style="font-weight:800; font-size:14.5px; color:var(--c-primary-text);">Find your nearest store &rarr;</a>
+  </div>
+  {%- if request.design_mode -%}
+  <p style="margin:18px 0 0; padding:18px; border:1.5px dashed #cfd1cc; border-radius:12px; font-size:15px; color:#666b60;">
+    <strong>No gift card product.</strong> This page buys the Shopify gift card product with the handle <strong>gift-voucher</strong>. Create it (Products &rsaquo; Gift cards) and publish it to the Online Store, with one denomination per amount below. Customers see the notice above, not this note.
+  </p>
+  {%- endif -%}
+{%- else -%}
+  <form action="{{ routes.cart_add_url }}" method="post" id="gv-form" data-ajax-add>
+  <input type="hidden" name="id" id="gv-variant" value="{{ gv_sel.id }}">
+  <input type="hidden" name="quantity" value="1">
   <div class="gv-wrap" style="display:flex; gap:44px; align-items:flex-start;">
     <div style="flex:1 1 auto; min-width:0;">
 
       <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 6px;">1. Choose an amount</h2>
-      <p style="margin:0 0 18px; font-size:15.5px; line-height:1.65; color:#5d6159;">Pick a set amount, or enter your own between &euro;10 and &euro;500.</p>
+      <p style="margin:0 0 18px; font-size:15.5px; line-height:1.65; color:#5d6159;">Pick the amount you&rsquo;d like to give.</p>
       <div class="gv-amounts" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; margin:0 0 18px;">
-        {%- for block in section.blocks -%}
-        {%- if block.type == 'amount' %}
-        <button type="button" class="gv-amt{% if block.settings.preselected %} gv-on{% endif %}" aria-pressed="{% if block.settings.preselected %}true{% else %}false{% endif %}" data-gv-pick="€{{ block.settings.amount }}" {{ block.shopify_attributes }}><span style="font-family:var(--font-heading); font-weight:800; font-size:26px; line-height:1;">&euro;{{ block.settings.amount }}</span><span style="font-size:12.5px; font-weight:700; opacity:.7;">{{ block.settings.tag }}</span></button>
-        {%- endif -%}
-        {%- endfor %}
+        {%- for v in gv_product.variants -%}
+          {%- liquid
+            assign amt = v.price | divided_by: 100
+            assign vtag = ''
+            for block in section.blocks
+              if block.type == 'amount' and block.settings.amount == amt
+                assign vtag = block.settings.tag
+              endif
+            endfor
+          -%}
+          <button type="button" class="gv-amt{% if v.id == gv_sel.id %} gv-on{% endif %}" aria-pressed="{% if v.id == gv_sel.id %}true{% else %}false{% endif %}" data-gv-id="{{ v.id }}" data-gv-pick="&euro;{{ amt }}"><span style="font-family:var(--font-heading); font-weight:800; font-size:26px; line-height:1;">&euro;{{ amt }}</span><span style="font-size:12.5px; font-weight:700; opacity:.7;">{{ vtag }}</span></button>
+        {%- endfor -%}
       </div>
-      <label style="display:flex; flex-direction:column; gap:7px; max-width:320px;">
-        <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Or enter your own amount</span>
-        <div style="display:flex; align-items:center; height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 14px; gap:8px; background:#ffffff;">
-          <span style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-primary-text);">&euro;</span>
-          <input type="number" min="10" max="500" placeholder="75" id="gv-custom" style="flex:1; min-width:0; border:none; outline:none; font-family:inherit; font-size:16px; color:#2A2B2A; background:transparent;">
-        </div>
-      </label>
+      {%- if request.design_mode -%}
+        {%- assign orphans = '' -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'amount' -%}
+            {%- assign want = block.settings.amount | times: 100 -%}
+            {%- assign hit = false -%}
+            {%- for v in gv_product.variants -%}{%- if v.price == want -%}{%- assign hit = true -%}{%- endif -%}{%- endfor -%}
+            {%- unless hit -%}{%- assign orphans = orphans | append: '€' | append: block.settings.amount | append: ' ' -%}{%- endunless -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if orphans != '' -%}
+        <p style="margin:0 0 18px; padding:18px; border:1.5px dashed #cfd1cc; border-radius:12px; font-size:15px; color:#666b60;">
+          <strong>No button drawn for {{ orphans | strip }}.</strong> These amounts have an <strong>Amount</strong> block here but no matching denomination on the <strong>gift-voucher</strong> product, so there is nothing to sell. Add the denomination in Shopify, or remove the block. Customers don&rsquo;t see this note.
+        </p>
+        {%- endif -%}
+      {%- endif -%}
 
       <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:38px 0 6px;">2. How should we send it?</h2>
       <p style="margin:0 0 18px; font-size:15.5px; line-height:1.65; color:#5d6159;">Email vouchers arrive within minutes. Printed vouchers are posted free within Ireland.</p>
@@ -113,7 +177,7 @@
           <span class="gv-dot"></span>
           <span style="flex:1; min-width:0;">
             <span style="display:block; font-weight:800; font-size:16px; color:#2A2B2A; margin-bottom:3px;">Printed and posted</span>
-            <span style="display:block; font-size:14.5px; line-height:1.6; color:#5d6159;">Presented in a McCormack&rsquo;s card and posted anywhere in Ireland.</span>
+            <span style="display:block; font-size:14.5px; line-height:1.6; color:#5d6159;">Presented in a McCormack&rsquo;s card and posted anywhere in Ireland. We email you the code as well, so it can&rsquo;t be lost in the post.</span>
           </span>
           <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:var(--c-dark);">Free</span>
         </button>
@@ -125,20 +189,42 @@
           </span>
           <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:var(--c-dark);">Free</span>
         </button>
+        <input type="hidden" name="properties[Delivery]" value="Printed and posted" data-gv-only="Printed and posted" disabled>
       </div>
 
       <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:38px 0 6px;">3. Who is it for?</h2>
-      <div style="display:flex; flex-wrap:wrap; gap:14px; max-width:620px; margin-top:12px;">
+      {%- comment -%}
+        Every field below is a line item property, which is what puts it on the order.
+        The names are Shopify's own, exactly: with `Recipient email` present and
+        `__shopify_send_gift_card_to_recipient` set to `if_present`, Shopify emails the
+        voucher to the recipient itself, on `Send on` if that is given. Rename one and
+        Shopify stops recognising it, and the voucher quietly goes to the buyer instead.
+
+        Fields not relevant to the chosen method are `disabled`, so the browser leaves
+        them out of the post entirely — no JS runs at submit time, and "Send it to me"
+        posts a bare gift card, which is precisely what makes Shopify issue it to the
+        buyer. `Recipient name`, `Message` and `From` are shared by the email and
+        printed methods; two enabled inputs may never carry the same name.
+      {%- endcomment -%}
+      <p data-gv-who-note style="margin:0; font-size:15.5px; line-height:1.65; color:#5d6159;">We&rsquo;ll send the voucher straight to them.</p>
+      <div data-gv-who style="display:flex; flex-wrap:wrap; gap:14px; max-width:620px; margin-top:12px;">
         <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
           <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Recipient name</span>
-          <input type="text" autocomplete="off" class="gv-input" style="height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
+          <input type="text" autocomplete="off" class="gv-input" name="properties[Recipient name]" style="height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
         </label>
-        <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
+        <label data-gv-only="By email" style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
           <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Recipient email</span>
-          <input type="email" autocomplete="off" class="gv-input" style="height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
+          <input type="email" autocomplete="off" class="gv-input" name="properties[Recipient email]" required style="height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
         </label>
-        <div class="gv-date" style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0; position:relative;">
+        <label data-gv-only="Printed and posted" hidden style="flex:1 1 100%; display:flex; flex-direction:column; gap:7px; min-width:0;">
+          <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Postal address</span>
+          <textarea rows="3" class="gv-input" name="properties[Postal address]" required disabled placeholder="Name, street, town, county, Eircode" style="border:1px solid #dfe1dc; border-radius:10px; padding:12px 14px; font-family:inherit; font-size:15.5px; line-height:1.6; color:#2A2B2A; outline:none; resize:vertical;"></textarea>
+        </label>
+        <div class="gv-date" data-gv-only="By email" style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0; position:relative;">
           <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Delivery date</span>
+          <input type="hidden" name="properties[Send on]" id="gv-send-on">
+          <input type="hidden" name="properties[__shopify_offset]" id="gv-offset">
+          <input type="hidden" name="properties[__shopify_send_gift_card_to_recipient]" value="if_present">
           <button type="button" id="gv-date-field" aria-expanded="false" class="hov-border-accent" style="display:flex; align-items:center; gap:11px; height:52px; border:1.5px solid #dfe1dc; border-radius:10px; padding:0 14px; background:#ffffff; color:#2A2B2A;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
             <span id="gv-date-label" style="flex:1; min-width:0; font-size:15.5px; font-weight:600; color:#666b60; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Send immediately</span>
@@ -171,11 +257,11 @@
         </div>
         <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
           <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">From</span>
-          <input type="text" autocomplete="name" class="gv-input" style="height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
+          <input type="text" autocomplete="name" class="gv-input" name="properties[From]" style="height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
         </label>
         <label style="flex:1 1 100%; display:flex; flex-direction:column; gap:7px; min-width:0;">
-          <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Message <span style="font-weight:600; color:#666b60;">(optional, up to 200 characters)</span></span>
-          <textarea rows="3" class="gv-input" style="border:1px solid #dfe1dc; border-radius:10px; padding:12px 14px; font-family:inherit; font-size:15.5px; line-height:1.6; color:#2A2B2A; outline:none; resize:vertical;"></textarea>
+          <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Message <span style="font-weight:600; color:#666b60;">(optional, up to 200 characters &mdash; sign it if you&rsquo;d like them to see who it&rsquo;s from)</span></span>
+          <textarea rows="3" class="gv-input" name="properties[Message]" maxlength="200" style="border:1px solid #dfe1dc; border-radius:10px; padding:12px 14px; font-family:inherit; font-size:15.5px; line-height:1.6; color:#2A2B2A; outline:none; resize:vertical;"></textarea>
         </label>
       </div>
     </div>
@@ -191,16 +277,18 @@
           <div style="display:flex; justify-content:space-between; gap:12px;"><span style="color:#666b60;">Voucher value</span><span data-gv-amount style="font-weight:700;">&euro;50</span></div>
           <div style="display:flex; justify-content:space-between; gap:12px;"><span style="color:#666b60;">Delivery</span><span style="font-weight:700;">Free</span></div>
         </div>
-        <div style="margin-top:20px;"><a href="{{ routes.cart_url }}" class="btn btn-fill" style="gap:9px; width:100%">Add voucher to bag</a></div>
-        <div style="font-size:12.5px; line-height:1.6; color:#666b60; margin-top:12px;">Vouchers are valid for five years and can be spent over as many visits as you like.</div>
+        <div style="margin-top:20px;"><button type="submit" class="btn btn-fill" style="gap:9px; width:100%">Add voucher to bag</button></div>
+        <div style="font-size:12.5px; line-height:1.6; color:#666b60; margin-top:12px;">Vouchers are valid for five years and can be spent over as many orders as you like.</div>
       </div>
       <div style="margin-top:16px; padding:20px 22px; border-radius:16px; background:#eef2e8;">
         <div style="font-family:var(--font-heading); font-weight:800; font-size:16.5px; color:var(--c-dark); margin-bottom:10px;">Prefer to buy in store?</div>
-        <div style="font-size:14px; line-height:1.7; color:#3a3d39; margin-bottom:12px;">Gift vouchers are available at the counter in all seven stores, in any amount you like.</div>
+        <div style="font-size:14px; line-height:1.7; color:#3a3d39; margin-bottom:12px;">Our shops sell their own gift vouchers at the counter, in any amount you like. Those are separate from the voucher on this page, which is for spending online.</div>
         <a href="/pages/store-locator" class="hov-green-dk" style="font-weight:800; font-size:14.5px; color:var(--c-primary-text);">Find your nearest store &rarr;</a>
       </div>
     </aside>
   </div>
+  </form>
+{%- endif -%}
 </section>
 
 <!-- How it works -->
@@ -210,7 +298,7 @@
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
       <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-weight:800; font-size:18px; margin-bottom:14px;">1</div>
       <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">Choose and pay</div>
-      <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Pick an amount and how you want it delivered, then check out as normal. Vouchers count towards free delivery on other items in the same order.</div>
+      <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Pick an amount and how you want it delivered, then check out as normal. Paying for a voucher costs nothing extra, whichever way it is sent.</div>
     </div>
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
       <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-weight:800; font-size:18px; margin-bottom:14px;">2</div>
@@ -220,7 +308,7 @@
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
       <div style="width:38px; height:38px; border-radius:999px; background:#eef2e8; color:var(--c-dark); display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-weight:800; font-size:18px; margin-bottom:14px;">3</div>
       <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">They spend it</div>
-      <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Online at checkout, or at the counter in any of our seven stores. Any unspent balance stays on the voucher for next time.</div>
+      <div style="font-size:15px; line-height:1.7; color:#3a3d39;">At the checkout on mccormackspharmacy.ie. Any unspent balance stays on the voucher for next time.</div>
     </div>
   </div>
 </section>
@@ -228,7 +316,7 @@
 <!-- SEO copy + FAQ -->
 <section style="max-width:1440px; margin:0 auto; padding:48px 30px 8px;">
   <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,40px); line-height:1.1; margin:0 0 20px;">About McCormack&rsquo;s gift vouchers</h2>
-  <p style="margin:0 0 40px; font-size:16px; line-height:1.7; color:#3a3d39; max-width:var(--measure);">A McCormack&rsquo;s gift voucher works across everything we sell &mdash; pharmacy and healthcare, vitamins and supplements, skincare, beauty, fragrance, baby and toiletries &mdash; online and in all seven of our stores. It is a practical present for someone who is particular about their skincare, restocking after a new baby, or simply hard to buy for. Email vouchers arrive within minutes and can be scheduled for a specific date. Printed vouchers are posted in a card, free of charge, within Ireland. Vouchers are valid for five years from the date of purchase, can be spent over as many visits as you like, and any remaining balance stays on the voucher.</p>
+  <p style="margin:0 0 40px; font-size:16px; line-height:1.7; color:#3a3d39; max-width:var(--measure);">A McCormack&rsquo;s gift voucher works across everything we sell online &mdash; pharmacy and healthcare, vitamins and supplements, skincare, beauty, fragrance, baby and toiletries. It is a practical present for someone who is particular about their skincare, restocking after a new baby, or simply hard to buy for. Email vouchers arrive within minutes and can be scheduled for a specific date. Printed vouchers are posted in a card, free of charge, within Ireland. Vouchers are valid for five years from the date of purchase, can be spent over as many orders as you like, and any remaining balance stays on the voucher.</p>
 
   <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,34px); margin:0 0 26px;">Frequently Asked Questions</h2>
   <div style="display:flex; flex-direction:column;">
@@ -237,12 +325,12 @@
       <p style="margin:0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:var(--measure);">Five years from the date of purchase. The expiry date is printed on the voucher and shown on the email.</p>
     </div>
     <div style="border-bottom:1px solid #eceee9; padding:22px 0;">
-      <h3 style="font-family:var(--font-heading); font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">Can it be spent online and in store?</h3>
-      <p style="margin:0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:var(--measure);">Yes &mdash; online at checkout, and at the counter in any of our seven stores. The same voucher works in both.</p>
+      <h3 style="font-family:var(--font-heading); font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">Where can a gift voucher be spent?</h3>
+      <p style="margin:0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:var(--measure);">Online, at the checkout on mccormackspharmacy.ie, on anything we sell there. It can&rsquo;t be spent at the counter in our shops &mdash; the shops sell their own vouchers for that.</p>
     </div>
     <div style="border-bottom:1px solid #eceee9; padding:22px 0;">
       <h3 style="font-family:var(--font-heading); font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">What happens if they spend less than the full amount?</h3>
-      <p style="margin:0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:var(--measure);">Any remaining balance stays on the voucher and can be used on as many future visits as they like, until it runs out or expires.</p>
+      <p style="margin:0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:var(--measure);">Any remaining balance stays on the voucher and can be used on as many future orders as they like, until it runs out or expires.</p>
     </div>
     <div style="border-bottom:1px solid #eceee9; padding:22px 0;">
       <h3 style="font-family:var(--font-heading); font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">Can I add to a voucher or use more than one on an order?</h3>
@@ -305,12 +393,59 @@
 
 <script>
   (function () {
-    var state = { amount: '€50', method: 'By email', date: null, monthOff: 0 };
+    var form = document.getElementById('gv-form');
+    if (!form) return;   // no gift card product: the notice is showing, there is nothing to drive
+
+    var sel = form.querySelector('.gv-amt.gv-on') || form.querySelector('.gv-amt');
+    var state = { amount: sel ? sel.dataset.gvPick : '', method: 'By email', date: null, monthOff: 0 };
+
+    // Shopify will not schedule a gift card more than 90 days out, so the picker must
+    // not offer day 91. Offering it and letting the cart reject it is the same defect
+    // as a button for a denomination that does not exist.
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var maxDate = new Date(today); maxDate.setDate(maxDate.getDate() + 90);
+    var maxOff = (maxDate.getFullYear() - today.getFullYear()) * 12 + (maxDate.getMonth() - today.getMonth());
+
+    // Local parts, never toISOString(): that converts to UTC, so an evening in Ireland
+    // during summer time becomes the next day and the voucher arrives a day early.
+    var iso = function (d) {
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    };
+
+    var offset = document.getElementById('gv-offset');
+    if (offset) offset.value = new Date().getTimezoneOffset();
+
+    // Which fields the chosen method actually submits. Disabled inputs are left out of
+    // the post by the browser, so "Send it to me" sends a bare gift card line and
+    // Shopify issues it to the buyer. No submit-time JS decides this.
+    var applyMethod = function () {
+      var who = form.querySelector('[data-gv-who]');
+      var note = form.querySelector('[data-gv-who-note]');
+      var mine = state.method === 'Send it to me';
+      who.hidden = mine;
+      note.textContent = mine
+        ? 'Nothing needed here — we’ll send the voucher to the email address you check out with.'
+        : state.method === 'Printed and posted'
+          ? 'Tell us who it’s for and where to post it.'
+          : 'We’ll send the voucher straight to them.';
+      who.querySelectorAll('[data-gv-only], input, textarea').forEach(function (el) {
+        var scope = el.closest('[data-gv-only]');
+        var want = !mine && (!scope || scope.dataset.gvOnly === state.method);
+        if (scope) scope.hidden = !want;
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.disabled = !want;
+      });
+      // The Delivery property sits beside the method buttons, outside the block above.
+      form.querySelectorAll('input[data-gv-only]').forEach(function (el) {
+        el.disabled = el.dataset.gvOnly !== state.method;
+      });
+    };
 
     var sync = function () {
       document.querySelectorAll('[data-gv-amount]').forEach(function (el) { el.textContent = state.amount; });
       document.querySelectorAll('[data-gv-method-label]').forEach(function (el) { el.textContent = state.method; });
       var label = document.getElementById('gv-date-label');
+      var sendOn = document.getElementById('gv-send-on');
+      if (sendOn) sendOn.value = state.date ? iso(state.date) : '';
       if (state.date) {
         label.textContent = state.date.toLocaleDateString('en-IE', { weekday: 'short', day: 'numeric', month: 'long' });
         label.style.color = '#2A2B2A'; label.style.fontWeight = '700';
@@ -326,26 +461,20 @@
       document.querySelectorAll('.gv-amt, .gv-method, .gv-quick').forEach(function (b) {
         b.setAttribute('aria-pressed', b.classList.contains('gv-on') ? 'true' : 'false');
       });
+      applyMethod();
     };
 
-    // Amount chips + custom amount
-    document.querySelectorAll('[data-gv-pick]').forEach(function (a) {
+    // Amount chips. Each one carries its own variant, so the hidden id and the price
+    // on screen cannot disagree.
+    form.querySelectorAll('[data-gv-pick]').forEach(function (a) {
       a.addEventListener('click', function (e) {
         e.preventDefault();
-        document.querySelectorAll('[data-gv-pick]').forEach(function (b) { b.classList.remove('gv-on'); });
+        form.querySelectorAll('[data-gv-pick]').forEach(function (b) { b.classList.remove('gv-on'); });
         a.classList.add('gv-on');
-        document.getElementById('gv-custom').value = '';
+        document.getElementById('gv-variant').value = a.dataset.gvId;
         state.amount = a.dataset.gvPick;
         sync();
       });
-    });
-    document.getElementById('gv-custom').addEventListener('input', function () {
-      var v = parseInt(this.value, 10);
-      if (isNaN(v)) return;
-      v = Math.min(500, Math.max(10, v));
-      document.querySelectorAll('[data-gv-pick]').forEach(function (b) { b.classList.remove('gv-on'); });
-      state.amount = '€' + v;
-      sync();
     });
 
     // Delivery method
@@ -379,7 +508,7 @@
       state.monthOff = Math.max(0, state.monthOff - 1); renderCal();
     });
     document.getElementById('gv-next').addEventListener('click', function () {
-      state.monthOff = Math.min(12, state.monthOff + 1); renderCal();
+      state.monthOff = Math.min(maxOff, state.monthOff + 1); renderCal();
     });
     document.querySelectorAll('.gv-quick').forEach(function (chip) {
       chip.addEventListener('click', function (e) {
@@ -390,9 +519,10 @@
     });
 
     function renderCal() {
-      var today = new Date(); today.setHours(0, 0, 0, 0);
       var base = new Date(today.getFullYear(), today.getMonth() + state.monthOff, 1);
       document.getElementById('gv-month').textContent = base.toLocaleDateString('en-IE', { month: 'long', year: 'numeric' });
+      document.getElementById('gv-prev').disabled = state.monthOff === 0;
+      document.getElementById('gv-next').disabled = state.monthOff >= maxOff;
       var days = document.getElementById('gv-days');
       days.innerHTML = '';
       var lead = (base.getDay() + 6) % 7;
@@ -404,12 +534,13 @@
       var total = new Date(base.getFullYear(), base.getMonth() + 1, 0).getDate();
       for (var d = 1; d <= total; d++) {
         var dt = new Date(base.getFullYear(), base.getMonth(), d);
+        var usable = dt >= today && dt <= maxDate;
         var btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'gv-day' + (dt < today ? ' gv-past' : '') +
+        btn.className = 'gv-day' + (usable ? '' : ' gv-past') +
           (state.date && dt.getTime() === state.date.getTime() ? ' gv-sel' : '');
         btn.textContent = d;
-        if (dt >= today) {
+        if (usable) {
           btn.addEventListener('click', (function (picked) {
             return function () { state.date = picked; cal.style.display = 'none'; sync(); };
           })(dt));
@@ -503,7 +634,8 @@
           "type": "number",
           "id": "amount",
           "label": "Amount (EUR)",
-          "default": 25
+          "default": 25,
+          "info": "Must match a denomination on the gift-voucher product in Shopify. The amounts on the page come from that product; a block whose amount matches nothing draws no button."
         },
         {
           "type": "text",
@@ -516,7 +648,7 @@
           "id": "preselected",
           "label": "Preselected",
           "default": false,
-          "info": "Mark exactly one amount; it starts selected and shows on the voucher preview."
+          "info": "Mark exactly one amount; it starts selected and shows on the voucher preview. If it matches no denomination, the first denomination is selected instead."
         }
       ]
     }

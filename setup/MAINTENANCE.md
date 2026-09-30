@@ -941,14 +941,22 @@ What is actually granted on `mccormackpharmacy.myshopify.com`, as of that date:
 - **App:** "Shopify CLI Connector App" (`shopify-cli-connector-app`), installed
   by `npx shopify store auth`.
 - **Scopes:** `read_products`, `write_products`, `read_publications`,
-  `write_publications`, `read_online_store_pages`, `write_online_store_pages`
-  and `write_online_store_navigation` (which also grants
-  `read_online_store_navigation`), nothing else. The first two cover products
-  and collections (rules, vendors, types). The publications pair, added later on
-  24 Sep, lets a new collection be published to the Online Store. The pages and
-  navigation scopes, added the same evening for the footer and page cleanup
-  (`archive/store-cleanup-2026-09-24/`), cover pages and menus. None of them
-  reach orders, customers, themes or settings.
+  `write_publications`, `read_online_store_pages`, `write_online_store_pages`,
+  `write_online_store_navigation` (which also grants
+  `read_online_store_navigation`) and `read_orders`, nothing else. The first two
+  cover products and collections (rules, vendors, types). The publications pair,
+  added later on 24 Sep, lets a new collection be published to the Online Store.
+  The pages and navigation scopes, added the same evening for the footer and page
+  cleanup (`archive/store-cleanup-2026-09-24/`), cover pages and menus. None of
+  them reach customers, themes or settings.
+- **`read_orders` was added after this section was written (found 30 Sep 2026).**
+  Until then this list ended "nothing else" and said the scopes never reach
+  orders, and a session that believed it would have handed a test plan back to a
+  human for no reason. Read the grant, don't read this paragraph: the query below
+  is the only answer that is current. `read_orders` is read-only — an order still
+  cannot be created, tagged, cancelled or refunded from here, and neither gift
+  cards (`read_gift_cards`/`write_gift_cards`) nor settings are granted, so
+  deactivating a gift card and changing order processing are both admin jobs.
 - **Sales channel:** Online Store is `gid://shopify/Publication/341524873547`.
 - **User:** matthew@kakion.com (not the account owner).
 - **Token:** `~/Library/Preferences/shopify-cli-store-nodejs/config.json` on
@@ -1412,6 +1420,76 @@ passed for as long as both tokens happened to resolve to the same ink, and broke
 moment one changed. Both now use `--c-on-accent`. **When adding a rule, take the ink
 from the same family as the surface** — an on-token that does not match its
 background is a latent failure waiting for an unrelated setting to move.
+
+---
+
+## Gift vouchers: the page sells a real gift card, by handle (30 Sep 2026)
+
+Until 30 Sep the gift vouchers page was a mockup. "Add voucher to bag" was an
+`<a href="/cart">`: it added nothing, and none of the recipient fields had a
+`name`, so nothing they held could reach an order even in principle. Seven
+products named "Mccormacks Pharmacy E-Gift Card €10…€100" were live, published
+and sellable at the same time, and **not** gift cards (`isGiftCard: false`) — a
+customer could pay for one and receive no code. They were set to DRAFT on
+30 Sep, not deleted; the before state is in `before-fakes.json` alongside the
+build, and their amounts (10/20/30/40/50/75/100) were never the page's.
+
+How it works now:
+
+- **One real gift card product, handle `gift-voucher`**, six denominations
+  (€10, €20, €25, €50, €100, €150). The page finds it with
+  `all_products['gift-voucher']`. Rename the handle and the page stops selling.
+- **The amounts on the page are that product's variants**, not the section's
+  blocks. An `amount` block only decorates a variant it matches by price — its
+  tag and its preselected flag — and a block matching no variant draws no button
+  and is named in design mode. Six blocks plus six variants is the defect at the
+  top of this file, and here it fails as a button that charges for a variant
+  that does not exist.
+- **The delivery method decides which line item properties are posted**, and it
+  does it with `disabled`, so the browser leaves the others out of the post and
+  no JS runs at submit time. `By email` posts `Recipient email`, `Recipient
+  name`, `Message`, `Send on`, `__shopify_offset` and
+  `__shopify_send_gift_card_to_recipient: if_present`, which is what makes
+  Shopify email the recipient itself. `Send it to me` posts none of them, which
+  is what makes Shopify issue to the buyer. `Printed and posted` posts
+  `Delivery: Printed and posted` plus `Postal address`, and no recipient email,
+  so Shopify does not email them — staff post the card, and the buyer gets the
+  code by email because the voucher is issued on fulfilment. The page says so.
+- **The names are Shopify's, exactly.** Rename one and Shopify stops recognising
+  it and the voucher quietly goes to the buyer instead. This is the same
+  load-bearing-key trap as the over-18 attribute the Flow matches.
+- **`Send on` is capped at 90 days**, because Shopify refuses to schedule a gift
+  card further out, and it is written from local date parts — never
+  `toISOString()`, which would move an Irish evening in summer time to the next
+  day and send the voucher early.
+- **`setup/verify/gift-voucher.py`** checks all of the above through a browser,
+  by reading what `FormData` would actually post. The properties are decided by
+  which inputs are enabled, so nothing in the markup alone can show it.
+- **The preview needs its fixture.** `all_products['gift-voucher']` in
+  `render_preview.mjs` is harness-only and not in `catalogue.json`. Without it
+  the page renders its "not on sale" notice and the buy form appears in no
+  preview at all — which is how a dead Add-to-bag link survived as long as it did.
+
+Two things this page cannot do from the repo, both admin jobs:
+
+- **Gift cards must be activated on the store before a gift card product can
+  exist.** `productCreate` and `giftCardProductSet` both refuse with
+  `GIFT_CARDS_NOT_ACTIVATED` until someone does it in Products → Gift cards, and
+  there is no mutation for it. `shop.features.giftCards` is `true` regardless,
+  so it is not the flag to test.
+- **Expiry and order processing are settings.** A gift card is issued and emailed
+  when its line item is fulfilled, so if Order processing is set to "Don't
+  fulfill any of the order's line items automatically" — which
+  `PHARMACIST-HOLD-FLOWS.md` step 0 asks for — **no voucher is ever emailed**
+  until staff fulfil it by hand. "Automatically fulfill only the gift cards" is
+  the setting that satisfies both. Five-year expiry is set under Settings → Gift
+  cards; the page's copy promises five years and nothing in the theme enforces it.
+
+**The pharmacist hold still applies to the order, not the voucher.** Flow 1 holds
+every fulfillment order on an order containing a medicine, so a voucher bought in
+the same basket as a medicine is not issued until the pharmacist releases it. The
+voucher product carries no `pharmacist-review` tag, so a voucher on its own is
+never held.
 
 ---
 

@@ -590,6 +590,27 @@ const globals = {
     })),
     empty: false, note: '', attributes: {}, currency: { iso_code: 'EUR', symbol: '€' },
   },
+  // The real Shopify gift card product, by handle, which is how sections/page-gift-vouchers
+  // finds it. Harness-only, like the gated product and the FAQ fixture: it is not in
+  // catalogue.json, so it never seeds a store. Without it the voucher page renders its
+  // "no product" notice and the buy form exists in no preview at all — which is exactly
+  // how the page shipped with a dead Add-to-bag link for as long as it had one.
+  // The six denominations are the six on the live product, in cents.
+  all_products: {
+    'gift-voucher': {
+      id: 30009000, title: "McCormack's Pharmacy Gift Voucher", handle: 'gift-voucher',
+      url: '/products/gift-voucher', vendor: "McCormack's Pharmacy", type: 'Gift Voucher',
+      gift_card: true, available: true, tags: [], has_only_default_variant: false,
+      featured_image: null, images: [], price: 1000, price_min: 1000, price_max: 15000,
+      compare_at_price: null, options: ['Denomination'], metafields: {},
+      variants: [1000, 2000, 2500, 5000, 10000, 15000].map((cents, k) => ({
+        id: 40009000 + k, title: `\u20ac${cents / 100}`, price: cents, compare_at_price: null,
+        available: true, sku: `GIFTVOUCHER${cents / 100}`, inventory_quantity: 0,
+        featured_image: null, store_availabilities: [], requires_shipping: false,
+        options: [`\u20ac${cents / 100}`], selected: k === 3,
+      })),
+    },
+  },
   collection: mockCollection,
   collections: Object.fromEntries(collectionsList.map((c) => [c.handle, {
     ...mockCollection, handle: c.handle, title: c.title, url: `/collections/${c.handle}`,

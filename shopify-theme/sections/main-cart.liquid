@@ -71,6 +71,21 @@
               {%- unless item.product.has_only_default_variant -%}
                 <div style="font-size:13px; color:#666b60;">{{ item.variant.title }}</div>
               {%- endunless -%}
+              {%- comment -%}
+                Line item properties, so a gift voucher's recipient and send date can be
+                checked before paying — a typo in the email address is unrecoverable once
+                Shopify has sent the voucher to it. A leading underscore means "on the
+                order, not on screen": that hides the questionnaire's stamps and the
+                __shopify_* plumbing without naming either of them here.
+              {%- endcomment -%}
+              {%- for prop in item.properties -%}
+                {%- unless prop.first == blank or prop.last == blank -%}
+                  {%- assign lead = prop.first | slice: 0 -%}
+                  {%- if lead != '_' -%}
+                    <div style="font-size:13px; line-height:1.5; color:#666b60; overflow-wrap:anywhere;">{{ prop.first }}: {{ prop.last }}</div>
+                  {%- endif -%}
+                {%- endunless -%}
+              {%- endfor -%}
               {%- for d in item.line_level_discount_allocations -%}
                 <div style="display:inline-flex; align-items:center; gap:7px; width:fit-content; height:26px; padding:0 10px; border-radius:6px; background:#eef2e8; color:var(--c-primary-text); font-size:12px; font-weight:800;">{{ d.discount_application.title }}</div>
               {%- endfor -%}

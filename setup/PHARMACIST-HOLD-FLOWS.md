@@ -29,9 +29,16 @@ A hold is useless if the order is marked fulfilled the moment it is paid.
    General**. Use whichever of the two has the section.)
 2. Scroll to **Order processing**.
 3. Under fulfilment, **"Automatically fulfill the order's line items" must NOT
-   be selected.** The safe choice is "Don't fulfill any of the order's line
-   items automatically". "Automatically fulfill only the gift cards" is also
-   fine.
+   be selected.** Choose **"Automatically fulfill only the gift cards"**.
+
+   Either option protects the hold, but only that one also lets gift vouchers
+   work: Shopify issues and emails a gift card when its line item is fulfilled,
+   so under "Don't fulfill any of the order's line items automatically" no
+   voucher is ever emailed until a person fulfils it by hand. That was the state
+   until 30 Sep 2026, when the gift vouchers page started selling a real gift
+   card — see `VOUCHER-POST-FLOW.md` step 0 and MAINTENANCE.md, "Gift vouchers:
+   the page sells a real gift card, by handle". A medicine is not a gift card, so
+   nothing about the hold changes.
 4. If you changed it, click **Save**.
 
 While you are in Order processing, leave "Automatically archive the order" as it
