@@ -24,6 +24,13 @@ with sync_playwright() as p:
        pg.evaluate("getComputedStyle(document.body).overflow"), "hidden")
     ck("focus moved into the drawer",
        pg.evaluate("!!document.querySelector('.mnav-drawer').contains(document.activeElement)"))
+    # On the panel, not on a row. A programmatic focus() on a link or a button counts
+    # as keyboard modality in iOS Safari, so a row focused on open wears a focus ring
+    # after a plain finger tap.
+    ck("focus lands on the panel, not a row",
+       pg.evaluate("document.activeElement.matches('[data-mnav-panel]')"))
+    ck("nothing in the drawer is focus-visible after a tap",
+       pg.evaluate("!document.querySelector('.mnav-drawer :focus-visible')"))
     ck("only the root panel is visible",
        pg.locator("[data-mnav-panel]:visible").count(), 1)
 
@@ -33,6 +40,10 @@ with sync_playwright() as p:
        row.locator("a.mnav-link").get_attribute("href"), "/collections/medicines-health")
     row.locator("[data-mnav-into]").click(); pg.wait_for_timeout(300)
     ck("department panel opens", pg.locator('[data-mnav-panel="medicines-health"]').is_visible())
+    ck("drilling in lands focus on the new panel",
+       pg.evaluate("document.activeElement.dataset.mnavPanel"), "medicines-health")
+    ck("no focus ring in the drawer after drilling in by tap",
+       pg.evaluate("!document.querySelector('.mnav-drawer :focus-visible')"))
     ck("root hidden after drilling", pg.locator('[data-mnav-panel="root"]').is_visible(), False)
     ck("shop-all link present",
        pg.locator('[data-mnav-panel="medicines-health"] .mnav-all').inner_text().strip(),
@@ -50,11 +61,17 @@ with sync_playwright() as p:
     # Back, one level at a time
     pg.locator('[data-mnav-panel="pain-relief"] [data-mnav-back]').click(); pg.wait_for_timeout(300)
     ck("back returns to the department", pg.locator('[data-mnav-panel="medicines-health"]').is_visible())
+    ck("going back lands focus on the parent panel",
+       pg.evaluate("document.activeElement.dataset.mnavPanel"), "medicines-health")
+    ck("no focus ring in the drawer after going back by tap",
+       pg.evaluate("!document.querySelector('.mnav-drawer :focus-visible')"))
     pg.keyboard.press("Escape"); pg.wait_for_timeout(300)
     ck("Escape steps back to root, not straight out", pg.locator('[data-mnav-panel="root"]').is_visible())
     ck("drawer still open at root", pg.locator(".mnav-drawer").is_visible())
     pg.keyboard.press("Escape"); pg.wait_for_timeout(350)
     ck("Escape at root closes the drawer", pg.locator(".mnav-drawer").is_visible(), False)
+    ck("Escape hands focus back to the menu button",
+       pg.evaluate("document.activeElement.hasAttribute('data-mnav-open-btn')"))
     ck("scroll lock released", pg.evaluate("getComputedStyle(document.body).overflow"), "visible")
 
     # Reopen lands at root, not where we left off
@@ -91,6 +108,8 @@ with sync_playwright() as p:
     ck("main and footer inert while open", pg.evaluate("document.querySelector('main').inert && document.querySelector('footer').inert"))
     btn.click(); pg.wait_for_timeout(350)
     ck("hamburger tap closes the drawer", pg.locator(".mnav-drawer").is_visible(), False)
+    ck("closing does not leave focus in the hidden drawer",
+       pg.evaluate("!document.querySelector('.mnav-drawer').contains(document.activeElement)"))
     ck("main released", pg.evaluate("document.querySelector('main').inert"), False)
     ck("label back to Menu", btn.get_attribute("aria-label"), "Menu")
     # Open from mid-page: the drawer still sits under the header at rest
@@ -100,6 +119,21 @@ with sync_playwright() as p:
     ck("drawer top consistent after a mid-page open",
        pg.evaluate("Math.round(document.querySelector('.mnav-drawer').getBoundingClientRect().top)"),
        pg.evaluate("Math.round(document.querySelector('main').getBoundingClientRect().top)"))
+
+    # Keyboard still gets a ring, and on a row with a chevron it wraps the whole row
+    # rather than stopping where the name ends.
+    pg.keyboard.press("Tab")                      # keyboard modality, so :focus-visible applies
+    pg.locator('[data-mnav-panel="root"] .mnav-row', has_text="Skincare").first.locator("a.mnav-link").focus()
+    ring = pg.evaluate("""() => {
+      const link = document.activeElement, row = link.closest('.mnav-row');
+      const ringed = row.matches(':has(.mnav-link:focus-visible)') ? row : link;
+      const cs = getComputedStyle(ringed);
+      const r = ringed.getBoundingClientRect(), rr = row.getBoundingClientRect();
+      return { style: cs.outlineStyle, width: cs.outlineWidth,
+               wrapsRow: Math.abs(r.right - rr.right) < 1 && Math.abs(r.left - rr.left) < 1 };
+    }""")
+    ck("keyboard focus shows a ring", [ring["style"], ring["width"]], ["solid", "2px"])
+    ck("the ring wraps the row, chevron included", ring["wrapsRow"])
 
     # A real navigation still works
     pg.locator('.mnav-row', has_text="Brands").first.locator("a.mnav-link").click()

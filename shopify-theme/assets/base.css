@@ -648,6 +648,9 @@ body[data-cd-open] { overflow: hidden; }
 .mnav-panel[hidden] { display: none !important; }
 .mnav-stack { display: flex; flex-direction: column; }
 .mnav-panel { display: block; }
+/* theme.js gives whatever opens (panel, drawer, modal, banner) tabindex="-1" and
+   focuses it, so a tap never rings a control. The container shows no ring itself. */
+.mnav-panel:focus, .cd-drawer:focus, .qv-modal:focus, .cc-banner:focus { outline: none; }
 /* Entering panels animate; the root on first paint does not, so opening the
    drawer does not look like a navigation that already happened. */
 .mnav-panel.is-entering { animation: mnavIn .18s ease-out; }
@@ -673,6 +676,11 @@ body[data-cd-open] { overflow: hidden; }
 .mnav-more { flex: 0 0 auto; width: 56px; border: none; border-left: 1px solid #f1f2ef; background: transparent; color: var(--c-muted-2); cursor: pointer; /* an interactive control: 3:1 applies */ display: flex; align-items: center; justify-content: center; }
 .mnav-more:active { background: #f4f5f2; color:var(--c-primary-text); }
 .mnav-more:focus-visible, .mnav-link:focus-visible, .mnav-back:focus-visible, .mnav-all:focus-visible { outline: 2px solid var(--c-primary-text); outline-offset: -2px; }
+/* The name and the chevron are two controls in one row, so a ring on the name
+   alone stops before the arrow. Draw it on the row instead where :has is
+   supported; the rule above stays as the fallback where it is not. */
+.mnav-row:has(.mnav-link:focus-visible) { outline: 2px solid var(--c-primary-text); outline-offset: -2px; }
+.mnav-row:has(.mnav-link:focus-visible) .mnav-link:focus-visible { outline: none; }
 
 .mnav-back { display: flex; align-items: center; gap: 8px; width: 100%; padding: 14px 18px; border: none; border-bottom: 1px solid #eceee9; background: #f7f8f5; color: var(--c-dark); font-family: inherit; font-weight: 800; font-size: 15px; cursor: pointer; text-align: left; }
 .mnav-back:active { background: #eef2e8; }

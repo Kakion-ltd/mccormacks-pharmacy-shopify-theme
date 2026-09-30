@@ -73,7 +73,9 @@ with sync_playwright() as pw:
     eye.click(); p.wait_for_selector("[data-qv] .qv-title")
     ck("modal opens with the card's product", p.locator("#qv-title").inner_text().strip(), title)
     ck("opening reused the prefetched JSON", len(reqs), 2)
-    ck("focus lands on the close button", p.evaluate("document.activeElement?.hasAttribute('data-qv-close')"))
+    # The modal, not the close button: a programmatic focus() on a control reads as
+    # keyboard modality in iOS Safari and rings it after a plain tap.
+    ck("focus lands on the modal, not the close button", p.evaluate("document.activeElement?.hasAttribute('data-qv')"))
     ck("dialog is labelled by the title", p.locator("[data-qv]").get_attribute("aria-labelledby"), "qv-title")
     ck("page behind the modal is inert", p.evaluate("document.querySelector('main').inert"))
     ck("price is shown", p.locator("[data-qv-price]").inner_text().startswith("€"))

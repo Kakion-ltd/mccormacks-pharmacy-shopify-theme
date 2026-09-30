@@ -106,8 +106,10 @@
     lastFocus = document.activeElement;
     modal.hidden = false;
     document.body.style.overflow = 'hidden';
-    const first = modal.querySelector('input, textarea, button');
-    if (first) first.focus();
+    // The card, not the first control: a programmatic focus() reads as keyboard
+    // modality in iOS Safari, so the close X would wear a focus ring after a tap.
+    const card = modal.querySelector('[role="dialog"]');
+    if (card) card.focus();
   };
   const close = (modal) => {
     modal.hidden = true;
@@ -254,6 +256,9 @@
     background: #fff; border-radius: 18px; padding: 30px 30px 34px;
     box-shadow: 0 24px 60px rgba(0,0,0,.28);
   }
+  /* The card takes focus when the modal opens (see open() above), so it must not
+     draw a ring of its own. */
+  .pq-card:focus { outline: none; }
   .pq-x { position: absolute; top: 16px; right: 16px; border: none; background: transparent; color: #3a3d39; cursor: pointer; padding: 4px; }
   .pq-title { font-family: var(--font-heading); font-weight: 800; font-size: 22px; color: var(--c-primary-text); margin: 0 40px 8px 0; }
   .pq-intro { font-size: 14.5px; line-height: 1.6; color: #4a4d47; margin: 0 0 22px; }

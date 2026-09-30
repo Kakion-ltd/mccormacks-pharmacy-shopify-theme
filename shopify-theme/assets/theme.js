@@ -13,6 +13,23 @@
   // later the style has been recomputed and it takes.
   const focusSoon = (el) => { if (el) requestAnimationFrame(() => el.focus()); };
 
+  // Where an opening panel puts focus. Not on a control: iOS Safari treats a
+  // programmatic focus() as keyboard modality, so landing on the first row or the
+  // close button rings it after a plain finger tap. The panel itself takes focus
+  // with tabindex="-1" (outline:none in base.css), the screen reader reads it, and
+  // the first Tab still reaches the first control.
+  const focusPanel = (el) => { if (el) { el.setAttribute('tabindex', '-1'); focusSoon(el); } };
+
+  // The other half, on close: focus goes back to the control that opened the panel —
+  // unless a finger closed it, because Safari would ring that control for the reason
+  // above. A tap only needs focus off the panel that is going away. The modality comes
+  // from the click's pointerType: 'touch' for a tap, 'mouse' for a click, '' for Enter.
+  const byTouch = (e) => !!e && e.pointerType === 'touch';
+  const releaseFocus = (opener, touch, panel) => {
+    if (!touch && opener && opener !== document.body && opener.focus) opener.focus();
+    else if (panel && panel.contains(document.activeElement)) document.activeElement.blur();
+  };
+
   // The shop's own money format (Settings > Store details), handed over on <html> by
   // theme.liquid, so a price written here matches the one Liquid printed beside it.
   // The store is set to \u20ac{{amount_with_comma_separator}}; Intl and toFixed both gave
@@ -219,7 +236,7 @@
 
   // Show one panel, hide the rest. Kept as a full reset rather than a stack of
   // opens, so a mis-click can never leave two panels visible at once.
-  const mnavGoTo = (key, back) => {
+  const mnavGoTo = (key, back, keepFocus) => {
     if (!mnavStack) return;
     const next = mnavPanel(key);
     if (!next) return;
@@ -229,7 +246,9 @@
     });
     next.classList.add('is-current', back ? 'is-entering-back' : 'is-entering');
     if (mnav) mnav.scrollTop = 0;
-    focusSoon(next.querySelector('[data-mnav-back], .mnav-link'));
+    // On close the panels are reset behind a drawer that is going away, and focus
+    // belongs to whatever closed it.
+    if (!keepFocus) focusPanel(next);
   };
 
   const mnavBtn = document.querySelector('[data-mnav-open-btn]');
@@ -247,20 +266,23 @@
     document.body.setAttribute('data-mnav-open', '');
     mnavInert(true);
     if (mnavBtn) { mnavBtn.setAttribute('aria-expanded', 'true'); mnavBtn.setAttribute('aria-label', 'Close menu'); }
-    focusSoon(mnav && mnav.querySelector('[data-mnav-panel]:not([hidden]) .mnav-link'));
+    focusPanel(mnav && mnav.querySelector('[data-mnav-panel]:not([hidden])'));
   };
-  const mnavClose = () => {
+  // Closing resets the panels behind a drawer that is going away; focus goes back to
+  // the hamburger unless a finger closed it (see releaseFocus).
+  const mnavClose = (touch) => {
     document.body.removeAttribute('data-mnav-open');
     mnavInert(false);
     if (mnavBtn) { mnavBtn.setAttribute('aria-expanded', 'false'); mnavBtn.setAttribute('aria-label', 'Menu'); }
     // Reset to the root so reopening does not drop the shopper back into
     // whatever branch they last looked at.
-    if (mnavStack) mnavGoTo('root', false);
-    if (mnavLastFocus && mnavLastFocus.focus) mnavLastFocus.focus();
+    if (mnavStack) mnavGoTo('root', false, true);
+    releaseFocus(mnavLastFocus && mnavLastFocus !== document.body ? mnavLastFocus : mnavBtn, touch, mnav);
   };
 
-  on(document, 'click', '[data-mnav-open-btn]', () => (document.body.hasAttribute('data-mnav-open') ? mnavClose() : mnavOpen()));
-  on(document, 'click', '[data-mnav-close]', mnavClose);
+  const mnavToggle = (e) => (document.body.hasAttribute('data-mnav-open') ? mnavClose(byTouch(e)) : mnavOpen());
+  on(document, 'click', '[data-mnav-open-btn]', mnavToggle);
+  on(document, 'click', '[data-mnav-close]', mnavToggle);
   on(document, 'click', '[data-mnav-into]', (e, btn) => {
     e.preventDefault();
     mnavGoTo(btn.dataset.mnavInto, false);
@@ -277,7 +299,7 @@
     const current = mnavStack && mnavStack.querySelector('[data-mnav-panel].is-current');
     const parent = current && current.dataset.mnavParent;
     if (parent && current.dataset.mnavPanel !== 'root') mnavGoTo(parent, true);
-    else mnavClose();
+    else mnavClose(false);
   });
 
   // ---- Scroll rails: button[data-rail-btn][data-rail-target=id][data-rail-by=px]
@@ -382,16 +404,16 @@
     const open = () => {
       lastFocus = document.activeElement;
       document.body.setAttribute('data-cd-open', '');
-      focusSoon($('[data-cd-close]'));
+      focusPanel(cd.drawer);
     };
-    const close = () => {
+    const close = (touch) => {
       document.body.removeAttribute('data-cd-open');
-      if (lastFocus && lastFocus.focus) lastFocus.focus();
+      releaseFocus(lastFocus, touch, cd.drawer);
     };
-    cd.overlay && cd.overlay.addEventListener('click', close);
-    on(document, 'click', '[data-cd-close]', (e) => { e.preventDefault(); close(); });
+    cd.overlay && cd.overlay.addEventListener('click', (e) => close(byTouch(e)));
+    on(document, 'click', '[data-cd-close]', (e) => { e.preventDefault(); close(byTouch(e)); });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && document.body.hasAttribute('data-cd-open')) close();
+      if (e.key === 'Escape' && document.body.hasAttribute('data-cd-open')) close(false);
     });
 
     // PSI 2.5: a bag holding a medicine must go through the bag page, where the
@@ -510,7 +532,7 @@
         render(cart);
         // The line (and the button that had focus) is gone; don't drop keyboard and
         // screen-reader users on <body>.
-        if (to === 0) focusSoon($('[data-cd-close]'));
+        if (to === 0) focusPanel(cd.drawer);
         document.querySelectorAll('[data-cart-count]').forEach((el) => {
           el.textContent = cart.item_count;
           el.style.display = cart.item_count > 0 ? 'flex' : 'none';
@@ -838,8 +860,7 @@
         ccShow();
         if (ccOptions) ccOptions.hidden = false;
         if (ccManage) ccManage.setAttribute('aria-expanded', 'true');
-        const first = ccBanner.querySelector('button, input');
-        if (first) first.focus();
+        focusPanel(ccBanner);
       });
     };
 
@@ -1049,12 +1070,12 @@
       });
     };
     let lastFocus = null, openHandle = null;
-    const close = () => {
+    const close = (touch) => {
       if (!document.body.hasAttribute('data-qv-open')) return;
       document.body.removeAttribute('data-qv-open');
       setInert(false);
       openHandle = null;
-      if (lastFocus && lastFocus.focus) lastFocus.focus();
+      releaseFocus(lastFocus, touch, qv);
     };
     const optionOf = (v, i) => (v.options ? v.options[i] : v['option' + (i + 1)]);
     const imgSrc = (img) => (img ? (typeof img === 'string' ? img : img.src) : '');
@@ -1105,16 +1126,17 @@
       qvBody.innerHTML = '<div class="qv-loading">Loading…</div>';
       document.body.setAttribute('data-qv-open', '');
       setInert(true);
-      focusSoon(qv.querySelector('[data-qv-close]'));
+      focusPanel(qv);
       try { const p = await fetchProduct(h); if (openHandle === h) render(p); }
       catch { qvBody.innerHTML = '<div class="qv-loading">Could not load this product. <a href="' + esc(productUrl(h)) + '">Open the product page</a>.</div>'; }
     };
     on(document, 'click', '[data-qv-open]', (e, btn) => { e.preventDefault(); open(btn.dataset.qvOpen, btn); });
-    on(document, 'click', '[data-qv-close]', (e) => { e.preventDefault(); close(); });
-    qvOverlay && qvOverlay.addEventListener('click', close);
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.hasAttribute('data-qv-open')) close(); });
+    on(document, 'click', '[data-qv-close]', (e) => { e.preventDefault(); close(byTouch(e)); });
+    qvOverlay && qvOverlay.addEventListener('click', (e) => close(byTouch(e)));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.hasAttribute('data-qv-open')) close(false); });
     // Adding closes the modal before the cart drawer opens; see the add handler.
-    document.addEventListener('mcc:cart-added', close);
+    // The bag drawer takes focus next, so this close leaves it alone.
+    document.addEventListener('mcc:cart-added', () => close(true));
   }
 
   // ---- Generic tab views: [data-view-btn=key] shows [data-view=key], hides siblings
