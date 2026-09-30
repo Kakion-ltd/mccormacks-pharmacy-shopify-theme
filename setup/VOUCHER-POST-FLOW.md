@@ -114,13 +114,15 @@ With test mode on, buy one voucher each way and check Flow → the workflow →
 | Voucher, **Printed and posted** | Tagged `voucher-post`, email to sales@ naming the address |
 | Voucher, **By email** | No run, no tag |
 | Voucher, **Send it to me** | No run, no tag |
-| Voucher + a medicine, posted | Tagged `voucher-post` **and** held by Flow 1; the voucher is not issued until the pharmacist releases it |
+| Voucher + a medicine, posted | Tagged `voucher-post` **and** held by Flow 1 — but the voucher itself is issued straight away (tested, order #1012) |
 
-That last row is the one worth reading twice. A voucher in the same basket as a
-medicine is held with it, so the code does not exist and there is nothing to
-print until the order is released. If that combination turns out to be common,
-the answer is a line on the bag page telling the customer, not a change to the
-hold.
+That last row was expected to be the awkward one and turned out not to be. On the
+30 Sep test (order #1012) the gift card line was auto-fulfilled two seconds after
+payment while the medicine line stayed held: "Automatically fulfill only the gift
+cards" works per line item, not per order, so Flow's hold on the medicine does not
+stop the voucher being issued. The customer gets the code immediately, staff have
+something to print, and the pharmacist still reviews the medicine before it ships.
+Re-check this if the fulfilment setting is ever changed.
 
 Cancel every test order afterwards, and **deactivate the test gift cards**
 (Products → Gift cards): cancelling an order does not void a gift card it issued,

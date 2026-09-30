@@ -1470,6 +1470,28 @@ How it works now:
   the page renders its "not on sale" notice and the buy form appears in no
   preview at all — which is how a dead Add-to-bag link survived as long as it did.
 
+**`productVariantsBulkCreate` does not apply gift card defaults (30 Sep 2026).**
+`giftCardProductSet` documents that it "applies gift card variant defaults
+(non-taxable, no shipping required, inventory untracked)". The ordinary variant
+mutations do not, even on a product whose `isGiftCard` is true. Two denominations
+added with `productVariantsBulkCreate` came out **inventory-tracked with a DENY
+policy and a quantity of nobody's setting**, so `availableForSale` was false. They
+looked right in every check that did not name the field: price, title, position,
+`taxable: false` and `requiresShipping: false` were all correct, because those two
+*are* inherited. Only `tracked` was not.
+
+What that looks like from the shop is the part worth remembering: `/cart/add.js`
+accepted the variant happily — it refuses nothing, see "No cart stock ceiling" —
+the bag showed €10, and checkout then dropped the line and said **"Your order is
+free. No payment is required."** A voucher that cannot be bought, reported as a
+free order, with no error anywhere naming stock.
+
+So: after any variant write on the gift card product, check `availableForSale` and
+`inventoryItem.tracked`, not just price and title. The six denominations must all
+read `availableForSale: true, tracked: false, requiresShipping: false,
+taxable: false`. Use `giftCardProductSet` where it fits; it is the only mutation
+that gets this right by itself.
+
 Two things this page cannot do from the repo, both admin jobs:
 
 - **Gift cards must be activated on the store before a gift card product can
@@ -1485,11 +1507,18 @@ Two things this page cannot do from the repo, both admin jobs:
   the setting that satisfies both. Five-year expiry is set under Settings → Gift
   cards; the page's copy promises five years and nothing in the theme enforces it.
 
-**The pharmacist hold still applies to the order, not the voucher.** Flow 1 holds
-every fulfillment order on an order containing a medicine, so a voucher bought in
-the same basket as a medicine is not issued until the pharmacist releases it. The
-voucher product carries no `pharmacist-review` tag, so a voucher on its own is
-never held.
+**The pharmacist hold and the voucher do not collide — tested 30 Sep 2026.** It was
+written here first that a voucher bought alongside a medicine would not be issued
+until the pharmacist released the order. That was wrong, and order **#1012** settled
+it: the gift card line was auto-fulfilled two seconds after payment, so the voucher
+was issued and sent, while the medicine line stayed unfulfilled and the order sat
+`ON_HOLD` with `awaiting-pharmacist` and `no-declaration`. "Automatically fulfill
+only the gift cards" acts per line item and runs independently of Flow's hold on the
+rest of the order.
+
+So the customer gets their voucher straight away and the pharmacist still reviews the
+medicine. The voucher product carries no `pharmacist-review` tag, so a voucher on its
+own is never held at all.
 
 ---
 
@@ -1519,6 +1548,18 @@ Theme settings → Brand must stay a **transparent PNG**, or the filter turns th
 whole rectangle white.
 
 ---
+
+**This is why `npm run verify` reports a failure on a clean tree.** `contrast.py`
+counts these four elements (the card's "Gift Voucher", the amount, "Valid 5 years"
+and "Online only") as WCAG AA failures at 1.99:1, because they are. The check is
+right and the site is shipping the client's decision anyway.
+
+Until 30 Sep the suite was a single `&&` chain, so contrast failing meant
+`questionnaire`, `medicine-declaration`, `bag-remove` and `gift-voucher` never ran
+at all — four checks silently skipped on every run, including in CI. The chain is
+now `setup/verify/run-all.sh`, which runs all 27 and reports failures at the end.
+Contrast still fails and still exits non-zero; it just no longer hides anything.
+If the client reverses this decision, the expected result is 27/27.
 
 ## Headings are Nunito, not Arial Rounded — a decision (24 Sep 2026)
 
