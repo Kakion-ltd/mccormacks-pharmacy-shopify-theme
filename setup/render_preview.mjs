@@ -1039,6 +1039,35 @@ const FORM_ON = { 'page.in-store-services': { __sectionSettingsOverride: { 'page
 }
 
 {
+  // Tag-driven question sets (30 Sep 2026). No metafield anywhere here: the set is
+  // chosen by tag, the way it is on the store since Fergal adopted the old website's
+  // approach. Three fixtures, one per branch of that choice.
+  //   questions-ed    -> the 14 erectile dysfunction questions
+  //   questions-none  -> tagged medicine, no questions at all (Curanail)
+  // The default pair (over 18 / other medication) needs no fixture of its own: the
+  // restricted fixture above is a tagged medicine with no set tag, so it renders it.
+  const base = products.find((p) => p.has_only_default_variant && p.available);
+  const gateTag = globals.settings.restricted_tag || 'pharmacist-review';
+  for (const [handle, extraTag, file] of [
+    ['questions-ed', 'questionnaire-ed', 'product.questions-ed.html'],
+    ['questions-none', 'questionnaire-none', 'product.questions-none.html'],
+  ]) {
+    if (!base) break;
+    const p = { ...base, title: 'Viagra Connect 50mg Tablets 4 Pack', handle, url: `/products/${handle}`,
+      vendor: 'Viagra Connect', type: 'Sexual Health', tags: [...(base.tags || []), gateTag, extraTag] };
+    const saved = { product: globals.product, request: globals.request };
+    globals.product = p;
+    globals.request = { ...globals.request, page_type: 'product' };
+    try {
+      writeFileSync(join(outDir, file), await renderTemplate('product'));
+      console.log(`tag-driven questions: ${handle} (${extraTag})`);
+    } finally {
+      Object.assign(globals, saved);
+    }
+  }
+}
+
+{
   // The gated pharmacy product: worked example of the questionnaire framework. Built
   // from a single-variant product shape, then given the restricted tag (so grids
   // suppress its one-click add) and a pharmacy.questionnaire metafield (so the PDP

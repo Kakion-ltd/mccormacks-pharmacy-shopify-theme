@@ -33,6 +33,41 @@
 {%- assign gate_ready = false -%}
 {%- if is_gated and question_count > 0 -%}{%- assign gate_ready = true -%}{%- endif -%}
 
+{%- comment -%} No metafield: the questions follow the restricted tag instead. Fergal
+    adopted the old website's approach on 30 Sep 2026 (setup/old-site-questionnaires.md),
+    which asks the same questions of a whole group rather than a set per product, so a
+    medicine is covered the moment it is tagged and nobody has to remember a metafield.
+
+    Which set is a tag too:
+      questionnaire-ed    the old site's 14 erectile dysfunction questions
+      questionnaire-none  tagged medicine, deliberately no questions (Curanail)
+      neither             the default pair: over 18, and any other medication
+    A metaobject on the product still wins, so the pharmacist can override any of this
+    per product later without touching the theme. Gating this way is the SAME gate: the
+    branch below renders no product form either way, so a no-JS visitor still cannot add
+    the medicine. {%- endcomment -%}
+{%- comment -%} An empty string, not `blank`: LiquidJS in the preview harness does not
+    treat `assign x = blank` as blank on the way back out, which gated a product that
+    was meant to have no questions. Compare against the set names instead. {%- endcomment -%}
+{%- assign pq_set = '' -%}
+{%- unless is_gated -%}
+  {%- capture pq_restricted -%}{%- render 'product-restricted', product: product -%}{%- endcapture -%}
+  {%- if pq_restricted == 'true' -%}
+    {%- assign pq_tags = product.tags | join: '||' | downcase | split: '||' -%}
+    {%- if pq_tags contains 'questionnaire-none' -%}
+      {%- assign pq_set = '' -%}
+    {%- elsif pq_tags contains 'questionnaire-ed' -%}
+      {%- assign pq_set = 'ed' -%}
+    {%- else -%}
+      {%- assign pq_set = 'default' -%}
+    {%- endif -%}
+    {%- if pq_set == 'ed' or pq_set == 'default' -%}
+      {%- assign is_gated = true -%}
+      {%- assign gate_ready = true -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endunless -%}
+
 {%- comment -%} The most specific collection this product belongs to. Shopify's
     product.collections ordering is arbitrary, so .first was picking a department as
     readily as a leaf. Used by the breadcrumb below and by the related-products
@@ -338,7 +373,7 @@
             </div>
             {% render 'wishlist-button', product: product, style: 'text' %}
           </div>
-          {% render 'pharmacy-questionnaire', product: product, questionnaire: questionnaire, section_id: section.id, variant: current_variant %}
+          {% render 'pharmacy-questionnaire', product: product, questionnaire: questionnaire, set: pq_set, section_id: section.id, variant: current_variant %}
         {%- else -%}
           {%- comment -%} Gated, but the questionnaire is missing (reference deleted) or has
               no questions. Fail CLOSED: no buy box, no form, no add path — just a notice.

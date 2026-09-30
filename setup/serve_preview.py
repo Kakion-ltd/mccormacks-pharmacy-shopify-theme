@@ -33,6 +33,12 @@ def product_page(handle):
         # The gated pharmacy fixture: its own render so the questionnaire modal and the
         # form-less (no-JS-safe) buy box are reachable. Not in CATALOGUE, so routed here.
         return first_existing("preview/product.gated.html", "preview/product.html")
+    if handle == "questions-ed":
+        # Tagged questionnaire-ed: the old site's 14 questions, chosen by tag, no metafield.
+        return first_existing("preview/product.questions-ed.html", "preview/product.html")
+    if handle == "questions-none":
+        # Tagged questionnaire-none: a medicine with no questions (Curanail) -> normal buy box.
+        return first_existing("preview/product.questions-none.html", "preview/product.html")
     if handle == "gated-deleted":
         # Metafield set, questionnaire reference deleted -> must fail closed.
         return first_existing("preview/product.gated-deleted.html", "preview/product.html")

@@ -78,9 +78,27 @@ customer before approving. Please tell us:
   open to misuse, such as painkillers, antihistamines and laxatives, is still
   open: tell us how you want to handle it.
 
-Some medicines may also need the customer to answer questions before they can
-add them to the bag. That part is built and waiting for your questions: our
-draft is in `5-Pharmacist-Questions.pdf`.
+Some medicines also ask the customer questions before they can be added to the
+bag. **On 30 September 2026 Fergal decided to use your current website's
+questions rather than the set we drafted**, so that is what is being built:
+
+- **Viagra Connect (4 and 8 pack), Cialis (4Pk and 8Pk) and Sidena** ask the
+  same fourteen Yes/No questions your current website asks, word for word.
+- **Every other medicine** asks two: a tick to confirm the buyer is over 18, and
+  "Are you taking any other medication?", where Yes opens a box to say which.
+- **No answer stops the sale.** Every answer is saved on the order, beside the
+  medicine it was asked about, for you to read before you approve it. That is
+  how your current website works too.
+- **Curanail asks nothing**, as on your current website. **Anusol HC stays off
+  the website**, as on your current website, where it is enquiry-only.
+- Uniflu with Vitamin C is on hold until you tell us whether it needs questions.
+
+What your current website asks, and how it compares with the draft we sent, is
+in `setup/old-site-questionnaires.md`. Our draft (`5-Pharmacist-Questions.pdf`)
+is kept as the proposal it was; nothing in it is built. Two things in it are
+still worth your eye, and neither is blocked by this decision: the questions
+about medicines that slow sildenafil down, which neither website asks, and
+whether Anusol HC should go on sale at all.
 
 **5. Who reads the website's email inbox. Owner: Pharmacy.**
 Seven forms on the website send an email and nothing else:

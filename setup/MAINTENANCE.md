@@ -458,8 +458,9 @@ tag; it needs a questionnaire only if the pharmacist wants questions asked.
 
 **Theme:** `sections/main-product.liquid` + `snippets/pharmacy-questionnaire.liquid`.
 A product is gated when it carries the `pharmacy.questionnaire` metafield (a
-reference to a `pharmacy_questionnaire` metaobject the pharmacist edits). No
-metafield, ordinary buy box. See `setup/provision.mjs` for the metaobject/metafield
+reference to a `pharmacy_questionnaire` metaobject the pharmacist edits) **or**
+when its tags pick a built-in set ("Questions before purchase follow the tag",
+below, 30 Sep 2026). Neither, ordinary buy box. See `setup/provision.mjs` for the metaobject/metafield
 definitions and `setup/verify/questionnaire.py` for the guarantees below.
 
 Three things that are load-bearing and easy to break:
@@ -491,6 +492,78 @@ Three things that are load-bearing and easy to break:
    in `snippets/pharmacy-questionnaire.liquid` (`.pq-consent-note`). If the flow or
    the copy changes, keep the two in step, and get the wording pharmacist/client
    signed off like any other medical copy.
+
+---
+
+## Questions before purchase follow the tag (30 Sep 2026)
+
+**Fergal's decision, 30 September 2026: use the old website's approach, not our
+drafted question sets.** The draft in `PHARMACIST-QUESTIONS.md` proposed 25
+products in 8 sets, with answers that stop a sale. What the old website actually
+does — recorded question by question in `old-site-questionnaires.md` — is
+narrower: one 14-question set on the five erectile dysfunction products, two tick
+boxes on every other medicine, and **no answer anywhere stops a sale**. He chose
+that. The draft sets are not built and are kept only as the proposal they were.
+
+So the questions now come from two places, and the metafield is no longer the
+only one:
+
+| Source | Chosen by | Who edits it |
+|---|---|---|
+| `pharmacy.questionnaire` metaobject | set on the product | the pharmacist, in admin |
+| `snippets/pharmacy-question-set.liquid` | product tag | us, in the theme |
+
+**A metaobject on the product still wins**, so anything below can be overridden
+per product later without touching the theme.
+
+The tags, read in `sections/main-product.liquid`:
+
+- `questionnaire-ed` — the old site's 14 erectile dysfunction questions. On
+  Viagra Connect 4 and 8 pack, Cialis 4Pk and 8Pk, Sidena 50mg 4 Pack.
+- `questionnaire-none` — a tagged medicine that deliberately asks nothing. On
+  Curanail only, because the old site asks nothing there either.
+- neither, but carrying the restricted tag — the default pair: "I am over 18
+  years of age" (a tick) and "Are you taking any other medication?" (Yes/No,
+  where Yes reveals a free-text box for the detail).
+
+**Why the theme and not a metaobject.** Three reasons, in order of weight. The
+sets are now the same across a whole group, so a per-product record is a copy of
+the same thing 320 times, and the recurring defect this file opens with. A newly
+tagged medicine has to be covered the moment it is tagged, with nobody
+remembering a second step — the tag is what the hold already keys off, so one
+act covers both. And the store's API token has no metaobject scope
+(see "Store API access"), so 320 metaobject entries could not be created from
+here anyway.
+
+**What is load-bearing:**
+
+1. **No answer blocks.** Neither built-in set sets `blocking_answers`, because
+   Fergal's decision is that the pharmacist reads the answers on the order and
+   decides. The blocking machinery is still in the framework and still tested —
+   do not remove it, the metaobject path uses it.
+2. **Every built-in question is required.** All 14 on an ED product, both on
+   every other medicine. The free-text detail box is the one exception: it is
+   optional, so a customer who answers Yes and types nothing still gets through,
+   and the pharmacist sees a bare "Yes". If that is not good enough, make it
+   required — it is one flag in `pharmacy-question-field`.
+3. **It is the same gate.** A tag-gated product renders no `{% form 'product' %}`
+   either, so the no-JS hole stays shut. `setup/verify/questionnaire.py` checks
+   all three branches, including that `questionnaire-none` gets an **ordinary**
+   buy box and not the fail-closed notice — a medicine silently gated is as much
+   a defect here as a medicine silently open.
+4. **Both tick boxes now exist.** The bag page already asks for an over-18
+   declaration (below), and the default set asks again on the product page. That
+   is deliberate: the bag attribute is what Flow reads, the line-item property is
+   what the pharmacist reads per medicine. If one is ever dropped, check which
+   system was reading it first.
+
+The questions themselves are the old site's wording, character for character,
+including its typing mistakes ("riocigaut", "protsate", "non-artertic") and the
+fourth question, which breaks off mid-sentence. They were copied deliberately;
+do not tidy them without asking Fergal, and see `old-site-questionnaires.md` for
+the two things we flagged: the set is written for sildenafil and served
+unchanged on Cialis, which is tadalafil, and it has no question about the
+CYP3A4 inhibitors our own draft missed too.
 
 ---
 

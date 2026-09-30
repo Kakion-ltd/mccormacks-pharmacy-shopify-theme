@@ -47,7 +47,11 @@ with sync_playwright() as pw:
     # 3. Product pages.
     pg.goto(BASE + "/products/nurofen-tablets-12pk", wait_until="networkidle")
     check("medicine PDP: no Buy it now", pg.locator(".pdp-express").count(), 0)
-    check("medicine PDP: Add to bag still there", pg.locator("form[data-ajax-add] [data-pdp-submit]").count(), 1)
+    # Since 30 Sep 2026 a tagged medicine is gated by the questionnaire too (the default
+    # over-18 / other-medication pair), so its buy box is the form-less gated one. The
+    # plain Add to bag is GONE on purpose: a product form here would be the no-JS hole.
+    check("medicine PDP: no product form at all", pg.locator("form[data-ajax-add]").count(), 0)
+    check("medicine PDP: opens the questionnaire instead", pg.locator("[data-open-questionnaire]").count() > 0, True)
     pg.goto(BASE + "/products/vitamin-d3-1000iu-60-capsules", wait_until="networkidle")
     check("ordinary PDP: Buy it now kept", pg.locator(".pdp-express").count(), 1)
 

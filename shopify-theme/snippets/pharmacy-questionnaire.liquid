@@ -13,8 +13,20 @@
       the pharmacist in Shopify admin under each line item. No third party, no
       Airtable, no token in the page.
 
+  Two sources of questions, and only one of them is a metaobject:
+    - `questionnaire` — the pharmacy_questionnaire metaobject a pharmacist edits.
+    - `set` — one of the built-in sets in snippets/pharmacy-question-set, chosen by
+      product tag in sections/main-product. Fergal adopted the old website's approach
+      on 30 Sep 2026, so the questions are fixed and the same across a whole group;
+      keeping them in the theme means a newly tagged medicine is covered the moment
+      it is tagged. If both are present the metaobject wins.
+  Either way the markup, the validation and the line-item properties are identical —
+  snippets/pharmacy-question-field renders both, and the script below reads only its
+  data-* hooks.
+
   Question kinds (metaobject pharmacy_question.kind):
     yes_no   single-select Yes / No
+    yes_no_details  Yes / No where Yes reveals a free-text box (built-in sets only)
     choice   single-select radio over `options`
     multi    multi-select checkboxes over `options`, plus an exclusive
              "None of the above" the framework adds itself
@@ -23,60 +35,61 @@
   Every question is required unless its `optional` flag is set. Any selected answer
   listed in a question's `blocking_answers` stops the sale and shows the notice.
 
-  Accepts: product, questionnaire (the pharmacy_questionnaire metaobject),
-           section_id, variant (current variant, for the id fallback).
+  Accepts: product, section_id, variant (current variant, for the id fallback), and
+           ONE of questionnaire (the metaobject) or set ('ed' | 'default').
 {%- endcomment -%}
-{%- assign pq_id = 'pq-' | append: section_id -%}
+{%- liquid
+  assign pq_id = 'pq-' | append: section_id
+  assign pq_title = questionnaire.title.value | default: 'Questions from our pharmacist'
+  assign pq_version = questionnaire.version.value
+  assign pq_builtin = false
+  if set == 'ed' or set == 'default'
+    assign pq_builtin = true
+    capture pq_raw
+      render 'pharmacy-question-set', set: set
+    endcapture
+    assign pq_items = pq_raw | strip | split: '||'
+    assign pq_version = 'old-site-' | append: set | append: '-2026-09-30'
+  endif
+-%}
 <div class="pq-modal" data-pq-modal="{{ pq_id }}" hidden>
   <div class="pq-backdrop" data-pq-close></div>
   <div class="pq-card" role="dialog" aria-modal="true" aria-labelledby="{{ pq_id }}-title" tabindex="-1">
     <button type="button" class="pq-x" data-pq-close aria-label="Close">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 19 19 5M5 5l14 14"/></svg>
     </button>
-    <h3 class="pq-title" id="{{ pq_id }}-title">{{ questionnaire.title.value | default: 'Questions from our pharmacist' }}</h3>
+    <h3 class="pq-title" id="{{ pq_id }}-title">{{ pq_title }}</h3>
     <p class="pq-intro">This is a pharmacy medicine. Please answer honestly so our registered pharmacist can check it is safe for you before we dispense {{ product.title }}. Your answers are attached to your order for the pharmacist to review.</p>
 
     <form class="pq-form" data-pq-form novalidate>
-      {%- for q in questionnaire.questions.value -%}
-        {%- assign kind = q.kind.value -%}
-        {%- assign required = true -%}
-        {%- if q.optional.value == true -%}{%- assign required = false -%}{%- endif -%}
-        {%- capture blocking -%}{{ q.blocking_answers.value | join: '||' }}{%- endcapture -%}
-        {%- assign fname = pq_id | append: '-q' | append: forloop.index -%}
-        <fieldset class="pq-q" data-pq-q data-kind="{{ kind }}" data-label="{{ q.label.value | escape }}" data-required="{{ required }}" data-blocking="{{ blocking | escape }}">
-          <legend class="pq-q-label">{{ q.label.value }}{%- unless required %} <span class="pq-optional">(optional)</span>{%- endunless -%}</legend>
-          {%- if q.help.value != blank -%}<p class="pq-help">{{ q.help.value }}</p>{%- endif -%}
-          <div class="pq-fields">
-            {%- case kind -%}
-              {%- when 'yes_no' -%}
-                <label class="pq-opt"><input type="radio" name="{{ fname }}" value="Yes"> Yes</label>
-                <label class="pq-opt"><input type="radio" name="{{ fname }}" value="No"> No</label>
-              {%- when 'choice' -%}
-                {%- for opt in q.options.value -%}
-                  <label class="pq-opt"><input type="radio" name="{{ fname }}" value="{{ opt | escape }}"> {{ opt }}</label>
-                {%- endfor -%}
-              {%- when 'multi' -%}
-                {%- for opt in q.options.value -%}
-                  <label class="pq-opt"><input type="checkbox" name="{{ fname }}" value="{{ opt | escape }}"> {{ opt }}</label>
-                {%- endfor -%}
-                <label class="pq-opt"><input type="checkbox" name="{{ fname }}" value="None of the above" data-pq-none> None of the above</label>
-              {%- when 'confirm' -%}
-                <label class="pq-opt pq-confirm"><input type="checkbox" name="{{ fname }}" value="I confirm"> {{ q.label.value }}</label>
-              {%- when 'short_text' -%}
-                <input type="text" class="pq-text" name="{{ fname }}">
-              {%- when 'long_text' -%}
-                <textarea class="pq-text" name="{{ fname }}" rows="3"></textarea>
-            {%- endcase -%}
-          </div>
-          <p class="pq-error" data-pq-error hidden>Please answer this question.</p>
-        </fieldset>
-      {%- endfor -%}
+      {%- if pq_builtin -%}
+        {%- for item in pq_items -%}
+          {%- assign parts = item | strip | split: '::' -%}
+          {%- assign q_kind = parts[0] | strip -%}
+          {%- assign q_label = parts[1] | strip -%}
+          {%- assign fname = pq_id | append: '-q' | append: forloop.index -%}
+          {%- comment -%} Every built-in question is required and none blocks the sale:
+              Fergal's decision, recorded in setup/old-site-questionnaires.md. {%- endcomment -%}
+          {%- render 'pharmacy-question-field', kind: q_kind, label: q_label, help: '',
+              options: nil, required: true, blocking: '', fname: fname -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for q in questionnaire.questions.value -%}
+          {%- assign q_kind = q.kind.value -%}
+          {%- assign required = true -%}
+          {%- if q.optional.value == true -%}{%- assign required = false -%}{%- endif -%}
+          {%- capture blocking -%}{{ q.blocking_answers.value | join: '||' }}{%- endcapture -%}
+          {%- assign fname = pq_id | append: '-q' | append: forloop.index -%}
+          {%- render 'pharmacy-question-field', kind: q_kind, label: q.label.value, help: q.help.value,
+              options: q.options.value, required: required, blocking: blocking, fname: fname -%}
+        {%- endfor -%}
+      {%- endif -%}
 
       <div class="pq-blocked" data-pq-blocked hidden role="alert">
         Based on your answers, this medicine may not be safe for you. Please speak to our pharmacist before buying — call the pharmacy or use Ask a pharmacist. We cannot add it to your bag.
       </div>
 
-      <input type="hidden" data-pq-version value="{{ questionnaire.version.value }}">
+      <input type="hidden" data-pq-version value="{{ pq_version }}">
       {%- comment -%} Pre-payment disclosure. The pharmacist review happens AFTER payment,
           so the customer must know before they pay that the order can be refused and
           refunded. Kept next to the submit button, not buried. Wording is subject to
@@ -129,6 +142,19 @@
     if (m) close(m);
   });
 
+  // yes_no_details: Yes reveals the free-text box, No hides it and drops what was typed,
+  // so an answer changed from Yes to No cannot leave stale detail on the order.
+  document.addEventListener('change', (e) => {
+    if (e.target.type !== 'radio') return;
+    const q = e.target.closest('[data-pq-q]');
+    if (!q || q.dataset.kind !== 'yes_no_details') return;
+    const box = q.querySelector('[data-pq-details]');
+    if (!box) return;
+    const yes = e.target.value === 'Yes' && e.target.checked;
+    box.hidden = !yes;
+    if (!yes) q.querySelector('[data-pq-details-input]').value = '';
+  });
+
   // "None of the above" is exclusive with the real options in its question.
   document.addEventListener('change', (e) => {
     const cb = e.target;
@@ -148,6 +174,13 @@
   // Read the selected answers of one question as an array of strings.
   const answersOf = (q) => {
     const kind = q.dataset.kind;
+    if (kind === 'yes_no_details') {
+      const r = q.querySelector('input[type=radio]:checked');
+      if (!r) return [];
+      const d = q.querySelector('[data-pq-details-input]');
+      const extra = d && d.value.trim();
+      return [extra ? r.value + ' \u2014 ' + extra : r.value];
+    }
     if (kind === 'yes_no' || kind === 'choice') {
       const r = q.querySelector('input[type=radio]:checked');
       return r ? [r.value] : [];
@@ -269,6 +302,9 @@
   .pq-fields { display: flex; flex-direction: column; gap: 9px; }
   .pq-opt { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; line-height: 1.45; color: #2A2B2A; cursor: pointer; }
   .pq-opt input { margin-top: 3px; flex: 0 0 auto; }
+  .pq-details { margin: 4px 0 0 26px; }
+  .pq-details[hidden] { display: none; }
+  .pq-details-label { display: block; font-size: 13.5px; color: #4a4d47; margin-bottom: 6px; }
   .pq-text { width: 100%; border: 1.5px solid #dfe1dc; border-radius: 10px; padding: 10px 12px; font: inherit; }
   .pq-error { color: #B3261E; font-size: 13px; margin: 8px 0 0; font-weight: 600; }
   .pq-has-error .pq-q-label { color: #B3261E; }

@@ -1,0 +1,50 @@
+{%- comment -%}
+  One question inside the pharmacist questionnaire. Extracted so the metaobject-driven
+  set and the built-in tag-driven sets render identical markup — the modal's JavaScript
+  reads only these data-* hooks, so it does not care which produced them.
+
+  Accepts: kind, label, help, options (array or nil), required (boolean),
+           blocking (string, answers joined by '||'), fname (radio/checkbox name).
+
+  yes_no_details is the only kind with no metaobject equivalent: a Yes/No pair whose
+  Yes reveals a free-text box. Added 30 Sep 2026 for "Are you taking any other
+  medication?", which the pharmacist needs the detail of, not just the Yes.
+{%- endcomment -%}
+<fieldset class="pq-q" data-pq-q data-kind="{{ kind }}" data-label="{{ label | escape }}" data-required="{{ required }}" data-blocking="{{ blocking | escape }}">
+  {%- comment -%} A confirm question's statement IS its tick-box label, so printing it as a
+      legend too says the same sentence twice, on the screen and to a screen reader. {%- endcomment -%}
+  {%- unless kind == 'confirm' -%}
+    <legend class="pq-q-label">{{ label }}{%- unless required %} <span class="pq-optional">(optional)</span>{%- endunless -%}</legend>
+  {%- endunless -%}
+  {%- if help != blank -%}<p class="pq-help">{{ help }}</p>{%- endif -%}
+  <div class="pq-fields">
+    {%- case kind -%}
+      {%- when 'yes_no' -%}
+        <label class="pq-opt"><input type="radio" name="{{ fname }}" value="Yes"> Yes</label>
+        <label class="pq-opt"><input type="radio" name="{{ fname }}" value="No"> No</label>
+      {%- when 'yes_no_details' -%}
+        <label class="pq-opt"><input type="radio" name="{{ fname }}" value="Yes"> Yes</label>
+        <label class="pq-opt"><input type="radio" name="{{ fname }}" value="No"> No</label>
+        <div class="pq-details" data-pq-details hidden>
+          <label class="pq-details-label" for="{{ fname }}-details">Please tell the pharmacist which ones</label>
+          <textarea class="pq-text" id="{{ fname }}-details" name="{{ fname }}-details" rows="2" data-pq-details-input></textarea>
+        </div>
+      {%- when 'choice' -%}
+        {%- for opt in options -%}
+          <label class="pq-opt"><input type="radio" name="{{ fname }}" value="{{ opt | escape }}"> {{ opt }}</label>
+        {%- endfor -%}
+      {%- when 'multi' -%}
+        {%- for opt in options -%}
+          <label class="pq-opt"><input type="checkbox" name="{{ fname }}" value="{{ opt | escape }}"> {{ opt }}</label>
+        {%- endfor -%}
+        <label class="pq-opt"><input type="checkbox" name="{{ fname }}" value="None of the above" data-pq-none> None of the above</label>
+      {%- when 'confirm' -%}
+        <label class="pq-opt pq-confirm"><input type="checkbox" name="{{ fname }}" value="I confirm"> {{ label }}</label>
+      {%- when 'short_text' -%}
+        <input type="text" class="pq-text" name="{{ fname }}">
+      {%- when 'long_text' -%}
+        <textarea class="pq-text" name="{{ fname }}" rows="3"></textarea>
+    {%- endcase -%}
+  </div>
+  <p class="pq-error" data-pq-error hidden>Please answer this question.</p>
+</fieldset>

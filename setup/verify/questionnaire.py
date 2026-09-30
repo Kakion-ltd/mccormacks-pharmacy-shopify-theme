@@ -128,6 +128,64 @@ with sync_playwright() as pw:
               p2.evaluate("[...document.querySelectorAll('.mobile-buybar button')].every(b => b.disabled || b.dataset.qtyStep !== undefined)"))
         p2.close()
 
+    # 7. Tag-driven sets (30 Sep 2026). The questions no longer have to come from a
+    # metaobject: a tagged medicine gets a built-in set chosen by tag. Three branches,
+    # and the one that must NOT gate is as important as the two that must.
+    ed = ctx.new_page()
+    ed.goto(BASE + "/products/questions-ed", wait_until="networkidle")
+    check("[ed] 14 questions, the old site's set", ed.locator("[data-pq-q]").count(), 14)
+    check("[ed] no product form (the no-JS gate still holds)",
+          ed.locator("form[data-ajax-add]").count(), 0)
+    check("[ed] no answer blocks the sale",
+          ed.evaluate("[...document.querySelectorAll('[data-pq-q]')].every(q => !q.dataset.blocking)"))
+    check("[ed] every question is required",
+          ed.evaluate("[...document.querySelectorAll('[data-pq-q]')].every(q => q.dataset.required === 'true')"))
+    ed.close()
+
+    # A tagged medicine with no set tag gets the default pair, and its Yes reveals the
+    # details box. The details are optional; the Yes/No is not.
+    dp = ctx.new_page()
+    added["body"] = None
+    dp.route("**/cart/add.js", handle_add)
+    dp.route("**/cart.js", handle_cart)
+    dp.goto(BASE + "/products/nurofen-tablets-12pk", wait_until="networkidle")
+    check("[default] two questions", dp.locator("[data-pq-q]").count(), 2)
+    dp.locator("[data-open-questionnaire]").first.click()
+    dp.wait_for_timeout(150)
+    check("[default] details box hidden before an answer",
+          dp.locator("[data-pq-details]").first.is_hidden())
+    dp.locator("[data-pq-q][data-kind=yes_no_details] input[value=Yes]").check()
+    check("[default] Yes reveals the details box",
+          dp.locator("[data-pq-details]").first.is_visible())
+    dp.locator("[data-pq-details-input]").fill("warfarin")
+    dp.locator("[data-pq-q][data-kind=yes_no_details] input[value=No]").check()
+    check("[default] No hides it again and clears what was typed",
+          dp.locator("[data-pq-details]").first.is_hidden()
+          and dp.locator("[data-pq-details-input]").input_value() == "")
+    # Submit with the over-18 tick missing: must not post.
+    dp.locator("[data-pq-submit]").click()
+    dp.wait_for_timeout(250)
+    check("[default] unticked over-18 blocks the add", added["body"] is None)
+    dp.locator("[data-pq-q][data-kind=confirm] input[type=checkbox]").check()
+    dp.locator("[data-pq-q][data-kind=yes_no_details] input[value=Yes]").check()
+    dp.locator("[data-pq-details-input]").fill("warfarin")
+    dp.locator("[data-pq-submit]").click()
+    dp.wait_for_timeout(300)
+    dprops = (added["body"] or {}).get("properties", {})
+    check("[default] both answers reach the line item", len(dprops) >= 2)
+    check("[default] the detail is recorded with the Yes",
+          any("Yes" in v and "warfarin" in v for v in dprops.values()))
+    dp.close()
+
+    # questionnaire-none: a medicine that deliberately asks nothing (Curanail). It must
+    # get an ordinary buy box — not the gate, and not the fail-closed notice.
+    nq = ctx.new_page()
+    nq.goto(BASE + "/products/questions-none", wait_until="networkidle")
+    check("[none] no questionnaire at all", nq.locator("[data-pq-modal]").count(), 0)
+    check("[none] ordinary buy box", nq.locator("form[data-ajax-add] [data-pdp-submit]").count() > 0)
+    check("[none] not the fail-closed notice", nq.locator("[data-gated-unavailable]").count(), 0)
+    nq.close()
+
     b.close()
 
 bad = [r for r in results if not r[0]]
