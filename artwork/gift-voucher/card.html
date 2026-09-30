@@ -1,0 +1,38 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+  /* Tokens copied from shopify-theme/assets/base.css so the image cannot drift
+     from the card the gift vouchers page draws. */
+  :root { --c-primary:#82C914; --c-primary-hover:#6BA30F; --c-dark:#3F6B4F;
+          --c-accent:#92C83F; --c-on-accent:#2A2B2A; }
+  @font-face { font-family:'Nunito'; src:url('nunito-variable.woff2') format('woff2');
+               font-weight:200 1000; font-display:block; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1000px; height:1000px; }
+  body { display:flex; align-items:center; justify-content:center; background:#ffffff; }
+
+  /* The hero card from sections/page-gift-vouchers.liquid, same gradient, same
+     radius ratio, same corner content — with the amount left off, because this one
+     image stands for six denominations. */
+  .card {
+    width:840px; aspect-ratio:8/5; border-radius:32px;
+    background:linear-gradient(140deg, var(--c-accent) 0%, var(--c-primary-hover) 100%);
+    box-shadow:0 20px 44px rgba(0,0,0,.28);
+    padding:56px 60px; display:flex; flex-direction:column; justify-content:space-between;
+    color:#ffffff; font-family:'Nunito',sans-serif;
+  }
+  .top { display:flex; align-items:flex-start; justify-content:space-between; gap:24px; }
+  .logo { width:330px; height:auto; display:block; filter:brightness(0) invert(1); }
+  .kicker { font-size:21px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; padding-top:7px; white-space:nowrap; }
+  .mid { font-size:82px; font-weight:800; line-height:1; letter-spacing:-.01em; }
+  .foot { display:flex; align-items:flex-end; justify-content:space-between; gap:24px;
+          font-size:22px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
+</style></head>
+<body>
+  <div class="card">
+    <div class="top">
+      <img class="logo" src="mccormacks-logo.png" alt="McCormack's Pharmacy">
+    </div>
+    <div class="mid">Gift&nbsp;Voucher</div>
+    <div class="foot"><span>Valid 5 years</span><span>Online only</span></div>
+  </div>
+</body></html>
