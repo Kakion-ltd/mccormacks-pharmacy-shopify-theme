@@ -666,23 +666,35 @@ questionnaire's `_pharmacist_review` line property. No product has a questionnai
 never will, so that design held nothing. The hold now keys off the product tag
 every medicine carries.
 
-**Built on the store 28 Sep 2026, not yet tested.** Both Flows are live in
-Shopify, built by hand from `setup/PHARMACIST-HOLD-FLOWS.md` (nothing in this
-repo creates them), and Shopify Order Printer is installed with the "Medicine
-order record (PSI 2.5)" template. **One difference from the guide: "Notify
-merchant" is ticked on all three hold actions** (Flow 1's two branches and Flow
-2's re-hold). The guide's test plan (step 5) has not been run. **The theme's
-over-18 tick box is still on the preview theme only** (`psi25/order-review`,
-theme 208803529035), not on main and not live.
+**Built on the store 28 Sep 2026. Fully tested on the live store 30 Sep 2026.**
+Both Flows are live in Shopify, built by hand from
+`setup/PHARMACIST-HOLD-FLOWS.md` (nothing in this repo creates them), and
+Shopify Order Printer is installed with the "Medicine order record (PSI 2.5)"
+template. **One difference from the guide: "Notify merchant" is ticked on all
+three hold actions** (Flow 1's two branches and Flow 2's re-hold).
 
-Until that theme goes live, the live bag page has no tick box, so **every
-medicine order placed on the live site arrives without the declaration and is
-tagged `no-declaration`**. That is the Flow failing safe, not a fault: the
-pharmacist gets the confirmation from the customer before approving. The live
-site also does not yet tell the customer, before they pay, that a pharmacist
-reviews the order and may cancel and refund it; that line is on the preview
-theme with the tick box ("Pharmacist questionnaire" above says it must come
-before payment).
+**The test plan passed.** Seven test orders, #1001 to #1007, with Shopify
+Payments in test mode; all cancelled with restock afterwards. What each one
+proved:
+
+| Order | What it showed |
+|---|---|
+| #1003, #1004 | Placed 29 Sep, before the tick box was live: both arrived without the declaration and Flow tagged them `no-declaration`, as designed |
+| #1005 | A medicine with the tick box live: held, tagged `awaiting-pharmacist`, note written, declaration on the order, questionnaire answers on the line item, **no** `no-declaration` |
+| #1005, again | Released **without** an approval tag: Flow 2 held it again and tagged it `released-without-approval` |
+| #1003, again | `pharmacist-approved-test` added, then released: Flow 2 removed `awaiting-pharmacist` and let it go |
+| #1006 | A non-medicine: no questions, no declaration, no tags, not held |
+| #1007 | An erectile dysfunction product: all 18 answers on the line item, held and tagged |
+
+The store does not fulfil orders automatically (step 0 of the build file); the
+test orders confirm it.
+
+**The over-18 tick box is live** (pushed 30 Sep 2026 with the questionnaire
+work), so a medicine order placed through the bag page now arrives with the
+declaration. The routes that skip the bag page still arrive without it and are
+still tagged `no-declaration` — that is the Flow failing safe, not a fault.
+The pre-payment line telling the customer a pharmacist reviews the order and
+may cancel and refund it is live too, in the questionnaire modal.
 
 The design:
 
@@ -731,10 +743,11 @@ The design:
   an unsigned PDF, a Google Sheet or the Shopify order itself can be edited or
   deleted and do not meet "unalterable". Not built.
 
-Step 0 of the build file (the store must not fulfil orders automatically) was
-part of the build; the first test order confirms it. HANDOVER.md and
-PHARMACIST-QUESTIONS.md say "built, not yet tested" since 28 Sep. Change them
-again once the test plan has passed and when the tick box goes live.
+HANDOVER.md and PHARMACIST-QUESTIONS.md said "built, not yet tested" from 28
+Sep; both were corrected on 30 Sep when the test plan passed. If the Flows,
+the tick box or the questionnaire change again, change all three in the same
+sitting — this is the "one thing in two places" defect this file opens with,
+and it has three copies.
 
 What this covers and what it does not:
 
@@ -2409,9 +2422,10 @@ with a before copy kept under `archive/client-pack-<date>/`.
   whether a product needs a check. **An answer never removes the
   `pharmacist-review` tag by itself.** A "Not a medicine" goes back to the
   pharmacist before anyone changes the product.
-- **The pack says the hold is built but not yet tested** (since 28 Sep), and that
-  the over-18 tick box is not on the live website yet. Change that wording in
-  HANDOVER.md and PHARMACIST-QUESTIONS.md both when either changes.
+- **The pack said the hold was built but not yet tested** (28 to 30 Sep). It is
+  tested now, and the over-18 tick box is live. The wording was corrected in
+  HANDOVER.md and PHARMACIST-QUESTIONS.md on 30 Sep; change all three together
+  if it moves again.
 
 ### Checking a medicine's licence: read hpra.ie, and three traps (28 Sep 2026)
 

@@ -369,11 +369,26 @@ Sudocrem, Bio-Oil, Neutrogena and Oral-B. Keep, expand or drop each one.
 
 ## 2. What is still to be built or finished
 
-**The pharmacist hold on medicine orders. Owner: Kakion.**
-Built on 28 September but not yet tested. Every order containing a medicine
-now waits for a pharmacist's approval before it can be sent. Still to do: test
-it with test orders, and put the over-18 tick box on the live website once
-Fergal has approved its wording (launch blocker 4).
+**The pharmacist hold on medicine orders. Owner: Kakion. Done.**
+Built on 28 September and **tested on the live website on 30 September**. Every
+order containing a medicine waits for a pharmacist's approval before it can be
+sent. Seven test orders proved it, and all were cancelled afterwards: a medicine
+order is held and tagged for you; a non-medicine is not; releasing an order
+without adding your approval tag puts it straight back on hold and flags it; and
+an order released *with* the tag goes through. The over-18 tick box is on the
+live website too, so orders now arrive with the customer's declaration.
+
+**Questions before purchase. Owner: Kakion. Done, with one thing for you.**
+Live since 30 September and tested with real test orders. Every medicine asks
+the over-18 tick and "Are you taking any other medication?"; the five erectile
+dysfunction products ask eighteen questions; Curanail asks nothing. The answers
+appear on the order beside the medicine they were asked about.
+
+**The one thing to know: no answer stops a sale.** That is the decision, and it
+is your current website's behaviour. In testing we answered "No" to "is this for
+a man aged 18 or over with erectile dysfunction" and the order still went
+through, arriving for the pharmacist with that "No" on it. If you would rather
+some answers stopped the sale outright, tell us which and we will set them.
 
 **Redirects from the old website. Owner: Kakion (needs a list from the
 pharmacy).**

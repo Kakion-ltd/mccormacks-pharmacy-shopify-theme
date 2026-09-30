@@ -6,15 +6,32 @@
 > the questions are, and which answers stop a sale. Cross out, add and reword
 > freely; the website will follow what you send back.
 
-Prepared 25 September 2026, updated 28 September, for Fergal.
+Prepared 25 September 2026, updated 28 and 30 September, for Fergal.
+
+> ## Superseded, 30 September 2026
+>
+> **Fergal decided to use the current website's questions instead of the sets
+> drafted below.** Nothing in this document is built. What is live is recorded
+> in `old-site-questionnaires.md`: eighteen questions on the five erectile
+> dysfunction products, and two on every other medicine (over 18, and any other
+> medication). No answer stops a sale.
+>
+> Five of the draft's questions did survive, because the current website asks
+> nothing equivalent: they were added to the erectile dysfunction set on
+> Fergal's instruction that our draft fills the gaps his site leaves. They are
+> its questions 4 and 15 to 18.
+>
+> This document is kept as the proposal it was, and because the reasoning and
+> the licence conditions behind each set are still the best record of why a
+> medicine might need a question. The five decisions below are still open.
 
 ## How this fits with the website
 
 Every medicine order on the website must wait for a pharmacist to review it
 before it is sent. That is the PSI requirement for internet supply (section 2.5
 of the PSI's guidance on internet supply), and it applies to every medicine,
-whether or not it has questions. The hold that does this is now built, but not
-yet tested; we will test it before launch (launch blocker 4 in the handover).
+whether or not it has questions. **The hold is built and, since 30 September
+2026, fully tested on the live website.**
 
 Questions are an extra step for a smaller set of products. For those, the
 customer answers on the product page before they can add it to the bag. Any
