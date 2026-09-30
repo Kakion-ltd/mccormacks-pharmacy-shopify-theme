@@ -599,6 +599,25 @@ here anyway.
    what the pharmacist reads per medicine. If one is ever dropped, check which
    system was reading it first.
 
+### Tested on the live store, 30 Sep 2026
+
+Two test orders on the live theme, with Shopify Payments in test mode:
+
+- **#1005, a medicine** (Anusol Cream 23G). Both answers landed on the line
+  item, including the free-text detail; the bag's declaration landed as the
+  order attribute `Over 18 and will follow the leaflet` = `Yes`; Flow tagged it
+  `awaiting-pharmacist`, put the fulfillment order ON_HOLD and wrote the note.
+  No `no-declaration` tag, which is the tick box working — orders #1003 and
+  #1004, placed on 29 Sep before it went live, both carry it.
+- **#1006, a non-medicine** (Aveeno Body Wash). No questions on the page, no
+  declaration on the bag, no line-item properties, no tags, not held.
+
+**The erectile dysfunction set has not been tested end to end on the store**,
+because the five products are still off the Online Store. The 18 questions are
+checked in `setup/verify/questionnaire.py` and render from the same snippet the
+two orders above exercised, but no ED order has been placed. Do it when they go
+on sale.
+
 ### The ED set: 18 questions, and where each came from (30 Sep 2026)
 
 The set started as the old site's 14. **Fergal's further instruction the same
