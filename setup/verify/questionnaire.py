@@ -133,7 +133,8 @@ with sync_playwright() as pw:
     # and the one that must NOT gate is as important as the two that must.
     ed = ctx.new_page()
     ed.goto(BASE + "/products/questions-ed", wait_until="networkidle")
-    check("[ed] 14 questions, the old site's set", ed.locator("[data-pq-q]").count(), 14)
+    check("[ed] 18 questions: the old site's 14, tidied, plus 4 from our draft",
+          ed.locator("[data-pq-q]").count(), 18)
     check("[ed] no product form (the no-JS gate still holds)",
           ed.locator("form[data-ajax-add]").count(), 0)
     check("[ed] no answer blocks the sale",

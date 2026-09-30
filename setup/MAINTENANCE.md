@@ -557,25 +557,41 @@ here anyway.
    what the pharmacist reads per medicine. If one is ever dropped, check which
    system was reading it first.
 
-The questions are the old site's wording, character for character, with **three
-spelling mistakes corrected on 30 Sep 2026** at the client's instruction —
-riocigaut → riociguat, protsate → prostate, non-artertic → non-arteritic — and
-nothing else changed. What was deliberately left alone:
+### The ED set: 18 questions, and where each came from (30 Sep 2026)
 
-- **Question 4 breaks off mid-sentence**: "Do you have any other heart problems
-  or are you under a doctor's care for any of the following". The old site has
-  no list after it. **The five ED products stay off the Online Store until
-  Fergal confirms the full wording**; they are tagged `questionnaire-ed` and
-  ready to publish the moment he does.
-- Punctuation slips that are not spelling: a space before four question marks,
-  missing spaces after commas in questions 5, 9 and 13, "e.g" without its
-  period in question 9, and an unclosed bracket in question 12.
+The set started as the old site's 14. **Fergal's further instruction the same
+day: where the old site's questions are incomplete, our approved draft
+(`PHARMACIST-QUESTIONS.md`, set 1) fills the gap.** So it is now 18, and which
+is which matters if anyone ever re-checks the wording against the old site:
 
-`setup/old-site-questionnaires.md` keeps the **verbatim** original and must stay
-verbatim: it is the record of what the old site asks, not a copy of what we ask.
-It also has the two things we flagged and Fergal has not yet answered: the set
-is written for sildenafil and served unchanged on Cialis, which is tadalafil,
-and neither site asks about the CYP3A4 inhibitors our own draft missed too.
+| Question | Source |
+|---|---|
+| 1–3, 5–14 | the old site's own wording, tidied only |
+| 4 | **our draft**, wording supplied by Fergal. The old site's question 4 broke off mid-sentence ("…under a doctor's care for any of the following") with no list after it. The replacement names what the list should have held: heart attack, stroke, unstable angina or severe heart failure in the last 6 months; chest pain or breathlessness on light exercise; low blood pressure; severe liver disease. |
+| 15 | **our draft**, set 1 question 1 — is this for a man aged 18 or over with erectile dysfunction. The old site asks this nowhere; it relies on a tick box instead. |
+| 16 | **our draft**, set 1 question 7 — any medicine for blood pressure or the prostate. The old site's question 10 asks only about alpha-blockers, so a man on, say, amlodipine answers No to it truthfully. |
+| 17 | **our draft**, set 1 question 3 — any medicine for HIV. The old site names only ritonavir and saquinavir. |
+| 18 | **our draft**, set 1 question 8 — sickle cell disease, leukaemia, myeloma, a bleeding disorder, an active stomach ulcer. The old site asks none of these. |
+
+Tidying, on the same instruction and with no change of meaning: three spellings
+(riocigaut → riociguat, protsate → prostate, non-artertic → non-arteritic); the
+space before the question mark in 1, 2, 3 and 5; the missing space after a comma
+in 5, 9 and 13; "e.g" → "e.g." in 9; and the bracket question 12 opened and
+never closed.
+
+**Our draft's stops did not come with the questions.** In the draft, six of set
+1's eight answers stop a sale. Here they do not: Fergal's decision is that
+nothing blocks, so questions 4 and 15–18 are Yes/No like the rest and the
+pharmacist reads the answer. Question 15 is the one to watch — a customer can
+answer "No, this is not for a man aged 18 or over" and still reach checkout. The
+over-18 declaration that actually gets recorded is the bag-page tick box, which
+Flow reads (below); the ED set has no `confirm` tick of its own, unlike the
+default pair.
+
+`setup/old-site-questionnaires.md` keeps the **verbatim, uncorrected** original
+and must stay that way: it records what the old site asks, not what we ask. It
+also carries the one thing Fergal has not answered — the set is written for
+sildenafil and served unchanged on Cialis, which is tadalafil.
 
 ---
 

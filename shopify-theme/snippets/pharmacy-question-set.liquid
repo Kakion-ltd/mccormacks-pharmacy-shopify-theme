@@ -6,13 +6,18 @@
   they are chosen by tag in sections/main-product.liquid, so a newly tagged medicine
   gets its questions the moment it is tagged and nobody has to remember a metafield.
 
-  The ED wording is the old site's, character for character, with three spelling
-  mistakes corrected on 30 Sep 2026 at the client's instruction and nothing else
-  touched: riocigaut -> riociguat, protsate -> prostate, non-artertic -> non-arteritic.
-  Its punctuation slips and its truncated fourth question are deliberately left alone —
-  see MAINTENANCE.md, "Questions before purchase follow the tag". The verbatim original
-  is in setup/old-site-questionnaires.md and must stay verbatim: it is the record of
-  what the old site asks, not a copy of what we ask.
+  The ED set is the old site's 14, tidied and then extended on 30 Sep 2026 on Fergal's
+  instruction that our approved draft fills the gaps the old site leaves:
+    - three spellings corrected (riocigaut, protsate, non-artertic);
+    - punctuation corrected, meaning untouched (spaces before question marks and after
+      commas, "e.g.", and the bracket question 12 never closed);
+    - question 4, which broke off mid-sentence on the old site, replaced with the
+      wording Fergal supplied, drawn from our draft's set 1;
+    - questions 15 to 18 added from our draft's set 1, because the old site asks
+      nothing equivalent. They are marked in MAINTENANCE.md.
+  Questions 1-3 and 5-14 are still the old site's own wording.
+  The verbatim, uncorrected original is in setup/old-site-questionnaires.md and must
+  stay that way: it records what the old site asks, not what we ask.
 
   Output: one line per question, `kind::label`, questions joined by '||'.
   Kinds: yes_no | confirm | yes_no_details (Yes reveals a free-text box).
@@ -24,7 +29,7 @@
 {%- endcomment -%}
 {%- case set -%}
   {%- when 'ed' -%}
-yes_no::Has your doctor advised that you are not fit enough for any physical and/or sexual activity ?||yes_no::Do you feel very breathless or experience chest pain with light or moderate physical activity, such as walking briskly for 20 minutes or climbing two flights of stairs ?||yes_no::Have you had a heart attack or stroke within the last 6 months ?||yes_no::Do you have any other heart problems or are you under a doctor's care for any of the following||yes_no::Are you taking nitrates (nicorandil or other nitric oxide donors e.g. glyceryl trinitrate,isosorbide mononitrate or isosorbide dinitrate) for chest pain ?||yes_no::Are you using drugs called 'poppers' for recreational purposes (e.g. amyl nitrite)?||yes_no::Are you taking riociguat or other guanylate cyclase stimulators for lung problems?||yes_no::Are you taking ritonavir (for HIV infection)?||yes_no::Are you taking any CYP3A4 inhibitors, e.g saquinavir (to treat HIV infection), cimetidine (a heartburn treatment), itraconazole or ketoconazole (to treat fungal infections),erythromycin or rifampicin (antibiotics) or diltiazem (for high blood pressure)?||yes_no::Are you taking any alpha-blockers, such as alfuzosin, doxazosin or tamsulosin, which are medicines to treat urinary problems due to enlarged prostate (benign prostatic hyperplasia) or occasionally to treat high blood pressure?||yes_no::Do you have Peyronie's disease or any other deformation of the penis?||yes_no::Have you ever had loss of vision because of damage to the optic nerve (such as non-arteritic ischaemic optic neuropathy [NAION] or have an inherited eye disease (such as retinitis pigmentosa)?||yes_no::Do you have galactose intolerance,Lapp lactase deficiency or glucose-galactose malabsorption?||yes_no::Do you have previously diagnosed hepatic (liver) disease (including cirrhosis of the liver) or severe renal (kidney) impairment?
+yes_no::Has your doctor advised that you are not fit enough for any physical and/or sexual activity?||yes_no::Do you feel very breathless or experience chest pain with light or moderate physical activity, such as walking briskly for 20 minutes or climbing two flights of stairs?||yes_no::Have you had a heart attack or stroke within the last 6 months?||yes_no::Do you have any other heart problems, or are you under a doctor's care for any of the following: a heart attack, stroke, unstable angina or severe heart failure in the last 6 months; chest pain or breathlessness with light exercise (such as climbing two flights of stairs); low blood pressure; or severe liver disease?||yes_no::Are you taking nitrates (nicorandil or other nitric oxide donors e.g. glyceryl trinitrate, isosorbide mononitrate or isosorbide dinitrate) for chest pain?||yes_no::Are you using drugs called 'poppers' for recreational purposes (e.g. amyl nitrite)?||yes_no::Are you taking riociguat or other guanylate cyclase stimulators for lung problems?||yes_no::Are you taking ritonavir (for HIV infection)?||yes_no::Are you taking any CYP3A4 inhibitors, e.g. saquinavir (to treat HIV infection), cimetidine (a heartburn treatment), itraconazole or ketoconazole (to treat fungal infections), erythromycin or rifampicin (antibiotics) or diltiazem (for high blood pressure)?||yes_no::Are you taking any alpha-blockers, such as alfuzosin, doxazosin or tamsulosin, which are medicines to treat urinary problems due to enlarged prostate (benign prostatic hyperplasia) or occasionally to treat high blood pressure?||yes_no::Do you have Peyronie's disease or any other deformation of the penis?||yes_no::Have you ever had loss of vision because of damage to the optic nerve (such as non-arteritic ischaemic optic neuropathy [NAION]), or have an inherited eye disease (such as retinitis pigmentosa)?||yes_no::Do you have galactose intolerance, Lapp lactase deficiency or glucose-galactose malabsorption?||yes_no::Do you have previously diagnosed hepatic (liver) disease (including cirrhosis of the liver) or severe renal (kidney) impairment?||yes_no::Is this medicine for a man aged 18 or over who has difficulty getting or keeping an erection?||yes_no::Do you take any medicine for high blood pressure or for the prostate, other than the ones already listed above?||yes_no::Do you take any medicine for HIV, other than the ones already listed above?||yes_no::Do you have sickle cell disease, leukaemia, myeloma, a bleeding disorder, or an active stomach ulcer?
   {%- when 'default' -%}
 confirm::I am over 18 years of age||yes_no_details::Are you taking any other medication?
 {%- endcase -%}
