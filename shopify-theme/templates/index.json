@@ -126,7 +126,8 @@
             "cta": "SHOP NOW",
             "image_asset": "tile-erectile-dysfunction.jpg",
             "subline": "Pharmacist-reviewed treatments. Always read the leaflet.",
-            "alt": "Viagra Connect, Cialis and Sidena packs"
+            "alt": "Viagra Connect, Cialis and Sidena packs",
+            "image": "shopify://shop_images/Erectile-Dysfunction-homepage-banner.jpg"
           }
         }
       },

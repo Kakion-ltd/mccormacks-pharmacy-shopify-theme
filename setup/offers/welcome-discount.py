@@ -76,14 +76,25 @@ DRY = '--write' not in sys.argv
 HANDLE = 'welcome-discount-eligible'
 TITLE = 'Welcome discount eligible'
 TAG = 'pharmacist-review'
+# Second lock. `pharmacist-review` is the store's definition of a medicine, but on
+# 1 Oct 2026 it contradicted itself inside brand families (Nelsons Arnicare tagged,
+# Arnicare Arnica Cream not; Uniflu With Vitamin C tagged, Uniflu Cough Stop not).
+# `no-welcome-discount` is an explicit discount-only exclusion for the 46 products
+# nobody could clear -- see setup/offers/welcome-exclusions.py, which applies it and
+# writes the CSV that asks Fergal whether they should be pharmacist-review instead.
+# A product has to clear BOTH tags to be discountable.
+EXCL_TAG = 'no-welcome-discount'
 CODE = 'WELCOME10'
 PERCENT = 0.10
-DESC = ('<p>Scopes the WELCOME10 newsletter discount: every product that is NOT tagged '
-        '<code>pharmacist-review</code>. Medicines carry that tag, so they are excluded '
-        'and WELCOME10 can never discount one. The membership is the tag -- adding '
-        '<code>pharmacist-review</code> to a product removes it from the offer, and '
-        'removing the tag adds it. Do not delete this collection: the discount is scoped '
-        'to it, and deleting it silently widens the offer to the whole catalogue.</p>')
+DESC = ('<p>Scopes the WELCOME10 newsletter discount: every product tagged neither '
+        '<code>pharmacist-review</code> nor <code>no-welcome-discount</code>. Medicines '
+        'carry the first, so they are excluded and WELCOME10 can never discount one. The '
+        'second is for products nobody could confirm are not medicines -- eye and ear '
+        'drops, head-lice treatments, arnica, haemorrhoid preparations -- held out of the '
+        'offer until a pharmacist rules on them. The membership is the tags: adding '
+        'either to a product removes it from the offer, removing both adds it. Do not '
+        'delete this collection, and do not loosen it to one rule: the discount is scoped '
+        'to it, and either change silently widens the offer.</p>')
 
 
 def gql(q, mutate=False):
@@ -124,15 +135,15 @@ while True:
     for n in d['nodes']:
         if not n['publishedOnPublication']:
             continue
-        has = any(t.strip().lower().replace(' ', '-') == TAG for t in n['tags'])
-        if has:
+        norm = [t.strip().lower().replace(' ', '-') for t in n['tags']]
+        if TAG in norm or EXCL_TAG in norm:
             tagged += 1
             continue
         untagged += 1
         # a product in a medicines collection but with no pharmacist-review tag is
         # exactly the case that would let a medicine into the discount
         cols = {c['handle'] for c in n['collections']['nodes']}
-        if 'medicines-health' in cols:
+        if 'medicines-health' in cols:  # untagged by BOTH tags, and in Medicines & Health
             suspect.append((n['handle'], sorted(cols & {'medicines-health', 'erectile-dysfunction',
                                                         'nicotine-replacement', 'pain-relief'})))
     if not d['pageInfo']['hasNextPage']:
@@ -171,9 +182,11 @@ else:
     if not DRY:
         m = ('mutation { collectionCreate(input: {title: %s, handle: %s, descriptionHtml: %s, '
              'ruleSet: {appliedDisjunctively: false, rules: '
-             '[{column: TAG, relation: NOT_EQUALS, condition: %s}]}}) '
+             '[{column: TAG, relation: NOT_EQUALS, condition: %s}, '
+             '{column: TAG, relation: NOT_EQUALS, condition: %s}]}}) '
              '{ collection { id handle } userErrors { field message } } }'
-             % (json.dumps(TITLE), json.dumps(HANDLE), json.dumps(DESC), json.dumps(TAG)))
+             % (json.dumps(TITLE), json.dumps(HANDLE), json.dumps(DESC),
+                json.dumps(TAG), json.dumps(EXCL_TAG)))
         res = gql(m, mutate=True)['collectionCreate']
         if res.get('userErrors'):
             raise SystemExit(f'collection failed: {res["userErrors"]}')
