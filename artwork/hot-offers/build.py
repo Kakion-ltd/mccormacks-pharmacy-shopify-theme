@@ -69,17 +69,31 @@ SHOTS = {
 # mismatch shows as a seam. The packs sit on white cards over that ground, and
 # the middle one is drawn larger so the trio reads as a hero.
 #
-#   The cards must stay inside the middle 87% of the width. The panel is 2:1
-#   only on a phone; at 1440 it measures 527x302 (1.745:1) and object-fit:cover
-#   takes 6.4% off each side. The first cut of this file ran the cards to 93.5%
-#   and the live tile clipped the Meno Active pack at the card edge.
+#   The cards must stay inside the middle 70% of the width, and the number is
+#   measured, not reasoned about. The panel is 2:1 only below 900px, where the
+#   stacked layout sets `aspect-ratio: 2/1` exactly. Above that it is whatever
+#   the right-hand column's height makes it, and it is narrowest -- so cropped
+#   hardest -- in the middle of the desktop range, NOT at 1440:
+#
+#       vw     panel      aspect   cover crops each side
+#       1440   527x302    1.746    6.3%
+#       1280   473x299    1.585   10.4%
+#       1100   404x285    1.417   14.6%   <- worst
+#       1000   557x278    2.005    0.0%
+#        375   343x172    2.000    0.0%
+#
+#   Two earlier cuts got this wrong by checking only the two widths that happen
+#   to crop least. The first ran the cards to 93.5% and clipped Meno Active at
+#   1440; the second used 87%, read clean at 1440 and 375, shipped, and clipped
+#   both outer packs at 1100. Re-measure with the loop in that table before
+#   changing this; do not infer it from one screenshot.
 #
 # ROWS (`bleed` style). No card and no ground: `.hot-row-img` in
 # sections/hot-offers.liquid is already a rounded, clipped 4:3 box, so a card
 # inside it is a second frame that shrinks the product. These render 128x96 on a
 # 1440 screen and 96px wide on a phone — at that size the product has to fill
 # the frame or it reads as a smudge.
-SAFE = 0.87
+SAFE = 0.70
 
 TILES = [
     {
@@ -87,11 +101,11 @@ TILES = [
         "style": "card",
         "w": 1600, "h": 800, "ground": "#3F6B4F",
         "cards": [
-            ("revive-active-joint-complex-30pk", 400),
-            ("revive-active-original-30pk", 520),
-            ("revive-active-meno-active", 400),
+            ("revive-active-joint-complex-30pk", 325),
+            ("revive-active-original-30pk", 425),
+            ("revive-active-meno-active", 325),
         ],
-        "gap": 26,
+        "gap": 18,
     },
     {
         "out": "offer-azio-beauty.jpg",
