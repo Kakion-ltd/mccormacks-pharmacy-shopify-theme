@@ -261,70 +261,7 @@
           instead of adding a too-narrow one. {%- endcomment -%}
       <div class="pgrid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:26px 22px;">
         {%- for product in collection.products -%}
-          {%- liquid
-            assign variant = product.selected_or_first_available_variant
-            assign quick_add = false
-            if product.available and product.variants.size == 1 and product.selling_plan_groups.size == 0
-              assign quick_add = true
-            endif
-            comment
-              A restricted product never gets a one-click add — the shopper is sent to
-              the product page instead. See snippets/product-restricted.liquid.
-            endcomment
-            capture restricted
-              render 'product-restricted', product: product
-            endcapture
-            assign restricted = restricted | strip
-            if restricted == 'true'
-              assign quick_add = false
-            endif
-          -%}
-          {%- comment -%} The strikethrough and the SALE badge both hang off this: it is
-              blank unless the variant behind the displayed price is genuinely reduced.
-              See snippets/product-compare-at.liquid for why the product-level fields
-              cannot be compared directly. {%- endcomment -%}
-          {%- capture was -%}{%- render 'product-compare-at', product: product -%}{%- endcapture -%}
-          {%- capture promo -%}{%- render 'product-promo-label', product: product -%}{%- endcapture -%}
-          {%- assign promo = promo | strip -%}
-          {%- assign was = was | strip -%}
-          {%- assign on_sale = false -%}
-          {%- if was != blank -%}{%- assign on_sale = true -%}{%- endif -%}
-          <div class="pcard" style="display:flex; flex-direction:column;">
-            <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;">
-              {%- if on_sale -%}
-                <span class="sale-badge">SALE</span>
-              {%- endif -%}
-              <a href="{% render 'product-card-url', product: product %}" style="display:block; width:100%; height:100%;">
-                {%- if product.featured_image -%}
-                  {%- capture card_alt %}{% render 'image-alt', image: product.featured_image, product: product %}{% endcapture -%}
-                  {{ product.featured_image | image_url: width: 600 | image_tag: alt: card_alt, loading: 'lazy', style: 'width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;' }}
-                {%- else -%}
-                  <span style="display:flex; width:100%; height:100%; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:var(--c-primary-text); font-weight:700;">image</span></span>
-                {%- endif -%}
-              </a>
-              {% render 'wishlist-button', product: product %}
-              {% render 'quick-view-button', product: product, restricted: restricted %}
-            </div>
-            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">{{ product.vendor }}</div>
-            <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="{% render 'product-card-url', product: product %}" class="hov-green" style="color:#2A2B2A;">{{ product.title }}</a></h3>
-            <div style="margin-bottom:14px; min-height:18px;">{% render 'product-rating', product: product, size: 14 %}</div>
-            <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">{% if product.price_varies %}From {% endif %}{{ product.price | money }}</span>
-              {%- if on_sale -%}
-                <span class="price-was">{{ was }}</span>
-              {%- endif -%}
-            </div>
-            {%- if promo != blank -%}<div style="margin-bottom:14px;"><span class="promo-label">{{ promo }}</span></div>{%- endif -%}
-            {%- comment -%} One treatment at every width, as the design handoff has it: a
-                filled button under the price. The desktop hover-reveal pill over the
-                image was a conversion-era addition that gave the same action a second
-                look and no hover. {%- endcomment -%}
-            {%- if quick_add -%}
-              <button data-add-id="{{ variant.id }}" class="btn-sm btn-fill" style="margin-top:12px; width:100%">Add To Bag</button>
-            {%- else -%}
-              <a href="{% render 'product-card-url', product: product %}" class="btn-sm btn-fill" style="margin-top:12px; width:100%">View Product</a>
-            {%- endif -%}
-          </div>
+          {%- render 'product-card', product: product -%}
         {%- endfor -%}
       </div>
 
@@ -404,38 +341,40 @@
   if also_col == blank
     assign also_col = collection
   endif
+  comment
+    Count what will actually be drawn, not what is in the collection. Medicines are
+    excluded below, so a pharmacy-heavy collection can leave the rail empty — and a
+    heading over nothing is worse than no rail. Same pre-pass as the product page's.
+  endcomment
+  assign also_count = 0
+  for p in also_col.products
+    capture p_restricted
+      render 'product-restricted', product: p
+    endcapture
+    assign p_restricted = p_restricted | strip
+    unless p_restricted == 'true'
+      assign also_count = also_count | plus: 1
+    endunless
+    if also_count >= 6
+      break
+    endif
+  endfor
 -%}
-{%- if section.settings.show_also and also_col.products.size > 0 -%}
+{%- if section.settings.show_also and also_count > 0 -%}
 <!-- You may also like -->
-<section style="max-width:1440px; margin:0 auto; padding:44px 30px 8px;">
+<section style="max-width:1440px; margin:0 auto; padding:var(--sec-pad-top) 30px var(--sec-pad-bottom);">
   <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">{{ section.settings.also_heading }}</h2>
   <div style="position:relative;">
     <div id="also-track-{{ section.id }}" style="display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;">
-      {%- for product in also_col.products limit: 6 -%}
+      {%- assign also_shown = 0 -%}
+      {%- for product in also_col.products -%}
+        {%- comment -%} No medicine in a recommendation rail: a pharmacist-review product
+            must be found and read, not suggested alongside a moisturiser. The tag is
+            settings.restricted_tag — see snippets/product-restricted.liquid. {%- endcomment -%}
         {%- capture restricted -%}{%- render 'product-restricted', product: product -%}{%- endcapture -%}
-        {%- assign restricted = restricted | strip -%}
-        {%- comment -%} Blank unless the price shown is genuinely reduced — see snippets/product-compare-at.liquid. {%- endcomment -%}
-        {%- capture was -%}{%- render 'product-compare-at', product: product -%}{%- endcapture -%}
-        {%- assign was = was | strip -%}
-        <div class="pcard" style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
-          <div style="position:relative; margin-bottom:14px;">
-          {%- if was != blank -%}<span class="sale-badge">SALE</span>{%- endif -%}
-          <a href="{% render 'product-card-url', product: product %}" style="aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-            {%- if product.featured_image -%}
-              {%- capture card_alt %}{% render 'image-alt', image: product.featured_image, product: product %}{% endcapture -%}
-              {{ product.featured_image | image_url: width: 480 | image_tag: alt: card_alt, loading: 'lazy', style: 'width:100%; height:100%; object-fit:contain; display:block;' }}
-            {%- else -%}
-              <span style="display:flex; width:100%; height:100%; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:var(--c-primary-text); font-weight:700;">image</span></span>
-            {%- endif -%}
-          </a>
-          {% render 'quick-view-button', product: product, restricted: restricted %}
-          </div>
-          <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">{{ product.vendor }}</div>
-          <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="{% render 'product-card-url', product: product %}" class="hov-green" style="color:#2A2B2A;">{{ product.title }}</a></h3>
-          <div style="margin-bottom:12px;">{% render 'product-rating', product: product, size: 14 %}</div>
-          <div style="display:flex; align-items:baseline; gap:9px; margin-bottom:14px;"><span style="color:var(--c-primary-text); font-weight:800; font-size:19px;">{% if product.price_varies %}From {% endif %}{{ product.price | money }}</span>{%- if was != blank -%}<span class="price-was">{{ was }}</span>{%- endif -%}</div>
-          <a href="{% render 'product-card-url', product: product %}" class="btn-sm btn-fill" style="margin-top:auto">View Product</a>
-        </div>
+        {%- if restricted == 'true' or also_shown >= 6 -%}{%- continue -%}{%- endif -%}
+        {%- assign also_shown = also_shown | plus: 1 -%}
+        {%- render 'product-card', product: product, width: '240px' -%}
       {%- endfor -%}
     </div>
     <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="also-track-{{ section.id }}" data-rail-by="-540" class="hov-chip-arrow" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>

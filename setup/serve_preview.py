@@ -27,6 +27,10 @@ def product_page(handle):
         return first_existing("preview/product.variants.html", "preview/product.html")
     if handle == "cerave-moisturising-cream":
         return first_existing("preview/product.variants2.html", "preview/product.html")
+    if handle == "nurofen-200mg-ibuprofen-24-tablets":
+        # Its category (pain-relief) holds a pharmacist-review medicine, so this is the
+        # page where the rails' medicine filter can actually be seen to work.
+        return first_existing("preview/product.rail-medicine.html", "preview/product.html")
     if handle == "nurofen-tablets-12pk":
         return first_existing("preview/product.restricted.html", "preview/product.html")
     if handle == "gift-voucher":

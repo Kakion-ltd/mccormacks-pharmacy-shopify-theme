@@ -1,0 +1,106 @@
+{%- comment -%}
+  THE product card. One shape, every listing: the collection grid, the collection
+  "you may also like" rail, the product page's "More in ..." rail and the gift
+  voucher rail all render this and nothing of their own.
+
+  Until 1 Oct 2026 this card existed as seven hand-copied versions and the copies
+  drifted — see MAINTENANCE.md, "Components get pasted, not shared". Four of them
+  are now this file. The two that are not, and why:
+    - sections/sale-products.liquid, the homepage Sale rail. A deliberately
+      different design: centred, no vendor line, a fixed image height.
+    - the compact ROWS, which are not this card at all: the search results page,
+      the predictive-search dropdown, the cart drawer and the product page's own
+      side list.
+  Before adding a fifth copy, render this.
+
+  Accepts:
+    product  (required)
+    width    optional flex-basis for a rail card, e.g. '254px'. Omit it inside a
+             grid, where the grid track sets the width.
+
+  Layout rules that matter, all of them in .prodcard* in base.css:
+    - The title clamps to two lines with an ellipsis. It is clamped in CSS, not in
+      Liquid, so the DOM still holds the whole title and the link's accessible name
+      is the full product name even when the visible text is cut.
+    - The price and the button are pinned to the bottom with margin-top:auto, NOT
+      by reserving a fixed title height. That is what keeps prices on one line
+      across a row of mixed one- and two-line titles.
+    - The promo label sits on the image under the SALE badge, in the same stack, so
+      a card with no sale still puts the offer at the top left.
+
+  The class is `pcard prodcard`: .pcard carries the hover and quick-view rules it
+  shares with the homepage category tiles, .prodcard is this card's own layout.
+{%- endcomment -%}
+{%- liquid
+  comment
+    A restricted product never gets a one-click add — the shopper is sent to the
+    product page instead. See snippets/product-restricted.liquid.
+  endcomment
+  capture restricted
+    render 'product-restricted', product: product
+  endcapture
+  assign restricted = restricted | strip
+
+  comment
+    Blank unless the price shown is genuinely reduced. The strikethrough and the
+    SALE badge both hang off it — snippets/product-compare-at.liquid.
+  endcomment
+  capture was
+    render 'product-compare-at', product: product
+  endcapture
+  assign was = was | strip
+
+  capture promo
+    render 'product-promo-label', product: product
+  endcapture
+  assign promo = promo | strip
+
+  assign card_variant = product.selected_or_first_available_variant
+  comment
+    The collection grid's rule, which is the strict one: the rails used to ask only
+    has_only_default_variant and would one-click add a product with a selling plan.
+  endcomment
+  assign quick_add = false
+  if product.available and product.variants.size == 1 and product.selling_plan_groups.size == 0 and restricted != 'true'
+    assign quick_add = true
+  endif
+
+  capture card_url
+    render 'product-card-url', product: product
+  endcapture
+  assign card_url = card_url | strip
+-%}
+<div class="pcard prodcard"{% if width != blank %} style="flex:0 0 {{ width }};"{% endif %}>
+  <div class="pcard-img prodcard-img">
+    {%- if was != blank or promo != blank -%}
+      <div class="prodcard-badges">
+        {%- if was != blank -%}<span class="sale-badge">SALE</span>{%- endif -%}
+        {%- if promo != blank -%}<span class="promo-label">{{ promo }}</span>{%- endif -%}
+      </div>
+    {%- endif -%}
+    {%- comment -%} A div holds the link rather than being it: the quick-view eye is a
+        button and cannot be nested inside an anchor. {%- endcomment -%}
+    <a href="{{ card_url }}" class="prodcard-imglink">
+      {%- if product.featured_image -%}
+        {%- capture card_alt %}{% render 'image-alt', image: product.featured_image, product: product %}{% endcapture -%}
+        {{ product.featured_image | image_url: width: 600 | image_tag: alt: card_alt, loading: 'lazy' }}
+      {%- else -%}
+        <span class="prodcard-ph"><span>image</span></span>
+      {%- endif -%}
+    </a>
+    {% render 'wishlist-button', product: product %}
+    {% render 'quick-view-button', product: product, restricted: restricted %}
+  </div>
+  <div class="prodcard-vendor">{{ product.vendor }}</div>
+  <h3 class="prodcard-title"><a href="{{ card_url }}" class="hov-green">{{ product.title }}</a></h3>
+  <div class="prodcard-rating">{% render 'product-rating', product: product, size: 14 %}</div>
+  <div class="prodcard-foot">
+    <span class="prodcard-price">{% if product.price_varies %}From {% endif %}{{ product.price | money }}</span>
+    {%- if was != blank -%}<span class="price-was">{{ was }}</span>{%- endif -%}
+  </div>
+  {%- if quick_add -%}
+    <button type="button" data-add-id="{{ card_variant.id }}" class="btn-sm btn-fill prodcard-cta">Add To Bag</button>
+  {%- else -%}
+    <a href="{{ card_url }}" class="btn-sm btn-fill prodcard-cta">View Product</a>
+  {%- endif -%}
+</div>

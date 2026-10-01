@@ -351,33 +351,28 @@
 <!-- You may also like. Drawn only when the chosen collection has products published to
      the online store; otherwise nothing, so customers never meet an empty heading. -->
 {%- assign also_col = section.settings.also_collection -%}
-{%- if also_col.products.size > 0 -%}
-<section style="max-width:1440px; margin:0 auto; padding:44px 30px 8px;">
+{%- comment -%} No medicine in a "you may also like" rail, and count before drawing so
+    the heading cannot stand over an empty track. Same rule as every other rail —
+    snippets/product-restricted.liquid. {%- endcomment -%}
+{%- assign also_count = 0 -%}
+{%- for p in also_col.products -%}
+  {%- capture p_restricted -%}{%- render 'product-restricted', product: p -%}{%- endcapture -%}
+  {%- unless p_restricted == 'true' -%}{%- assign also_count = also_count | plus: 1 -%}{%- endunless -%}
+  {%- if also_count >= 8 -%}{%- break -%}{%- endif -%}
+{%- endfor -%}
+{%- if also_count > 0 -%}
+<section style="max-width:1440px; margin:0 auto; padding:var(--sec-pad-top) 30px var(--sec-pad-bottom);">
   <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:0 0 24px;">You may also like</h2>
   <div style="position:relative;">
     <div id="also-track" style="display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;">
-        {%- for product in also_col.products limit: 8 -%}
+        {%- assign also_shown = 0 -%}
+        {%- for product in also_col.products -%}
           {%- capture restricted -%}{%- render 'product-restricted', product: product -%}{%- endcapture -%}
-          {%- assign restricted = restricted | strip -%}
-          {%- comment -%} Blank unless the price shown is genuinely reduced — see snippets/product-compare-at.liquid. {%- endcomment -%}
-          {%- capture was -%}{%- render 'product-compare-at', product: product -%}{%- endcapture -%}
-          {%- assign was = was | strip -%}
-          <div class="pcard" style="flex:0 0 240px; border:1px solid #eceee9; border-radius:16px; padding:18px; display:flex; flex-direction:column;">
-            <div style="position:relative; aspect-ratio:1; border-radius:10px; background:#ffffff; border:1px solid #eceee9; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;">
-              {%- if was != blank -%}<span class="sale-badge">SALE</span>{%- endif -%}
-              {%- if product.featured_image -%}
-                {%- capture card_alt %}{% render 'image-alt', image: product.featured_image, product: product %}{% endcapture -%}
-                {{ product.featured_image | image_url: width: 480 | image_tag: alt: card_alt, style: 'width:100%; height:100%; object-fit:contain; display:block;' }}
-              {%- else -%}
-                <div style="width:100%; height:100%; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); display:flex; align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:var(--c-primary-text); font-weight:700;">image</span></div>
-              {%- endif -%}
-              {% render 'quick-view-button', product: product, restricted: restricted %}
-            </div>
-            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">{{ product.vendor }}</div>
-            <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;">{{ product.title }}</h3>
-            <div style="display:flex; align-items:baseline; gap:9px; margin-bottom:14px;"><span style="color:var(--c-primary-text); font-weight:800; font-size:19px;">{{ product.price | money }}</span>{%- if was != blank -%}<span class="price-was">{{ was }}</span>{%- endif -%}</div>
-            <a href="{% render 'product-card-url', product: product %}" class="btn-sm btn-fill" style="margin-top:auto">View Product</a>
-          </div>
+          {%- if restricted == 'true' or also_shown >= 8 -%}{%- continue -%}{%- endif -%}
+          {%- assign also_shown = also_shown | plus: 1 -%}
+          {%- comment -%} The shared card (snippets/product-card.liquid). This rail was
+              one of the seven hand-copied copies; it is not any more. {%- endcomment -%}
+          {%- render 'product-card', product: product, width: '240px' -%}
         {%- endfor -%}
     </div>
     <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="also-track" data-rail-by="-540" style="position:absolute; left:-14px; top:calc(50% - 20px); transform:translateY(-50%); width:44px; height:44px; border-radius:999px; border:1.5px solid #cfd1cc; background:#fff; color:var(--c-primary-text); cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>

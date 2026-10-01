@@ -5,14 +5,29 @@
     coll.products holds only what the Online Store channel can sell, so an
     unpublished product cannot keep the section alive. {%- endcomment -%}
 {%- assign coll = collections[section.settings.collection] -%}
-{%- if coll.products.size > 0 -%}
+{%- comment -%} Medicines are excluded (1 Oct 2026). A pharmacist-review product is not
+    promoted with a discount on the homepage: the customer has to reach it, read it and
+    answer the pharmacist's questions, and a Sale rail is the opposite of that journey.
+    The rule is settings.restricted_tag via snippets/product-restricted.liquid, the same
+    one the recommendation rails use. Counted first, because a Sale collection that is
+    all medicine must take the whole section with it, heading included. {%- endcomment -%}
+{%- assign sale_count = 0 -%}
+{%- for p in coll.products -%}
+  {%- capture p_restricted -%}{%- render 'product-restricted', product: p -%}{%- endcapture -%}
+  {%- unless p_restricted == 'true' -%}{%- assign sale_count = sale_count | plus: 1 -%}{%- endunless -%}
+  {%- if sale_count >= section.settings.limit -%}{%- break -%}{%- endif -%}
+{%- endfor -%}
+{%- if sale_count > 0 -%}
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 8px;">
   <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); text-align:center; font-size:clamp(24px,2.4vw,32px); margin:0 0 28px;">{{ section.settings.heading }}</h2>
   <div style="position:relative;">
     <div id="sale-{{ section.id }}" style="display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;">
-        {%- for product in coll.products limit: section.settings.limit -%}
+        {%- assign sale_shown = 0 -%}
+        {%- for product in coll.products -%}
           {%- capture restricted -%}{%- render 'product-restricted', product: product -%}{%- endcapture -%}
           {%- assign restricted = restricted | strip -%}
+          {%- if restricted == 'true' or sale_shown >= section.settings.limit -%}{%- continue -%}{%- endif -%}
+          {%- assign sale_shown = sale_shown | plus: 1 -%}
           {%- comment -%} Blank unless the price shown is genuinely reduced — see snippets/product-compare-at.liquid. {%- endcomment -%}
           {%- capture was -%}{%- render 'product-compare-at', product: product -%}{%- endcapture -%}
           {%- capture promo -%}{%- render 'product-promo-label', product: product -%}{%- endcapture -%}
@@ -51,7 +66,7 @@
 {%- elsif request.design_mode -%}
 <section style="max-width:1440px; margin:0 auto; padding:30px 30px 8px;">
   <p style="margin:0; padding:18px; border:1.5px dashed #cfd1cc; border-radius:12px; text-align:center; font-size:15px; color:#666b60;">
-    <strong>{{ section.settings.heading }}</strong> is hidden: its collection has no products published to the online store. Customers don't see this note.
+    <strong>{{ section.settings.heading }}</strong> is hidden: its collection has nothing to show — either no products published to the online store, or none that aren't medicines, which this rail never promotes. Customers don't see this note.
   </p>
 </section>
 {%- endif -%}

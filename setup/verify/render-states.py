@@ -38,7 +38,10 @@ def grid_cards(html):
     pagination.py: the class means "product card", not "product in these results".
     """
     grid = html.split('class="pgrid"', 1)[-1].split('id="also-track', 1)[0]
-    return len(re.findall(r'class="pcard"', grid))
+    # `pcard prodcard` since 1 Oct 2026: .pcard carries the hover rules it shares with
+    # the homepage category tiles, .prodcard is the card's own layout. The identical
+    # helper in the other of pagination.py / render-states.py has to move with this one.
+    return len(re.findall(r'class="pcard prodcard"', grid))
 
 # --- D. Empty and filtered collections ---------------------------------------
 filtered = fetch("/collections/filtered-fixture")

@@ -262,13 +262,13 @@ ck("a single-variant product needs no fallback and keeps a live hidden id",
 with urllib.request.urlopen(BASE + "/collections/skincare", timeout=30) as r:
     grid = r.read().decode("utf-8", "replace")
 i = grid.find("CeraVe Moisturising Cream")
-card = grid[max(grid.rfind('<div class="pcard"', 0, i), 0):i + 2200]
+card = grid[max(grid.rfind('<div class="pcard prodcard"', 0, i), 0):i + 2200]
 ck("the two-option card shows a From price", "From €14,50" in card)
 ck("the two-option card claims no saving on an undiscounted cheapest variant",
    "SALE</span>" in card, False)
 ck("the two-option card strikes through nothing", "line-through" in card, False)
 j = grid.find("Sudocrem Antiseptic Healing Cream")
-sud = grid[max(grid.rfind('<div class="pcard"', 0, j), 0):j + 2200]
+sud = grid[max(grid.rfind('<div class="pcard prodcard"', 0, j), 0):j + 2200]
 ck("a genuinely discounted product still badges SALE", "SALE</span>" in sud)
 ck("and still strikes through its own compare-at", "€8,99" in sud)
 

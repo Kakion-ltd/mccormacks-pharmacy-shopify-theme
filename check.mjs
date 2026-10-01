@@ -119,11 +119,37 @@ for (const key of Object.keys(PRICE_EXEMPT)) {
     uploadErrors++;
   }
 }
-// The promo label ("3 for €10", "While stocks last") is a product metafield, and only
-// three of the seven card copies render it — see MAINTENANCE.md, "Components get pasted,
-// not shared". These three are the ones the offers at launch depend on. If one loses the
-// render, that surface silently shows a multi-buy product with no sign there is an offer.
-for (const f of ['sections/main-collection.liquid', 'sections/sale-products.liquid', 'sections/main-product.liquid']) {
+// No medicine in a recommendation rail (1 Oct 2026). A pharmacist-review product has
+// to be found and read, not suggested next to a moisturiser, and it is not promoted
+// with a discount on the homepage either. The rule is settings.restricted_tag through
+// snippets/product-restricted.liquid; each rail loop skips on it and counts first, so
+// a rail emptied by the filter takes its heading with it.
+//
+// This is a tripwire, not a proof: it fails when a listed rail loses its guard, which
+// is the regression that actually happens. It cannot see a NEW rail that never had one
+// — same limit as PromoLabelMissing, and the same reason. setup/verify/rails.py drives
+// the real pages and is what checks the behaviour.
+const RAILS = [
+  ['snippets/product-card.liquid', "render 'product-restricted'"],
+  ['sections/main-product.liquid', "restricted == 'true'"],
+  ['sections/main-collection.liquid', "restricted == 'true'"],
+  ['sections/sale-products.liquid', "restricted == 'true'"],
+  ['sections/page-gift-vouchers.liquid', "restricted == 'true'"],
+  ['sections/cart-recommendations.liquid', "restricted == 'true'"],
+];
+for (const [f, needle] of RAILS) {
+  if (!readFileSync(join(root, f), 'utf8').includes(needle)) {
+    console.log(`ERROR  /${f}  RailShowsMedicine  no "${needle}": a pharmacist-review product would be recommended here`);
+    uploadErrors++;
+  }
+}
+// The promo label ("3 for €10", "While stocks last") is a product metafield. It used to
+// be on three of seven hand-copied cards; four of those copies are now the one shared
+// card, so these three files are every surface that can show it: the shared card, the
+// homepage Sale rail (its own design, see the snippet's header) and the product page's
+// own price block. If one loses the render, that surface silently shows a multi-buy
+// product with no sign there is an offer. See MAINTENANCE.md, "The promo label".
+for (const f of ['snippets/product-card.liquid', 'sections/sale-products.liquid', 'sections/main-product.liquid']) {
   if (!readFileSync(join(root, f), 'utf8').includes("render 'product-promo-label'")) {
     console.log(`ERROR  /${f}  PromoLabelMissing  no render 'product-promo-label': an offer on this surface shows nothing`);
     uploadErrors++;

@@ -431,7 +431,96 @@ somewhere else on the site, render the existing one or move it into a snippet.
 If a component genuinely has to be copied, add a check for the part that must
 not drift.
 
-### The promo label is on three of the seven cards (30 Sep 2026)
+#### Four of the seven are now one snippet (1 Oct 2026)
+
+`snippets/product-card.liquid` is the card. The collection grid, the collection
+"you may also like" rail, the product page's "More in <category>" rail and the
+gift voucher rail all render it and keep no markup of their own. It takes
+`product` and an optional `width` for a rail card, and that is the whole API — the
+boxes the two rails used to wear are gone, deliberately, because one card means one
+card.
+
+**Still not it, and why.** `sections/sale-products.liquid`, the homepage Sale rail,
+is a different design: centred, no vendor line, a fixed image height rather than a
+square. Folding it in would have meant either a second set of parameters or
+changing the homepage, so it keeps its markup and gets the shared *rules* instead
+(the medicine filter, the promo label) by hand. The compact ROWS were never this
+card: the search results page, the predictive-search dropdown, the cart drawer and
+the product page's own side list. The wishlist and quick view are built in
+JavaScript from `assets/theme.js` and would need the metafields in the product JSON.
+
+**What the card's own class means.** The root element is `pcard prodcard`. `.pcard`
+is older and wider: the homepage category tiles are `.pcard` too, which is how they
+share the hover and quick-view rules. So everything the card alone does is scoped to
+`.prodcard`, and putting a layout rule on bare `.pcard` would move the tiles.
+
+Four verify scripts reached into the old cards by inline style or by
+`class="pcard"` exactly — `pagination.py`, `render-states.py`, `quick-view.py` and
+`variant-integrity.py` all broke on this change and are now on the class names. That
+is the conversion paying for itself: a selector that names `div[style*='border-top']`
+was only ever going to survive until someone moved a border.
+
+### No medicine in a recommendation rail (1 Oct 2026)
+
+A product tagged `settings.restricted_tag` is dropped from every rail: the product
+page's "More in <category>" and side list, the collection and gift-voucher "you may
+also like", the cart cross-sell (which already did this) and the homepage Sale rail.
+A medicine is something a customer looks for and reads; it is not something to put in
+front of somebody who came for a moisturiser, and it is not promoted with a discount
+on the homepage. This holds on a medicine's own product page too — the rails there
+show no medicines at all.
+
+The collection **grid** still lists them. Browsing to a medicine is the point; being
+recommended one is not.
+
+Every rail counts what it will draw before it draws anything, so a rail the filter
+empties takes its heading with it rather than standing over nothing.
+
+Two checks, and they cover different things. `RailShowsMedicine` in `check.mjs` is a
+tripwire: it fails when one of the listed rails loses its guard, which is the
+regression that happens, and it cannot see a new rail that never had one — the same
+limit as `PromoLabelMissing`, for the same reason. `setup/verify/rails.py` drives the
+real pages. For it to mean anything the fixture catalogue needs a medicine inside a
+rail's window, which is what `product.rail-medicine.html` is for: Nurofen 200mg 24
+Tablets and the tagged Nurofen Tablets 12Pk are both in pain-relief, so that page's
+rail fills to its limit of eight and the medicine is the one it leaves out.
+
+**One gap, recorded rather than papered over.** The homepage Sale rail's filter is
+covered by the tripwire only. The fixture catalogue's single tagged product sits at
+position nine and the rail's limit is eight, so it was never in range and the browser
+check would pass whether the filter were there or not. Closing it means either moving
+the medicine up `catalogue.json`, which reseeds the store, or raising the rail's limit
+in `templates/index.json`, which changes the live homepage. Neither is worth it for a
+four-line filter identical to the three that are exercised.
+
+### Section padding is hardcoded in fifteen places (1 Oct 2026)
+
+`--sec-pad-top` and `--sec-pad-bottom` in `base.css` are the theme's first spacing
+tokens. Only the three sections touched on 1 Oct 2026 use them — the product page's
+rail and the two "you may also like" rails. Every other section still carries its own
+`padding: Npx 30px 8px`.
+
+That trailing `8px` is the thing to know. Almost every section ends on it, which is
+why the product page's rail finished eight pixels above the footer's newsletter band
+with no air at all. The three above now end on `--sec-pad-bottom`; the rest do not.
+
+Retrofitting the other twelve is a separate change and was deliberately not done
+here: it touches every section file at once, which is the worst possible diff to
+review alongside anything else, and it is the kind of change that wants its own
+before/after pass at both widths.
+
+### The promo label is on three of the seven cards (30 Sep 2026, mostly closed 1 Oct)
+
+> **Update, 1 Oct 2026.** Four of those seven cards are now
+> `snippets/product-card.liquid`, which renders the label — so the collection grid,
+> both "you may also like" rails and the product page's "More in <category>" rail all
+> show it, and it sits **on the image under the SALE badge** rather than under the
+> price. What is left without it: the cart drawer suggestions, and the wishlist and
+> quick view, which are built in JavaScript and would need the metafield in the
+> product JSON first. `PromoLabelMissing` in `check.mjs` now guards the shared card,
+> the homepage Sale rail and the product page's own price block. The rest of this
+> entry is the original record.
+
 
 The eighth instance of the pattern above, and this one is **deliberately
 incomplete** — recorded here so the next person knows it is a gap, not an

@@ -99,14 +99,33 @@
   {%- endif -%}
 {%- endfor -%}
 
-{%- comment -%} Related products: recommendations when performed, else the most
-    specific collection. {%- endcomment -%}
+{%- comment -%} Related products: the most specific collection this product is in,
+    and Shopify's recommendations only where there is no such collection.
+
+    That order was the other way round until 1 Oct 2026, which made the rail's name a
+    guess. `recommendations` is populated only in a section fetched through
+    /recommendations/products?section_id=, and nothing fetches main-product that way —
+    only sections/cart-recommendations, from theme.js. So on the live store the
+    collection branch is the one that ran, every time, while the heading said
+    "Have You Checked These Products Out?" and the preview harness (which sets
+    recommendations.performed itself) exercised a branch the store never reached. The
+    rail is now named after what it actually shows.
+
+    Both rails below drop any product tagged settings.restricted_tag. A medicine is
+    something a customer looks for and reads; it is not something to put in front of
+    somebody who came for a moisturiser, and that holds on a medicine's own page too. {%- endcomment -%}
 {%- assign rel = blank -%}
-{%- if recommendations.performed and recommendations.products_count > 0 -%}
-  {%- assign rel = recommendations.products -%}
-{%- elsif primary_handle != blank -%}
+{%- assign rel_collection = blank -%}
+{%- if primary_handle != blank and collections[primary_handle].products.size > 0 -%}
   {%- assign rel = collections[primary_handle].products -%}
+  {%- assign rel_collection = primary_collection -%}
+{%- elsif recommendations.performed and recommendations.products_count > 0 -%}
+  {%- assign rel = recommendations.products -%}
 {%- endif -%}
+{%- capture rail_heading -%}
+  {%- if rel_collection != blank -%}More in {{ rel_collection.title }}{%- else -%}You might also like{%- endif -%}
+{%- endcapture -%}
+{%- assign rail_heading = rail_heading | strip -%}
 
 <div class="pdp-wrap-pad" style="width:100%; overflow-x:hidden; background:#ffffff;">
 
@@ -230,18 +249,21 @@
         {%- assign rel_count = 0 -%}
         {%- if rel != blank -%}
           {%- for p in rel -%}
-            {%- unless p.id == product.id -%}{%- assign rel_count = rel_count | plus: 1 -%}{%- endunless -%}
+            {%- capture p_restricted -%}{%- render 'product-restricted', product: p -%}{%- endcapture -%}
+            {%- unless p.id == product.id or p_restricted == 'true' -%}{%- assign rel_count = rel_count | plus: 1 -%}{%- endunless -%}
             {%- if rel_count >= 3 -%}{%- break -%}{%- endif -%}
           {%- endfor -%}
         {%- endif -%}
         {%- if rel_count > 0 -%}
         <!-- You may also like: in the buy column beside the tabs from 1101px, under the description below that -->
         <div class="pdp-recs" style="margin-top:34px; max-width:600px;">
-        <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:24px; margin:0 0 20px;">You May Also Like</h2>
+        <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:24px; margin:0 0 20px;">You may also like</h2>
         <div style="display:flex; flex-direction:column; gap:6px;">
           {%- assign shown = 0 -%}
           {%- for p in rel -%}
-            {%- if p.id == product.id or shown >= 3 -%}{%- continue -%}{%- endif -%}
+            {%- capture restricted -%}{%- render 'product-restricted', product: p -%}{%- endcapture -%}
+            {%- assign restricted = restricted | strip -%}
+            {%- if p.id == product.id or restricted == 'true' or shown >= 3 -%}{%- continue -%}{%- endif -%}
             {%- assign shown = shown | plus: 1 -%}
             {%- comment -%} Blank unless the price shown is genuinely reduced — see snippets/product-compare-at.liquid. {%- endcomment -%}
             {%- capture was -%}{%- render 'product-compare-at', product: p -%}{%- endcapture -%}
@@ -260,8 +282,7 @@
                 <div style="margin-bottom:6px;">{% render 'product-rating', product: p, size: 13, count_label: 'long' %}</div>
                 <div style="display:flex; align-items:baseline; gap:8px;"><span style="color:var(--c-primary-text); font-weight:800; font-size:17px;">{{ p.price | money }}</span>{%- if was != blank -%}<span class="price-was" style="font-size:13.5px;">{{ was }}</span>{%- endif -%}</div>
               </div>
-              {%- capture restricted -%}{%- render 'product-restricted', product: p -%}{%- endcapture -%}
-              {%- if p.available and p.has_only_default_variant and restricted != 'true' -%}
+              {%- if p.available and p.has_only_default_variant -%}
                 <button type="button" data-add-id="{{ p.first_available_variant.id }}" class="btn-sm btn-fill" style="flex:0 0 auto; align-self:center">Add</button>
               {%- else -%}
                 <a href="{% render 'product-card-url', product: p %}" class="btn-sm btn-fill" style="flex:0 0 auto; align-self:center">View</a>
@@ -465,55 +486,30 @@
     {%- endfor -%}
   </section>
 
-  {%- if rel != blank and rel.size > 0 -%}
-  <!-- Have you checked -->
-  <section style="max-width:1440px; margin:0 auto; padding:52px 30px 8px;">
-    <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,32px); margin:0 0 26px;">Have You Checked These Products Out?</h2>
+  {%- comment -%} Count what will actually be drawn: the loop skips this product and
+      every medicine, so a collection of one plus a shelf of pharmacy lines would
+      otherwise draw the heading over an empty track — the defect the brands page had,
+      and the reason the side list above counts first too. {%- endcomment -%}
+  {%- assign rail_count = 0 -%}
+  {%- if rel != blank -%}
+    {%- for p in rel -%}
+      {%- capture p_restricted -%}{%- render 'product-restricted', product: p -%}{%- endcapture -%}
+      {%- unless p.id == product.id or p_restricted == 'true' -%}{%- assign rail_count = rail_count | plus: 1 -%}{%- endunless -%}
+      {%- if rail_count >= 8 -%}{%- break -%}{%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- if rail_count > 0 -%}
+  <!-- More in <collection> -->
+  <section style="max-width:1440px; margin:0 auto; padding:var(--sec-pad-top) 30px var(--sec-pad-bottom);">
+    <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,32px); margin:0 0 26px;">{{ rail_heading }}</h2>
     <div style="position:relative;">
       <div id="checked-track-{{ section.id }}" style="display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding:4px;">
         {%- assign railshown = 0 -%}
         {%- for p in rel -%}
-          {%- if p.id == product.id or railshown >= 8 -%}{%- continue -%}{%- endif -%}
-          {%- assign railshown = railshown | plus: 1 -%}
           {%- capture restricted -%}{%- render 'product-restricted', product: p -%}{%- endcapture -%}
-          {%- assign restricted = restricted | strip -%}
-          {%- capture was -%}{%- render 'product-compare-at', product: p -%}{%- endcapture -%}
-          {%- assign was = was | strip -%}
-          {%- comment -%} Same card as the collection grid (main-collection.liquid), so a
-              product looks the same wherever it is listed. {%- endcomment -%}
-          <div class="checked-card pcard" style="flex:0 0 254px; display:flex; flex-direction:column;">
-            {%- comment -%} A div, not the link itself: the quick-view eye is a button and
-                cannot be nested inside an anchor, so the ground holds both. {%- endcomment -%}
-            <div class="pcard-img" style="position:relative; aspect-ratio:1; background:#ffffff; border:1px solid #eceee9; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:14px;">
-              {%- if was != blank -%}
-                <span class="sale-badge">SALE</span>
-              {%- endif -%}
-              <a href="{% render 'product-card-url', product: p %}" style="display:block; width:100%; height:100%;">
-                {%- if p.featured_image -%}
-                  {%- capture rel_alt %}{% render 'image-alt', image: p.featured_image, product: p %}{% endcapture -%}
-                  {{ p.featured_image | image_url: width: 600 | image_tag: alt: rel_alt, loading: 'lazy', style: 'width:100%; height:100%; object-fit:contain; display:block; transition:transform .3s ease;' }}
-                {%- else -%}
-                  <span style="display:flex; width:100%; height:100%; background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px); align-items:center; justify-content:center;"><span style="font-family:ui-monospace,monospace; font-size:11px; color:var(--c-primary-text); font-weight:700;">image</span></span>
-                {%- endif -%}
-              </a>
-              {% render 'wishlist-button', product: p %}
-              {% render 'quick-view-button', product: p, restricted: restricted %}
-            </div>
-            <div style="font-size:13px; font-weight:700; color:var(--c-primary-text); margin-bottom:6px;">{{ p.vendor }}</div>
-            <h3 style="font-weight:600; font-size:15px; line-height:1.35; margin:0 0 10px; min-height:41px;"><a href="{% render 'product-card-url', product: p %}" class="hov-green" style="color:#2A2B2A;">{{ p.title }}</a></h3>
-            <div style="margin-bottom:14px; min-height:18px;">{% render 'product-rating', product: p, size: 14 %}</div>
-            <div style="margin-top:auto; border-top:1px solid #eceee9; padding-top:12px; display:flex; align-items:baseline; gap:9px;">
-              <span style="color:var(--c-primary-text); font-weight:800; font-size:20px;">{% if p.price_varies %}From {% endif %}{{ p.price | money }}</span>
-              {%- if was != blank -%}
-                <span class="price-was">{{ was }}</span>
-              {%- endif -%}
-            </div>
-            {%- if p.available and p.has_only_default_variant and restricted != 'true' -%}
-              <button type="button" data-add-id="{{ p.first_available_variant.id }}" class="btn-sm btn-fill" style="margin-top:12px; width:100%">Add To Bag</button>
-            {%- else -%}
-              <a href="{% render 'product-card-url', product: p %}" class="btn-sm btn-fill" style="margin-top:12px; width:100%">View Product</a>
-            {%- endif -%}
-          </div>
+          {%- if p.id == product.id or restricted == 'true' or railshown >= 8 -%}{%- continue -%}{%- endif -%}
+          {%- assign railshown = railshown | plus: 1 -%}
+          {%- render 'product-card', product: p, width: '254px' -%}
         {%- endfor -%}
       </div>
       <button aria-label="Scroll back" data-rail-btn data-rail-back data-rail-target="checked-track-{{ section.id }}" data-rail-by="-552" class="hov-bg-green-dk" style="position:absolute; left:-14px; top:38%; transform:translateY(-50%); width:46px; height:46px; border-radius:999px; border:none; background:var(--c-primary); color:var(--c-on-primary); cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.15);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
@@ -613,7 +609,9 @@
     .gallery-flex { flex-direction: column-reverse !important; }
     .thumb-rail { flex-direction: row !important; width: 100% !important; overflow-x: auto !important; max-height: none !important; }
     .thumb-rail .thumb { flex: 0 0 74px !important; }
-    .checked-card { flex: 0 0 44% !important; }
+    /* The rail's cards are the shared snippet now, which sets its width inline;
+       .checked-card no longer exists. Target them through the track. */
+    #checked-track-{{ section.id }} > .prodcard { flex: 0 0 44% !important; }
   }
 {% endstyle %}
 

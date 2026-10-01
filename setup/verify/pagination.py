@@ -38,7 +38,10 @@ def cards(html):
     is <div class="pgrid"> in main-collection.liquid, the rail #also-track-<section id> after it.
     """
     grid = html.split('class="pgrid"', 1)[-1].split('id="also-track', 1)[0]
-    return len(re.findall(r'class="pcard"', grid))
+    # `pcard prodcard` since 1 Oct 2026: .pcard carries the hover rules it shares with
+    # the homepage category tiles, .prodcard is the card's own layout. The identical
+    # helper in the other of pagination.py / render-states.py has to move with this one.
+    return len(re.findall(r'class="pcard prodcard"', grid))
 
 def page_links(html):
     return re.findall(r'<a href="(/collections/paginated-fixture[^"]*)"[^>]*>([^<]{1,12})<', html)

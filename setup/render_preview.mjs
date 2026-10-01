@@ -1112,6 +1112,29 @@ const FORM_ON = { 'page.in-store-services': { __sectionSettingsOverride: { 'page
 }
 
 {
+  // A product whose own category holds a medicine, so the rails have something to
+  // exclude (1 Oct 2026). Nurofen 200mg 24 Tablets and Nurofen Tablets 12Pk are both
+  // in pain-relief and only the second is tagged pharmacist-review, so the "More in
+  // Pain Relief" rail and the "You may also like" side list must each show the one and
+  // drop the other. Without this page every rail in the preview drew from a category
+  // with no medicine in it, and the filter could not be seen to work or to fail.
+  const railBase = products.find((p) => (p.tags || []).includes('pharmacist-review'));
+  const railHost = products.find((p) => p !== railBase && (p.collections || [])
+    .some((c) => (railBase.collections || []).some((rc) => rc.handle === c.handle)));
+  if (railHost) {
+    const saved = { product: globals.product, request: globals.request };
+    globals.product = railHost;
+    globals.request = { ...globals.request, page_type: 'product' };
+    try {
+      writeFileSync(join(outDir, 'product.rail-medicine.html'), await renderTemplate('product'));
+      console.log(`rail-with-a-medicine page: ${railHost.handle}`);
+    } finally {
+      Object.assign(globals, saved);
+    }
+  }
+}
+
+{
   // Tag-driven question sets (30 Sep 2026). No metafield anywhere here: the set is
   // chosen by tag, the way it is on the store since Fergal adopted the old website's
   // approach. Three fixtures, one per branch of that choice.

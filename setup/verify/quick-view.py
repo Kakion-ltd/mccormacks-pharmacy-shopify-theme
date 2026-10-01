@@ -82,7 +82,7 @@ with sync_playwright() as pw:
     # theme.js formats this one; Liquid printed the card's. Both must follow the store's
     # money format (€15,95 on the live store), not whatever the browser's locale says.
     ck("price is written the way Liquid wrote the card's", p.locator("[data-qv-price]").inner_text(),
-       cards.first.locator("div[style*='border-top'] > span").first.inner_text().replace("From ", ""))
+       cards.first.locator(".prodcard-price").first.inner_text().replace("From ", ""))
     ck("link to the full product page", p.locator("[data-qv] .qv-link").get_attribute("href").startswith("/products/"))
     p.keyboard.press("Escape"); p.wait_for_timeout(250)
     ck("Escape closes", p.evaluate("document.body.hasAttribute('data-qv-open')"), False)
@@ -128,8 +128,8 @@ with sync_playwright() as pw:
     also = p.locator("[id^=also-track] .pcard")
     ck("the collection you-may-also-like rail carries the eye", p.locator("[id^=also-track] .qv-btn").count(), also.count())
     p.goto(BASE + "/products/vitamin-d3-1000iu-60-capsules", wait_until="networkidle")
-    rail = p.locator(".checked-card")
-    ck("the related products rail carries the eye", p.locator(".checked-card .qv-btn").count(), rail.count())
+    rail = p.locator("[id^=checked-track] .prodcard")
+    ck("the related products rail carries the eye", p.locator("[id^=checked-track] .qv-btn").count(), rail.count())
     rail.first.hover(); p.wait_for_timeout(600)
     reb = rail.first.locator(".qv-btn").bounding_box()
     rg = rail.first.locator(".pcard-img").bounding_box()
