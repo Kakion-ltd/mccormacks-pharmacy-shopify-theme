@@ -27,12 +27,25 @@ const engine = new Liquid({
 });
 
 /* ---------- Shopify filters ---------- */
-// The live store's format (Settings > Store details, read 24 Sep 2026). The preview
-// printed "€15.95" while the store prints "€15,95", which hid theme.js and the variant
-// picker disagreeing with Liquid on every price they rewrote.
-const MONEY_FORMAT = '€{{amount_with_comma_separator}}';
-const amount = (v) => (v / 100).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-const money = (v) => (v == null || isNaN(v) ? v : `€${amount(v)}`);
+// The live store's format (Settings > Store details). The preview must print prices
+// exactly as the store does: it printed "€15.95" against the store's "€15,95" until
+// 24 Sep 2026, which hid theme.js and the variant picker disagreeing with Liquid on
+// every price they rewrote.
+//
+// Changed in the admin to €{{amount}} on 1 Oct 2026, so the decimal is a point again
+// and the thousands separator a comma. This is the SECOND time it has moved, and the
+// first time the separators had to be edited by hand in three places alongside it —
+// they are derived from MONEY_FORMAT now, so the line below is the only thing to
+// change if it moves again. Shopify's naming is the trap worth knowing: in
+// `amount_with_comma_separator` the comma is the DECIMAL point, not the thousands.
+const MONEY_FORMAT = '€{{amount}}';
+const COMMA_DECIMAL = MONEY_FORMAT.includes('comma_separator');
+const amount = (v) => {
+  const [whole, frac] = (v / 100).toFixed(2).split('.');
+  return whole.replace(/\B(?=(\d{3})+(?!\d))/g, COMMA_DECIMAL ? '.' : ',')
+    + (COMMA_DECIMAL ? ',' : '.') + frac;
+};
+const money = (v) => (v == null || isNaN(v) ? v : MONEY_FORMAT.replace(/\{\{\s*\w+\s*\}\}/, amount(v)));
 const imgSrc = (img) => (typeof img === 'string' ? img : img && (img.src || img.url)) || '';
 
 engine.registerFilter('asset_url', (v) => `${ASSETS}/${v}`);
@@ -98,9 +111,10 @@ engine.registerFilter('color_darken', (v, pct) => {
 });
 engine.registerFilter('money', money);
 engine.registerFilter('money_with_currency', (v) => `${money(v)} EUR`);
-// Shopify drops only a .00 fraction; €49.99 stays €49.99. Rounding here hid that.
-engine.registerFilter('money_without_trailing_zeros', (v) => (v == null || isNaN(v) ? v : `€${amount(v).replace(/,00$/, '')}`));
-// Same store format as money, without the €: the live filter prints 15,95, not 15.95.
+// Shopify drops only a zero fraction; €49.99 stays €49.99. Rounding here hid that.
+engine.registerFilter('money_without_trailing_zeros', (v) => (v == null || isNaN(v) ? v
+  : money(v).replace(COMMA_DECIMAL ? /,00$/ : /\.00$/, '')));
+// Same store format as money, without the currency symbol.
 engine.registerFilter('money_without_currency', (v) => (v == null || isNaN(v) ? v : amount(v)));
 engine.registerFilter('handleize', (v) => String(v ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
 engine.registerFilter('handle', (v) => String(v ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));

@@ -80,7 +80,7 @@ with sync_playwright() as pw:
     ck("page behind the modal is inert", p.evaluate("document.querySelector('main').inert"))
     ck("price is shown", p.locator("[data-qv-price]").inner_text().startswith("€"))
     # theme.js formats this one; Liquid printed the card's. Both must follow the store's
-    # money format (€15,95 on the live store), not whatever the browser's locale says.
+    # money format (€15.95 on the live store), not whatever the browser's locale says.
     ck("price is written the way Liquid wrote the card's", p.locator("[data-qv-price]").inner_text(),
        cards.first.locator(".prodcard-price").first.inner_text().replace("From ", ""))
     ck("link to the full product page", p.locator("[data-qv] .qv-link").get_attribute("href").startswith("/products/"))

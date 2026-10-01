@@ -1444,6 +1444,47 @@ were darkened along the same hue to `#717769`, `#727969` and `#58821D`.
 
 ---
 
+## The money format lives in the admin, and the preview has to be told (1 Oct 2026)
+
+Prices are printed by three different things and all three must agree, or a price
+rewritten in the browser disagrees with the one Liquid printed beside it:
+
+- **Liquid** uses the `money` filters, which read the admin setting. Nothing to do.
+- **JavaScript** — `formatMoney` in `assets/theme.js` — reads `shop.money_format`
+  off `<html data-money-format>`, set by `layout/theme.liquid`, and implements the
+  eight Shopify placeholders. It follows the admin on its own and has never needed
+  an edit. The cart drawer, quick view, wishlist cards and the product page's
+  variant picker all go through it.
+- **The preview harness** cannot read the admin, so `MONEY_FORMAT` in
+  `setup/render_preview.mjs` is a hand-kept copy of it. **This is the one that goes
+  stale**, and a stale one is quietly expensive: the preview printed `€15.95` against
+  the store's `€15,95` until 24 Sep 2026, which hid theme.js and the variant picker
+  disagreeing with Liquid on every price they rewrote.
+
+**Changed to `€{{amount}}` on 1 Oct 2026**, from `€{{amount_with_comma_separator}}`.
+So the decimal is a point and the thousands separator a comma: `€1,234.56`.
+
+Two things that made the second change cheaper than the first. The separators used
+to be written out by hand in three filters beside `MONEY_FORMAT`; they are derived
+from it now, so that one line is the whole change. And the trap in Shopify's naming,
+which is worth saying out loud: in `amount_with_comma_separator` the comma is the
+**decimal** point, not the thousands separator.
+
+What does need doing by hand each time: the verify scripts that assert a printed
+price. `wishlist.py`, `variants.py`, `render-states.py`, `variant-integrity.py` and
+a comment in `quick-view.py` all carried the comma form. `render-states.py` is the
+one to check carefully — its price-filter boxes assert the thousands separator as
+well as the decimal, and the two move in opposite directions.
+
+**Not changed, and deliberately:** the gift voucher amounts
+(`sections/page-gift-vouchers.liquid`) build their own strings from
+`v.price | divided_by: 100` with a literal `&euro;`. They are whole euros with no
+decimal part at all, so no separator change can reach them. It is still a price
+built outside the money filter, and if a denomination ever stops being a round
+number it will print wrong — see "Gift vouchers" below.
+
+---
+
 ## Back-in-stock capture — it captures, it does not notify
 
 `snippets/back-in-stock.liquid` renders on a product page only when the variant is
