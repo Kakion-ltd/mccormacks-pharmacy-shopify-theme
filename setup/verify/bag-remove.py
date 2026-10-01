@@ -74,7 +74,16 @@ with sync_playwright() as pw:
     check("drawer: Remove took the line out", lines.count(), 1)
     check("drawer: no Nurofen line left", pg.locator(".cd-remove[aria-label*='Nurofen']").count(), 0)
     check("drawer: subtotal changed", pg.locator("[data-cd-subtotal]").inner_text() != subtotal)
-    check("drawer: free-delivery message changed", pg.locator("[data-cd-ship-msg]").inner_text() != ship)
+    # Free delivery is withdrawn when the bag holds a sale or offer item, and the fixture
+    # bag does, so the drawer shows a fixed message instead of a countdown -- it is meant
+    # NOT to change when a line goes. Removing one sale line leaves another, so the state
+    # is unchanged and the message should hold. Only a bag still counting down should move.
+    SALE_UNAVAILABLE = "Free delivery isn\u2019t available on orders with sale or offer items."
+    after = pg.locator("[data-cd-ship-msg]").inner_text()
+    if SALE_UNAVAILABLE in ship or SALE_UNAVAILABLE in after:
+        check("drawer: sale bag holds the free-delivery-unavailable message", SALE_UNAVAILABLE in after)
+    else:
+        check("drawer: free-delivery message changed", after != ship)
     check("drawer: last medicine gone -> checkout form back",
           pg.evaluate("""() => ({review: !document.querySelector('[data-cd-medicine]').hidden,
                                  checkout: !document.querySelector('[data-cd-checkout-form]').hidden})"""),

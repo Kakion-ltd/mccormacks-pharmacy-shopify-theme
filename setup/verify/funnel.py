@@ -5,6 +5,15 @@ from playwright.sync_api import sync_playwright
 
 BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
 
+# Read the free-delivery threshold from the setting that defines it, so this file never
+# has to be edited when the client changes the amount.
+import json as _json
+from pathlib import Path as _Path
+_sd = _json.loads((_Path(__file__).resolve().parents[2] / "shopify-theme/config/settings_data.json").read_text())
+_t = _sd.get("free_shipping_threshold") or _sd.get("current", {}).get("free_shipping_threshold")
+THRESHOLD = ("\u20ac%.2f" % float(_t)).replace(".00", "")
+SALE_UNAVAILABLE = "Free delivery isn\u2019t available on orders with sale or offer items."
+
 # The preview server holds ONE process-global cart. It outlives every script and is
 # shared by every browser context and every other process on this port, so a check
 # that does not start from empty inherits whatever the last run left behind — and
@@ -196,7 +205,18 @@ with sync_playwright() as pw:
             pass
         for m in re.finditer(r"€(\d+)(?:\.00)?\b", body):
             amounts.add(m.group(0))
-        check(f"[{label}] cart page mentions €65 threshold", "€65" in body or "€65.00" in body)
+        # The threshold lives in one place (Brand > free_shipping_threshold), so read it
+        # rather than restate it: this check hardcoded €65 and went red the day the client
+        # moved it to €54.99, which is the "one thing in two places" defect in a test.
+        # The fixture bag holds sale items, and free delivery is withdrawn for those, so
+        # the cart shows the unavailable message INSTEAD of a threshold. Assert whichever
+        # the page is actually showing, and that it never shows both.
+        if SALE_UNAVAILABLE in body:
+            check(f"[{label}] cart page says free delivery is unavailable on a sale bag", True)
+            check(f"[{label}] cart page does not also promise free delivery",
+                  "away from free delivery" not in body and "You have free delivery" not in body)
+        else:
+            check(f"[{label}] cart page mentions the {THRESHOLD} threshold", THRESHOLD in body)
         check(f"[{label}] cart cross-sell rail present",
               page.locator(".crec").count() >= 1)
         cart_titles = page.locator(".crec-title").all_text_contents()
