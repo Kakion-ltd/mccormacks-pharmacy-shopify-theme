@@ -982,11 +982,31 @@ The tags, read in `sections/main-product.liquid`:
 - `questionnaire-ed` — the old site's 18 erectile dysfunction questions (see
   "The ED set: 18 questions" below; it was 14 before 30 Sep 2026). On
   Viagra Connect 4 and 8 pack, Cialis 4Pk and 8Pk, Sidena 50mg 4 Pack.
-- `questionnaire-none` — a tagged medicine that deliberately asks nothing. On
-  Curanail only, because the old site asks nothing there either.
+- `questionnaire-none` — a tagged medicine that deliberately asks nothing: an
+  ordinary Add to bag. On every `pharmacist-review` product that is not
+  `questionnaire-ed` since 1 Oct 2026 (see below); before that, Curanail only.
+  The theme checks it **before** `questionnaire-ed`, so never put both on one
+  product — the ED questions would silently disappear.
 - neither, but carrying the restricted tag — the default pair: "I am over 18
   years of age" (a tick) and "Are you taking any other medication?" (Yes/No,
-  where Yes reveals a free-text box for the detail).
+  where Yes reveals a free-text box for the detail). Since 1 Oct 2026 no
+  product is in this state on purpose. It is still the fallback, so a medicine
+  newly tagged `pharmacist-review` asks the pair until someone also tags it
+  `questionnaire-none`.
+
+**Fergal's decision, 1 October 2026: questions only on the ED products.** Every
+`pharmacist-review` product not tagged `questionnaire-ed` was tagged
+`questionnaire-none` the same evening: 331 products, plus Curanail, which
+already had it. That makes 332 `questionnaire-none` and 5 `questionnaire-ed`,
+out of 337 tagged `pharmacist-review`. `pharmacist-review` was left on all of
+them, so the order hold (Flow 1 keys off that tag, not the questions) and the
+over-18 tick on the bag page are unchanged. Every changed product and its tags
+before the change are in `setup/questionnaire-none-2026-10-01.csv`. To reverse
+it, `tagsRemove` `questionnaire-none` from the ids in that file; Curanail is
+not in the file, so it keeps the tag. Checked on the live site the same night:
+Advil Cold & Flu shows Add to bag with no questions, Viagra Connect 4 pack
+still shows "Answer 18 health questions", and a bag with Advil shows the
+over-18 tick.
 
 **Why the theme and not a metaobject.** Three reasons, in order of weight. The
 sets are now the same across a whole group, so a per-product record is a copy of
