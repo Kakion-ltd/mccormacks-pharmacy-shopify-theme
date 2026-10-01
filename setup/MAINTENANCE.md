@@ -1708,9 +1708,9 @@ Four things worth keeping in mind before anyone reaches for a picker again:
 - **The radios get the last word on `disabled`.** `applyMethod` enables every input
   its method owns, the date input included, so it ends by calling `applyWhen()`.
   `applyWhen` reads `dateBox.hidden` — what `applyMethod` has just decided — so a
-  printed voucher never posts a `Send on` even with "Pick a date" still checked.
-  That exact case is checked; without it, choosing a date and then switching method
-  scheduled a card that is going in the post.
+  "Send it to me" voucher never posts a `Send on` even with "Pick a date" still
+  checked. That exact case is checked; without it, choosing a date and then
+  switching method schedules a send for a voucher nobody is sending.
 - **"Today" and "Send immediately" were two controls for one outcome.** The chip
   posted `Send on: <today>`, the reset posted nothing. Shopify documents only "without
   a date specified, the gift card is sent immediately" and says nothing about a
@@ -1728,15 +1728,17 @@ sender property to hold one. There is no template workaround; the data is not in
 
 The page was already admitting it: the Message hint read *"sign it if you'd like them
 to see who it's from"* directly beneath a From field that they never see. `Message`
-carries it now and the hint says what happens to it, including that a posted voucher
-is written into the card as typed.
+carries it now, and its hint says so: "Sign it if you'd like them to know who it's
+from." (The hint also described a posted voucher until the printed method was
+removed later the same day — see the section below.)
 
-### `Delivery` is posted for all three methods now
+### `Delivery` is posted for every method now
 
 It used to be posted only for `Printed and posted`, so an order for an emailed voucher
 said nothing about how it was sent and staff inferred it from whether `Recipient email`
-was present. All three post it: `By email`, `Printed and posted`, `Sent to me`. Only
-one input is ever enabled, which is what keeps three inputs sharing a name legal.
+was present. Every method posts it. Only one input is ever enabled, which is what keeps
+inputs sharing a name legal. (There were three the morning this was written and two by
+the evening — see below.)
 
 `Sent to me` therefore no longer posts a completely bare line. That does **not** change
 what Shopify does: issuing to the buyer follows from the *absence* of `Recipient email`
@@ -1758,14 +1760,49 @@ The summary panel also had `€50` typed in twice as a literal while the hero us
 summary lied. It reads `{{ gv_default }}` now — the one-thing-in-two-places rule at
 the top of this file, in the same section it warns about.
 
+### Printed and posted was removed the same day (1 Oct 2026)
+
+Client decision: **vouchers are online only.** The method went, and with it the
+button, the `Postal address` field, its `Delivery` value and its branch in
+`applyMethod`. Two methods remain, `By email` (default) and `Send it to me`.
+
+The address field is the part that mattered. It was `required`, so left behind on a
+branch nothing can select it would have made the form refuse to submit with nothing
+on screen explaining why — the worst kind of leftover, because the control that
+would have shown the error is the one that is hidden.
+
+The copy was the larger job and the easier one to miss: the hero line, the method
+intro, both How it works cards, the About paragraph and two FAQ answers all promised
+a posted voucher. `gift-voucher.py` now reads the rendered body text and fails on
+"printed", "posted", "post it", "in a card" or "postal" appearing anywhere on the
+page — the controls are easy to check and the sentences are what a customer
+actually meets.
+
+`templates/collection.gifting.json` said vouchers were available "online and in
+store" and now says online. The Gifting session landed the identical change as
+`e167fe1` while this branch was in the queue; the rebase dropped the duplicate.
+
+**Two "in store" claims are deliberately still on the voucher page**: the "Prefer to
+buy in store?" aside and the FAQ answer on where a voucher can be spent. Both say the
+*shops sell their own separate vouchers*, which is a different claim and one the
+client has not contradicted — the Gifting banner was wrong because it implied
+*this* voucher is sold in store. If the decision also means the shops no longer sell
+vouchers, those two need to go and the FAQ answer needs rewriting, because it
+currently tells customers to buy a counter voucher for in-store spending.
+
+`setup/VOUCHER-POST-FLOW.md` is marked NOT NEEDED rather than deleted. The Flow was
+never built, so there is nothing to switch off; the file is the record of a reversed
+decision and the build steps if printed vouchers return.
+
 ### Later: the delivery methods should be radios too
 
-The three delivery methods are still `<button aria-pressed>` toggles. Three pressed
-buttons do not announce "pick one of three" the way a radio group does, and the same
-argument that retired the calendar applies to them. Left alone deliberately on 1 Oct
-so this change stayed one thing; `applyMethod` is the money path and the conversion
-wants its own commit and its own run of `gift-voucher.py`. The custom dot styling and
-`state.method` would both go.
+The delivery methods are still `<button aria-pressed>` toggles. Pressed buttons do
+not announce "pick one of these" the way a radio group does, and the same argument
+that retired the calendar applies to them. Left alone deliberately on 1 Oct so that
+change stayed one thing; `applyMethod` is the money path and the conversion wants its
+own commit and its own run of `gift-voucher.py`. The custom dot styling and
+`state.method` would both go. **Now a two-option choice**, which makes it the same
+shape as the date radios directly below it — two controls, one page, two idioms.
 
 ---
 
