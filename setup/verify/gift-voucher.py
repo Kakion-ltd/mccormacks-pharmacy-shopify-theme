@@ -11,7 +11,9 @@ enabled — so they need a browser.
   2. By email posts the recipient fields and Shopify's `if_present` flag.
   3. Send it to me posts no recipient fields, which is what makes Shopify issue to
      the buyer.
-  4. Printed and posted posts a postal address and no recipient email.
+  4. There are exactly two methods. "Printed and posted" was removed on 1 Oct 2026
+     (client decision, vouchers are online only), so nothing on the page collects a
+     postal address, offers to post anything, or says the word.
   5. The date is two radios and a native input: `Send now` leaves it disabled so
      nothing is posted, `Pick a date` enables it between today and Shopify's 90-day
      ceiling. Switching method must not leave a `Send on` on a printed voucher.
@@ -165,26 +167,28 @@ with sync_playwright() as pw:
     check("send to me: still posts a variant and quantity",
           ("id" in posted and posted.get("quantity") == "1"), True)
     check("send to me: recipient block hidden", pg.is_hidden("[data-gv-who]"))
-    check("send to me: postal address hidden too",
-          pg.is_hidden("[data-gv-only='Printed and posted']"))
     check("send to me: no send flag, so Shopify issues to the buyer",
           "properties[__shopify_send_gift_card_to_recipient]" not in posted)
 
-    # 4. Printed and posted: staff need the address, and the Flow keys off Delivery.
-    pick(pg, "Printed and posted")
-    pg.fill("[name='properties[Postal address]']", "1 Main St, Athlone, Co Westmeath, N37 AB12")
-    posted = pg.evaluate(POSTED)
-    check("printed: Delivery property posted",
-          posted.get("properties[Delivery]"), "Printed and posted")
-    check("printed: postal address posted",
-          posted.get("properties[Postal address]"), "1 Main St, Athlone, Co Westmeath, N37 AB12")
-    check("printed: recipient name still posted", posted.get("properties[Recipient name]"), "Aoife Byrne")
-    check("printed: no recipient email, so Shopify does not email them",
-          "properties[Recipient email]" not in posted)
-    check("printed: no send flag", "properties[__shopify_send_gift_card_to_recipient]" not in posted)
-    check("printed: no Send on", "properties[Send on]" not in posted)
-    check("printed: the posting time is on the button that chooses it",
-          "within two working days" in pg.inner_text("[data-gv-method='Printed and posted']"))
+    # 4. There are two methods, and no trace of a third.
+    #
+    #    Removed 1 Oct 2026, client decision: vouchers are online only. A leftover
+    #    Postal address input would be a `required` field on a branch nothing can
+    #    reach — the form would refuse to submit with nothing on screen explaining
+    #    why — and leftover copy would promise a service that no longer exists.
+    pick(pg, "By email")
+    methods = pg.eval_on_selector_all("[data-gv-method]", "els => els.map(e => e.dataset.gvMethod)")
+    check("exactly two methods, By email first", methods, ["By email", "Send it to me"])
+    check("no postal address field anywhere on the page",
+          pg.query_selector("[name='properties[Postal address]']") is None)
+    check("no Delivery value offers posting",
+          pg.eval_on_selector_all("input[name='properties[Delivery]']",
+                                  "els => els.map(e => e.value)"), ["By email", "Sent to me"])
+    # Copy, not just controls. The hero, the method intro, two How-it-works cards, the
+    # About paragraph and two FAQ answers all described a posted voucher.
+    body = pg.inner_text("body").lower()
+    for word in ["printed", "posted", "post it", "in a card", "postal"]:
+        check(f"the page never says {word!r}", word not in body)
 
     # The date belongs to By email alone. Choosing a date and THEN switching method must
     # not leave a Send on behind — applyMethod enables every input its method owns,
@@ -194,18 +198,13 @@ with sync_playwright() as pw:
     pg.fill("#gv-send-on", want)
     check("by email: the date is posted before switching",
           pg.evaluate(POSTED).get("properties[Send on]"), want)
-    pick(pg, "Printed and posted")
-    check("printed: no Send on even with Pick a date still checked",
-          "properties[Send on]" not in pg.evaluate(POSTED))
-    check("printed: the date input is disabled", pg.is_disabled("#gv-send-on"))
     pick(pg, "Send it to me")
     check("send to me: no Send on even with Pick a date still checked",
           "properties[Send on]" not in pg.evaluate(POSTED))
-
-    # Switching back must not leave the postal address behind on an emailed voucher.
+    check("send to me: the date input is disabled", pg.is_disabled("#gv-send-on"))
     pick(pg, "By email")
-    check("switching back drops the postal address",
-          "properties[Postal address]" not in pg.evaluate(POSTED))
+    check("back on By email, the date is posted again",
+          pg.evaluate(POSTED).get("properties[Send on]"), want)
 
     check("no page errors on the voucher page", errs, [])
     pg.close()

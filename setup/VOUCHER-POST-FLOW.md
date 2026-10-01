@@ -1,5 +1,28 @@
 # Building the posted-voucher alert: click by click
 
+> ## NOT NEEDED — vouchers are online only (client decision, 1 Oct 2026)
+>
+> **Do not build this Flow.** The client decided on 1 Oct 2026 that vouchers are
+> online only, and the "Printed and posted" method was removed from the voucher
+> page the same day — the button, the `Postal address` field and the
+> `Delivery: Printed and posted` value all went with it. Nothing in the theme can
+> produce an order this Flow would match, so building it would create a workflow
+> that never runs and a `voucher-post` tag nobody ever sees.
+>
+> **It was never built.** No workflow by this name exists in the store; this file
+> was written ahead of it and the decision landed first. So there is nothing to
+> turn off, delete or clean up — just do not build it.
+>
+> The file is kept rather than deleted because it is the record of a decision that
+> was reversed, and because the click-by-click steps are the work if printed
+> vouchers ever come back. **If they do:** restore the method on the voucher page
+> first (the hidden `Delivery` input, the button and the address field), then build
+> this, then put back the §3 and §4 rows removed on 1 Oct.
+>
+> Everything below describes a store that no longer exists. Read it as history.
+
+---
+
 A voucher bought as **Printed and posted** needs a person to print it, put it in
 a card and post it. Nothing about the order says so on its own: the voucher is a
 gift card line like any other, and Shopify issues and emails the code whether or
@@ -53,14 +76,6 @@ Admin → **Apps** → **Flow** → **Create workflow**. Rename it at the top to
    **Equal to**, `Printed and posted`. The group must require **all** of its
    criteria (AND), so the key and the value are matched on the same attribute —
    the same shape as the over-18 attribute check in `PHARMACIST-HOLD-FLOWS.md`.
-
-   **The value half of this is now load-bearing (1 Oct 2026).** Until then,
-   `Delivery` was posted *only* by the printed method, so a condition matching the
-   key alone was accidentally correct. All three methods post it now — `By email`,
-   `Printed and posted`, `Sent to me` — so a group set to **any** of its criteria
-   instead of **all** tags every voucher sold, including emailed ones. Re-run the
-   table in §3 after any change to the voucher page, and confirm the By email row
-   still produces no run.
 
    **If Flow does not offer `Custom attributes` under `Line items`** — the path
    has moved before — use `Order` → `Line items` → `Product` → `Title`,
@@ -119,18 +134,19 @@ With test mode on, buy one voucher each way and check Flow → the workflow →
 
 | Order | Expect |
 |---|---|
-| Voucher, **Printed and posted** | Tagged `voucher-post`, email to sales@ naming the address |
 | Voucher, **By email** | No run, no tag |
 | Voucher, **Send it to me** | No run, no tag |
-| Voucher + a medicine, posted | Tagged `voucher-post` **and** held by Flow 1 — but the voucher itself is issued straight away (tested, order #1012) |
 
-That last row was expected to be the awkward one and turned out not to be. On the
-30 Sep test (order #1012) the gift card line was auto-fulfilled two seconds after
-payment while the medicine line stayed held: "Automatically fulfill only the gift
-cards" works per line item, not per order, so Flow's hold on the medicine does not
-stop the voucher being issued. The customer gets the code immediately, staff have
-something to print, and the pharmacist still reviews the medicine before it ships.
-Re-check this if the fulfilment setting is ever changed.
+The two rows that exercised the posted path were removed on 1 Oct 2026 with the
+method itself; there is no longer any way to place such an order. What remains is
+only worth running if someone builds the Flow anyway, to confirm it stays quiet.
+
+One finding from the 30 Sep test (order #1012) outlives the posted method and is
+worth keeping: the gift card line was auto-fulfilled two seconds after payment while
+a medicine line on the same order stayed held. **"Automatically fulfill only the gift
+cards" works per line item, not per order**, so Flow 1's hold on a medicine does not
+stop a voucher being issued. The customer gets the code immediately and the pharmacist
+still reviews the medicine. Re-check this if the fulfilment setting is ever changed.
 
 Cancel every test order afterwards, and **deactivate the test gift cards**
 (Products → Gift cards): cancelling an order does not void a gift card it issued,
@@ -165,7 +181,7 @@ posted, and there the harness stops. Shopify's side of the bargain needs a store
 ### Order A — €10, By email, Send now
 
 1. `/pages/gift-vouchers` → amount **€10**.
-2. Method: **By email** (already selected).
+2. Method: **By email** (already selected — the only other option is "Send it to me").
 3. Recipient name: `Test Recipient A`.
 4. Recipient email: the second inbox.
 5. Delivery date: leave **Send now** (the default).
@@ -195,9 +211,6 @@ posted, and there the harness stops. Shopify's side of the bargain needs a store
 - Products → **Gift cards** → the new card: its **Recipient** is the recipient,
   **not the buyer**. This is the single check that proves the whole mechanism —
   buyer in that field means Shopify did not recognise the properties.
-- Apps → Flow → `Voucher: printed and posted` → **Recent runs**: **no run.**
-  Since 1 Oct every method posts `Delivery`, so this row now tests the Flow's
-  condition as well as the order.
 
 ### Order B — €10, By email, Pick a date = tomorrow
 
@@ -218,7 +231,6 @@ as the customer meant it. Placed at midday, a wrong answer and a right one look 
 | Buyer inbox | Order confirmation, plus a **Gift card receipt** stating **when it is scheduled to send** |
 | Admin, order | The gift card line carries `Send on: <tomorrow's date>`. Check the date is **tomorrow**, not today and not the day after |
 | Admin, gift card | The card exists with its €10 balance and names the recipient. What is deferred is the recipient's email, not the card |
-| Admin, Flow | No run, same as A |
 
 Then **tomorrow**, confirm the New gift card email arrives at the recipient inbox,
 with the Order B message.

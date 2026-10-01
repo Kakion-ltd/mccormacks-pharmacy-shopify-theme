@@ -76,7 +76,7 @@
       <span style="display:inline-flex; align-self:flex-start; align-items:center; height:26px; padding:0 11px; border-radius:6px; background:var(--c-accent); color:var(--c-on-accent); font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; margin-bottom:16px;">Valid 5 years</span>
       <h1 style="font-family:var(--font-heading); font-weight:800; font-size:clamp(34px,4.4vw,58px); line-height:1.02; letter-spacing:-.01em; margin:0 0 20px;">{{ section.settings.heading }}</h1>
       <p style="margin:0 0 10px; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:#d6e2cd; max-width:560px;">One voucher, the whole shop. Spend it on pharmacy, vitamins, skincare, beauty, fragrance, baby or toiletries &mdash; online at mccormackspharmacy.ie.</p>
-      <p style="margin:0; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:#d6e2cd; max-width:560px;">Send it by email in minutes, or have a printed voucher posted free anywhere in Ireland.</p>
+      <p style="margin:0; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:#d6e2cd; max-width:560px;">Sent by email in minutes, or scheduled for the day you choose.</p>
     </div>
     <div class="banner-img" style="flex:1 1 380px; background:var(--c-dark); min-height:clamp(240px,26vw,400px); display:flex; align-items:center; justify-content:center; padding:clamp(24px,3vw,44px);">
       <div style="width:100%; max-width:340px; aspect-ratio:8/5; border-radius:14px; background:linear-gradient(140deg,var(--c-accent) 0%,var(--c-primary-hover) 100%); box-shadow:0 20px 44px rgba(0,0,0,.28); padding:clamp(18px,2.4vw,26px); display:flex; flex-direction:column; justify-content:space-between; color:#ffffff;">
@@ -158,21 +158,13 @@
       {%- endif -%}
 
       <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(22px,2.4vw,30px); margin:38px 0 6px;">2. How should we send it?</h2>
-      <p style="margin:0 0 18px; font-size:15.5px; line-height:1.65; color:#5d6159;">Email vouchers arrive within minutes. Printed vouchers are posted free within Ireland.</p>
+      <p style="margin:0 0 18px; font-size:15.5px; line-height:1.65; color:#5d6159;">Vouchers arrive by email within minutes, or on a date you choose.</p>
       <div style="display:flex; flex-direction:column; gap:12px; max-width:620px;">
         <button type="button" class="gv-method gv-on" aria-pressed="true" data-gv-method="By email">
           <span class="gv-dot"></span>
           <span style="flex:1; min-width:0;">
             <span style="display:block; font-weight:800; font-size:16px; color:#2A2B2A; margin-bottom:3px;">By email</span>
             <span style="display:block; font-size:14.5px; line-height:1.6; color:#5d6159;">Sent to the recipient within minutes, or scheduled for a date you choose.</span>
-          </span>
-          <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:var(--c-dark);">Free</span>
-        </button>
-        <button type="button" class="gv-method" aria-pressed="false" data-gv-method="Printed and posted">
-          <span class="gv-dot"></span>
-          <span style="flex:1; min-width:0;">
-            <span style="display:block; font-weight:800; font-size:16px; color:#2A2B2A; margin-bottom:3px;">Printed and posted</span>
-            <span style="display:block; font-size:14.5px; line-height:1.6; color:#5d6159;">Presented in a McCormack&rsquo;s card and posted anywhere in Ireland within two working days. We email you the code as well, so it can&rsquo;t be lost in the post.</span>
           </span>
           <span class="gv-method-cost" style="flex:0 0 auto; font-weight:800; font-size:14.5px; color:var(--c-dark);">Free</span>
         </button>
@@ -192,13 +184,18 @@
           `applyMethod`'s `input[data-gv-only]` loop enables exactly the ones whose
           method is chosen, so scoping is still one attribute and no new JS.
 
-          All three methods post `Delivery`. Only the printed one used to, so an order
-          for an emailed voucher stated nothing about how it was sent and staff had to
-          infer it from whether `Recipient email` was there. Three enabled inputs would
-          collide on the name, which is exactly why only one is ever enabled.
+          Both methods post `Delivery`, so every order states how it was sent rather
+          than leaving staff to infer it from whether `Recipient email` is there. Two
+          enabled inputs would collide on the name, which is exactly why only one is
+          ever enabled.
+
+          There were three methods until 1 Oct 2026. "Printed and posted" is gone on a
+          client decision — vouchers are online only — and with it `Postal address`,
+          its `Delivery` value and its branch in `applyMethod`. Nothing in the theme
+          posts a voucher to anyone now, so `setup/VOUCHER-POST-FLOW.md` describes a
+          Flow that is not needed.
         {%- endcomment -%}
         <input type="hidden" name="properties[Delivery]" value="By email" data-gv-only="By email" disabled>
-        <input type="hidden" name="properties[Delivery]" value="Printed and posted" data-gv-only="Printed and posted" disabled>
         <input type="hidden" name="properties[Delivery]" value="Sent to me" data-gv-only="Send it to me" disabled>
         <input type="hidden" name="properties[__shopify_send_gift_card_to_recipient]" value="if_present" data-gv-only="By email" disabled>
         <input type="hidden" name="properties[__shopify_offset]" id="gv-offset" data-gv-only="By email" disabled>
@@ -215,8 +212,8 @@
         Fields not relevant to the chosen method are `disabled`, so the browser leaves
         them out of the post entirely — no JS runs at submit time, and "Send it to me"
         posts a bare gift card, which is precisely what makes Shopify issue it to the
-        buyer. `Recipient name` and `Message` are shared by the email and printed
-        methods; two enabled inputs may never carry the same name.
+        buyer. `Recipient name` and `Message` are shared by both methods; two enabled
+        inputs may never carry the same name.
 
         There is no `From` field. It was one, and it reached the bag and the order but
         never the recipient: the gift card notification renders in `gift_card` scope,
@@ -234,10 +231,6 @@
         <label data-gv-only="By email" style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
           <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Recipient email</span>
           <input type="email" autocomplete="off" class="gv-input" name="properties[Recipient email]" required style="height:52px; border:1px solid #dfe1dc; border-radius:10px; padding:0 14px; font-family:inherit; font-size:15.5px; color:#2A2B2A; outline:none;">
-        </label>
-        <label data-gv-only="Printed and posted" hidden style="flex:1 1 100%; display:flex; flex-direction:column; gap:7px; min-width:0;">
-          <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Postal address</span>
-          <textarea rows="3" class="gv-input" name="properties[Postal address]" required disabled placeholder="Name, street, town, county, Eircode" style="border:1px solid #dfe1dc; border-radius:10px; padding:12px 14px; font-family:inherit; font-size:15.5px; line-height:1.6; color:#2A2B2A; outline:none; resize:vertical;"></textarea>
         </label>
         {%- comment -%}
           Two radios and a native `<input type="date">`, which is what replaced 88 lines
@@ -277,7 +270,7 @@
           </label>
         </fieldset>
         <label style="flex:1 1 100%; display:flex; flex-direction:column; gap:7px; min-width:0;">
-          <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Message <span style="font-weight:600; color:#666b60;">(optional, up to 200 characters &mdash; sign it if you&rsquo;d like them to know who it&rsquo;s from. For posted vouchers we&rsquo;ll write it in the card as you&rsquo;ve typed it.)</span></span>
+          <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Message <span style="font-weight:600; color:#666b60;">(optional, up to 200 characters &mdash; sign it if you&rsquo;d like them to know who it&rsquo;s from.)</span></span>
           <textarea rows="3" class="gv-input" name="properties[Message]" maxlength="200" style="border:1px solid #dfe1dc; border-radius:10px; padding:12px 14px; font-family:inherit; font-size:15.5px; line-height:1.6; color:#2A2B2A; outline:none; resize:vertical;"></textarea>
         </label>
       </div>
@@ -314,11 +307,11 @@
   <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px;">
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
       <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">Choose and pay</div>
-      <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Pick an amount and how you want it delivered, then check out as normal. Paying for a voucher costs nothing extra, whichever way it is sent.</div>
+      <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Pick an amount, say who it&rsquo;s for and when it should arrive, then check out as normal. Paying for a voucher costs nothing extra.</div>
     </div>
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
       <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">It arrives</div>
-      <div style="font-size:15px; line-height:1.7; color:#3a3d39;">Email vouchers land within minutes, or on the date you chose. Printed vouchers are posted in a card, and we email you the code straight away as well.</div>
+      <div style="font-size:15px; line-height:1.7; color:#3a3d39;">The voucher lands in their inbox within minutes, or on the date you chose, with your message and the code to spend.</div>
     </div>
     <div style="border:1px solid #e6e7e4; border-radius:16px; padding:26px 28px; background:#ffffff;">
       <div style="font-family:var(--font-heading); font-weight:800; font-size:18px; color:var(--c-dark); margin-bottom:8px;">They spend it</div>
@@ -330,13 +323,13 @@
 <!-- SEO copy + FAQ -->
 <section style="max-width:1440px; margin:0 auto; padding:48px 30px 8px;">
   <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(26px,3vw,40px); line-height:1.1; margin:0 0 20px;">About McCormack&rsquo;s gift vouchers</h2>
-  <p style="margin:0 0 40px; font-size:16px; line-height:1.7; color:#3a3d39; max-width:var(--measure);">A McCormack&rsquo;s gift voucher works across everything we sell online &mdash; pharmacy and healthcare, vitamins and supplements, skincare, beauty, fragrance, baby and toiletries. It is a practical present for someone who is particular about their skincare, restocking after a new baby, or simply hard to buy for. Email vouchers arrive within minutes and can be scheduled for a specific date. Printed vouchers are posted in a card, free of charge, within Ireland. Vouchers are valid for five years from the date of purchase, can be spent over as many orders as you like, and any remaining balance stays on the voucher.</p>
+  <p style="margin:0 0 40px; font-size:16px; line-height:1.7; color:#3a3d39; max-width:var(--measure);">A McCormack&rsquo;s gift voucher works across everything we sell online &mdash; pharmacy and healthcare, vitamins and supplements, skincare, beauty, fragrance, baby and toiletries. It is a practical present for someone who is particular about their skincare, restocking after a new baby, or simply hard to buy for. Vouchers arrive by email within minutes and can be scheduled for a specific date. Vouchers are valid for five years from the date of purchase, can be spent over as many orders as you like, and any remaining balance stays on the voucher.</p>
 
   <h2 style="font-family:var(--font-heading); font-weight:800; color:var(--c-dark); font-size:clamp(24px,2.6vw,34px); margin:0 0 26px;">Frequently Asked Questions</h2>
   <div style="display:flex; flex-direction:column;">
     <div style="border-bottom:1px solid #eceee9; padding:22px 0;">
       <h3 style="font-family:var(--font-heading); font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">How long is a gift voucher valid for?</h3>
-      <p style="margin:0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:var(--measure);">Five years from the date of purchase. The expiry date is printed on the voucher and shown on the email.</p>
+      <p style="margin:0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:var(--measure);">Five years from the date of purchase. The expiry date is shown on the voucher email.</p>
     </div>
     <div style="border-bottom:1px solid #eceee9; padding:22px 0;">
       <h3 style="font-family:var(--font-heading); font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">Where can a gift voucher be spent?</h3>
@@ -352,7 +345,7 @@
     </div>
     <div style="border-bottom:1px solid #eceee9; padding:22px 0;">
       <h3 style="font-family:var(--font-heading); font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">What if the voucher is lost?</h3>
-      <p style="margin:0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:var(--measure);">Email vouchers can be resent to the original recipient address &mdash; contact us with your order number. Printed vouchers work like cash and cannot be replaced if lost.</p>
+      <p style="margin:0; font-size:15.5px; line-height:1.65; color:#5a6153; max-width:var(--measure);">A voucher can be resent to the address it was sent to originally &mdash; contact us with your order number and we&rsquo;ll send it again.</p>
     </div>
     <div style="border-bottom:1px solid #eceee9; padding:22px 0;">
       <h3 style="font-family:var(--font-heading); font-weight:700; color:#2A2B2A; font-size:clamp(18px,1.8vw,22px); margin:0 0 10px;">Are gift vouchers refundable?</h3>
@@ -443,7 +436,7 @@
     // Which of the two radios is chosen decides whether a date is posted at all, by the
     // same `disabled` rule the delivery method uses. It must run after applyMethod, which
     // enables everything its method owns — including this input — and it must not undo
-    // applyMethod for a method that has no date at all, or a printed voucher would post a
+    // applyMethod for a method that has no date at all, or "Send it to me" would post a
     // `Send on`. `dateBox.hidden` is what applyMethod has just decided, so read that.
     var applyWhen = function () {
       if (!dateInput) return;
@@ -465,9 +458,7 @@
       who.hidden = mine;
       note.textContent = mine
         ? 'Nothing needed here — we’ll send the voucher to the email address you check out with.'
-        : state.method === 'Printed and posted'
-          ? 'Tell us who it’s for and where to post it.'
-          : 'We’ll send the voucher straight to them.';
+        : 'We’ll send the voucher straight to them.';
       who.querySelectorAll('[data-gv-only], input, textarea').forEach(function (el) {
         var scope = el.closest('[data-gv-only]');
         var want = !mine && (!scope || scope.dataset.gvOnly === state.method);
