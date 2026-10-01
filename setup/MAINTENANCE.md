@@ -1595,10 +1595,11 @@ How it works now:
   name`, `Message`, `Send on`, `__shopify_offset` and
   `__shopify_send_gift_card_to_recipient: if_present`, which is what makes
   Shopify email the recipient itself. `Send it to me` posts none of them, which
-  is what makes Shopify issue to the buyer. `Printed and posted` posts
-  `Delivery: Printed and posted` plus `Postal address`, and no recipient email,
-  so Shopify does not email them — staff post the card, and the buyer gets the
-  code by email because the voucher is issued on fulfilment. The page says so.
+  is what makes Shopify issue to the buyer. (A third method, `Printed and
+  posted`, posted `Delivery: Printed and posted` plus `Postal address` and no
+  recipient email. **Removed 1 Oct 2026** — vouchers are online only. This
+  paragraph describes 30 Sep; see "Printed and posted was removed the same day",
+  below, for what ships.)
 - **The names are Shopify's, exactly.** Rename one and Shopify stops recognising
   it and the voucher quietly goes to the buyer instead. This is the same
   load-bearing-key trap as the over-18 attribute the Flow matches.
