@@ -796,6 +796,31 @@ and must stay that way: it records what the old site asks, not what we ask. It
 also carries the one thing Fergal has not answered — the set is written for
 sildenafil and served unchanged on Cialis, which is tadalafil.
 
+### Section headings are built and switched off, and turning them on renumbers the order (1 Oct 2026)
+
+The modal can group questions under headings. Nothing uses it. `pharmacy-questionnaire`
+recognises a `group::Some heading` item among a set's `kind::label` ones and renders it
+as an `<h4 class="pq-group">`; it is **not** a `[data-pq-q]`, so it never enters the
+answered counter, the validation or the line-item properties. No set emits one, and
+`questionnaire.py` asserts that no set emits one — the day that check fails, somebody
+has turned grouping on and has to come back here.
+
+Enabling it is an edit to `snippets/pharmacy-question-set.liquid` and nothing else.
+Reordering is likewise just reordering that file's lines; there is deliberately **no
+setting** for question order, because the order already lives in one place.
+
+**The consequence to put to Fergal before he approves a reorder.** Line-item property
+keys are `"<n>. <label>"`, numbered by position. Grouping alone changes nothing.
+*Reordering* renumbers every key, so an order placed after the change reads differently
+in the admin from one placed before it — same questions, same answers, different
+numbers. Nothing is lost and no label changes, but a pharmacist comparing two orders
+side by side will see question 15 become question 1.
+
+The grouping proposed on 1 Oct 2026, awaiting approval, is: **About you** (the
+"man aged 18 or over" question, moved first), **Your heart and circulation** (Q1-Q4),
+**Medicines you're taking** (Q5-Q10, Q16, Q17), **Other health conditions** (Q11-Q14,
+Q18). Numbering as the set stands today — see "The ED set: 18 questions" above.
+
 ---
 
 ## The pharmacist hold follows the tag, not the questionnaire (25 Sep 2026)

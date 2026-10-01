@@ -6,8 +6,8 @@
   How the gate holds (and why it is unlike Inish's):
     - The gated buy box has NO {% form 'product' %} around it, so with JavaScript
       off there is nothing to submit and the product cannot be added at all. The
-      "Answer a few questions" button is type=button and inert without JS. This is
-      the requirement Inish leave open: their /cart/add form still posts without JS.
+      "Answer N health questions" button is type=button and inert without JS. This
+      is the requirement Inish leave open: their /cart/add form still posts without JS.
     - With JS, the button opens this modal. Submitting posts the answers to
       /cart/add.js as line-item properties, so they land ON THE ORDER, visible to
       the pharmacist in Shopify admin under each line item. No third party, no
@@ -35,6 +35,14 @@
   Every question is required unless its `optional` flag is set. Any selected answer
   listed in a question's `blocking_answers` stops the sale and shows the notice.
 
+  SECTION HEADINGS, PREPARED AND NOT IN USE (1 Oct 2026). A built-in set may carry a
+  `group::Heading` item among its `kind::label` ones; it renders as an <h4> and is
+  NOT a [data-pq-q], so it never enters the answered count, the validation or the
+  line-item properties. Nothing emits one today — turning grouping on is an edit to
+  snippets/pharmacy-question-set.liquid and nothing else. Reordering is likewise just
+  reordering that file's lines, but note that the property keys are "<n>. <label>",
+  so a reorder renumbers every key on new orders. Awaiting Fergal. See MAINTENANCE.md.
+
   Accepts: product, section_id, variant (current variant, for the id fallback), and
            ONE of questionnaire (the metaobject) or set ('ed' | 'default').
 {%- endcomment -%}
@@ -55,49 +63,74 @@
 <div class="pq-modal" data-pq-modal="{{ pq_id }}" hidden>
   <div class="pq-backdrop" data-pq-close></div>
   <div class="pq-card" role="dialog" aria-modal="true" aria-labelledby="{{ pq_id }}-title" tabindex="-1">
-    <button type="button" class="pq-x" data-pq-close aria-label="Close">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 19 19 5M5 5l14 14"/></svg>
-    </button>
-    <h3 class="pq-title" id="{{ pq_id }}-title">{{ pq_title }}</h3>
-    <p class="pq-intro">This is a pharmacy medicine. Please answer honestly so our registered pharmacist can check it is safe for you before we dispense {{ product.title }}. Your answers are attached to your order for the pharmacist to review.</p>
 
-    <form class="pq-form" data-pq-form novalidate>
-      {%- if pq_builtin -%}
-        {%- for item in pq_items -%}
-          {%- assign parts = item | strip | split: '::' -%}
-          {%- assign q_kind = parts[0] | strip -%}
-          {%- assign q_label = parts[1] | strip -%}
-          {%- assign fname = pq_id | append: '-q' | append: forloop.index -%}
-          {%- comment -%} Every built-in question is required and none blocks the sale:
-              Fergal's decision, recorded in setup/old-site-questionnaires.md. {%- endcomment -%}
-          {%- render 'pharmacy-question-field', kind: q_kind, label: q_label, help: '',
-              options: nil, required: true, blocking: '', fname: fname -%}
-        {%- endfor -%}
-      {%- else -%}
-        {%- for q in questionnaire.questions.value -%}
-          {%- assign q_kind = q.kind.value -%}
-          {%- assign required = true -%}
-          {%- if q.optional.value == true -%}{%- assign required = false -%}{%- endif -%}
-          {%- capture blocking -%}{{ q.blocking_answers.value | join: '||' }}{%- endcapture -%}
-          {%- assign fname = pq_id | append: '-q' | append: forloop.index -%}
-          {%- render 'pharmacy-question-field', kind: q_kind, label: q.label.value, help: q.help.value,
-              options: q.options.value, required: required, blocking: blocking, fname: fname -%}
-        {%- endfor -%}
-      {%- endif -%}
+    {%- comment -%} Sticky header. A flex column with a scrolling middle, not
+        position:sticky: the card is the viewport on mobile, so the header and footer
+        are simply the rows that do not scroll. {%- endcomment -%}
+    <header class="pq-head">
+      <div class="pq-head-text">
+        {%- comment -%} The product name is a SEPARATE element from .pq-title. The
+            submit handler stamps _questionnaire from .pq-title's text, so anything
+            added inside it would change what lands on the order. {%- endcomment -%}
+        <h3 class="pq-title" id="{{ pq_id }}-title">{{ pq_title }}</h3>
+        <p class="pq-head-product">{{ product.title }}</p>
+        <p class="pq-progress" data-pq-progress aria-live="polite"></p>
+      </div>
+      <button type="button" class="pq-x" data-pq-close aria-label="Close">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 19 19 5M5 5l14 14"/></svg>
+      </button>
+    </header>
 
+    <div class="pq-body" data-pq-body>
+      <p class="pq-intro">This is a pharmacy medicine. Please answer honestly so our registered pharmacist can check it is safe for you before we dispense {{ product.title }}. Your answers are attached to your order for the pharmacist to review.</p>
+
+      <form class="pq-form" id="{{ pq_id }}-form" data-pq-form novalidate>
+        {%- if pq_builtin -%}
+          {%- for item in pq_items -%}
+            {%- assign parts = item | strip | split: '::' -%}
+            {%- assign q_kind = parts[0] | strip -%}
+            {%- assign q_label = parts[1] | strip -%}
+            {%- comment -%} Prepared, dormant: see the note at the top of this file. {%- endcomment -%}
+            {%- if q_kind == 'group' -%}
+              <h4 class="pq-group">{{ q_label }}</h4>
+              {%- continue -%}
+            {%- endif -%}
+            {%- assign fname = pq_id | append: '-q' | append: forloop.index -%}
+            {%- comment -%} Every built-in question is required and none blocks the sale:
+                Fergal's decision, recorded in setup/old-site-questionnaires.md. {%- endcomment -%}
+            {%- render 'pharmacy-question-field', kind: q_kind, label: q_label, help: '',
+                options: nil, required: true, blocking: '', fname: fname -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for q in questionnaire.questions.value -%}
+            {%- assign q_kind = q.kind.value -%}
+            {%- assign required = true -%}
+            {%- if q.optional.value == true -%}{%- assign required = false -%}{%- endif -%}
+            {%- capture blocking -%}{{ q.blocking_answers.value | join: '||' }}{%- endcapture -%}
+            {%- assign fname = pq_id | append: '-q' | append: forloop.index -%}
+            {%- render 'pharmacy-question-field', kind: q_kind, label: q.label.value, help: q.help.value,
+                options: q.options.value, required: required, blocking: blocking, fname: fname -%}
+          {%- endfor -%}
+        {%- endif -%}
+
+        <input type="hidden" data-pq-version value="{{ pq_version }}">
+      </form>
+    </div>
+
+    {%- comment -%} Sticky footer. The submit button is outside the form and reaches it
+        with form=, so it stays on screen with eighteen questions above it. {%- endcomment -%}
+    <footer class="pq-foot">
       <div class="pq-blocked" data-pq-blocked hidden role="alert">
         Based on your answers, this medicine may not be safe for you. Please speak to our pharmacist before buying — call the pharmacy or use Ask a pharmacist. We cannot add it to your bag.
       </div>
-
-      <input type="hidden" data-pq-version value="{{ pq_version }}">
       {%- comment -%} Pre-payment disclosure. The pharmacist review happens AFTER payment,
           so the customer must know before they pay that the order can be refused and
           refunded. Kept next to the submit button, not buried. Wording is subject to
           pharmacist/client sign-off (see MAINTENANCE.md, "Pharmacist questionnaire"). {%- endcomment -%}
       <p class="pq-consent-note">You pay when you place your order. A registered pharmacist then reviews your answers before we dispense. If this medicine isn’t suitable for you, we won’t dispense it and you’ll be refunded in full.</p>
-      <button type="submit" class="btn btn-fill pq-submit" data-pq-submit>Submit &amp; add to bag</button>
+      <button type="submit" form="{{ pq_id }}-form" class="btn btn-fill pq-submit" data-pq-submit>Submit &amp; add to bag</button>
       <p class="pq-status" data-pq-status hidden></p>
-    </form>
+    </footer>
   </div>
 </div>
 
@@ -109,6 +142,10 @@
   const routes = window.mccRoutes || {};
   const addUrl = (routes.cart_add_url || '/cart/add') + '.js';
   const cartUrl = (routes.cart_url || '/cart') + '.js';
+
+  // The submit button, the status line and the blocked notice now live in the sticky
+  // footer, outside the form. Everything reaches them through the modal, not the form.
+  const modalOf = (el) => el.closest('[data-pq-modal]');
 
   const modalFor = (btn) => {
     const sec = btn.closest('[id^="pdp-"]') || document;
@@ -123,6 +160,7 @@
     // modality in iOS Safari, so the close X would wear a focus ring after a tap.
     const card = modal.querySelector('[role="dialog"]');
     if (card) card.focus();
+    refresh(modal.querySelector('[data-pq-form]'));
   };
   const close = (modal) => {
     modal.hidden = true;
@@ -134,12 +172,30 @@
     const opener = e.target.closest('[data-open-questionnaire]');
     if (opener) { e.preventDefault(); const m = modalFor(opener); if (m) open(m); return; }
     const closer = e.target.closest('[data-pq-close]');
-    if (closer) { const m = closer.closest('[data-pq-modal]'); if (m) close(m); }
+    if (closer) { const m = modalOf(closer); if (m) close(m); }
   });
+
+  // Everything focusable in the open modal, in DOM order. The first is always the
+  // close X and the last is always the submit button, which is what makes the Tab
+  // wrap below safe with radio groups: a group's internal tab order is the browser's
+  // business, and we only intervene at the two ends.
+  const tabbable = (m) => [...m.querySelectorAll(
+    'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+  )].filter((el) => !el.hidden && el.offsetParent !== null);
+
   document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
     const m = document.querySelector('[data-pq-modal]:not([hidden])');
-    if (m) close(m);
+    if (!m) return;
+    if (e.key === 'Escape') { close(m); return; }
+    if (e.key !== 'Tab') return;
+    const list = tabbable(m);
+    if (!list.length) return;
+    const first = list[0], last = list[list.length - 1];
+    // Focus escaped the card entirely (clicked the backdrop, or came from outside):
+    // pull it back rather than letting Tab land on the page behind.
+    if (!m.contains(document.activeElement)) { e.preventDefault(); first.focus(); return; }
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   });
 
   // yes_no_details: Yes reveals the free-text box, No hides it and drops what was typed,
@@ -179,7 +235,7 @@
       if (!r) return [];
       const d = q.querySelector('[data-pq-details-input]');
       const extra = d && d.value.trim();
-      return [extra ? r.value + ' \u2014 ' + extra : r.value];
+      return [extra ? r.value + ' — ' + extra : r.value];
     }
     if (kind === 'yes_no' || kind === 'choice') {
       const r = q.querySelector('input[type=radio]:checked');
@@ -201,9 +257,10 @@
   });
   const reblock = (form) => {
     if (!form) return;
+    const modal = modalOf(form);
     const blocked = isBlocked(form);
-    form.querySelector('[data-pq-blocked]').hidden = !blocked;
-    const submit = form.querySelector('[data-pq-submit]');
+    modal.querySelector('[data-pq-blocked]').hidden = !blocked;
+    const submit = modal.querySelector('[data-pq-submit]');
     submit.disabled = blocked;
     submit.style.opacity = blocked ? '.5' : '';
   };
@@ -231,10 +288,30 @@
     q.classList.toggle('pq-has-error', !!msg);
   };
 
+  // The tick on an answered question and the "X of N answered" counter in the header
+  // are the same fact, read from answersOf — a question half-answered (Yes with no
+  // detail) is not counted and wears no tick, because that is what the submit will say.
+  const refresh = (form) => {
+    if (!form) return;
+    const qs = [...form.querySelectorAll('[data-pq-q]')];
+    let done = 0;
+    qs.forEach((q) => {
+      const ok = answersOf(q).length > 0 && !faultOf(q);
+      q.classList.toggle('pq-answered', ok);
+      if (ok) { done += 1; setError(q, null); }
+    });
+    const prog = modalOf(form).querySelector('[data-pq-progress]');
+    if (prog) prog.textContent = done + ' of ' + qs.length + ' answered';
+    reblock(form);
+  };
+  document.addEventListener('change', (e) => { const f = e.target.closest('[data-pq-form]'); if (f) refresh(f); });
+  document.addEventListener('input', (e) => { const f = e.target.closest('[data-pq-form]'); if (f) refresh(f); });
+
   document.addEventListener('submit', async (e) => {
     const form = e.target.closest('[data-pq-form]');
     if (!form) return;
     e.preventDefault();
+    const modal = modalOf(form);
     if (isBlocked(form)) { reblock(form); return; }
 
     // Validate: every required question answered, and every Yes explained.
@@ -244,7 +321,15 @@
       setError(q, fault);
       if (fault && !firstBad) firstBad = q;
     });
-    if (firstBad) { firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    if (firstBad) {
+      // Focus first so assistive tech lands on the control and reads the message its
+      // aria-describedby points at; preventScroll so the browser's own jump does not
+      // fight the smooth scroll that follows.
+      const target = firstBad.querySelector('input:not([type=hidden]), textarea, select');
+      if (target) target.focus({ preventScroll: true });
+      firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
 
     // Answers become line-item properties, keyed and ordered as the pharmacist reads them.
     const props = {};
@@ -254,7 +339,7 @@
       props[(i + 1) + '. ' + q.dataset.label] = ans.join('; ');
     });
     // Hidden stamps (leading _ keeps them off the cart display, still on the order).
-    props._questionnaire = form.closest('[data-pq-modal]').querySelector('.pq-title').textContent.trim();
+    props._questionnaire = modal.querySelector('.pq-title').textContent.trim();
     const ver = form.querySelector('[data-pq-version]').value;
     if (ver) props._questionnaire_version = ver;
     props._answered_at = new Date().toISOString();
@@ -265,8 +350,8 @@
     const qtyInput = sec.querySelector('[data-pdp-qty]');
     const id = idInput && parseInt(idInput.value, 10);
     const quantity = Math.max(1, (qtyInput && parseInt(qtyInput.value, 10)) || 1);
-    const status = form.querySelector('[data-pq-status]');
-    const submit = form.querySelector('[data-pq-submit]');
+    const status = modal.querySelector('[data-pq-status]');
+    const submit = modal.querySelector('[data-pq-submit]');
     if (!id) { status.hidden = false; status.textContent = 'Please choose an option first.'; return; }
 
     submit.disabled = true; submit.textContent = 'Submitting…'; status.hidden = true;
@@ -285,7 +370,7 @@
       document.querySelectorAll('[data-cart-count]').forEach((el) => {
         el.textContent = cart.item_count; el.style.display = cart.item_count > 0 ? 'flex' : 'none';
       });
-      close(form.closest('[data-pq-modal]'));
+      close(modal);
       if (window.mccCartDrawer) { window.mccCartDrawer.render(cart); window.mccCartDrawer.open(); }
     } catch (err) {
       status.hidden = false; status.textContent = err.message;
@@ -294,6 +379,10 @@
       reblock(form);
     }
   });
+
+  // The counter has to be right before the modal is ever opened, for the case where
+  // a browser restores checked radios on a back navigation.
+  document.querySelectorAll('[data-pq-form]').forEach(refresh);
 })();
 </script>
 
@@ -301,32 +390,102 @@
   .pq-modal { position: fixed; inset: 0; z-index: 500; display: flex; align-items: center; justify-content: center; padding: 20px; }
   .pq-modal[hidden] { display: none; }
   .pq-backdrop { position: absolute; inset: 0; background: rgba(20,22,19,.55); }
+  /* A flex column: head and foot are the rows that don't scroll, .pq-body is the one
+     that does. On mobile the card IS the viewport (see the query at the end). */
   .pq-card {
-    position: relative; z-index: 1; width: min(560px, 100%); max-height: 88vh; overflow-y: auto;
-    background: #fff; border-radius: 18px; padding: 30px 30px 34px;
+    position: relative; z-index: 1; width: min(560px, 100%); max-height: 88vh;
+    display: flex; flex-direction: column;
+    background: #fff; border-radius: 18px;
     box-shadow: 0 24px 60px rgba(0,0,0,.28);
   }
   /* The card takes focus when the modal opens (see open() above), so it must not
      draw a ring of its own. */
   .pq-card:focus { outline: none; }
-  .pq-x { position: absolute; top: 16px; right: 16px; border: none; background: transparent; color: #3a3d39; cursor: pointer; padding: 4px; }
-  .pq-title { font-family: var(--font-heading); font-weight: 800; font-size: 22px; color: var(--c-primary-text); margin: 0 40px 8px 0; }
+
+  .pq-head {
+    flex: 0 0 auto; display: flex; align-items: flex-start; gap: 12px;
+    padding: 22px 24px 16px; border-bottom: 1px solid var(--c-border);
+    border-radius: 18px 18px 0 0; background: #fff;
+  }
+  .pq-head-text { flex: 1; min-width: 0; }
+  .pq-title { font-family: var(--font-heading); font-weight: 800; font-size: 21px; color: var(--c-primary-text); margin: 0; line-height: 1.25; }
+  .pq-head-product { font-size: 14px; font-weight: 700; color: var(--c-text); margin: 4px 0 0; line-height: 1.35; }
+  .pq-progress { font-size: 13px; font-weight: 700; color: var(--c-muted-2); margin: 6px 0 0; }
+  .pq-x {
+    flex: 0 0 auto; display: flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px; margin: -8px -8px 0 0;
+    border: none; background: transparent; color: #3a3d39; cursor: pointer; border-radius: 10px;
+  }
+  .pq-x:hover { background: #f4f5f2; }
+
+  .pq-body { flex: 1 1 auto; overflow-y: auto; padding: 20px 24px 8px; -webkit-overflow-scrolling: touch; }
   .pq-intro { font-size: 14.5px; line-height: 1.6; color: #4a4d47; margin: 0 0 22px; }
-  .pq-q { border: none; margin: 0 0 22px; padding: 0; }
-  .pq-q-label { font-weight: 700; font-size: 15px; color: #2A2B2A; padding: 0; margin-bottom: 10px; line-height: 1.45; }
+
+  .pq-foot {
+    flex: 0 0 auto; padding: 14px 24px 18px; border-top: 1px solid var(--c-border);
+    background: #fff; border-radius: 0 0 18px 18px;
+  }
+
+  /* position:relative is the ground for the answered tick below. */
+  .pq-q { position: relative; border: none; margin: 0 0 22px; padding: 0; }
+  .pq-q-label { font-weight: 700; font-size: 15px; color: #2A2B2A; padding: 0 30px 0 0; margin-bottom: 10px; line-height: 1.45; }
   .pq-optional { font-weight: 500; color: #767a70; }
   .pq-help { font-size: 13px; color: #767a70; margin: 0 0 8px; }
+  /* Prepared, not emitted by any set yet — see the comment at the top of this file. */
+  .pq-group {
+    font-family: var(--font-heading); font-weight: 800; font-size: 15px; color: var(--c-dark);
+    margin: 28px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--c-border);
+    text-transform: uppercase; letter-spacing: .05em;
+  }
+  .pq-group:first-child { margin-top: 0; }
+
+  /* The answered tick. content:'' with a background image, so there is no text for a
+     screen reader to read out — the header counter is the spoken equivalent. */
+  .pq-answered::after {
+    content: ''; position: absolute; top: 0; right: 0; width: 20px; height: 20px;
+    border-radius: 999px; background: var(--c-tint) center/11px 11px no-repeat;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2353820D' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  }
+
   .pq-fields { display: flex; flex-direction: column; gap: 9px; }
-  .pq-opt { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; line-height: 1.45; color: #2A2B2A; cursor: pointer; }
-  .pq-opt input { margin-top: 3px; flex: 0 0 auto; }
-  .pq-details { margin: 4px 0 0 26px; }
+  /* Every option row clears a 44px target; Yes/No clears 52px. */
+  .pq-opt { display: flex; gap: 10px; align-items: flex-start; min-height: 44px; padding: 10px 0; font-size: 14.5px; line-height: 1.45; color: #2A2B2A; cursor: pointer; }
+  .pq-opt input { margin-top: 2px; flex: 0 0 auto; width: 18px; height: 18px; accent-color: var(--c-primary-text); }
+
+  /* Yes / No as two large side-by-side buttons. The button is the radio's own label
+     and the radio is still inside it, so this is styling, not a second control:
+     a browser without :has() loses the fill but still shows the checked dot. */
+  .pq-yn { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pq-yn-opt {
+    align-items: center; justify-content: center; min-height: 52px; padding: 10px 14px;
+    border: 1.5px solid var(--c-border-2); border-radius: 12px; background: #fff;
+    font-weight: 700; font-size: 16px;
+  }
+  .pq-yn-opt input { margin-top: 0; }
+  .pq-yn-opt:hover { border-color: var(--c-accent); background: #f6faf0; }
+  .pq-yn-opt:has(input:checked) { border-color: var(--c-primary-text); box-shadow: inset 0 0 0 1px var(--c-primary-text); background: var(--c-tint); color: var(--c-dark); }
+  .pq-yn-opt:has(input:focus-visible) { outline: 2px solid var(--c-dark); outline-offset: 2px; }
+
+  .pq-details { margin: 4px 0 0; }
   .pq-details[hidden] { display: none; }
   .pq-details-label { display: block; font-size: 13.5px; color: #4a4d47; margin-bottom: 6px; }
   .pq-text { width: 100%; border: 1.5px solid #dfe1dc; border-radius: 10px; padding: 10px 12px; font: inherit; }
-  .pq-error { color: #B3261E; font-size: 13px; margin: 8px 0 0; font-weight: 600; }
-  .pq-has-error .pq-q-label { color: #B3261E; }
-  .pq-blocked { background: #fbeceb; color: #8a1f18; border-radius: 12px; padding: 14px 16px; font-size: 14px; line-height: 1.55; font-weight: 600; margin: 4px 0 20px; }
-  .pq-consent-note { font-size: 13px; line-height: 1.55; color: #4a4d47; background: #f4f5f2; border-radius: 10px; padding: 12px 14px; margin: 4px 0 14px; }
+  .pq-error { color: var(--c-error); font-size: 13px; margin: 8px 0 0; font-weight: 600; }
+  .pq-has-error .pq-q-label { color: var(--c-error); }
+  .pq-has-error .pq-yn-opt { border-color: var(--c-error); }
+  .pq-blocked { background: #fbeceb; color: #8a1f18; border-radius: 12px; padding: 14px 16px; font-size: 14px; line-height: 1.55; font-weight: 600; margin: 0 0 12px; }
+  .pq-consent-note { font-size: 13px; line-height: 1.55; color: #4a4d47; background: #f4f5f2; border-radius: 10px; padding: 12px 14px; margin: 0 0 12px; }
   .pq-submit { width: 100%; }
-  .pq-status { color: #B3261E; font-size: 14px; font-weight: 600; margin: 12px 0 0; text-align: center; }
+  .pq-status { color: var(--c-error); font-size: 14px; font-weight: 600; margin: 12px 0 0; text-align: center; }
+
+  /* Phone: the card is the screen. No backdrop to tap around, so the close X and
+     Escape are the two ways out, which is why the header never scrolls away. */
+  @media (max-width: 640px) {
+    .pq-modal { padding: 0; }
+    .pq-card { width: 100%; height: 100%; max-height: none; border-radius: 0; }
+    .pq-head, .pq-foot { border-radius: 0; }
+    .pq-head { padding: 16px 16px 12px; }
+    .pq-body { padding: 16px 16px 8px; }
+    .pq-foot { padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); }
+  }
 {% endstyle %}

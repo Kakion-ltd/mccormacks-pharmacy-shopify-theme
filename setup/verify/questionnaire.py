@@ -194,6 +194,93 @@ with sync_playwright() as pw:
     check("[none] not the fail-closed notice", nq.locator("[data-gated-unavailable]").count(), 0)
     nq.close()
 
+    # 8. The modal's own usability, added 1 Oct 2026. These are not the gate — the gate
+    # is checks 1-7 — but they are the difference between a gate someone can get
+    # through and one they abandon, which on a medicine is the same lost sale either
+    # way. Run on the 18-question set, where every one of them actually bites.
+    ux = ctx.new_page()
+    ux.goto(BASE + "/products/questions-ed", wait_until="networkidle")
+    opener = ux.locator("[data-gated-buybox] [data-open-questionnaire]")
+    check("the button names the real number of questions",
+          opener.inner_text().strip(), "Answer 18 health questions")
+    opener.scroll_into_view_if_needed()
+    opener.click()
+    ux.wait_for_timeout(250)
+
+    # Header counter and the tick are the same fact, read from the answers.
+    check("counter starts at none answered",
+          ux.locator("[data-pq-progress]").inner_text().strip(), "0 of 18 answered")
+    ux.evaluate("""() => {
+      [...document.querySelectorAll('[data-pq-q]')].slice(0, 2).forEach(q => {
+        const y = [...q.querySelectorAll('input')].find(i => i.value === 'Yes');
+        y.checked = true; y.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+    }""")
+    check("counter follows the answers",
+          ux.locator("[data-pq-progress]").inner_text().strip(), "2 of 18 answered")
+    check("answered questions wear a tick", ux.locator(".pq-q.pq-answered").count(), 2)
+
+    # Head and foot do not scroll away, so the count and the submit stay reachable
+    # eighteen questions down.
+    ux.evaluate("document.querySelector('[data-pq-body]').scrollTop = 4000")
+    ux.wait_for_timeout(150)
+    check("header stays put while the questions scroll", ux.locator(".pq-head").is_visible())
+    check("submit stays put while the questions scroll", ux.locator("[data-pq-submit]").is_visible())
+
+    # Submitting with gaps: the first unanswered question is scrolled to AND focused,
+    # and the message it shows is the one its inputs point at with aria-describedby.
+    ux.locator("[data-pq-submit]").click()
+    ux.wait_for_timeout(400)
+    check("focus lands on the first unanswered question", ux.evaluate("""() => {
+      const q = document.activeElement.closest('[data-pq-q]');
+      return q ? [...document.querySelectorAll('[data-pq-q]')].indexOf(q) : -1; }"""), 2)
+    check("it says what is wrong",
+          ux.locator("[data-pq-error]:visible").first.inner_text().strip(),
+          "Please answer this question.")
+    check("the message is wired to the inputs with aria-describedby", ux.evaluate("""() => {
+      const i = document.querySelector('[data-pq-q] input');
+      return (i.getAttribute('aria-describedby') || '').split(' ')
+        .some(id => document.getElementById(id)); }"""))
+
+    # Focus trap. The first focusable in the card is the close X and the last is the
+    # submit button, so a wrap in either direction proves nothing escapes to the page.
+    ux.evaluate("document.querySelector('[data-pq-submit]').focus()")
+    ux.keyboard.press("Tab")
+    check("Tab past the submit wraps to the close button",
+          ux.evaluate("document.activeElement.classList.contains('pq-x')"))
+    ux.keyboard.press("Shift+Tab")
+    check("Shift+Tab off the close button wraps to the submit",
+          ux.evaluate("document.activeElement.hasAttribute('data-pq-submit')"))
+
+    # Every option is a 44px target; Yes/No is 52.
+    check("no option row is under a 44px tap target", ux.evaluate("""() => Math.min(
+      ...[...document.querySelectorAll('.pq-opt')].map(e => e.getBoundingClientRect().height)) >= 44"""))
+
+    # Escape closes it and hands focus back to the button that opened it.
+    ux.keyboard.press("Escape")
+    ux.wait_for_timeout(200)
+    check("Escape closes the modal", ux.locator("[data-pq-modal]").is_hidden())
+    check("focus returns to the button that opened it",
+          ux.evaluate("!!document.activeElement.closest('[data-open-questionnaire]')"))
+
+    # Section headings are prepared and dormant. This asserts the dormancy: the day a
+    # set starts emitting group:: lines, this check fails and whoever did it has to
+    # come back here and say so. The counter above is the thing at risk — a heading
+    # that got counted as a question would put "0 of 22" on an 18-question set.
+    check("no set emits a section heading yet", ux.locator(".pq-group").count(), 0)
+    ux.close()
+
+    # The gated page is full screen on a phone, a centred panel on the desktop.
+    for vw, want_full in ((375, True), (1200, False)):
+        mp = b.new_context(viewport={"width": vw, "height": 812}).new_page()
+        mp.goto(BASE + "/products/questions-ed", wait_until="networkidle")
+        mp.evaluate("document.querySelector('[data-open-questionnaire]').click()")
+        mp.wait_for_timeout(250)
+        box = mp.locator(".pq-card").bounding_box()
+        check(f"[{vw}px] the card {'fills the screen' if want_full else 'is a centred panel'}",
+              box["width"] >= vw - 1, want_full)
+        mp.close()
+
     b.close()
 
 bad = [r for r in results if not r[0]]

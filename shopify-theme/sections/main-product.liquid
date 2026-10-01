@@ -64,9 +64,25 @@
     {%- if pq_set == 'ed' or pq_set == 'default' -%}
       {%- assign is_gated = true -%}
       {%- assign gate_ready = true -%}
+      {%- comment -%} The button names the real number of questions, so the count has to
+          come from the set rather than a word like "a few". `group::` items are section
+          headings, not questions (snippets/pharmacy-questionnaire, "SECTION HEADINGS"),
+          so they are skipped here too — otherwise turning grouping on would silently
+          inflate the number on the button. {%- endcomment -%}
+      {%- capture pq_raw -%}{%- render 'pharmacy-question-set', set: pq_set -%}{%- endcapture -%}
+      {%- assign question_count = 0 -%}
+      {%- assign pq_items = pq_raw | strip | split: '||' -%}
+      {%- for pq_item in pq_items -%}
+        {%- assign pq_kind = pq_item | strip | split: '::' | first -%}
+        {%- unless pq_kind == 'group' -%}{%- assign question_count = question_count | plus: 1 -%}{%- endunless -%}
+      {%- endfor -%}
     {%- endif -%}
   {%- endif -%}
 {%- endunless -%}
+
+{%- comment -%} One label for both add buttons (buy box and mobile bar) and for the
+    variant-change handler, so the three cannot drift. {%- endcomment -%}
+{%- capture gate_label -%}Answer {{ question_count }} health question{% unless question_count == 1 %}s{% endunless %}{%- endcapture -%}
 
 {%- comment -%} The most specific collection this product belongs to. Shopify's
     product.collections ordering is arbitrary, so .first was picking a department as
@@ -397,7 +413,7 @@
             <div class="pdp-addbag" style="display:flex; gap:12px; align-items:stretch; margin-bottom:18px;">
               {{ qty_stepper }}
               <button type="button" data-pdp-submit data-open-questionnaire aria-haspopup="dialog" class="btn btn-fill" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:11px; letter-spacing:.04em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
-                {%- if current_variant.available %}ANSWER A FEW QUESTIONS{% else %}OUT OF STOCK{% endif -%}
+                {%- if current_variant.available %}{{ gate_label }}{% else %}OUT OF STOCK{% endif -%}
               </button>
             </div>
             {% render 'wishlist-button', product: product, style: 'text' %}
@@ -526,7 +542,7 @@
     {%- elsif gate_ready -%}
       <button type="button" data-open-questionnaire aria-haspopup="dialog" class="btn btn-fill" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:10px; letter-spacing:.04em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-        <span>{%- if current_variant.available %}ANSWER A FEW QUESTIONS{% else %}OUT OF STOCK{% endif -%}</span>
+        <span data-buybar-label>{%- if current_variant.available %}{{ gate_label }}{% else %}OUT OF STOCK{% endif -%}</span>
       </button>
     {%- else -%}
       {%- comment -%} Fail closed on mobile too: a disabled button, never a working add. {%- endcomment -%}
@@ -677,9 +693,13 @@
     // state, not a flavour of sold out, and it used to leave the sticky mobile bar
     // untouched: the handler returned early, so the bar kept the last valid variant
     // id, stayed enabled and added a different product without saying anything.
+    // On a gated product [data-pdp-submit] is the questionnaire opener, not an add
+    // button, so relabelling it 'ADD TO BAG' on a variant change left a button that
+    // said one thing and did another. The available label follows the gate.
+    const addLabel = {% if is_gated %}{{ gate_label | json }}{% else %}'ADD TO BAG'{% endif %};
     const setBuy = (v) => {
       const live = !!v && v.available;
-      const label = !v ? 'UNAVAILABLE' : v.available ? 'ADD TO BAG' : 'OUT OF STOCK';
+      const label = !v ? 'UNAVAILABLE' : v.available ? addLabel : 'OUT OF STOCK';
       if (idInput) { idInput.disabled = !v; if (v) idInput.value = v.id; }
       if (submit) { submit.disabled = !live; submit.style.opacity = live ? '' : '.55'; submit.textContent = label; }
       if (buybarAdd) {

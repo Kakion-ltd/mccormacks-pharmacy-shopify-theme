@@ -9,6 +9,17 @@
   yes_no_details is the only kind with no metaobject equivalent: a Yes/No pair whose
   Yes reveals a free-text box. Added 30 Sep 2026 for "Are you taking any other
   medication?", which the pharmacist needs the detail of, not just the Yes.
+
+  Yes/No is drawn as two large side-by-side buttons (1 Oct 2026). The button IS the
+  native radio's label and the radio itself is still in it, visible and focusable —
+  there is no second control and no ARIA. Keyboard, arrow keys and the screen-reader
+  radio group all come free, and a browser without :has() still shows the checked dot
+  rather than losing the selected state. Minimum target is 52px; every other option
+  row is 44px. See .pq-yn in snippets/pharmacy-questionnaire.liquid.
+
+  Every input points at its own error paragraph with aria-describedby. A `hidden`
+  element is skipped by assistive tech, so the message is announced only once the
+  question is actually in error.
 {%- endcomment -%}
 <fieldset class="pq-q" data-pq-q data-kind="{{ kind }}" data-label="{{ label | escape }}" data-required="{{ required }}" data-blocking="{{ blocking | escape }}">
   {%- comment -%} A confirm question's statement IS its tick-box label, so printing it as a
@@ -16,35 +27,40 @@
   {%- unless kind == 'confirm' -%}
     <legend class="pq-q-label">{{ label }}{%- unless required %} <span class="pq-optional">(optional)</span>{%- endunless -%}</legend>
   {%- endunless -%}
-  {%- if help != blank -%}<p class="pq-help">{{ help }}</p>{%- endif -%}
+  {%- if help != blank -%}<p class="pq-help" id="{{ fname }}-help">{{ help }}</p>{%- endif -%}
+  {%- assign described = fname | append: '-help ' | append: fname | append: '-err' -%}
   <div class="pq-fields">
     {%- case kind -%}
       {%- when 'yes_no' -%}
-        <label class="pq-opt"><input type="radio" name="{{ fname }}" value="Yes"> Yes</label>
-        <label class="pq-opt"><input type="radio" name="{{ fname }}" value="No"> No</label>
+        <div class="pq-yn">
+          <label class="pq-opt pq-yn-opt"><input type="radio" name="{{ fname }}" value="Yes" aria-describedby="{{ described }}"> Yes</label>
+          <label class="pq-opt pq-yn-opt"><input type="radio" name="{{ fname }}" value="No" aria-describedby="{{ described }}"> No</label>
+        </div>
       {%- when 'yes_no_details' -%}
-        <label class="pq-opt"><input type="radio" name="{{ fname }}" value="Yes"> Yes</label>
-        <label class="pq-opt"><input type="radio" name="{{ fname }}" value="No"> No</label>
+        <div class="pq-yn">
+          <label class="pq-opt pq-yn-opt"><input type="radio" name="{{ fname }}" value="Yes" aria-describedby="{{ described }}"> Yes</label>
+          <label class="pq-opt pq-yn-opt"><input type="radio" name="{{ fname }}" value="No" aria-describedby="{{ described }}"> No</label>
+        </div>
         <div class="pq-details" data-pq-details hidden>
           <label class="pq-details-label" for="{{ fname }}-details">Please tell the pharmacist which ones</label>
-          <textarea class="pq-text" id="{{ fname }}-details" name="{{ fname }}-details" rows="2" data-pq-details-input></textarea>
+          <textarea class="pq-text" id="{{ fname }}-details" name="{{ fname }}-details" rows="2" data-pq-details-input aria-describedby="{{ described }}"></textarea>
         </div>
       {%- when 'choice' -%}
         {%- for opt in options -%}
-          <label class="pq-opt"><input type="radio" name="{{ fname }}" value="{{ opt | escape }}"> {{ opt }}</label>
+          <label class="pq-opt"><input type="radio" name="{{ fname }}" value="{{ opt | escape }}" aria-describedby="{{ described }}"> {{ opt }}</label>
         {%- endfor -%}
       {%- when 'multi' -%}
         {%- for opt in options -%}
-          <label class="pq-opt"><input type="checkbox" name="{{ fname }}" value="{{ opt | escape }}"> {{ opt }}</label>
+          <label class="pq-opt"><input type="checkbox" name="{{ fname }}" value="{{ opt | escape }}" aria-describedby="{{ described }}"> {{ opt }}</label>
         {%- endfor -%}
-        <label class="pq-opt"><input type="checkbox" name="{{ fname }}" value="None of the above" data-pq-none> None of the above</label>
+        <label class="pq-opt"><input type="checkbox" name="{{ fname }}" value="None of the above" data-pq-none aria-describedby="{{ described }}"> None of the above</label>
       {%- when 'confirm' -%}
-        <label class="pq-opt pq-confirm"><input type="checkbox" name="{{ fname }}" value="I confirm"> {{ label }}</label>
+        <label class="pq-opt pq-confirm"><input type="checkbox" name="{{ fname }}" value="I confirm" aria-describedby="{{ described }}"> {{ label }}</label>
       {%- when 'short_text' -%}
-        <input type="text" class="pq-text" name="{{ fname }}">
+        <input type="text" class="pq-text" name="{{ fname }}" aria-describedby="{{ described }}">
       {%- when 'long_text' -%}
-        <textarea class="pq-text" name="{{ fname }}" rows="3"></textarea>
+        <textarea class="pq-text" name="{{ fname }}" rows="3" aria-describedby="{{ described }}"></textarea>
     {%- endcase -%}
   </div>
-  <p class="pq-error" data-pq-error hidden>Please answer this question.</p>
+  <p class="pq-error" id="{{ fname }}-err" data-pq-error hidden>Please answer this question.</p>
 </fieldset>
