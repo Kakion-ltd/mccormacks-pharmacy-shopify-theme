@@ -70,11 +70,11 @@
         "default": "info@mccormackspharmacy.ie"
       },
       {
-        "type": "number",
+        "type": "text",
         "id": "free_shipping_threshold",
         "label": "Free delivery threshold (EUR)",
-        "default": 65,
-        "info": "Used by the cart, the bag drawer and every 'free delivery over' line on the site. Write [threshold] in the announcement bar or a collection FAQ answer to print this amount there too."
+        "default": "54.99",
+        "info": "Used by the cart, the bag drawer and every 'free delivery over' line on the site. Write [threshold] in the announcement bar or a collection FAQ answer to print this amount there too. Digits only, with a point for the decimal — 54.99, not €54.99 and not 54,99. Must match the minimum on the free-shipping discount under Discounts."
       }
     ]
   },

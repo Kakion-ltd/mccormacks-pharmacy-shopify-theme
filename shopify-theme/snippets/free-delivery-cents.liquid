@@ -1,0 +1,30 @@
+{%- comment -%}
+  The free delivery threshold in integer cents, from the one setting that defines it.
+  Every other use of the threshold goes through this: free-delivery-amount renders it
+  for display, and the cart page and bag drawer size their progress bars from it.
+
+  Why the setting is text and not a number. Shopify's `number` setting type cannot hold
+  a decimal: it silently rounded 54.99 to 55, so the whole site read "free delivery over
+  €55" while the policy and the Shopify discount both said €54.99. A text setting can
+  hold it; the cost is that a merchant can type anything, which is what this snippet is
+  for. It was typed `number` until 1 Oct 2026 precisely because, as text, "€65" used to
+  evaluate to zero — so the sanitising below is not optional, it is the reason the type
+  change is safe.
+
+  remove '€' and ',' and strip: "€54.99" and " 54.99 " both parse. Use a point for the
+  decimal; a comma decimal ("54,99") would read as 5499 and is called out in the
+  setting's own help text.
+
+  times: 100 then round: 54.99 * 100 is 5498.999999999999 in floating point, and the
+  live money filter rounds that to the whole euro. Rounding here makes the cents
+  integral before anything formats or divides by them.
+
+  at_least: 100 is load-bearing twice over. The cart page divides by this value, so 0
+  would throw. And it is 100 rather than 1 because a 1-cent threshold means free
+  delivery on every order — a typo that gives away delivery is worse than one that
+  throws, so the floor is €1, which is what the number setting's at_least: 1 meant.
+
+  Usage: {%- capture fd_cents -%}{%- render 'free-delivery-cents' -%}{%- endcapture -%}
+         {%- assign threshold = fd_cents | plus: 0 -%}
+{%- endcomment -%}
+{{- settings.free_shipping_threshold | remove: '€' | remove: ',' | strip | times: 100 | round | at_least: 100 -}}

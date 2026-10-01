@@ -6,7 +6,8 @@
   The design's "Save for later" link has no Shopify equivalent and is omitted.
 {%- endcomment -%}
 
-{%- assign free_delivery_threshold = settings.free_shipping_threshold | at_least: 1 | times: 100 | round -%}
+{%- capture fd_cents -%}{%- render 'free-delivery-cents' -%}{%- endcapture -%}
+{%- assign free_delivery_threshold = fd_cents | plus: 0 -%}
 
 {%- comment -%}
   Free delivery is not available on a bag holding a sale or special-offer item, so

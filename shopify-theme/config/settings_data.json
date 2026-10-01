@@ -5,7 +5,7 @@
   "color_dark": "#3F6B4F",
   "color_accent": "#92C83F",
   "phone": "052 6199329",
-  "free_shipping_threshold": 54.99,
+  "free_shipping_threshold": "54.99",
   "restricted_tag": "pharmacist-review",
   "button_text_white": "auto",
   "google_maps_key": "AIzaSyAZU7msIVA9SwXHWhEf7RTfgdux3zJVd74"

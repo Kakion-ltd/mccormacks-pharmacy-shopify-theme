@@ -750,11 +750,44 @@ on advertising the old figure.
   collection banner text and collection descriptions — uses the token
   `[threshold]`, which the theme replaces at render time. Anyone writing new
   copy in the theme editor should type `[threshold]`, not a number.
-- **Maths** (the cart page and drawer progress bars) reads
-  `settings.free_shipping_threshold | at_least: 1 | times: 100`. The
-  `at_least: 1` is load-bearing: the cart page divides by it, so a merchant
-  entering `0` would otherwise throw a Liquid error. The setting is typed
-  `number` for the same reason — as text, `€65` silently evaluated to zero.
+- **Maths** (the cart page and drawer progress bars) renders
+  `snippets/free-delivery-cents.liquid`, which is the only place the setting is
+  parsed. Capture it and coerce with `plus: 0`; never multiply the setting
+  again in a second place.
+
+### The threshold is a text setting, and why (1 Oct 2026)
+
+It was typed `number` until the client moved the threshold to €54.99, at which
+point the site started reading "free delivery over €55" everywhere while the
+shipping policy and the Shopify discount both said €54.99. **Shopify's `number`
+setting type cannot hold a decimal — it rounded 54.99 to 55**, in the stored
+value, so no amount of filtering downstream could recover it. `data-cd-threshold`
+rendered `5500`.
+
+The first attempt at a fix added `| round` to the money filter chain, on the
+theory that `54.99 * 100` being `5498.999999999999` was to blame. That was the
+wrong diagnosis: the float is real, but the setting had already been rounded to
+55 before any filter saw it. Finding the real cause took reading
+`data-cd-threshold` on the live page — the preview harness's money filter does
+not round the way Shopify's does, so the preview showed €54.99 and the bug
+reached the live theme with a green suite.
+
+So the setting is `text`, and **the sanitising in `free-delivery-cents.liquid`
+is what makes that safe**. The reason the type was `number` in the first place
+is still true: as text, `€65` evaluates to zero, and zero means free delivery on
+every order with nothing failing anywhere. That snippet strips `€`, strips
+thousands commas, strips whitespace, rounds the cents, and floors the result at
+100 — €1, the same floor `at_least: 1` gave the number setting. One cent would
+be worse than an error, because it gives delivery away silently.
+
+Two things guard it. `setup/test_liquid.mjs` parses the inputs that have been
+typed into this field or are one slip from it (`€65`, `  54.99  `, `1,250`, `0`,
+`free`, empty). `check.mjs` fails the upload if the setting stops being `text`
+or if the sanitising is weakened — reverting the type would otherwise be
+invisible, since the theme editor would simply show 55.
+
+Write digits and a point: `54.99`, not `€54.99` and not `54,99`. It must match
+the minimum on the free-shipping discount under Discounts.
 
 ### Checking it after a change
 

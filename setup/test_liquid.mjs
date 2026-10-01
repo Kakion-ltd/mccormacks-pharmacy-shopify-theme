@@ -1,9 +1,12 @@
 /* Unit checks for the two snippets whose logic is a correctness rule rather
    than markup, and whose wrong branch fails silently:
 
-     absolute-url       — a relative URL in JSON-LD invalidates the rich result
-     product-restricted — a missed match puts a pharmacist-only medicine behind
-                          a one-click add
+     absolute-url        — a relative URL in JSON-LD invalidates the rich result
+     product-restricted  — a missed match puts a pharmacist-only medicine behind
+                           a one-click add
+     free-delivery-cents — the free delivery threshold is a TEXT setting, so a
+                           merchant can type anything into it. Parse it to 0 and
+                           every order ships free, with nothing failing anywhere
 
    Both are pure: input in, string out. The full preview render cannot cover
    them, because the mock catalogue only ever produces one of the three URL
@@ -352,5 +355,26 @@ check('gift vouchers rail: the theme editor gets a note instead',
   gvRail(null, true).includes('is hidden'), true);
 check('gift vouchers rail: a published product is drawn',
   gvRail({ products: [onSale] }).includes('Voduz Test Bundle'), true);
+
+// free-delivery-cents: the threshold is a text setting since 1 Oct 2026, because
+// Shopify's number type rounded 54.99 to 55. Text means a merchant can type a
+// currency symbol, a stray space, or nonsense, and the failure is silent and
+// expensive: 0 cents means free delivery on every order. These are the inputs that
+// have actually been typed into this field or are one slip away from it.
+const cents = (v) => render('free-delivery-cents', { settings: { free_shipping_threshold: v } });
+
+check('threshold: a plain decimal parses to cents', cents('54.99'), '5499');
+check('threshold: a whole number parses to cents', cents('60'), '6000');
+check('threshold: a currency symbol is stripped, not read as zero', cents('€65'), '6500');
+check('threshold: surrounding spaces are stripped', cents('  54.99  '), '5499');
+check('threshold: a thousands comma is stripped', cents('1,250'), '125000');
+// The floor, not a rounding: 0 would throw where the cart divides by it, and 1 cent
+// would quietly give delivery away. €1 is the same floor the number setting had.
+check('threshold: zero falls back to the €1 floor', cents('0'), '100');
+check('threshold: empty falls back to the €1 floor', cents(''), '100');
+check('threshold: nonsense falls back to the €1 floor', cents('free'), '100');
+// 54.99 * 100 is 5498.999999999999 in floating point. Unrounded, the live money
+// filter showed €55 and theme.js parseInt'd it to 5498.
+check('threshold: the float is rounded, not truncated', cents('54.99'), '5499');
 
 console.log(`${passed}/${passed} liquid snippet checks passed`);

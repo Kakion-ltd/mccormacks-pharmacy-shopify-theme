@@ -160,6 +160,30 @@ for (const [f, needle, why] of FREE_DELIVERY_GUARD) {
     uploadErrors++;
   }
 }
+// The free delivery threshold must stay a TEXT setting. Shopify's `number` type cannot
+// hold a decimal: it rounded 54.99 to 55, so every "free delivery over" line on the site
+// read €55 while the shipping policy and the Shopify discount both said €54.99. Reverting
+// the type would bring that back silently -- the theme editor would simply show 55 and
+// nothing would fail. Text is only safe because free-delivery-cents sanitises it, so both
+// halves are checked here: the type, and the parse that makes the type safe.
+{
+  const schema = readFileSync(join(root, 'config/settings_schema.json'), 'utf8');
+  const m = schema.match(/\{[^{}]*"id":\s*"free_shipping_threshold"[^{}]*\}/s);
+  if (!m) {
+    console.log('ERROR  /config/settings_schema.json  ThresholdSettingMissing  no free_shipping_threshold setting');
+    uploadErrors++;
+  } else if (!/"type":\s*"text"/.test(m[0])) {
+    console.log('ERROR  /config/settings_schema.json  ThresholdNotText  free_shipping_threshold is not type text: a number setting rounds 54.99 to 55');
+    uploadErrors++;
+  }
+  const cents = readFileSync(join(root, 'snippets/free-delivery-cents.liquid'), 'utf8');
+  for (const needle of ["remove: '€'", 'times: 100', 'round', 'at_least: 100']) {
+    if (!cents.includes(needle)) {
+      console.log(`ERROR  /snippets/free-delivery-cents.liquid  ThresholdParseWeakened  no "${needle}": a text threshold needs sanitising, or "€65" evaluates to zero`);
+      uploadErrors++;
+    }
+  }
+}
 // The promo label ("3 for €10", "While stocks last") is a product metafield. It used to
 // be on three of seven hand-copied cards; four of those copies are now the one shared
 // card, so these three files are every surface that can show it: the shared card, the

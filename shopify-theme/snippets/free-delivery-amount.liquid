@@ -2,20 +2,21 @@
   The free delivery threshold, formatted, from the one setting that defines it.
 
   Every "free delivery over X" line on the site renders this, so the number can
-  only ever be changed in one place: Brand > Free delivery threshold. The cart
-  page and the bag drawer compute their progress bars from the same setting.
+  only ever be changed in one place: Brand > Free delivery threshold.
 
-  at_least: 1 guards the cart page, which divides by the threshold to size its
-  progress bar — a merchant typing 0 would otherwise divide by zero.
+  The parsing and the cents live in free-delivery-cents, which the cart page and
+  the bag drawer also render — this snippet only formats. It deliberately does no
+  arithmetic of its own: it used to repeat `times: 100`, and when the threshold
+  gained decimals that became a second place to get the rounding right.
 
-  round is not cosmetic. A decimal threshold makes `times: 100` a float: 54.99 * 100
-  is 5498.999999999999, and the live Shopify money filter rounds that to the whole
-  euro, so the site read "orders over €55" while the policy and the discount both
-  said €54.99. The preview harness's money filter does not do this, so it rendered
-  €54.99 and the bug reached the live theme green. round makes the cents integral
-  before any money filter sees them. cart-drawer and main-cart do the same for the
-  same reason.
+  money vs money_without_trailing_zeros is decided on the cents, not left to the
+  filter. A whole-euro threshold reads "€60" rather than "€60.00", and a decimal
+  one reads "€54.99" rather than being rounded to "€55" — which is what the site
+  showed for as long as the setting was a `number`.
 
   Usage: {% render 'free-delivery-amount' %}
 {%- endcomment -%}
-{{- settings.free_shipping_threshold | at_least: 1 | times: 100 | round | money_without_trailing_zeros -}}
+{%- capture fd_cents -%}{%- render 'free-delivery-cents' -%}{%- endcapture -%}
+{%- assign fd_c = fd_cents | plus: 0 -%}
+{%- assign fd_rem = fd_c | modulo: 100 -%}
+{%- if fd_rem == 0 -%}{{- fd_c | money_without_trailing_zeros -}}{%- else -%}{{- fd_c | money -}}{%- endif -%}
