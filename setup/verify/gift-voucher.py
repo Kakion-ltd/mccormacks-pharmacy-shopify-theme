@@ -13,7 +13,8 @@ enabled — so they need a browser.
      the buyer.
   4. There are exactly two methods. "Printed and posted" was removed on 1 Oct 2026
      (client decision, vouchers are online only), so nothing on the page collects a
-     postal address, offers to post anything, or says the word.
+     postal address, offers to post anything, or says the word. The page also makes
+     no claim about vouchers sold in the shops, in either direction.
   5. The date is two radios and a native input: `Send now` leaves it disabled so
      nothing is posted, `Pick a date` enables it between today and Shopify's 90-day
      ceiling. Switching method must not leave a `Send on` on a printed voucher.
@@ -186,9 +187,21 @@ with sync_playwright() as pw:
                                   "els => els.map(e => e.value)"), ["By email", "Sent to me"])
     # Copy, not just controls. The hero, the method intro, two How-it-works cards, the
     # About paragraph and two FAQ answers all described a posted voucher.
+    #
+    # "in store" and "at the counter" joined the list on 1 Oct 2026: the page may make
+    # no claim about vouchers sold in the shops, in either direction. The FAQ's "It
+    # can't be used in our shops" is deliberately phrased to say where this voucher
+    # works without saying what the counter sells, and does not trip either word.
+    #
+    # The nav's "In-Store Services" is hyphenated, so it does not match "in store" —
+    # if that ever changes, this check fails on the header rather than on this page,
+    # and the word list is where to look.
     body = pg.inner_text("body").lower()
-    for word in ["printed", "posted", "post it", "in a card", "postal"]:
+    for word in ["printed", "posted", "post it", "in a card", "postal",
+                 "in store", "at the counter"]:
         check(f"the page never says {word!r}", word not in body)
+    check("no 'Prefer to buy in store?' aside",
+          "prefer to buy" not in body)
 
     # The date belongs to By email alone. Choosing a date and THEN switching method must
     # not leave a Send on behind — applyMethod enables every input its method owns,

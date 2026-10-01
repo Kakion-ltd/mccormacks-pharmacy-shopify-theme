@@ -1783,13 +1783,27 @@ actually meets.
 store" and now says online. The Gifting session landed the identical change as
 `e167fe1` while this branch was in the queue; the rebase dropped the duplicate.
 
-**Two "in store" claims are deliberately still on the voucher page**: the "Prefer to
-buy in store?" aside and the FAQ answer on where a voucher can be spent. Both say the
-*shops sell their own separate vouchers*, which is a different claim and one the
-client has not contradicted — the Gifting banner was wrong because it implied
-*this* voucher is sold in store. If the decision also means the shops no longer sell
-vouchers, those two need to go and the FAQ answer needs rewriting, because it
-currently tells customers to buy a counter voucher for in-store spending.
+**The page now makes no claim about vouchers sold in the shops, in either direction**
+(client, 1 Oct 2026, a few hours after the above). Three places did:
+
+- the **"Prefer to buy in store?" aside** in the summary column — removed whole,
+  including its store-locator link;
+- the **FAQ on where a voucher can be spent**, which used to end "the shops sell
+  their own vouchers for that". It now reads, verbatim as given: *"Online at
+  mccormackspharmacy.ie only. It can't be used in our shops."* — where this voucher
+  works, without a word about what the counter sells;
+- the **"not on sale online" notice**, which promised "Vouchers are available at the
+  counter in any of our seven stores" and linked to the store locator. Not named in
+  the request, changed anyway: it is the same claim, and it renders only when the
+  gift card product is missing or unpublished — the branch nobody looks at is exactly
+  where a withdrawn promise survives for a year. It now says to check back soon.
+
+`gift-voucher.py` bans `"in store"` and `"at the counter"` in the rendered body
+alongside the posted words, and checks the aside's heading is gone. The new FAQ
+sentence is phrased so it trips neither: it says "in our shops", which is the claim
+the client allows. The nav's **"In-Store Services"** is hyphenated and so does not
+match — if that is ever written without the hyphen, this check fails on the header
+rather than on this page, and the word list is where to look.
 
 `setup/VOUCHER-POST-FLOW.md` is marked NOT NEEDED rather than deleted. The Flow was
 never built, so there is nothing to switch off; the file is the record of a reversed
