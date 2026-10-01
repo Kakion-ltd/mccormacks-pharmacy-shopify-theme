@@ -18,7 +18,7 @@ for (const o of offenses.slice().sort((a, b) => a.severity - b.severity)) {
 }
 // Two rules Shopify enforces at upload that theme-check and liquidjs do not. Both
 // rejected files on the first push to the dev store while every local check was green.
-import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 const liquidFiles = (dir) => readdirSync(dir).flatMap((f) => {
   const p = join(dir, f);
@@ -183,6 +183,15 @@ for (const [f, needle, why] of FREE_DELIVERY_GUARD) {
       uploadErrors++;
     }
   }
+}
+// assets/placeholder-shop-image.svg is referenced from setup/render_preview.mjs and from
+// nothing in the theme, so an unused-asset sweep would call it dead. It is not: it is what
+// `shopify://shop_images/` image_picker settings resolve to in the preview, and without it
+// every page carrying one logs ERR_UNKNOWN_URL_SCHEME and funnel.py goes red on console
+// errors. Deleting it would re-break that with no obvious connection to the deletion.
+if (!existsSync(join(root, 'assets/placeholder-shop-image.svg'))) {
+  console.log('ERROR  /assets/placeholder-shop-image.svg  ShopImagePlaceholderMissing  the preview resolves shopify://shop_images/ to this; without it funnel.py fails on console errors');
+  uploadErrors++;
 }
 // The promo label ("3 for €10", "While stocks last") is a product metafield. It used to
 // be on three of seven hand-copied cards; four of those copies are now the one shared

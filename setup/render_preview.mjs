@@ -46,7 +46,14 @@ const amount = (v) => {
     + (COMMA_DECIMAL ? ',' : '.') + frac;
 };
 const money = (v) => (v == null || isNaN(v) ? v : MONEY_FORMAT.replace(/\{\{\s*\w+\s*\}\}/, amount(v)));
-const imgSrc = (img) => (typeof img === 'string' ? img : img && (img.src || img.url)) || '';
+const imgSrc = (img) => {
+  // A shopify://shop_images/ string that reached a filter without going through
+  // resolveShopImages still must not become a src; see resolveShopImage below.
+  if (typeof img === 'string' && img.startsWith('shopify://shop_images/')) {
+    return `${ASSETS}/placeholder-shop-image.svg`;
+  }
+  return (typeof img === 'string' ? img : img && (img.src || img.url)) || '';
+};
 
 engine.registerFilter('asset_url', (v) => `${ASSETS}/${v}`);
 engine.registerFilter('asset_img_url', (v) => `${ASSETS}/${v}`);
@@ -388,6 +395,35 @@ const mockImage = (name, w = 1000, h = 1000) => ({
   src: `${ASSETS}/${name}`, url: `${ASSETS}/${name}`, width: w, height: h,
   alt: '', aspect_ratio: w / h,
 });
+
+// An image_picker setting holds `shopify://shop_images/<name>` once a merchant picks a
+// file from Shopify Files. The file lives in the store, not in the theme, so there is
+// nothing local to serve: left alone the string reaches the browser as a src and every
+// page carrying one logs ERR_UNKNOWN_URL_SCHEME. setup/verify/funnel.py fails on console
+// errors, so one banner picked in the theme editor turned the whole funnel check red for
+// every session — a real defect in the harness, not in the theme.
+//
+// Resolve it to a placeholder that actually serves, and keep the original filename in
+// alt so the preview still says which file is expected. A data: URI cannot be used here:
+// image_url appends ?width= to whatever it is given.
+const SHOP_IMAGE_PLACEHOLDER = 'placeholder-shop-image.svg';
+const shopImageName = (v) =>
+  (typeof v === 'string' && v.startsWith('shopify://shop_images/'))
+    ? decodeURIComponent(v.slice('shopify://shop_images/'.length))
+    : null;
+const resolveShopImage = (v) => {
+  const name = shopImageName(v);
+  if (!name) return v;
+  return Object.assign(mockImage(SHOP_IMAGE_PLACEHOLDER, 1440, 500), { alt: name });
+};
+// Settings come from template JSON and from schema defaults, and blocks have their own,
+// so both are walked rather than the one the current template happens to use.
+const resolveShopImages = (settings) => {
+  if (!settings) return settings;
+  const out = {};
+  for (const [k, v] of Object.entries(settings)) out[k] = resolveShopImage(v);
+  return out;
+};
 
 const COLLECTION_INDEX = Object.fromEntries(
   JSON.parse(readFileSync(join(PROJECT, 'setup/collections.json'), 'utf8')).map((c) => [c.handle, c]));
@@ -740,7 +776,7 @@ async function renderSection(type, settings, blocksSpec, extraGlobals = {}) {
   // product fixture: the back-in-stock capture is off by default on the store, but
   // the fixture that exercises it still needs to render it on.
   const override = extraGlobals.__sectionSettingsOverride?.[type] || {};
-  const merged = { ...defaultsFrom(schema.settings), ...settings, ...override };
+  const merged = resolveShopImages({ ...defaultsFrom(schema.settings), ...settings, ...override });
 
   let blocks = [];
   const blockDefs = schema.blocks || [];
@@ -749,7 +785,7 @@ async function renderSection(type, settings, blocksSpec, extraGlobals = {}) {
     // Shopify skips a block or section marked disabled in the template JSON; so must we.
     blocks = blocksSpec.order.filter((id) => !blocksSpec.blocks[id].disabled).map((id) => {
       const b = blocksSpec.blocks[id];
-      return { id, type: b.type, settings: { ...defaultsFrom(defFor(b.type).settings), ...(b.settings || {}) }, shopify_attributes: '' };
+      return { id, type: b.type, settings: resolveShopImages({ ...defaultsFrom(defFor(b.type).settings), ...(b.settings || {}) }), shopify_attributes: '' };
     });
   }
   // No preset fallback. A JSON template only gets the blocks it lists; Shopify

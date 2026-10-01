@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 500" width="1440" height="500" role="img" aria-label="Store image, live store only">
+  <rect width="1440" height="500" fill="#f4f5f2"/>
+  <g fill="none" stroke="#d7dbd2" stroke-width="3">
+    <path d="M0 0l1440 500M1440 0L0 500"/>
+    <rect x="1.5" y="1.5" width="1437" height="497"/>
+  </g>
+  <g font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif" text-anchor="middle" fill="#697262">
+    <text x="720" y="238" font-size="34" font-weight="700" letter-spacing="2">STORE IMAGE</text>
+    <text x="720" y="286" font-size="22">uploaded to Shopify Files &#183; live store only</text>
+  </g>
+</svg>
