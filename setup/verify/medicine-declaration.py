@@ -61,11 +61,16 @@ with sync_playwright() as pw:
     # 3. Product pages.
     pg.goto(BASE + "/products/nurofen-tablets-12pk", wait_until="networkidle")
     check("medicine PDP: no Buy it now", pg.locator(".pdp-express").count(), 0)
-    # Since 30 Sep 2026 a tagged medicine is gated by the questionnaire too (the default
-    # over-18 / other-medication pair), so its buy box is the form-less gated one. The
-    # plain Add to bag is GONE on purpose: a product form here would be the no-JS hole.
-    check("medicine PDP: no product form at all", pg.locator("form[data-ajax-add]").count(), 0)
-    check("medicine PDP: opens the questionnaire instead", pg.locator("[data-open-questionnaire]").count() > 0, True)
+    # Since 1 Oct 2026 a medicine with no questionnaire-<set> tag asks nothing (Fergal),
+    # so this one has an ordinary Add to bag, still without Buy it now: the bag's
+    # over-18 tick is what it must not skip.
+    check("medicine PDP, no set: ordinary Add to bag", pg.locator("form[data-ajax-add]").count(), 1)
+    # A medicine WITH a set is gated: the form-less buy box. A product form there would
+    # be the no-JS hole round the questions.
+    pg.goto(BASE + "/products/questions-painkillers", wait_until="networkidle")
+    check("medicine PDP, with a set: no Buy it now", pg.locator(".pdp-express").count(), 0)
+    check("medicine PDP, with a set: no product form at all", pg.locator("form[data-ajax-add]").count(), 0)
+    check("medicine PDP, with a set: opens the questionnaire instead", pg.locator("[data-open-questionnaire]").count() > 0, True)
     pg.goto(BASE + "/products/vitamin-d3-1000iu-60-capsules", wait_until="networkidle")
     check("ordinary PDP: Buy it now kept", pg.locator(".pdp-express").count(), 1)
 

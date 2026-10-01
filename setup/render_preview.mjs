@@ -1198,20 +1198,29 @@ const FORM_ON = { 'page.in-store-services': { __sectionSettingsOverride: { 'page
 {
   // Tag-driven question sets (30 Sep 2026). No metafield anywhere here: the set is
   // chosen by tag, the way it is on the store since Fergal adopted the old website's
-  // approach. Three fixtures, one per branch of that choice.
-  //   questions-ed    -> the 14 erectile dysfunction questions
-  //   questions-none  -> tagged medicine, no questions at all (Curanail)
-  // The default pair (over 18 / other medication) needs no fixture of its own: the
-  // restricted fixture above is a tagged medicine with no set tag, so it renders it.
+  // approach. One fixture per set, read from the snippet's own `when` list so a new set
+  // is rendered (and checked by questionnaire.py) without anyone remembering to add it,
+  // plus three for the branches around the sets:
+  //   questions-none       -> tagged medicine, no questions at all
+  //   questions-none-plus  -> questionnaire-none AND a set tag: the set must win
+  //   questions-unknown    -> a set tag naming no set: must fail closed
+  // A tagged medicine with no set tag at all asks nothing since 1 Oct 2026; the
+  // restricted fixture above (nurofen-tablets-12pk) is that case.
   const base = products.find((p) => p.has_only_default_variant && p.available);
   const gateTag = globals.settings.restricted_tag || 'pharmacist-review';
-  for (const [handle, extraTag, file] of [
-    ['questions-ed', 'questionnaire-ed', 'product.questions-ed.html'],
-    ['questions-none', 'questionnaire-none', 'product.questions-none.html'],
+  const setNames = [...readFileSync(join(PROJECT, 'shopify-theme/snippets/pharmacy-question-set.liquid'), 'utf8')
+    .matchAll(/when '([^']+)'/g)].map((m) => m[1]);
+  for (const [handle, extraTags] of [
+    ...setNames.map((n) => [`questions-${n}`, [`questionnaire-${n}`]]),
+    ['questions-none', ['questionnaire-none']],
+    ['questions-none-plus', ['questionnaire-none', 'questionnaire-painkillers']],
+    ['questions-unknown', ['questionnaire-no-such-set']],
   ]) {
     if (!base) break;
+    const file = `product.${handle}.html`;
+    const extraTag = extraTags.join(', ');
     const p = { ...base, title: 'Viagra Connect 50mg Tablets 4 Pack', handle, url: `/products/${handle}`,
-      vendor: 'Viagra Connect', type: 'Sexual Health', tags: [...(base.tags || []), gateTag, extraTag] };
+      vendor: 'Viagra Connect', type: 'Sexual Health', tags: [...(base.tags || []), gateTag, ...extraTags] };
     const saved = { product: globals.product, request: globals.request };
     globals.product = p;
     globals.request = { ...globals.request, page_type: 'product' };

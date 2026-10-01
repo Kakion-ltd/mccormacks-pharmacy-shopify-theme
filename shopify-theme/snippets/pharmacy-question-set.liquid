@@ -1,5 +1,5 @@
 {%- comment -%}
-  The two built-in question sets, the ones Fergal approved on 30 September 2026 by
+  The built-in question sets. ed and default are the ones Fergal approved on 30 Sep 2026 by
   adopting the old website's approach (setup/old-site-questionnaires.md).
 
   Unlike the pharmacy.questionnaire metaobject, these are not edited per product:
@@ -19,17 +19,53 @@
   The verbatim, uncorrected original is in setup/old-site-questionnaires.md and must
   stay that way: it records what the old site asks, not what we ask.
 
-  Output: one line per question, `kind::label`, questions joined by '||'.
-  Kinds: yes_no | confirm | yes_no_details (Yes reveals a free-text box).
-  Neither set has blocking answers — Fergal's decision is that no answer stops the
+  The other sets (1 Oct 2026) are the 25 Sep pharmacist draft's sets 2-8
+  (setup/PHARMACIST-QUESTIONS.md), set 7 split into one set per product group because
+  its products share no questions, plus a painkillers declaration. The draft's
+  "stop" answers are NOT built: like the ED set, nothing blocks, every question is
+  required, and the pharmacist reads the answers on the order. The draft's wording is
+  kept; where one draft question asked two things, it is two questions here. Each is
+  chosen by tag `questionnaire-<set>`, sent to Fergal in questionnaires-for-fergal.pdf.
+
+  Output: one line per question, `kind::label`, questions joined by '||'. A choice or
+  multi adds its options as a third part: `kind::label::A|B|C`. So no label or option
+  may contain '||', '::' or '|'.
+  Kinds: yes_no | confirm | yes_no_details (Yes reveals a free-text box) | choice |
+  multi (tick all that apply; the built-in sets get no "None of the above").
+  No set has blocking answers — Fergal's decision is that no answer stops the
   sale; the pharmacist reads the answers on the order and decides. See
   MAINTENANCE.md, "Questions before purchase follow the tag" .
 
-  Accepts: set — 'ed' or 'default'.
+  Accepts: set — the part of the tag after `questionnaire-`. An unknown name renders
+  nothing, which gates the product with no way to add it (fails closed).
 {%- endcomment -%}
 {%- case set -%}
   {%- when 'ed' -%}
 yes_no::Has your doctor advised that you are not fit enough for any physical and/or sexual activity?||yes_no::Do you feel very breathless or experience chest pain with light or moderate physical activity, such as walking briskly for 20 minutes or climbing two flights of stairs?||yes_no::Have you had a heart attack or stroke within the last 6 months?||yes_no::Do you have any other heart problems, or are you under a doctor's care for any of the following: a heart attack, stroke, unstable angina or severe heart failure in the last 6 months; chest pain or breathlessness with light exercise (such as climbing two flights of stairs); low blood pressure; or severe liver disease?||yes_no::Are you taking nitrates (nicorandil or other nitric oxide donors e.g. glyceryl trinitrate, isosorbide mononitrate or isosorbide dinitrate) for chest pain?||yes_no::Are you using drugs called 'poppers' for recreational purposes (e.g. amyl nitrite)?||yes_no::Are you taking riociguat or other guanylate cyclase stimulators for lung problems?||yes_no::Are you taking ritonavir (for HIV infection)?||yes_no::Are you taking any CYP3A4 inhibitors, e.g. saquinavir (to treat HIV infection), cimetidine (a heartburn treatment), itraconazole or ketoconazole (to treat fungal infections), erythromycin or rifampicin (antibiotics) or diltiazem (for high blood pressure)?||yes_no::Are you taking any alpha-blockers, such as alfuzosin, doxazosin or tamsulosin, which are medicines to treat urinary problems due to enlarged prostate (benign prostatic hyperplasia) or occasionally to treat high blood pressure?||yes_no::Do you have Peyronie's disease or any other deformation of the penis?||yes_no::Have you ever had loss of vision because of damage to the optic nerve (such as non-arteritic ischaemic optic neuropathy [NAION]), or have an inherited eye disease (such as retinitis pigmentosa)?||yes_no::Do you have galactose intolerance, Lapp lactase deficiency or glucose-galactose malabsorption?||yes_no::Do you have previously diagnosed hepatic (liver) disease (including cirrhosis of the liver) or severe renal (kidney) impairment?||yes_no::Is this medicine for a man aged 18 or over who has difficulty getting or keeping an erection?||yes_no::Do you take any medicine for high blood pressure or for the prostate, other than the ones already listed above?||yes_no::Do you take any medicine for HIV, other than the ones already listed above?||yes_no::Do you have sickle cell disease, leukaemia, myeloma, a bleeding disorder, or an active stomach ulcer?
   {%- when 'default' -%}
 confirm::I am over 18 years of age||yes_no_details::Are you taking any other medication?
+  {%- when 'painkillers' -%}
+yes_no::Are you aged 18 or over?||multi::Who is this medicine for? Tick all that apply.::Under 2|2–5|6–11|12–17|18+||confirm::I have read the leaflet and will follow the directions.
+  {%- when 'codeine' -%}
+choice::How old is the person who will take it?::Under 12|12 to 17|18 or over||yes_no::Have they already tried paracetamol or ibuprofen on its own for this, without enough relief?||yes_no::Do they expect to need it for more than 3 days?||yes_no::Are they breastfeeding?||yes_no::Have they ever been told they break down codeine unusually fast ("ultra-rapid metaboliser")?||yes_no::Do they have high blood pressure, heart disease, an overactive thyroid, glaucoma, difficulty passing urine, or COPD?||yes_no::Have they taken an MAOI antidepressant in the last 14 days?||yes_no::Do they take any other antidepressant or regular medicine?||yes_no::Are they taking any other product containing paracetamol?||yes_no::Have they bought a codeine medicine in the last month?
+  {%- when 'ppi' -%}
+yes_no::Is the person who will take it aged 18 or over?||yes_no::Have they had any of these: weight loss without trying, repeated vomiting, difficulty or pain when swallowing, vomiting blood, black or tarry stools?||yes_no::Are they over 55, with symptoms that are new or have recently changed?||yes_no::Have they had a stomach ulcer or stomach surgery?||yes_no::Have they been taking heartburn treatment every day for 4 weeks or more?||yes_no::Do they have jaundice or liver disease?||yes_no::Do they take a medicine for HIV, or clopidogrel?||yes_no::Do they wheeze often?
+  {%- when 'sumatriptan' -%}
+yes_no::Is the person who will take it aged between 18 and 65?||yes_no::Has a doctor diagnosed their migraine?||yes_no::Have they had migraine for at least a year, with at least 5 attacks?||yes_no::Do they have 4 or more attacks a month, attacks lasting over 24 hours, or attacks that have changed in pattern?||yes_no::Have they ever had a heart attack, heart disease, angina, a stroke or mini-stroke, high blood pressure, an irregular heartbeat or poor circulation in the legs?||yes_no::Do they have liver or kidney disease, or epilepsy or seizures?||yes_no::Are they allergic to sulphonamide ("sulpha") medicines?||yes_no::Do they take an MAOI, ergotamine or another triptan?||yes_no::Do they take an SSRI, SNRI or lithium?||yes_no::Have they been told they have hemiplegic or basilar migraine?||yes_no::If they take the combined pill: did the migraine start in the last 3 months, has it got worse, or does it come with aura?
+  {%- when 'domperidone' -%}
+yes_no::Is the person who will take it aged 12 or over and at least 35 kg?||yes_no::Are they over 60?||yes_no::Do they have any heart condition, including heart failure, an irregular heartbeat or a long QT interval?||yes_no::Do they have liver disease?||yes_no::Do they take any medicine that affects the heart rhythm, or ketoconazole, clarithromycin, erythromycin or a medicine for HIV?||yes_no::Have they had stomach bleeding or a blockage, or a prolactinoma?||yes_no::Have they bought domperidone in the last 3 months?
+  {%- when 'thrush' -%}
+yes_no::Is the person who will use it a woman aged between 12 and 60?||yes_no::Is this the first time she has had these symptoms?||yes_no::Has she had thrush more than twice in the last 6 months?||yes_no::Is she pregnant, or could she be?||yes_no::Has she or a partner had a sexually transmitted infection?||yes_no::Does she have any of these: abnormal bleeding or blood-stained discharge, sores or ulcers, lower tummy pain, pain passing urine, fever or chills, foul-smelling discharge, back pain?
+  {%- when 'nasal-steroid' -%}
+yes_no::Is the person aged 18 or over?||yes_no::Have they had nose surgery or a nose injury recently, or have nasal ulcers?||yes_no::Have they used a steroid nasal spray every day for 3 months or more?||yes_no::Do they have glaucoma or cataracts?
+  {%- when 'curanail' -%}
+yes_no::Is the person aged 18 or over?||yes_no::Are more than 2 nails affected, or more than two-thirds of any nail?||yes_no::Do they have diabetes, poor circulation or a weakened immune system?||yes_no::Do they have psoriasis, or nails that are painful or misshapen?
+  {%- when 'anusol-hc' -%}
+yes_no::Is the person aged 18 or over?||yes_no::Have they had any bleeding from the back passage?||yes_no::Have they used a hydrocortisone haemorrhoid product for more than 7 days?||yes_no::Are they pregnant or breastfeeding?
+  {%- when 'gaviscon-infant' -%}
+yes_no::Has a doctor, nurse or pharmacist recommended Gaviscon Infant for this baby?||yes_no::Is the baby under 1 year old, or was the baby premature?||yes_no::Does the baby have a fever, diarrhoea, vomiting or kidney problems?
+  {%- when 'vermox' -%}
+yes_no::Is everyone who will take it aged 1 or over?||yes_no::Is anyone who will take it pregnant, or could be?||yes_no::Is anyone who will take it on metronidazole?
+  {%- when 'sedating-antihistamine' -%}
+yes_no::Is the person who will take it old enough for this product, as the leaflet says (Phenergan: 6 or over)?||yes_no::Do they need it for more than 7 days or nights?||yes_no::Have they taken an MAOI antidepressant in the last 14 days?||yes_no::Do they have a long QT interval or a blood disorder?||yes_no::Do they take other medicines that cause drowsiness, or other products containing paracetamol?||yes_no::Have they bought a sleep aid or sedating antihistamine in the last month?
 {%- endcase -%}

@@ -38,10 +38,13 @@
     which asks the same questions of a whole group rather than a set per product, so a
     medicine is covered the moment it is tagged and nobody has to remember a metafield.
 
-    Which set is a tag too:
-      questionnaire-ed    the old site's 14 erectile dysfunction questions
-      questionnaire-none  tagged medicine, deliberately no questions (Curanail)
-      neither             the default pair: over 18, and any other medication
+    Which set is a tag too: `questionnaire-<set>` shows that set from
+    snippets/pharmacy-question-set (ed, painkillers, ppi, ...). No set tag, or
+    `questionnaire-none`, means no questions: Fergal's default since 1 Oct 2026. A set
+    tag wins over `questionnaire-none`, so giving a medicine questions is one tag added.
+    One set tag per product; with two, the first in tag order (alphabetical) wins. A
+    set tag that names no set renders zero questions and so FAILS CLOSED, like an
+    empty metaobject: a typo gates the product rather than opening it.
     A metaobject on the product still wins, so the pharmacist can override any of this
     per product later without touching the theme. Gating this way is the SAME gate: the
     branch below renders no product form either way, so a no-JS visitor still cannot add
@@ -54,16 +57,15 @@
   {%- capture pq_restricted -%}{%- render 'product-restricted', product: product -%}{%- endcapture -%}
   {%- if pq_restricted == 'true' -%}
     {%- assign pq_tags = product.tags | join: '||' | downcase | split: '||' -%}
-    {%- if pq_tags contains 'questionnaire-none' -%}
-      {%- assign pq_set = '' -%}
-    {%- elsif pq_tags contains 'questionnaire-ed' -%}
-      {%- assign pq_set = 'ed' -%}
-    {%- else -%}
-      {%- assign pq_set = 'default' -%}
-    {%- endif -%}
-    {%- if pq_set == 'ed' or pq_set == 'default' -%}
+    {%- for pq_tag in pq_tags -%}
+      {%- assign pq_head = pq_tag | slice: 0, 14 -%}
+      {%- if pq_head == 'questionnaire-' and pq_tag != 'questionnaire-none' -%}
+        {%- assign pq_set = pq_tag | remove_first: 'questionnaire-' -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if pq_set != '' -%}
       {%- assign is_gated = true -%}
-      {%- assign gate_ready = true -%}
       {%- comment -%} The button names the real number of questions, so the count has to
           come from the set rather than a word like "a few". `group::` items are section
           headings, not questions (snippets/pharmacy-questionnaire, "SECTION HEADINGS"),
@@ -76,6 +78,7 @@
         {%- assign pq_kind = pq_item | strip | split: '::' | first -%}
         {%- unless pq_kind == 'group' -%}{%- assign question_count = question_count | plus: 1 -%}{%- endunless -%}
       {%- endfor -%}
+      {%- if question_count > 0 -%}{%- assign gate_ready = true -%}{%- endif -%}
     {%- endif -%}
   {%- endif -%}
 {%- endunless -%}

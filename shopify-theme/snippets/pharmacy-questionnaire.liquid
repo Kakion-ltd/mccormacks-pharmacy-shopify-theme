@@ -44,20 +44,25 @@
   so a reorder renumbers every key on new orders. Awaiting Fergal. See MAINTENANCE.md.
 
   Accepts: product, section_id, variant (current variant, for the id fallback), and
-           ONE of questionnaire (the metaobject) or set ('ed' | 'default').
+           ONE of questionnaire (the metaobject) or set (a name in
+           snippets/pharmacy-question-set: 'ed', 'painkillers', ...).
 {%- endcomment -%}
 {%- liquid
   assign pq_id = 'pq-' | append: section_id
   assign pq_title = questionnaire.title.value | default: 'Questions from our pharmacist'
   assign pq_version = questionnaire.version.value
   assign pq_builtin = false
-  if set == 'ed' or set == 'default'
+  if set != blank and set != ''
     assign pq_builtin = true
     capture pq_raw
       render 'pharmacy-question-set', set: set
     endcapture
     assign pq_items = pq_raw | strip | split: '||'
-    assign pq_version = 'old-site-' | append: set | append: '-2026-09-30'
+    if set == 'ed' or set == 'default'
+      assign pq_version = 'old-site-' | append: set | append: '-2026-09-30'
+    else
+      assign pq_version = set | append: '-2026-10-01'
+    endif
   endif
 -%}
 <div class="pq-modal" data-pq-modal="{{ pq_id }}" hidden>
@@ -90,6 +95,10 @@
             {%- assign parts = item | strip | split: '::' -%}
             {%- assign q_kind = parts[0] | strip -%}
             {%- assign q_label = parts[1] | strip -%}
+            {%- comment -%} choice / multi carry their options as a third part,
+                `kind::label::A|B|C`. {%- endcomment -%}
+            {%- assign q_options = nil -%}
+            {%- if parts.size > 2 -%}{%- assign q_options = parts[2] | strip | split: '|' -%}{%- endif -%}
             {%- comment -%} Prepared, dormant: see the note at the top of this file. {%- endcomment -%}
             {%- if q_kind == 'group' -%}
               <h4 class="pq-group">{{ q_label }}</h4>
@@ -99,7 +108,7 @@
             {%- comment -%} Every built-in question is required and none blocks the sale:
                 Fergal's decision, recorded in setup/old-site-questionnaires.md. {%- endcomment -%}
             {%- render 'pharmacy-question-field', kind: q_kind, label: q_label, help: '',
-                options: nil, required: true, blocking: '', fname: fname -%}
+                options: q_options, required: true, blocking: '', fname: fname, none_option: false -%}
           {%- endfor -%}
         {%- else -%}
           {%- for q in questionnaire.questions.value -%}

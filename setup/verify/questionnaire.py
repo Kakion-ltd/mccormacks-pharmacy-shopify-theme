@@ -142,13 +142,14 @@ with sync_playwright() as pw:
           ed.evaluate("[...document.querySelectorAll('[data-pq-q]')].every(q => q.dataset.required === 'true')"))
     ed.close()
 
-    # A tagged medicine with no set tag gets the default pair, and its Yes reveals the
-    # details box. The details are optional; the Yes/No is not.
+    # The default pair is no longer anyone's default (1 Oct 2026); it is reachable as
+    # questionnaire-default and keeps the only yes_no_details question, so it is still
+    # exercised here. Its Yes reveals the details box.
     dp = ctx.new_page()
     added["body"] = None
     dp.route("**/cart/add.js", handle_add)
     dp.route("**/cart.js", handle_cart)
-    dp.goto(BASE + "/products/nurofen-tablets-12pk", wait_until="networkidle")
+    dp.goto(BASE + "/products/questions-default", wait_until="networkidle")
     check("[default] two questions", dp.locator("[data-pq-q]").count(), 2)
     dp.locator("[data-open-questionnaire]").first.click()
     dp.wait_for_timeout(150)
@@ -183,6 +184,74 @@ with sync_playwright() as pw:
     check("[default] the detail is recorded with the Yes",
           any("Yes" in v and "warfarin" in v for v in dprops.values()))
     dp.close()
+
+    # Every set in the snippet (1 Oct 2026). The fixtures are generated from the
+    # snippet's own `when` list, so a set added there is checked here unasked.
+    import re
+    snippet = open(os.path.join(os.path.dirname(__file__), "../../shopify-theme/snippets/pharmacy-question-set.liquid")).read()
+    for name in re.findall(r"when '([^']+)'", snippet):
+        sp = ctx.new_page()
+        sp.goto(BASE + f"/products/questions-{name}", wait_until="networkidle")
+        n = sp.locator("[data-pq-q]").count()
+        check(f"[{name}] has questions", n > 0)
+        check(f"[{name}] the button names that number",
+              sp.locator("[data-gated-buybox] [data-open-questionnaire]").inner_text().strip(),
+              f"Answer {n} health question{'' if n == 1 else 's'}")
+        check(f"[{name}] no product form", sp.locator("form[data-ajax-add]").count(), 0)
+        check(f"[{name}] no answer blocks the sale",
+              sp.evaluate("[...document.querySelectorAll('[data-pq-q]')].every(q => !q.dataset.blocking)"))
+        check(f"[{name}] every question is required",
+              sp.evaluate("[...document.querySelectorAll('[data-pq-q]')].every(q => q.dataset.required === 'true')"))
+        sp.close()
+
+    # Painkillers: the one set with an option list. Ages are tick-all-that-apply with no
+    # "None of the above", and the ticks reach the line item joined, with the stamps.
+    pk = ctx.new_page()
+    added["body"] = None
+    pk.route("**/cart/add.js", handle_add)
+    pk.route("**/cart.js", handle_cart)
+    pk.goto(BASE + "/products/questions-painkillers", wait_until="networkidle")
+    check("[painkillers] three questions", pk.locator("[data-pq-q]").count(), 3)
+    check("[painkillers] who-for offers the five age bands, and nothing else",
+          pk.locator("[data-pq-q][data-kind=multi] input").evaluate_all("e => e.map(i => i.value)"),
+          ["Under 2", "2–5", "6–11", "12–17", "18+"])
+    pk.locator("[data-open-questionnaire]").first.click()
+    pk.wait_for_timeout(150)
+    pk.locator("[data-pq-q][data-kind=yes_no] input[value=Yes]").check()
+    pk.locator("[data-pq-q][data-kind=multi] input[value='2–5']").check()
+    pk.locator("[data-pq-q][data-kind=multi] input[value='18+']").check()
+    pk.locator("[data-pq-submit]").click()
+    pk.wait_for_timeout(250)
+    check("[painkillers] the leaflet tick is required", added["body"] is None)
+    pk.locator("[data-pq-q][data-kind=confirm] input").check()
+    pk.locator("[data-pq-submit]").click()
+    pk.wait_for_timeout(300)
+    pprops = (added["body"] or {}).get("properties", {})
+    check("[painkillers] both age ticks recorded", "2–5; 18+" in pprops.values())
+    check("[painkillers] leaflet confirmation recorded", "I confirm" in pprops.values())
+    check("[painkillers] pharmacist-review stamp", pprops.get("_pharmacist_review"), "required")
+    check("[painkillers] version names the set", pprops.get("_questionnaire_version"), "painkillers-2026-10-01")
+    pk.close()
+
+    # A set tag wins over questionnaire-none, so giving a medicine questions is one tag
+    # added; and a set tag naming no set fails closed rather than opening the product.
+    np_ = ctx.new_page()
+    np_.goto(BASE + "/products/questions-none-plus", wait_until="networkidle")
+    check("[none + painkillers] the set wins", np_.locator("[data-pq-q]").count(), 3)
+    np_.close()
+    uk = ctx.new_page()
+    uk.goto(BASE + "/products/questions-unknown", wait_until="networkidle")
+    check("[unknown set] shows the unavailable notice", uk.locator("[data-gated-unavailable]").count() > 0)
+    check("[unknown set] no way to add", uk.evaluate(
+        "!document.querySelector('form[action*=\"/cart/add\"], form[data-ajax-add], [data-open-questionnaire], [data-pq-modal]')"))
+    uk.close()
+
+    # A medicine with no set tag asks nothing: Fergal's default since 1 Oct 2026.
+    nt = ctx.new_page()
+    nt.goto(BASE + "/products/nurofen-tablets-12pk", wait_until="networkidle")
+    check("[no set tag] no questionnaire", nt.locator("[data-pq-modal]").count(), 0)
+    check("[no set tag] ordinary buy box", nt.locator("form[data-ajax-add] [data-pdp-submit]").count() > 0)
+    nt.close()
 
     # questionnaire-none: a medicine that deliberately asks nothing (Curanail). It must
     # get an ordinary buy box — not the gate, and not the fail-closed notice.

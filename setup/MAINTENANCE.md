@@ -979,20 +979,24 @@ per product later without touching the theme.
 
 The tags, read in `sections/main-product.liquid`:
 
-- `questionnaire-ed` — the old site's 18 erectile dysfunction questions (see
-  "The ED set: 18 questions" below; it was 14 before 30 Sep 2026). On
-  Viagra Connect 4 and 8 pack, Cialis 4Pk and 8Pk, Sidena 50mg 4 Pack.
+- `questionnaire-<set>` — the set of that name in
+  `snippets/pharmacy-question-set.liquid`. `questionnaire-ed` is the old site's 18
+  erectile dysfunction questions (see "The ED set: 18 questions" below; it was 14
+  before 30 Sep 2026), on Viagra Connect 4 and 8 pack, Cialis 4Pk and 8Pk, Sidena
+  50mg 4 Pack. The other sets are below, under "Sets beyond ED".
 - `questionnaire-none` — a tagged medicine that deliberately asks nothing: an
   ordinary Add to bag. On every `pharmacist-review` product that is not
   `questionnaire-ed` since 1 Oct 2026 (see below); before that, Curanail only.
-  The theme checks it **before** `questionnaire-ed`, so never put both on one
-  product — the ED questions would silently disappear.
-- neither, but carrying the restricted tag — the default pair: "I am over 18
-  years of age" (a tick) and "Are you taking any other medication?" (Yes/No,
-  where Yes reveals a free-text box for the detail). Since 1 Oct 2026 no
-  product is in this state on purpose. It is still the fallback, so a medicine
-  newly tagged `pharmacist-review` asks the pair until someone also tags it
-  `questionnaire-none`.
+  **A set tag wins over it** (since the sets-beyond-ED change), so giving a
+  medicine questions is one tag added, with nothing removed. Before that change
+  `questionnaire-none` won over `questionnaire-ed`.
+- neither — **no questions**, the same as `questionnaire-none`. Until the
+  sets-beyond-ED change this was the default pair ("I am over 18 years of age"
+  and "Are you taking any other medication?"); the pair still exists as
+  `questionnaire-default` and is on no product.
+- A set tag that names no set (a typo) renders zero questions, so the product
+  **fails closed**: the "not available" notice and no way to add it, like an
+  empty metaobject. One set tag per product; with two, the first in tag order wins.
 
 **Fergal's decision, 1 October 2026: questions only on the ED products.** Every
 `pharmacist-review` product not tagged `questionnaire-ed` was tagged
@@ -1043,6 +1047,36 @@ here anyway.
    is deliberate: the bag attribute is what Flow reads, the line-item property is
    what the pharmacist reads per medicine. If one is ever dropped, check which
    system was reading it first.
+
+### Sets beyond ED: built 1 Oct 2026, not live until tagged
+
+Asked for on 1 Oct 2026, after Fergal's ED-only decision the same day, as a
+proposal for him. The theme carries twelve more sets: the 25 Sep draft's sets
+2-8 (`PHARMACIST-QUESTIONS.md`; set 7 split into one set per product group:
+`nasal-steroid`, `curanail`, `anusol-hc`, `gaviscon-infant`, `vermox`), plus
+`painkillers` (over 18 Yes/No; who it is for, tick all that apply, Under 2 to
+18+; a required "I have read the leaflet" tick). As for ED, **nothing blocks**:
+the draft's "stop" answers are not built, every question is required, and the
+answers go on the line item with the same `_pharmacist_review` stamp. Flow 1
+reads the product tag, not these properties, so the hold is unchanged.
+`_questionnaire_version` is `<set>-2026-10-01`.
+
+**A theme push alone changes nothing a customer sees**, because no product
+has a new set tag yet. Which products get which tag (78, codeine none) is in
+`setup/questionnaire-sets-plan-2026-10-01.csv`. Applying it is a store write
+(`tagsAdd`, nothing removed), to be done with the push and only on Matthew's
+go. The proposal went to Fergal as `questionnaires-for-fergal.pdf`, built by
+`setup/build_question_sets_pdf.py` from the snippet and the plan CSV, headed
+"Going live on Thursday 8 October 2026 unless you object". **Curanail's set
+reverses his 30 Sep choice** of no questions there; the PDF says so.
+
+Painkillers means oral paracetamol, ibuprofen and aspirin products and their
+plain combinations, plus the paracetamol and ibuprofen suppositories (58).
+Cold & flu combinations, topical NSAIDs and Panadol Night (in the sedating
+set) are left out, and the PDF's last page asks Fergal about them.
+
+The preview renders one fixture per set, read from the snippet's `when` list,
+so `questionnaire.py` checks a new set without being told about it.
 
 ### Tested on the live store, 30 Sep 2026
 

@@ -4,7 +4,9 @@
   reads only these data-* hooks, so it does not care which produced them.
 
   Accepts: kind, label, help, options (array or nil), required (boolean),
-           blocking (string, answers joined by '||'), fname (radio/checkbox name).
+           blocking (string, answers joined by '||'), fname (radio/checkbox name),
+           none_option (false drops the "None of the above" a multi otherwise gets:
+           the built-in sets pass it, because "Who is it for?" has no "none").
 
   yes_no_details is the only kind with no metaobject equivalent: a Yes/No pair whose
   Yes reveals a free-text box. Added 30 Sep 2026 for "Are you taking any other
@@ -53,7 +55,9 @@
         {%- for opt in options -%}
           <label class="pq-opt"><input type="checkbox" name="{{ fname }}" value="{{ opt | escape }}" aria-describedby="{{ described }}"> {{ opt }}</label>
         {%- endfor -%}
+        {%- unless none_option == false -%}
         <label class="pq-opt"><input type="checkbox" name="{{ fname }}" value="None of the above" data-pq-none aria-describedby="{{ described }}"> None of the above</label>
+        {%- endunless -%}
       {%- when 'confirm' -%}
         <label class="pq-opt pq-confirm"><input type="checkbox" name="{{ fname }}" value="I confirm" aria-describedby="{{ described }}"> {{ label }}</label>
       {%- when 'short_text' -%}
