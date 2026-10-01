@@ -203,6 +203,54 @@ The order matters and is the part that gets skipped: the read has to come
 claim at the bottom of it is the second incident above, which was made by the
 session that had just recommended this habit to someone else.
 
+### Trace history one file at a time, and quote a sha per file (1 Oct 2026)
+
+The entry above is about reading `main`. This one is the same mistake one level
+down: stating which commit changed something, or which session owns a file,
+from inference rather than from a command. Three of these happened in a single
+thread between two sessions, each found only because someone re-ran the check
+instead of accepting the answer.
+
+- **Credit from a hand-off.** A session was told "your line 33 is done, I did
+  it" and wrote that into a handover document. The file-scoped log said the
+  change was a week old and belonged to neither session.
+- **A sha taken on trust.** Correcting the above, the same session cited
+  `6f185ca` as the commit that moved a link. `6f185ca` touches only
+  `setup/HANDOVER.md` and `setup/README.md`; the code change was `54b5ff3`, an
+  ancestor of it. The sha had arrived in a message as "landed on main" and was
+  never checked.
+- **A generalisation from two files.** The session issuing that correction had
+  checked two of three files, found `208640a` on both, and wrote "those links
+  were pointed at /policies/ by 208640a". The third file was `54b5ff3`, six days
+  later.
+- **Ownership inferred from who was talking.** The same session was then told it
+  would be warned before anyone touched `footer.liquid` or `legal-sidebar.liquid`
+  "since you've been in both". It had opened neither, ever. It had simply
+  messaged most often about the repo, and accumulated ownership of files it had
+  never seen. An all-clear from it would have been sincere and worthless.
+
+So, to say which commit changed a thing, ask per path:
+
+```sh
+git log --oneline --date=short --format='%h %ad %s' -S'<string>' -- <path>
+git log --since='7 days ago' --name-only --format='%h %ad %s' -- <path1> <path2>
+```
+
+One path at a time, and **quote a sha per file, never one sha for a group**. Two
+files agreeing tells you nothing about a third, which is the whole of the third
+incident above.
+
+Use `--name-only` against **specific shas**, not a range: in a rebased worktree
+a range contains every session's work that was rebased onto, so `main..HEAD`
+will happily attribute other people's commits to you. To find what a session
+actually touched, list the files of its own commits.
+
+And ownership is not something a message establishes. The session that wrote to
+a file is in the log; the session that talked to you about it may never have
+opened it. Before editing a shared file, ask the log who last changed it, then
+ask that session — and re-run the log immediately before writing, because six
+days of quiet history is not a claim about the next ten minutes.
+
 ### The store has no worktree: one session writes to it at a time (25 Sep 2026)
 
 Worktrees protect the repo. Nothing protects the store. Every session reaches
