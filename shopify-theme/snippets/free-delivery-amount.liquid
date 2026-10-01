@@ -8,6 +8,14 @@
   at_least: 1 guards the cart page, which divides by the threshold to size its
   progress bar — a merchant typing 0 would otherwise divide by zero.
 
+  round is not cosmetic. A decimal threshold makes `times: 100` a float: 54.99 * 100
+  is 5498.999999999999, and the live Shopify money filter rounds that to the whole
+  euro, so the site read "orders over €55" while the policy and the discount both
+  said €54.99. The preview harness's money filter does not do this, so it rendered
+  €54.99 and the bug reached the live theme green. round makes the cents integral
+  before any money filter sees them. cart-drawer and main-cart do the same for the
+  same reason.
+
   Usage: {% render 'free-delivery-amount' %}
 {%- endcomment -%}
-{{- settings.free_shipping_threshold | at_least: 1 | times: 100 | money_without_trailing_zeros -}}
+{{- settings.free_shipping_threshold | at_least: 1 | times: 100 | round | money_without_trailing_zeros -}}
