@@ -39,6 +39,20 @@ with sync_playwright() as pw:
           pg.evaluate("document.querySelector(\"%s\").form.checkValidity()" % box), True)
     check("medicine bag: no express buttons", pg.locator(".cart-express").count(), 0)
 
+    # Pre-payment disclosure. The pharmacist review happens AFTER payment, so the
+    # customer must be told before they pay that the order can be refused and refunded.
+    # These three checks lived on the questionnaire modal until 1 Oct 2026, when the
+    # client had the note removed from it; the copy is here now, beside the tick and
+    # directly above "Checkout securely", so the checks are here too. This is the last
+    # screen before payment, which is the screen the undertaking has to be on — if it
+    # disappears from here it has disappeared from the journey.
+    decl = pg.locator("[data-medicine-declaration]").inner_text().lower()
+    check("medicine bag: pre-payment disclosure is shown",
+          pg.locator("[data-medicine-declaration]").is_visible())
+    check("medicine bag: disclosure says a pharmacist reviews the order",
+          "pharmacist reviews" in decl)
+    check("medicine bag: disclosure says an unsuitable order is refunded", "refund" in decl)
+
     # 2. Ordinary bag.
     pg.goto(BASE + "/cart", wait_until="networkidle")
     check("ordinary bag: no tick box", pg.locator("[data-medicine-declaration]").count(), 0)

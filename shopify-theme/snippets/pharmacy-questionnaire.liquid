@@ -123,11 +123,14 @@
       <div class="pq-blocked" data-pq-blocked hidden role="alert">
         Based on your answers, this medicine may not be safe for you. Please speak to our pharmacist before buying — call the pharmacy or use Ask a pharmacist. We cannot add it to your bag.
       </div>
-      {%- comment -%} Pre-payment disclosure. The pharmacist review happens AFTER payment,
-          so the customer must know before they pay that the order can be refused and
-          refunded. Kept next to the submit button, not buried. Wording is subject to
-          pharmacist/client sign-off (see MAINTENANCE.md, "Pharmacist questionnaire"). {%- endcomment -%}
-      <p class="pq-consent-note">You pay when you place your order. A registered pharmacist then reviews your answers before we dispense. If this medicine isn’t suitable for you, we won’t dispense it and you’ll be refunded in full.</p>
+      {%- comment -%} The pre-payment disclosure used to sit here, above the submit
+          button. Removed 1 Oct 2026 on the client's instruction. It is NOT gone from the
+          journey: sections/main-cart.liquid prints the same undertaking — a pharmacist
+          reviews every medicine order, an unsuitable one is cancelled and refunded in
+          full — in the medicine declaration block, directly above "Checkout securely"
+          and beside the required over-18 tick. That is the last screen before payment,
+          which is the screen the disclosure has to be on. setup/verify/
+          medicine-declaration.py asserts it there. {%- endcomment -%}
       <button type="submit" form="{{ pq_id }}-form" class="btn btn-fill pq-submit" data-pq-submit>Submit &amp; add to bag</button>
       <p class="pq-status" data-pq-status hidden></p>
     </footer>
@@ -474,7 +477,6 @@
   .pq-has-error .pq-q-label { color: var(--c-error); }
   .pq-has-error .pq-yn-opt { border-color: var(--c-error); }
   .pq-blocked { background: #fbeceb; color: #8a1f18; border-radius: 12px; padding: 14px 16px; font-size: 14px; line-height: 1.55; font-weight: 600; margin: 0 0 12px; }
-  .pq-consent-note { font-size: 13px; line-height: 1.55; color: #4a4d47; background: #f4f5f2; border-radius: 10px; padding: 12px 14px; margin: 0 0 12px; }
   .pq-submit { width: 100%; }
   .pq-status { color: var(--c-error); font-size: 14px; font-weight: 600; margin: 12px 0 0; text-align: center; }
 

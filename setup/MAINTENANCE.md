@@ -761,10 +761,20 @@ Three things that are load-bearing and easy to break:
    and it is the right one, **but it means the customer pays before the decision is
    made.** So whoever writes customer-facing copy must make that sequence clear
    *before* payment: you pay now, a pharmacist reviews, an unsuitable order is
-   cancelled and refunded. That disclosure currently lives next to the Submit button
-   in `snippets/pharmacy-questionnaire.liquid` (`.pq-consent-note`). If the flow or
-   the copy changes, keep the two in step, and get the wording pharmacist/client
-   signed off like any other medical copy.
+   cancelled and refunded. **That disclosure lives on the bag page**, in the medicine
+   declaration block in `sections/main-cart.liquid` — beside the required over-18 tick
+   and directly above "Checkout securely". If the flow or the copy changes, keep the
+   two in step, and get the wording pharmacist/client signed off like any other
+   medical copy.
+
+   It was in the questionnaire modal as well (`.pq-consent-note`) until 1 Oct 2026,
+   when the client had it removed from there. One copy, on the last screen before
+   payment, which is the screen that matters: a shopper can reach checkout with a
+   medicine in the bag without ever opening the modal again, so the bag page is the
+   one place the undertaking cannot be missed. `setup/verify/medicine-declaration.py`
+   asserts it there — the three checks moved with the copy rather than being deleted.
+   **If the modal's note is ever restored, the bag page keeps its own**; this is not
+   a thing to have in one place only because it is cheap to repeat.
 
 ---
 
@@ -950,7 +960,9 @@ work), so a medicine order placed through the bag page now arrives with the
 declaration. The routes that skip the bag page still arrive without it and are
 still tagged `no-declaration` — that is the Flow failing safe, not a fault.
 The pre-payment line telling the customer a pharmacist reviews the order and
-may cancel and refund it is live too, in the questionnaire modal.
+may cancel and refund it is live too, on the bag page beside that tick. It was in
+the questionnaire modal as well until 1 Oct 2026, when the client had it removed
+from there.
 
 The design:
 
