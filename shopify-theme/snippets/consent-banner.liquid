@@ -25,7 +25,8 @@
       is what happens if this JavaScript never runs at all.
     - Reject must be as easy as accept. "Reject all" and "Accept all" are the
       same element, same size, same weight, side by side. No pre-ticked boxes
-      in the preferences panel, and no dismiss-by-scrolling.
+      in the preferences panel, and no dismiss-by-scrolling. The row reads
+      Choose, Reject all, Accept all; see the note on that order at the row.
     - The choice must be changeable. The footer carries a permanent "Cookie
       settings" link that reopens this, and re-consent is recorded the same way.
 
@@ -58,11 +59,22 @@
       </p>
     </div>
 
-    {%- comment -%} Neither button is styled as the preferred one. {%- endcomment -%}
+    {%- comment -%} Neither button is styled as the preferred one: Accept all and Reject
+        all are both `btn btn-fill`, same size, same weight, side by side. That is the
+        equal-prominence requirement and it survives the order below.
+
+        Order is Choose, Reject all, Accept all, so Accept lands on the right where the
+        eye and the thumb finish. It is expressed in the DOM, not with `order` or
+        `row-reverse`, because CSS ordering moves the pixels and leaves the tab sequence
+        behind it: a keyboard user would tab Accept first while seeing it last, which is
+        exactly the mismatch the equal-prominence rule exists to prevent. `.cc-actions`
+        is a plain flex row with no `order` anywhere (base.css), at both breakpoints, so
+        reading order, visual order and tab order are the same three. Keep it that
+        way. {%- endcomment -%}
     <div class="cc-actions">
-      <button type="button" class="cc-btn btn btn-fill" data-cc-accept>Accept all</button>
-      <button type="button" class="cc-btn btn btn-fill" data-cc-reject>Reject all</button>
       <button type="button" class="cc-btn btn btn-outline" data-cc-manage aria-expanded="false" aria-controls="cc-options">Choose</button>
+      <button type="button" class="cc-btn btn btn-fill" data-cc-reject>Reject all</button>
+      <button type="button" class="cc-btn btn btn-fill" data-cc-accept>Accept all</button>
     </div>
 
     <div class="cc-options" id="cc-options" data-cc-options hidden>
