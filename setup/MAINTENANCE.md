@@ -1832,6 +1832,36 @@ whole rectangle white.
 
 ---
 
+## The other four contrast failures are the hero, and the checker is wrong about them (1 Oct 2026)
+
+`contrast.py` reports **12** failures, not eight, and for a while the entry above read
+as though it accounted for all of them. It does not. Four are on the **homepage hero**,
+at 1440 and 390:
+
+| | Reported | Actual |
+|---|---|---|
+| "Vitamins & Supplements" | 1.16:1 | **2.04:1** |
+| "Premium vitamins, minerals and Irish hea…" | 1.02:1 | **1.77:1** |
+
+The reported figures are wrong because the checker reads the **CSS fallback**.
+`hero-slider.liquid` sets `background:#E6F2D5` on the slide wrapper, which is what sits
+under the hero image while it loads and what `getComputedStyle` returns; the text is
+actually over the photograph. The real ratios are the ones on the right (client
+measurement, 1 Oct 2026). They still fail AA — this is a real contrast problem, just
+not the one the numbers describe, and it is **not** the voucher card.
+
+Both are left failing on purpose and **not** fixed on the branch that found this
+(`gvdate/native-date-input`, a gift voucher change). Written down because an accepted
+failure is a good place for an unrelated one to hide: the voucher card's eight were
+documented, the suite was known to fail on `contrast`, and four homepage failures sat
+inside that for as long as nobody counted them.
+
+**If you are reading this because `contrast.py` failed:** the count is the thing to
+check first. Eight means the voucher card alone. Twelve means the card plus this hero.
+Anything else is new and nothing here covers it.
+
+---
+
 **This is why `npm run verify` reports a failure on a clean tree.** `contrast.py`
 counts these four elements (the card's "Gift Voucher", the amount, "Valid 5 years"
 and "Online only") as WCAG AA failures at 1.99:1, because they are. The check is
