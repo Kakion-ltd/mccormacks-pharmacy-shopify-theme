@@ -41,6 +41,27 @@ If the merge refuses, main has moved: back in the worktree run
 `git push . HEAD:main` from the worktree; git refuses to update a branch that
 is checked out elsewhere, which main always is.
 
+**After a rebase, the sha a session reported is not the sha that landed.** The
+rebase rewrites every commit it moves, so a sha quoted in a handover note, in a
+message to another session or in a report no longer exists, and the commit it
+named is on `main` under a different one. On 1 Oct 2026 a session spent several
+minutes unable to attribute an unpushed commit touching `taxonomy.json` and seven
+theme snippets, and came close to flagging it as another session's unreviewed
+theme work, because the sha the authoring session would have quoted (`ac946b4`)
+had become `c55b2b2`. To re-attribute an orphaned sha, compare the two timestamps
+git keeps:
+
+```sh
+git log --format='%h  authored %aI  committed %cI  %s' origin/main..main
+```
+
+A rebase preserves author time and rewrites committer time, so commits moved by
+one rebase share a committer timestamp to the second while their author times
+stay minutes or hours apart. That is the tell to use here, because every session
+commits as the same author and the author field distinguishes nothing. Quote the
+sha you read, as above — but re-read it after a rebase, before anyone relies on
+it.
+
 The main checkout is only ever a clean copy of `main` that receives merges.
 Never edit, `git reset`, `git stash` or `git add -A` there while another
 session is active, and never `git checkout main` inside a worktree. When done:
