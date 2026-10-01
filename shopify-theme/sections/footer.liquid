@@ -105,8 +105,17 @@
       {%- if shop.enabled_payment_types.size > 0 -%}
       <div class="ftr-payments" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
         <span style="font-size:12.5px; color:#666b60; margin-right:2px;">We accept</span>
+        {%- comment -%} The marks stand on their own: no card, no border, no tinted ground.
+            Each one used to sit in a 52x30 bordered box, which drew six grey rectangles
+            across the footer and fought the marks inside them. The svg is the flex item
+            now, so the row's align-items centres each mark against "We accept" whatever
+            its own height, and the 10px gap spaces them evenly. height is set and width
+            left auto, so each mark keeps its own aspect from its viewBox rather than
+            being squared off to a common box. Wrapping is the row's flex-wrap; on a
+            phone base.css gives the label its own line so the marks wrap as one group
+            instead of stranding the last one. {%- endcomment -%}
         {%- for type in shop.enabled_payment_types -%}
-          <span style="display:inline-flex; align-items:center; justify-content:center; height:30px; width:52px; border-radius:6px; background:#fbfcfa; border:1px solid #e6e7e4;">{{ type | payment_type_svg_tag: style: 'height:20px; width:auto;' }}</span>
+          {{ type | payment_type_svg_tag: style: 'height:24px; width:auto; display:block;' }}
         {%- endfor -%}
       </div>
       {%- endif -%}

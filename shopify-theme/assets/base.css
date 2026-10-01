@@ -455,7 +455,11 @@ html { scroll-padding-top: calc(var(--hdr-pinned) + 8px); }
   .ftr-psi img { height: 56px !important; }
   .ftr-bottom { flex-direction: column !important; text-align: center; gap: 14px !important; padding: 22px 16px !important; }
   .ftr-bottom > div { justify-content: center !important; }
-  .ftr-payments { order: 1; }
+  .ftr-payments { order: 1; justify-content: center; }
+  /* "We accept" takes the whole line on a phone so the marks wrap among themselves.
+     Sharing a line with the label left room for five of the six, stranding the last
+     one alone on the next row; given the full width they sit as one even group. */
+  .ftr-payments > span:first-child { flex: 1 0 100%; text-align: center; margin-right: 0 !important; }
   .ftr-terms { display: block !important; order: 2; font-size: 13px; }
   .ftr-copyright { order: 3; }
   .ftr-builtby { order: 4; }
