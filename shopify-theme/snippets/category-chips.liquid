@@ -141,10 +141,9 @@
 {% render 'category-chip', h: 'facial-skincare', l: 'Facial Skincare', cur: collection.handle %}
 {% render 'category-chip', h: 'problem-skin', l: 'Problem Skin', cur: collection.handle %}
 {% render 'category-chip', h: 'hands-nails', l: 'Hands &amp; Nails', cur: collection.handle %}
-{%- when 'dermatological-skincare' or 'anti-ageing' or 'acne-blemish' or 'dry-skin' or 'sensitive-skin' or 'irritated-damaged-skin' or 'sun' -%}
+{%- when 'dermatological-skincare' or 'anti-ageing' or 'acne-blemish' or 'sensitive-skin' or 'irritated-damaged-skin' or 'sun' -%}
 {% render 'category-chip', h: 'anti-ageing', l: 'Anti-Ageing', cur: collection.handle %}
 {% render 'category-chip', h: 'acne-blemish', l: 'Acne &amp; Blemish', cur: collection.handle %}
-{% render 'category-chip', h: 'dry-skin', l: 'Dry Skin', cur: collection.handle %}
 {% render 'category-chip', h: 'sensitive-skin', l: 'Sensitive Skin', cur: collection.handle %}
 {% render 'category-chip', h: 'irritated-damaged-skin', l: 'Irritated &amp; Damaged Skin', cur: collection.handle %}
 {% render 'category-chip', h: 'sun', l: 'Sun', cur: collection.handle %}
@@ -163,9 +162,8 @@
 {%- when 'problem-skin' or 'dry-skin-eczema-psoriasis' -%}
 {% render 'category-chip', h: 'acne-blemish', l: 'Acne &amp; Blemish', cur: collection.handle %}
 {% render 'category-chip', h: 'dry-skin-eczema-psoriasis', l: 'Dry Skin, Eczema &amp; Psoriasis', cur: collection.handle %}
-{%- when 'hands-nails' or 'hand-cream' or 'cuticle-nail-care' -%}
+{%- when 'hands-nails' or 'hand-cream' -%}
 {% render 'category-chip', h: 'hand-cream', l: 'Hand Cream', cur: collection.handle %}
-{% render 'category-chip', h: 'cuticle-nail-care', l: 'Cuticle &amp; Nail Care', cur: collection.handle %}
 {%- when 'beauty' -%}
 {% render 'category-chip', h: 'face', l: 'Face', cur: collection.handle %}
 {% render 'category-chip', h: 'eyes', l: 'Eyes', cur: collection.handle %}
