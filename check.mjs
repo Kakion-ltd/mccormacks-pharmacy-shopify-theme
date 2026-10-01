@@ -143,20 +143,31 @@ for (const [f, needle] of RAILS) {
     uploadErrors++;
   }
 }
-// Free delivery is not available on a bag holding a sale or special-offer item, so the
-// progress bar must not promise it. The fact is Liquid-only -- /cart.js returns neither
-// compare_at_price nor a line's discount allocations -- so main-cart computes it and
-// marks itself [data-sale-or-offer], and theme.js reads that out of the section it
-// already fetches for the medicine declaration. Lose either half and the bar fills to
-// "You have free delivery" on a bag that will be charged for delivery at the checkout:
-// wrong, customer-facing, and invisible in every local check that does not look here.
-const FREE_DELIVERY_GUARD = [
-  ['sections/main-cart.liquid', 'has_sale_or_offer', 'the bag page would promise free delivery on a sale bag'],
-  ['assets/theme.js', 'data-sale-or-offer', 'the bag drawer would promise free delivery on a sale bag'],
+// Free delivery is the threshold and nothing else (1 Oct 2026). The theme used to tell a
+// bag holding a sale or offer item that free delivery "isn't available", but the
+// checkout's free-shipping discount never excluded them, so the bag said one thing and
+// the checkout did another. Keep the claim out of the theme until the checkout enforces
+// it (setup/MAINTENANCE.md, "Free delivery and sale items").
+for (const f of ['sections/main-cart.liquid', 'assets/theme.js', 'sections/page-shipping.liquid']) {
+  const src = readFileSync(join(root, f), 'utf8');
+  if (/sale or offer items|containing sale items|data-sale-or-offer/.test(src)) {
+    console.log(`ERROR  /${f}  SaleExclusionClaim  the theme promises a free-delivery exclusion the checkout does not apply`);
+    uploadErrors++;
+  }
+}
+// The bag drawer's Checkout must stay reachable on a phone. Two halves, both found broken
+// on the live store on 1 Oct 2026: the open drawer keeps [hidden], so it must stay a flex
+// column under that attribute; without min-height: the scroll region will not shrink,
+// so the drawer outgrows the screen and Checkout falls off the bottom; and the product
+// page's sticky bar paints over the drawer (same z-index layer), so it must hide.
+const DRAWER_REACH = [
+  ['assets/base.css', '.cd-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto;', 'the drawer stops scrolling and Checkout goes off-screen'],
+  ['assets/base.css', '.cd-drawer[hidden] { display: flex; }', 'the open drawer (which keeps [hidden]) falls back to display:block and never scrolls'],
+  ['sections/main-product.liquid', 'body[data-cd-open] .mobile-buybar { visibility: hidden; }', 'the sticky bar covers the drawer\'s Checkout on a phone'],
 ];
-for (const [f, needle, why] of FREE_DELIVERY_GUARD) {
+for (const [f, needle, why] of DRAWER_REACH) {
   if (!readFileSync(join(root, f), 'utf8').includes(needle)) {
-    console.log(`ERROR  /${f}  FreeDeliveryGuardMissing  no "${needle}": ${why}`);
+    console.log(`ERROR  /${f}  DrawerCheckoutUnreachable  no "${needle}": ${why}`);
     uploadErrors++;
   }
 }

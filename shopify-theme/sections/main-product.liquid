@@ -83,6 +83,10 @@
 {%- comment -%} One label for both add buttons (buy box and mobile bar) and for the
     variant-change handler, so the three cannot drift. {%- endcomment -%}
 {%- capture gate_label -%}Answer {{ question_count }} health question{% unless question_count == 1 %}s{% endunless %}{%- endcapture -%}
+{%- comment -%} The mobile bar's version. "Answer 18 health questions" beside the stepper
+    ran 30-70px off the right edge of every phone from 320 to 414px; the count is on the
+    buy box above, and the questionnaire's own header says "0 of 18 answered". {%- endcomment -%}
+{%- assign gate_label_short = 'Answer questions' -%}
 
 {%- comment -%} The most specific collection this product belongs to. Shopify's
     product.collections ordering is arbitrary, so .first was picking a department as
@@ -521,28 +525,28 @@
   <!-- Mobile sticky add-to-bag bar -->
   <div class="mobile-buybar" style="display:none; position:fixed; left:0; right:0; bottom:0; z-index:150; background:#ffffff; border-top:1px solid #e6e7e4; box-shadow:0 -6px 20px rgba(0,0,0,.08); padding:12px 16px; gap:12px; align-items:stretch;">
     <div style="flex:0 0 auto; display:flex; align-items:center; border:1.5px solid #dfe1dc; border-radius:11px; overflow:hidden;">
-      <button type="button" data-qty-step="-1" disabled aria-label="Decrease quantity" style="width:46px; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">−</button>
-      <span data-buybar-qty style="min-width:34px; text-align:center; font-weight:700; font-size:16px; color:var(--c-primary-text);">1</span>
-      <button type="button" data-qty-step="1" aria-label="Increase quantity" style="width:46px; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">+</button>
+      <button type="button" data-qty-step="-1" disabled aria-label="Decrease quantity" style="width:44px; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">−</button>
+      <span data-buybar-qty style="min-width:26px; text-align:center; font-weight:700; font-size:16px; color:var(--c-primary-text);">1</span>
+      <button type="button" data-qty-step="1" aria-label="Increase quantity" style="width:44px; border:none; background:#fff; color:#2A2B2A; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;">+</button>
     </div>
     {%- comment -%} On a gated product this bar opens the questionnaire too, rather than
         quick-adding: a [data-add-id] button would post straight to /cart/add.js and skip
         the gate. {%- endcomment -%}
     {%- if product.gift_card? -%}
-      <a href="/pages/gift-vouchers" class="btn btn-fill" style="flex:1; gap:10px; letter-spacing:.05em;">Buy a gift voucher</a>
+      <a href="/pages/gift-vouchers" class="btn btn-fill buybar-btn" style="flex:1; gap:10px; letter-spacing:.05em;">Buy a gift voucher</a>
     {%- elsif is_gated == false -%}
-      <button type="button" data-add-id="{{ current_variant.id }}" data-add-qty="1" data-buybar-add class="btn btn-fill" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:10px; letter-spacing:.05em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      <button type="button" data-add-id="{{ current_variant.id }}" data-add-qty="1" data-buybar-add class="btn btn-fill buybar-btn" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:10px; letter-spacing:.05em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
+        <svg class="buybar-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
         <span data-buybar-label>{%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}</span>
       </button>
     {%- elsif gate_ready -%}
-      <button type="button" data-open-questionnaire aria-haspopup="dialog" class="btn btn-fill" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:10px; letter-spacing:.04em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-        <span data-buybar-label>{%- if current_variant.available %}{{ gate_label }}{% else %}OUT OF STOCK{% endif -%}</span>
+      <button type="button" data-open-questionnaire aria-haspopup="dialog" class="btn btn-fill buybar-btn" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:10px; letter-spacing:.04em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
+        <svg class="buybar-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        <span data-buybar-label>{%- if current_variant.available %}{{ gate_label_short }}{% else %}OUT OF STOCK{% endif -%}</span>
       </button>
     {%- else -%}
       {%- comment -%} Fail closed on mobile too: a disabled button, never a working add. {%- endcomment -%}
-      <button type="button" class="btn btn-fill" disabled style="flex:1; gap:10px; letter-spacing:.04em; opacity:.55;">
+      <button type="button" class="btn btn-fill buybar-btn" disabled style="flex:1; gap:10px; letter-spacing:.04em; opacity:.55;">
         <span>Ask our pharmacist</span>
       </button>
     {%- endif -%}
@@ -551,6 +555,11 @@
 </div>
 
 {% style %}
+  /* Under 360px the bag icon goes, so "Answer questions" fits beside the stepper. */
+  @media (max-width: 359px) {
+    .mobile-buybar .buybar-icon { display: none; }
+    .mobile-buybar .buybar-btn { padding-left: 10px; padding-right: 10px; letter-spacing: 0 !important; }
+  }
   .pcard:hover .pcard-img img { transform: scale(1.04); transition: transform .3s ease; }
   .pdp-thumb-nav:hover { border-color: var(--c-accent) !important; background: #f2f8e9 !important; }
   .pdp-tab {
@@ -593,6 +602,15 @@
   }
   @media (max-width: 900px) {
     .mobile-buybar { display: flex !important; }
+    /* The button takes what the stepper leaves and no more: min-width:0 lets it shrink
+       below its nowrap label, and the label clips rather than pushing off-screen. */
+    .mobile-buybar .buybar-btn { min-width: 0; overflow: hidden; }
+    .mobile-buybar .buybar-btn > span { overflow: hidden; text-overflow: ellipsis; }
+    /* The bag drawer opens over this page. The drawer lives in the header group, a
+       stacking context at z-index 150, so its own 301 cannot lift it over this bar
+       (also 150, later in the DOM) - the bar sat on the drawer's Checkout and a tap
+       there added the product again. Hide the bar while the drawer is open. */
+    body[data-cd-open] .mobile-buybar { visibility: hidden; }
     /* While the consent banner is open it fully overlaps the fixed buy bar
        (z-index 400 vs 150) - hide the bar rather than leave dead pixels
        behind the banner. visibility keeps it mounted, so no reflow; the
@@ -695,6 +713,7 @@
     // button, so relabelling it 'ADD TO BAG' on a variant change left a button that
     // said one thing and did another. The available label follows the gate.
     const addLabel = {% if is_gated %}{{ gate_label | json }}{% else %}'ADD TO BAG'{% endif %};
+    const barLabel = {% if is_gated %}{{ gate_label_short | json }}{% else %}'ADD TO BAG'{% endif %};
     const setBuy = (v) => {
       const live = !!v && v.available;
       const label = !v ? 'UNAVAILABLE' : v.available ? addLabel : 'OUT OF STOCK';
@@ -705,7 +724,7 @@
         buybarAdd.style.opacity = live ? '' : '.55';
         if (v) buybarAdd.dataset.addId = v.id; else buybarAdd.removeAttribute('data-add-id');
       }
-      if (buybarLabel) buybarLabel.textContent = label;
+      if (buybarLabel) buybarLabel.textContent = label === addLabel ? barLabel : label;
     };
 
     // Variant -> gallery frame, from the map Liquid wrote above.

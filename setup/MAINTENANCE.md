@@ -711,6 +711,29 @@ names.
 
 ---
 
+## Free delivery and sale items (1 Oct 2026)
+
+**Free delivery is the threshold and nothing else.** Any bag at or over the
+threshold gets it, sale and multi-buy items included.
+
+Until 1 Oct 2026 the theme said otherwise: the bag drawer and the bag page told
+any bag holding a compare-at (sale) item or a line with an automatic discount
+(multi-buy) "Free delivery isn't available on orders with sale or offer items",
+and the shipping page said the same. The checkout never agreed. Free delivery
+is an automatic free-shipping discount with a minimum spend, and that discount
+type cannot exclude products, so a €56.95 bag of a sale item was offered An Post
+at ~~€5.99~~ FREE at checkout while the bag page said it would not be. The theme
+claim was removed rather than leaving the bag contradicting the checkout.
+`check.mjs` (`SaleExclusionClaim`) fails if the wording or the old
+`data-sale-or-offer` marker comes back.
+
+**If the exclusion is wanted for real, it has to be enforced at checkout first:**
+a Shopify Function (a delivery customization that hides or renames the free
+rate, or a shipping discount function that skips bags with discounted or
+compare-at lines), or an app that provides one. Only once the checkout applies
+it should the theme say so again. The shipping policy text in admin was left
+alone on purpose; check it says the same as the checkout before relying on it.
+
 ## Free delivery threshold — one setting, 62 former hardcodes
 
 **Change it in one place: Theme settings → Brand → Free delivery threshold.**
@@ -956,7 +979,8 @@ per product later without touching the theme.
 
 The tags, read in `sections/main-product.liquid`:
 
-- `questionnaire-ed` — the old site's 14 erectile dysfunction questions. On
+- `questionnaire-ed` — the old site's 18 erectile dysfunction questions (see
+  "The ED set: 18 questions" below; it was 14 before 30 Sep 2026). On
   Viagra Connect 4 and 8 pack, Cialis 4Pk and 8Pk, Sidena 50mg 4 Pack.
 - `questionnaire-none` — a tagged medicine that deliberately asks nothing. On
   Curanail only, because the old site asks nothing there either.
@@ -979,7 +1003,12 @@ here anyway.
    Fergal's decision is that the pharmacist reads the answers on the order and
    decides. The blocking machinery is still in the framework and still tested —
    do not remove it, the metaobject path uses it.
-2. **Every built-in question is required.** All 14 on an ED product, both on
+   **Open, waiting for Fergal (1 Oct 2026):** a customer who answers Yes to a
+   question like "heart attack or stroke within the last 6 months" is added to
+   the bag with no word about what happens next. A short notice after submit
+   ("our pharmacist will contact you before we dispatch") is proposed but not
+   built: it is customer-facing medical copy and needs his sign-off and wording.
+2. **Every built-in question is required.** All 18 on an ED product, both on
    every other medicine. The free-text detail box is the one exception: it is
    optional, so a customer who answers Yes and types nothing still gets through,
    and the pharmacist sees a bare "Yes". If that is not good enough, make it

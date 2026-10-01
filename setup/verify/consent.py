@@ -103,6 +103,10 @@ with sync_playwright() as pw:
         # policy has no Preferences group, so there is nothing disclosed to grant.
         check(f"[{label}] accept does not grant preferences", payload["preferences"], False)
         check(f"[{label}] accept still does not grant sale_of_data", payload["sale_of_data"], False)
+        pg.goto(BASE + "/cart", wait_until="networkidle")
+        pg.wait_for_timeout(400)
+        check(f"[{label}] banner does not reappear after accept",
+              pg.locator("[data-cc-banner]").is_visible(), False)
 
         # GRANULAR: analytics only must not release the marketing pixel.
         ctx2 = b.new_context(viewport=vp)
@@ -116,6 +120,10 @@ with sync_playwright() as pw:
         pg2.wait_for_timeout(300)
         fired2 = sorted(e["pixel"] for e in pg2.evaluate("window.__pixelLog") if e["at"] == "fired")
         check(f"[{label}] analytics-only releases ga4 and withholds meta", fired2 == ["ga4"])
+        pg2.goto(BASE + "/collections/skincare", wait_until="networkidle")
+        pg2.wait_for_timeout(400)
+        check(f"[{label}] banner does not reappear after choose",
+              pg2.locator("[data-cc-banner]").is_visible(), False)
         ctx2.close()
 
         check(f"[{label}] no JS errors", errs == [])

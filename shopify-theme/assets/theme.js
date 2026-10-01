@@ -422,13 +422,10 @@
     // in Liquid, as with the cross-sell rail. Fails closed: the "Review bag" route is
     // the default, and the checkout form shows only on a clear "no medicine".
     //
-    // The same fetch answers a second question, for the same reason. Free delivery is
-    // not available on a bag holding a sale or special-offer item, and /cart.js returns
-    // neither compare_at_price nor the line's discount allocations — so main-cart marks
-    // itself [data-sale-or-offer] and this reads it. One request, two answers. On
-    // failure the shipping row is hidden rather than guessed: promising free delivery we
-    // cannot confirm is the costly way to be wrong, and asserting a restriction on a bag
-    // that may not have one is simply false.
+    // The same fetch carries the one price fact /cart.js lacks: a line's compare-at.
+    // main-cart marks each reduced line [data-compare-line] (the compare-at times the
+    // quantity) under its line key, and the drawer strikes it through beside the price,
+    // as the bag page does. On failure the drawer just shows no compare-at.
     let medSeq = 0;
     const checkCartFlags = (empty) => {
       const seq = ++medSeq;
@@ -437,13 +434,18 @@
         $('[data-cd-medicine]').hidden = !yes;
         $('[data-cd-checkout-form]').hidden = yes;
       };
-      const setSaleOrOffer = (yes) => {
+      const setCompareAt = (holder) => {
         if (seq !== medSeq) return;
-        if (yes === null) { $('[data-cd-ship]').hidden = true; return; }
-        if (!yes) return; // render() already wrote the progress message
-        $('[data-cd-ship-msg]').textContent =
-          'Free delivery isn\u2019t available on orders with sale or offer items.';
-        $('[data-cd-bar]').parentElement.hidden = true;
+        holder.querySelectorAll('[data-compare-line]').forEach((row) => {
+          const line = cd.drawer.querySelector('[data-cd-key="' + CSS.escape(row.dataset.lineKey) + '"]');
+          if (!line) return;
+          const compare = parseInt(row.dataset.compareLine, 10);
+          if (!(compare > parseInt(line.dataset.cdWas, 10))) return;
+          const price = line.querySelector('.cd-line-price');
+          const was = price.querySelector('.cd-line-was') || price.insertBefore(document.createElement('span'), price.firstChild);
+          was.className = 'cd-line-was';
+          was.textContent = fmt(compare);
+        });
       };
       setMedicine(true);
       if (empty) return;
@@ -453,9 +455,9 @@
           const holder = document.createElement('div');
           holder.innerHTML = html;
           setMedicine(!!holder.querySelector('[data-medicine-declaration]'));
-          setSaleOrOffer(!!holder.querySelector('[data-sale-or-offer]'));
+          setCompareAt(holder);
         })
-        .catch(() => { setMedicine(true); setSaleOrOffer(null); });
+        .catch(() => { setMedicine(true); });
     };
 
     const render = (cart) => {
@@ -467,13 +469,19 @@
 
       if (!empty && threshold) {
         const left = threshold - cart.total_price;
-        // checkCartFlags may have hidden this for a sale bag; the new bag owns it again
-        $('[data-cd-bar]').parentElement.hidden = false;
         $('[data-cd-ship-msg]').textContent = left <= 0
           ? 'You have free delivery'
           : fmt(left) + ' away from free delivery';
         $('[data-cd-bar]').style.width =
           Math.min(100, Math.round((cart.total_price / threshold) * 100)) + '%';
+      }
+      // Subtotal and Savings only when something is discounted; Total is always the
+      // after-discount figure, named as the bag page names it.
+      const saving = cart.total_discount > 0;
+      cd.drawer.querySelectorAll('[data-cd-savings-rows]').forEach((el) => { el.hidden = !saving; });
+      if (saving) {
+        $('[data-cd-original]').textContent = fmt(cart.original_total_price);
+        $('[data-cd-savings]').textContent = '\u2212' + fmt(cart.total_discount);
       }
       $('[data-cd-subtotal]').textContent = fmt(cart.total_price);
 
@@ -487,7 +495,19 @@
           : '<span style="display:block;width:100%;height:100%;background:repeating-linear-gradient(135deg,#dfe6d5,#dfe6d5 12px,#d7dfcb 12px,#d7dfcb 24px);"></span>';
         const was = (it.original_line_price > it.final_line_price)
           ? '<span class="cd-line-was">' + fmt(it.original_line_price) + '</span>' : '';
-        return '<div class="cd-line" data-cd-line="' + (i + 1) + '">' +
+        // The offer this line belongs to, by name. A multi-buy splits one product into
+        // several lines (the discounted one and the rest), and every one of them carries
+        // the allocation, so each is labelled "3 for €5" as on the bag page.
+        const offers = [...new Set((it.line_level_discount_allocations || [])
+          .map((d) => d.discount_application && d.discount_application.title).filter(Boolean))];
+        // A questionnaire line folds its answers to one count, as on the bag page; the
+        // answers themselves stay on the line, unrenamed, for the pharmacist.
+        const props = Object.entries(it.properties || {}).filter(([k, v]) => k[0] !== '_' && String(v).trim() !== '');
+        const propHtml = (it.properties && it.properties._questionnaire && props.length)
+          ? '<span class="cd-line-prop">Health questions: ' + props.length + ' answered</span>'
+          : props.map(([k, v]) => '<span class="cd-line-prop">' + esc(k) + ': ' + esc(v) + '</span>').join('');
+        return '<div class="cd-line" data-cd-line="' + (i + 1) + '" data-cd-key="' + esc(it.key) + '" data-cd-was="' +
+          Math.max(it.original_line_price, it.final_line_price) + '">' +
           '<span class="cd-line-img">' + img + '</span>' +
           '<div class="cd-line-body">' +
             (it.product_type || it.vendor ? '<span class="cd-line-vendor">' + esc(it.vendor) + '</span>' : '') +
@@ -498,8 +518,8 @@
             // null for a product that has only the default variant, so nothing is drawn
             // on a single-variant line. The cart page has always shown this.
             (it.variant_title ? '<span class="cd-line-variant">' + esc(it.variant_title) + '</span>' : '') +
-            Object.entries(it.properties || {}).filter(([k, v]) => k[0] !== '_' && String(v).trim() !== '')
-              .map(([k, v]) => '<span class="cd-line-prop">' + esc(k) + ': ' + esc(v) + '</span>').join('') +
+            propHtml +
+            offers.map((t) => '<span class="cd-line-offer">' + esc(t) + '</span>').join('') +
             '<div class="cd-line-foot">' +
               '<span class="cd-qty-col">' +
               '<span class="cd-qty">' +
@@ -531,6 +551,17 @@
     on(document, 'click', '[data-cd-qty]', async (e, btn) => {
       const line = parseInt(btn.dataset.cdQty, 10);
       const to = Math.max(0, parseInt(btn.dataset.cdTo, 10));
+      // The redraw replaces every button, so focus would fall to <body>. Put it back on
+      // the same control of the same line, found by line key; if that line went (or a
+      // multi-buy re-split it), the drawer itself.
+      const row0 = btn.closest('[data-cd-key]');
+      const key = row0 && row0.dataset.cdKey;
+      const label = btn.getAttribute('aria-label');
+      const refocus = () => {
+        const row = key && cd.drawer.querySelector('[data-cd-key="' + CSS.escape(key) + '"]');
+        const same = row && row.querySelector('[aria-label="' + CSS.escape(label) + '"]');
+        if (same && !same.disabled) same.focus(); else focusPanel(cd.drawer);
+      };
       cd.drawer.querySelectorAll('[data-cd-qty]').forEach((b) => { b.disabled = true; });
       try {
         const changeUrl = ((window.mccRoutes || {}).cart_change_url || '/cart/change') + '.js';
@@ -547,13 +578,12 @@
           const err = await cartError(res);
           render(await fetch(cartUrl).then((r) => r.json()));
           showCartMessage(err.message);
+          refocus();
           return;
         }
         const cart = await res.json();
         render(cart);
-        // The line (and the button that had focus) is gone; don't drop keyboard and
-        // screen-reader users on <body>.
-        if (to === 0) focusPanel(cd.drawer);
+        refocus();
         document.querySelectorAll('[data-cart-count]').forEach((el) => {
           el.textContent = cart.item_count;
           el.style.display = cart.item_count > 0 ? 'flex' : 'none';
@@ -861,7 +891,9 @@
         sale_of_data: false,
       };
       try {
-        privacy.setTrackingConsent(payload, () => ccHide());
+        // Shopify calls back with nothing on success and { error } on failure; only a
+        // recorded choice takes the banner down.
+        privacy.setTrackingConsent(payload, (res) => { if (!res || !res.error) ccHide(); });
       } catch {
         // If the call throws, leave the banner up rather than hiding it and
         // implying a choice was recorded.
@@ -870,10 +902,19 @@
 
     const ccInit = (privacy) => {
       // shouldShowBanner() honours the shop's own region rules, so a visitor
-      // outside a consent region is not nagged.
+      // outside a consent region is not nagged. It answers the REGION question only:
+      // on the live store it stays true after the visitor has chosen, so on its own it
+      // put the banner back on every page load (found 1 Oct 2026). Show it only while
+      // a choice is still outstanding — Shopify stores an unanswered category as ''.
       let show = true;
       try { show = privacy.shouldShowBanner(); } catch { show = true; }
-      if (show) ccShow();
+      let answered = false;
+      try {
+        const c = privacy.currentVisitorConsent() || {};
+        answered = c.analytics !== '' && c.analytics !== undefined
+          && c.marketing !== '' && c.marketing !== undefined;
+      } catch { answered = false; }
+      if (show && !answered) ccShow();
       ccSync(privacy);
 
       on(document, 'click', '[data-cc-accept]', (e) => {

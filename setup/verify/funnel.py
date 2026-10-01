@@ -208,15 +208,10 @@ with sync_playwright() as pw:
         # The threshold lives in one place (Brand > free_shipping_threshold), so read it
         # rather than restate it: this check hardcoded €65 and went red the day the client
         # moved it to €54.99, which is the "one thing in two places" defect in a test.
-        # The fixture bag holds sale items, and free delivery is withdrawn for those, so
-        # the cart shows the unavailable message INSTEAD of a threshold. Assert whichever
-        # the page is actually showing, and that it never shows both.
-        if SALE_UNAVAILABLE in body:
-            check(f"[{label}] cart page says free delivery is unavailable on a sale bag", True)
-            check(f"[{label}] cart page does not also promise free delivery",
-                  "away from free delivery" not in body and "You have free delivery" not in body)
-        else:
-            check(f"[{label}] cart page mentions the {THRESHOLD} threshold", THRESHOLD in body)
+        # Free delivery is the threshold only (no sale/offer exclusion since 1 Oct 2026),
+        # so the bag always names the threshold and never claims an exclusion.
+        check(f"[{label}] cart page mentions the {THRESHOLD} threshold", THRESHOLD in body)
+        check(f"[{label}] cart page claims no sale/offer exclusion", SALE_UNAVAILABLE not in body)
         check(f"[{label}] cart cross-sell rail present",
               page.locator(".crec").count() >= 1)
         cart_titles = page.locator(".crec-title").all_text_contents()

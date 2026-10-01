@@ -42,11 +42,11 @@
 
   var customerPrivacy = {
     currentVisitorConsent: function () { return read(); },
-    shouldShowBanner: function () {
-      var c = read();
-      // A visitor who has answered — either way — is not asked again.
-      return c.analytics === '' && c.marketing === '' && c.preferences === '';
-    },
+    // Region only, as on the live store: Shopify's shouldShowBanner() stays true after
+    // the visitor has chosen (checked 1 Oct 2026). The shim used to return false once
+    // answered, which hid the theme bug that re-showed the banner on every page; the
+    // theme must check currentVisitorConsent() itself.
+    shouldShowBanner: function () { return true; },
     analyticsProcessingAllowed: function () { return read().analytics === 'yes'; },
     marketingAllowed: function () { return read().marketing === 'yes'; },
     preferencesProcessingAllowed: function () { return read().preferences === 'yes'; },

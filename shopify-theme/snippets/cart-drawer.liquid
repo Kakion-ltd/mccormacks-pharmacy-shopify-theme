@@ -45,25 +45,43 @@
       number simply did not move and nothing said why. {%- endcomment -%}
   <p class="cd-err" data-cd-error role="alert" hidden></p>
 
-  <div class="cd-items" data-cd-items></div>
+  {%- comment -%} The one part of the drawer that scrolls: the lines, the rail and the
+      empty state. The head and the footer (totals, Checkout) stay put, so Checkout is
+      on screen however long the bag gets. Before 1 Oct 2026 the lines scrolled on
+      their own and the rail sat outside them, so a bag of one plus the rail was
+      already taller than a phone and pushed Checkout off the bottom, unreachable. {%- endcomment -%}
+  <div class="cd-scroll">
+    <div class="cd-items" data-cd-items></div>
 
-  {%- comment -%} Cross-sell rail, filled by theme.js from sections/cart-recommendations.liquid.
-      That section filters out restricted products, so nothing here can offer a
-      one-click add on a line that needs pharmacist advice. {%- endcomment -%}
-  <div class="cd-recs" data-crec-mount hidden></div>
+    {%- comment -%} Cross-sell rail, filled by theme.js from sections/cart-recommendations.liquid.
+        That section filters out restricted products, so nothing here can offer a
+        one-click add on a line that needs pharmacist advice. {%- endcomment -%}
+    <div class="cd-recs" data-crec-mount hidden></div>
 
-  <div class="cd-empty" data-cd-empty hidden>
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-    <p>Your bag is empty.</p>
-    <a href="{{ routes.root_url }}" class="cd-secondary" data-cd-close>Start shopping</a>
+    <div class="cd-empty" data-cd-empty hidden>
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      <p>Your bag is empty.</p>
+      <a href="{{ routes.root_url }}" class="cd-secondary" data-cd-close>Start shopping</a>
+    </div>
   </div>
 
   <footer class="cd-foot" data-cd-foot hidden>
-    <div class="cd-sub">
+    {%- comment -%} The same three figures, and names, as the bag page's order summary:
+        Subtotal before discounts, Savings, and Total after them. Subtotal and Savings
+        show only when there is a saving; otherwise Total says it all. {%- endcomment -%}
+    <div class="cd-row" data-cd-savings-rows hidden>
       <span>Subtotal</span>
+      <span data-cd-original></span>
+    </div>
+    <div class="cd-row" data-cd-savings-rows hidden>
+      <span>Savings</span>
+      <span data-cd-savings></span>
+    </div>
+    <div class="cd-sub">
+      <span>Total</span>
       <span data-cd-subtotal></span>
     </div>
-    <p class="cd-vat">Shipping and VAT calculated at checkout</p>
+    <p class="cd-vat">Prices include VAT. Delivery calculated at checkout.</p>
     {%- comment -%} A bag holding a medicine goes through the bag page, where the
         customer ticks the over-18 / leaflet box (PSI 2.5, sections/main-cart.liquid).
         /cart.js carries no tags, so theme.js asks the server: it fetches the main-cart
