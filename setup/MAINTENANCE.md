@@ -1048,7 +1048,7 @@ here anyway.
    what the pharmacist reads per medicine. If one is ever dropped, check which
    system was reading it first.
 
-### Sets beyond ED: built 1 Oct 2026, not live until tagged
+### Sets beyond ED: live 1 Oct 2026
 
 Asked for on 1 Oct 2026, after Fergal's ED-only decision the same day, as a
 proposal for him. The theme carries twelve more sets: the 25 Sep draft's sets
@@ -1061,19 +1061,25 @@ answers go on the line item with the same `_pharmacist_review` stamp. Flow 1
 reads the product tag, not these properties, so the hold is unchanged.
 `_questionnaire_version` is `<set>-2026-10-01`.
 
-**A theme push alone changes nothing a customer sees**, because no product
-has a new set tag yet. Which products get which tag (78, codeine none) is in
-`setup/questionnaire-sets-plan-2026-10-01.csv`. Applying it is a store write
-(`tagsAdd`, nothing removed), to be done with the push and only on Matthew's
-go. The proposal went to Fergal as `questionnaires-for-fergal.pdf`, built by
-`setup/build_question_sets_pdf.py` from the snippet and the plan CSV, headed
-"Going live on Thursday 8 October 2026 unless you object". **Curanail's set
-reverses his 30 Sep choice** of no questions there; the PDF says so.
+**Approved by Matthew on McCormack's behalf, 1 October 2026: questions on 77
+products in 11 sets, live the same night.** The 77 are in
+`setup/questionnaire-sets-plan-2026-10-01.csv`, spread over ten sets; the
+eleventh, `codeine`, is on no product because nothing on the store contains
+codeine. Applied as a store write (`tagsAdd`, nothing removed) after the theme
+push; the products changed are logged for reversal in
+`setup/questionnaire-sets-applied-2026-10-01.csv`. No PDF went to Fergal: the
+approval made it unnecessary.
+
+- **Curanail excluded.** It keeps `questionnaire-none` and no questions, as
+  Fergal chose on 30 Sep. The `curanail` set stays in the theme, on no product.
+- **Cold & flu combinations and topical gels left out**, deliberately: they keep
+  an ordinary Add to bag. That includes Advil Cold & Flu and Nurofen Cold & Flu.
+- A theme push on its own changes nothing a customer sees; only the tags do.
 
 Painkillers means oral paracetamol, ibuprofen and aspirin products and their
 plain combinations, plus the paracetamol and ibuprofen suppositories (58).
-Cold & flu combinations, topical NSAIDs and Panadol Night (in the sedating
-set) are left out, and the PDF's last page asks Fergal about them.
+Cold & flu combinations and topical NSAIDs are left out; Panadol Night is in
+the sedating set instead, because each product gets one set.
 
 The preview renders one fixture per set, read from the snippet's `when` list,
 so `questionnaire.py` checks a new set without being told about it.
