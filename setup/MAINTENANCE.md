@@ -1012,22 +1012,38 @@ store does, so a store saved without them would sort in a confidently wrong plac
 
 ---
 
-## Store API access — check it, do not guess it (24 Sep 2026)
+## Store API access — check it, do not guess it (24 Sep 2026, scopes last read 1 Oct 2026)
 
 Two sessions on 24 Sep reported different access levels for the same store.
 What is actually granted on `mccormackpharmacy.myshopify.com`, as of that date:
 
 - **App:** "Shopify CLI Connector App" (`shopify-cli-connector-app`), installed
   by `npx shopify store auth`.
-- **Scopes:** `read_products`, `write_products`, `read_publications`,
-  `write_publications`, `read_online_store_pages`, `write_online_store_pages`,
-  `write_online_store_navigation` (which also grants
-  `read_online_store_navigation`) and `read_orders`, nothing else. The first two
+- **Scopes (13, read 1 Oct 2026):** `read_products`, `write_products`,
+  `read_publications`, `write_publications`, `read_online_store_pages`,
+  `write_online_store_pages`, `read_online_store_navigation`,
+  `write_online_store_navigation`, `read_orders`, `read_discounts`,
+  `write_discounts`, `read_legal_policies`, `write_legal_policies`. The first two
   cover products and collections (rules, vendors, types). The publications pair,
   added later on 24 Sep, lets a new collection be published to the Online Store.
   The pages and navigation scopes, added the same evening for the footer and page
-  cleanup (`archive/store-cleanup-2026-09-24/`), cover pages and menus. None of
-  them reach customers, themes or settings.
+  cleanup (`archive/store-cleanup-2026-09-24/`), cover pages and menus.
+- **`read_discounts` / `write_discounts` (found 1 Oct 2026).** Added by the
+  offers work; this paragraph did not mention them until a policies session read
+  the grant and found two more scopes than the list claimed. That is the second
+  time this list has gone stale between readings — hence the heading.
+- **`read_legal_policies` / `write_legal_policies` (added 1 Oct 2026).** Added
+  deliberately, by the store owner running `store auth`, so that the five
+  checkout policies under Settings → Policies could be written from here instead
+  of pasted by hand. They are what `shopPolicyUpdate` needs. Three were written
+  with them on 1 Oct: `REFUND_POLICY`, `CONTACT_INFORMATION` (which had never
+  been set — `/policies/contact-information` returned 404 until then) and
+  `PRIVACY_POLICY`, from `setup/policies/*.html`. `SHIPPING_POLICY` and
+  `TERMS_OF_SERVICE` were deliberately left alone: their drafts still carry
+  unresolved questions, marked in the source files as `<strong>[…]</strong>`.
+- **What is still not granted:** customers, themes, inventory, gift cards, and
+  settings other than legal policies. A theme change is still a
+  `shopify theme push`, not an API call.
 - **`read_orders` was added after this section was written (found 30 Sep 2026).**
   Until then this list ended "nothing else" and said the scopes never reach
   orders, and a session that believed it would have handed a test plan back to a
@@ -1044,7 +1060,9 @@ What is actually granted on `mccormackpharmacy.myshopify.com`, as of that date:
 
 Scopes change when someone re-runs `store auth` with a different `--scopes`
 list. Once the app is installed, adding a scope can pass without a visible
-prompt. So ask the store what it has granted:
+prompt. `--scopes` is also the whole requested set, not an addition: re-running
+it without a scope the store already had drops that scope. So ask the store what
+it has granted, and never trust the list above:
 
 ```sh
 npx shopify store execute -s mccormackpharmacy.myshopify.com \
