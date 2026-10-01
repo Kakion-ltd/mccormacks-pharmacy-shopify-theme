@@ -54,6 +54,14 @@ Admin → **Apps** → **Flow** → **Create workflow**. Rename it at the top to
    criteria (AND), so the key and the value are matched on the same attribute —
    the same shape as the over-18 attribute check in `PHARMACIST-HOLD-FLOWS.md`.
 
+   **The value half of this is now load-bearing (1 Oct 2026).** Until then,
+   `Delivery` was posted *only* by the printed method, so a condition matching the
+   key alone was accidentally correct. All three methods post it now — `By email`,
+   `Printed and posted`, `Sent to me` — so a group set to **any** of its criteria
+   instead of **all** tags every voucher sold, including emailed ones. Re-run the
+   table in §3 after any change to the voucher page, and confirm the By email row
+   still produces no run.
+
    **If Flow does not offer `Custom attributes` under `Line items`** — the path
    has moved before — use `Order` → `Line items` → `Product` → `Title`,
    **Equal to**, `McCormack's Pharmacy Gift Voucher` instead, and accept that it
@@ -127,3 +135,100 @@ Re-check this if the fulfilment setting is ever changed.
 Cancel every test order afterwards, and **deactivate the test gift cards**
 (Products → Gift cards): cancelling an order does not void a gift card it issued,
 so a cancelled test order can leave a live code with real balance on it.
+
+---
+
+## 4. Testing the emailed voucher itself — two orders, click by click
+
+§3 tests the Flow. This tests the thing the Flow is not involved in: Shopify
+issuing a voucher **to someone other than the buyer**, now and on a date. Nothing
+in the preview can reach it — `gift-voucher.py` proves the right properties are
+posted, and there the harness stops. Shopify's side of the bargain needs a store.
+
+### Before either order
+
+1. **Settings → Checkout → Order processing** must read **"Automatically fulfill
+   only the gift cards"**. On "Don't fulfill any of the order's line items
+   automatically" no voucher is ever issued and both tests fail for a reason that
+   has nothing to do with them. This is §0 of this file and the most common way
+   to waste a test order.
+2. **Settings → Payments → Shopify Payments → Manage → Test mode** on.
+3. A **second inbox you control**, different from the buyer's. The whole point is
+   that the voucher goes somewhere the buyer is not; with one address, every
+   outcome looks like success.
+4. Note the store's timezone (**Settings → General**). Order B turns on it.
+5. Check `€10` is sellable: the page should show it, and checkout must ask for
+   money. **"Your order is free. No payment is required." means the variant is
+   inventory-tracked**, not that the voucher is free — see MAINTENANCE, "the gift
+   card product, by handle".
+
+### Order A — €10, By email, Send now
+
+1. `/pages/gift-vouchers` → amount **€10**.
+2. Method: **By email** (already selected).
+3. Recipient name: `Test Recipient A`.
+4. Recipient email: the second inbox.
+5. Delivery date: leave **Send now** (the default).
+6. Message: `Order A — send now`. Keep it identifiable; it is how you tell the two
+   emails apart.
+7. **Add voucher to bag**, then read the bag line **before paying**. It must show
+   `Delivery: By email`, `Recipient name`, `Recipient email` and `Message`, and no
+   `__shopify_*` — those start with an underscore and are hidden on purpose. A typo
+   in the address is unrecoverable once Shopify has sent to it; this is the last
+   place to catch one.
+8. Checkout with the test card `4242 4242 4242 4242`, any future expiry, any CVC.
+
+**What should arrive**
+
+| Where | What |
+|---|---|
+| Recipient inbox | The **New gift card** notification: the code, a €10 balance, your message, addressed to `Test Recipient A`. Within a minute or two — the gift card line auto-fulfils (two seconds on order #1012) |
+| Buyer inbox | The **order confirmation**, plus a **Gift card receipt** — a copy of the card confirming who it went to |
+| Recipient inbox | **No sender name anywhere.** There is no "from" in that email and no property that could put one there. If the client expects one, the message is the only place it can live |
+
+**In admin**
+
+- Orders → the order → the gift card line → **Properties**: `Delivery: By email`,
+  `Recipient name`, `Recipient email`, `Message`. **`Send on` must be absent.**
+- The gift card line reads **Fulfilled**. That is what issued the card; an
+  unfulfilled line means §0 above is wrong.
+- Products → **Gift cards** → the new card: its **Recipient** is the recipient,
+  **not the buyer**. This is the single check that proves the whole mechanism —
+  buyer in that field means Shopify did not recognise the properties.
+- Apps → Flow → `Voucher: printed and posted` → **Recent runs**: **no run.**
+  Since 1 Oct every method posts `Delivery`, so this row now tests the Flow's
+  condition as well as the order.
+
+### Order B — €10, By email, Pick a date = tomorrow
+
+Same as A, with two changes: Delivery date → **Pick a date** → tomorrow's date, and
+message `Order B — scheduled`.
+
+**Place it late in the evening, Irish time.** That is the only window where the
+timezone bug this guards against shows up: a date built with `toISOString()` rolls
+to the next day after 23:00 BST, and the voucher arrives a day early. The page uses
+local date parts (`iso()`) and sends `__shopify_offset` so Shopify resolves the date
+as the customer meant it. Placed at midday, a wrong answer and a right one look the same.
+
+**What should happen**
+
+| Where | What |
+|---|---|
+| Recipient inbox | **Nothing today.** That is the result |
+| Buyer inbox | Order confirmation, plus a **Gift card receipt** stating **when it is scheduled to send** |
+| Admin, order | The gift card line carries `Send on: <tomorrow's date>`. Check the date is **tomorrow**, not today and not the day after |
+| Admin, gift card | The card exists with its €10 balance and names the recipient. What is deferred is the recipient's email, not the card |
+| Admin, Flow | No run, same as A |
+
+Then **tomorrow**, confirm the New gift card email arrives at the recipient inbox,
+with the Order B message.
+
+### Afterwards
+
+1. Cancel both orders (refund, test mode).
+2. **Deactivate both gift cards** — Products → Gift cards → each → Deactivate.
+   Cancelling an order does **not** void a card it issued.
+3. Order B's scheduled send is the loose end. **It is not documented whether
+   deactivating a card stops a send already scheduled**, so either let it arrive
+   (the inbox is yours) or deactivate today and record here what actually happened.
+   Do not assume either way in this file until someone has watched it.
