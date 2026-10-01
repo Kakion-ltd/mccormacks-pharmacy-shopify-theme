@@ -821,6 +821,10 @@ async function renderTemplate(name, extraGlobals = {}) {
     // Shopify exposes `product` on product templates only. Snippets that branch
     // on it (buy-assurance) must see nothing elsewhere, as on the store.
     ...(pageTypeOf(name) === 'product' ? {} : { product: null }),
+    // Shopify's page_image: the product or collection image, else the Preferences
+    // sharing image, which the mock has none of. Drives the og:image branch.
+    page_image: pageTypeOf(name) === 'product' ? globals.product?.featured_image ?? null
+      : pageTypeOf(name) === 'collection' ? globals.collection?.image ?? null : null,
   };
   // page.url/handle are real on Shopify and used in canonical + structured data.
   if (name.startsWith('page.')) {

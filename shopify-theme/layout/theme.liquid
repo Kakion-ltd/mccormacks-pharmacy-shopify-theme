@@ -12,6 +12,17 @@
     <meta name="description" content="{{ page_description | escape }}">
   {%- endif -%}
   <link rel="canonical" href="{{ canonical_url }}">
+  {%- comment -%} Favicon: the Brand setting when one is picked, else the bundled
+      cross mark, 512px plus a 180px touch icon since asset_url cannot resize (opaque white ground: iOS fills transparency with black, and
+      the cross is a knock-out that would vanish on a dark tab). {%- endcomment -%}
+  {%- if settings.favicon != blank %}
+  <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32, crop: 'center' }}">
+  <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180, crop: 'center' }}">
+  {%- else %}
+  <link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
+  <link rel="apple-touch-icon" href="{{ 'favicon-180.png' | asset_url }}">
+  {%- endif %}
+  {% render 'social-meta' %}
   {%- comment -%} Out-of-range pagination. Shopify answers ?page=N beyond the last page
       with a 200 and canonicalises it to itself, so every collection, search and blog
       offers an unbounded supply of empty, indexable, self-canonical URLs. Measured on
