@@ -20,3 +20,7 @@ _site/
 # and Pages render it themselves at build time.
 preview/
 .render-new/
+
+# Product shots downloaded by artwork/hot-offers/build.py. The store is the
+# source of truth; the script re-fetches any that are missing.
+artwork/hot-offers/src/

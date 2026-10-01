@@ -2673,9 +2673,46 @@ the label says "3 for €10" whether or not a discount exists behind it.
 - Every one of them has `combinesWith.productDiscounts: true` and no
   `usesPerOrderLimit`: six of a 3-for-€10 product is €20, not one discounted
   trio and three at full price.
+- **Two more collections exist only to give a homepage tile somewhere to
+  point**: `revive-active-bogo-half-price` (3 products) and
+  `tan-studio-free-tanning-mitt` (8), created 1 Oct 2026 for the Special Offers
+  tiles. They are **manual** collections, hand-filled with exactly the products
+  their discount covers, and **nothing keeps them in step with the discount** —
+  Shopify has no link between a discount's product list and a collection. Change
+  either discount's products and the collection silently becomes wrong, and the
+  homepage goes on advertising the old set. Update both together, or the tile
+  lies. The brand collections are not substitutes: `revive-active` holds 32
+  products where the offer covers 3, and `bperfect` 134 where it covers 8.
 - **The free mitt is not added to the bag for the customer.** Shopify discounts a
   gift once it is in the cart; it never puts it there. The old site behaves the
   same way, which is why this was left as is rather than automated.
+
+## The homepage Special Offers tiles (1 Oct 2026)
+
+The three `hot-offers` blocks in `templates/index.json` advertise three of the
+automatic discounts above. Each tile's claim is only as true as the discount
+behind it, and two of the three carry a trap.
+
+- **Azio Beauty's "20% off" is a sale price, not a discount, and must stay that
+  way.** All 7 Azio products sell at exactly 0.80 × their compare-at price
+  (€28.00 → €22.40, €34.00 → €27.20, €22.00 → €17.60) and carry the `sale` tag.
+  There is deliberately **no** Azio automatic discount. Creating one "because the
+  tile says 20% and no discount exists" is the obvious mistake and it is wrong:
+  an automatic discount applies to the *current* price, so 20% on top is 0.64 of
+  RRP — 36% off, and the tile would then understate its own offer. This was
+  proposed and rejected on 1 Oct 2026.
+- **The B.Perfect free-mitt tile advertises an offer nobody can take up.** All 8
+  Tan Studio products are out of stock with `inventoryPolicy: DENY`, so every one
+  of their product pages renders a disabled "OUT OF STOCK" button. The mitt
+  itself is in stock, but nothing can trigger the discount. `offer-carts.py`
+  still passes this offer, because it adds through `/cart/add.js` and **the bag
+  accepts out-of-stock items — only checkout refuses them**. A green cart test is
+  therefore not evidence that an offer is buyable; check the product page's
+  button state as well.
+- Tile imagery is generated: `artwork/hot-offers/build.py`, from the store's own
+  product shots. Each tile's `background` in `index.json` must equal the `ground`
+  for that tile in `build.py`, because the spotlight image bleeds to three card
+  edges and a mismatch shows as a seam.
 
 ## Seasonal rotation is manual — nothing in this theme is date-scheduled
 

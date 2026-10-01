@@ -9,7 +9,7 @@ tree. One folder per slot, sized per `IMAGE-BRIEF.md`.
 | `hero-slides/` | Homepage hero slider | 1600 × 1000 transparent PNG cut-out; photographic slides 1760 × 920 + 1100 × 850 `-mobile` |
 | `category-banners/` | Department collection banners | 1300 × 600 |
 | `feature-tiles/` | Homepage feature tiles | 1360 × 765 |
-| `hot-offers/` | Homepage hot-offer tiles | 1032 × 774 |
+| `hot-offers/` | Homepage hot-offer tiles | 1600 × 800 spotlight, 800 × 600 rows — **generated**, run `build.py` |
 | `popular-categories/` | Homepage popular category tiles | 400 × 400 min |
 | `service-cards/` | In-Store Services page cards | 800 × 600 |
 | `store-photos/` | Store locator exteriors | 1520 × 700 |

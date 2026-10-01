@@ -226,50 +226,50 @@
       "type": "hot-offers",
       "settings": {},
       "blocks": {
-        "vitamins": {
+        "revive": {
           "type": "offer",
           "settings": {
-            "title": "Vitamins & Supplements",
-            "subtext": "Support your daily health & wellbeing — 20% off multivitamins & supplements this month.",
+            "title": "Revive Active",
+            "subtext": "On selected Revive Active products, while stocks last.",
             "cta": "Shop Now",
-            "link": "/collections/vitamins",
-            "image_asset": "",
-            "background": "#82c914",
-            "deal": "Save 20%",
+            "link": "/collections/revive-active-bogo-half-price",
+            "image_asset": "offer-revive-bogo.jpg",
+            "background": "#3F6B4F",
+            "deal": "Buy one, get one half price",
             "ends": ""
           }
         },
-        "deodorant": {
+        "azio": {
           "type": "offer",
           "settings": {
-            "title": "Deodorants & Antiperspirants",
-            "subtext": "Stay fresh for less with long-lasting protection, including Mitchum.",
+            "title": "Azio Beauty",
+            "subtext": "",
             "cta": "Shop Now",
-            "link": "/collections/deodorant",
-            "image_asset": "",
-            "background": "#3f6b4f",
-            "deal": "Save 15%",
+            "link": "/collections/azio-beauty",
+            "image_asset": "offer-azio-beauty.jpg",
+            "background": "#82C914",
+            "deal": "20% off",
             "ends": ""
           }
         },
-        "menopause": {
+        "bperfect": {
           "type": "offer",
           "settings": {
-            "title": "Menopause Support",
-            "subtext": "Everyday menopause support, including CanesMeno — all month long.",
+            "title": "B.Perfect",
+            "subtext": "With selected B.Perfect tan, while stocks last.",
             "cta": "Shop Now",
-            "link": "/collections/menopause",
-            "image_asset": "",
-            "background": "#92C83F",
-            "deal": "Save 20%",
+            "link": "/collections/tan-studio-free-tanning-mitt",
+            "image_asset": "offer-bperfect-tan-studio.jpg",
+            "background": "#2A2B2A",
+            "deal": "Free tanning mitt",
             "ends": ""
           }
         }
       },
       "block_order": [
-        "vitamins",
-        "deodorant",
-        "menopause"
+        "revive",
+        "azio",
+        "bperfect"
       ]
     },
     "reviews": {
