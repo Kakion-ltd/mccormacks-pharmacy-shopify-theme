@@ -129,7 +129,7 @@ few lines.
 | Category / sale banner | 1300 × 600 | 2.17:1 | Subject right |
 | Feature tile | 1360 × 765 | 16:9 | Subject right and upper; bottom-left 55% × 55% is background only; theme darkens the bottom 60%; no text or badges; both tiles in a section share one image language. See the house rule below |
 | Feature tile (mobile) | 800 × 800 | 1:1 | Optional. Same rule applied to its own bottom-left corner |
-| Hot-offer spotlight | 1600 × 800 | 2:1 | Bleeds to the card's top, right and bottom edges; phones crop it to a 2:1 band, so keep the subject inside the central 2:1. Any background. See the house rule below |
+| Hot-offer spotlight | 1600 × 800 | 2:1 | Bleeds to the card's top, right and bottom edges. **Keep the subject inside the central 70% of the width** (x 240–1360) and match the tile colour. See the house rule below |
 | Hot-offer row thumbnail | 800 × 600 | 4:3 | Landscape thumb on the compact offer cards, 128 × 96 on desktop |
 | Service / other tile | 658 × 658 | 1:1 | Title and link sit below the image |
 | Popular-category tile | 400 × 400 | 1:1 | Falls back to the collection's own image |
@@ -215,18 +215,54 @@ date.)
 Two slots, and the spotlight one changed shape in September 2026 when the
 image stopped floating inside the card and started bleeding to its edge.
 
-- **Spotlight:** 1600 × 800 JPEG (2:1). The panel fills the card's right 58%
-  from top edge to bottom edge on desktop and becomes a full-width 2:1 band
-  on a phone, so keep the subject inside the central 2:1 with 8% clear on
-  every side. **Any background works.** The image's rectangle is never
-  visible, so there is no longer a reason to export it on the tile's green
-  or on a plain ground to match; a photographed surface, a gradient or a
-  flat colour all read the same. The earlier advice to match the tile colour
-  applied to the inset tile and is withdrawn.
-- **Row thumbnail:** 800 × 600 (4:3), product on a plain ground. This one
-  is still a visible rounded rectangle on the card, so its ground does show.
+- **Spotlight:** 1600 × 800 JPEG (2:1). **Keep everything that matters inside
+  the central 70% of the width** — x 240 to 1360, a 1120 px band. Full height
+  is safe. 8% was the figure here until 1 Oct 2026 and it was not enough; see
+  the measurements below.
+- **The spotlight's ground must match the block's `background`** in
+  `templates/index.json` (today `#3F6B4F`). The panel bleeds to the card's
+  top, right and bottom edges but **not its left** — that edge is an internal
+  boundary against the tile colour, 42% across the card, and a ground that
+  does not match draws a hard vertical seam there. The line that used to sit
+  here, "any background works, the image's rectangle is never visible", was
+  wrong about that left edge. If you want a photographic or gradient ground,
+  that is a design decision about showing a panel edge, not a free choice —
+  raise it rather than assume it reads as intended.
+- **Row thumbnail:** 800 × 600 (4:3), product on a plain ground. Its box is
+  exactly 4:3 at every width, so **nothing is ever cropped — the full frame is
+  safe.** It is a visible rounded rectangle on the card, so its ground does
+  show, but it does *not* need to match the tile: it is a separate clipped box
+  and currently white on all three tiles. It renders 128 × 96 on desktop and
+  96 × 72 on a phone, so one or two products filling the frame; three is mush.
+  Do not bake rounded corners in, the CSS clips them.
 - No text, price flashes or badges in either. The Deal and Ends fields carry
   the offer in live text.
+
+**Why the spotlight number is 70% and not 87% or 92%.** That panel is exactly
+2:1 only below 900 px, where the stacked layout pins `aspect-ratio: 2/1`.
+Above that its height comes from the right-hand column, so it is narrowest —
+and `object-fit: cover` crops hardest — in the *middle* of the desktop range,
+not at the widest. Measured on the live site, 1 Oct 2026:
+
+| Viewport | Panel | Aspect | Cropped each side |
+|---|---|---|---|
+| 1440 | 527 × 302 | 1.746 | 6.3% |
+| 1280 | 473 × 299 | 1.585 | 10.4% |
+| 1100 | 404 × 285 | 1.417 | **14.6%** |
+| 1000 | 557 × 278 | 2.005 | 0% |
+| 375 | 343 × 172 | 2.000 | 0% |
+
+Two cuts of the Revive artwork were checked at 1440 and 375 only — the two
+widths in the range that happen to crop least — and both clipped the outer
+packs around 1100. If you change the layout, re-measure across the range;
+do not infer the safe area from one screenshot.
+
+The three tiles live today are generated, not drawn: `artwork/hot-offers/build.py`
+composes them from the store's own product shots, so they cannot drift from the
+product list each discount covers. Replacement artwork can either drop into
+`shopify-theme/assets/` under the same filenames — `offer-revive-bogo.jpg`,
+`offer-azio-beauty.jpg`, `offer-bperfect-tan-studio.jpg` — or replace the source
+shots in `artwork/hot-offers/src/` and be re-generated.
 
 ---
 
