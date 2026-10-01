@@ -635,14 +635,23 @@ body[data-cd-open] { overflow: hidden; }
 [data-crec-mount][hidden] { display: none !important; }
 .crec { padding: 20px 0 4px; }
 .cd-recs .crec { padding: 4px 20px 16px; border-top: 1px solid var(--c-border); margin-top: 4px; }
-/* In the drawer the rail is a 2-column grid of up to four, not a carousel: no card cut
-   in half at either edge, and the drawer already scrolls vertically. */
-.cd-recs .crec-track { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; }
-.cd-recs .crec-card { min-width: 0; }
-.crec-head { font-family: var(--font-heading); font-weight: 800; font-size: 16px; color: var(--c-dark); margin: 0 0 12px; }
-.crec-track { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
+/* In the drawer the rail is one row that snaps: two whole cards at the drawer's full
+   420px, about one and a half on a phone so it reads as scrollable. The phone tail
+   (::after) pads the end so the last card can snap to the left edge too - without it
+   the final scroll position is wherever the content runs out, and the left card is cut. */
+.cd-recs .crec-card { flex-basis: calc(50% - 6px); }
+@media (max-width: 480px) {
+  .cd-recs .crec-card { flex-basis: 62%; }
+  .cd-recs .crec-track::after { content: ''; flex: 0 0 calc(38% - 12px); }
+}
+.crec-top { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; }
+.crec-head { font-family: var(--font-heading); font-weight: 800; font-size: 16px; color: var(--c-dark); margin: 0 auto 0 0; }
+.crec-nav { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 999px; border: 1.5px solid #cfd1cc; background: #fff; color: var(--c-primary-text); cursor: pointer; display: none; align-items: center; justify-content: center; }
+.crec-nav:hover { border-color: var(--c-primary-text); }
+.crec-nav:focus-visible { outline: 2px solid var(--c-dark); outline-offset: 2px; }
+.crec-track { display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 4px; }
 .crec-track::-webkit-scrollbar { display: none; }
-.crec-card { flex: 0 0 152px; display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--c-border); border-radius: 12px; padding: 12px; background: #fff; }
+.crec-card { flex: 0 0 152px; min-width: 0; scroll-snap-align: start; display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--c-border); border-radius: 12px; padding: 12px; background: #fff; }
 .crec-thumb { height: 84px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .crec-img { max-width: 92%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
 .crec-title { font-size: 13px; font-weight: 600; line-height: 1.35; color: var(--c-text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 44px; }

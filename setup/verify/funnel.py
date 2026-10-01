@@ -167,6 +167,14 @@ with sync_playwright() as pw:
         check(f"[{label}] rail excludes restricted product",
               all(RESTRICTED not in t for t in titles))
         check(f"[{label}] rail has cards ({len(titles)})", len(titles) > 0)
+        # One snapping row, not a grid: every card shares a top edge, and with more
+        # cards than fit the forward arrow shows and the back arrow does not.
+        check(f"[{label}] drawer rail is a single row",
+              page.evaluate("new Set([...document.querySelectorAll('[data-cd-drawer] .crec-card')]"
+                            ".map(c => Math.round(c.getBoundingClientRect().top))).size"), 1)
+        check(f"[{label}] drawer rail arrows: next shown, prev hidden at start",
+              page.evaluate("[...document.querySelectorAll('[data-cd-drawer] .crec-nav')]"
+                            ".map(b => getComputedStyle(b).display).join()"), "none,flex")
         ship = page.locator("[data-cd-ship-msg]").inner_text()
         check(f"[{label}] drawer free-delivery msg: {ship!r}", "delivery" in ship)
 

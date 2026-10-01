@@ -305,12 +305,26 @@
   // ---- Scroll rails: button[data-rail-btn][data-rail-target=id][data-rail-by=px]
   // Each arrow hides when it has nothing to do: back at scroll 0, forward at the
   // end — and both when the track doesn't overflow at all (wide viewports, few items).
+  // Without data-rail-target the track is the [data-rail-track] inside the button's
+  // [data-rail] (the cart cross-sell, which can be on the page twice), and without
+  // data-rail-by a click moves by as many whole cards as fit, so snap lands on a card.
+  const railTrack = (btn) => btn.dataset.railTarget
+    ? document.getElementById(btn.dataset.railTarget)
+    : btn.closest('[data-rail]') && btn.closest('[data-rail]').querySelector('[data-rail-track]');
   on(document, 'click', '[data-rail-btn]', (e, btn) => {
-    const track = document.getElementById(btn.dataset.railTarget);
-    if (track) track.scrollBy({ left: parseInt(btn.dataset.railBy, 10), behavior: 'smooth' });
+    const track = railTrack(btn);
+    if (!track) return;
+    let by = parseInt(btn.dataset.railBy, 10);
+    const card = track.firstElementChild;
+    if (!by && card) {
+      const step = card.offsetWidth + (parseFloat(getComputedStyle(track).columnGap) || 0);
+      by = step * Math.max(1, Math.floor((track.clientWidth + step - card.offsetWidth) / step));
+      if (btn.hasAttribute('data-rail-back')) by = -by;
+    }
+    track.scrollBy({ left: by, behavior: 'smooth' });
   });
-  document.querySelectorAll('[data-rail-btn]').forEach(btn => {
-    const track = document.getElementById(btn.dataset.railTarget);
+  const bindRail = (btn) => {
+    const track = railTrack(btn);
     if (!track) return;
     const back = btn.hasAttribute('data-rail-back');
     const sync = () => {
@@ -322,7 +336,8 @@
     addEventListener('resize', sync);
     if (window.ResizeObserver) new ResizeObserver(sync).observe(track);
     sync();
-  });
+  };
+  document.querySelectorAll('[data-rail-btn]').forEach(bindRail);
 
   // ---- Hero slider: [data-slider] holds [data-slide] panes + [data-slide-dot] dots.
   // Optional autoplay via data-slider-auto="<ms>": paused on hover, stopped for
@@ -377,6 +392,7 @@
         const rail = holder.querySelector('[data-crec]');
         mount.innerHTML = rail ? rail.outerHTML : '';
         mount.hidden = !rail;
+        mount.querySelectorAll('[data-rail-btn]').forEach(bindRail);
       })
       .catch(() => { mount.hidden = true; mount.innerHTML = ''; });
   }

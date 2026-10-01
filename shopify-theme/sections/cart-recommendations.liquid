@@ -15,6 +15,9 @@
        reads as broken.
     3. Unavailable products.
 
+  Up to eight cards in one row that scroll-snaps, with prev/next arrows that
+  hide when there is nothing further (theme.js, "Scroll rails").
+
   Anything with more than one variant gets a link to the product page rather
   than an Add button, matching the quick-add rule used on listings.
 
@@ -31,7 +34,7 @@
   {%- capture rec_cards -%}
     {%- assign shown = 0 -%}
     {%- for product in rec_products -%}
-      {%- if shown >= 4 -%}{%- break -%}{%- endif -%}
+      {%- if shown >= 8 -%}{%- break -%}{%- endif -%}
       {%- capture restricted -%}{%- render 'product-restricted', product: product -%}{%- endcapture -%}
       {%- capture handle_key -%}|{{ product.handle }}|{%- endcapture -%}
       {%- unless restricted == 'true' or product.available == false or cart_handles contains handle_key -%}
@@ -62,9 +65,13 @@
       than a heading over an empty rail. {%- endcomment -%}
   {%- assign rec_cards = rec_cards | strip -%}
   {%- if rec_cards != blank -%}
-    <div class="crec" data-crec>
-      <h3 class="crec-head">{{ section.settings.heading | default: 'Often bought with this' }}</h3>
-      <div class="crec-track">{{ rec_cards }}</div>
+    <div class="crec" data-crec data-rail>
+      <div class="crec-top">
+        <h3 class="crec-head">{{ section.settings.heading | default: 'Often bought with this' }}</h3>
+        <button type="button" class="crec-nav" aria-label="Previous products" data-rail-btn data-rail-back><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+        <button type="button" class="crec-nav" aria-label="Next products" data-rail-btn><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+      </div>
+      <div class="crec-track" data-rail-track>{{ rec_cards }}</div>
     </div>
   {%- endif -%}
 {%- endif -%}
