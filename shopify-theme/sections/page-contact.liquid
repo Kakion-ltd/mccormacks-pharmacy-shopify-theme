@@ -20,7 +20,7 @@
         {%- form 'contact' -%}
           {%- if form.posted_successfully? -%}
             <div style="display:flex; gap:12px; align-items:flex-start; background:#EEF6E4; border:1px solid #d8e9c2; border-radius:12px; padding:16px 18px; margin:0 0 18px; color:var(--c-success); font-size:14.5px; line-height:1.65; font-weight:700;">
-              Thanks — your message has been sent. Our customer care team will reply within one working day.
+              Thanks — your message has been sent. Our customer care team will get back to you.
             </div>
           {%- endif -%}
           {%- if form.errors -%}
@@ -121,7 +121,7 @@
   "name": "Contact Us",
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "Contact us" },
-    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Questions about an order, a product or a prescription? Our customer care team answers emails within one working day, and the phones during opening hours." }
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Questions about an order, a product or a prescription? You can reach us by phone during opening hours, by email, or in any of our stores." }
   ],
   "presets": [{ "name": "Contact Us" }]
 }

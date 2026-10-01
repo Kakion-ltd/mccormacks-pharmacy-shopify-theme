@@ -107,6 +107,11 @@ h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(21px, 
    readers and the outline, and the h2 takes the page-heading style. Only an opening h2:
    a policy rewritten to start with a paragraph keeps body type rather than going h1. */
 main .shopify-policy__container { max-width: 1440px; margin: 0 auto; padding: 30px 30px 56px; text-align: left; }
+/* Inside the legal sidebar wrap (layout/theme.liquid renders it for /policies/*), the
+   wrapper owns the page width and gutter, so the policy container must not add its own.
+   Two classes beat the one-class-one-element rule above it without !important. */
+.legal-wrap .shopify-policy__container { max-width: none; margin: 0; padding: 0; }
+.legal-wrap .shopify-policy__body { max-width: var(--measure); }
 main .shopify-policy__title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 main .shopify-policy__body { max-width: var(--measure); font-size: 15.5px; line-height: 1.75; color: #3a3d39; text-wrap: pretty; overflow-wrap: anywhere; }
 /* One level down from our pages, because the policy's h2 is its title: h3 is the

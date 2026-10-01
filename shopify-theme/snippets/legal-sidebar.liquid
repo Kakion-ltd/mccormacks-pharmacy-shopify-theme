@@ -2,6 +2,9 @@
   Shared sidebar for legal / delivery content pages.
   Usage: {% render 'legal-sidebar', active: 'shipping', updated_date: section.settings.updated_date, show_help: section.settings.show_help_card, phone: section.settings.help_phone %}
   active: shipping | returns | click-and-collect | terms | privacy | cookie | isp
+         or '' for a page with no nav entry of its own (the contact information policy).
+  updated_date is optional: Shopify exposes no "last updated" for a policy, so the
+  /policies/* caller in layout/theme.liquid passes none and the line is omitted.
 {% endcomment %}
 {%- assign on_style = 'display:block; padding:11px 14px; border-radius:9px; font-size:14.5px; line-height:1.4; font-weight:800; color:var(--c-dark); background:#eef2e8; border-left:3px solid var(--c-accent);' -%}
 {%- assign off_style = 'display:block; padding:11px 14px; border-radius:9px; font-size:14.5px; line-height:1.4; font-weight:600; color:#3a3d39; background:transparent; border-left:3px solid transparent;' -%}
@@ -40,7 +43,7 @@
       <a href="/pages/cookie-policy" class="legal-nav-a" style="{% if active == 'cookie' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Cookie Policy</a>
       <a href="/pages/internet-supply-pharmacy" class="legal-nav-a" style="{% if active == 'isp' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Registered Internet Supply Pharmacy</a>
     </nav>
-    <div style="margin:20px 14px 0; padding-top:16px; border-top:1px solid #eceee9; font-size:12.5px; line-height:1.6; color:#666b60;">Last reviewed {{ updated_date }}</div>
+    {%- if updated_date != blank -%}<div style="margin:20px 14px 0; padding-top:16px; border-top:1px solid #eceee9; font-size:12.5px; line-height:1.6; color:#666b60;">Last reviewed {{ updated_date }}</div>{%- endif -%}
   </div>
 
   {%- if show_help -%}

@@ -167,7 +167,39 @@
   <a href="#main" class="skip-link">Skip to content</a>
   {% sections 'header-group' %}
   <main id="main" style="width:100%; overflow-x:hidden; background:#ffffff;">
-    {{ content_for_layout }}
+    {%- comment -%}
+      /policies/* has no theme template: Shopify renders the admin policy fields itself,
+      so a policy page would otherwise arrive with no sidebar, no breadcrumb and no way
+      back. Four of the legal sidebar's seven links now point at /policies/, and a nav
+      that ejects you from the section it navigates is worse than the duplicate documents
+      moving to /policies/ was meant to fix. So the same sidebar wraps policy content,
+      keyed off request.page_type the way the cart title is in <head>.
+
+      The active item is read from the path because Liquid is given no policy object
+      here. The contact information policy has no nav entry of its own and passes '',
+      which highlights nothing — correct, rather than a missing case. base.css flattens
+      .shopify-policy__container inside .legal-wrap so its own 1440px and padding do not
+      fight the wrapper's.
+    {%- endcomment -%}
+    {%- if request.page_type == 'policy' -%}
+      {%- assign policy_active = '' -%}
+      {%- if request.path contains 'refund-policy' -%}{%- assign policy_active = 'returns' -%}
+      {%- elsif request.path contains 'shipping-policy' -%}{%- assign policy_active = 'shipping' -%}
+      {%- elsif request.path contains 'privacy-policy' -%}{%- assign policy_active = 'privacy' -%}
+      {%- elsif request.path contains 'terms-of-service' -%}{%- assign policy_active = 'terms' -%}
+      {%- endif -%}
+      <section style="max-width:1440px; margin:0 auto; padding:30px 30px 20px;">
+        <div class="legal-wrap" style="display:flex; gap:56px; align-items:flex-start;">
+          {% render 'legal-sidebar', active: policy_active, show_help: true, phone: settings.phone %}
+          <div style="flex:1; min-width:0;">
+            {{ content_for_layout }}
+            {% render 'legal-question-card' %}
+          </div>
+        </div>
+      </section>
+    {%- else -%}
+      {{ content_for_layout }}
+    {%- endif -%}
   </main>
   {% sections 'footer-group' %}
   {%- comment -%} JSON-LD for the page type. Emitted in the body rather than the
