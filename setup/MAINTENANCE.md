@@ -352,6 +352,107 @@ without the person having to arbitrate.
 
 ---
 
+## Empty collections leave the nav by themselves (1 Oct 2026)
+
+A category with nothing published to the Online Store is not shown in the mega
+menu, the mobile drawer, the pill row, the footer columns, the breadcrumb trail
+or the chip rows. It comes back on its own the moment a product is tagged into
+it. Nothing to regenerate, nobody to remind.
+
+**The rule, and why it is phrased this way.** Hide only on a *known* zero:
+`collections[handle].all_products_count == 0`. A nil count is not zero, so a
+handle the theme does not recognise renders exactly as it did before. Hiding on
+nil instead would blank the entire nav the first time somebody mistyped a
+handle or renamed a collection, and it would do it silently, on every page.
+
+**Where it lives.** Two expressions of one rule, each pointing at the other:
+
+  * `setup/nav_rule.py` -- `live()` and `live_any()`, used by `gen_mega.py` and
+    `gen_category_nav.py` to emit the guards into the generated nav. The
+    generated files spell the test inline rather than calling a snippet: 178
+    render tags per page is a real cost for no gain, and nobody hand-edits
+    those files.
+  * `snippets/nav-hide.liquid` -- the same rule for the nav that is written by
+    hand: the header, the pill row and the footer, whose links come from store
+    Navigation menus rather than from taxonomy.json and so have no handle until
+    one is read out of the URL.
+
+`setup/verify/nav-empty.py` checks both halves and fails if they drift.
+
+**This does NOT fight taxonomy.json, and the distinction matters.**
+taxonomy.json remains the complete map of the shop -- every department, group
+and leaf, whether or not it has stock today. The rule only decides what is
+worth drawing. So `mega-taxonomy.py` and `chips-taxonomy.py` still assert the
+generated nav is the whole taxonomy, exactly as before, and they still pass:
+they check the map, not the render. Do not "fix" them to expect fewer links.
+
+**A group with an empty parent but live children still renders**, with its
+heading as plain text rather than as a link to a collection page with nothing
+on it. Dropping the group would strand reachable products; linking the heading
+would be the dead link this whole rule exists to remove. The same applies to a
+breadcrumb step: the trail keeps every level, because a missing step leaves a
+double separator and loses the shape of the shop, but an empty level is not a
+link. A chip for the *current* collection always renders even when empty -- you
+are standing on that page, and a chip row with a hole where "you are here"
+should be is worse than an empty category.
+
+**Non-collection links are never touched.** `/pages/brands` is a page and has
+no product count; passing its URL to the rule must not make it vanish. This is
+why `nav-hide` reads a handle out of a URL only when it contains
+`/collections/`.
+
+**Nothing in the preview could see this rule, so the preview was given
+something to see.** Every collection in the harness inherits a healthy product
+count, which is what makes the nav render in full and is correct for every
+other check. `setup/preview-empty-collections.json` names the handles rendered
+empty on purpose -- `condoms`, a leaf with a live sibling, and `sport`, a
+childless group -- and `render_preview.mjs`, `nav-empty.py` and `mobile-nav.py`
+all read that one list. `mobile-nav.py` derives its expected row count from it
+rather than hardcoding the difference, so adding a handle to that file does not
+quietly turn a passing check into a wrong number.
+
+**What it looked like when it landed.** On 1 Oct 2026, before the
+categorisation sweep, 64 of the 178 taxonomy nav links pointed at a collection
+with nothing published -- 51 of the 53 leaves under Medicines & Health. After
+the sweep the same count was 5: `odour-control-barrier-creams`,
+`self-testing-kits` and `sport` (plus `brands` and `services`, which are pages
+and so are never hidden anyway). Two groups disappear whole, Sport and Self
+Testing Kits, both childless and both empty. Count it again before assuming
+those are still the five.
+
+---
+
+## The newsletter form is one snippet, and it names a discount code (1 Oct 2026)
+
+`snippets/newsletter-form.liquid` is rendered by both the footer band and
+`sections/newsletter.liquid`. The two carried byte-identical copies of the same
+`{% form 'customer' %}` until they were merged, and the success message names
+WELCOME10 -- a promise about money, which is the expensive thing to let drift.
+
+Three places say the same thing and all three have to move together: that
+snippet's success message, the footer's **Newsletter subtext** setting default
+in `sections/footer.liquid`, and the discount itself in Shopify admin. If
+WELCOME10 is renamed or withdrawn and only one of them is updated, the site
+goes on offering a code that does not exist.
+
+The code is scoped to the "Welcome discount eligible" collection -- every
+product NOT tagged `pharmacist-review` -- so a medicine can never be discounted
+by it. `pharmacist-review` is `settings.restricted_tag`, the same tag the PDP
+gate, the sale grid and the recommendation rails read, so the discount and the
+gate cannot disagree about what a medicine is. `setup/offers/welcome-discount.py`
+creates both and audits the tagging first; it had not been run as of 1 Oct 2026.
+
+**Shopify cannot enforce "first order" for guest checkout.**
+`appliesOncePerCustomer` is keyed to the customer record matched from the
+checkout email, so it is really one use per email and a second email defeats
+it. A "zero previous orders" customer segment does work on the Basic plan, but
+segment membership needs a known customer, so a guest is refused the code
+outright rather than allowed -- it turns the offer into "logged-in account
+holders only". Deliberately not used. The copy promises slightly more than the
+mechanism delivers, and that was a decision.
+
+---
+
 ## The recurring defect: one thing in two places, saying two things
 
 This is the most common defect on this site. It isn't a bug in code: it's one

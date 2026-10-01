@@ -50,7 +50,12 @@ for m in re.finditer(r'<div class="mega-panel" data-mega-panel="([^"]+)">', MEGA
 ck('every nav department has a panel, in nav order', list(panels), nav)
 
 link_re = re.compile(r'<a href="([^"]+)"[^>]*>([^<]*)</a>')
-group_re = re.compile(r'<div class="mega-group">\s*<a href="([^"]+)"[^>]*>([^<]*)</a>(.*?)(?=<div class="mega-group">|\Z)', re.S)
+# The heading anchor is preceded by its empty-collection guard, and followed by a
+# plain-text twin for the case where the parent collection is empty but its children
+# are not (see setup/nav_rule.py). `(?:{%.*?%}\s*)*` steps over any Liquid in between.
+# Matching only `\s*` here silently reclassified every grouped panel as a flat one, and
+# the failure surfaced as "links are the taxonomy leaves" rather than as a regex miss.
+group_re = re.compile(r'<div class="mega-group">\s*(?:{%.*?%}\s*)*<a href="([^"]+)"[^>]*>([^<]*)</a>(.*?)(?=<div class="mega-group">|\Z)', re.S)
 
 for key, body in panels.items():
     menu = taxonomy.get(key)

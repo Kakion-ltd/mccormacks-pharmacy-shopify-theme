@@ -30,6 +30,7 @@ import sys
 import unicodedata
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
 THEME = os.path.join(HERE, '..', 'shopify-theme')
 
 
@@ -75,6 +76,9 @@ SLIDE_STYLE = ('color:#3a3d39; display:inline-block; padding:2px 0; width:fit-co
 missing = []
 
 
+from nav_rule import live, live_any, END   # the empty-collection rule
+
+
 def url(title):
     h = handleize(title)
     if h not in handles:
@@ -109,13 +113,22 @@ def balance(costs, k):
 
 def group_html(g, indent):
     pad = ' ' * indent
-    out = [f'{pad}<div class="mega-group">',
-           f'{pad}  <a href="{url(g["title"])}" style="{HEAD_STYLE}" class="hov-dark-green">{amp(g["title"])}</a>']
+    parent = handleize(g['title'])
+    # A group with an empty parent but live children still renders - the children are
+    # reachable and that is the point - but its heading is plain text rather than a
+    # link to a collection page with nothing on it.
+    out = [live_any([parent] + [handleize(i) for i in g['items']]),
+           f'{pad}<div class="mega-group">',
+           f'{pad}  {live(parent)}<a href="{url(g["title"])}" style="{HEAD_STYLE}" class="hov-dark-green">{amp(g["title"])}</a>{END}'
+           f'{{%- if collections[\'{parent}\'].all_products_count == 0 -%}}'
+           f'<span style="{HEAD_STYLE}">{amp(g["title"])}</span>{{%- endif -%}}']
     if g['items']:
         out.append(f'{pad}  <div style="{STACK_STYLE}">')
-        out += [f'{pad}    <a href="{url(i)}" style="color:#2A2B2A;" class="hov-green">{amp(i)}</a>' for i in g['items']]
+        out += [f'{pad}    {live(handleize(i))}<a href="{url(i)}" style="color:#2A2B2A;" class="hov-green">{amp(i)}</a>{END}'
+                for i in g['items']]
         out.append(f'{pad}  </div>')
     out.append(f'{pad}</div>')
+    out.append(END)
     return out
 
 
@@ -153,7 +166,7 @@ def flat_panel(key, cfg):
     for c in range(k):
         take = size + (1 if c < extra else 0)
         body.append('        <div style="display:flex; flex-direction:column; gap:11px; font-size:14px;">')
-        body += [f'          <a href="{url(i)}" style="{SLIDE_STYLE}" class="hov-slide">{amp(i)}</a>'
+        body += [f'          {live(handleize(i))}<a href="{url(i)}" style="{SLIDE_STYLE}" class="hov-slide">{amp(i)}</a>{END}'
                  for i in items[at:at + take]]
         body.append('        </div>')
         at += take
@@ -166,7 +179,7 @@ def list_panel(key, cfg):
     items = menu.get('flat') or [g['title'] for g in menu.get('groups', [])]
     body = [f'  <div style="{LIST_BOX.format(**cfg)}">',
             '    <div style="padding:26px 28px; display:flex; flex-direction:column; gap:11px; font-size:14px;">']
-    body += [f'      <a href="{url(i)}" class="hov-slide" style="{SLIDE_STYLE}">{amp(i)}</a>' for i in items]
+    body += [f'      {live(handleize(i))}<a href="{url(i)}" class="hov-slide" style="{SLIDE_STYLE}">{amp(i)}</a>{END}' for i in items]
     body += ['    </div>', '  </div>']
     return body
 

@@ -3,135 +3,181 @@
   <div style="position:absolute; left:30px; width:1380px; max-width:calc(100vw - 60px); top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:84vh; overflow:auto; animation:megaIn .16s ease-out;">
     <div style="display:flex; align-items:stretch;">
       <div style="flex:1; padding:30px 30px; column-count:6;" class="mega-cols">
+{%- assign shown = 0 | plus: collections['pain-relief'].all_products_count | plus: collections['baby-children-pain-relief'].all_products_count | plus: collections['muscle-joint-pain'].all_products_count -%}
+{%- unless shown == 0 -%}
         <div class="mega-group">
-          <a href="/collections/pain-relief" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Pain Relief</a>
+          {%- unless collections['pain-relief'].all_products_count == 0 -%}<a href="/collections/pain-relief" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Pain Relief</a>{%- endunless -%}{%- if collections['pain-relief'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Pain Relief</span>{%- endif -%}
           <div style="display:flex; flex-direction:column; font-size:12px;">
-            <a href="/collections/baby-children-pain-relief" style="color:#2A2B2A;" class="hov-green">Baby &amp; Children Pain Relief</a>
-            <a href="/collections/muscle-joint-pain" style="color:#2A2B2A;" class="hov-green">Muscle &amp; Joint Pain</a>
+            {%- unless collections['baby-children-pain-relief'].all_products_count == 0 -%}<a href="/collections/baby-children-pain-relief" style="color:#2A2B2A;" class="hov-green">Baby &amp; Children Pain Relief</a>{%- endunless -%}
+            {%- unless collections['muscle-joint-pain'].all_products_count == 0 -%}<a href="/collections/muscle-joint-pain" style="color:#2A2B2A;" class="hov-green">Muscle &amp; Joint Pain</a>{%- endunless -%}
           </div>
         </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['cold-flu-allergy'].all_products_count | plus: collections['cold-flu-combination-products'].all_products_count | plus: collections['cough'].all_products_count | plus: collections['hayfever-allergy'].all_products_count | plus: collections['sore-throat'].all_products_count | plus: collections['blocked-nose-sinus'].all_products_count -%}
+{%- unless shown == 0 -%}
         <div class="mega-group">
-          <a href="/collections/cold-flu-allergy" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Cold, Flu &amp; Allergy</a>
+          {%- unless collections['cold-flu-allergy'].all_products_count == 0 -%}<a href="/collections/cold-flu-allergy" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Cold, Flu &amp; Allergy</a>{%- endunless -%}{%- if collections['cold-flu-allergy'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Cold, Flu &amp; Allergy</span>{%- endif -%}
           <div style="display:flex; flex-direction:column; font-size:12px;">
-            <a href="/collections/cold-flu-combination-products" style="color:#2A2B2A;" class="hov-green">Cold &amp; Flu Combination Products</a>
-            <a href="/collections/cough" style="color:#2A2B2A;" class="hov-green">Cough</a>
-            <a href="/collections/hayfever-allergy" style="color:#2A2B2A;" class="hov-green">Hayfever &amp; Allergy</a>
-            <a href="/collections/sore-throat" style="color:#2A2B2A;" class="hov-green">Sore Throat</a>
-            <a href="/collections/blocked-nose-sinus" style="color:#2A2B2A;" class="hov-green">Blocked Nose &amp; Sinus</a>
+            {%- unless collections['cold-flu-combination-products'].all_products_count == 0 -%}<a href="/collections/cold-flu-combination-products" style="color:#2A2B2A;" class="hov-green">Cold &amp; Flu Combination Products</a>{%- endunless -%}
+            {%- unless collections['cough'].all_products_count == 0 -%}<a href="/collections/cough" style="color:#2A2B2A;" class="hov-green">Cough</a>{%- endunless -%}
+            {%- unless collections['hayfever-allergy'].all_products_count == 0 -%}<a href="/collections/hayfever-allergy" style="color:#2A2B2A;" class="hov-green">Hayfever &amp; Allergy</a>{%- endunless -%}
+            {%- unless collections['sore-throat'].all_products_count == 0 -%}<a href="/collections/sore-throat" style="color:#2A2B2A;" class="hov-green">Sore Throat</a>{%- endunless -%}
+            {%- unless collections['blocked-nose-sinus'].all_products_count == 0 -%}<a href="/collections/blocked-nose-sinus" style="color:#2A2B2A;" class="hov-green">Blocked Nose &amp; Sinus</a>{%- endunless -%}
           </div>
         </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['stomach-gastrointestinal'].all_products_count | plus: collections['nausea-acid-indigestion-reflux'].all_products_count | plus: collections['bloating-gas'].all_products_count | plus: collections['constipation'].all_products_count | plus: collections['diarrhoea'].all_products_count | plus: collections['cramping-irritable-bowel'].all_products_count | plus: collections['travel-sickness'].all_products_count | plus: collections['haemorrhoids-piles'].all_products_count -%}
+{%- unless shown == 0 -%}
         <div class="mega-group">
-          <a href="/collections/stomach-gastrointestinal" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Stomach &amp; Gastrointestinal</a>
+          {%- unless collections['stomach-gastrointestinal'].all_products_count == 0 -%}<a href="/collections/stomach-gastrointestinal" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Stomach &amp; Gastrointestinal</a>{%- endunless -%}{%- if collections['stomach-gastrointestinal'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Stomach &amp; Gastrointestinal</span>{%- endif -%}
           <div style="display:flex; flex-direction:column; font-size:12px;">
-            <a href="/collections/nausea-acid-indigestion-reflux" style="color:#2A2B2A;" class="hov-green">Nausea, Acid Indigestion &amp; Reflux</a>
-            <a href="/collections/bloating-gas" style="color:#2A2B2A;" class="hov-green">Bloating &amp; Gas</a>
-            <a href="/collections/constipation" style="color:#2A2B2A;" class="hov-green">Constipation</a>
-            <a href="/collections/diarrhoea" style="color:#2A2B2A;" class="hov-green">Diarrhoea</a>
-            <a href="/collections/cramping-irritable-bowel" style="color:#2A2B2A;" class="hov-green">Cramping &amp; Irritable Bowel</a>
-            <a href="/collections/travel-sickness" style="color:#2A2B2A;" class="hov-green">Travel Sickness</a>
-            <a href="/collections/haemorrhoids-piles" style="color:#2A2B2A;" class="hov-green">Haemorrhoids &amp; Piles</a>
+            {%- unless collections['nausea-acid-indigestion-reflux'].all_products_count == 0 -%}<a href="/collections/nausea-acid-indigestion-reflux" style="color:#2A2B2A;" class="hov-green">Nausea, Acid Indigestion &amp; Reflux</a>{%- endunless -%}
+            {%- unless collections['bloating-gas'].all_products_count == 0 -%}<a href="/collections/bloating-gas" style="color:#2A2B2A;" class="hov-green">Bloating &amp; Gas</a>{%- endunless -%}
+            {%- unless collections['constipation'].all_products_count == 0 -%}<a href="/collections/constipation" style="color:#2A2B2A;" class="hov-green">Constipation</a>{%- endunless -%}
+            {%- unless collections['diarrhoea'].all_products_count == 0 -%}<a href="/collections/diarrhoea" style="color:#2A2B2A;" class="hov-green">Diarrhoea</a>{%- endunless -%}
+            {%- unless collections['cramping-irritable-bowel'].all_products_count == 0 -%}<a href="/collections/cramping-irritable-bowel" style="color:#2A2B2A;" class="hov-green">Cramping &amp; Irritable Bowel</a>{%- endunless -%}
+            {%- unless collections['travel-sickness'].all_products_count == 0 -%}<a href="/collections/travel-sickness" style="color:#2A2B2A;" class="hov-green">Travel Sickness</a>{%- endunless -%}
+            {%- unless collections['haemorrhoids-piles'].all_products_count == 0 -%}<a href="/collections/haemorrhoids-piles" style="color:#2A2B2A;" class="hov-green">Haemorrhoids &amp; Piles</a>{%- endunless -%}
           </div>
         </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['sensitive-conditions'].all_products_count | plus: collections['menopause'].all_products_count | plus: collections['hair-loss'].all_products_count | plus: collections['thrush-antifungal'].all_products_count | plus: collections['headlice'].all_products_count | plus: collections['cystitis'].all_products_count | plus: collections['skintags-warts-veruccas'].all_products_count -%}
+{%- unless shown == 0 -%}
         <div class="mega-group">
-          <a href="/collections/sensitive-conditions" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Sensitive Conditions</a>
+          {%- unless collections['sensitive-conditions'].all_products_count == 0 -%}<a href="/collections/sensitive-conditions" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Sensitive Conditions</a>{%- endunless -%}{%- if collections['sensitive-conditions'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Sensitive Conditions</span>{%- endif -%}
           <div style="display:flex; flex-direction:column; font-size:12px;">
-            <a href="/collections/menopause" style="color:#2A2B2A;" class="hov-green">Menopause</a>
-            <a href="/collections/hair-loss" style="color:#2A2B2A;" class="hov-green">Hair Loss</a>
-            <a href="/collections/thrush-antifungal" style="color:#2A2B2A;" class="hov-green">Thrush &amp; Antifungal</a>
-            <a href="/collections/headlice" style="color:#2A2B2A;" class="hov-green">Headlice</a>
-            <a href="/collections/cystitis" style="color:#2A2B2A;" class="hov-green">Cystitis</a>
-            <a href="/collections/skintags-warts-veruccas" style="color:#2A2B2A;" class="hov-green">Skintags, Warts &amp; Veruccas</a>
+            {%- unless collections['menopause'].all_products_count == 0 -%}<a href="/collections/menopause" style="color:#2A2B2A;" class="hov-green">Menopause</a>{%- endunless -%}
+            {%- unless collections['hair-loss'].all_products_count == 0 -%}<a href="/collections/hair-loss" style="color:#2A2B2A;" class="hov-green">Hair Loss</a>{%- endunless -%}
+            {%- unless collections['thrush-antifungal'].all_products_count == 0 -%}<a href="/collections/thrush-antifungal" style="color:#2A2B2A;" class="hov-green">Thrush &amp; Antifungal</a>{%- endunless -%}
+            {%- unless collections['headlice'].all_products_count == 0 -%}<a href="/collections/headlice" style="color:#2A2B2A;" class="hov-green">Headlice</a>{%- endunless -%}
+            {%- unless collections['cystitis'].all_products_count == 0 -%}<a href="/collections/cystitis" style="color:#2A2B2A;" class="hov-green">Cystitis</a>{%- endunless -%}
+            {%- unless collections['skintags-warts-veruccas'].all_products_count == 0 -%}<a href="/collections/skintags-warts-veruccas" style="color:#2A2B2A;" class="hov-green">Skintags, Warts &amp; Veruccas</a>{%- endunless -%}
           </div>
         </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['nicotine-replacement'].all_products_count | plus: collections['nicotine-patches'].all_products_count -%}
+{%- unless shown == 0 -%}
         <div class="mega-group">
-          <a href="/collections/nicotine-replacement" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Nicotine Replacement</a>
+          {%- unless collections['nicotine-replacement'].all_products_count == 0 -%}<a href="/collections/nicotine-replacement" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Nicotine Replacement</a>{%- endunless -%}{%- if collections['nicotine-replacement'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Nicotine Replacement</span>{%- endif -%}
           <div style="display:flex; flex-direction:column; font-size:12px;">
-            <a href="/collections/nicotine-patches" style="color:#2A2B2A;" class="hov-green">Nicotine Patches</a>
+            {%- unless collections['nicotine-patches'].all_products_count == 0 -%}<a href="/collections/nicotine-patches" style="color:#2A2B2A;" class="hov-green">Nicotine Patches</a>{%- endunless -%}
           </div>
         </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['eye-ear-health'].all_products_count | plus: collections['dry-eye'].all_products_count | plus: collections['blepharitis-eyelid-hygiene'].all_products_count | plus: collections['macular-degeneration-glaucoma'].all_products_count | plus: collections['ear-wax-treatments'].all_products_count | plus: collections['ear-care-earplugs'].all_products_count -%}
+{%- unless shown == 0 -%}
         <div class="mega-group">
-          <a href="/collections/eye-ear-health" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Eye &amp; Ear Health</a>
+          {%- unless collections['eye-ear-health'].all_products_count == 0 -%}<a href="/collections/eye-ear-health" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Eye &amp; Ear Health</a>{%- endunless -%}{%- if collections['eye-ear-health'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Eye &amp; Ear Health</span>{%- endif -%}
           <div style="display:flex; flex-direction:column; font-size:12px;">
-            <a href="/collections/dry-eye" style="color:#2A2B2A;" class="hov-green">Dry Eye</a>
-            <a href="/collections/blepharitis-eyelid-hygiene" style="color:#2A2B2A;" class="hov-green">Blepharitis &amp; Eyelid Hygiene</a>
-            <a href="/collections/macular-degeneration-glaucoma" style="color:#2A2B2A;" class="hov-green">Macular Degeneration &amp; Glaucoma</a>
-            <a href="/collections/ear-wax-treatments" style="color:#2A2B2A;" class="hov-green">Ear Wax Treatments</a>
-            <a href="/collections/ear-care-earplugs" style="color:#2A2B2A;" class="hov-green">Ear Care &amp; Earplugs</a>
+            {%- unless collections['dry-eye'].all_products_count == 0 -%}<a href="/collections/dry-eye" style="color:#2A2B2A;" class="hov-green">Dry Eye</a>{%- endunless -%}
+            {%- unless collections['blepharitis-eyelid-hygiene'].all_products_count == 0 -%}<a href="/collections/blepharitis-eyelid-hygiene" style="color:#2A2B2A;" class="hov-green">Blepharitis &amp; Eyelid Hygiene</a>{%- endunless -%}
+            {%- unless collections['macular-degeneration-glaucoma'].all_products_count == 0 -%}<a href="/collections/macular-degeneration-glaucoma" style="color:#2A2B2A;" class="hov-green">Macular Degeneration &amp; Glaucoma</a>{%- endunless -%}
+            {%- unless collections['ear-wax-treatments'].all_products_count == 0 -%}<a href="/collections/ear-wax-treatments" style="color:#2A2B2A;" class="hov-green">Ear Wax Treatments</a>{%- endunless -%}
+            {%- unless collections['ear-care-earplugs'].all_products_count == 0 -%}<a href="/collections/ear-care-earplugs" style="color:#2A2B2A;" class="hov-green">Ear Care &amp; Earplugs</a>{%- endunless -%}
           </div>
         </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['sleep-rest'].all_products_count | plus: collections['healthy-mind-sleeping-aids'].all_products_count -%}
+{%- unless shown == 0 -%}
         <div class="mega-group">
-          <a href="/collections/sleep-rest" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Sleep &amp; Rest</a>
+          {%- unless collections['sleep-rest'].all_products_count == 0 -%}<a href="/collections/sleep-rest" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Sleep &amp; Rest</a>{%- endunless -%}{%- if collections['sleep-rest'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Sleep &amp; Rest</span>{%- endif -%}
           <div style="display:flex; flex-direction:column; font-size:12px;">
-            <a href="/collections/healthy-mind-sleeping-aids" style="color:#2A2B2A;" class="hov-green">Healthy Mind &amp; Sleeping Aids</a>
+            {%- unless collections['healthy-mind-sleeping-aids'].all_products_count == 0 -%}<a href="/collections/healthy-mind-sleeping-aids" style="color:#2A2B2A;" class="hov-green">Healthy Mind &amp; Sleeping Aids</a>{%- endunless -%}
           </div>
         </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['mouth-oral-care'].all_products_count | plus: collections['dry-mouth'].all_products_count | plus: collections['gum-health-gingivitis'].all_products_count | plus: collections['mouth-ulcers-cold-sores'].all_products_count | plus: collections['teething'].all_products_count -%}
+{%- unless shown == 0 -%}
         <div class="mega-group">
-          <a href="/collections/mouth-oral-care" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Mouth &amp; Oral Care</a>
+          {%- unless collections['mouth-oral-care'].all_products_count == 0 -%}<a href="/collections/mouth-oral-care" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Mouth &amp; Oral Care</a>{%- endunless -%}{%- if collections['mouth-oral-care'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Mouth &amp; Oral Care</span>{%- endif -%}
           <div style="display:flex; flex-direction:column; font-size:12px;">
-            <a href="/collections/dry-mouth" style="color:#2A2B2A;" class="hov-green">Dry Mouth</a>
-            <a href="/collections/gum-health-gingivitis" style="color:#2A2B2A;" class="hov-green">Gum Health &amp; Gingivitis</a>
-            <a href="/collections/mouth-ulcers-cold-sores" style="color:#2A2B2A;" class="hov-green">Mouth Ulcers &amp; Cold Sores</a>
-            <a href="/collections/teething" style="color:#2A2B2A;" class="hov-green">Teething</a>
+            {%- unless collections['dry-mouth'].all_products_count == 0 -%}<a href="/collections/dry-mouth" style="color:#2A2B2A;" class="hov-green">Dry Mouth</a>{%- endunless -%}
+            {%- unless collections['gum-health-gingivitis'].all_products_count == 0 -%}<a href="/collections/gum-health-gingivitis" style="color:#2A2B2A;" class="hov-green">Gum Health &amp; Gingivitis</a>{%- endunless -%}
+            {%- unless collections['mouth-ulcers-cold-sores'].all_products_count == 0 -%}<a href="/collections/mouth-ulcers-cold-sores" style="color:#2A2B2A;" class="hov-green">Mouth Ulcers &amp; Cold Sores</a>{%- endunless -%}
+            {%- unless collections['teething'].all_products_count == 0 -%}<a href="/collections/teething" style="color:#2A2B2A;" class="hov-green">Teething</a>{%- endunless -%}
           </div>
         </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['continence-care'].all_products_count | plus: collections['bladder-weakness'].all_products_count | plus: collections['pads'].all_products_count | plus: collections['pants'].all_products_count | plus: collections['odour-control-barrier-creams'].all_products_count -%}
+{%- unless shown == 0 -%}
         <div class="mega-group">
-          <a href="/collections/continence-care" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Continence Care</a>
+          {%- unless collections['continence-care'].all_products_count == 0 -%}<a href="/collections/continence-care" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Continence Care</a>{%- endunless -%}{%- if collections['continence-care'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Continence Care</span>{%- endif -%}
           <div style="display:flex; flex-direction:column; font-size:12px;">
-            <a href="/collections/bladder-weakness" style="color:#2A2B2A;" class="hov-green">Bladder Weakness</a>
-            <a href="/collections/pads" style="color:#2A2B2A;" class="hov-green">Pads</a>
-            <a href="/collections/pants" style="color:#2A2B2A;" class="hov-green">Pants</a>
-            <a href="/collections/odour-control-barrier-creams" style="color:#2A2B2A;" class="hov-green">Odour Control &amp; Barrier Creams</a>
+            {%- unless collections['bladder-weakness'].all_products_count == 0 -%}<a href="/collections/bladder-weakness" style="color:#2A2B2A;" class="hov-green">Bladder Weakness</a>{%- endunless -%}
+            {%- unless collections['pads'].all_products_count == 0 -%}<a href="/collections/pads" style="color:#2A2B2A;" class="hov-green">Pads</a>{%- endunless -%}
+            {%- unless collections['pants'].all_products_count == 0 -%}<a href="/collections/pants" style="color:#2A2B2A;" class="hov-green">Pants</a>{%- endunless -%}
+            {%- unless collections['odour-control-barrier-creams'].all_products_count == 0 -%}<a href="/collections/odour-control-barrier-creams" style="color:#2A2B2A;" class="hov-green">Odour Control &amp; Barrier Creams</a>{%- endunless -%}
           </div>
         </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['trying-to-conceive'].all_products_count | plus: collections['pregnancy-tests'].all_products_count | plus: collections['ovulation-tests'].all_products_count -%}
+{%- unless shown == 0 -%}
         <div class="mega-group">
-          <a href="/collections/trying-to-conceive" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Trying To Conceive</a>
+          {%- unless collections['trying-to-conceive'].all_products_count == 0 -%}<a href="/collections/trying-to-conceive" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Trying To Conceive</a>{%- endunless -%}{%- if collections['trying-to-conceive'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Trying To Conceive</span>{%- endif -%}
           <div style="display:flex; flex-direction:column; font-size:12px;">
-            <a href="/collections/pregnancy-tests" style="color:#2A2B2A;" class="hov-green">Pregnancy Tests</a>
-            <a href="/collections/ovulation-tests" style="color:#2A2B2A;" class="hov-green">Ovulation Tests</a>
+            {%- unless collections['pregnancy-tests'].all_products_count == 0 -%}<a href="/collections/pregnancy-tests" style="color:#2A2B2A;" class="hov-green">Pregnancy Tests</a>{%- endunless -%}
+            {%- unless collections['ovulation-tests'].all_products_count == 0 -%}<a href="/collections/ovulation-tests" style="color:#2A2B2A;" class="hov-green">Ovulation Tests</a>{%- endunless -%}
           </div>
         </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['sexual-health'].all_products_count | plus: collections['erectile-dysfunction'].all_products_count | plus: collections['condoms'].all_products_count -%}
+{%- unless shown == 0 -%}
         <div class="mega-group">
-          <a href="/collections/sexual-health" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Sexual Health</a>
+          {%- unless collections['sexual-health'].all_products_count == 0 -%}<a href="/collections/sexual-health" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Sexual Health</a>{%- endunless -%}{%- if collections['sexual-health'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Sexual Health</span>{%- endif -%}
           <div style="display:flex; flex-direction:column; font-size:12px;">
-            <a href="/collections/erectile-dysfunction" style="color:#2A2B2A;" class="hov-green">Erectile Dysfunction</a>
-            <a href="/collections/condoms" style="color:#2A2B2A;" class="hov-green">Condoms</a>
+            {%- unless collections['erectile-dysfunction'].all_products_count == 0 -%}<a href="/collections/erectile-dysfunction" style="color:#2A2B2A;" class="hov-green">Erectile Dysfunction</a>{%- endunless -%}
+            {%- unless collections['condoms'].all_products_count == 0 -%}<a href="/collections/condoms" style="color:#2A2B2A;" class="hov-green">Condoms</a>{%- endunless -%}
           </div>
         </div>
+{%- endunless -%}
+{%- unless collections['sport'].all_products_count == 0 -%}
         <div class="mega-group">
-          <a href="/collections/sport" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Sport</a>
+          {%- unless collections['sport'].all_products_count == 0 -%}<a href="/collections/sport" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Sport</a>{%- endunless -%}{%- if collections['sport'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Sport</span>{%- endif -%}
         </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['first-aid'].all_products_count | plus: collections['antiseptics-wound-cleaning'].all_products_count | plus: collections['bandages-plasters'].all_products_count | plus: collections['supports'].all_products_count | plus: collections['cold-therapy-heat-therapy'].all_products_count | plus: collections['insect-bites-prevention'].all_products_count -%}
+{%- unless shown == 0 -%}
         <div class="mega-group">
-          <a href="/collections/first-aid" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">First Aid</a>
+          {%- unless collections['first-aid'].all_products_count == 0 -%}<a href="/collections/first-aid" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">First Aid</a>{%- endunless -%}{%- if collections['first-aid'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">First Aid</span>{%- endif -%}
           <div style="display:flex; flex-direction:column; font-size:12px;">
-            <a href="/collections/antiseptics-wound-cleaning" style="color:#2A2B2A;" class="hov-green">Antiseptics &amp; Wound Cleaning</a>
-            <a href="/collections/bandages-plasters" style="color:#2A2B2A;" class="hov-green">Bandages &amp; Plasters</a>
-            <a href="/collections/supports" style="color:#2A2B2A;" class="hov-green">Supports</a>
-            <a href="/collections/cold-therapy-heat-therapy" style="color:#2A2B2A;" class="hov-green">Cold Therapy &amp; Heat Therapy</a>
-            <a href="/collections/insect-bites-prevention" style="color:#2A2B2A;" class="hov-green">Insect Bites &amp; Prevention</a>
+            {%- unless collections['antiseptics-wound-cleaning'].all_products_count == 0 -%}<a href="/collections/antiseptics-wound-cleaning" style="color:#2A2B2A;" class="hov-green">Antiseptics &amp; Wound Cleaning</a>{%- endunless -%}
+            {%- unless collections['bandages-plasters'].all_products_count == 0 -%}<a href="/collections/bandages-plasters" style="color:#2A2B2A;" class="hov-green">Bandages &amp; Plasters</a>{%- endunless -%}
+            {%- unless collections['supports'].all_products_count == 0 -%}<a href="/collections/supports" style="color:#2A2B2A;" class="hov-green">Supports</a>{%- endunless -%}
+            {%- unless collections['cold-therapy-heat-therapy'].all_products_count == 0 -%}<a href="/collections/cold-therapy-heat-therapy" style="color:#2A2B2A;" class="hov-green">Cold Therapy &amp; Heat Therapy</a>{%- endunless -%}
+            {%- unless collections['insect-bites-prevention'].all_products_count == 0 -%}<a href="/collections/insect-bites-prevention" style="color:#2A2B2A;" class="hov-green">Insect Bites &amp; Prevention</a>{%- endunless -%}
           </div>
         </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['foot-care'].all_products_count | plus: collections['athletes-foot'].all_products_count | plus: collections['fungal-nail-infection'].all_products_count | plus: collections['cracked-heels-dry-skin'].all_products_count | plus: collections['blisters-bunion-care'].all_products_count | plus: collections['corn-callous-care'].all_products_count | plus: collections['chiropody-felt-padding'].all_products_count | plus: collections['toe-nail-care'].all_products_count | plus: collections['foot-soak-odour-control'].all_products_count -%}
+{%- unless shown == 0 -%}
         <div class="mega-group">
-          <a href="/collections/foot-care" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Foot Care</a>
+          {%- unless collections['foot-care'].all_products_count == 0 -%}<a href="/collections/foot-care" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Foot Care</a>{%- endunless -%}{%- if collections['foot-care'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Foot Care</span>{%- endif -%}
           <div style="display:flex; flex-direction:column; font-size:12px;">
-            <a href="/collections/athletes-foot" style="color:#2A2B2A;" class="hov-green">Athletes Foot</a>
-            <a href="/collections/fungal-nail-infection" style="color:#2A2B2A;" class="hov-green">Fungal Nail Infection</a>
-            <a href="/collections/cracked-heels-dry-skin" style="color:#2A2B2A;" class="hov-green">Cracked Heels &amp; Dry Skin</a>
-            <a href="/collections/blisters-bunion-care" style="color:#2A2B2A;" class="hov-green">Blisters &amp; Bunion Care</a>
-            <a href="/collections/corn-callous-care" style="color:#2A2B2A;" class="hov-green">Corn &amp; Callous Care</a>
-            <a href="/collections/chiropody-felt-padding" style="color:#2A2B2A;" class="hov-green">Chiropody Felt &amp; Padding</a>
-            <a href="/collections/toe-nail-care" style="color:#2A2B2A;" class="hov-green">Toe Nail Care</a>
-            <a href="/collections/foot-soak-odour-control" style="color:#2A2B2A;" class="hov-green">Foot Soak &amp; Odour Control</a>
+            {%- unless collections['athletes-foot'].all_products_count == 0 -%}<a href="/collections/athletes-foot" style="color:#2A2B2A;" class="hov-green">Athletes Foot</a>{%- endunless -%}
+            {%- unless collections['fungal-nail-infection'].all_products_count == 0 -%}<a href="/collections/fungal-nail-infection" style="color:#2A2B2A;" class="hov-green">Fungal Nail Infection</a>{%- endunless -%}
+            {%- unless collections['cracked-heels-dry-skin'].all_products_count == 0 -%}<a href="/collections/cracked-heels-dry-skin" style="color:#2A2B2A;" class="hov-green">Cracked Heels &amp; Dry Skin</a>{%- endunless -%}
+            {%- unless collections['blisters-bunion-care'].all_products_count == 0 -%}<a href="/collections/blisters-bunion-care" style="color:#2A2B2A;" class="hov-green">Blisters &amp; Bunion Care</a>{%- endunless -%}
+            {%- unless collections['corn-callous-care'].all_products_count == 0 -%}<a href="/collections/corn-callous-care" style="color:#2A2B2A;" class="hov-green">Corn &amp; Callous Care</a>{%- endunless -%}
+            {%- unless collections['chiropody-felt-padding'].all_products_count == 0 -%}<a href="/collections/chiropody-felt-padding" style="color:#2A2B2A;" class="hov-green">Chiropody Felt &amp; Padding</a>{%- endunless -%}
+            {%- unless collections['toe-nail-care'].all_products_count == 0 -%}<a href="/collections/toe-nail-care" style="color:#2A2B2A;" class="hov-green">Toe Nail Care</a>{%- endunless -%}
+            {%- unless collections['foot-soak-odour-control'].all_products_count == 0 -%}<a href="/collections/foot-soak-odour-control" style="color:#2A2B2A;" class="hov-green">Foot Soak &amp; Odour Control</a>{%- endunless -%}
           </div>
         </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['electrical-healthcare'].all_products_count | plus: collections['oximeters-weighing-scales'].all_products_count -%}
+{%- unless shown == 0 -%}
         <div class="mega-group">
-          <a href="/collections/electrical-healthcare" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Electrical Healthcare</a>
+          {%- unless collections['electrical-healthcare'].all_products_count == 0 -%}<a href="/collections/electrical-healthcare" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Electrical Healthcare</a>{%- endunless -%}{%- if collections['electrical-healthcare'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Electrical Healthcare</span>{%- endif -%}
           <div style="display:flex; flex-direction:column; font-size:12px;">
-            <a href="/collections/oximeters-weighing-scales" style="color:#2A2B2A;" class="hov-green">Oximeters &amp; Weighing Scales</a>
+            {%- unless collections['oximeters-weighing-scales'].all_products_count == 0 -%}<a href="/collections/oximeters-weighing-scales" style="color:#2A2B2A;" class="hov-green">Oximeters &amp; Weighing Scales</a>{%- endunless -%}
           </div>
         </div>
+{%- endunless -%}
+{%- unless collections['self-testing-kits'].all_products_count == 0 -%}
         <div class="mega-group">
-          <a href="/collections/self-testing-kits" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Self Testing Kits</a>
+          {%- unless collections['self-testing-kits'].all_products_count == 0 -%}<a href="/collections/self-testing-kits" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Self Testing Kits</a>{%- endunless -%}{%- if collections['self-testing-kits'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Self Testing Kits</span>{%- endif -%}
         </div>
+{%- endunless -%}
       </div>
     </div>
   </div>
@@ -141,29 +187,29 @@
     <div style="display:flex; align-items:stretch;">
       <div style="flex:1; padding:34px 32px; display:grid; grid-template-columns:repeat(4,minmax(150px,1fr)); gap:26px;">
         <div style="display:flex; flex-direction:column; gap:11px; font-size:14px;">
-          <a href="/collections/probiotics-digestive-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Probiotics &amp; Digestive Health</a>
-          <a href="/collections/children-vitamins" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Children Vitamins</a>
-          <a href="/collections/fish-oils-omegas" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Fish Oils &amp; Omegas</a>
-          <a href="/collections/healthy-mind-sleeping-aids" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Healthy Mind &amp; Sleeping Aids</a>
-          <a href="/collections/womens-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Women's Health</a>
+          {%- unless collections['probiotics-digestive-health'].all_products_count == 0 -%}<a href="/collections/probiotics-digestive-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Probiotics &amp; Digestive Health</a>{%- endunless -%}
+          {%- unless collections['children-vitamins'].all_products_count == 0 -%}<a href="/collections/children-vitamins" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Children Vitamins</a>{%- endunless -%}
+          {%- unless collections['fish-oils-omegas'].all_products_count == 0 -%}<a href="/collections/fish-oils-omegas" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Fish Oils &amp; Omegas</a>{%- endunless -%}
+          {%- unless collections['healthy-mind-sleeping-aids'].all_products_count == 0 -%}<a href="/collections/healthy-mind-sleeping-aids" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Healthy Mind &amp; Sleeping Aids</a>{%- endunless -%}
+          {%- unless collections['womens-health'].all_products_count == 0 -%}<a href="/collections/womens-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Women's Health</a>{%- endunless -%}
         </div>
         <div style="display:flex; flex-direction:column; gap:11px; font-size:14px;">
-          <a href="/collections/everyday-multivitamins" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Everyday Multivitamins</a>
-          <a href="/collections/energy-wellbeing" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Energy &amp; Wellbeing</a>
-          <a href="/collections/skin-hair-nails" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Skin, Hair &amp; Nails</a>
-          <a href="/collections/joint-bone-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Joint &amp; Bone Health</a>
+          {%- unless collections['everyday-multivitamins'].all_products_count == 0 -%}<a href="/collections/everyday-multivitamins" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Everyday Multivitamins</a>{%- endunless -%}
+          {%- unless collections['energy-wellbeing'].all_products_count == 0 -%}<a href="/collections/energy-wellbeing" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Energy &amp; Wellbeing</a>{%- endunless -%}
+          {%- unless collections['skin-hair-nails'].all_products_count == 0 -%}<a href="/collections/skin-hair-nails" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Skin, Hair &amp; Nails</a>{%- endunless -%}
+          {%- unless collections['joint-bone-health'].all_products_count == 0 -%}<a href="/collections/joint-bone-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Joint &amp; Bone Health</a>{%- endunless -%}
         </div>
         <div style="display:flex; flex-direction:column; gap:11px; font-size:14px;">
-          <a href="/collections/fertility-pregnancy" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Fertility &amp; Pregnancy</a>
-          <a href="/collections/brain-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Brain Health</a>
-          <a href="/collections/eye-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Eye Health</a>
-          <a href="/collections/heart-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Heart Health</a>
+          {%- unless collections['fertility-pregnancy'].all_products_count == 0 -%}<a href="/collections/fertility-pregnancy" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Fertility &amp; Pregnancy</a>{%- endunless -%}
+          {%- unless collections['brain-health'].all_products_count == 0 -%}<a href="/collections/brain-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Brain Health</a>{%- endunless -%}
+          {%- unless collections['eye-health'].all_products_count == 0 -%}<a href="/collections/eye-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Eye Health</a>{%- endunless -%}
+          {%- unless collections['heart-health'].all_products_count == 0 -%}<a href="/collections/heart-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Heart Health</a>{%- endunless -%}
         </div>
         <div style="display:flex; flex-direction:column; gap:11px; font-size:14px;">
-          <a href="/collections/slimming" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Slimming</a>
-          <a href="/collections/herbal-remedies" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Herbal Remedies</a>
-          <a href="/collections/immune-support" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Immune Support</a>
-          <a href="/collections/mens-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Men's Health</a>
+          {%- unless collections['slimming'].all_products_count == 0 -%}<a href="/collections/slimming" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Slimming</a>{%- endunless -%}
+          {%- unless collections['herbal-remedies'].all_products_count == 0 -%}<a href="/collections/herbal-remedies" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Herbal Remedies</a>{%- endunless -%}
+          {%- unless collections['immune-support'].all_products_count == 0 -%}<a href="/collections/immune-support" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Immune Support</a>{%- endunless -%}
+          {%- unless collections['mens-health'].all_products_count == 0 -%}<a href="/collections/mens-health" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;" class="hov-slide">Men's Health</a>{%- endunless -%}
         </div>
       </div>
     </div>
@@ -174,71 +220,92 @@
     <div style="display:flex; align-items:stretch;">
       <div style="flex:1; padding:30px; display:grid; grid-template-columns:repeat(4,minmax(160px,1fr)); gap:24px;">
         <div style="display:flex; flex-direction:column; gap:24px;">
+{%- assign shown = 0 | plus: collections['face'].all_products_count | plus: collections['foundation'].all_products_count | plus: collections['makeup-remover'].all_products_count | plus: collections['bronzer'].all_products_count | plus: collections['concealer'].all_products_count | plus: collections['blusher'].all_products_count | plus: collections['powders-primers'].all_products_count | plus: collections['contouring-highlighting'].all_products_count -%}
+{%- unless shown == 0 -%}
           <div class="mega-group">
-            <a href="/collections/face" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Face</a>
+            {%- unless collections['face'].all_products_count == 0 -%}<a href="/collections/face" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Face</a>{%- endunless -%}{%- if collections['face'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Face</span>{%- endif -%}
             <div style="display:flex; flex-direction:column; font-size:12px;">
-              <a href="/collections/foundation" style="color:#2A2B2A;" class="hov-green">Foundation</a>
-              <a href="/collections/makeup-remover" style="color:#2A2B2A;" class="hov-green">Makeup Remover</a>
-              <a href="/collections/bronzer" style="color:#2A2B2A;" class="hov-green">Bronzer</a>
-              <a href="/collections/concealer" style="color:#2A2B2A;" class="hov-green">Concealer</a>
-              <a href="/collections/blusher" style="color:#2A2B2A;" class="hov-green">Blusher</a>
-              <a href="/collections/powders-primers" style="color:#2A2B2A;" class="hov-green">Powders &amp; Primers</a>
-              <a href="/collections/contouring-highlighting" style="color:#2A2B2A;" class="hov-green">Contouring &amp; Highlighting</a>
+              {%- unless collections['foundation'].all_products_count == 0 -%}<a href="/collections/foundation" style="color:#2A2B2A;" class="hov-green">Foundation</a>{%- endunless -%}
+              {%- unless collections['makeup-remover'].all_products_count == 0 -%}<a href="/collections/makeup-remover" style="color:#2A2B2A;" class="hov-green">Makeup Remover</a>{%- endunless -%}
+              {%- unless collections['bronzer'].all_products_count == 0 -%}<a href="/collections/bronzer" style="color:#2A2B2A;" class="hov-green">Bronzer</a>{%- endunless -%}
+              {%- unless collections['concealer'].all_products_count == 0 -%}<a href="/collections/concealer" style="color:#2A2B2A;" class="hov-green">Concealer</a>{%- endunless -%}
+              {%- unless collections['blusher'].all_products_count == 0 -%}<a href="/collections/blusher" style="color:#2A2B2A;" class="hov-green">Blusher</a>{%- endunless -%}
+              {%- unless collections['powders-primers'].all_products_count == 0 -%}<a href="/collections/powders-primers" style="color:#2A2B2A;" class="hov-green">Powders &amp; Primers</a>{%- endunless -%}
+              {%- unless collections['contouring-highlighting'].all_products_count == 0 -%}<a href="/collections/contouring-highlighting" style="color:#2A2B2A;" class="hov-green">Contouring &amp; Highlighting</a>{%- endunless -%}
             </div>
           </div>
+{%- endunless -%}
         </div>
         <div style="display:flex; flex-direction:column; gap:24px;">
+{%- assign shown = 0 | plus: collections['eyes'].all_products_count | plus: collections['eyeshadow'].all_products_count | plus: collections['eyeliner'].all_products_count | plus: collections['mascara'].all_products_count | plus: collections['eyebrows'].all_products_count | plus: collections['false-eyelashes'].all_products_count -%}
+{%- unless shown == 0 -%}
           <div class="mega-group">
-            <a href="/collections/eyes" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Eyes</a>
+            {%- unless collections['eyes'].all_products_count == 0 -%}<a href="/collections/eyes" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Eyes</a>{%- endunless -%}{%- if collections['eyes'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Eyes</span>{%- endif -%}
             <div style="display:flex; flex-direction:column; font-size:12px;">
-              <a href="/collections/eyeshadow" style="color:#2A2B2A;" class="hov-green">Eyeshadow</a>
-              <a href="/collections/eyeliner" style="color:#2A2B2A;" class="hov-green">Eyeliner</a>
-              <a href="/collections/mascara" style="color:#2A2B2A;" class="hov-green">Mascara</a>
-              <a href="/collections/eyebrows" style="color:#2A2B2A;" class="hov-green">Eyebrows</a>
-              <a href="/collections/false-eyelashes" style="color:#2A2B2A;" class="hov-green">False Eyelashes</a>
+              {%- unless collections['eyeshadow'].all_products_count == 0 -%}<a href="/collections/eyeshadow" style="color:#2A2B2A;" class="hov-green">Eyeshadow</a>{%- endunless -%}
+              {%- unless collections['eyeliner'].all_products_count == 0 -%}<a href="/collections/eyeliner" style="color:#2A2B2A;" class="hov-green">Eyeliner</a>{%- endunless -%}
+              {%- unless collections['mascara'].all_products_count == 0 -%}<a href="/collections/mascara" style="color:#2A2B2A;" class="hov-green">Mascara</a>{%- endunless -%}
+              {%- unless collections['eyebrows'].all_products_count == 0 -%}<a href="/collections/eyebrows" style="color:#2A2B2A;" class="hov-green">Eyebrows</a>{%- endunless -%}
+              {%- unless collections['false-eyelashes'].all_products_count == 0 -%}<a href="/collections/false-eyelashes" style="color:#2A2B2A;" class="hov-green">False Eyelashes</a>{%- endunless -%}
             </div>
           </div>
+{%- endunless -%}
         </div>
         <div style="display:flex; flex-direction:column; gap:24px;">
+{%- assign shown = 0 | plus: collections['lips'].all_products_count | plus: collections['lip-gloss'].all_products_count | plus: collections['lipstick'].all_products_count | plus: collections['lip-liner'].all_products_count -%}
+{%- unless shown == 0 -%}
           <div class="mega-group">
-            <a href="/collections/lips" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Lips</a>
+            {%- unless collections['lips'].all_products_count == 0 -%}<a href="/collections/lips" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Lips</a>{%- endunless -%}{%- if collections['lips'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Lips</span>{%- endif -%}
             <div style="display:flex; flex-direction:column; font-size:12px;">
-              <a href="/collections/lip-gloss" style="color:#2A2B2A;" class="hov-green">Lip Gloss</a>
-              <a href="/collections/lipstick" style="color:#2A2B2A;" class="hov-green">Lipstick</a>
-              <a href="/collections/lip-liner" style="color:#2A2B2A;" class="hov-green">Lip Liner</a>
+              {%- unless collections['lip-gloss'].all_products_count == 0 -%}<a href="/collections/lip-gloss" style="color:#2A2B2A;" class="hov-green">Lip Gloss</a>{%- endunless -%}
+              {%- unless collections['lipstick'].all_products_count == 0 -%}<a href="/collections/lipstick" style="color:#2A2B2A;" class="hov-green">Lipstick</a>{%- endunless -%}
+              {%- unless collections['lip-liner'].all_products_count == 0 -%}<a href="/collections/lip-liner" style="color:#2A2B2A;" class="hov-green">Lip Liner</a>{%- endunless -%}
             </div>
           </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['tanning'].all_products_count | plus: collections['self-tan'].all_products_count | plus: collections['tanning-mitts'].all_products_count | plus: collections['gradual-tan'].all_products_count -%}
+{%- unless shown == 0 -%}
           <div class="mega-group">
-            <a href="/collections/tanning" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Tanning</a>
+            {%- unless collections['tanning'].all_products_count == 0 -%}<a href="/collections/tanning" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Tanning</a>{%- endunless -%}{%- if collections['tanning'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Tanning</span>{%- endif -%}
             <div style="display:flex; flex-direction:column; font-size:12px;">
-              <a href="/collections/self-tan" style="color:#2A2B2A;" class="hov-green">Self Tan</a>
-              <a href="/collections/tanning-mitts" style="color:#2A2B2A;" class="hov-green">Tanning Mitts</a>
-              <a href="/collections/gradual-tan" style="color:#2A2B2A;" class="hov-green">Gradual Tan</a>
+              {%- unless collections['self-tan'].all_products_count == 0 -%}<a href="/collections/self-tan" style="color:#2A2B2A;" class="hov-green">Self Tan</a>{%- endunless -%}
+              {%- unless collections['tanning-mitts'].all_products_count == 0 -%}<a href="/collections/tanning-mitts" style="color:#2A2B2A;" class="hov-green">Tanning Mitts</a>{%- endunless -%}
+              {%- unless collections['gradual-tan'].all_products_count == 0 -%}<a href="/collections/gradual-tan" style="color:#2A2B2A;" class="hov-green">Gradual Tan</a>{%- endunless -%}
             </div>
           </div>
+{%- endunless -%}
         </div>
         <div style="display:flex; flex-direction:column; gap:24px;">
+{%- assign shown = 0 | plus: collections['nails'].all_products_count | plus: collections['false-nails-nail-wraps'].all_products_count | plus: collections['nail-care'].all_products_count -%}
+{%- unless shown == 0 -%}
           <div class="mega-group">
-            <a href="/collections/nails" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Nails</a>
+            {%- unless collections['nails'].all_products_count == 0 -%}<a href="/collections/nails" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Nails</a>{%- endunless -%}{%- if collections['nails'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Nails</span>{%- endif -%}
             <div style="display:flex; flex-direction:column; font-size:12px;">
-              <a href="/collections/false-nails-nail-wraps" style="color:#2A2B2A;" class="hov-green">False Nails &amp; Nail Wraps</a>
-              <a href="/collections/nail-care" style="color:#2A2B2A;" class="hov-green">Nail Care</a>
+              {%- unless collections['false-nails-nail-wraps'].all_products_count == 0 -%}<a href="/collections/false-nails-nail-wraps" style="color:#2A2B2A;" class="hov-green">False Nails &amp; Nail Wraps</a>{%- endunless -%}
+              {%- unless collections['nail-care'].all_products_count == 0 -%}<a href="/collections/nail-care" style="color:#2A2B2A;" class="hov-green">Nail Care</a>{%- endunless -%}
             </div>
           </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['makeup-brushes-tools'].all_products_count | plus: collections['makeup-brushes'].all_products_count | plus: collections['makeup-brush-cleaners'].all_products_count -%}
+{%- unless shown == 0 -%}
           <div class="mega-group">
-            <a href="/collections/makeup-brushes-tools" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Makeup Brushes &amp; Tools</a>
+            {%- unless collections['makeup-brushes-tools'].all_products_count == 0 -%}<a href="/collections/makeup-brushes-tools" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Makeup Brushes &amp; Tools</a>{%- endunless -%}{%- if collections['makeup-brushes-tools'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Makeup Brushes &amp; Tools</span>{%- endif -%}
             <div style="display:flex; flex-direction:column; font-size:12px;">
-              <a href="/collections/makeup-brushes" style="color:#2A2B2A;" class="hov-green">Makeup Brushes</a>
-              <a href="/collections/makeup-brush-cleaners" style="color:#2A2B2A;" class="hov-green">Makeup Brush Cleaners</a>
+              {%- unless collections['makeup-brushes'].all_products_count == 0 -%}<a href="/collections/makeup-brushes" style="color:#2A2B2A;" class="hov-green">Makeup Brushes</a>{%- endunless -%}
+              {%- unless collections['makeup-brush-cleaners'].all_products_count == 0 -%}<a href="/collections/makeup-brush-cleaners" style="color:#2A2B2A;" class="hov-green">Makeup Brush Cleaners</a>{%- endunless -%}
             </div>
           </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['beauty-accessories'].all_products_count | plus: collections['tweezers'].all_products_count | plus: collections['beauty-accessories'].all_products_count -%}
+{%- unless shown == 0 -%}
           <div class="mega-group">
-            <a href="/collections/beauty-accessories" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Beauty Accessories</a>
+            {%- unless collections['beauty-accessories'].all_products_count == 0 -%}<a href="/collections/beauty-accessories" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Beauty Accessories</a>{%- endunless -%}{%- if collections['beauty-accessories'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Beauty Accessories</span>{%- endif -%}
             <div style="display:flex; flex-direction:column; font-size:12px;">
-              <a href="/collections/tweezers" style="color:#2A2B2A;" class="hov-green">Tweezers</a>
-              <a href="/collections/beauty-accessories" style="color:#2A2B2A;" class="hov-green">Beauty Accessories</a>
+              {%- unless collections['tweezers'].all_products_count == 0 -%}<a href="/collections/tweezers" style="color:#2A2B2A;" class="hov-green">Tweezers</a>{%- endunless -%}
+              {%- unless collections['beauty-accessories'].all_products_count == 0 -%}<a href="/collections/beauty-accessories" style="color:#2A2B2A;" class="hov-green">Beauty Accessories</a>{%- endunless -%}
             </div>
           </div>
+{%- endunless -%}
         </div>
       </div>
     </div>
@@ -249,53 +316,68 @@
     <div style="display:flex; align-items:stretch;">
       <div style="flex:1; padding:30px; display:grid; grid-template-columns:repeat(3,minmax(180px,1fr)); gap:24px;">
         <div style="display:flex; flex-direction:column; gap:24px;">
+{%- assign shown = 0 | plus: collections['dermatological-skincare'].all_products_count | plus: collections['anti-ageing'].all_products_count | plus: collections['acne-blemish'].all_products_count | plus: collections['sensitive-skin'].all_products_count | plus: collections['irritated-damaged-skin'].all_products_count | plus: collections['sun'].all_products_count -%}
+{%- unless shown == 0 -%}
           <div class="mega-group">
-            <a href="/collections/dermatological-skincare" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Dermatological Skincare</a>
+            {%- unless collections['dermatological-skincare'].all_products_count == 0 -%}<a href="/collections/dermatological-skincare" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Dermatological Skincare</a>{%- endunless -%}{%- if collections['dermatological-skincare'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Dermatological Skincare</span>{%- endif -%}
             <div style="display:flex; flex-direction:column; font-size:12px;">
-              <a href="/collections/anti-ageing" style="color:#2A2B2A;" class="hov-green">Anti-Ageing</a>
-              <a href="/collections/acne-blemish" style="color:#2A2B2A;" class="hov-green">Acne &amp; Blemish</a>
-              <a href="/collections/sensitive-skin" style="color:#2A2B2A;" class="hov-green">Sensitive Skin</a>
-              <a href="/collections/irritated-damaged-skin" style="color:#2A2B2A;" class="hov-green">Irritated &amp; Damaged Skin</a>
-              <a href="/collections/sun" style="color:#2A2B2A;" class="hov-green">Sun</a>
+              {%- unless collections['anti-ageing'].all_products_count == 0 -%}<a href="/collections/anti-ageing" style="color:#2A2B2A;" class="hov-green">Anti-Ageing</a>{%- endunless -%}
+              {%- unless collections['acne-blemish'].all_products_count == 0 -%}<a href="/collections/acne-blemish" style="color:#2A2B2A;" class="hov-green">Acne &amp; Blemish</a>{%- endunless -%}
+              {%- unless collections['sensitive-skin'].all_products_count == 0 -%}<a href="/collections/sensitive-skin" style="color:#2A2B2A;" class="hov-green">Sensitive Skin</a>{%- endunless -%}
+              {%- unless collections['irritated-damaged-skin'].all_products_count == 0 -%}<a href="/collections/irritated-damaged-skin" style="color:#2A2B2A;" class="hov-green">Irritated &amp; Damaged Skin</a>{%- endunless -%}
+              {%- unless collections['sun'].all_products_count == 0 -%}<a href="/collections/sun" style="color:#2A2B2A;" class="hov-green">Sun</a>{%- endunless -%}
             </div>
           </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['body-skincare'].all_products_count | plus: collections['moisturisers'].all_products_count | plus: collections['exfoliators'].all_products_count -%}
+{%- unless shown == 0 -%}
           <div class="mega-group">
-            <a href="/collections/body-skincare" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Body Skincare</a>
+            {%- unless collections['body-skincare'].all_products_count == 0 -%}<a href="/collections/body-skincare" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Body Skincare</a>{%- endunless -%}{%- if collections['body-skincare'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Body Skincare</span>{%- endif -%}
             <div style="display:flex; flex-direction:column; font-size:12px;">
-              <a href="/collections/moisturisers" style="color:#2A2B2A;" class="hov-green">Moisturisers</a>
-              <a href="/collections/exfoliators" style="color:#2A2B2A;" class="hov-green">Exfoliators</a>
+              {%- unless collections['moisturisers'].all_products_count == 0 -%}<a href="/collections/moisturisers" style="color:#2A2B2A;" class="hov-green">Moisturisers</a>{%- endunless -%}
+              {%- unless collections['exfoliators'].all_products_count == 0 -%}<a href="/collections/exfoliators" style="color:#2A2B2A;" class="hov-green">Exfoliators</a>{%- endunless -%}
             </div>
           </div>
+{%- endunless -%}
         </div>
         <div style="display:flex; flex-direction:column; gap:24px;">
+{%- assign shown = 0 | plus: collections['facial-skincare'].all_products_count | plus: collections['facial-moisturisers'].all_products_count | plus: collections['eye-cream'].all_products_count | plus: collections['serums-oils'].all_products_count | plus: collections['cleanser'].all_products_count | plus: collections['toner'].all_products_count | plus: collections['exfoliators-peels'].all_products_count | plus: collections['face-masks'].all_products_count | plus: collections['lip-care'].all_products_count -%}
+{%- unless shown == 0 -%}
           <div class="mega-group">
-            <a href="/collections/facial-skincare" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Facial Skincare</a>
+            {%- unless collections['facial-skincare'].all_products_count == 0 -%}<a href="/collections/facial-skincare" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Facial Skincare</a>{%- endunless -%}{%- if collections['facial-skincare'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Facial Skincare</span>{%- endif -%}
             <div style="display:flex; flex-direction:column; font-size:12px;">
-              <a href="/collections/facial-moisturisers" style="color:#2A2B2A;" class="hov-green">Facial Moisturisers</a>
-              <a href="/collections/eye-cream" style="color:#2A2B2A;" class="hov-green">Eye Cream</a>
-              <a href="/collections/serums-oils" style="color:#2A2B2A;" class="hov-green">Serums &amp; Oils</a>
-              <a href="/collections/cleanser" style="color:#2A2B2A;" class="hov-green">Cleanser</a>
-              <a href="/collections/toner" style="color:#2A2B2A;" class="hov-green">Toner</a>
-              <a href="/collections/exfoliators-peels" style="color:#2A2B2A;" class="hov-green">Exfoliators &amp; Peels</a>
-              <a href="/collections/face-masks" style="color:#2A2B2A;" class="hov-green">Face Masks</a>
-              <a href="/collections/lip-care" style="color:#2A2B2A;" class="hov-green">Lip Care</a>
+              {%- unless collections['facial-moisturisers'].all_products_count == 0 -%}<a href="/collections/facial-moisturisers" style="color:#2A2B2A;" class="hov-green">Facial Moisturisers</a>{%- endunless -%}
+              {%- unless collections['eye-cream'].all_products_count == 0 -%}<a href="/collections/eye-cream" style="color:#2A2B2A;" class="hov-green">Eye Cream</a>{%- endunless -%}
+              {%- unless collections['serums-oils'].all_products_count == 0 -%}<a href="/collections/serums-oils" style="color:#2A2B2A;" class="hov-green">Serums &amp; Oils</a>{%- endunless -%}
+              {%- unless collections['cleanser'].all_products_count == 0 -%}<a href="/collections/cleanser" style="color:#2A2B2A;" class="hov-green">Cleanser</a>{%- endunless -%}
+              {%- unless collections['toner'].all_products_count == 0 -%}<a href="/collections/toner" style="color:#2A2B2A;" class="hov-green">Toner</a>{%- endunless -%}
+              {%- unless collections['exfoliators-peels'].all_products_count == 0 -%}<a href="/collections/exfoliators-peels" style="color:#2A2B2A;" class="hov-green">Exfoliators &amp; Peels</a>{%- endunless -%}
+              {%- unless collections['face-masks'].all_products_count == 0 -%}<a href="/collections/face-masks" style="color:#2A2B2A;" class="hov-green">Face Masks</a>{%- endunless -%}
+              {%- unless collections['lip-care'].all_products_count == 0 -%}<a href="/collections/lip-care" style="color:#2A2B2A;" class="hov-green">Lip Care</a>{%- endunless -%}
             </div>
           </div>
+{%- endunless -%}
         </div>
         <div style="display:flex; flex-direction:column; gap:24px;">
+{%- assign shown = 0 | plus: collections['problem-skin'].all_products_count | plus: collections['acne-blemish'].all_products_count | plus: collections['dry-skin-eczema-psoriasis'].all_products_count -%}
+{%- unless shown == 0 -%}
           <div class="mega-group">
-            <a href="/collections/problem-skin" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Problem Skin</a>
+            {%- unless collections['problem-skin'].all_products_count == 0 -%}<a href="/collections/problem-skin" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Problem Skin</a>{%- endunless -%}{%- if collections['problem-skin'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Problem Skin</span>{%- endif -%}
             <div style="display:flex; flex-direction:column; font-size:12px;">
-              <a href="/collections/acne-blemish" style="color:#2A2B2A;" class="hov-green">Acne &amp; Blemish</a>
-              <a href="/collections/dry-skin-eczema-psoriasis" style="color:#2A2B2A;" class="hov-green">Dry Skin, Eczema &amp; Psoriasis</a>
+              {%- unless collections['acne-blemish'].all_products_count == 0 -%}<a href="/collections/acne-blemish" style="color:#2A2B2A;" class="hov-green">Acne &amp; Blemish</a>{%- endunless -%}
+              {%- unless collections['dry-skin-eczema-psoriasis'].all_products_count == 0 -%}<a href="/collections/dry-skin-eczema-psoriasis" style="color:#2A2B2A;" class="hov-green">Dry Skin, Eczema &amp; Psoriasis</a>{%- endunless -%}
             </div>
           </div>
+{%- endunless -%}
+{%- assign shown = 0 | plus: collections['hands-nails'].all_products_count | plus: collections['hand-cream'].all_products_count -%}
+{%- unless shown == 0 -%}
           <div class="mega-group">
-            <a href="/collections/hands-nails" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Hands &amp; Nails</a>
+            {%- unless collections['hands-nails'].all_products_count == 0 -%}<a href="/collections/hands-nails" style="display:block; color:var(--c-primary-text); font-weight:800;" class="hov-dark-green">Hands &amp; Nails</a>{%- endunless -%}{%- if collections['hands-nails'].all_products_count == 0 -%}<span style="display:block; color:var(--c-primary-text); font-weight:800;">Hands &amp; Nails</span>{%- endif -%}
             <div style="display:flex; flex-direction:column; font-size:12px;">
-              <a href="/collections/hand-cream" style="color:#2A2B2A;" class="hov-green">Hand Cream</a>
+              {%- unless collections['hand-cream'].all_products_count == 0 -%}<a href="/collections/hand-cream" style="color:#2A2B2A;" class="hov-green">Hand Cream</a>{%- endunless -%}
             </div>
           </div>
+{%- endunless -%}
         </div>
       </div>
     </div>
@@ -304,49 +386,49 @@
 <div class="mega-panel" data-mega-panel="toiletries">
   <div style="position:absolute; left:379px; width:240px; top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:74vh; overflow-y:auto; animation:megaIn .16s ease-out;">
     <div style="padding:26px 28px; display:flex; flex-direction:column; gap:11px; font-size:14px;">
-      <a href="/collections/hair-care" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Hair Care</a>
-      <a href="/collections/dental-care" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Dental Care</a>
-      <a href="/collections/deodorant" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Deodorant</a>
-      <a href="/collections/mens-grooming" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Men's Grooming</a>
-      <a href="/collections/feminine-care" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Feminine Care</a>
-      <a href="/collections/bath-shower" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Bath &amp; Shower</a>
-      <a href="/collections/travel" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Travel</a>
+      {%- unless collections['hair-care'].all_products_count == 0 -%}<a href="/collections/hair-care" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Hair Care</a>{%- endunless -%}
+      {%- unless collections['dental-care'].all_products_count == 0 -%}<a href="/collections/dental-care" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Dental Care</a>{%- endunless -%}
+      {%- unless collections['deodorant'].all_products_count == 0 -%}<a href="/collections/deodorant" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Deodorant</a>{%- endunless -%}
+      {%- unless collections['mens-grooming'].all_products_count == 0 -%}<a href="/collections/mens-grooming" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Men's Grooming</a>{%- endunless -%}
+      {%- unless collections['feminine-care'].all_products_count == 0 -%}<a href="/collections/feminine-care" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Feminine Care</a>{%- endunless -%}
+      {%- unless collections['bath-shower'].all_products_count == 0 -%}<a href="/collections/bath-shower" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Bath &amp; Shower</a>{%- endunless -%}
+      {%- unless collections['travel'].all_products_count == 0 -%}<a href="/collections/travel" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Travel</a>{%- endunless -%}
     </div>
   </div>
 </div>
 <div class="mega-panel" data-mega-panel="mother-baby">
   <div style="position:absolute; left:454px; width:240px; top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:74vh; overflow-y:auto; animation:megaIn .16s ease-out;">
     <div style="padding:26px 28px; display:flex; flex-direction:column; gap:11px; font-size:14px;">
-      <a href="/collections/baby-health" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Baby Health</a>
-      <a href="/collections/baby-feeding" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Baby Feeding</a>
-      <a href="/collections/maternity-care" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Maternity Care</a>
-      <a href="/collections/baby-skincare" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Baby Skincare</a>
-      <a href="/collections/baby-wipes-toiletries" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Baby Wipes &amp; Toiletries</a>
-      <a href="/collections/baby-accessories" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Baby Accessories</a>
+      {%- unless collections['baby-health'].all_products_count == 0 -%}<a href="/collections/baby-health" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Baby Health</a>{%- endunless -%}
+      {%- unless collections['baby-feeding'].all_products_count == 0 -%}<a href="/collections/baby-feeding" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Baby Feeding</a>{%- endunless -%}
+      {%- unless collections['maternity-care'].all_products_count == 0 -%}<a href="/collections/maternity-care" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Maternity Care</a>{%- endunless -%}
+      {%- unless collections['baby-skincare'].all_products_count == 0 -%}<a href="/collections/baby-skincare" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Baby Skincare</a>{%- endunless -%}
+      {%- unless collections['baby-wipes-toiletries'].all_products_count == 0 -%}<a href="/collections/baby-wipes-toiletries" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Baby Wipes &amp; Toiletries</a>{%- endunless -%}
+      {%- unless collections['baby-accessories'].all_products_count == 0 -%}<a href="/collections/baby-accessories" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Baby Accessories</a>{%- endunless -%}
     </div>
   </div>
 </div>
 <div class="mega-panel" data-mega-panel="fragrance">
   <div style="position:absolute; left:566px; width:240px; top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:74vh; overflow-y:auto; animation:megaIn .16s ease-out;">
     <div style="padding:26px 28px; display:flex; flex-direction:column; gap:11px; font-size:14px;">
-      <a href="/collections/ladies-fragrance" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Ladies Fragrance</a>
-      <a href="/collections/ladies-fragrance-singles" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Ladies Fragrance Singles</a>
-      <a href="/collections/ladies-fragrance-sets" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Ladies Fragrance Sets</a>
-      <a href="/collections/mens-fragrance" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Mens Fragrance</a>
-      <a href="/collections/mens-fragrance-singles" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Mens Fragrance Singles</a>
-      <a href="/collections/mens-fragrance-sets" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Mens Fragrance Sets</a>
+      {%- unless collections['ladies-fragrance'].all_products_count == 0 -%}<a href="/collections/ladies-fragrance" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Ladies Fragrance</a>{%- endunless -%}
+      {%- unless collections['ladies-fragrance-singles'].all_products_count == 0 -%}<a href="/collections/ladies-fragrance-singles" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Ladies Fragrance Singles</a>{%- endunless -%}
+      {%- unless collections['ladies-fragrance-sets'].all_products_count == 0 -%}<a href="/collections/ladies-fragrance-sets" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Ladies Fragrance Sets</a>{%- endunless -%}
+      {%- unless collections['mens-fragrance'].all_products_count == 0 -%}<a href="/collections/mens-fragrance" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Mens Fragrance</a>{%- endunless -%}
+      {%- unless collections['mens-fragrance-singles'].all_products_count == 0 -%}<a href="/collections/mens-fragrance-singles" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Mens Fragrance Singles</a>{%- endunless -%}
+      {%- unless collections['mens-fragrance-sets'].all_products_count == 0 -%}<a href="/collections/mens-fragrance-sets" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Mens Fragrance Sets</a>{%- endunless -%}
     </div>
   </div>
 </div>
 <div class="mega-panel" data-mega-panel="gifting">
   <div style="position:absolute; left:648px; width:240px; top:100%; z-index:50; background:#ffffff; border:1px solid #e6e7e4; box-shadow:0 24px 44px rgba(0,0,0,.14); border-radius:0 0 16px 16px; max-height:74vh; overflow-y:auto; animation:megaIn .16s ease-out;">
     <div style="padding:26px 28px; display:flex; flex-direction:column; gap:11px; font-size:14px;">
-      <a href="/collections/christmas-shop" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Christmas Shop</a>
-      <a href="/collections/womens-fragrance" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Women's Fragrance</a>
-      <a href="/collections/mens-fragrance" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Men's Fragrance</a>
-      <a href="/collections/gifts-for-her" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Gifts for Her</a>
-      <a href="/collections/gifts-for-him" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Gifts for Him</a>
-      <a href="/collections/candles-diffusers" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Candles &amp; Diffusers</a>
+      {%- unless collections['christmas-shop'].all_products_count == 0 -%}<a href="/collections/christmas-shop" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Christmas Shop</a>{%- endunless -%}
+      {%- unless collections['womens-fragrance'].all_products_count == 0 -%}<a href="/collections/womens-fragrance" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Women's Fragrance</a>{%- endunless -%}
+      {%- unless collections['mens-fragrance'].all_products_count == 0 -%}<a href="/collections/mens-fragrance" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Men's Fragrance</a>{%- endunless -%}
+      {%- unless collections['gifts-for-her'].all_products_count == 0 -%}<a href="/collections/gifts-for-her" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Gifts for Her</a>{%- endunless -%}
+      {%- unless collections['gifts-for-him'].all_products_count == 0 -%}<a href="/collections/gifts-for-him" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Gifts for Him</a>{%- endunless -%}
+      {%- unless collections['candles-diffusers'].all_products_count == 0 -%}<a href="/collections/candles-diffusers" class="hov-slide" style="color:#3a3d39; display:inline-block; padding:2px 0; width:fit-content; transition:color .14s ease, transform .14s ease;">Candles &amp; Diffusers</a>{%- endunless -%}
     </div>
   </div>
 </div>

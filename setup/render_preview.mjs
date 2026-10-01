@@ -609,6 +609,8 @@ const articles = [0, 1, 2, 3].map((i) => ({
 }));
 
 const collectionsList = JSON.parse(readFileSync(join(PROJECT, 'setup/collections.json'), 'utf8'));
+const EMPTY_IN_PREVIEW = new Set(JSON.parse(
+  readFileSync(join(PROJECT, 'setup/preview-empty-collections.json'), 'utf8')).handles);
 
 const globals = {
   shop: {
@@ -654,6 +656,11 @@ const globals = {
   collections: Object.fromEntries(collectionsList.map((c) => [c.handle, {
     ...mockCollection, handle: c.handle, title: c.title, url: `/collections/${c.handle}`,
     description: c.description_html || '', image: null, featured_image: null,
+    // Every collection here inherits mockCollection's all_products_count, so the
+    // whole shop looks stocked and the nav renders in full. The handles in
+    // setup/preview-empty-collections.json are the exception; that file says why,
+    // and the checks that depend on them read the same list.
+    ...(EMPTY_IN_PREVIEW.has(c.handle) ? { products: [], products_count: 0, all_products_count: 0 } : {}),
   }])),
   product: products[0],
   products: new Proxy({}, { get: (_, k) => (typeof k === 'string' ? products[0] : undefined) }),

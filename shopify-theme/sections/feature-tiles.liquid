@@ -18,6 +18,7 @@
     {%- for block in section.blocks -%}
       <div class="ftile" style="position:relative; border-radius:18px; overflow:hidden; aspect-ratio:16/9; background:#e9ede3;" {{ block.shopify_attributes }}>
         {%- assign tile_style = 'position:absolute; inset:0; width:100%; height:100%; object-fit:cover;' -%}
+        {%- assign tile_alt = block.settings.alt | default: block.settings.title -%}
         {%- if block.settings.image or block.settings.image_mobile -%}
           <picture>
             {%- if block.settings.image_mobile -%}
@@ -29,13 +30,13 @@
             {{ tile_desktop | image_url: width: 1360 | image_tag:
                  widths: '400,700,1000,1360',
                  sizes: '(max-width: 749px) 100vw, 47vw',
-                 alt: block.settings.title,
+                 alt: tile_alt,
                  loading: 'lazy',
                  class: 'ftile-img',
                  style: tile_style }}
           </picture>
         {%- elsif block.settings.image_asset != blank -%}
-          <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title | escape }}"
+          <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ tile_alt | escape }}"
                loading="lazy" width="1360" height="765" class="ftile-img" style="{{ tile_style }}">
         {%- else -%}
           {%- render 'image-placeholder', w: 1360, h: 765, label: 'Feature tile', note: 'Landscape 16:9. Subject right and upper; the bottom-left 55% × 55% stays clear for the title and button.' -%}
@@ -45,6 +46,9 @@
         <div class="ftile-scrim" style="position:absolute; inset:0; background:linear-gradient(to top, rgba(18,28,20,.78) 0%, rgba(18,28,20,.42) 34%, rgba(18,28,20,0) 62%); display:flex; align-items:flex-end;">
         <div class="ftile-copy" style="position:relative; color:#fff;">
           <h3 style="font-family:var(--font-heading); font-weight:700; font-size:clamp(24px,2.6vw,34px); line-height:1.1; margin:0 0 14px; text-wrap:balance;">{{ block.settings.title }}</h3>
+          {%- if block.settings.subline != blank -%}
+          <p class="ftile-sub" style="margin:0 0 16px; font-size:clamp(14px,1.1vw,16px); line-height:1.45; color:#f2f4ef; max-width:34ch; text-wrap:pretty;">{{ block.settings.subline }}</p>
+          {%- endif -%}
           <a href="{{ block.settings.link }}" class="hov-shop btn-sm" style="background:#fff; color:#2A2B2A; letter-spacing:.06em;">{{ block.settings.cta }}</a>
         </div>
         </div>
@@ -70,10 +74,12 @@
       "name": "Tile",
       "settings": [
         { "type": "text", "id": "title", "label": "Title", "default": "Vitamins & Supplements" },
+        { "type": "text", "id": "subline", "label": "Subline", "info": "Optional. One line under the heading, above the button." },
         { "type": "url", "id": "link", "label": "Link" },
         { "type": "text", "id": "cta", "label": "Button label", "default": "SHOP NOW" },
         { "type": "image_picker", "id": "image", "label": "Image", "info": "16:9 landscape, 1360x765. Subject right and upper; keep the bottom-left 55% x 55% clear, the theme sets the title there. See IMAGE-BRIEF.md." },
         { "type": "image_picker", "id": "image_mobile", "label": "Mobile image", "info": "Optional. Use when the desktop crop loses the subject on a phone." },
+        { "type": "text", "id": "alt", "label": "Image alt text", "info": "What is in the picture, for screen readers. Falls back to the title." },
         { "type": "text", "id": "image_asset", "label": "Fallback theme asset (onboarding only)", "info": "Filename of a theme asset used until an image is picked." }
       ]
     }

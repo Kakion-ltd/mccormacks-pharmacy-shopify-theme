@@ -1,5 +1,11 @@
-{% comment %} One category chip. Args: h (handle), l (label), cur (current collection handle). {% endcomment %}
-{%- if h == cur -%}
+{% comment %} One category chip. Args: h (handle), l (label), cur (current collection handle).
+  A chip for a collection with nothing published renders nothing at all - the same
+  render-time rule as the rest of the nav, see snippets/nav-hide.liquid. It lives here
+  rather than at the 300-odd call sites in category-chips.liquid for the obvious reason.
+  The current collection always keeps its chip: you are standing on that page, and a
+  chip row with a hole where "you are here" should be is worse than an empty category. {% endcomment %}
+{%- if h != cur and collections[h].all_products_count == 0 -%}
+{%- elsif h == cur -%}
 <a href="/collections/{{ h }}" aria-current="page" class="chip chip-active" style="flex:0 0 auto;">{{ l }}</a>
 {%- else -%}
 <a href="/collections/{{ h }}" class="chip chip-lime" style="flex:0 0 auto;">{{ l }}</a>

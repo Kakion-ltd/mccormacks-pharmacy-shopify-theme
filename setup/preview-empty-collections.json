@@ -1,0 +1,17 @@
+{
+  "_comment": [
+    "Collections the preview harness renders with zero published products, so the",
+    "empty-collection nav rule is exercised by something rather than only described.",
+    "Everything else in the preview inherits a healthy count and the nav renders in full.",
+    "",
+    "'condoms' is a leaf with a live sibling: one link goes, the group stays.",
+    "'sport' is a childless group: it goes whole, which is why the mobile drawer",
+    "shows one fewer Medicines & Health row than the taxonomy lists.",
+    "",
+    "Read by setup/render_preview.mjs (sets the counts), setup/verify/nav-empty.py",
+    "(asserts they vanish) and setup/verify/mobile-nav.py (subtracts them from its",
+    "expected row count). One list, three readers: adding a handle here must not",
+    "mean remembering to fix a count somewhere else."
+  ],
+  "handles": ["condoms", "sport"]
+}

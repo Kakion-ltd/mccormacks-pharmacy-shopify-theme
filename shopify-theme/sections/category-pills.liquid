@@ -15,17 +15,24 @@
     </button>
     <div id="cats-{{ section.id }}" class="chip-row-compact" style="flex:1; display:flex; gap:16px; overflow-x:auto; scroll-behavior:smooth; padding-bottom:6px; scrollbar-width:none;">
       {%- if pills.size > 0 -%}
-      {%- for block in pills %}
+      {%- for block in pills -%}
+      {%- capture nh -%}{%- render 'nav-hide', url: block.settings.link -%}{%- endcapture -%}
+      {%- unless nh == '1' %}
       <a href="{{ block.settings.link }}" class="chip chip-lime" style="{{ pill_style }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+      {%- endunless -%}
       {%- endfor %}
       {%- else -%}
       {%- for dept in depts -%}
-      {%- assign d = dept | split: '~' %}
+      {%- assign d = dept | split: '~' -%}
+      {%- capture nh -%}{%- render 'nav-hide', handle: d[1] -%}{%- endcapture -%}
+      {%- unless nh == '1' %}
       <a href="/collections/{{ d[1] }}" class="chip chip-lime" style="{{ pill_style }}">{{ d[0] | escape }}</a>
+      {%- endunless -%}
       {%- endfor %}
       {%- endif -%}
       {%- for block in section.blocks -%}
-      {%- if block.type == 'promo_link' and block.settings.label != blank %}
+      {%- capture nh -%}{%- render 'nav-hide', url: block.settings.link -%}{%- endcapture -%}
+      {%- if block.type == 'promo_link' and block.settings.label != blank and nh != '1' %}
       <a href="{{ block.settings.link }}" class="chip chip-lime" style="{{ pill_style }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
       {%- endif -%}
       {%- endfor %}

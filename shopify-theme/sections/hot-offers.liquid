@@ -9,7 +9,10 @@
   full width; the section never assumes three offers.
 
   Urgency is opt-in: the Ends field renders only when someone typed a date,
-  so the section cannot claim "limited time" forever by default. Seasonal
+  so the section cannot claim "limited time" forever by default. The preset
+  carries no Deal text for the same reason: it used to default to "Save 20%",
+  so adding the section advertised a discount nobody had set up. Type the deal
+  when there is one. Seasonal
   rotation is manual — see setup/MAINTENANCE.md.
 {%- endcomment -%}
 <section style="max-width:1440px; margin:0 auto; padding:34px 30px 8px;">
@@ -123,7 +126,7 @@
       "type": "offer",
       "name": "Offer",
       "settings": [
-        { "type": "text", "id": "deal", "label": "Deal", "info": "The headline fact, e.g. Save 20% or 3 for €10. Leads the design; leave blank for a plain promotion." },
+        { "type": "text", "id": "deal", "label": "Deal", "info": "The headline fact, e.g. 3 for €10. Leads the design; leave blank for a plain promotion." },
         { "type": "text", "id": "title", "label": "Title", "default": "Vitamins & Supplements" },
         { "type": "textarea", "id": "subtext", "label": "Subtext", "info": "Shown on the spotlight only." },
         { "type": "text", "id": "ends", "label": "Ends", "info": "Optional, e.g. Until 30 September. Urgency renders only when this is filled in — there is no automatic date handling, so clear it when the offer ends." },
@@ -140,9 +143,7 @@
     {
       "name": "Hot offers",
       "blocks": [
-        { "type": "offer", "settings": { "deal": "Save 20%", "title": "Vitamins & Supplements", "subtext": "Support your daily health & wellbeing — 20% off multivitamins & supplements this month.", "link": "/collections/vitamins", "background": "#82c914" } },
-        { "type": "offer", "settings": { "deal": "Save 15%", "title": "Deodorants & Antiperspirants", "subtext": "Stay fresh for less with long-lasting protection, including Mitchum.", "link": "/collections/deodorant", "background": "#3f6b4f" } },
-        { "type": "offer", "settings": { "deal": "Save 20%", "title": "Menopause Support", "subtext": "Everyday menopause support, including CanesMeno — all month long.", "link": "/collections/menopause", "background": "#92C83F" } }
+        { "type": "offer", "settings": { "title": "Vitamins & Supplements", "subtext": "Describe the offer here.", "link": "/collections/vitamins", "background": "#82c914" } }
       ]
     }
   ]

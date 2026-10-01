@@ -1,0 +1,43 @@
+{%- comment -%}
+  Should this nav link be hidden? Echoes '1' when it should, nothing when it
+  should not. The caller wraps the link in {%- unless -%}.
+
+  THE RULE: hide a collection link only when we positively know the collection
+  has no products published to the Online Store. `all_products_count == 0` is
+  that positive knowledge; a nil count is NOT zero. So a link to a handle this
+  theme does not recognise (/collections/all, a collection created after the
+  last generator run, a preview fixture) renders as it always did, and the only
+  thing that ever disappears is a category we can see is empty.
+
+  Decided at render time on purpose. taxonomy.json stays the complete map of the
+  shop; this only decides what is worth showing today, so a collection comes
+  back by itself the moment a product is tagged into it. Nothing to regenerate,
+  nothing to remember.
+
+  Non-collection links are never hidden. /pages/brands is a page, and a page has
+  no product count — passing its URL here must not make it vanish.
+
+  Accepts (one of):
+    handle — a collection handle
+    url    — any link URL; the handle is read out of it when it is a /collections/ one
+
+  Usage:
+    {%- capture nh -%}{%- render 'nav-hide', url: link.url -%}{%- endcapture -%}
+    {%- unless nh == '1' -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endunless -%}
+
+  The generated nav (snippets/mega-menu, mobile-nav, category-chips) spells the
+  same test inline rather than calling this snippet — 178 render tags per page
+  is a cost with nothing to show for it, and those files are written by
+  setup/gen_mega.py and setup/gen_category_nav.py, where the rule lives once in
+  Python. If you change the rule here, change it there. Both are checked by
+  setup/verify/nav-empty.py.
+{%- endcomment -%}
+{%- liquid
+  assign nh_handle = handle
+  if url != blank and url contains '/collections/'
+    assign nh_handle = url | split: '/collections/' | last | split: '?' | first | split: '#' | first
+  endif
+  if nh_handle != blank and collections[nh_handle].all_products_count == 0
+    echo '1'
+  endif
+-%}

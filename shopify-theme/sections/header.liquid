@@ -77,13 +77,19 @@
           pill row and the mobile drawer use, so the three cannot disagree. {%- endcomment -%}
       {%- capture depts -%}{%- render 'departments' -%}{%- endcapture -%}
       {%- assign depts = depts | strip | split: '|' -%}
+      {%- comment -%} A department with nothing published drops out of the nav until
+          something is tagged into it; see snippets/nav-hide.liquid. {%- endcomment -%}
       {%- for dept in depts -%}
-      {%- assign d = dept | split: '~' %}
+      {%- assign d = dept | split: '~' -%}
+      {%- capture nh -%}{%- render 'nav-hide', handle: d[1] -%}{%- endcapture -%}
+      {%- unless nh == '1' %}
       <a href="/collections/{{ d[1] }}" class="hov-green" data-mega-trigger="{{ d[1] }}" style="color:#2A2B2A; font-size:13.5px;">{{ d[0] | escape }}</a>
+      {%- endunless -%}
       {%- endfor %}
       {%- comment -%} Merchant promo links (max 4); see archive/docs/SPEC-header-promo-links.md {%- endcomment -%}
       {%- for block in section.blocks -%}
-      {%- if block.type == 'promo_link' and block.settings.label != blank %}
+      {%- capture nh -%}{%- render 'nav-hide', url: block.settings.link -%}{%- endcapture -%}
+      {%- if block.type == 'promo_link' and block.settings.label != blank and nh != '1' %}
       <a href="{{ block.settings.link }}" class="{% if block.settings.highlight %}hov-dark-green{% else %}hov-green{% endif %}" data-mega-close style="{% if block.settings.highlight %}color:var(--c-primary-text); font-weight:700; {% else %}color:#2A2B2A; {% endif %}font-size:13.5px;" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
       {%- endif -%}
       {%- endfor %}

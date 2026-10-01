@@ -9,15 +9,7 @@
         <p style="margin:0; color:rgba(255,255,255,.78); font-size:13.5px; line-height:1.4;">{{ section.settings.newsletter_subtext }}</p>
       </div>
       <div style="flex:1 1 340px; max-width:400px; border-radius:9px; background:#ffffff; padding:3px;">
-      {% form 'customer', style: 'display:flex; gap:0;' %}
-        {% if form.posted_successfully? %}
-          <p style="margin:0; padding:10px 14px; color:var(--c-success); font-weight:700; font-size:13.5px;">Thanks — you're subscribed!</p>
-        {% else %}
-          <input type="hidden" name="contact[tags]" value="newsletter">
-          <input type="email" name="contact[email]" required aria-label="Email address" autocomplete="email" placeholder="Enter your email address" style="flex:1; min-width:0; border:none; outline:none; padding:10px 14px; font-family:inherit; font-size:13.5px; color:#2A2B2A; background:transparent;">
-          <button type="submit" class="btn-sm btn-fill" style="flex:0 0 auto">Subscribe</button>
-        {% endif %}
-      {% endform %}
+      {% render 'newsletter-form' %}
       </div>
     </div>
   </div>
@@ -56,15 +48,25 @@
       <div {{ block.shopify_attributes }}>
         <h4 style="margin:0;"><button type="button" data-acc-toggle="{{ slug }}" aria-expanded="false" class="ftr-acc-btn" style="width:100%; background:none; border:none; text-align:left; font-family:var(--font-heading); color:var(--c-dark); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; margin:0 0 18px; padding:0 0 10px; border-bottom:2px solid #eceee9; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">{{ block.settings.heading }}<svg class="ftr-acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none; transition:transform .15s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg></button></h4>
         <div class="ftr-acc-content" data-acc-content="{{ slug }}" data-open="false" style="display:flex; flex-direction:column; gap:12px; font-size:14px;">
+          {%- comment -%} A column link to a collection with nothing published drops out
+              until something is tagged into it; see snippets/nav-hide.liquid. It reads the
+              handle out of the URL rather than trusting link.type, because the fallback
+              list below is plain strings and has no link object to ask. {%- endcomment -%}
           {%- if menu.links.size > 0 -%}
             {%- for link in menu.links -%}
+            {%- capture nh -%}{%- render 'nav-hide', url: link.url -%}{%- endcapture -%}
+            {%- unless nh == '1' -%}
             <a href="{{ link.url }}">{{ link.title }}</a>
+            {%- endunless -%}
             {%- endfor -%}
           {%- else -%}
           {%- assign links = parts[2] | split: ',' -%}
           {%- for link in links -%}
             {%- assign bits = link | split: '|' -%}
+            {%- capture nh -%}{%- render 'nav-hide', url: bits[1] -%}{%- endcapture -%}
+            {%- unless nh == '1' -%}
             <a href="{{ bits[1] }}">{{ bits[0] }}</a>
+            {%- endunless -%}
           {%- endfor -%}
           {%- endif -%}
         </div>
@@ -80,8 +82,13 @@
         search parameter lands on our entry (registration 10001884) without leaving
         the list. {%- endcomment -%}
     <div class="ftr-psi" style="max-width:1440px; margin:0 auto; padding:8px 30px; display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end;">
-      <a href="https://registrations.thepsi.ie/search-isl/?search=10001884" rel="noopener" aria-label="PSI — verify this pharmacy is operating legally" style="display:flex; align-items:center; margin-right:15px; margin-top:-40px;">
+      <a href="https://registrations.thepsi.ie/search-isl/?search=10001884" rel="noopener" aria-label="PSI — verify this pharmacy is operating legally" style="display:flex; align-items:center; gap:12px; margin-right:15px; margin-top:-40px;">
         <img src="{{ 'psi-logo.avif' | asset_url }}" alt="PSI internet supply registration" width="93" height="78" style="height:78px; width:auto; display:block; border-radius:4px;">
+        {%- comment -%} The registration number in plain sight, not only in the href. PSI
+            guidance expects the Internet Supply List number to be findable on the site
+            itself, so a visitor can match it against the register without having to
+            follow the logo first. Same number on /pages/internet-supply-pharmacy. {%- endcomment -%}
+        <span style="font-size:12.5px; line-height:1.35; color:#666b60;">Internet Supply List<br>No. 10001884</span>
       </a>
     </div>
   </div>
@@ -137,7 +144,7 @@
       "type": "text",
       "id": "newsletter_subtext",
       "label": "Newsletter subtext",
-      "default": "Health tips, exclusive offers & 10% off your first order."
+      "default": "Health tips, exclusive offers & 10% off your first order (excludes medicines)."
     },
     {
       "type": "textarea",

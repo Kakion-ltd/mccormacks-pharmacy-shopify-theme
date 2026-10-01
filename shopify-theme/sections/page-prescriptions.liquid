@@ -55,14 +55,14 @@
                 {%- endfor -%}
               </div>
             {%- endif -%}
-            <div style="border:1.5px dashed #cdd3c5; border-radius:14px; padding:32px 24px; text-align:center; background:#fbfcfa; margin:0 0 20px;">
-              <div style="width:48px; height:48px; margin:0 auto 14px; border-radius:999px; background:#eef2e8; display:flex; align-items:center; justify-content:center;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"></path><polyline points="7 9 12 4 17 9"></polyline><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path></svg>
-              </div>
-              <div style="font-family:var(--font-heading); font-weight:800; font-size:17px; color:var(--c-dark); margin-bottom:6px;">Upload a photo or scan</div>
-              <div style="font-size:14px; line-height:1.65; color:#666b60; max-width:44ch; margin:0 auto 16px;">Make sure the whole prescription is visible, including the prescriber&rsquo;s details and the date. JPG, PNG or PDF, up to 10MB.</div>
-              <button class="btn-sm btn-fill" type="button" disabled style="opacity:.55">Choose a file</button>
-              <div style="font-size:11.5px; color:#666b60; margin-top:8px;">Uploads coming soon — we will confirm details by phone or email after you submit.</div>
+            {%- comment -%} There is no upload here. Shopify's contact form cannot take an
+                attachment, so this was a disabled button under a dashed box with "coming
+                soon" beneath it: a control that looked like the main route and did
+                nothing. The route that works says so instead. Put the upload back when
+                an app provides one, not before. {%- endcomment -%}
+            <div style="border:1px solid #e6e7e4; border-radius:14px; padding:22px 24px; background:#fbfcfa; margin:0 0 20px;">
+              <div style="font-family:var(--font-heading); font-weight:800; font-size:17px; color:var(--c-dark); margin-bottom:6px;">Bring it in, or post it</div>
+              <div style="font-size:14px; line-height:1.65; color:#666b60;">Hand your prescription in at your nearest store, or post it to us &mdash; find addresses and opening hours in the <a href="/pages/store-locator">Store Locator</a>. You can also fill in the form below and we will confirm the details by phone or email.</div>
             </div>
             <div style="display:flex; flex-wrap:wrap; gap:16px;">
               <label style="flex:1 1 240px; display:flex; flex-direction:column; gap:7px; min-width:0;">
@@ -95,7 +95,7 @@
               <label style="flex:1 1 100%; display:flex; flex-direction:column; gap:7px; min-width:0;">
                 <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Collection store</span>
                 <select class="rx-input" name="contact[collection_store]">
-                  <option>Clonmel &mdash; 23 Bolton Street</option><option>Ballylanders &mdash; Main Street</option><option>Newbridge &mdash; Newbridge Retail Park</option><option>Tullamore &mdash; Arden Road</option><option>Haggardstown &mdash; Fairways Shopping Centre</option><option>Carrick Road &mdash; Lis Na Dara, Dundalk</option><option>Belmullet &mdash; Church Road</option>
+                  <option>Clonmel &mdash; 23 Bolton Street</option><option>Ballylanders &mdash; Main Street</option><option>Newbridge &mdash; Unit 16A, Newbridge Retail Park</option><option>Tullamore &mdash; Arden Road</option><option>Haggardstown &mdash; Fairways Shopping Centre</option><option>Carrick Road &mdash; Lis Na Dara, Dundalk</option><option>Belmullet &mdash; Church Road</option>
                 </select>
               </label>
               <label style="flex:1 1 100%; display:flex; flex-direction:column; gap:7px; min-width:0;">
@@ -204,7 +204,7 @@
               <label style="flex:1 1 100%; display:flex; flex-direction:column; gap:7px; min-width:0;">
                 <span style="font-size:13.5px; font-weight:700; color:#2A2B2A;">Collection store</span>
                 <select class="rx-input" name="contact[collection_store]">
-                  <option>Clonmel &mdash; 23 Bolton Street</option><option>Ballylanders &mdash; Main Street</option><option>Newbridge &mdash; Newbridge Retail Park</option><option>Tullamore &mdash; Arden Road</option><option>Haggardstown &mdash; Fairways Shopping Centre</option><option>Carrick Road &mdash; Lis Na Dara, Dundalk</option><option>Belmullet &mdash; Church Road</option>
+                  <option>Clonmel &mdash; 23 Bolton Street</option><option>Ballylanders &mdash; Main Street</option><option>Newbridge &mdash; Unit 16A, Newbridge Retail Park</option><option>Tullamore &mdash; Arden Road</option><option>Haggardstown &mdash; Fairways Shopping Centre</option><option>Carrick Road &mdash; Lis Na Dara, Dundalk</option><option>Belmullet &mdash; Church Road</option>
                 </select>
               </label>
             </div>

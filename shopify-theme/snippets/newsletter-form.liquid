@@ -1,0 +1,25 @@
+{%- comment -%}
+  The newsletter signup, once.
+
+  This form existed twice, byte for byte: in the footer band (on every page) and
+  in sections/newsletter.liquid (a band a merchant can drop into a page). The
+  success message is a promise about a discount code, so the two copies drifting
+  apart is the expensive kind of duplication -- one of them would have gone on
+  offering a code the other had stopped mentioning.
+
+  WELCOME10 is named here and in the footer's Newsletter subtext setting. If the
+  code is ever renamed or withdrawn, both say so, and so does the discount in
+  Shopify admin. The exclusion is not decoration: the code is scoped to a
+  collection of everything NOT tagged pharmacist-review, so medicines are never
+  discounted, and saying so before someone adds one to their bag is the whole
+  point of the sentence.
+{%- endcomment -%}
+{% form 'customer', style: 'display:flex; gap:0;' %}
+  {% if form.posted_successfully? %}
+    <p style="margin:0; padding:10px 14px; color:var(--c-success); font-weight:700; font-size:13.5px;">Welcome! Use code WELCOME10 for 10% off your first order. Excludes medicines.</p>
+  {% else %}
+    <input type="hidden" name="contact[tags]" value="newsletter">
+    <input type="email" name="contact[email]" required aria-label="Email address" autocomplete="email" placeholder="Enter your email address" style="flex:1; min-width:0; border:none; outline:none; padding:10px 14px; font-family:inherit; font-size:13.5px; color:#2A2B2A; background:transparent;">
+    <button type="submit" class="btn-sm btn-fill" style="flex:0 0 auto">Subscribe</button>
+  {% endif %}
+{% endform %}

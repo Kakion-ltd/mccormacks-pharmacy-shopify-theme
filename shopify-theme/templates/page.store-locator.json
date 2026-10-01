@@ -40,15 +40,15 @@
           "settings": {
             "name": "Newbridge",
             "badge": "Open Sundays",
-            "address": "Newbridge Retail Park, Kilbelin, Newbridge, Co. Kildare",
+            "address": "Unit 16A, Newbridge Retail Park, Athgarvan Road, Newbridge, Co. Kildare",
             "phone": "045 444944",
             "email": "mccormacksnewbridge@gmail.com",
             "hours": "Mon|09:00-19:00\nTue|09:00-19:00\nWed|09:00-19:00\nThu|09:00-19:00\nFri|09:00-19:00\nSat|09:00-18:00\nSun|11:00-17:00",
             "services": "Covid-19 vaccination, Photo printing, Blood pressure screening, Prescription collection",
             "eircode": "W12 HP52",
             "business_name": "McCormack's Pharmacy",
-            "latitude": "53.1757244",
-            "longitude": "-6.8015312"
+            "latitude": "53.1753747",
+            "longitude": "-6.8004761"
           }
         },
         "tullamore": {

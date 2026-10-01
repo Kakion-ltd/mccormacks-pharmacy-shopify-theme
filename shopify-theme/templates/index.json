@@ -118,19 +118,21 @@
             "image_asset": "tile-vitamins.jpg"
           }
         },
-        "tile-suncare": {
+        "tile-erectile-dysfunction": {
           "type": "tile",
           "settings": {
             "title": "Erectile Dysfunction",
             "link": "/collections/erectile-dysfunction",
             "cta": "SHOP NOW",
-            "image_asset": ""
+            "image_asset": "tile-erectile-dysfunction.jpg",
+            "subline": "Pharmacist-reviewed treatments. Always read the leaflet.",
+            "alt": "Viagra Connect, Cialis and Sidena packs"
           }
         }
       },
       "block_order": [
         "tile-vitamins",
-        "tile-suncare"
+        "tile-erectile-dysfunction"
       ]
     },
     "popular": {

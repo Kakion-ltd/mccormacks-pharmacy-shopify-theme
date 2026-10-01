@@ -2,7 +2,8 @@
   Standalone newsletter signup. Not used by any template out of the box — the
   footer already carries the always-on signup; this one exists so a merchant
   can drop a signup band into a page or the homepage. Same customer form and
-  visual idiom as the footer's (dark rounded band, white input pill).
+  visual idiom as the footer's (dark rounded band, white input pill), and the
+  same form: both render snippets/newsletter-form.liquid.
 {%- endcomment -%}
 <section style="max-width:1440px; margin:0 auto; padding:20px 30px 44px;">
   <div style="position:relative; overflow:hidden; background:var(--c-dark); border-radius:18px; padding:clamp(26px,3.4vw,40px); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:18px 48px;">
@@ -16,15 +17,7 @@
       {%- endif -%}
     </div>
     <div style="flex:1 1 340px; max-width:400px; border-radius:9px; background:#ffffff; padding:3px; position:relative;">
-    {% form 'customer', style: 'display:flex; gap:0;' %}
-      {% if form.posted_successfully? %}
-        <p style="margin:0; padding:10px 14px; color:var(--c-success); font-weight:700; font-size:13.5px;">Thanks — you're subscribed!</p>
-      {% else %}
-        <input type="hidden" name="contact[tags]" value="newsletter">
-        <input type="email" name="contact[email]" required aria-label="Email address" autocomplete="email" placeholder="Enter your email address" style="flex:1; min-width:0; border:none; outline:none; padding:10px 14px; font-family:inherit; font-size:13.5px; color:#2A2B2A; background:transparent;">
-        <button type="submit" class="btn-sm btn-fill" style="flex:0 0 auto">Subscribe</button>
-      {% endif %}
-    {% endform %}
+    {% render 'newsletter-form' %}
     </div>
   </div>
 </section>

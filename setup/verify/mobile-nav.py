@@ -6,7 +6,25 @@ BASE = f"http://localhost:{os.environ.get('PORT', '8734')}"
 # Expected counts come from the taxonomy the drawer is generated from, so removing
 # a page from taxonomy.json does not leave this check asserting the old number.
 TAX = {m["menu"]: m for m in json.load(open(os.path.join(os.path.dirname(__file__), "..", "taxonomy.json")))}
-MH_GROUPS = len(TAX["Medicines & Health"]["groups"])
+
+# A group whose own collection and whose every child are empty is hidden at render
+# time, so the drawer can legitimately show fewer rows than the taxonomy lists. The
+# preview empties the handles in preview-empty-collections.json; subtract the groups
+# among them rather than hardcoding the difference, so adding a handle to that file
+# does not quietly turn this check into a wrong number.
+def _handleize(t):
+    import re, unicodedata
+    t = unicodedata.normalize("NFKD", t).encode("ascii", "ignore").decode()
+    t = t.lower().replace("&", " ").replace("'", "")
+    return re.sub(r"-{2,}", "-", re.sub(r"[^a-z0-9]+", "-", t)).strip("-")
+
+EMPTY = set(json.load(open(os.path.join(os.path.dirname(__file__), "..",
+                                        "preview-empty-collections.json")))["handles"])
+MH_GROUPS = sum(
+    1 for g in TAX["Medicines & Health"]["groups"]
+    if not (_handleize(g["title"]) in EMPTY
+            and all(_handleize(i) in EMPTY for i in g["items"]))
+)
 VIT_FLAT = len(TAX["Vitamins"]["flat"])
 res=[]
 def ck(n,g,w=True): res.append((g==w,n,g))
