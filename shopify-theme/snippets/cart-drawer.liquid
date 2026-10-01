@@ -13,7 +13,7 @@
   Threshold comes from settings.free_shipping_threshold (Brand settings), matching
   the cart page's own progress bar.
 {% endcomment %}
-{%- assign free_threshold = settings.free_shipping_threshold | at_least: 1 | times: 100 -%}
+{%- assign free_threshold = settings.free_shipping_threshold | at_least: 1 | times: 100 | round -%}
 
 <div class="cd-overlay" data-cd-overlay hidden></div>
 

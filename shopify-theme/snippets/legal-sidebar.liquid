@@ -23,13 +23,13 @@
   <div style="border:1px solid #e6e7e4; border-radius:16px; padding:20px 14px; background:#ffffff;">
     <div style="font-family:var(--font-heading); font-weight:800; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:#666b60; padding:0 14px; margin:0 0 10px;">Shipping &amp; Delivery</div>
     <nav style="display:flex; flex-direction:column; gap:3px; margin:0 0 22px;">
-      <a href="/pages/shipping" class="legal-nav-a" style="{% if active == 'shipping' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Shipping &amp; Free Delivery</a>
-      <a href="/pages/returns" class="legal-nav-a" style="{% if active == 'returns' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Returns &amp; Refunds</a>
+      <a href="/policies/shipping-policy" class="legal-nav-a" style="{% if active == 'shipping' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Shipping &amp; Free Delivery</a>
+      <a href="/policies/refund-policy" class="legal-nav-a" style="{% if active == 'returns' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Returns &amp; Refunds</a>
       <a href="/pages/click-and-collect" class="legal-nav-a" style="{% if active == 'click-and-collect' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Click &amp; Collect</a>
     </nav>
     <div style="font-family:var(--font-heading); font-weight:800; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:#666b60; padding:0 14px; margin:0 0 10px;">Policies</div>
     <nav style="display:flex; flex-direction:column; gap:3px;">
-      <a href="/pages/terms-and-conditions" class="legal-nav-a" style="{% if active == 'terms' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Terms &amp; Conditions</a>
+      <a href="/policies/terms-of-service" class="legal-nav-a" style="{% if active == 'terms' %}{{ on_style }}{% else %}{{ off_style }}{% endif %}">Terms &amp; Conditions</a>
       {%- comment -%} Shopify's copy, not ours: checkout, the order emails and the footer
           all link to this one, and it is the only one a customer can be shown at checkout.
           It has no theme template, so this link leaves the sidebar layout behind. The

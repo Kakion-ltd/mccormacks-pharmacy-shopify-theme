@@ -143,6 +143,23 @@ for (const [f, needle] of RAILS) {
     uploadErrors++;
   }
 }
+// Free delivery is not available on a bag holding a sale or special-offer item, so the
+// progress bar must not promise it. The fact is Liquid-only -- /cart.js returns neither
+// compare_at_price nor a line's discount allocations -- so main-cart computes it and
+// marks itself [data-sale-or-offer], and theme.js reads that out of the section it
+// already fetches for the medicine declaration. Lose either half and the bar fills to
+// "You have free delivery" on a bag that will be charged for delivery at the checkout:
+// wrong, customer-facing, and invisible in every local check that does not look here.
+const FREE_DELIVERY_GUARD = [
+  ['sections/main-cart.liquid', 'has_sale_or_offer', 'the bag page would promise free delivery on a sale bag'],
+  ['assets/theme.js', 'data-sale-or-offer', 'the bag drawer would promise free delivery on a sale bag'],
+];
+for (const [f, needle, why] of FREE_DELIVERY_GUARD) {
+  if (!readFileSync(join(root, f), 'utf8').includes(needle)) {
+    console.log(`ERROR  /${f}  FreeDeliveryGuardMissing  no "${needle}": ${why}`);
+    uploadErrors++;
+  }
+}
 // The promo label ("3 for €10", "While stocks last") is a product metafield. It used to
 // be on three of seven hand-copied cards; four of those copies are now the one shared
 // card, so these three files are every surface that can show it: the shared card, the

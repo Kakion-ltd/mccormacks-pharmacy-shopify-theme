@@ -421,13 +421,29 @@
     // Shopify to render the cart section and look for that box — the tag rule stays
     // in Liquid, as with the cross-sell rail. Fails closed: the "Review bag" route is
     // the default, and the checkout form shows only on a clear "no medicine".
+    //
+    // The same fetch answers a second question, for the same reason. Free delivery is
+    // not available on a bag holding a sale or special-offer item, and /cart.js returns
+    // neither compare_at_price nor the line's discount allocations — so main-cart marks
+    // itself [data-sale-or-offer] and this reads it. One request, two answers. On
+    // failure the shipping row is hidden rather than guessed: promising free delivery we
+    // cannot confirm is the costly way to be wrong, and asserting a restriction on a bag
+    // that may not have one is simply false.
     let medSeq = 0;
-    const checkMedicine = (empty) => {
+    const checkCartFlags = (empty) => {
       const seq = ++medSeq;
       const setMedicine = (yes) => {
         if (seq !== medSeq) return; // a later bag change owns the answer
         $('[data-cd-medicine]').hidden = !yes;
         $('[data-cd-checkout-form]').hidden = yes;
+      };
+      const setSaleOrOffer = (yes) => {
+        if (seq !== medSeq) return;
+        if (yes === null) { $('[data-cd-ship]').hidden = true; return; }
+        if (!yes) return; // render() already wrote the progress message
+        $('[data-cd-ship-msg]').textContent =
+          'Free delivery isn\u2019t available on orders with sale or offer items.';
+        $('[data-cd-bar]').parentElement.hidden = true;
       };
       setMedicine(true);
       if (empty) return;
@@ -437,8 +453,9 @@
           const holder = document.createElement('div');
           holder.innerHTML = html;
           setMedicine(!!holder.querySelector('[data-medicine-declaration]'));
+          setSaleOrOffer(!!holder.querySelector('[data-sale-or-offer]'));
         })
-        .catch(() => setMedicine(true));
+        .catch(() => { setMedicine(true); setSaleOrOffer(null); });
     };
 
     const render = (cart) => {
@@ -450,6 +467,8 @@
 
       if (!empty && threshold) {
         const left = threshold - cart.total_price;
+        // checkCartFlags may have hidden this for a sale bag; the new bag owns it again
+        $('[data-cd-bar]').parentElement.hidden = false;
         $('[data-cd-ship-msg]').textContent = left <= 0
           ? 'You have free delivery'
           : fmt(left) + ' away from free delivery';
@@ -500,7 +519,7 @@
         '</div>';
       }).join('');
 
-      checkMedicine(empty);
+      checkCartFlags(empty);
 
       // Cross-sell follows the first line item, and refreshes whenever the bag changes.
       loadRecs(recMount,
