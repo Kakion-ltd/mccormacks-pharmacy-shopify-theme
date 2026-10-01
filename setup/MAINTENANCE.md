@@ -3443,3 +3443,85 @@ database has full descriptions for only 1,038 products.
   and Salatac, cut on the old site too.
 - Fetch the old site no faster than one page every 10 seconds: at four at a
   time it returned 403 to everything for several minutes.
+
+---
+
+## The categorisation sweep applied (1 Oct 2026)
+
+54 of the 61 empty category pages were filled. The whole run is logged, row per
+write, in `setup/categorisation/applied-2026-10-01.csv`: 664 rows, each with the
+tags before, the tags the store actually stored, and the exact `tagsRemove` or
+`collectionUpdate` that reverses it. Built by `setup/categorisation/apply.py`,
+which takes `rules`, `merges` or `tags` and accepts `--dry-run`.
+
+**What went on the store**, approved by Kakion:
+
+- **3 smart-collection rules changed.** Brain Health from `TAG EQUALS "Brain
+  Health"` to `TYPE EQUALS "Supplements > Brain Health & Omega Oils"` (2 → 12
+  products, no tagging needed); Baby Feeding to `TYPE EQUALS "Baby > Feeding"`;
+  Travel Sickness off its two-vendor rule onto `TAG EQUALS "Travel Sickness"`.
+- **2 duplicate leaves merged**, products tagged onto the survivor, the dead
+  collection **unpublished and not deleted**, and a URL redirect created:
+  `cuticle-nail-care` → `nail-care`, `dry-skin` → `dry-skin-eczema-psoriasis`.
+  Removed from `taxonomy.json`, generators re-run; leaves 135 → 133.
+- **679 tag additions across 646 products**, `tagsAdd` only — never `tagsSet` or
+  `tagsRemove`, so no product could lose a tag.
+
+Category pages went from 60 empty / 30 thin / 91 filled to **6 / 31 / 144**, and
+products on a department page with no sub-category page from **1,044 to 644**.
+
+Held back deliberately: all medium-confidence rows, the Tena and Durex type
+moves, Uddermint, the five Fleaway Plus, and the two fixes that need a tag
+*removed*. Those are in `Keelan-Decisions.xlsx` and
+`Fergal-Pharmacist-Calls.xlsx` in the same folder.
+
+### Four things that cost time, and will again
+
+**Swapping a vendor rule for a tag rule empties the page unless you tag first.**
+Travel Sickness matched `VENDOR EQUALS "Kwells" OR "Stugeron"`. The new rule is
+`TAG EQUALS "Travel Sickness"` and **no product carried that tag** — zero. Run in
+the obvious order the page goes 2 → 0, silently, and the collection still looks
+healthy in the admin list. `apply.py` tags the products before the swap for
+exactly this reason, and `--dry-run` is what surfaced it. Any rule change that
+moves to a column the products do not yet carry has this shape.
+
+**Shopify folds punctuation when it stores a tag, not only when it matches one.**
+MAINTENANCE already said a rule condition folds (`TAG EQUALS "Baby Feeding"`
+matches the tag `Baby > Feeding`). Storage dedupes the same way: `tagsAdd` of
+`Baby Feeding` to a product already tagged `Baby > Feeding` stores **nothing** and
+reports no error. A verification that asks "is the literal string I sent now in
+the tag list" therefore reports a false failure — ours did, on two products that
+were correctly on their page the whole time. Compare folded, or compare
+collection membership.
+
+**A tag with a comma in it is stored as two tags.** Four page titles have one, so
+56 of the 679 additions split: `Nausea, Acid Indigestion & Reflux` became
+`Nausea` + `Acid Indigestion & Reflux`, and likewise for Skintags, Warts &
+Veruccas; Dry Skin, Eczema & Psoriasis; Skin, Hair & Nails. The pages still fill,
+because the rule condition folds the comma the same way — verified on the live
+store against a 5-product page before the batch ran, not assumed. It does leave
+four tags nobody designed (`Nausea`, `Acid Indigestion & Reflux`, `Skintags`,
+`Warts & Veruccas`). The log records the stored tags, not the requested ones, so
+the reversal is exact.
+
+**`productsCount` is not trustworthy and does not merely lag — it flaps.** One
+page read 0 while the same query listed its five products, minutes after the
+write and minutes after a previous read had shown it non-zero. Every count in
+this entry was computed from collection *membership*, not from `productsCount`.
+If a number matters, list the products.
+
+### Doing the writes at all
+
+Reads go through `npx shopify store execute`, which refuses a mutation unless
+`--allow-mutations` is passed — that is why nothing else in this repo can write
+by accident. One product per call cost about ten seconds, which put a 646-product
+run past an hour and at risk of being killed before the log was written. The
+batch uses GraphQL aliases, 20 mutations per call, flushes the log after every
+batch, and fills `stored_after` from one bulk re-pull at the end: about 35 calls
+instead of 1,300. Write the log as you go, not at the end; a run that is killed
+has still changed the store.
+
+The storefront could not be spot-checked: `mccormackpharmacy.myshopify.com`
+redirects to the password page and `www.mccormackspharmacy.ie` returns 403. The
+ten pages were checked through the Admin API instead, which proves membership
+but not that the theme renders them.
