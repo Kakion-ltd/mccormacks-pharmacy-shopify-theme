@@ -314,7 +314,10 @@ medicine.</div>"""),
 <li><b>Medicine:</b> licence number PA, PPA, TR, EU/1/ or VPA on the pack means it needs
 <code>pharmacist-review</code>.</li>
 <li><b>Questions:</b> which products have them is the pharmacist's call; the questions
-themselves are a job for the pharmacist and Kakion.</li></ul>
+themselves are a job for the pharmacist and Kakion.</li>
+<li><b>Quantity limits:</b> the website has none today. A customer can order any number of
+any product, medicines included, even where the description says "maximum". The pharmacist
+sees the quantity when checking a medicine order.</li></ul>
 <div class="note">Not sure? Leave it as it is and ask.</div>"""),
 ]
 
