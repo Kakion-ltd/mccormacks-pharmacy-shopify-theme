@@ -3575,6 +3575,22 @@ staff guide (`4-Staff-Guide-Adding-Products.pdf`), which taught staff to add
 products straight into Shopify and to publish to all channels, and the 13-column
 V1 sheet. Don't send either again.
 
+### Staff guide: managing products (2 Oct 2026)
+
+`5-Staff-Guide-Managing-Products.pdf`, built by `setup/build_staff_guide.py`, covers
+products already on the site: stock counts, VAT, the `pharmacist-review` tag and
+which question set a product uses. It does not teach adding products, so it does not
+bring back what the retired guide got wrong. Its licence-number check is printed in it
+rather than pointing at page 28 of the retired guide.
+
+The storefront screenshots in `setup/staff-guide/` are real (re-take with
+`shoot.py` there). **The admin screenshots are not taken yet**: admin.shopify.com
+needs a login nobody had when it was built, so each is a dashed red box naming the
+screen, the arrow and the file name. Save the capture under that name and rebuild;
+the box turns into the picture. The admin steps were written from Shopify's
+standard admin without seeing this store's, so check the wording against each
+screenshot as it goes in. The builder refuses to build if a step overflows its page.
+
 ## Product titles: till notes and a lost "no" (28 Sep 2026)
 
 24 titles fixed, titles only, approved by Kakion. Handles were left alone, so
