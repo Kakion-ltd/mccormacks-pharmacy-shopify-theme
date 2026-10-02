@@ -83,13 +83,6 @@
   {%- endif -%}
 {%- endunless -%}
 
-{%- comment -%} One label for both add buttons (buy box and mobile bar) and for the
-    variant-change handler, so the three cannot drift. {%- endcomment -%}
-{%- capture gate_label -%}Answer {{ question_count }} health question{% unless question_count == 1 %}s{% endunless %}{%- endcapture -%}
-{%- comment -%} The mobile bar's version. "Answer 18 health questions" beside the stepper
-    ran 30-70px off the right edge of every phone from 320 to 414px; the count is on the
-    buy box above, and the questionnaire's own header says "0 of 18 answered". {%- endcomment -%}
-{%- assign gate_label_short = 'Answer questions' -%}
 
 {%- comment -%} The most specific collection this product belongs to. Shopify's
     product.collections ordering is arbitrary, so .first was picking a department as
@@ -441,9 +434,14 @@
             <div class="pdp-addbag" style="display:flex; gap:12px; align-items:stretch; margin-bottom:18px;">
               {{ qty_stepper }}
               <button type="button" data-pdp-submit data-open-questionnaire aria-haspopup="dialog" class="btn btn-fill" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:11px; letter-spacing:.04em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
-                {%- if current_variant.available %}{{ gate_label }}{% else %}OUT OF STOCK{% endif -%}
+                {%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}
               </button>
             </div>
+            {%- comment -%} Says why the button above does nothing with scripting off. It
+                only explains: there is still no form, so still no way to add. {%- endcomment -%}
+            <noscript>
+              <p class="pdp-noscript-gate" style="margin:-6px 0 18px; padding:12px 14px; border-radius:11px; background:#fdf6e3; color:#5c4813; font-size:14px; line-height:1.5;">Turn on JavaScript to answer the pharmacist&rsquo;s questions and buy this medicine.</p>
+            </noscript>
             {% render 'wishlist-button', product: product, style: 'text' %}
           </div>
           {% render 'pharmacy-questionnaire', product: product, questionnaire: questionnaire, set: pq_set, section_id: section.id, variant: current_variant %}
@@ -545,7 +543,7 @@
     {%- elsif gate_ready -%}
       <button type="button" data-open-questionnaire aria-haspopup="dialog" class="btn btn-fill buybar-btn" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:10px; letter-spacing:.04em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
         <svg class="buybar-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-        <span data-buybar-label>{%- if current_variant.available %}{{ gate_label_short }}{% else %}OUT OF STOCK{% endif -%}</span>
+        <span data-buybar-label>{%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}</span>
       </button>
     {%- else -%}
       {%- comment -%} Fail closed on mobile too: a disabled button, never a working add. {%- endcomment -%}
@@ -558,7 +556,7 @@
 </div>
 
 {% style %}
-  /* Under 360px the bag icon goes, so "Answer questions" fits beside the stepper. */
+  /* Under 360px the bag icon goes, so the label fits beside the stepper. */
   @media (max-width: 359px) {
     .mobile-buybar .buybar-icon { display: none; }
     .mobile-buybar .buybar-btn { padding-left: 10px; padding-right: 10px; letter-spacing: 0 !important; }
@@ -712,11 +710,9 @@
     // state, not a flavour of sold out, and it used to leave the sticky mobile bar
     // untouched: the handler returned early, so the bar kept the last valid variant
     // id, stayed enabled and added a different product without saying anything.
-    // On a gated product [data-pdp-submit] is the questionnaire opener, not an add
-    // button, so relabelling it 'ADD TO BAG' on a variant change left a button that
-    // said one thing and did another. The available label follows the gate.
-    const addLabel = {% if is_gated %}{{ gate_label | json }}{% else %}'ADD TO BAG'{% endif %};
-    const barLabel = {% if is_gated %}{{ gate_label_short | json }}{% else %}'ADD TO BAG'{% endif %};
+    // On a gated product [data-pdp-submit] opens the questionnaire, and its label is
+    // ADD TO BAG too (2 Oct 2026, the Inish pattern): aria-haspopup says it opens a dialog.
+    const addLabel = 'ADD TO BAG';
     const setBuy = (v) => {
       const live = !!v && v.available;
       const label = !v ? 'UNAVAILABLE' : v.available ? addLabel : 'OUT OF STOCK';
@@ -727,7 +723,7 @@
         buybarAdd.style.opacity = live ? '' : '.55';
         if (v) buybarAdd.dataset.addId = v.id; else buybarAdd.removeAttribute('data-add-id');
       }
-      if (buybarLabel) buybarLabel.textContent = label === addLabel ? barLabel : label;
+      if (buybarLabel) buybarLabel.textContent = label;
     };
 
     // Variant -> gallery frame, from the map Liquid wrote above.

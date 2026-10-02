@@ -194,9 +194,8 @@ with sync_playwright() as pw:
         sp.goto(BASE + f"/products/questions-{name}", wait_until="networkidle")
         n = sp.locator("[data-pq-q]").count()
         check(f"[{name}] has questions", n > 0)
-        check(f"[{name}] the button names that number",
-              sp.locator("[data-gated-buybox] [data-open-questionnaire]").inner_text().strip(),
-              f"Answer {n} health question{'' if n == 1 else 's'}")
+        check(f"[{name}] the button says ADD TO BAG",
+              sp.locator("[data-gated-buybox] [data-open-questionnaire]").inner_text().strip(), "ADD TO BAG")
         check(f"[{name}] no product form", sp.locator("form[data-ajax-add]").count(), 0)
         check(f"[{name}] no answer blocks the sale",
               sp.evaluate("[...document.querySelectorAll('[data-pq-q]')].every(q => !q.dataset.blocking)"))
@@ -269,8 +268,10 @@ with sync_playwright() as pw:
     ux = ctx.new_page()
     ux.goto(BASE + "/products/questions-ed", wait_until="networkidle")
     opener = ux.locator("[data-gated-buybox] [data-open-questionnaire]")
-    check("the button names the real number of questions",
-          opener.inner_text().strip(), "Answer 18 health questions")
+    check("the button says ADD TO BAG, and that it opens a dialog",
+          [opener.inner_text().strip(), opener.get_attribute("aria-haspopup")], ["ADD TO BAG", "dialog"])
+    check("the mobile bar says the same",
+          ux.locator(".mobile-buybar [data-open-questionnaire]").inner_text().strip(), "ADD TO BAG")
     opener.scroll_into_view_if_needed()
     opener.click()
     ux.wait_for_timeout(250)
@@ -348,6 +349,24 @@ with sync_playwright() as pw:
         check(f"[{vw}px] the card {'fills the screen' if want_full else 'is a centred panel'}",
               box["width"] >= vw - 1, want_full)
         mp.close()
+
+    # Scripting actually off (2 Oct 2026): the button now says ADD TO BAG, so the gate is
+    # checked as a no-JS visitor meets it — the notice shows, and clicking the button
+    # posts nothing anywhere.
+    nj_ctx = b.new_context(java_script_enabled=False, viewport={"width": 1200, "height": 900})
+    nj = nj_ctx.new_page()
+    posts = []
+    nj.on("request", lambda r: posts.append(r.url) if r.method == "POST" else None)
+    nj.goto(BASE + "/products/questions-ed")
+    check("[no JS] notice says why the button does nothing",
+          nj.locator("[data-gated-buybox] .pdp-noscript-gate").is_visible())
+    check("[no JS] no form anywhere that could add it",
+          nj.locator("form[action*='/cart/add']").count(), 0)
+    nj.locator("[data-gated-buybox] [data-open-questionnaire]").click()
+    nj.wait_for_timeout(300)
+    check("[no JS] clicking ADD TO BAG posts nothing", posts, [])
+    check("[no JS] and stays on the page", nj.url, BASE + "/products/questions-ed")
+    nj_ctx.close()
 
     b.close()
 

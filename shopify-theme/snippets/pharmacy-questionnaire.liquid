@@ -6,7 +6,8 @@
   How the gate holds (and why it is unlike Inish's):
     - The gated buy box has NO {% form 'product' %} around it, so with JavaScript
       off there is nothing to submit and the product cannot be added at all. The
-      "Answer N health questions" button is type=button and inert without JS. This
+      "ADD TO BAG" button is type=button and inert without JS (a <noscript> line says
+      why). This
       is the requirement Inish leave open: their /cart/add form still posts without JS.
     - With JS, the button opens this modal. Submitting posts the answers to
       /cart/add.js as line-item properties, so they land ON THE ORDER, visible to
