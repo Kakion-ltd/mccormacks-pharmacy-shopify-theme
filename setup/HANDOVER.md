@@ -375,6 +375,29 @@ out of stock), and 2 Sculpted By Aimee bundles that are on the old site but not
 on the new one. The Electric Picnic bundle has been taken out of the Sale
 collection, as it is out of stock and the festival was in August.
 
+**A pricing check: were these products ever sold at the struck-through price?**
+These prices came from your old site exactly as it showed them, so this is a
+question, not a problem we have found. A few of them look like a recommended
+retail price with a fixed percentage taken off, rather than a price the product
+was actually sold at:
+
+- **SVR, 8 products, all exactly 30% off.** Struck-through prices of €17, €19,
+  €31, €37, €51 and €54.
+- **Azio Beauty, 7 products, all exactly 20% off.** Struck-through prices of
+  €22, €28 and €34.
+- **Sculpted By Aimee Oily Skin Morning Routine Bundle**, €159.99 against
+  €200.00.
+
+Every one of those struck-through prices is a whole euro amount, and each range
+has the same discount to the cent.
+
+Why it matters: a struck-through price tells a customer they are saving money,
+and a saving has to be measured against a price you actually charged. If these
+products were sold at those prices, nothing changes. If they weren't, the
+struck-through price should come off. The price customers pay stays the same;
+the page just stops claiming a saving. For Azio that would also mean removing
+the "20% off Azio Beauty" offer line.
+
 Please don't unpublish the last product in the Sale collection without telling
 us: with nothing published, the "On Sale This Month" section on the homepage
 does not appear at all.
