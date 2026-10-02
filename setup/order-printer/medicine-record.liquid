@@ -8,13 +8,26 @@
   it by order number for 2 years. Two strings are load-bearing and must match the
   theme and the Flow: the tag `pharmacist-review` (medicine lines) and the cart
   attribute `Over 18 and will follow the leaflet` (the customer's tick at the bag).
+
+  An order with no medicine prints one line instead of a sheet, so a bulk print
+  of mixed orders gives a signable record only where one is needed.
+  Questionnaire answers are the line item properties the theme writes
+  (snippets/pharmacy-questionnaire.liquid): visible keys "1. <question>", plus the
+  hidden stamps _questionnaire, _questionnaire_version and _answered_at.
 {%- endcomment -%}
 {%- assign declaration = order.attributes["Over 18 and will follow the leaflet"] -%}
 {%- assign medicine_count = 0 -%}
+{%- assign custom_count = 0 -%}
 {%- for line_item in order.line_items -%}
   {%- assign t = line_item.product.tags | join: '||' | downcase | split: '||' -%}
   {%- if t contains 'pharmacist-review' -%}{%- assign medicine_count = medicine_count | plus: 1 -%}{%- endif -%}
+  {%- if line_item.product == blank -%}{%- assign custom_count = custom_count | plus: 1 -%}{%- endif -%}
 {%- endfor -%}
+{%- if medicine_count == 0 -%}
+<p style="font-family: Arial, Helvetica, sans-serif; font-size: 12.5px;">{{ order.name }}: no medicine in this order, so no PSI record is needed.{% if custom_count > 0 %} <strong>It has {{ custom_count }} custom item{% if custom_count > 1 %}s{% endif %}: check none is a medicine, which would never have been held.</strong>{% endif %}</p>
+{%- else -%}
+{%- assign sa = order.shipping_address -%}
+{%- assign phone = sa.phone | default: order.billing_address.phone | default: order.customer.phone -%}
 <style>
   .mr { font-family: Arial, Helvetica, sans-serif; font-size: 12.5px; color: #111; line-height: 1.45; }
   .mr h1 { font-size: 19px; margin: 0 0 2px; }
@@ -29,44 +42,69 @@
   .mr .sign td { height: 34px; border: none; border-bottom: 1px solid #000; }
   .mr .sign th { border: none; background: none; width: 28%; padding-left: 0; vertical-align: bottom; }
   .mr .muted { color: #555; }
+  .mr .answers td { border-top: none; padding-left: 22px; }
+  .mr .answers div { margin: 2px 0; }
 </style>
 <div class="mr">
   <h1>Medicine order record &mdash; {{ order.name }}</h1>
   <div class="muted">{{ shop.name }} &middot; PSI Internet Supply List 10001884 &middot; kept 2 years from the date of supply (PSI 2.5)</div>
 
-  {%- if medicine_count == 0 -%}
-    <div class="warn">This order has no line tagged pharmacist-review. No medicine record is needed unless a line below is a medicine that was never tagged, or a custom item.</div>
-  {%- endif -%}
-
   <h2>Order</h2>
   <table>
     <tr><th style="width:28%">Placed</th><td>{{ order.created_at | date: "%d %B %Y, %H:%M" }}</td></tr>
-    <tr><th>Customer</th><td>{{ order.customer.name | default: order.shipping_address.name }}</td></tr>
-    <tr><th>Email / phone</th><td>{{ order.email }}{% if order.shipping_address.phone != blank %} &middot; {{ order.shipping_address.phone }}{% endif %}</td></tr>
-    <tr><th>Deliver to</th><td>{% if order.shipping_address %}{{ order.shipping_address.address1 }}{% if order.shipping_address.address2 != blank %}, {{ order.shipping_address.address2 }}{% endif %}, {{ order.shipping_address.city }}{% if order.shipping_address.zip != blank %}, {{ order.shipping_address.zip }}{% endif %}{% else %}No delivery address (collection){% endif %}</td></tr>
-    <tr><th>Orders on this account</th><td>{% if order.customer %}{{ order.customer.orders_count }}, including this one. Check the earlier ones on the customer's page in admin before ticking box 3.{% else %}No customer account.{% endif %}</td></tr>
+    <tr><th>Customer</th><td>{{ order.customer.name | default: sa.name | default: "Not given" }}</td></tr>
+    <tr><th>Email / phone</th><td>{{ order.email | default: "No email" }} &middot; {{ phone | default: "No phone on the order" }}</td></tr>
+    <tr><th>Deliver to</th><td>
+      {%- if sa -%}
+        {%- capture addr -%}{{ sa.address1 }}|{{ sa.address2 }}|{{ sa.city }}|{{ sa.province }}|{{ sa.zip }}|{{ sa.country }}{%- endcapture -%}
+        {%- assign parts = addr | split: "|" -%}
+        {%- assign sep = "" -%}
+        {%- for part in parts -%}{%- if part != blank -%}{{ sep }}{{ part }}{%- assign sep = ", " -%}{%- endif -%}{%- endfor -%}
+      {%- else -%}No delivery address (collection){%- endif -%}
+    </td></tr>
+    <tr><th>Orders on this account</th><td>
+      {%- if order.customer == blank -%}No customer account.
+      {%- elsif order.customer.orders_count == blank -%}Not shown on this print: check the customer's page in admin before ticking box 3.
+      {%- else -%}{{ order.customer.orders_count }}, including this one. Check the earlier ones on the customer's page in admin before ticking box 3.{%- endif -%}
+    </td></tr>
     {%- if order.note != blank -%}
-    <tr><th>Customer note</th><td>{{ order.note }}</td></tr>
+    <tr><th>Order note</th><td>{{ order.note | newline_to_br }}</td></tr>
     {%- endif -%}
   </table>
 
   <h2>Customer's declaration at the bag</h2>
   {%- if declaration == "Yes" -%}
     <p>Ticked: &ldquo;I confirm I&rsquo;m over 18 and will use this medicine as the leaflet says.&rdquo;</p>
-  {%- else -%}
+  {%- elsif declaration == blank -%}
     <div class="warn">NOT GIVEN. The customer reached checkout without the bag page. Get the confirmation from the customer before approving, and note how and when below.</div>
+  {%- else -%}
+    <div class="warn">NOT GIVEN: the declaration reads &ldquo;{{ declaration }}&rdquo;, not &ldquo;Yes&rdquo;. Treat it as not given: get the confirmation from the customer before approving, and note how and when below.</div>
   {%- endif -%}
 
-  <h2>Medicine lines</h2>
+  <h2>Medicine lines and the customer's answers</h2>
   <table>
     <tr><th>Product</th><th>Option</th><th>SKU</th><th class="q">Qty</th></tr>
     {%- for line_item in order.line_items -%}
       {%- assign t = line_item.product.tags | join: '||' | downcase | split: '||' -%}
       {%- if t contains 'pharmacist-review' -%}
-      <tr><td>{{ line_item.product.title | default: line_item.title }}</td><td>{% unless line_item.variant.title == 'Default Title' %}{{ line_item.variant.title }}{% endunless %}</td><td>{{ line_item.sku }}</td><td class="q"><strong>{{ line_item.quantity }}</strong></td></tr>
+      <tr><td>{{ line_item.product.title | default: line_item.title }}</td><td>{% unless line_item.variant.title == 'Default Title' %}{{ line_item.variant.title }}{% endunless %}</td><td>{{ line_item.sku | default: "No SKU" }}</td><td class="q"><strong>{{ line_item.quantity }}</strong></td></tr>
+      {%- assign answered = 0 -%}
+      {%- capture answers -%}
+        {%- for p in line_item.properties -%}
+          {%- assign k0 = p.first | slice: 0 -%}
+          {%- unless k0 == "_" -%}<div>{{ p.first }}: <strong>{{ p.last | default: "(no answer)" }}</strong></div>{%- assign answered = answered | plus: 1 -%}{%- endunless -%}
+        {%- endfor -%}
+      {%- endcapture -%}
+      <tr class="answers"><td colspan="4">
+        {%- if answered > 0 -%}
+          {{ answers }}
+          <div class="muted">Questionnaire: {{ line_item.properties["_questionnaire"] | default: "not named" }}{% if line_item.properties["_questionnaire_version"] != blank %} ({{ line_item.properties["_questionnaire_version"] }}){% endif %}{% if line_item.properties["_answered_at"] != blank %}, answered {{ line_item.properties["_answered_at"] | date: "%d %B %Y, %H:%M" }}{% endif %}</div>
+        {%- else -%}
+          <span class="muted">No questions answered for this line.</span>
+        {%- endif -%}
+      </td></tr>
       {%- endif -%}
     {%- endfor -%}
-    {%- if medicine_count == 0 -%}<tr><td colspan="4" class="muted">None</td></tr>{%- endif -%}
   </table>
 
   {%- assign other_count = order.line_items.size | minus: medicine_count -%}
@@ -86,7 +124,12 @@
   <div class="tick"><span class="box"></span>The purchaser is over 18.</div>
   <div class="tick"><span class="box"></span>The purchaser is aware of the packaging and leaflet recommendations.</div>
   <div class="tick"><span class="box"></span>The quantity is reasonable, having regard to previous supply to this customer.</div>
-  <div class="tick" style="margin-top:12px;"><span class="box"></span>Approved for supply &nbsp;&nbsp;&nbsp; <span class="box"></span>Refused (order cancelled and refunded)</div>
+  <p style="margin:14px 0 4px;"><strong>Decision (tick one):</strong></p>
+  <div class="tick"><span class="box"></span>Approved for supply.</div>
+  <div class="tick"><span class="box"></span>Refused, whole order: order cancelled, refunded and restocked.</div>
+  {%- if other_count > 0 -%}
+  <div class="tick"><span class="box"></span>Refused, medicine only: the medicine line(s) refunded and restocked; the other items released to be sent.</div>
+  {%- endif -%}
   <p class="muted" style="margin:6px 0 0;">Notes (a confirmation obtained by phone or email, the reason for a refusal):</p>
   <div style="height:48px; border-bottom:1px solid #000;"></div>
 
@@ -97,3 +140,4 @@
     <tr><th>Date and time</th><td></td></tr>
   </table>
 </div>
+{%- endif -%}

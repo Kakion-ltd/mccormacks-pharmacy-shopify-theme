@@ -1,10 +1,11 @@
 # Building the pharmacist hold: click by click
 
-**Status, 28 Sep 2026: built and live in Shopify, not yet tested.** Both Flows
-and the Order Printer template were built from this file, with "Notify
-merchant" ticked on all three hold actions (the steps below now say so). Step 5,
-the test plan, has not been run. The theme's over-18 tick box is on the preview
-theme only (see MAINTENANCE).
+**Status: built 28 Sep 2026, test plan passed on the live store 30 Sep 2026**
+(see MAINTENANCE, "The pharmacist hold follows the tag"). Both Flows and the
+Order Printer template were built from this file, with "Notify merchant" ticked
+on all three hold actions (the steps below now say so). The over-18 tick box is
+live. The template was revised on 2 Oct 2026 (questionnaire answers, one-line
+page for orders with no medicine, a third refusal option): paste it again.
 
 Built by hand in Shopify admin. Nothing in the repo creates these. The reasons
 behind each choice are in `MAINTENANCE.md`, under "The pharmacist hold follows
@@ -171,13 +172,31 @@ approval tag is there, and puts the hold back if it is not.
    leaflet: Yes". If the order is tagged `no-declaration`, get the confirmation
    from the customer first.
 3. Click the customer's name and look at their earlier orders.
-4. Print the order with **Medicine order record (PSI 2.5)**. Tick, sign, date.
+4. Print the order with **Medicine order record (PSI 2.5)**. The customer's
+   questionnaire answers print under each medicine line. Tick, sign, date, and
+   tick one decision.
 5. **Approve:** add the tag `pharmacist-approved-<initials>` (e.g.
    `pharmacist-approved-fm`), then **Release hold** on the order. Flow 2 removes
    `awaiting-pharmacist`.
-   **Refuse:** cancel the order with a full refund and restock, and add
-   `pharmacist-refused-<initials>`.
+   **Refuse, whole order:** cancel the order with a full refund and restock, and
+   add `pharmacist-refused-<initials>`.
+   **Refuse, medicine only** (a mixed order whose other items should still go):
+   **not workable yet.** Refunding the medicine line and releasing the hold would
+   be the steps, but Flow 2 still sees the refunded medicine line, finds no
+   approval tag and holds the order again (see MAINTENANCE, "Refusing only the
+   medicine"). Until Flow 2 is changed, refuse the whole order and tell the
+   customer they can reorder the other items. Never add an approval tag to get
+   round the guard: the tag is the record of who approved.
 6. File the signed sheet by order number. Keep it 2 years.
+
+**Printing for packing.** Staff print packing slips from **Order Printer's
+packing slip only**. Shopify's own packing slip (Orders → Print packing slips,
+set up in Settings → Shipping and delivery) **must not be used for picking or
+packing**: it cannot read product tags or order tags, so it cannot show the
+"awaiting pharmacist approval" warning, and a held order's slip looks like any
+other. Order Printer's pick list leaves held items out (see MAINTENANCE), so a
+held order on its own prints an empty pick list: that is the hold working, not a
+fault.
 
 REVIEWER: waiting on the pharmacist. The initials scheme, who may approve, and
 whether they want a stamp or a PSI number on the sheet.

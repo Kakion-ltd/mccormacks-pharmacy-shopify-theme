@@ -1243,12 +1243,26 @@ The design:
   order record (PSI 2.5)"), ticks over 18, aware of the leaflet and quantity
   reasonable given previous orders, marks approved or refused, signs and dates
   it, and files it by order number for 2 years. The sheet shows the order, the
-  medicine lines and quantities, the customer's declaration (or "NOT GIVEN"),
-  other items (custom items flagged) and the customer's order count. The
-  template is edited in the repo, checked with `node
-  setup/order-printer/check.mjs` (part of `npm test`), and pasted into Order
-  Printer again. A copy edited only in Order Printer is the second copy this file
-  warns about.
+  medicine lines and quantities **with the customer's questionnaire answers under
+  each** (the line item properties; the hidden `_` stamps print only as a
+  "Questionnaire: name (version), answered …" footer), the customer's declaration
+  (or "NOT GIVEN", which also covers any value other than exactly `Yes`), other
+  items (custom items flagged) and the customer's order count. Empty fields say
+  so ("No phone on the order", "No SKU") rather than print blank. An order with
+  **no medicine prints one line**, not a sheet, so a bulk print of mixed orders
+  gives a signable record only where one is needed. The template is edited in
+  the repo, checked with `node setup/order-printer/check.mjs` (part of `npm
+  test`), and pasted into Order Printer again. A copy edited only in Order
+  Printer is the second copy this file warns about.
+- **Proven on a real print, 2 Oct 2026.** #1024 (held, 2 × Savlon Antiseptic
+  Cream) printed with the declaration ticked, the medicine line with SKU and
+  quantity, and "1, including this one": Order Printer does expose
+  `order.attributes`, `customer.orders_count` and `line_item.product.tags` (the
+  last is chained, and Shopify's reference never shows it chained). The phone
+  printed blank because only the shipping phone was read; the template now
+  falls back to the billing and customer phone. Order Printer has no
+  `order.phone`. Questionnaire answers on a real print are **not yet seen**:
+  print #1007 (18 ED answers) after pasting the 2 Oct revision.
 - **Later upgrade: archive mailbox.** Flow sends a record email on approval and
   refusal to a mailbox under a locked retention policy (Google Vault retention
   rule, or Microsoft 365 retention with preservation lock). An ordinary mailbox,
@@ -1259,7 +1273,47 @@ HANDOVER.md and PHARMACIST-QUESTIONS.md said "built, not yet tested" from 28
 Sep; both were corrected on 30 Sep when the test plan passed. If the Flows,
 the tick box or the questionnaire change again, change all three in the same
 sitting — this is the "one thing in two places" defect this file opens with,
-and it has three copies.
+and it has three copies. (PHARMACIST-HOLD-FLOWS.md's own status line still
+said "not yet tested" until 2 Oct, when it was corrected too.)
+
+**Printing held orders: which documents, and what each does with a hold (2 Oct
+2026).** Order Printer prints four documents for an order: pick list, packing
+slip, invoice and our medicine record. Only the medicine record is ours.
+
+- **Staff use Order Printer's packing slip only. Shopify's own packing slip
+  (Orders → Print packing slips) must not be used for picking or packing.** Its
+  documented variables are the order number, name, note and date, and per line
+  image, title, variant, vendor, SKU, quantities, properties and groups: no
+  order tags, no product, so no product tags, and no hold status. It cannot
+  tell a held order from any other, so it cannot carry the warning. This is
+  stated plainly rather than worked around.
+- **Order Printer's packing slip carries the warning** (to build: the banner
+  needs that template's current code brought into the repo first). The test is
+  the product tag, not the `awaiting-pharmacist` order tag, so it shows even if
+  Flow 1 failed: a `pharmacist-review` line and no tag starting
+  `pharmacist-approved-` means "AWAITING PHARMACIST APPROVAL — DO NOT PACK".
+- **The pick list is Shopify's built-in one** and takes no custom code (only the
+  settings in its editor). Printed for #1024 it was empty, "Total: 0". Its
+  **Include** setting filters by fulfilment status (unfulfilled, fulfilled, on
+  hold, scheduled); with "on hold" not included, every line of a held order is
+  left out. That is the likely cause and the right behaviour: a held medicine
+  must not be picked. **Leave "on hold" out of the pick list.** Confirm the
+  setting in Order Printer → Templates → Pick list.
+- **The invoice** shows the order note, which carries Flow 1's "HELD for
+  pharmacist review" text. Nothing else on it knows about the hold.
+
+**Refusing only the medicine (mixed orders): not workable until Flow 2
+changes.** The record offers a third decision for a mixed order: refund and
+restock the medicine line, release the rest. Flow 2 would undo the release:
+its Condition A matches any line item whose product is tagged
+`pharmacist-review`, and a refunded line is still a line item, so with no
+`pharmacist-approved-` tag it holds the order again and tags it
+`released-without-approval`. Not tested on the store; this is read from the
+Flow as built. The change, in admin: make Condition A count only medicine lines
+still to be supplied (a line item with the tag **and** current quantity above
+zero, in the same "at least one of" group), so an order whose medicine is all
+refunded releases normally. Until then the procedure (PHARMACIST-HOLD-FLOWS.md
+step 4) refuses the whole order. Never add an approval tag to get round it.
 
 What this covers and what it does not:
 
