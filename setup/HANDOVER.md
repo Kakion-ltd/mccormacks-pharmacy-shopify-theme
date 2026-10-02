@@ -338,9 +338,12 @@ new one, so the two sites show the same prices at launch.
 
 What went on:
 
-- **89 products** show a reduced price with the old price struck through beside
+- **88 products** show a reduced price with the old price struck through beside
   it, taken from what your old site was showing on 30 September. The Sale
-  collection holds all 89, up from 1.
+  collection holds all 88, up from 1. An 89th, BPerfect Chroma Cover Luminous
+  Foundation W5, has its offer set up but isn't on the website: it isn't
+  published to the online shop and has no stock. It will show the same offer
+  if you publish it.
 - **Eight multi-buy and gift offers** work automatically in the bag: 3 for €10,
   3 for €5, Buy 2 for €7 on Batiste, 2 for €52.45 on Revive Zest Active, Buy 4
   for €3 on the BioMiracle wipes, buy one get one half price on Revive Active
@@ -392,8 +395,10 @@ Every one of those struck-through prices is a whole euro amount, and each range
 has the same discount to the cent.
 
 Why it matters: a struck-through price tells a customer they are saving money,
-and a saving has to be measured against a price you actually charged. If these
-products were sold at those prices, nothing changes. If they weren't, the
+and a saving has to be measured against a price you actually charged. Under the
+EU price-reduction rules, the struck-through price should be the lowest price
+you charged in the 30 days before the sale started. If these products were sold
+at those prices in that time, nothing changes. If they weren't, the
 struck-through price should come off. The price customers pay stays the same;
 the page just stops claiming a saving. For Azio that would also mean removing
 the "20% off Azio Beauty" offer line.
