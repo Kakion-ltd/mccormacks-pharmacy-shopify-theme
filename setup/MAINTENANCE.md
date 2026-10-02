@@ -1312,7 +1312,10 @@ its Condition A matches any line item whose product is tagged
 Flow as built. The change, in admin: make Condition A count only medicine lines
 still to be supplied (a line item with the tag **and** current quantity above
 zero, in the same "at least one of" group), so an order whose medicine is all
-refunded releases normally. Until then the procedure (PHARMACIST-HOLD-FLOWS.md
+refunded releases normally. Click by click, with its test, in
+PHARMACIST-HOLD-FLOWS.md step 3a. Unverified: that Flow's `Current quantity`
+drops when a line is refunded (the Admin API defines it as quantity minus
+removed quantity); 3a's test settles it. Until then the procedure (PHARMACIST-HOLD-FLOWS.md
 step 4) refuses the whole order. Never add an approval tag to get round it.
 
 What this covers and what it does not:

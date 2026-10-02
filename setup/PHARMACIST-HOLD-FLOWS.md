@@ -163,6 +163,58 @@ approval tag is there, and puts the hold back if it is not.
 
 7. **Turn on workflow**.
 
+### 3a. Change to Flow 2: let a medicine-only refusal release the rest
+
+**Not built yet (written 2 Oct 2026).** Why: a refunded medicine line is still a
+line item, so Condition A above still matches after the pharmacist refunds it,
+and Flow 2 holds the order again. The change makes Condition A count only
+medicine lines still to be supplied. Nothing else in Flow 2 changes, and Flow 1
+is untouched.
+
+1. Admin → **Apps** → **Flow** → open `Pharmacist hold: release guard`.
+2. **Turn off workflow** (top right) while you edit, so a release in the
+   meantime is not judged by a half-edited condition. Note the time: any order
+   released while it is off is not guarded, so check `awaiting-pharmacist`
+   orders released in that window afterwards.
+3. Click **Condition A**. It reads `Line items` → `Product` → `Tags`, **At least
+   one of**, **Equal to** `pharmacist-review`.
+4. Inside the same `Line items` group (not a new condition, and not at the top
+   level), **Add criteria** → `Line items` → `Current quantity`, operator
+   **Greater than**, value `0`.
+5. Set that `Line items` group to require **all** of its criteria (AND), so the
+   tag and the quantity are judged on the **same** line item. Read it back: it
+   must say, in effect, "at least one line item whose product is tagged
+   `pharmacist-review` AND whose current quantity is greater than 0". If the two
+   criteria sit in separate groups, an order with one refunded medicine and one
+   ordinary item would still match, and nothing would change.
+6. **Save**, then **Turn on workflow**.
+
+What now happens on release:
+
+| Order on release | Condition A | Result |
+|---|---|---|
+| Medicine still on the order, approval tag | matches | B: `awaiting-pharmacist` removed (as before) |
+| Medicine still on the order, no approval tag | matches | B: held again, `released-without-approval` (as before) |
+| Every medicine line refunded, other items left | **no match** | Released; nothing tagged or removed |
+
+So after a medicine-only refusal Flow 2 removes nothing: the pharmacist takes
+`awaiting-pharmacist` off by hand (step 4 below).
+
+**Test it before relying on it** (Shopify Payments test mode, as in step 5):
+
+1. Order one medicine and one ordinary item. It is held and tagged.
+2. **Refund** the medicine line only, quantity in full, **Restock** ticked.
+3. Add `pharmacist-refused-test`, remove `awaiting-pharmacist`, **Release hold**.
+4. Expect: stays released, **no** `released-without-approval`; Flow → this
+   workflow → **Recent runs** shows Condition A false.
+5. Repeat with a medicine order released with no tag and nothing refunded:
+   still held again (the guard still works).
+6. Cancel both with restock.
+
+If step 4 still re-holds the order, `Current quantity` does not drop on a
+refund in Flow: stop, put the guide's refusal back to "whole order", and record
+what Recent runs showed.
+
 ---
 
 ## 4. What the pharmacist does with a held order
@@ -181,12 +233,13 @@ approval tag is there, and puts the hold back if it is not.
    **Refuse, whole order:** cancel the order with a full refund and restock, and
    add `pharmacist-refused-<initials>`.
    **Refuse, medicine only** (a mixed order whose other items should still go):
-   **not workable yet.** Refunding the medicine line and releasing the hold would
-   be the steps, but Flow 2 still sees the refunded medicine line, finds no
-   approval tag and holds the order again (see MAINTENANCE, "Refusing only the
-   medicine"). Until Flow 2 is changed, refuse the whole order and tell the
-   customer they can reorder the other items. Never add an approval tag to get
-   round the guard: the tag is the record of who approved.
+   **not workable until step 3a is built and its test passes.** Until then
+   Flow 2 still sees the refunded medicine line, finds no approval tag and holds
+   the order again: refuse the whole order and tell the customer they can
+   reorder the other items. Once 3a is in: **Refund** the medicine line(s) only,
+   quantity in full, **Restock** ticked; add `pharmacist-refused-<initials>`;
+   remove `awaiting-pharmacist`; **Release hold**. Never add an approval tag to
+   get round the guard: the tag is the record of who approved.
 6. File the signed sheet by order number. Keep it 2 years.
 
 **Printing for packing.** Staff print packing slips from **Order Printer's
