@@ -243,7 +243,10 @@ what Recent runs showed.
 6. File the signed sheet by order number. Keep it 2 years.
 
 **Printing for packing.** Staff print packing slips from **Order Printer's
-packing slip only**. Shopify's own packing slip (Orders → Print packing slips,
+packing slip only** (`setup/order-printer/packing-slip.liquid`, pasted over
+Order Printer's Packing slip template). A held medicine order's slip opens with
+"AWAITING PHARMACIST APPROVAL — DO NOT PACK"; once approved and released, print
+it again and the banner is gone. Shopify's own packing slip (Orders → Print packing slips,
 set up in Settings → Shipping and delivery) **must not be used for picking or
 packing**: it cannot read product tags or order tags, so it cannot show the
 "awaiting pharmacist approval" warning, and a held order's slip looks like any

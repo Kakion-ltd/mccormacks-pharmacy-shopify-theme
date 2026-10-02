@@ -1287,11 +1287,20 @@ slip, invoice and our medicine record. Only the medicine record is ours.
   order tags, no product, so no product tags, and no hold status. It cannot
   tell a held order from any other, so it cannot carry the warning. This is
   stated plainly rather than worked around.
-- **Order Printer's packing slip carries the warning** (to build: the banner
-  needs that template's current code brought into the repo first). The test is
+- **Order Printer's packing slip carries the warning:**
+  `setup/order-printer/packing-slip.liquid`, Shopify's stock slip (copied from
+  Order Printer 2 Oct 2026) plus a banner, checked by `check.mjs`. The test is
   the product tag, not the `awaiting-pharmacist` order tag, so it shows even if
-  Flow 1 failed: a `pharmacist-review` line and no tag starting
-  `pharmacist-approved-` means "AWAITING PHARMACIST APPROVAL — DO NOT PACK".
+  Flow 1 failed: a `pharmacist-review` line still on the order and no tag
+  starting `pharmacist-approved-` means "AWAITING PHARMACIST APPROVAL — DO NOT
+  PACK". "Still on the order" is `line_item.current_quantity` (quantity after
+  refunds) above 0, and the item list shows that quantity and drops lines
+  refunded in full, so a medicine refused on its own is neither packed nor
+  bannered. `current_quantity` is in Order Printer's reference but not yet
+  seen on a real print; if it is missing the template falls back to
+  `quantity`, which banners and lists a refunded medicine (safe, not silent).
+  Order tags are read through a loop, so it works whether Order Printer gives
+  them as a list or one string.
 - **The pick list is Shopify's built-in one** and takes no custom code (only the
   settings in its editor). Printed for #1024 it was empty, "Total: 0". Its
   **Include** setting filters by fulfilment status (unfulfilled, fulfilled, on

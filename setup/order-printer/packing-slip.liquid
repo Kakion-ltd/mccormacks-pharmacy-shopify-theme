@@ -1,0 +1,74 @@
+{%- comment -%}
+  Order Printer template: "Packing slip". Shopify's stock template plus a hold banner.
+  Paste this whole file over Apps > Order Printer > Templates > Packing slip > Edit code.
+  Source of truth is this file; check with `node setup/order-printer/check.mjs`.
+
+  The banner: a line whose product is tagged `pharmacist-review`, still on the order
+  (current quantity above 0), and no order tag starting `pharmacist-approved-`.
+  It reads the product tag, not Flow's `awaiting-pharmacist`, so it still shows if
+  Flow 1 failed. Lines refunded in full are left off, so a medicine refused on its
+  own is neither listed nor bannered. Shopify's own packing slip (Orders > Print
+  packing slips) cannot do any of this and must not be used for packing.
+{%- endcomment -%}
+{%- capture order_tags -%}{%- for tag in order.tags -%}{{ tag }},{%- endfor -%}{%- endcapture -%}
+{%- assign order_tags = order_tags | downcase -%}
+{%- assign held = false -%}
+{%- unless order_tags contains 'pharmacist-approved-' -%}
+  {%- for line_item in order.line_items -%}
+    {%- assign t = line_item.product.tags | join: '||' | downcase | split: '||' -%}
+    {%- assign qty = line_item.current_quantity | default: line_item.quantity -%}
+    {%- if t contains 'pharmacist-review' and qty > 0 -%}{%- assign held = true -%}{%- endif -%}
+  {%- endfor -%}
+{%- endunless -%}
+<div>
+{%- if held -%}
+<div style="border: 4px solid #000; padding: 12px 14px; margin: 0 0 1.5em; text-align: center;">
+  <div style="font-size: 24px; font-weight: bold; letter-spacing: .03em;">AWAITING PHARMACIST APPROVAL &mdash; DO NOT PACK</div>
+  <div style="margin-top: 6px;">This order contains a medicine a pharmacist has not approved. Pack it only after the hold is released, and print this slip again then.</div>
+</div>
+{%- endif -%}
+<div class="columns">
+  <h1>{{ "packing_slip_template.title" | t }}</h1>
+  <div class="address">
+    <p style="text-align: right; margin: 0;">
+    {{ "packing_slip_template.order_label" | t }} {{ order.order_name }}<br />
+    {% if order.po_number %}{{ "packing_slip_template.po_number_label" | t }} {{ order.po_number }}<br />{% endif %}
+    {{ order.created_at | date: "%B %e, %Y" }}
+    </p>
+  </div>
+</div>
+<div class="columns" style="margin-top: 1.5em;">
+  <div class="address">
+    <strong>{{ "packing_slip_template.from_label" | t }}</strong><br/>
+    {{ shop.name }}<br/>
+    {{ shop.address | format_address }}
+  </div>
+  {% if order.shipping_address %}
+  <div class="address">
+    <strong>{{ "packing_slip_template.ship_to_label" | t }}</strong>
+    {{ order.shipping_address | format_address  }}
+   </div>
+  {% endif %}
+</div>
+<hr />
+<h2>{{ "packing_slip_template.order_details_title" | t }}</h2>
+<table class="table-tabular" style="margin: 1em 0 0 0;">
+  <thead>
+    <tr>
+      <th style="width: 15%; text-align: left;">{{ "packing_slip_template.column_headings.quantity" | t }}</th>
+      <th style="width: 85%; text-align: left;">{{ "packing_slip_template.column_headings.item" | t }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%- for line_item in order.line_items -%}
+    {%- assign qty = line_item.current_quantity | default: line_item.quantity -%}
+    {%- if qty > 0 %}
+    <tr>
+      <td style="text-align: left;">{{ qty }}</td>
+      <td style="text-align: left;">{{ line_item.title }}</td>
+    </tr>
+    {%- endif -%}
+    {%- endfor %}
+  </tbody>
+</table>
+</div>

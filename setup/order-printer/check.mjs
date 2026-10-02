@@ -92,4 +92,30 @@ assert.match(html, /a@example\.com &middot; \+353 52 000 0000/, 'falls back to t
 html = await render(order([nurofen], yes, { note: 'HELD for pharmacist review' }));
 assert.match(html, /Order note<\/th><td>HELD for pharmacist review/);
 
-console.log('order printer template: 12 orders, all checks passed');
+// Packing slip: the hold banner, and refunded lines left off.
+const slipTpl = readFileSync(new URL('./packing-slip.liquid', import.meta.url), 'utf8');
+engine.registerFilter('t', (k) => k);                       // Order Printer's translations
+engine.registerFilter('format_address', (a) => (a ? a.address1 || '' : ''));
+const slip = (o) => engine.parseAndRender(slipTpl, { order: { order_name: o.name, ...o }, shop: { name: "McCormack's Pharmacy" } });
+const BANNER = /AWAITING PHARMACIST APPROVAL/;
+const items = (html) => html.split('<tbody>')[1];
+
+html = await slip(order([nurofen, vitamin], yes, { tags: ['awaiting-pharmacist'] }));
+assert.match(html, BANNER, 'held medicine order is bannered');
+assert.ok(html.indexOf('AWAITING') < html.indexOf('packing_slip_template.title'), 'banner is at the top');
+html = await slip(order([nurofen], yes, { tags: [] }));
+assert.match(html, BANNER, 'bannered on the product tag even if Flow never tagged the order');
+html = await slip(order([nurofen, vitamin], yes, { tags: ['awaiting-pharmacist', 'Pharmacist-Approved-FM'] }));
+assert.doesNotMatch(html, BANNER, 'approved order is not bannered');
+html = await slip(order([nurofen], yes, { tags: 'no-declaration, pharmacist-approved-fm' }));
+assert.doesNotMatch(html, BANNER, 'approval found when tags come as one string');
+html = await slip(order([vitamin], {}, { tags: [] }));
+assert.doesNotMatch(html, BANNER, 'no medicine, no banner');
+html = await slip(order([{ ...nurofen, current_quantity: 0 }, vitamin], yes, { tags: ['pharmacist-refused-fm'] }));
+assert.doesNotMatch(html, BANNER, 'medicine refused on its own: rest packs without a banner');
+assert.doesNotMatch(items(html), /Nurofen/, 'refunded line is not listed for packing');
+assert.match(items(html), /Vitamin D3/);
+html = await slip(order([{ ...nurofen, current_quantity: 1 }], yes, { tags: [] }));
+assert.match(items(html), /<td style="text-align: left;">1<\/td>/, 'quantity shown is what is left after a part refund');
+
+console.log('order printer templates: 12 records and 7 packing slips, all checks passed');
