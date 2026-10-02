@@ -434,7 +434,7 @@
             <div class="pdp-addbag" style="display:flex; gap:12px; align-items:stretch; margin-bottom:18px;">
               {{ qty_stepper }}
               <button type="button" data-pdp-submit data-open-questionnaire aria-haspopup="dialog" class="btn btn-fill" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:11px; letter-spacing:.04em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
-                {%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}
+                <span data-gate-label>{%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}</span><span class="visually-hidden" data-gate-hint{% unless current_variant.available %} hidden{% endunless %}>, opens health questions</span>
               </button>
             </div>
             {%- comment -%} Says why the button above does nothing with scripting off. It
@@ -543,7 +543,7 @@
     {%- elsif gate_ready -%}
       <button type="button" data-open-questionnaire aria-haspopup="dialog" class="btn btn-fill buybar-btn" {% unless current_variant.available %}disabled{% endunless %} style="flex:1; gap:10px; letter-spacing:.04em; {% unless current_variant.available %}opacity:.55; {% endunless %}">
         <svg class="buybar-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-        <span data-buybar-label>{%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}</span>
+        <span data-buybar-label>{%- if current_variant.available %}ADD TO BAG{% else %}OUT OF STOCK{% endif -%}</span><span class="visually-hidden" data-gate-hint{% unless current_variant.available %} hidden{% endunless %}>, opens health questions</span>
       </button>
     {%- else -%}
       {%- comment -%} Fail closed on mobile too: a disabled button, never a working add. {%- endcomment -%}
@@ -711,19 +711,24 @@
     // untouched: the handler returned early, so the bar kept the last valid variant
     // id, stayed enabled and added a different product without saying anything.
     // On a gated product [data-pdp-submit] opens the questionnaire, and its label is
-    // ADD TO BAG too (2 Oct 2026, the Inish pattern): aria-haspopup says it opens a dialog.
+    // ADD TO BAG too (2 Oct 2026, the Inish pattern). aria-haspopup says it opens a
+    // dialog, and a visually hidden ", opens health questions" says so in words for a
+    // screen reader that drops the pop-up hint. The label lives in its own span so a
+    // variant change rewrites the words and not the hint; the hint goes when the
+    // button cannot open anything.
     const addLabel = 'ADD TO BAG';
     const setBuy = (v) => {
       const live = !!v && v.available;
       const label = !v ? 'UNAVAILABLE' : v.available ? addLabel : 'OUT OF STOCK';
       if (idInput) { idInput.disabled = !v; if (v) idInput.value = v.id; }
-      if (submit) { submit.disabled = !live; submit.style.opacity = live ? '' : '.55'; submit.textContent = label; }
+      if (submit) { submit.disabled = !live; submit.style.opacity = live ? '' : '.55'; (submit.querySelector('[data-gate-label]') || submit).textContent = label; }
       if (buybarAdd) {
         buybarAdd.disabled = !live;
         buybarAdd.style.opacity = live ? '' : '.55';
         if (v) buybarAdd.dataset.addId = v.id; else buybarAdd.removeAttribute('data-add-id');
       }
       if (buybarLabel) buybarLabel.textContent = label;
+      document.querySelectorAll('[data-gate-hint]').forEach(h => { h.hidden = !live; });
     };
 
     // Variant -> gallery frame, from the map Liquid wrote above.

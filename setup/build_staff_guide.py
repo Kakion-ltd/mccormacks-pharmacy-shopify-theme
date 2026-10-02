@@ -243,9 +243,10 @@ medicine, leave the tag on and ask the pharmacist.</div>"""),
  shot("modal", "From the website: the questions open in a box over the product page."), """
 <p>Some medicines ask the customer a few health questions before they can be added to the
 bag.</p>
-<ol><li>On the product page, the button says <b>Answer 3 health questions</b> (the number
-varies) instead of Add to bag.</li>
-<li>Clicking it opens the questions. Every question must be answered.</li>
+<ol><li>On the product page, the button says <b>Add to bag</b>, the same as on any other
+product.</li>
+<li>Clicking it opens the questions instead of adding straight away. Every question must be
+answered.</li>
 <li><b>Submit &amp; add to bag</b> puts the product in the bag with the answers attached.</li></ol>
 <p>No answer stops the sale. The answers go on the order, and the pharmacist reads them when
 checking the order.</p>
@@ -284,8 +285,8 @@ are part of the website itself and cannot be edited in Shopify.</div>"""),
 page, all lower case. Press <b>Enter</b>.</li>
 <li>Leave <code>questionnaire-none</code> and <code>pharmacist-review</code> where they are. The set
 wins over <code>questionnaire-none</code> by itself.</li>
-<li>Click <b>Save</b>, then open the product on the website and check the button now says
-<b>Answer &hellip; health questions</b>.</li></ol>
+<li>Click <b>Save</b>, then open the product on the website, click <b>Add to bag</b> and
+check the questions open. Close them without answering.</li></ol>
 <div class="note"><b>A misspelt tag takes the product off sale.</b> The website does not recognise
 it, so it shows "not available" and nobody can buy the product. One set per product: if a
 product has two, only the first counts.</div>"""),

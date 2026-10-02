@@ -195,7 +195,7 @@ with sync_playwright() as pw:
         n = sp.locator("[data-pq-q]").count()
         check(f"[{name}] has questions", n > 0)
         check(f"[{name}] the button says ADD TO BAG",
-              sp.locator("[data-gated-buybox] [data-open-questionnaire]").inner_text().strip(), "ADD TO BAG")
+              sp.locator("[data-gated-buybox] [data-gate-label]").inner_text().strip(), "ADD TO BAG")
         check(f"[{name}] no product form", sp.locator("form[data-ajax-add]").count(), 0)
         check(f"[{name}] no answer blocks the sale",
               sp.evaluate("[...document.querySelectorAll('[data-pq-q]')].every(q => !q.dataset.blocking)"))
@@ -268,10 +268,18 @@ with sync_playwright() as pw:
     ux = ctx.new_page()
     ux.goto(BASE + "/products/questions-ed", wait_until="networkidle")
     opener = ux.locator("[data-gated-buybox] [data-open-questionnaire]")
-    check("the button says ADD TO BAG, and that it opens a dialog",
-          [opener.inner_text().strip(), opener.get_attribute("aria-haspopup")], ["ADD TO BAG", "dialog"])
-    check("the mobile bar says the same",
-          ux.locator(".mobile-buybar [data-open-questionnaire]").inner_text().strip(), "ADD TO BAG")
+    # Seen: ADD TO BAG. Heard: the hidden words too, plus aria-haspopup, so the button
+    # says it opens something even where a screen reader drops the pop-up hint.
+    check("the button shows ADD TO BAG",
+          opener.locator("[data-gate-label]").inner_text().strip(), "ADD TO BAG")
+    check("the button's spoken name says it opens the questions, and it is a dialog opener",
+          [opener.text_content().strip(), opener.get_attribute("aria-haspopup")],
+          ["ADD TO BAG, opens health questions", "dialog"])
+    check("the hidden words take no space", opener.locator("[data-gate-hint]").bounding_box()["width"] <= 1)
+    bar = ux.locator(".mobile-buybar [data-open-questionnaire]")
+    check("the mobile bar says and speaks the same",
+          [bar.locator("[data-buybar-label]").text_content().strip(), bar.text_content().strip()],
+          ["ADD TO BAG", "ADD TO BAG, opens health questions"])
     opener.scroll_into_view_if_needed()
     opener.click()
     ux.wait_for_timeout(250)
